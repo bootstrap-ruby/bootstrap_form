@@ -17,6 +17,22 @@ Requirements
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
 
 
+Usage
+-----
+
+Add the gem to your Gemfile
+
+    gem 'form-bootstrap'
+
+Install the gem
+
+    bundle
+
+Add the following to application.rb
+
+    ActionView::Base.field_error_proc = proc { |input, instance| input }
+
+
 Example (HAML)
 --------------
 
