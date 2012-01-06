@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Rails 3.1+ FormBuilder for Twitter Bootstrap."
   s.description = "Provides a builder that makes it super easy to take advantage of Twitter Bootstrap forms styles."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.3"
