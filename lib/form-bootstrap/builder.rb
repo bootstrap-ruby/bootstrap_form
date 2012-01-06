@@ -11,7 +11,7 @@ module FormBootstrap
       define_method(method_name) do |name, *args|
         options = args.extract_options!
         content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
-          field_label(name, *args) +
+          label(name, options[:label]) +
           content_tag(:div, class: 'input') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
             super(name, *args) +
@@ -38,13 +38,6 @@ module FormBootstrap
           title
         end
       end
-    end
-
-  private
-
-    def field_label(name, *args)
-      options = args.extract_options!
-      label(name, options[:label])
     end
   end
 end

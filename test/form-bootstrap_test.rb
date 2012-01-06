@@ -45,6 +45,11 @@ class FormBootstrapTest < ActionView::TestCase
     assert_equal expected, @builder.collection_select(:status, [], :id, :name)
   end
 
+  test "changing the label text" do
+    expected = %{<div class="clearfix"><label for="user_email">Email Address</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /><span class="help-inline"></span></div></div>}
+    assert_equal expected, @builder.text_field(:email, label: 'Email Address')
+  end
+
   test "actions are wrapped correctly" do
     expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
     assert_equal expected, @builder.actions('Submit')
