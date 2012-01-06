@@ -84,6 +84,14 @@ Example Output
     </form>
 
 
+Screenshots
+-----------
+
+![Example Form](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form.png)
+
+![Example form with errors](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form_error.png)
+
+
 Options
 -------
 
