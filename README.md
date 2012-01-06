@@ -25,7 +25,7 @@ Example (HAML)
         %legend
           Sign Up
   
-        = f.error_messages
+        = f.error_message "Please fix the errors below."
   
         = f.text_field :email, label: 'Email Address'
         = f.password_field :password, label: 'Password', help: 'Minimum 6 characters'

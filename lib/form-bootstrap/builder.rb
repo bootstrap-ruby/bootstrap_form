@@ -24,7 +24,7 @@ module FormBootstrap
       end
     end
 
-    def error_messages(title)
+    def error_message(title)
       if object.errors.full_messages.any?
         content_tag :div, class: "alert-message error" do
           content_tag :p do

@@ -35,7 +35,7 @@ class FormBootstrapTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
     expected = %{<div class="alert-message error"><p>Please fix the following errors:</p></div>}
-    assert_equal expected, @builder.error_messages('Please fix the following errors:')
+    assert_equal expected, @builder.error_message('Please fix the following errors:')
   end
 
   test "help message contains the field error when invalid" do
