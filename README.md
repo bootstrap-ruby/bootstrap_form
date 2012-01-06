@@ -28,7 +28,8 @@ Install the gem
 
     bundle
 
-Add the following to application.rb
+Add the following to your application.rb to prevent Rails from wrapping your
+invalid fields with a div.
 
     ActionView::Base.field_error_proc = proc { |input, instance| input }
 
@@ -41,7 +42,7 @@ Example (HAML)
         %legend
           Sign Up
   
-        = f.error_message "Please fix the errors below."
+        = f.alert_message "Please fix the errors below."
   
         = f.text_field :email, label: 'Email Address'
         = f.password_field :password, label: 'Password', help: 'Minimum 6 characters'
@@ -78,7 +79,17 @@ Example Output
         </div>
       </fieldset>
     </form>
-    
+
+
+Options
+-------
+
+By default, help messages will be placed inline to the right of the
+input field. If you want to place it under the input, pass the option
+`help: :block`:
+
+    form_bootstrap_for @user, help: :block do |f|
+
 
 Credits
 -------
