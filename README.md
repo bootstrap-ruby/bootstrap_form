@@ -44,10 +44,6 @@ Example Form
       </fieldset>
     <% end %>
 
-
-Example
--------
-
 ![Example Form](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form.png)
 
 
@@ -90,7 +86,7 @@ Errors
 
 When a validation error is triggered, the field will be outlined and the
 error will be displayed next to the field. Rails normally wraps fields
-in a div, but this behavior has been suppressed when `form_bootstrap_for` is called.
+in a div (field_with_errors), but this behavior is suppressed when `form_bootstrap_for` is called.
 
 ![Example form with errors](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form_error.png)
 
