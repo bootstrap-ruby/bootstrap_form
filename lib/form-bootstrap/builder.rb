@@ -9,7 +9,7 @@ module FormBootstrap
 
     %w{text_field text_area password_field collection_select}.each do |method_name|
       define_method(method_name) do |name, *args|
-        options = args.extract_options!
+        options = args.dup.extract_options!
         content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
           label(name, options[:label]) +
           content_tag(:div, class: 'input') do
@@ -37,5 +37,11 @@ module FormBootstrap
         end
       end
     end
+  end
+
+private
+  
+  def objectify_options(options)
+    super.except(:label, :help)
   end
 end

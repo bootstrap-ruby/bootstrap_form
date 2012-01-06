@@ -50,14 +50,14 @@ class FormBootstrapTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
-  test "actions are wrapped correctly" do
-    expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
-    assert_equal expected, @builder.actions('Submit')
-  end
-
   test "passing :help to a field displays it inline" do
     expected = %{<div class="clearfix"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /><span class="help-inline">This is required</span></div></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
+  end
+
+  test "passing other options to a field get passed through" do
+    expected = %{<div class="clearfix"><label for="user_email">Email</label><div class="input"><input autofocus="autofocus" id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /></div></div>}
+    assert_equal expected, @builder.text_field(:email, autofocus: true)
   end
 
   test "passing :help :block to the form builder" do
@@ -67,6 +67,11 @@ class FormBootstrapTest < ActionView::TestCase
 
     expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="clearfix"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div></div></form>}
     assert_equal expected, output
+  end
+
+  test "actions are wrapped correctly" do
+    expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
+    assert_equal expected, @builder.actions('Submit')
   end
 
   test "the field's inline help contains the error when invalid and inlined" do
