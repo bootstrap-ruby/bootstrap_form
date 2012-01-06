@@ -28,8 +28,8 @@ Install the gem
 
     bundle
 
-Add the following to your application.rb to prevent Rails from wrapping your
-invalid fields with a div.
+Add the following to your application.rb file to prevent Rails from wrapping your
+input fields with a div on an validation error:
 
     ActionView::Base.field_error_proc = proc { |input, instance| input }
 
