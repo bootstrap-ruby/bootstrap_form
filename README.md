@@ -29,7 +29,7 @@ Install the gem
     bundle
 
 Add the following to your application.rb file to prevent Rails from wrapping your
-input fields with a div on an validation error:
+input fields with a div on a validation error:
 
     ActionView::Base.field_error_proc = proc { |input, instance| input }
 
@@ -84,8 +84,8 @@ Example Output
 Options
 -------
 
-By default, help messages will be placed inline to the right of the
-input field. If you want to place it under the input, pass the option
+By default, help messages will be placed to the right of the
+input field. If you want to place them under the input field, pass the option
 `help: :block`:
 
     form_bootstrap_for @user, help: :block do |f|
