@@ -60,6 +60,11 @@ class FormBootstrapTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, autofocus: true)
   end
 
+  test "actions are wrapped correctly" do
+    expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
+    assert_equal expected, @builder.actions('Submit')
+  end
+
   test "passing :help :block to the form builder" do
     output = form_bootstrap_for(@user, help: :block) do |f|
       f.text_field(:email, help: 'This is required')
@@ -69,16 +74,28 @@ class FormBootstrapTest < ActionView::TestCase
     assert_equal expected, output
   end
 
-  test "actions are wrapped correctly" do
-    expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
-    assert_equal expected, @builder.actions('Submit')
-  end
-
-  test "the field's inline help contains the error when invalid and inlined" do
+  test "the field contains the error and is not wrapped in div.field_with_errors when form_bootstrap_for is used" do
     @user.email = nil
     @user.valid?
-    expected = %{<div class="clearfix error"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" /><span class="help-inline">can't be blank, is too short (minimum is 5 characters)</span></div></div>}
-    assert_equal expected, @builder.text_field(:email, help: 'This should not be displayed')
+
+    output = form_bootstrap_for(@user, help: :block) do |f|
+      f.text_field(:email, help: 'This is required')
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="clearfix error"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" /><span class="help-block">can't be blank, is too short (minimum is 5 characters)</span></div></div></form>}
+    assert_equal expected, output
+  end
+
+  test "the field is wrapped with div.field_with_errors when form_for is used" do
+    @user.email = nil
+    @user.valid?
+
+    output = form_for(@user, builder: FormBootstrap::Builder, help: :block) do |f|
+      f.text_field(:email, help: 'This is required')
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="clearfix error"><div class="field_with_errors"><label for="user_email">Email</label></div><div class="input"><div class="field_with_errors"><input id="user_email" name="user[email]" size="30" type="text" /></div><span class="help-block">can't be blank, is too short (minimum is 5 characters)</span></div></div></form>}
+    assert_equal expected, output
   end
 end
 

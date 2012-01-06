@@ -45,8 +45,14 @@ Example Form
     <% end %>
 
 
-Example Output
---------------
+Example
+-------
+
+![Example Form](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form.png)
+
+
+Example HTML
+------------
 
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       ...
@@ -79,10 +85,12 @@ Example Output
     </form>
 
 
-Screenshots
------------
+Errors
+------
 
-![Example Form](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form.png)
+When a validation error is triggered, the field will be outlined and the
+error will be displayed next to the field. Rails normally wraps fields
+in a div, but this behavior has been suppressed when `form_bootstrap_for` is called.
 
 ![Example form with errors](https://github.com/potenza/form-bootstrap/raw/master/assets/example_form_error.png)
 
