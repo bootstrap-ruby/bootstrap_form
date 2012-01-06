@@ -37,12 +37,16 @@ input fields with a div on a validation error:
 Example Form
 ------------
 
-    <%= form_bootstrap_for @user do |f| %>
-      <%= f.alert_message "Please fix the errors below." %>
+    <%= form_bootstrap_for(@user, help: :block) do |f| %>
+      <fieldset>
+        <legend>Sign Up Today!</legend>
+        <%= f.alert_message "Please fix the errors below." %>
 
-      <%= f.text_field :email, label: 'Email Address' %>
-      <%= f.password_field :password, label: 'Password', help: 'Minimum 6 characters' %>
-      <%= f.actions 'Sign Up' %>
+        <%= f.text_field :email, autofocus: :true %>
+        <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
+        <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
+        <%= f.actions 'Sign Up' %>
+      </fieldset>
     <% end %>
 
 
@@ -51,31 +55,39 @@ Example Output
 
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       ...
-      <div class="clearfix ">
-        <label for="user_email">Email Address</label>
-        <div class="input">
-          <input id="user_email" name="user[email]" size="30" type="text" />
-        </div>
-      </div>
+      <fieldset>
+        <legend>Sign Up Today!</legend>
 
-      <div class="clearfix ">
-        <label for="user_password">Password</label>
-        <div class="input">
-          <input id="user_password" name="user[password]" size="30" type="password" />
-          <span class="help-inline">Minimum 6 characters</span>
+        <div class="clearfix">
+          <label for="user_email">Email</label>
+          <div class="input">
+            <input id="user_email" name="user[email]" size="30" type="text" />
+          </div>
         </div>
-      </div>
-
-      <div class="actions">
-        <input class="btn primary" name="commit" type="submit" value="Sign Up" />
-      </div>
+        <div class="clearfix">
+          <label for="user_password">Password</label>
+          <div class="input">
+            <input id="user_password" name="user[password]" size="30" type="password" />
+            <span class="help-block">Must be at least 6 characters long</span>
+          </div>
+        </div>
+        <div class="clearfix">
+          <label for="user_password_confirmation">Confirm Password</label>
+          <div class="input">
+            <input id="user_password_confirmation" name="user[password_confirmation]" size="30" type="password" />
+          </div>
+        </div>
+        <div class="actions">
+          <input class="btn primary" name="commit" type="submit" value="Sign Up" />
+        </div>
+      </fieldset>
     </form>
 
 
 Options
 -------
 
-By default, help messages will be placed to the right of the
+By default, help (and error) messages will be placed to the right of the
 input field. If you want to place them under the input field, pass the option
 `help: :block`:
 

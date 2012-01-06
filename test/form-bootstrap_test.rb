@@ -26,27 +26,27 @@ class FormBootstrapTest < ActionView::TestCase
   end
 
   test "text fields are wrapped correctly" do
-    expected = %{<div class="clearfix"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /><span class="help-inline"></span></div></div>}
+    expected = %{<div class="clearfix"><label for="user_email">Email</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email)
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class="clearfix"><label for="user_password">Password</label><div class="input"><input id="user_password" name="user[password]" size="30" type="text" value="secret" /><span class="help-inline"></span></div></div>}
+    expected = %{<div class="clearfix"><label for="user_password">Password</label><div class="input"><input id="user_password" name="user[password]" size="30" type="text" value="secret" /></div></div>}
     assert_equal expected, @builder.text_field(:password)
   end
 
   test "text areas are wrapped correctly" do
-    expected = %{<div class="clearfix"><label for="user_comments">Comments</label><div class="input"><textarea cols="40" id="user_comments" name="user[comments]" rows="20">my comment</textarea><span class="help-inline"></span></div></div>}
+    expected = %{<div class="clearfix"><label for="user_comments">Comments</label><div class="input"><textarea cols="40" id="user_comments" name="user[comments]" rows="20">my comment</textarea></div></div>}
     assert_equal expected, @builder.text_area(:comments)
   end
 
   test "selects are wrapped correctly" do
-    expected = %{<div class="clearfix"><label for="user_status">Status</label><div class="input"><select id="user_status" name="user[status]"></select><span class="help-inline"></span></div></div>}
+    expected = %{<div class="clearfix"><label for="user_status">Status</label><div class="input"><select id="user_status" name="user[status]"></select></div></div>}
     assert_equal expected, @builder.collection_select(:status, [], :id, :name)
   end
 
   test "changing the label text" do
-    expected = %{<div class="clearfix"><label for="user_email">Email Address</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /><span class="help-inline"></span></div></div>}
+    expected = %{<div class="clearfix"><label for="user_email">Email Address</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
