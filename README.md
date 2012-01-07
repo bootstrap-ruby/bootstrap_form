@@ -40,7 +40,10 @@ Example Form
         <%= f.text_field :email, autofocus: :true %>
         <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
         <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
-        <%= f.actions 'Sign Up' %>
+
+        <%= f.actions do %>
+          <%= f.primary 'Sign Up' %>
+        <% end %>
       </fieldset>
     <% end %>
 
