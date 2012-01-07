@@ -71,8 +71,16 @@ class FormBootstrapTest < ActionView::TestCase
   end
 
   test "actions are wrapped correctly" do
-    expected = %{<div class="actions"><input class="btn primary" name="commit" type="submit" value="Submit" /></div>}
-    assert_equal expected, @builder.actions('Submit')
+    output = @builder.actions do
+      'something'
+    end
+    expected = %{<div class="actions">something</div>}
+    assert_equal expected, output
+  end
+
+  test "primary buttons the correct classes" do
+    expected = %{<input class="btn primary" name="commit" type="submit" value="Submit" />}
+    assert_equal expected, @builder.primary('Submit')
   end
 
   test "passing :help :block to the form builder" do

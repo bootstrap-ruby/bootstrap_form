@@ -22,10 +22,14 @@ module FormBootstrap
       end
     end
 
-    def actions(name)
+    def actions(&block)
       content_tag :div, class: "actions" do
-        submit name, class: 'btn primary'
+        block.call
       end
+    end
+
+    def primary(name)
+      submit name, class: 'btn primary'
     end
 
     def alert_message(title, *args)
