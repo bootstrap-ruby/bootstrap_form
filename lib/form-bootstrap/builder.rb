@@ -9,13 +9,13 @@ module FormBootstrap
 
     %w{text_field text_area password_field collection_select file_field date_select}.each do |method_name|
       define_method(method_name) do |name, *args|
-        options = args.extract_options!.stringify_keys
+        options = args.extract_options!.symbolize_keys!
         content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
-          label(name, options['label']) +
+          label(name, options[:label]) +
           content_tag(:div, class: 'input') do
-            help = object.errors[name].any? ? object.errors[name].join(', ') : options['help']
+            help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
             help = content_tag(:span, class: @help_css) { help } if help
-            args << options.except('label', 'help')
+            args << options.except(:label, :help)
             super(name, *args) + help
           end
         end
