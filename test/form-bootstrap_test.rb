@@ -45,6 +45,16 @@ class FormBootstrapTest < ActionView::TestCase
     assert_equal expected, @builder.collection_select(:status, [], :id, :name)
   end
 
+  test "file fields are wrapped correctly" do
+    expected = %{<div class="clearfix"><label for="user_misc">Misc</label><div class="input"><input id="user_misc" name="user[misc]" type="file" /></div></div>}
+    assert_equal expected, @builder.file_field(:misc)
+  end
+
+  test "date selects are wrapped correctly" do
+    expected = %{<div class="clearfix"><label for="user_misc">Misc</label><div class="input"><select id="user_misc_1i" name="user[misc(1i)]">\n<option value="2007">2007</option>\n<option value="2008">2008</option>\n<option value="2009">2009</option>\n<option value="2010">2010</option>\n<option value="2011">2011</option>\n<option selected="selected" value="2012">2012</option>\n<option value="2013">2013</option>\n<option value="2014">2014</option>\n<option value="2015">2015</option>\n<option value="2016">2016</option>\n<option value="2017">2017</option>\n</select>\n<select id="user_misc_2i" name="user[misc(2i)]">\n<option selected="selected" value="1">January</option>\n<option value="2">February</option>\n<option value="3">March</option>\n<option value="4">April</option>\n<option value="5">May</option>\n<option value="6">June</option>\n<option value="7">July</option>\n<option value="8">August</option>\n<option value="9">September</option>\n<option value="10">October</option>\n<option value="11">November</option>\n<option value="12">December</option>\n</select>\n<select id="user_misc_3i" name="user[misc(3i)]">\n<option value="1">1</option>\n<option value="2">2</option>\n<option value="3">3</option>\n<option value="4">4</option>\n<option value="5">5</option>\n<option value="6">6</option>\n<option selected="selected" value="7">7</option>\n<option value="8">8</option>\n<option value="9">9</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n</select>\n</div></div>}
+    assert_equal expected, @builder.date_select(:misc)
+  end
+
   test "changing the label text" do
     expected = %{<div class="clearfix"><label for="user_email">Email Address</label><div class="input"><input id="user_email" name="user[email]" size="30" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')

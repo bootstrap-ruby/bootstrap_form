@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20120106063521) do
     t.string   "password"
     t.text     "comments"
     t.string   "status"
+    t.string   "misc"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

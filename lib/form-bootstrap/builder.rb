@@ -7,7 +7,7 @@ module FormBootstrap
       @help_css = (options[:help].try(:to_sym) == :block) ? 'help-block' : 'help-inline'
     end
 
-    %w{text_field text_area password_field collection_select}.each do |method_name|
+    %w{text_field text_area password_field collection_select file_field date_select}.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.stringify_keys
         content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
