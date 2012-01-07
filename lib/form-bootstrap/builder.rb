@@ -15,7 +15,8 @@ module FormBootstrap
           content_tag(:div, class: 'input') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options['help']
             help = content_tag(:span, class: @help_css) { help } if help
-            super(name, *args, options.except('label', 'help')) + help
+            args << options.except('label', 'help')
+            super(name, *args) + help
           end
         end
       end
