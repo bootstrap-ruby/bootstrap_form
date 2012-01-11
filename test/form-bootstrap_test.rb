@@ -56,7 +56,7 @@ class FormBootstrapTest < ActionView::TestCase
   end
 
   test "check_boxes are wrapped correctly" do
-    expected = %{<div class="clearfix"><div class="input"><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> <span>This is a checkbox</span></label></div></div>}
+    expected = %{<div class="clearfix"><div class="input"><ul class="inputs-list"><li><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> <span>This is a checkbox</span></label></li></ul></div></div>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
   end
 

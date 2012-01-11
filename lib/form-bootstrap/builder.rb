@@ -26,9 +26,13 @@ module FormBootstrap
       options = args.extract_options!.symbolize_keys!
       content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
         content_tag(:div, class: 'input') do
-          args << options.except(:label, :help)
-          html = super(name, *args) + ' ' + content_tag(:span) { options[:label] }
-          label(name, html)
+          content_tag(:ul, class: 'inputs-list') do
+            content_tag(:li) do
+              args << options.except(:label, :help)
+              html = super(name, *args) + ' ' + content_tag(:span) { options[:label] }
+              label(name, html)
+            end
+          end
         end
       end
     end
