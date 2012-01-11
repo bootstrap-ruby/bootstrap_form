@@ -22,6 +22,17 @@ module FormBootstrap
       end
     end
 
+    def check_box(name, *args)
+      options = args.extract_options!.symbolize_keys!
+      content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
+        content_tag(:div, class: 'input') do
+          args << options.except(:label, :help)
+          html = super(name, *args) + ' ' + content_tag(:span) { options[:label] }
+          label(name, html)
+        end
+      end
+    end
+
     def actions(&block)
       content_tag :div, class: "actions" do
         block.call
