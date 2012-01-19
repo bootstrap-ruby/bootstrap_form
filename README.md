@@ -97,6 +97,13 @@ in a div (field_with_errors), but this behavior is suppressed when `form_bootstr
 Options
 -------
 
+Stacked Forms
+
+To position your labels on top of your fields, just add the
+.form-stacked class to your form:
+
+    <%= form_bootstrap_for @user, html: { class: 'form-stacked' } do |f| %>
+
 By default, help (and error) messages will be placed to the right of the
 input field. If you want to place them under the input field, pass the option
 `help: :block`:
