@@ -9,7 +9,7 @@ Requirements
 
 * Ruby 1.9+
 * Rails 3.1+
-* Twitter Bootstrap 2.0 -- I use [less-rails-bootstrap](https://github.com/metaskills/less-rails-bootstrap.git)
+* Twitter Bootstrap 2.0+ -- I use [less-rails-bootstrap](https://github.com/metaskills/less-rails-bootstrap.git)
 
 
 Installation
