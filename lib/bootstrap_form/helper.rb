@@ -6,7 +6,7 @@ module BootstrapForm
       # add .form-vertical class if it's not horizontal
       options[:html] = {} unless options.has_key?(:html)
       css = options[:html].fetch(:class, '')
-      options[:html][:class] = "#{css} form-vertical" unless css.match /horizontal/
+      options[:html][:class] = "#{css} form-vertical" unless css.match /form-horizontal/
 
       temporarily_disable_field_error_proc do
         form_for(object, options, &block)
