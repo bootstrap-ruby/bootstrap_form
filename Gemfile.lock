@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    form-bootstrap (0.0.4)
-      rails (~> 3.1.3)
+    bootstrap_form (0.1.0)
+      rails (>= 3.1)
 
 GEM
   remote: http://rubygems.org/
@@ -94,6 +94,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  form-bootstrap!
+  bootstrap_form!
   jquery-rails
   sqlite3

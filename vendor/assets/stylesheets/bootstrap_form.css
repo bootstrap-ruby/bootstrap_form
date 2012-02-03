@@ -1,0 +1,7 @@
+.form-vertical p.help-block {
+  position: relative;
+  margin-top: -5px;
+}
+.error .controls label {
+  color: #B94A48;
+}

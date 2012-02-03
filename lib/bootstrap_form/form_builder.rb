@@ -1,20 +1,26 @@
-module FormBootstrap
-  class Builder < ActionView::Helpers::FormBuilder
+module BootstrapForm
+  class FormBuilder < ActionView::Helpers::FormBuilder
     delegate :content_tag, to: :@template
 
     def initialize(object_name, object, template, options, proc)
       super
-      @help_css = (options[:help].try(:to_sym) == :block) ? 'help-block' : 'help-inline'
+      if options.fetch(:help, '').to_sym == :block
+        @help_tag = :p
+        @help_css = 'help-block'
+      else
+        @help_tag = :span
+        @help_css = 'help-inline'
+      end
     end
 
     %w{text_field text_area password_field collection_select file_field date_select}.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
-        content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
-          label(name, options[:label]) +
-          content_tag(:div, class: 'input') do
+        content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
+          label(name, options[:label], class: 'control-label') +
+          content_tag(:div, class: 'controls') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
-            help = content_tag(:span, class: @help_css) { help } if help
+            help = content_tag(@help_tag, class: @help_css) { help } if help
             args << options.except(:label, :help)
             super(name, *args) + help
           end
@@ -24,32 +30,28 @@ module FormBootstrap
 
     def check_box(name, *args)
       options = args.extract_options!.symbolize_keys!
-      content_tag :div, class: "clearfix#{(' error' if object.errors[name].any?)}"  do
-        content_tag(:div, class: 'input') do
-          content_tag(:ul, class: 'inputs-list') do
-            content_tag(:li) do
-              args << options.except(:label, :help)
-              html = super(name, *args) + ' ' + content_tag(:span) { options[:label] }
-              label(name, html)
-            end
-          end
+      content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
+        content_tag(:div, class: 'controls') do
+          args << options.except(:label, :help)
+          html = super(name, *args) + ' ' + options[:label]
+          label(name, html, class: 'checkbox')
         end
       end
     end
 
     def actions(&block)
-      content_tag :div, class: "actions" do
+      content_tag :div, class: "form-actions" do
         block.call
       end
     end
 
     def primary(name)
-      submit name, class: 'btn primary'
+      submit name, class: 'btn btn-primary'
     end
 
     def alert_message(title, *args)
       options = args.extract_options!
-      css = options[:class] || "alert-message error"
+      css = options[:class] || "alert alert-error"
 
       if object.errors.full_messages.any?
         content_tag :div, class: css do
