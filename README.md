@@ -53,16 +53,22 @@ top of the inputs and places helper text to the right of the field:
 ![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form.png)
 
 
+Options
+-------
+
 To use a horizontal-style form with labels to the left of the inputs,
 add the `.form-horizontal` class:
 
     <%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
 
-
 To place helper text underneath the fields, pass the option `help:
 :block`:
 
     <%= bootstrap_form_for(@user, help: block) do |f| %>
+
+Here's an example of a horizontal-style form with block helpers:
+
+![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_horizontal_block_form.png)
 
 
 Validation Errors
