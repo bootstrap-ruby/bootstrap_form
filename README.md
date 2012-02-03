@@ -1,7 +1,7 @@
 bootstrap_form
 ==============
 
-Provides a rails form builder that makes it simple to use Twitter Bootstrap 2.0 forms.
+bootstrap_form is a rails form builder that makes it super easy to create beautiful-looking forms using Twitter Bootstrap 2.0
 
 
 Requirements
@@ -35,8 +35,23 @@ error messages.
 Usage
 -----
 
-This is an example of the default form style, which stacks the labels on
-top of the inputs and places helper text to the right of the field:
+    <%= bootstrap_form_for(@user) do |f| %>
+      ...
+    <% end %>
+
+This plugin provides the following form helpers:
+
+* text_field
+* text_area
+* password_field
+* collection_select
+* file_field
+* date_select
+* check_box
+
+These form helpers accept the same options as the Rails form
+helpers with the addition of two options `label` and `help`. Here's an
+example form that also uses the `actions` helper for the submit button:
 
     <%= bootstrap_form_for(@user) do |f| %>
       <%= f.alert_message "Please fix the errors below." %>
@@ -44,6 +59,7 @@ top of the inputs and places helper text to the right of the field:
       <%= f.text_field :email, autofocus: :true %>
       <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
       <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
+      <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
 
       <%= f.actions do %>
         <%= f.primary 'Sign Up' %>
