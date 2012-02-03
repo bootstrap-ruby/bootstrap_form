@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Stephen Potenza"]
   s.email       = ["potenza@gmail.com"]
   s.homepage    = "http://github.com/potenza/bootstrap_form"
-  s.summary     = "Rails 3.1+ form builder that makes it easy to use Twitter Bootstrap-styled forms."
-  s.description = "Rails 3.1+ form builder that makes it easy to use Twitter Bootstrap-styled forms."
+  s.summary     = "Rails 3.1+ form builder that makes it easy to style forms with Twitter Bootstrap 2.0"
+  s.description = "Rails 3.1+ form builder that makes it easy to style forms with Twitter Bootstrap 2.0"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
