@@ -50,7 +50,7 @@ top of the inputs and places helper text to the right of the field:
       <% end %>
     <% end %>
 
-![Example Form](https://github.com/potenza/bootstrap_form/raw/master/assets/example_form.png)
+![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form.png)
 
 
 To use a horizontal-style form with labels to the left of the inputs,
@@ -72,7 +72,7 @@ When a validation error is triggered, the field will be outlined and the
 error will be displayed next to the field. Rails normally wraps fields
 in a div (field_with_errors), but this behavior is suppressed when `bootstrap_form_for` is called.
 
-![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/assets/example_form_error.png)
+![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form_error.png)
 
 
 Credits
