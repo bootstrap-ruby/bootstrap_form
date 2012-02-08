@@ -13,7 +13,7 @@ module BootstrapForm
       end
     end
 
-    %w{text_field text_area password_field collection_select file_field date_select}.each do |method_name|
+    %w{text_field text_area password_field collection_select file_field date_select select}.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
         content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do

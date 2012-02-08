@@ -1,3 +1,6 @@
+require 'timecop'
+require 'ruby-debug'
+
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
