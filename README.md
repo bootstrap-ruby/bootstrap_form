@@ -44,6 +44,7 @@ This plugin provides the following form helpers:
 * text_field
 * text_area
 * password_field
+* select
 * collection_select
 * file_field
 * date_select
