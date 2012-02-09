@@ -63,7 +63,7 @@ example form that also uses the `actions` helper for the submit button:
       <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
 
       <%= f.actions do %>
-        <%= f.primary 'Sign Up' %>
+        <%= f.primary 'Sign Up', disable_with: 'Saving...' %>
       <% end %>
     <% end %>
 

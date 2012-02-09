@@ -95,9 +95,14 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
-  test "primary buttons the correct classes" do
+  test "primary button contains the correct classes" do
     expected = %{<input class=\"btn btn-primary\" name=\"commit\" type=\"submit\" value=\"Submit\" />}
     assert_equal expected, @builder.primary('Submit')
+  end
+
+  test "primary button with a disabled state" do
+    expected = %{<input class=\"btn btn-primary\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
+    assert_equal expected, @builder.primary('Submit', disable_with: 'Saving...')
   end
 
   test "passing :help :block to the form builder" do

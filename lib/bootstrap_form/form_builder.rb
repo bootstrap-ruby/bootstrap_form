@@ -45,8 +45,10 @@ module BootstrapForm
       end
     end
 
-    def primary(name)
-      submit name, class: 'btn btn-primary'
+    def primary(name, options = {})
+      options.merge! class: 'btn btn-primary'
+
+      submit name, options
     end
 
     def alert_message(title, *args)
