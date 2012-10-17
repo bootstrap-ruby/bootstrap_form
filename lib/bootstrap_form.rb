@@ -5,4 +5,4 @@ require 'bootstrap_form/engine'
 module BootstrapForm
 end
 
-ActionView::Helpers::FormHelper.send :include, BootstrapForm::Helper
+ActionView::Base.send :include, BootstrapForm::Helper
