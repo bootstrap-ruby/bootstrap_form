@@ -113,6 +113,12 @@ which will output the following:
       </div>
     </div>
 
+You can also specify the label's for attribute like this:
+
+    <%= f.control_group "Custom Field", for: 'custom-control' do %>
+      <span>My Custom Field</span>
+    <% end %>
+  
 
 Validation Errors
 -----------------

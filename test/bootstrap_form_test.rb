@@ -132,6 +132,14 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "control_group allows for the label's 'for' attribute to be set" do
+    output = @builder.control_group "Custom Control", for: 'custom_control' do
+      '<span>custom control here</span>'
+    end
+    expected = %{<div class="control-group"><label class="control-label" for="custom_control">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
   test "actions are wrapped correctly" do
     output = @builder.actions do
       'something'
