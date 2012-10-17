@@ -100,18 +100,18 @@ Custom Controls
 If you have a custom form control or content that you want to wrap 
 in Bootstrap-style form markup, you can do the following:
   
-  <%= f.control_group "Custom Field" do %>
-    <span>My Custom Field</span>
-  <% end %>
+    <%= f.control_group "Custom Field" do %>
+      <span>My Custom Field</span>
+    <% end %>
 
 which will output the following:
 
-  <div class="control-group">
-    <label class="control-label">Custom Field</label>
-    <div class="controls">
-      <span>My Custom Field</span>
+    <div class="control-group">
+      <label class="control-label">Custom Field</label>
+      <div class="controls">
+        <span>My Custom Field</span>
+      </div>
     </div>
-  </div>
 
 
 Validation Errors
