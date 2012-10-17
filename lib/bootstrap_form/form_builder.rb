@@ -4,12 +4,10 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc)
       super
-      if options.fetch(:help, '').to_sym == :block
-        @help_tag = :p
-        @help_css = 'help-block'
+      @help_tag, @help_css = if options.fetch(:help, '').to_sym == :block
+        [:p, 'help-block']
       else
-        @help_tag = :span
-        @help_css = 'help-inline'
+        [:span, 'help-inline']
       end
     end
 
