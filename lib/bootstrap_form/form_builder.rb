@@ -1,5 +1,9 @@
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    FORM_HELPERS = %w{text_field password_field text_area file_field
+                     number_field email_field telephone_field phone_field url_field
+                     select collection_select date_select time_select datetime_select}
+
     delegate :content_tag, to: :@template
 
     def initialize(object_name, object, template, options, proc)
@@ -11,7 +15,7 @@ module BootstrapForm
       end
     end
 
-    %w{text_field text_area password_field collection_select file_field date_select select}.each do |method_name|
+    FORM_HELPERS.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
         content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
