@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class BootstrapFormTest < ActionView::TestCase
+  include BootstrapForm::Helper
+
   def setup
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new :user, @user, self, {}, nil
