@@ -124,6 +124,14 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, autofocus: true)
   end
 
+  test "control_group creates a valid structure and allows arbitrary html to be added via a block" do
+    output = @builder.control_group "Custom Control" do
+      '<span>custom control here</span>'
+    end
+    expected = %{<div class="control-group"><label class="control-label">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
   test "actions are wrapped correctly" do
     output = @builder.actions do
       'something'

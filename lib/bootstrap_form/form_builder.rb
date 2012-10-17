@@ -41,6 +41,15 @@ module BootstrapForm
       end
     end
 
+    def control_group(name, &block)
+      content_tag :div, class: "control-group"  do
+        content_tag(:label, name, class: 'control-label').html_safe +
+        content_tag(:div, class: 'controls') do
+          block.call.html_safe
+        end
+      end
+    end
+
     def actions(&block)
       content_tag :div, class: "form-actions" do
         block.call
