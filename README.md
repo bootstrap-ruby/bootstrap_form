@@ -9,7 +9,7 @@ Requirements
 
 * Ruby 1.9+
 * Rails 3.1+
-* Twitter Bootstrap 2.0+ -- I use [less-rails-bootstrap](https://github.com/metaskills/less-rails-bootstrap.git)
+* Twitter Bootstrap 2.0+
 
 
 Installation
@@ -42,12 +42,18 @@ Usage
 This plugin provides the following form helpers:
 
 * text_field
-* text_area
 * password_field
+* text_area
+* file_field
+* number_field
+* email_field
+* telephone_field (phone_field)
+* url_field
 * select
 * collection_select
-* file_field
 * date_select
+* time_select
+* datetime_select
 * check_box
 
 These form helpers accept the same options as the Rails form
@@ -86,6 +92,26 @@ To place helper text underneath the fields, pass the option `help:
 Here's an example of a horizontal-style form with block helpers:
 
 ![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_horizontal_block_form.png)
+
+
+Custom Controls
+---------------
+
+If you have a custom form control or content that you want to wrap 
+in Bootstrap-style form markup, you can do the following:
+  
+  <%= f.control_group "Custom Field" do %>
+    <span>My Custom Field</span>
+  <% end %>
+
+which will output the following:
+
+  <div class="control-group">
+    <label class="control-label">Custom Field</label>
+    <div class="controls">
+      <span>My Custom Field</span>
+    </div>
+  </div>
 
 
 Validation Errors
