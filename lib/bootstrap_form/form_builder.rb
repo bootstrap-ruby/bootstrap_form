@@ -23,7 +23,6 @@ module BootstrapForm
           content_tag(:div, class: 'controls') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
             help = content_tag(@help_tag, class: @help_css) { help } if help
-            args << options.except(:label, :help)
             super(name, *args) + help
           end
         end
@@ -34,7 +33,6 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
       content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
         content_tag(:div, class: 'controls') do
-          args << options.except(:label, :help)
           html = super(name, *args) + ' ' + options[:label]
           label(name, html, class: 'checkbox')
         end
@@ -73,5 +71,10 @@ module BootstrapForm
         end
       end
     end
-  end
+
+  private
+
+    def objectify_options(options)
+      super.except(:label,:help)
+    end
 end
