@@ -23,8 +23,17 @@ module BootstrapForm
           content_tag(:div, class: 'controls') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
             help = content_tag(@help_tag, class: @help_css) { help } if help
-            args << options.except(:label, :help)
-            super(name, *args) + help
+
+            args << options.except(:label, :help, :prepend)
+            element = super(name, *args) + help
+
+            if prepend = options.delete(:prepend)
+              element = content_tag(:div, class: 'input-prepend') do
+                content_tag(:span, prepend, class: 'add-on') + element
+              end
+            end
+
+            element
           end
         end
       end
