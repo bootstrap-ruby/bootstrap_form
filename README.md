@@ -134,7 +134,4 @@ in a div (field_with_errors), but this behavior is suppressed when `bootstrap_fo
 Credits
 -------
 
-Inspired by Ryan Bates' [Form Builder
-Railscast](http://railscasts.com/episodes/311-form-builders)
-
 bootstrap_form is Copyright (c) 2012 Stephen Potenza and is distributed under the MIT license.
