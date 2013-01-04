@@ -56,9 +56,9 @@ This plugin provides the following form helpers:
 * datetime_select
 * check_box
 
-These form helpers accept the same options as the Rails form
-helpers with the addition of two options `label` and `help`. Here's an
-example form that also uses the `actions` helper for the submit button:
+These form helpers accept the same options as the Rails form helpers with the
+addition of the options `label`, `help`, and `prepend`.  Here's an example form
+that also uses the `actions` helper for the submit button:
 
     <%= bootstrap_form_for(@user) do |f| %>
       <%= f.alert_message "Please fix the errors below." %>
@@ -66,6 +66,7 @@ example form that also uses the `actions` helper for the submit button:
       <%= f.text_field :email, autofocus: :true %>
       <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
       <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
+      <%= f.text_field :website, prepend: 'http://' %>
       <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
 
       <%= f.actions do %>
