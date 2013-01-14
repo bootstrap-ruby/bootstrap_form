@@ -109,6 +109,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
   end
 
+  test "radio_buttons are wrapped correctly" do
+    expected = %{<div class=\"control-group\"><div class=\"controls\"><label class=\"radio\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label></div></div>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
+  end
+
   test "changing the label text" do
     expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email Address</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
