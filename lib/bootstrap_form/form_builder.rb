@@ -18,7 +18,8 @@ module BootstrapForm
     FORM_HELPERS.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
-        content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
+
+        control_group_div(name) do
           label(name, options[:label], class: 'control-label') +
           content_tag(:div, class: 'controls') do
             help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
@@ -43,7 +44,7 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :help, :inline)
 
-      content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
+      control_group_div(name) do
         content_tag(:div, class: 'controls') do
           html = super(name, *args) + ' ' + options[:label]
 
@@ -58,7 +59,7 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :help, :inline)
 
-      content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
+      control_group_div(name) do
         content_tag(:div, class: 'controls') do
           html = super(name, value, *args) + ' ' + options[:label]
 
@@ -101,5 +102,13 @@ module BootstrapForm
         end
       end
     end
+
+    private
+      def control_group_div(name, &block)
+        css = 'control-group'
+        css << ' error' if object.errors[name].any?
+
+        content_tag(:div, class: css, &block)
+      end
   end
 end
