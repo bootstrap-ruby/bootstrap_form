@@ -41,24 +41,30 @@ module BootstrapForm
 
     def check_box(name, *args)
       options = args.extract_options!.symbolize_keys!
+      args << options.except(:label, :help, :inline)
 
       content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
         content_tag(:div, class: 'controls') do
-          args << options.except(:label, :help)
           html = super(name, *args) + ' ' + options[:label]
-          label(name, html, class: 'checkbox')
+
+          css = 'checkbox'
+          css << ' inline' if options[:inline]
+          label(name, html, class: css)
         end
       end
     end
 
     def radio_button(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      args << options.except(:label, :help)
+      args << options.except(:label, :help, :inline)
 
       content_tag :div, class: "control-group#{(' error' if object.errors[name].any?)}"  do
         content_tag(:div, class: 'controls') do
           html = super(name, value, *args) + ' ' + options[:label]
-          label("#{name}_#{value}", html, class: 'radio')
+
+          css = 'radio'
+          css << ' inline' if options[:inline]
+          label("#{name}_#{value}", html, class: css)
         end
       end
     end
