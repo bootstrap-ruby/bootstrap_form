@@ -145,18 +145,50 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "control_group creates a valid structure and allows arbitrary html to be added via a block" do
-    output = @builder.control_group "Custom Control" do
+    output = @builder.control_group do
       '<span>custom control here</span>'
     end
-    expected = %{<div class="control-group"><label class="control-label">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+
+    expected = %{<div class="control-group"><div class="controls"><span>custom control here</span></div></div>}
     assert_equal expected, output
   end
 
-  test "control_group allows for the label's 'for' attribute to be set" do
-    output = @builder.control_group "Custom Control", for: 'custom_control' do
+  test "control_group renders the label correctly" do
+    output = @builder.control_group :email, label: { text: 'Custom Control' } do
       '<span>custom control here</span>'
     end
-    expected = %{<div class="control-group"><label class="control-label" for="custom_control">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+
+    expected = %{<div class="control-group"><label class="control-label" for="user_email">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test "control_group overrides the label's 'class' and 'for' attributes if others are passed" do
+    output = @builder.control_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="control-group"><label class="foo" for="bar">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test "control_group label's 'for' attribute should be empty if no name was passed" do
+    output = @builder.control_group nil, label: { text: 'Custom Control' } do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="control-group"><label class="control-label" for="">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test 'control_group renders the "error" class corrrectly when object is invalid' do
+    @user.email = nil
+    @user.valid?
+
+    output = @builder.control_group :email do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span></div></div>}
     assert_equal expected, output
   end
 

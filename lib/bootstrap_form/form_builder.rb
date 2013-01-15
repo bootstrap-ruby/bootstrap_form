@@ -19,23 +19,20 @@ module BootstrapForm
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
 
-        control_group_div(name) do
-          label(name, options[:label], class: 'control-label') +
-          content_tag(:div, class: 'controls') do
-            help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
-            help = content_tag(@help_tag, class: @help_css) { help } if help
+        control_group(name, label: { text: options[:label] }) do
+          help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
+          help = content_tag(@help_tag, class: @help_css) { help } if help
 
-            args << options.except(:label, :help, :prepend)
-            element = super(name, *args) + help
+          args << options.except(:label, :help, :prepend)
+          element = super(name, *args) + help
 
-            if prepend = options.delete(:prepend)
-              element = content_tag(:div, class: 'input-prepend') do
-                content_tag(:span, prepend, class: 'add-on') + element
-              end
+          if prepend = options.delete(:prepend)
+            element = content_tag(:div, class: 'input-prepend') do
+              content_tag(:span, prepend, class: 'add-on') + element
             end
-
-            element
           end
+
+          element
         end
       end
     end
@@ -70,13 +67,25 @@ module BootstrapForm
       end
     end
 
-    def control_group(label_name, label_options = {}, &block)
-      content_tag :div, class: "control-group"  do
-        label_options[:class] = 'control-label'
-        content_tag(:label, label_name, label_options).html_safe +
-        content_tag(:div, class: 'controls') do
+    def control_group(name = nil, options = {}, &block)
+      css = 'control-group'
+      css << ' error' if name && object.errors[name].any?
+
+      content_tag(:div, class: css) do
+        html = ''
+
+        if attrs = options.delete(:label)
+          attrs[:class] ||= 'control-label'
+          attrs[:for] ||= '' if name.nil?
+
+          html << label(name, attrs[:text], attrs.except(:text))
+        end
+
+        html << content_tag(:div, class: 'controls') do
           block.call.html_safe
         end
+
+        html.html_safe
       end
     end
 
