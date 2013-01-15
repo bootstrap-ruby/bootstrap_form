@@ -41,30 +41,22 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :help, :inline)
 
-      control_group_div(name) do
-        content_tag(:div, class: 'controls') do
-          html = super(name, *args) + ' ' + options[:label]
+      html = super(name, *args) + ' ' + options[:label]
 
-          css = 'checkbox'
-          css << ' inline' if options[:inline]
-          label(name, html, class: css)
-        end
-      end
+      css = 'checkbox'
+      css << ' inline' if options[:inline]
+      label(name, html, class: css)
     end
 
     def radio_button(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :help, :inline)
 
-      control_group_div(name) do
-        content_tag(:div, class: 'controls') do
-          html = super(name, value, *args) + ' ' + options[:label]
+      html = super(name, value, *args) + ' ' + options[:label]
 
-          css = 'radio'
-          css << ' inline' if options[:inline]
-          label("#{name}_#{value}", html, class: css)
-        end
-      end
+      css = 'radio'
+      css << ' inline' if options[:inline]
+      label("#{name}_#{value}", html, class: css)
     end
 
     def control_group(name = nil, options = {}, &block)
@@ -111,13 +103,5 @@ module BootstrapForm
         end
       end
     end
-
-    private
-      def control_group_div(name, &block)
-        css = 'control-group'
-        css << ' error' if object.errors[name].any?
-
-        content_tag(:div, class: css, &block)
-      end
   end
 end

@@ -105,22 +105,22 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "check_boxes are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><div class=\"controls\"><label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label></div></div>}
+    expected = %{<label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
   end
 
   test "check_box inline label is setted correctly" do
-    expected = %{<div class=\"control-group\"><div class=\"controls\"><label class=\"checkbox inline\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label></div></div>}
+    expected = %{<label class=\"checkbox inline\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox', inline: true)
   end
 
   test "radio_buttons are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><div class=\"controls\"><label class=\"radio\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label></div></div>}
+    expected = %{<label class=\"radio\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
 
   test "radio_button inline label is setted correctly" do
-    expected = %{<div class=\"control-group\"><div class=\"controls\"><label class=\"radio inline\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label></div></div>}
+    expected = %{<label class=\"radio inline\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
   end
 
