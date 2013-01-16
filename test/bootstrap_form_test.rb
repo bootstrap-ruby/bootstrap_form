@@ -105,6 +105,8 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "check_boxes are wrapped correctly" do
+
+  test "check_box is wrapped correctly" do
     expected = %{<label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
   end
@@ -114,7 +116,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox', inline: true)
   end
 
-  test "radio_buttons are wrapped correctly" do
+  test "radio_button is wrapped correctly" do
     expected = %{<label class=\"radio\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
@@ -150,6 +152,24 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     expected = %{<div class="control-group"><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test "control_group renders the options for div.control_group" do
+    output = @builder.control_group nil, id: 'foo' do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="control-group" id="foo"><div class="controls"><span>custom control here</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test "control_group overrides the control-group class if another is passed" do
+    output = @builder.control_group nil, class: 'foo' do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="foo"><div class="controls"><span>custom control here</span></div></div>}
     assert_equal expected, output
   end
 

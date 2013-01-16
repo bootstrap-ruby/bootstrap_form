@@ -60,10 +60,10 @@ module BootstrapForm
     end
 
     def control_group(name = nil, options = {}, &block)
-      css = 'control-group'
-      css << ' error' if name && object.errors[name].any?
+      options[:class] ||= 'control-group'
+      options[:class] << ' error' if name && object.errors[name].any?
 
-      content_tag(:div, class: css) do
+      content_tag(:div, options.except(:label)) do
         html = ''
 
         if attrs = options.delete(:label)
