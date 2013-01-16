@@ -248,6 +248,10 @@ classes, you can use the `alert_message` helper:
   <%= f.alert_message "Please fix the errors below." %>
 ```
 
-## Credits
+## Contributors
 
-bootstrap_form is Copyright (c) 2013 Stephen Potenza (https://github.com/potenza) and is distributed under the MIT license.
+https://github.com/potenza/bootstrap_form/graphs/contributors
+
+## License
+
+MIT License. Copyright 2012-2013 Stephen Potenza (https://github.com/potenza)
