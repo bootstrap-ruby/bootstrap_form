@@ -104,8 +104,6 @@ class BootstrapFormTest < ActionView::TestCase
     end
   end
 
-  test "check_boxes are wrapped correctly" do
-
   test "check_box is wrapped correctly" do
     expected = %{<label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
