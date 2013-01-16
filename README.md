@@ -19,13 +19,43 @@ Run the following command to install it:
 
 `bundle`
 
-Add this line to your app/assets/stylesheets/application.css.scss file:
+Add this line to app/assets/stylesheets/application.css.scss:
 
 ```css
 /*
  *= require bootstrap_form
 */
 ```
+
+## Example
+
+Here's a quick example to get you started:
+
+```erb
+<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }, help: :block) do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+
+  <%= f.text_field :twitter_username, prepend: '@', label: 'Twitter' %>
+  <%= f.text_field :email, autofocus: :true %>
+  <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
+  <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
+  <%= f.control_group :terms do %>
+    <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.primary 'Create My Account', disable_with: 'Saving...' %>
+  <% end %>
+<% end %>
+```
+
+Screenshot:
+
+![Example form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form.png)
+
+Screenshot with errors:
+
+![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form_errors.png)
     
 ## Usage
 
@@ -63,10 +93,10 @@ This gem wraps the following Rails form helpers:
 * date_select
 * time_select
 * datetime_select
-* check_box (needs to be wrapped in a control_group)
-* radio_button (needs to be wrapped in a control_group)
-* primary (submit button with 'btn btn-primary' classes)
-* secondary (submit button with 'btn' class)
+* check_box
+* radio_button
+* primary
+* secondary
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
@@ -208,6 +238,13 @@ To specify a label that isn't linked to an element you can do this:
 When a validation error is triggered, the field will be outlined and the
 error will be displayed next to the field. Rails normally wraps fields
 in a div (field_with_errors), but this behavior is suppressed when `bootstrap_form_for` is called.
+
+To display an error message wrapped in `.alert` and `.alert-error`
+classes, you can use the `alert_message` helper:
+
+```erb
+  <%= f.alert_message "Please fix the errors below." %>
+```
 
 ## Credits
 
