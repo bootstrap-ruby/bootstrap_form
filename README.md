@@ -36,7 +36,7 @@ Here's a quick example to get you started:
   <%= f.alert_message "Please fix the errors below." %>
 
   <%= f.text_field :twitter_username, prepend: '@', label: 'Twitter' %>
-  <%= f.text_field :email, autofocus: :true %>
+  <%= f.text_field :email %>
   <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
   <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
   <%= f.control_group :terms do %>
@@ -95,8 +95,8 @@ This gem wraps the following Rails form helpers:
 * datetime_select
 * check_box
 * radio_button
-* primary
-* secondary
+
+You can use the helpers like you're used to:
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
@@ -127,7 +127,7 @@ You can display checkboxes and radios `inline` like this:
 
 ```erb
 <%= f.control_group :skill_level, label: { text: 'Skill' } do %>
-  <%= f.radio_button :skill_level, 0, label: 'Novice', checked: true, inline: true %>
+  <%= f.radio_button :skill_level, 0, label: 'Novice', inline: true %>
   <%= f.radio_button :skill_level, 1, label: 'Intermediate', inline: true %>
   <%= f.radio_button :skill_level, 2, label: 'Advanced', inline: true %>
 <% end %>
@@ -155,7 +155,7 @@ To add help text, use the `help` option, which will place it
 to the right of the field:
 
 ```erb
-<%= f.password_field :password, help: 'Must be at least 6 characters in length' %>
+<%= f.password_field :password, help: 'Must be at least 6 characters long' %>
 ```
 
 To place help text underneath a field, pass the option `help:
@@ -163,7 +163,7 @@ To place help text underneath a field, pass the option `help:
 
 ```erb
 <%= bootstrap_form_for(@user, help: :block) do |f| %>
-  <%= f.password_field :password, help: 'Must be at least 6 characters in length' %>
+  <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
 <% end %>
 ```
 
@@ -179,7 +179,7 @@ You can prepend an input file with the `prepend` option:
 
 This gem provides a few different options for submit buttons.
 
-You can use the `actions` helper, which wraps the buttons in a
+You can use the `actions` helper, which wraps your submit button in a
 `.form-actions` class.
 
 ```erb
@@ -194,7 +194,7 @@ Here's a simple `primary` button (this applies the `.btn` and `.btn-primary` cla
 <%= f.primary "Create My Account" %>
 ```
 
-A `secondary` submit button (applies just the `.btn` class):
+Here's a `secondary` submit button (applies just the `.btn` class):
 
 ```erb
 <%= f.secondary "Create My Account" %>
@@ -236,8 +236,10 @@ To specify a label that isn't linked to an element you can do this:
 ### Validation Errors
 
 When a validation error is triggered, the field will be outlined and the
-error will be displayed next to the field. Rails normally wraps fields
-in a div (field_with_errors), but this behavior is suppressed when `bootstrap_form_for` is called.
+error will be displayed next to the field (or below it if you're using
+block-style help text). Rails normally wraps fields in a div
+(field_with_errors), but this behavior is suppressed when
+`bootstrap_form_for` is called.
 
 To display an error message wrapped in `.alert` and `.alert-error`
 classes, you can use the `alert_message` helper:
