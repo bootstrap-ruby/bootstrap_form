@@ -89,7 +89,11 @@ module BootstrapForm
 
     def primary(name, options = {})
       options.merge! class: 'btn btn-primary'
+      submit name, options
+    end
 
+    def secondary(name, options = {})
+      options.merge! class: 'btn'
       submit name, options
     end
 
