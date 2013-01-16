@@ -179,15 +179,6 @@ You can prepend an input file with the `prepend` option:
 
 This gem provides a few different options for submit buttons.
 
-You can use the `actions` helper, which wraps your submit button in a
-`.form-actions` class.
-
-```erb
-<%= f.actions do %>
-  <%= f.primary 'Create My Account' %>
-<% end %>
-```
-
 Here's a simple `primary` button (this applies the `.btn` and `.btn-primary` classes):
 
 ```erb
@@ -198,6 +189,15 @@ Here's a `secondary` submit button (applies just the `.btn` class):
 
 ```erb
 <%= f.secondary "Create My Account" %>
+```
+
+You can use the `actions` helper, which wraps your submit button in a
+`.form-actions` class.
+
+```erb
+<%= f.actions do %>
+  <%= f.primary 'Create My Account' %>
+<% end %>
 ```
 
 And if you don't want to use the `actions` helper, here's how you might 
@@ -213,9 +213,9 @@ style a `primary` button with horizontal-style forms:
 
 ### Custom Control Groups
 
-Sometimes you need to wrap a custom control in Bootstrap-style markup.
-This is mostly needed when using horizontal-style forms. You can use the
-`control_group` helper to do this:
+Sometimes you need to wrap an element in Bootstrap-style markup.
+This is mostly needed to align submit buttons when using horizontal-style
+forms (also shown above):
 
 ```erb
 <%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
