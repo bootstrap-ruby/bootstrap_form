@@ -1,45 +1,54 @@
-bootstrap_form
-==============
+# BootstrapForm
 
-bootstrap_form is a rails form builder that makes it super easy to create beautiful-looking forms using Twitter Bootstrap 2.0
+**BootstrapForm** is a form builder that makes it super easy to
+integrate Twitter Bootstrap-style forms into your Rails App.
 
-
-Requirements
-------------
+## Requirements
 
 * Ruby 1.9+
 * Rails 3.1+
 * Twitter Bootstrap 2.0+
 
+## Installation
 
-Installation
-------------
+Add it to your Gemfile:
 
-Add the gem to your Gemfile
+`gem 'bootstrap_form'`
 
-    gem 'bootstrap_form'
+Run the following command to install it:
 
-Install the gem
+`bundle`
 
-    bundle
+Add this line to your app/assets/stylesheets/application.css.scss file:
 
-Add bootstrap_form to your application.css file
-
-    /*
-     *= require bootstrap_form
-    */
+```css
+/*
+ *= require bootstrap_form
+*/
+```
     
-This brings in a couple of minor css classes that help format helper and
-error messages.
+## Usage
 
-Usage
------
+To get started, just use the **BootstrapForm** form helper:
 
-    <%= bootstrap_form_for(@user) do |f| %>
-      ...
-    <% end %>
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  ...
+<% end %>
+```
 
-This plugin provides the following form helpers:
+To use a horizontal-style form with labels to the left of the inputs,
+add the `.form-horizontal` class:
+
+```erb
+<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
+  ...
+<% end %>
+```
+
+### Form Helpers
+
+This gem wraps the following Rails form helpers:
 
 * text_field
 * password_field
@@ -47,91 +56,159 @@ This plugin provides the following form helpers:
 * file_field
 * number_field
 * email_field
-* telephone_field (phone_field)
+* telephone_field / phone_field
 * url_field
 * select
 * collection_select
 * date_select
 * time_select
 * datetime_select
-* check_box
+* check_box (needs to be wrapped in a control_group)
+* radio_button (needs to be wrapped in a control_group)
+* primary (submit button with 'btn btn-primary' classes)
+* secondary (submit button with 'btn' class)
 
-These form helpers accept the same options as the Rails form helpers with the
-addition of the options `label`, `help`, and `prepend`.  Here's an example form
-that also uses the `actions` helper for the submit button:
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.text_field :email %>
+  <%= f.password_field :password %>
+  <%= f.primary "Create My Account" %>
+<% end %>
+```
 
-    <%= bootstrap_form_for(@user) do |f| %>
-      <%= f.alert_message "Please fix the errors below." %>
+This gem also wraps checkboxes and radios, which should be placed inside
+of a `control_group` to render correctly. The following example ensures
+that the entire control group will display an error if an associated 
+validations fails:
 
-      <%= f.text_field :email, autofocus: :true %>
-      <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
-      <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
-      <%= f.text_field :website, prepend: 'http://' %>
-      <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
+```erb
+<%= f.control_group :skill_level, label: { text: 'Skill' } do %>
+  <%= f.radio_button :skill_level, 0, label: 'Novice', checked: true %>
+  <%= f.radio_button :skill_level, 1, label: 'Intermediate' %>
+  <%= f.radio_button :skill_level, 2, label: 'Advanced' %>
+<% end %>
 
-      <%= f.actions do %>
-        <%= f.primary 'Sign Up', disable_with: 'Saving...' %>
-      <% end %>
-    <% end %>
+<%= f.control_group :terms, label: { text: 'Terms' } do %>
+  <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
+<% end %>
+```
 
-![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form.png)
+You can display checkboxes and radios `inline` like this:
 
+```erb
+<%= f.control_group :skill_level, label: { text: 'Skill' } do %>
+  <%= f.radio_button :skill_level, 0, label: 'Novice', checked: true, inline: true %>
+  <%= f.radio_button :skill_level, 1, label: 'Intermediate', inline: true %>
+  <%= f.radio_button :skill_level, 2, label: 'Advanced', inline: true %>
+<% end %>
+```
 
-Options
--------
+### Labels
 
-To use a horizontal-style form with labels to the left of the inputs,
-add the `.form-horizontal` class:
+Use the `label` option if you want to specify the field's label text:
 
-    <%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
+```erb
+<%= f.password_field :password_confirmation, label: 'Confirm Password' %>
+```
 
-To place helper text underneath the fields, pass the option `help:
-:block`:
+NOTE: To specify the label for a `control_group` you must do it like this:
 
-    <%= bootstrap_form_for(@user, help: block) do |f| %>
+```erb
+<%= f.control_group :terms, label: { text: 'Terms' } do %>
+  <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
+<% end %>
+```
 
-Here's an example of a horizontal-style form with block helpers:
+### Help text
 
-![Example Form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_horizontal_block_form.png)
+To add help text, use the `help` option, which will place it
+to the right of the field:
 
+```erb
+<%= f.password_field :password, help: 'Must be at least 6 characters in length' %>
+```
 
-Custom Controls
----------------
+To place help text underneath a field, pass the option `help:
+:block` to the `bootstrap_form_for` helper:
 
-If you have a custom form control or content that you want to wrap 
-in Bootstrap-style form markup, you can do the following:
-  
-    <%= f.control_group "Custom Field" do %>
-      <span>My Custom Field</span>
-    <% end %>
+```erb
+<%= bootstrap_form_for(@user, help: :block) do |f| %>
+  <%= f.password_field :password, help: 'Must be at least 6 characters in length' %>
+<% end %>
+```
 
-which will output the following:
+### Prepending inputs
 
-    <div class="control-group">
-      <label class="control-label">Custom Field</label>
-      <div class="controls">
-        <span>My Custom Field</span>
-      </div>
-    </div>
+You can prepend an input file with the `prepend` option:
 
-You can also specify the label's for attribute like this:
+```erb
+<%= f.text_field :twitter_username, prepend: '@' %>
+```
 
-    <%= f.control_group "Custom Field", for: 'custom-control' do %>
-      <span>My Custom Field</span>
-    <% end %>
-  
+### Submit buttons
 
-Validation Errors
------------------
+This gem provides a few different options for submit buttons.
+
+You can use the `actions` helper, which wraps the buttons in a
+`.form-actions` class.
+
+```erb
+<%= f.actions do %>
+  <%= f.primary 'Create My Account' %>
+<% end %>
+```
+
+Here's a simple `primary` button (this applies the `.btn` and `.btn-primary` classes):
+
+```erb
+<%= f.primary "Create My Account" %>
+```
+
+A `secondary` submit button (applies just the `.btn` class):
+
+```erb
+<%= f.secondary "Create My Account" %>
+```
+
+And if you don't want to use the `actions` helper, here's how you might 
+style a `primary` button with horizontal-style forms:
+
+```erb
+<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.control_group do %>
+    <%= f.primary "Create My Account" %>
+  <% end %>
+<% end %>
+```
+
+### Custom Control Groups
+
+Sometimes you need to wrap a custom control in Bootstrap-style markup.
+This is mostly needed when using horizontal-style forms. You can use the
+`control_group` helper to do this:
+
+```erb
+<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.control_group do %>
+    <%= f.primary "Create My Account" %>
+  <% end %>
+<% end %>
+```
+
+To specify a label that isn't linked to an element you can do this:
+
+```erb
+<%= f.control_group :nil, label: { text: 'Foo' } do %>
+  <span>Bar</span>
+<% end %>
+```
+
+### Validation Errors
 
 When a validation error is triggered, the field will be outlined and the
 error will be displayed next to the field. Rails normally wraps fields
 in a div (field_with_errors), but this behavior is suppressed when `bootstrap_form_for` is called.
 
-![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form_error.png)
+## Credits
 
-
-Credits
--------
-
-bootstrap_form is Copyright (c) 2012 Stephen Potenza and is distributed under the MIT license.
+bootstrap_form is Copyright (c) 2013 Stephen Potenza (https://github.com/potenza) and is distributed under the MIT license.
