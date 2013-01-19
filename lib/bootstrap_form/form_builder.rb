@@ -19,12 +19,13 @@ module BootstrapForm
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
 
-        control_group(name, label: { text: options[:label] }) do
-          help = object.errors[name].any? ? object.errors[name].join(', ') : options[:help]
-          help = content_tag(@help_tag, class: @help_css) { help } if help
+        label = options.delete(:label)
+        help  = options.delete(:help)
 
-          args << options.except(:label, :help, :prepend)
-          element = super(name, *args) + help
+        control_group(name, label: { text: label }, help: help) do
+
+          args << options.except(:prepend)
+          element = super(name, *args)
 
           if prepend = options.delete(:prepend)
             element = content_tag(:div, class: 'input-prepend') do
@@ -60,21 +61,29 @@ module BootstrapForm
     end
 
     def control_group(name = nil, options = {}, &block)
-      options[:class] ||= 'control-group'
-      options[:class] << ' error' if name && object.errors[name].any?
+      has_name = !(name.nil? || object.errors[name].empty?)
 
-      content_tag(:div, options.except(:label)) do
+      options[:class] ||= 'control-group'
+      options[:class] << ' error' if has_name
+
+      label = options.delete(:label)
+      _help = options.delete(:help)
+
+      content_tag(:div, options) do
         html = ''
 
-        if attrs = options.delete(:label)
-          attrs[:class] ||= 'control-label'
-          attrs[:for] ||= '' if name.nil?
+        if label
+          label[:class] ||= 'control-label'
+          label[:for] ||= '' if name.nil?
 
-          html << label(name, attrs[:text], attrs.except(:text))
+          html << label(name, label[:text], label.except(:text))
         end
 
         html << content_tag(:div, class: 'controls') do
-          block.call.html_safe
+          help = has_name ? object.errors[name].join(', ') : _help
+          help = content_tag(@help_tag, help, class: @help_css) if help
+
+          block.call.html_safe + help
         end
 
         html.html_safe
