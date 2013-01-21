@@ -80,10 +80,12 @@ module BootstrapForm
         end
 
         html << content_tag(:div, class: 'controls') do
-          help = has_name ? object.errors[name].join(', ') : _help
-          help = content_tag(@help_tag, help, class: @help_css) if help
+          controls = block.call
 
-          block.call.html_safe + help
+          help = has_name ? object.errors[name].join(', ') : _help
+          controls << content_tag(@help_tag, help, class: @help_css) if help
+
+          controls.html_safe
         end
 
         html.html_safe
