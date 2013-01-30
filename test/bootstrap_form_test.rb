@@ -198,7 +198,16 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
-  test 'control_group renders the "error" class corrrectly when object is invalid' do
+  test 'control_group renders the :help corrrectly' do
+    output = @builder.control_group nil, help: 'Foobar' do
+      '<span>custom control here</span>'
+    end
+
+    expected = %{<div class="control-group"><div class="controls"><span>custom control here</span><span class="help-inline">Foobar</span></div></div>}
+    assert_equal expected, output
+  end
+
+  test 'control_group renders the "error" class and message corrrectly when object is invalid' do
     @user.email = nil
     @user.valid?
 
@@ -206,7 +215,7 @@ class BootstrapFormTest < ActionView::TestCase
       '<span>custom control here</span>'
     end
 
-    expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span></div></div>}
+    expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span><span class="help-inline">can't be blank, is too short (minimum is 5 characters)</span></div></div>}
     assert_equal expected, output
   end
 
