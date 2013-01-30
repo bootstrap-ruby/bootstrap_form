@@ -112,7 +112,7 @@ that the entire control group will display an error if an associated
 validations fails:
 
 ```erb
-<%= f.control_group :skill_level, label: { text: 'Skill' } do %>
+<%= f.control_group :skill_level, label: { text: 'Skill' }, help: 'This is optional' do %>
   <%= f.radio_button :skill_level, 0, label: 'Novice', checked: true %>
   <%= f.radio_button :skill_level, 1, label: 'Intermediate' %>
   <%= f.radio_button :skill_level, 2, label: 'Advanced' %>
