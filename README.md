@@ -180,7 +180,7 @@ You can prepend an input file with the `prepend` option:
 You can append an input file with the `append` option:
 
 ```erb
-<%= f.text_field :amount, append: '.00 %>
+<%= f.text_field :amount, append: '.00' %>
 ```
 
 ### Submit buttons
