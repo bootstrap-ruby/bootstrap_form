@@ -24,12 +24,18 @@ module BootstrapForm
 
         control_group(name, label: { text: label }, help: help) do
 
-          args << options.except(:prepend)
+          args << options.except(:prepend, :append)
           element = super(name, *args)
 
           if prepend = options.delete(:prepend)
             element = content_tag(:div, class: 'input-prepend') do
               content_tag(:span, prepend, class: 'add-on') + element
+            end
+          end
+
+          if append = options.delete(:append)
+            element = content_tag(:div, class: 'input-append') do
+              element + content_tag(:span, append, class: 'add-on')
             end
           end
 

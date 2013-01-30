@@ -134,6 +134,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, prepend: 'Gmail')
   end
 
+  test "adding append text" do
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-append\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /><span class="add-on">Gmail</span></div></div></div>}
+    assert_equal expected, @builder.text_field(:email, append: 'Gmail')
+  end
+
   test "passing :help to a field displays it inline" do
     expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-inline\">This is required</span></div></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')

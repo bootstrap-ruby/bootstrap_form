@@ -175,6 +175,14 @@ You can prepend an input file with the `prepend` option:
 <%= f.text_field :twitter_username, prepend: '@' %>
 ```
 
+### Appending inputs
+
+You can append an input file with the `append` option:
+
+```erb
+<%= f.text_field :amount, append: '.00 %>
+```
+
 ### Submit buttons
 
 This gem provides a few different options for submit buttons.
