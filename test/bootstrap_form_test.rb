@@ -237,6 +237,16 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.primary('Submit', disable_with: 'Saving...')
   end
 
+  test "secondary button contains the correct classes" do
+    expected = %{<input class=\"btn\" name=\"commit\" type=\"submit\" value=\"Submit\" />}
+    assert_equal expected, @builder.secondary('Submit')
+  end
+
+  test "secondary button with a disabled state" do
+    expected = %{<input class=\"btn\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
+    assert_equal expected, @builder.secondary('Submit', disable_with: 'Saving...')
+  end
+
   test "passing :help :block to the form builder" do
     output = bootstrap_form_for(@user, help: :block) do |f|
       f.text_field(:email, help: 'This is required')
