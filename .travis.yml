@@ -1,2 +1,2 @@
 before_script:
-  - cd test/dummy; bundle exec rake db:create db:migrate RAILS_ENV=test
+  - cd test/dummy && bundle exec rake db:create db:migrate RAILS_ENV=test && cd ../../
