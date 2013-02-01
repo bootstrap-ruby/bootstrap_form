@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/potenza/bootstrap_form.png)](https://travis-ci.org/potenza/bootstrap_form)
+
 # BootstrapForm
 
 **BootstrapForm** is a form builder that makes it super easy to
