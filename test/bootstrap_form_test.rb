@@ -129,6 +129,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
+  test "render the field without label" do
+    expected = %{<div class=\"control-group\"><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
+    assert_equal expected, @builder.text_field(:email, label: :none)
+  end
+
   test "adding prepend text" do
     expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-prepend\"><span class=\"add-on\">Gmail</span><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: 'Gmail')
