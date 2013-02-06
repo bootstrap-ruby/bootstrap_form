@@ -143,6 +143,12 @@ Use the `label` option if you want to specify the field's label text:
 <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
 ```
 
+If you don't want to render the field's label, pass `:none` to the option:
+
+```erb
+<%= f.text_area :comment, label: :none, placeholder: 'Leave a comment...' %>
+```
+
 NOTE: To specify the label for a `control_group` you must do it like this:
 
 ```erb
