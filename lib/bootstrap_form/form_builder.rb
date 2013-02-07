@@ -7,12 +7,10 @@ module BootstrapForm
     delegate :content_tag, to: :@template
 
     def initialize(object_name, object, template, options, proc)
+      help = options.fetch(:help, nil)
+      @help_class = help.eql?(:block) ? 'help-block' : 'help-inline'
+
       super
-      @help_tag, @help_css = if options.fetch(:help, '').to_sym == :block
-        [:p, 'help-block']
-      else
-        [:span, 'help-inline']
-      end
     end
 
     FORM_HELPERS.each do |method_name|
@@ -89,7 +87,7 @@ module BootstrapForm
           controls = block.call
 
           help = has_name ? object.errors[name].join(', ') : _help
-          controls << content_tag(@help_tag, help, class: @help_css) if help
+          controls << content_tag(:span, help, class: @help_class) if help
 
           controls.html_safe
         end
