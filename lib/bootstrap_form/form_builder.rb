@@ -5,6 +5,7 @@ module BootstrapForm
                      select collection_select date_select time_select datetime_select}
 
     delegate :content_tag, to: :@template
+    delegate :capture, to: :@template
 
     def initialize(object_name, object, template, options, proc)
       help = options.fetch(:help, nil)
@@ -84,7 +85,7 @@ module BootstrapForm
         end
 
         html << content_tag(:div, class: 'controls') do
-          controls = block.call
+          controls = capture(&block)
 
           help = has_name ? object.errors[name].join(', ') : _help
           controls << content_tag(:span, help, class: @help_class) if help
@@ -98,7 +99,7 @@ module BootstrapForm
 
     def actions(&block)
       content_tag :div, class: "form-actions" do
-        block.call
+        capture(&block)
       end
     end
 

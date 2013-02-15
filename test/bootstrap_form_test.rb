@@ -156,7 +156,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group creates a valid structure and allows arbitrary html to be added via a block" do
     output = @builder.control_group do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group"><div class="controls"><span>custom control here</span></div></div>}
@@ -165,7 +165,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group renders the options for div.control_group" do
     output = @builder.control_group nil, id: 'foo' do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group" id="foo"><div class="controls"><span>custom control here</span></div></div>}
@@ -174,7 +174,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group overrides the control-group class if another is passed" do
     output = @builder.control_group nil, class: 'foo' do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="foo"><div class="controls"><span>custom control here</span></div></div>}
@@ -183,7 +183,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group renders the label correctly" do
     output = @builder.control_group :email, label: { text: 'Custom Control' } do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group"><label class="control-label" for="user_email">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
@@ -192,7 +192,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group overrides the label's 'class' and 'for' attributes if others are passed" do
     output = @builder.control_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group"><label class="foo" for="bar">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
@@ -201,7 +201,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "control_group label's 'for' attribute should be empty if no name was passed" do
     output = @builder.control_group nil, label: { text: 'Custom Control' } do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group"><label class="control-label" for="">Custom Control</label><div class="controls"><span>custom control here</span></div></div>}
@@ -210,7 +210,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test 'control_group renders the :help corrrectly' do
     output = @builder.control_group nil, help: 'Foobar' do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group"><div class="controls"><span>custom control here</span><span class="help-inline">Foobar</span></div></div>}
@@ -222,7 +222,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.valid?
 
     output = @builder.control_group :email do
-      '<span>custom control here</span>'
+      content_tag(:span, 'custom control here')
     end
 
     expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span><span class="help-inline">can't be blank, is too short (minimum is 5 characters)</span></div></div>}
