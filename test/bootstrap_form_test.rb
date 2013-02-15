@@ -289,5 +289,18 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group error\"><div class=\"field_with_errors\"><label class=\"control-label\" for=\"user_email\">Email</label></div><div class=\"controls\"><div class=\"field_with_errors\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" /></div><span class=\"help-block\">can't be blank, is too short (minimum is 5 characters)</span></div></div></form>}
     assert_equal expected, output
   end
+
+  test "form_for helper works for associations" do
+    @user.address = Address.new(street: '123 Main Street')
+
+    output = form_for(@user, builder: BootstrapForm::FormBuilder) do |f|
+      f.fields_for :address do |af|
+        af.text_field(:street)
+      end
+    end
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"controls\"><input id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" size=\"30\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
+    assert_equal expected, output
+  end
 end
 
