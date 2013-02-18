@@ -264,6 +264,10 @@ classes, you can use the `alert_message` helper:
   <%= f.alert_message "Please fix the errors below." %>
 ```
 
+## Code Triage page
+
+http://www.codetriage.com/potenza/bootstrap_form
+
 ## Contributors
 
 https://github.com/potenza/bootstrap_form/graphs/contributors
