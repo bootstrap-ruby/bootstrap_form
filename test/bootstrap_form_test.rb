@@ -302,5 +302,11 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"controls\"><input id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" size=\"30\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
     assert_equal expected, output
   end
+
+  test "allows the form object to be nil" do
+    builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}, nil
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"other_model_email\">Email</label><div class=\"controls\"><input id=\"other_model_email\" name=\"other_model[email]\" size=\"30\" type=\"text\" /></div></div>}
+    assert_equal expected, builder.text_field(:email)
+  end
 end
 

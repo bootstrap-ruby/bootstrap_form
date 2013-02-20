@@ -66,10 +66,10 @@ module BootstrapForm
     end
 
     def control_group(name = nil, options = {}, &block)
-      has_name = !(name.nil? || object.errors[name].empty?)
+      errors_has_name = object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
 
       options[:class] ||= 'control-group'
-      options[:class] << ' error' if has_name
+      options[:class] << ' error' if errors_has_name
 
       label = options.delete(:label)
       _help = options.delete(:help)
@@ -87,7 +87,7 @@ module BootstrapForm
         html << content_tag(:div, class: 'controls') do
           controls = capture(&block)
 
-          help = has_name ? object.errors[name].join(', ') : _help
+          help = errors_has_name ? object.errors[name].join(', ') : _help
           controls << content_tag(:span, help, class: @help_class) if help
 
           controls.html_safe
@@ -117,7 +117,7 @@ module BootstrapForm
       options = args.extract_options!
       css = options[:class] || "alert alert-error"
 
-      if object.errors.full_messages.any?
+      if object.respond_to?(:errors) && object.errors.full_messages.any?
         content_tag :div, class: css do
           title
         end
