@@ -43,11 +43,11 @@ module BootstrapForm
       end
     end
 
-    def check_box(name, *args)
-      options = args.extract_options!.symbolize_keys!
-      args << options.except(:label, :help, :inline)
+    def check_box(name, options, checked_value = "1", unchecked_value = "0")
+      options = options.symbolize_keys!
 
-      html = super(name, *args) + ' ' + options[:label]
+      html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value) 
+      html += ' ' + options[:label]
 
       css = 'checkbox'
       css << ' inline' if options[:inline]
