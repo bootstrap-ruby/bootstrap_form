@@ -109,6 +109,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
   end
 
+  test "check_box responds to checked_value and unchecked_value arguments" do
+    expected = %{<label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"no\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"yes\" /> This is a checkbox</label>}
+    assert_equal expected, @builder.check_box(:misc, {label: 'This is a checkbox'}, 'yes', 'no')
+  end
+
   test "check_box inline label is setted correctly" do
     expected = %{<label class=\"checkbox inline\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox', inline: true)
