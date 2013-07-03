@@ -8,14 +8,21 @@ integrate Twitter Bootstrap-style forms into your Rails App.
 ## Requirements
 
 * Ruby 1.9+
-* Rails 3.1+
+* Rails 4.0+
 * Twitter Bootstrap 2.0+
 
 ## Installation
 
 Add it to your Gemfile:
 
+### Rails 4.0+
+
 `gem 'bootstrap_form'`
+
+### Rails 3.1+
+
+`gem 'bootstrap_form', '~> 0.3.2'`
+
 
 Run the following command to install it:
 
