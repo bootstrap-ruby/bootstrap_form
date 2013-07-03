@@ -5,9 +5,11 @@ one:
   password: MyString
   comments: MyText
   status: MyString
+  misc: MyString
 
 two:
   email: MyString
   password: MyString
   comments: MyText
   status: MyString
+  misc: MyString

@@ -33,17 +33,17 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "text fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email)
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_password\">Password</label><div class=\"controls\"><input id=\"user_password\" name=\"user[password]\" size=\"30\" type=\"text\" value=\"secret\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_password\">Password</label><div class=\"controls\"><input id=\"user_password\" name=\"user[password]\" type=\"text\" value=\"secret\" /></div></div>}
     assert_equal expected, @builder.text_field(:password)
   end
 
   test "text areas are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_comments\">Comments</label><div class=\"controls\"><textarea cols=\"40\" id=\"user_comments\" name=\"user[comments]\" rows=\"20\">my comment</textarea></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_comments\">Comments</label><div class=\"controls\"><textarea id=\"user_comments\" name=\"user[comments]\">\nmy comment</textarea></div></div>}
     assert_equal expected, @builder.text_area(:comments)
   end
 
@@ -53,23 +53,23 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "number fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" size="30" type=\"number\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" type=\"number\" /></div></div>}
     assert_equal expected, @builder.number_field(:misc)
   end
 
   test "email fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" size="30" type=\"email\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" type=\"email\" /></div></div>}
     assert_equal expected, @builder.email_field(:misc)
   end
 
   test "telephone/phone fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" size="30" type=\"tel\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" type=\"tel\" /></div></div>}
     assert_equal expected, @builder.telephone_field(:misc)
     assert_equal expected, @builder.phone_field(:misc)
   end
 
   test "url fields are wrapped correctly" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" size="30" type=\"url\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_misc\">Misc</label><div class=\"controls\"><input id=\"user_misc\" name=\"user[misc]\" type=\"url\" /></div></div>}
     assert_equal expected, @builder.url_field(:misc)
   end
 
@@ -130,32 +130,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "changing the label text" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email Address</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email Address</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
   test "render the field without label" do
-    expected = %{<div class=\"control-group\"><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
+    expected = %{<div class=\"control-group\"><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: :none)
   end
 
   test "adding prepend text" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-prepend\"><span class=\"add-on\">Gmail</span><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-prepend\"><span class=\"add-on\">Gmail</span><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: 'Gmail')
   end
 
   test "adding append text" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-append\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /><span class="add-on">Gmail</span></div></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><div class=\"input-append\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /><span class="add-on">Gmail</span></div></div></div>}
     assert_equal expected, @builder.text_field(:email, append: 'Gmail')
   end
 
   test "passing :help to a field displays it inline" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-inline\">This is required</span></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-inline\">This is required</span></div></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
   end
 
   test "passing other options to a field get passed through" do
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input autofocus=\"autofocus\" id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input autofocus=\"autofocus\" id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email, autofocus: true)
   end
 
@@ -230,7 +230,7 @@ class BootstrapFormTest < ActionView::TestCase
       content_tag(:span, 'custom control here')
     end
 
-    expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span><span class="help-inline">can't be blank, is too short (minimum is 5 characters)</span></div></div>}
+    expected = %{<div class="control-group error"><div class="controls"><span>custom control here</span><span class="help-inline">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></div>}
     assert_equal expected, output
   end
 
@@ -249,7 +249,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "primary button with a disabled state" do
     expected = %{<input class=\"btn btn-primary\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.primary('Submit', disable_with: 'Saving...')
+    assert_equal expected, @builder.primary('Submit', data: { disable_with: 'Saving...' })
   end
 
   test "secondary button contains the correct classes" do
@@ -259,7 +259,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "secondary button with a disabled state" do
     expected = %{<input class=\"btn\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.secondary('Submit', disable_with: 'Saving...')
+    assert_equal expected, @builder.secondary('Submit', data: { disable_with: 'Saving...' })
   end
 
   test "passing :help :block to the form builder" do
@@ -267,7 +267,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-block\">This is required</span></div></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-block\">This is required</span></div></div></form>}
     assert_equal expected, output
   end
 
@@ -279,7 +279,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group error\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" /><span class=\"help-block\">can't be blank, is too short (minimum is 5 characters)</span></div></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group error\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"help-block\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></div></form>}
     assert_equal expected, output
   end
 
@@ -291,7 +291,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group error\"><div class=\"field_with_errors\"><label class=\"control-label\" for=\"user_email\">Email</label></div><div class=\"controls\"><div class=\"field_with_errors\"><input id=\"user_email\" name=\"user[email]\" size=\"30\" type=\"text\" /></div><span class=\"help-block\">can't be blank, is too short (minimum is 5 characters)</span></div></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group error\"><div class=\"field_with_errors\"><label class=\"control-label\" for=\"user_email\">Email</label></div><div class=\"controls\"><div class=\"field_with_errors\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" /></div><span class=\"help-block\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></div></form>}
     assert_equal expected, output
   end
 
@@ -304,13 +304,13 @@ class BootstrapFormTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"controls\"><input id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" size=\"30\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"controls\"><input id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
     assert_equal expected, output
   end
 
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}, nil
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"other_model_email\">Email</label><div class=\"controls\"><input id=\"other_model_email\" name=\"other_model[email]\" size=\"30\" type=\"text\" /></div></div>}
+    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"other_model_email\">Email</label><div class=\"controls\"><input id=\"other_model_email\" name=\"other_model[email]\" type=\"text\" /></div></div>}
     assert_equal expected, builder.text_field(:email)
   end
 end
