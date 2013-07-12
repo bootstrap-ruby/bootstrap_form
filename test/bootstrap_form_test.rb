@@ -137,6 +137,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "render the field without label" do
     expected = %{<div class=\"control-group\"><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /></div></div>}
     assert_equal expected, @builder.text_field(:email, label: :none)
+    assert_equal expected, @builder.text_field(:email, label: false)
   end
 
   test "adding prepend text" do

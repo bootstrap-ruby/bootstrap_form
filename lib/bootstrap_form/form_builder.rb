@@ -77,7 +77,7 @@ module BootstrapForm
       content_tag(:div, options) do
         html = ''
 
-        if label && label[:text] != :none
+        if label && (label[:text] != :none && label[:text] != false)
           label[:class] ||= 'control-label'
           label[:for] ||= '' if name.nil?
 
