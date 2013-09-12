@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  serialize :preferences, Hash.new(favorite_color: "circulian", favorite_animal: "platypus")
+  serialize :preferences
 
   validates :email, presence: true, :length => { minimum: 5 }
 
