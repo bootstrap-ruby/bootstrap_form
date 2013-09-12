@@ -296,7 +296,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
-  test "form_for helper works for associations" do
+  test "bootstrap_form_for helper works for associations" do
     @user.address = Address.new(street: '123 Main Street')
 
     output = bootstrap_form_for(@user) do |f|
@@ -306,6 +306,19 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"controls\"><input id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
+    assert_equal expected, output
+  end
+
+  test "bootstrap_form_for helper works for serialized hash attributes" do
+    @user.preferences = { favorite_color: "cerulean" }
+
+    output = bootstrap_form_for(@user) do |f|
+      f.fields_for :preferences do |builder|
+        builder.text_field :favorite_color, value: @user.preferences[:favorite_color]
+      end
+    end
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_preferences_favorite_color\">Favorite color</label><div class=\"controls\"><input id=\"user_preferences_favorite_color\" name=\"user[preferences][favorite_color]\" type=\"text\" value=\"cerulean\" /></div></div></form>}
     assert_equal expected, output
   end
 
