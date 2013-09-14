@@ -151,6 +151,14 @@ If you don't want to render the field's label, pass `:none` to the option:
 <%= f.text_area :comment, label: :none, placeholder: 'Leave a comment...' %>
 ```
 
+With check boxes you can define your labels using a block too:
+
+```erb
+<%= f.check_box :terms do %>
+You need to check this box to accept our terms of service and privacy policy
+<% end %>
+```
+
 NOTE: To specify the label for a `control_group` you must do it like this:
 
 ```erb
