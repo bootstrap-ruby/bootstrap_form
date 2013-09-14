@@ -119,6 +119,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox', inline: true)
   end
 
+  test "check_box label via block is setted correctly" do
+    expected = %{<label class=\"checkbox\" for=\"user_misc\"><input name=\"user[misc]\" type=\"hidden\" value=\"0\" /><input id=\"user_misc\" name=\"user[misc]\" type=\"checkbox\" value=\"1\" /> This is a checkbox</label>}
+    assert_equal expected, @builder.check_box(:misc) { 'This is a checkbox' }
+  end
+
   test "radio_button is wrapped correctly" do
     expected = %{<label class=\"radio\" for=\"user_misc_1\"><input id=\"user_misc_1\" name=\"user[misc]\" type=\"radio\" value=\"1\" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
