@@ -7,8 +7,8 @@ require "bootstrap_form/version"
 Gem::Specification.new do |s|
   s.name        = "bootstrap_form"
   s.version     = BootstrapForm::VERSION
-  s.authors     = ["Stephen Potenza"]
-  s.email       = ["potenza@gmail.com"]
+  s.authors     = ["Stephen Potenza", "Carlos Lopes"]
+  s.email       = ["potenza@gmail.com", "carlos.el.lopes@gmail.com"]
   s.homepage    = "http://github.com/potenza/bootstrap_form"
   s.summary     = "Rails form builder that makes it easy to style forms using Twitter Bootstrap 2.0"
   s.description = "bootstrap_form is a rails form builder that makes it super easy to create beautiful-looking forms using Twitter Bootstrap 2.0"
