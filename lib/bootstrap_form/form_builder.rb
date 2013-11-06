@@ -9,7 +9,6 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       help = options.fetch(:help, nil)
-      @help_class = help.eql?(:block) ? 'help-block' : 'help-inline'
 
       super
     end
@@ -17,6 +16,7 @@ module BootstrapForm
     FORM_HELPERS.each do |method_name|
       define_method(method_name) do |name, *args|
         options = args.extract_options!.symbolize_keys!
+        options[:class] = 'form-control'
 
         label = options.delete(:label)
         help  = options.delete(:help)
@@ -68,8 +68,8 @@ module BootstrapForm
     def control_group(name = nil, options = {}, &block)
       errors_has_name = object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
 
-      options[:class] ||= 'control-group'
-      options[:class] << ' error' if errors_has_name
+      options[:class] ||= 'form-group'
+      options[:class] << ' has-error' if errors_has_name
 
       label = options.delete(:label)
       _help = options.delete(:help)
@@ -88,7 +88,7 @@ module BootstrapForm
           controls = capture(&block)
 
           help = errors_has_name ? object.errors[name].join(', ') : _help
-          controls << content_tag(:span, help, class: @help_class) if help
+          controls << content_tag(:span, help, class: 'help-block') if help
 
           controls.html_safe
         end
@@ -115,7 +115,7 @@ module BootstrapForm
 
     def alert_message(title, *args)
       options = args.extract_options!
-      css = options[:class] || "alert alert-error"
+      css = options[:class] || "alert alert-danger"
 
       if object.respond_to?(:errors) && object.errors.full_messages.any?
         content_tag :div, class: css do

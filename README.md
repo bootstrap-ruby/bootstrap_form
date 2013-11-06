@@ -9,7 +9,7 @@ integrate Twitter Bootstrap-style forms into your Rails App.
 
 * Ruby 1.9+
 * Rails 3, 4
-* Twitter Bootstrap 2.0+
+* Twitter Bootstrap 3.0+
 
 ## Installation
 
@@ -60,7 +60,7 @@ Screenshot:
 Screenshot with errors:
 
 ![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form_errors.png)
-    
+
 ## Usage
 
 To get started, just use the **BootstrapForm** form helper:
@@ -112,7 +112,7 @@ You can use the helpers like you're used to:
 
 This gem also wraps checkboxes and radios, which should be placed inside
 of a `control_group` to render correctly. The following example ensures
-that the entire control group will display an error if an associated 
+that the entire control group will display an error if an associated
 validations fails:
 
 ```erb
@@ -226,7 +226,7 @@ You can use the `actions` helper, which wraps your submit button in a
 <% end %>
 ```
 
-And if you don't want to use the `actions` helper, here's how you might 
+And if you don't want to use the `actions` helper, here's how you might
 style a `primary` button with horizontal-style forms:
 
 ```erb
