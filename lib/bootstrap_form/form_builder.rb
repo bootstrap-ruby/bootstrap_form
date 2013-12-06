@@ -86,18 +86,19 @@ module BootstrapForm
       label_html = label_options && label(name, label_options[:text], label_options.except(:text)) || ""
 
       html = capture(&block)
+
+      help_text = options.delete(:help)
+      help_text = object.errors[name].join(', ') if errors_has_name
+      html += help_text && content_tag(:span, help_text, class: 'help-block') || ""
+
       if wrap_content = options.delete(:wrap_content)
         html = content_tag(:div, class: wrap_content) do
           html
         end
       end
 
-      help_text = options.delete(:help)
-      help_text = object.errors[name].join(', ') if errors_has_name
-      help_html = help_text && content_tag(:span, help_text, class: 'help-block') || ""
-
       content_tag(:div, options) do
-        (label_html + html + help_html).html_safe
+        (label_html + html).html_safe
       end
     end
 

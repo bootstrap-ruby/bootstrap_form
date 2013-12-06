@@ -174,9 +174,14 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, append: 'Gmail')
   end
 
-  test "displaying help messages" do
+  test "help messages for default forms" do
     expected = %{<div class="form-group"><label for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
+  end
+
+  test "help messages for horizontal forms" do
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div><span class="help-block">This is required</span></div>}
+    assert_equal expected, @horizontal_builder.text_field(:email, label_class: "col-sm-2", wrap_control: "col-sm-10", help: "This is required")
   end
 
   test "passing other options to a field get passed through" do
