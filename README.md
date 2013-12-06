@@ -9,7 +9,7 @@ integrate Twitter Bootstrap-style forms into your Rails App.
 
 * Ruby 1.9+
 * Rails 3, 4
-* Twitter Bootstrap 2.0+
+* Twitter Bootstrap 3.0+
 
 ## Installation
 
@@ -31,52 +31,16 @@ Add this line to app/assets/stylesheets/application.css.scss:
 */
 ```
 
-## Example
-
-Here's a quick example to get you started:
-
-```erb
-<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }, help: :block) do |f| %>
-  <%= f.alert_message "Please fix the errors below." %>
-
-  <%= f.text_field :twitter_username, prepend: '@', label: 'Twitter' %>
-  <%= f.text_field :email %>
-  <%= f.password_field :password, help: 'Must be at least 6 characters long' %>
-  <%= f.password_field :password_confirmation, label: 'Confirm Password' %>
-  <%= f.control_group :terms do %>
-    <%= f.check_box :terms, label: 'I agree to the Terms of Service' %>
-  <% end %>
-
-  <%= f.actions do %>
-    <%= f.primary 'Create My Account', disable_with: 'Saving...' %>
-  <% end %>
-<% end %>
-```
-
-Screenshot:
-
-![Example form](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form.png)
-
-Screenshot with errors:
-
-![Example form with errors](https://github.com/potenza/bootstrap_form/raw/master/examples/example_form_errors.png)
-    
 ## Usage
 
-To get started, just use the **BootstrapForm** form helper:
+To get started, just use the **BootstrapForm** form helper. Here's an example:
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
-  ...
-<% end %>
-```
-
-To use a horizontal-style form with labels to the left of the inputs,
-add the `.form-horizontal` class:
-
-```erb
-<%= bootstrap_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
-  ...
+  <%= f.text_field :name %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.submit "Create My Account" %>
 <% end %>
 ```
 
@@ -100,15 +64,44 @@ This gem wraps the following Rails form helpers:
 * check_box
 * radio_button
 
-You can use the helpers like you're used to:
+### Default Form Style
+
+By default, your forms will stack labels on top of controls and your controls
+will grow to 100% of the available width.
+
+### Inline Forms
+
+To use a inline-style form, use the `style: :inline` option. To hide labels, use
+the `sr-only` class, which keeps your forms accessible for those using Screen
+Readers.
 
 ```erb
-<%= bootstrap_form_for(@user) do |f| %>
-  <%= f.text_field :email %>
-  <%= f.password_field :password %>
-  <%= f.primary "Create My Account" %>
+<%= bootstrap_form_for(@user, style: :inline) do |f| %>
+  <%= f.email_field :email, label_class: "sr-only" %>
+  <%= f.password_field :password, label_class: "sr-only" %>
+  <%= f.check_box :terms, label: "Remember Me" %>
+  <%= f.submit "Create My Account" %>
 <% end %>
 ```
+
+### Horizontal Forms
+
+To use a horizontal-style form with labels to the left of the inputs,
+use the `style: :horizontal` option. You will need to specify both label and
+control widths.
+
+```erb
+<%= bootstrap_form_for(@user, style: horizontal) do |f| %>
+  <%= f.email_field :email, label_class: "col-sm-2", wrap_control: "col-sm-10" %>
+  <%= f.password_field :password, label_class: "col-sm-2", wrap_control: "col-sm-10" %>
+
+  <%= f.form_group nil, wrap_content: "col-sm-offset-2 col-sm-10" do %>
+    <%= f.submit "Create My Account" %>
+  <% end %>
+<% end %>
+```
+
+<!--
 
 This gem also wraps checkboxes and radios, which should be placed inside
 of a `control_group` to render correctly. The following example ensures
@@ -273,6 +266,7 @@ classes, you can use the `alert_message` helper:
 ```erb
   <%= f.alert_message "Please fix the errors below." %>
 ```
+-->
 
 ## Code Triage page
 

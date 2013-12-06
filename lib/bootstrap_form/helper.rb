@@ -3,10 +3,18 @@ module BootstrapForm
     def bootstrap_form_for(object, options = {}, &block)
       options[:builder] = BootstrapForm::FormBuilder
 
-      # add .form-vertical class if it's not horizontal
-      options[:html] = {} unless options.has_key?(:html)
-      css = options[:html].fetch(:class, '')
-      options[:html][:class] = "#{css} form-vertical" unless css.match /form-horizontal/
+      style = case options[:style]
+        when :inline
+          "form-inline"
+        when :horizontal
+          "form-horizontal"
+      end
+
+      if style
+        options[:html] = {} unless options.has_key?(:html)
+        css = options[:html].fetch(:class, '')
+        options[:html][:class] = "#{css} #{style}".lstrip
+      end
 
       temporarily_disable_field_error_proc do
         form_for(object, options, &block)
