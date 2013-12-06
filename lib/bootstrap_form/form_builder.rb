@@ -8,9 +8,6 @@ module BootstrapForm
     delegate :capture, to: :@template
 
     def initialize(object_name, object, template, options, proc=nil)
-      help = options.fetch(:help, nil)
-      @help_class = help.eql?(:block) ? 'help-block' : 'help-inline'
-
       super
     end
 
@@ -97,7 +94,7 @@ module BootstrapForm
 
       help_text = options.delete(:help)
       help_text = object.errors[name].join(', ') if errors_has_name
-      help_html = help_text && content_tag(:span, help_text, class: @help_class) || ""
+      help_html = help_text && content_tag(:span, help_text, class: 'help-block') || ""
 
       content_tag(:div, options) do
         (label_html + html + help_html).html_safe
@@ -105,7 +102,7 @@ module BootstrapForm
     end
 
     def submit(name, options = {})
-      options.merge! class: 'btn btn-default'
+      options.merge! class: 'btn btn-default' unless options.has_key? :class
       super name, options
     end
 

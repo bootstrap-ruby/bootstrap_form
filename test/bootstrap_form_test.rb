@@ -174,9 +174,8 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, append: 'Gmail')
   end
 
-  test "passing :help to a field displays it inline" do
-    skip
-    expected = %{<div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-inline\">This is required</span></div></div>}
+  test "displaying help messages" do
+    expected = %{<div class="form-group"><label for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
   end
 
@@ -282,38 +281,9 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.submit("Submit Form")
   end
 
-  test "primary button contains the correct classes" do
-    skip
-    expected = %{<input class=\"btn btn-primary\" name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.primary('Submit')
-  end
-
-  test "primary button with a disabled state" do
-    skip
-    expected = %{<input class=\"btn btn-primary\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.primary('Submit', data: { disable_with: 'Saving...' })
-  end
-
-  test "secondary button contains the correct classes" do
-    skip
-    expected = %{<input class=\"btn\" name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.secondary('Submit')
-  end
-
-  test "secondary button with a disabled state" do
-    skip
-    expected = %{<input class=\"btn\" data-disable-with="Saving..." name=\"commit\" type=\"submit\" value=\"Submit\" />}
-    assert_equal expected, @builder.secondary('Submit', data: { disable_with: 'Saving...' })
-  end
-
-  test "passing :help :block to the form builder" do
-    skip
-    output = bootstrap_form_for(@user, help: :block) do |f|
-      f.text_field(:email, help: 'This is required')
-    end
-
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\" form-vertical\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"control-group\"><label class=\"control-label\" for=\"user_email\">Email</label><div class=\"controls\"><input id=\"user_email\" name=\"user[email]\" type=\"text\" value=\"steve@example.com\" /><span class=\"help-block\">This is required</span></div></div></form>}
-    assert_equal expected, output
+  test "override submit button classes" do
+    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
+    assert_equal expected, @builder.submit("Submit Form", class: "btn btn-primary")
   end
 
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do
