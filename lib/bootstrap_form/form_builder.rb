@@ -9,7 +9,7 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
-      @left_class = options[:left] || "col-sm-2"
+      @left_class = (options[:left] || "col-sm-2") + " control-label"
       @right_class = options[:right] || "col-sm-10"
       super
     end
@@ -78,9 +78,13 @@ module BootstrapForm
 
       label_options = options.delete(:label)
       label_html = if label_options
-        label_options[:class] = "#{@left_class} control-label".lstrip if @style == :horizontal
+        label_options[:class] = "#{label_options[:class]} #{@left_class}".lstrip if @style == :horizontal
         label(name, label_options[:text], label_options.except(:text))
       end || ""
+
+      if label_html.empty? && @style == :horizontal
+        label_html = content_tag(:label, "", class: @left_class)
+      end
 
       html = capture(&block)
 

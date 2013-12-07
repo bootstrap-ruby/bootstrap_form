@@ -192,10 +192,19 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "form_group creates a valid structure and allows arbitrary html to be added via a block" do
     output = @horizontal_builder.form_group :nil, label: { text: 'Foo' } do
-      content_tag :p, "Bar", class: "form-control-static"
+      %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
     expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_nil">Foo</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    assert_equal expected, output
+  end
+
+  test "form_group adds a spacer when no label exists for a horizontal form" do
+    output = @horizontal_builder.form_group do
+      content_tag :p, "Bar", class: "form-control-static"
+    end
+
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label"></label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
