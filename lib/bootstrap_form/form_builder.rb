@@ -66,7 +66,7 @@ module BootstrapForm
       html = super(name, value, *args) + ' ' + options[:label]
 
       css = 'radio'
-      css << ' inline' if options[:inline]
+      css << '-inline' if options[:inline]
       label("#{name}_#{value}", html, class: css)
     end
 

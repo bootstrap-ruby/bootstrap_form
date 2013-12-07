@@ -131,7 +131,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "radio_button inline label is setted correctly" do
-    expected = %{<label class="radio inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
+    expected = %{<label class="radio-inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
   end
 
