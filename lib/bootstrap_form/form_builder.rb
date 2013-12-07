@@ -48,7 +48,7 @@ module BootstrapForm
       options = options.symbolize_keys!
 
       html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value)
-      html += ' ' + (options[:label] || name.to_s.humanize)
+      html << ' ' + (options[:label] || name.to_s.humanize)
 
       if options[:inline]
         label(name, html, class: "checkbox-inline")
@@ -74,7 +74,7 @@ module BootstrapForm
       errors_has_name = object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
 
       options[:class] ||= 'form-group'
-      options[:class] << ' error' if errors_has_name
+      options[:class] << ' has-error' if errors_has_name
 
       label_options = options.delete(:label)
       label_html = if label_options
@@ -90,7 +90,7 @@ module BootstrapForm
 
       help_text = options.delete(:help)
       help_text = object.errors[name].join(', ') if errors_has_name
-      html += content_tag(:span, help_text, class: 'help-block') if help_text
+      html << content_tag(:span, help_text, class: 'help-block') if help_text
 
       html = content_tag(:div, html, class: @right_class) if @style == :horizontal
 
@@ -106,7 +106,7 @@ module BootstrapForm
 
     def alert_message(title, *args)
       options = args.extract_options!
-      css = options[:class] || 'alert alert-error'
+      css = options[:class] || 'alert alert-danger'
 
       if object.respond_to?(:errors) && object.errors.full_messages.any?
         content_tag :div, title, class: css
