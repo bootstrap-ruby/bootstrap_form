@@ -20,7 +20,7 @@ module BootstrapForm
 
         label = options.delete(:label)
         label_class = options.delete(:label_class)
-        help  = options.delete(:help)
+        help = options.delete(:help)
 
         form_group(name, label: { text: label, class: label_class }, help: help) do
           options[:class] = "form-control #{options[:class]}".rstrip
@@ -80,7 +80,7 @@ module BootstrapForm
       label_html = if label_options
         label_options[:class] = "#{@left_class} control-label".lstrip if @style == :horizontal
         label(name, label_options[:text], label_options.except(:text))
-      end
+      end || ""
 
       html = capture(&block)
 
