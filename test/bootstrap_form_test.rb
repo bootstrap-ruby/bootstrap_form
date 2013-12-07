@@ -5,8 +5,8 @@ class BootstrapFormTest < ActionView::TestCase
 
   def setup
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
-    @builder = BootstrapForm::FormBuilder.new :user, @user, self, {}, nil
-    @horizontal_builder = BootstrapForm::FormBuilder.new :user, @user, self, { style: :horizontal }, nil
+    @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {}, nil)
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { style: :horizontal, left: "col-sm-2", right: "col-sm-10" }, nil)
   end
 
   test "default-style forms" do
@@ -21,7 +21,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "horizontal-style forms" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email, label_class: "col-sm-2", wrap_control: "col-sm-10" }
+    assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email }
   end
 
   test "alert message is wrapped correctly" do
@@ -180,8 +180,8 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help messages for horizontal forms" do
-    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div><span class="help-block">This is required</span></div>}
-    assert_equal expected, @horizontal_builder.text_field(:email, label_class: "col-sm-2", wrap_control: "col-sm-10", help: "This is required")
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div></div>}
+    assert_equal expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
   test "passing other options to a field get passed through" do
@@ -191,7 +191,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "form_group creates a valid structure and allows arbitrary html to be added via a block" do
-    output = @horizontal_builder.form_group :nil, label: { text: 'Foo', class: "col-sm-2" }, wrap_content: "col-sm-10" do
+    output = @horizontal_builder.form_group :nil, label: { text: 'Foo' } do
       content_tag :p, "Bar", class: "form-control-static"
     end
 

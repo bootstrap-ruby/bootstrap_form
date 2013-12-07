@@ -87,15 +87,15 @@ Readers.
 ### Horizontal Forms
 
 To use a horizontal-style form with labels to the left of the inputs,
-use the `style: :horizontal` option. You will need to specify both label and
-control widths.
+use the `style: :horizontal` option. You can specify both `left` and
+`right` css classes as well, which default to `col-sm-2` and `col-sm-10`.
 
 ```erb
-<%= bootstrap_form_for(@user, style: horizontal) do |f| %>
-  <%= f.email_field :email, label_class: "col-sm-2", wrap_control: "col-sm-10" %>
-  <%= f.password_field :password, label_class: "col-sm-2", wrap_control: "col-sm-10" %>
+<%= bootstrap_form_for(@user, style: horizontal, left: "col-sm-2", right: "col-sm-10") do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
 
-  <%= f.form_group nil, wrap_content: "col-sm-offset-2 col-sm-10" do %>
+  <%= f.form_group do %>
     <%= f.submit "Create My Account" %>
   <% end %>
 <% end %>
