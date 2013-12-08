@@ -216,17 +216,6 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
-  test "form_group label's 'for' attribute should be empty if no name was passed" do
-    skip "need to cleanup label code"
-
-    output = @horizontal_builder.form_group nil, label: { text: 'Custom Control' } do
-      %{<p class="form-control-static">Bar</p>}.html_safe
-    end
-
-    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="">Custom Control</label><div class="col-sm-10"><p class=\"form-control-static\">Bar</p></div></div>}
-    assert_equal expected, output
-  end
-
   test 'form_group renders the "error" class and message corrrectly when object is invalid' do
     @user.email = nil
     @user.valid?
