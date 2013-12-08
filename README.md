@@ -182,20 +182,12 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 <% end %>
 ```
 
-### Prepending inputs
+### Prepending and Appending Inputs
 
-You can prepend an input file with the `prepend` option:
-
-```erb
-<%= f.text_field :twitter_username, prepend: "@" %>
-```
-
-### Appending inputs
-
-You can append an input file with the `append` option:
+Pass the `prepend` and/or `append` options to the input field:
 
 ```erb
-<%= f.text_field :amount, append: ".00" %>
+<%= f.text_field :price, prepend: "$", append: ".00" %>
 ```
 
 ### Validation Errors
