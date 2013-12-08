@@ -2,13 +2,13 @@
 
 # BootstrapForm
 
-**BootstrapForm** is a form builder that makes it super easy to integrate
-Twitter Bootstrap-style forms into your Rails App.
+**BootstrapForm** is a rails form builder that makes it super easy to integrate
+Twitter Bootstrap-style forms.
 
 ## Requirements
 
 * Ruby 1.9+
-* Rails 3, 4
+* Rails 3+
 * Twitter Bootstrap 3.0+
 
 ## Installation
@@ -20,16 +20,6 @@ Add it to your Gemfile:
 Then:
 
 `bundle`
-
-### Rails 3
-
-Add this line to app/assets/stylesheets/application.css.scss:
-
-```css
-/*
- *= require bootstrap_form
-*/
-```
 
 ## Usage
 
