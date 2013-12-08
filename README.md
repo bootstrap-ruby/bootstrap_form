@@ -182,7 +182,6 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 <% end %>
 ```
 
-<!--
 ### Prepending inputs
 
 You can prepend an input file with the `prepend` option:
@@ -198,7 +197,6 @@ You can append an input file with the `append` option:
 ```erb
 <%= f.text_field :amount, append: ".00" %>
 ```
--->
 
 ### Validation Errors
 

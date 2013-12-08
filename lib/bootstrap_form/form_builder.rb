@@ -30,14 +30,14 @@ module BootstrapForm
           element = super(name, *args)
 
           if prepend = options.delete(:prepend)
-            element = content_tag(:div, class: 'input-prepend') do
-              content_tag(:span, prepend, class: 'add-on') + element
+            element = content_tag(:div, class: 'input-group') do
+              content_tag(:span, prepend, class: 'input-group-addon') + element
             end
           end
 
           if append = options.delete(:append)
-            element = content_tag(:div, class: 'input-append') do
-              element + content_tag(:span, append, class: 'add-on')
+            element = content_tag(:div, class: 'input-group') do
+              element + content_tag(:span, append, class: 'input-group-addon')
             end
           end
 
