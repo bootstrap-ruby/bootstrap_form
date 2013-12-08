@@ -3,7 +3,7 @@
 # BootstrapForm
 
 **BootstrapForm** is a rails form builder that makes it super easy to integrate
-Twitter Bootstrap-style forms.
+twitter bootstrap-style forms into your rails application.
 
 ## Requirements
 
@@ -62,7 +62,7 @@ will grow to 100% of the available width.
 ### Inline Forms
 
 To use an inline-style form, use the `style: :inline` option. To hide labels,
-use the `hide_label: true` option, which keeps your forms accessible to those
+use the `hide_label: true` option, which keeps your labels accessible to those
 using screen readers.
 
 ```erb
@@ -80,8 +80,8 @@ To use a horizontal-style form with labels to the left of the inputs, use the
 `style: :horizontal` option. You should specify both `left` and `right` css
 classes as well (they default to `col-sm-2` and `col-sm-10`).
 
-To keep the "Remember Me" option and "Log In" button aligned properly, you must
-wrap them both in a `form_group`.
+In the example below, the checkbox and submit button have been wrapped in a
+`form_group` to keep them properly aligned.
 
 ```erb
 <%= bootstrap_form_for(@user, style: :horizontal, left: "col-sm-2", right: "col-sm-10") do |f| %>
@@ -99,12 +99,10 @@ wrap them both in a `form_group`.
 To create a static control in a horizontal form, use the following markup:
 
 ```erb
-<%= bootstrap_form_for(@user, style: :horizontal, left: "col-sm-2", right: "col-sm-10") do |f| %>
-  <%= f.form_group :nil, label: { text: "Foo" } do %>
-    <p class="form-control-static">
-      Bar
-    </p>
-  <% end %>
+<%= f.form_group :nil, label: { text: "Foo" } do %>
+  <p class="form-control-static">
+    Bar
+  </p>
 <% end %>
 ```
 
@@ -117,7 +115,7 @@ Use the `label` option if you want to specify the field's label text:
 ```
 
 To hide a label, use the `hide_label: true` option. This adds the `sr-only`
-class, which keeps your form accessible to those using screen readers.
+class, which keeps your labels accessible to those using screen readers.
 
 ```erb
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
