@@ -192,11 +192,10 @@ Pass the `prepend` and/or `append` options to the input field:
 
 ### Validation Errors
 
-When a validation error is triggered, the field will be outlined and the
-error will be displayed next to the field (or below it if you're using
-block-style help text). Rails normally wraps fields in a div
-(field_with_errors), but this behavior is suppressed when
-`bootstrap_form_for` is used.
+When a validation error is triggered, the field will be outlined and the error
+will be displayed below the field. Rails normally wraps the fields in a div
+(field_with_errors), but this behavior is suppressed when `bootstrap_form_for`
+is used.
 
 To display an error message wrapped in `.alert` and `.alert-danger`
 classes, you can use the `alert_message` helper:
