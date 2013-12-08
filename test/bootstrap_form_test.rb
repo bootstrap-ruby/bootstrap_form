@@ -24,6 +24,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email }
   end
 
+  test "existing styles aren't clobbered when specifying a form style" do
+    expected = %{<form accept-charset="UTF-8" action="/users" class="my-style form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
+    assert_equal expected, bootstrap_form_for(@user, style: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+  end
+
   test "alert message is wrapped correctly" do
     @user.email = nil
     @user.valid?
@@ -140,9 +145,9 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
-  test "adding a class to the label" do
+  test "hiding a label" do
     expected = %{<div class="form-group"><label class="sr-only" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
-    assert_equal expected, @builder.text_field(:email, label_class: "sr-only")
+    assert_equal expected, @builder.text_field(:email, hide_label: true)
   end
 
   test "adding prepend text" do

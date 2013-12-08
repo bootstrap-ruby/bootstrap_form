@@ -1,5 +1,7 @@
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    attr_reader :style, :left_class, :right_class, :has_error
+
     FORM_HELPERS = %w{text_field password_field text_area file_field
                      number_field email_field telephone_field phone_field url_field
                      select collection_select date_select time_select datetime_select}
@@ -9,8 +11,8 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
-      @left_class = (options[:left] || "col-sm-2") + " control-label"
-      @right_class = options[:right] || "col-sm-10"
+      @left_class = (options[:left] || default_left_class) + " control-label"
+      @right_class = options[:right] || default_right_class
       super
     end
 
@@ -19,7 +21,7 @@ module BootstrapForm
         options = args.extract_options!.symbolize_keys!
 
         label = options.delete(:label)
-        label_class = options.delete(:label_class)
+        label_class = hide_class if options.delete(:hide_label)
         help = options.delete(:help)
 
         form_group(name, label: { text: label, class: label_class }, help: help) do
@@ -71,31 +73,15 @@ module BootstrapForm
     end
 
     def form_group(name = nil, options = {}, &block)
-      errors_has_name = object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
-
-      options[:class] ||= 'form-group'
-      options[:class] << ' has-error' if errors_has_name
-
-      label_options = options.delete(:label)
-      label_html = if label_options
-        label_options[:class] = "#{label_options[:class]} #{@left_class}".lstrip if @style == :horizontal
-        label(name, label_options[:text], label_options.except(:text))
-      end || ""
-
-      if label_html.empty? && @style == :horizontal
-        label_html = content_tag(:label, "", class: @left_class)
-      end
+      options[:class] = 'form-group'
+      options[:class] << ' has-error' if has_error?(name)
 
       html = capture(&block)
+      html << generate_help(name, options[:help])
+      html = content_tag(:div, html, class: right_class) if horizontal?
 
-      help_text = options.delete(:help)
-      help_text = object.errors[name].join(', ') if errors_has_name
-      html << content_tag(:span, help_text, class: 'help-block') if help_text
-
-      html = content_tag(:div, html, class: @right_class) if @style == :horizontal
-
-      content_tag(:div, options) do
-        (label_html + html).html_safe
+      content_tag(:div, options.except(:label, :help)) do
+        "#{generate_label(name, options[:label])}#{html}".html_safe
       end
     end
 
@@ -111,6 +97,43 @@ module BootstrapForm
       if object.respond_to?(:errors) && object.errors.full_messages.any?
         content_tag :div, title, class: css
       end
+    end
+
+    private
+
+    def horizontal?
+      style == :horizontal
+    end
+
+    def default_left_class
+      "col-sm-2"
+    end
+
+    def default_right_class
+      "col-sm-10"
+    end
+
+    def hide_class
+      "sr-only" # still accessible for screen readers
+    end
+
+    def has_error?(name)
+      object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+    end
+
+    def generate_label(name, options)
+      if options
+        options[:class] = "#{options[:class]} #{left_class}".lstrip if horizontal?
+        label(name, options[:text], options.except(:text))
+      elsif horizontal?
+        # no label. create an empty one to keep proper form alignment.
+        content_tag(:label, "", class: left_class)
+      end
+    end
+
+    def generate_help(name, help_text)
+      help_text = object.errors[name].join(', ') if has_error?(name)
+      content_tag(:span, help_text, class: 'help-block') if help_text
     end
   end
 end

@@ -11,9 +11,8 @@ module BootstrapForm
       end
 
       if style
-        options[:html] = {} unless options.has_key?(:html)
-        css = options[:html].fetch(:class, '')
-        options[:html][:class] = "#{css} #{style}".lstrip
+        options[:html] ||= {}
+        options[:html][:class] = "#{options[:html][:class]} #{style}".lstrip
       end
 
       temporarily_disable_field_error_proc do
