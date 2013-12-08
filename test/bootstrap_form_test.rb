@@ -160,6 +160,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, append: '.00')
   end
 
+  test "adding both prepend and append text" do
+    expected = %{<div class="form-group"><label for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
+    assert_equal expected, @builder.text_field(:email, prepend: '$', append: '.00')
+  end
+
   test "help messages for default forms" do
     expected = %{<div class="form-group"><label for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')

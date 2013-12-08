@@ -27,21 +27,8 @@ module BootstrapForm
         form_group(name, label: { text: label, class: label_class }, help: help) do
           options[:class] = "form-control #{options[:class]}".rstrip
           args << options.except(:prepend, :append)
-          element = super(name, *args)
-
-          if prepend = options.delete(:prepend)
-            element = content_tag(:div, class: 'input-group') do
-              content_tag(:span, prepend, class: 'input-group-addon') + element
-            end
-          end
-
-          if append = options.delete(:append)
-            element = content_tag(:div, class: 'input-group') do
-              element + content_tag(:span, append, class: 'input-group-addon')
-            end
-          end
-
-          element
+          input = super(name, *args)
+          prepend_and_append_input(input, options[:prepend], options[:append])
         end
       end
     end
@@ -119,6 +106,13 @@ module BootstrapForm
 
     def has_error?(name)
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+    end
+
+    def prepend_and_append_input(input, prepend, append)
+      input = content_tag(:span, prepend, class: 'input-group-addon') + input if prepend
+      input << content_tag(:span, append, class: 'input-group-addon') if append
+      input = content_tag(:div, input, class: 'input-group') if prepend || append
+      input
     end
 
     def generate_label(name, options)
