@@ -189,7 +189,7 @@ You can also create a checkbox using a block:
 ```erb
 <%= f.form_group :terms, label: { text: "Optional Label" } do %>
   <%= f.check_box :terms do %>
-  You need to check this box to accept our terms of service and privacy policy
+    You need to check this box to accept our terms of service and privacy policy
   <% end %>
 <% end %>
 ```
@@ -206,7 +206,7 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 
 ### Prepending and Appending Inputs
 
-Pass the `prepend` and/or `append` options to the input field:
+You can pass `prepend` and/or `append` options to input fields:
 
 ```erb
 <%= f.text_field :price, prepend: "$", append: ".00" %>
@@ -216,14 +216,13 @@ Pass the `prepend` and/or `append` options to the input field:
 
 When a validation error is triggered, the field will be outlined and the error
 will be displayed below the field. Rails normally wraps the fields in a div
-(field_with_errors), but this behavior is suppressed when `bootstrap_form_for`
-is used.
+(field_with_errors), but this behavior is suppressed.
 
 To display an error message wrapped in `.alert` and `.alert-danger`
 classes, you can use the `alert_message` helper:
 
 ```erb
-  <%= f.alert_message "Please fix the errors below." %>
+<%= f.alert_message "Please fix the errors below." %>
 ```
 
 ## Code Triage page
