@@ -27,7 +27,11 @@ module BootstrapForm
         form_group(name, label: { text: label, class: label_class }, help: help) do
           options[:class] = "form-control #{options[:class]}".rstrip
           args << options.except(:prepend, :append)
-          input = super(name, *args)
+          if method_name == "select"
+            input = super(name, *args, { class: options[:class] })
+          else
+            input = super(name, *args)
+          end
           prepend_and_append_input(input, options[:prepend], options[:append])
         end
       end
