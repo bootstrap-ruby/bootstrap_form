@@ -9,7 +9,7 @@ module BootstrapForm
     delegate :content_tag, to: :@template
     delegate :capture, to: :@template
 
-    def initialize(object_name, object, template, options, proc=nil)
+    def initialize(object_name, object, template, options)
       @style = options[:style]
       @left_class = (options[:left] || default_left_class) + " control-label"
       @right_class = options[:right] || default_right_class
