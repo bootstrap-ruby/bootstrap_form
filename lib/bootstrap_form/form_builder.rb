@@ -27,7 +27,7 @@ module BootstrapForm
         form_group(name, label: { text: label, class: label_class }, help: help) do
           options[:class] = "form-control #{options[:class]}".rstrip
           args << options.except(:prepend, :append)
-          if method_name == "select"
+          if method_name == "select" || method_name == "collection_select"
             input = super(name, *args, { class: options[:class] })
           else
             input = super(name, *args)
@@ -41,7 +41,7 @@ module BootstrapForm
       options = options.symbolize_keys!
 
       html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value)
-      html << ' ' + (options[:label] || name.to_s.humanize)
+      html << ' ' + (options[:label] || object.class.human_attribute_name(name) ||name.to_s.humanize)
 
       if options[:inline]
         label(name, html, class: "checkbox-inline")
