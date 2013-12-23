@@ -288,6 +288,32 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "fields_for correctly passes horizontal style from parent builder" do
+    @user.address = Address.new(street: '123 Main Street')
+
+    output = bootstrap_form_for(@user, style: :horizontal, left: 'col-sm-2', right: 'col-sm-10') do |f|
+      f.fields_for :address do |af|
+        af.text_field(:street)
+      end
+    end
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"form-horizontal\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label class=\"col-sm-2 control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"col-sm-10\"><input class=\"form-control\" id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
+    assert_equal expected, output
+  end
+
+  test "fields_for correctly passes inline style from parent builder" do
+    @user.address = Address.new(street: '123 Main Street')
+
+    output = bootstrap_form_for(@user, style: :inline) do |f|
+      f.fields_for :address do |af|
+        af.text_field(:street)
+      end
+    end
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"form-inline\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label for=\"user_address_attributes_street\">Street</label><input class=\"form-control\" id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></form>}
+    assert_equal expected, output
+  end
+
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}, nil
     expected = %{<div class="form-group"><label for="other_model_email">Email</label><input class="form-control" id="other_model_email" name="other_model[email]" type="text" /></div>}
