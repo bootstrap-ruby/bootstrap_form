@@ -73,7 +73,7 @@ module BootstrapForm
       end
     end
 
-    def submit(name, options = {})
+    def submit(name = nil, options = {})
       options.merge! class: 'btn btn-default' unless options.has_key? :class
       super name, options
     end
