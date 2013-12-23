@@ -18,6 +18,7 @@ module BootstrapForm
 
     FORM_HELPERS.each do |method_name|
       define_method(method_name) do |name, *args|
+        normalize_args!(method_name, args)
         options = args.extract_options!.symbolize_keys!
 
         label = options.delete(:label)
@@ -26,13 +27,9 @@ module BootstrapForm
 
         form_group(name, label: { text: label, class: label_class }, help: help) do
           options[:class] = "form-control #{options[:class]}".rstrip
-          if method_name =~ /select/
-            args << options.except(:class)
-            input = super(name, *args, { class: options[:class] })
-          else
-            input = super(name, options.except(:prepend, :append))
-            prepend_and_append_input(input, options[:prepend], options[:append])
-          end
+          args << options.except(:prepend, :append)
+          input = super(name, *args)
+          prepend_and_append_input(input, options[:prepend], options[:append])
         end
       end
     end
@@ -99,6 +96,16 @@ module BootstrapForm
     end
 
     private
+
+    def normalize_args!(method_name, args)
+      if method_name == "select"
+        args << {} while args.length < 3
+      elsif method_name == "collection_select"
+        args << {} while args.length < 5
+      elsif method_name =~ /_select/
+        args << {} while args.length < 2
+      end
+    end
 
     def horizontal?
       style == :horizontal
