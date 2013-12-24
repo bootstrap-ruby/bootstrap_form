@@ -157,7 +157,14 @@ The `btn btn-default` css classes are automatically added to your submit
 buttons.
 
 ```erb
-<%= f.submit "Log In" %>
+<%= f.submit %>
+```
+
+You can also use the `primary` helper, which adds `btn btn-primary` to your
+submit button:
+
+```erb
+<%= f.primary "Optional Label" %>
 ```
 
 You can specify your own classes like this:

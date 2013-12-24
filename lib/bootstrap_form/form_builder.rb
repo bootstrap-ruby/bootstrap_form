@@ -75,7 +75,12 @@ module BootstrapForm
 
     def submit(name = nil, options = {})
       options.merge! class: 'btn btn-default' unless options.has_key? :class
-      super name, options
+      super(name, options)
+    end
+
+    def primary(name = nil, options = {})
+      options.merge! class: 'btn btn-primary'
+      submit(name, options)
     end
 
     def alert_message(title, *args)
@@ -92,7 +97,7 @@ module BootstrapForm
       fields_options[:style] ||= options[:style]
       fields_options[:left] = (fields_options.include?(:left)) ? fields_options[:left] + " control-label" : options[:left]
       fields_options[:right] ||= options[:right]
-      super record_name, record_object, fields_options, &block
+      super(record_name, record_object, fields_options, &block)
     end
 
     private

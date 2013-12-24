@@ -290,6 +290,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "submit button defaults to rails action name" do
+    expected = %{<input class="btn btn-default" name="commit" type="submit" value="Create User" />}
+    assert_equal expected, @builder.submit
+  end
+
   test "submit button uses default button classes" do
     expected = %{<input class="btn btn-default" name="commit" type="submit" value="Submit Form" />}
     assert_equal expected, @builder.submit("Submit Form")
@@ -298,6 +303,11 @@ class BootstrapFormTest < ActionView::TestCase
   test "override submit button classes" do
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equal expected, @builder.submit("Submit Form", class: "btn btn-primary")
+  end
+
+  test "primary button uses proper css classes" do
+    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
+    assert_equal expected, @builder.primary("Submit Form")
   end
 
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do
