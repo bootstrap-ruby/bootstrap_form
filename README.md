@@ -170,7 +170,7 @@ submit button:
 You can specify your own classes like this:
 
 ```erb
-<%= f.submit "Log In", class: "btn btn-primary" %>
+<%= f.submit "Log In", class: "btn btn-success" %>
 ```
 
 ### Checkboxes and Radios
