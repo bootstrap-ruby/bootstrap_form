@@ -118,16 +118,6 @@ In the example below, the checkbox and submit button have been wrapped in a
 <% end %>
 ```
 
-To create a static control in a horizontal form, use the following markup:
-
-```erb
-<%= f.form_group :nil, label: { text: "Foo" } do %>
-  <p class="form-control-static">
-    Bar
-  </p>
-<% end %>
-```
-
 ### Labels
 
 Use the `label` option if you want to specify the field's label text:
@@ -217,6 +207,31 @@ You can pass `prepend` and/or `append` options to input fields:
 
 ```erb
 <%= f.text_field :price, prepend: "$", append: ".00" %>
+```
+
+### Static Controls
+
+You can create a static control like this:
+
+```erb
+<%= f.static_control :email %>
+```
+
+```html
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <p class="form-control-static">test@email.com</p>
+  </div>
+</div>
+```
+
+You can also create a static control that isn't based on a model attribute:
+
+```erb
+<%= f.static_control nil, label: "Custom Static Control" do %>
+  Content Here
+<% end %>
 ```
 
 ### Validation Errors
