@@ -100,6 +100,22 @@ module BootstrapForm
       super(record_name, record_object, fields_options, &block)
     end
 
+    def static_control(name, options = {}, &block)
+      label = options.delete(:label)
+      label_class = hide_class if options.delete(:hide_label)
+      help = options.delete(:help)
+
+      html = if block_given?
+        capture(&block)
+      else
+        object.send(name)
+      end
+
+      form_group(name, label: { text: label, class: label_class }, help: help) do
+        content_tag(:p, html, class: static_class)
+      end
+    end
+
     private
 
     def normalize_args!(method_name, args)
@@ -126,6 +142,10 @@ module BootstrapForm
 
     def hide_class
       "sr-only" # still accessible for screen readers
+    end
+
+    def static_class
+      "form-control-static"
     end
 
     def has_error?(name)

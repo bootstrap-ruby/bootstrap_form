@@ -265,7 +265,23 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Custom Control</label><div class="col-sm-10"><p class=\"form-control-static\">Bar</p></div></div>}
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    assert_equal expected, output
+  end
+
+  test "static control" do
+    output = @horizontal_builder.static_control :email
+
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
+    assert_equal expected, output
+  end
+
+  test "static control doesn't require an actual attribute" do
+    output = @horizontal_builder.static_control nil, label: "My Label" do
+      "this is a test"
+    end
+
+    expected = %{<div class="form-group"><label class="col-sm-2 control-label" for="user_">My Label</label><div class="col-sm-10"><p class="form-control-static">this is a test</p></div></div>}
     assert_equal expected, output
   end
 
@@ -274,7 +290,7 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="foo col-sm-2 control-label" for="bar">Custom Control</label><div class="col-sm-10"><p class=\"form-control-static\">Bar</p></div></div>}
+    expected = %{<div class="form-group"><label class="foo col-sm-2 control-label" for="bar">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
@@ -369,7 +385,7 @@ class BootstrapFormTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"form-horizontal\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label class=\"col-sm-2 control-label\" for=\"user_address_attributes_street\">Street</label><div class=\"col-sm-10\"><input class=\"form-control\" id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="col-sm-2 control-label" for="user_address_attributes_street">Street</label><div class="col-sm-10"><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></div></form>}
     assert_equal expected, output
   end
 
@@ -382,7 +398,7 @@ class BootstrapFormTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"form-inline\" id=\"new_user\" method=\"post\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label for=\"user_address_attributes_street\">Street</label><input class=\"form-control\" id=\"user_address_attributes_street\" name=\"user[address_attributes][street]\" type=\"text\" value=\"123 Main Street\" /></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label for="user_address_attributes_street">Street</label><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
     assert_equal expected, output
   end
 
