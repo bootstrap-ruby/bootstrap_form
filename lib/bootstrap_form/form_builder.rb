@@ -38,7 +38,7 @@ module BootstrapForm
       options = options.symbolize_keys!
 
       html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value)
-      html << ' ' + (options[:label] || name.to_s.humanize)
+      html << ' ' + (options[:label] || object.class.human_attribute_name(name) || name.to_s.humanize)
 
       if options[:inline]
         label(name, html, class: "checkbox-inline")
