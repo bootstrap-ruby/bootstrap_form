@@ -217,6 +217,8 @@ You can create a static control like this:
 <%= f.static_control :email %>
 ```
 
+Here's the output:
+
 ```html
 <div class="form-group">
   <label class="col-sm-2 control-label" for="user_email">Email</label>
