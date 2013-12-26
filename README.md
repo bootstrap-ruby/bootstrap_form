@@ -247,6 +247,11 @@ classes, you can use the `alert_message` helper:
 <%= f.alert_message "Please fix the errors below." %>
 ```
 
+### Internationalization
+
+bootstrap_form follows standard rails conventions so it's i18n-ready. See more
+here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+
 ## Code Triage page
 
 http://www.codetriage.com/potenza/bootstrap_form
