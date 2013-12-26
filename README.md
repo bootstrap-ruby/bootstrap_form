@@ -30,7 +30,7 @@ To get started, just use the **BootstrapForm** form helper. Here's an example:
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me %>
-  <%= f.submit "Log In" %>
+  <%= f.submit %>
 <% end %>
 ```
 
@@ -92,7 +92,7 @@ using screen readers.
   <%= f.email_field :email, hide_label: true %>
   <%= f.password_field :password, hide_label: true %>
   <%= f.check_box :remember_me %>
-  <%= f.submit "Log In" %>
+  <%= f.submit %>
 <% end %>
 ```
 
@@ -113,7 +113,7 @@ In the example below, the checkbox and submit button have been wrapped in a
     <%= f.check_box :remember_me %>
   <% end %>
   <%= f.form_group do %>
-    <%= f.submit "Log In" %>
+    <%= f.submit %>
   <% end %>
 <% end %>
 ```
