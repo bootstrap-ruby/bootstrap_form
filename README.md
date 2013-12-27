@@ -1,8 +1,15 @@
-[![Build Status](https://travis-ci.org/potenza/bootstrap_form.png?branch=master)](https://travis-ci.org/potenza/bootstrap_form) [![Code Climate](https://codeclimate.com/github/potenza/bootstrap_form.png)](https://codeclimate.com/github/potenza/bootstrap_form)
+# Rails Bootstrap Forms
 
-# BootstrapForm
+---
+## WIP
 
-**BootstrapForm** is a rails form builder that makes it super easy to integrate
+We are currently merging the following repositories:
+
+https://github.com/sethvargo/bootstrap_forms
+https://github.com/potenza/bootstrap_form
+---
+
+**Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
 twitter bootstrap-style forms into your rails application.
 
 ## Requirements
@@ -23,7 +30,7 @@ Then:
 
 ## Usage
 
-To get started, just use the **BootstrapForm** form helper. Here's an example:
+To get started, just use the **Rails Bootstrap Forms** form helper. Here's an example:
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
