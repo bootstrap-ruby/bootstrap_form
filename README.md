@@ -1,12 +1,14 @@
 # Rails Bootstrap Forms
 
 ---
+
 ## WIP
 
 We are currently merging the following repositories:
 
-https://github.com/sethvargo/bootstrap_forms
-https://github.com/potenza/bootstrap_form
+- https://github.com/sethvargo/bootstrap_forms
+- https://github.com/potenza/bootstrap_form
+
 ---
 
 **Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
