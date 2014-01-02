@@ -116,6 +116,25 @@ module BootstrapForm
       end
     end
 
+    def radio_buttons_collection(name, collection, value, text, options = {})
+      options.symbolize_keys!
+
+      label = options.delete(:label)
+      label_class = hide_class if options.delete(:hide_label)
+      help = options.delete(:help)
+
+      form_group(name, label: { text: label, class: label_class }, help: help) do
+        inputs = ''
+
+        collection.each do |obj|
+          radio_options = options.merge(label: obj.send(text))
+          inputs << radio_button(name, obj.send(value), radio_options)
+        end
+
+        inputs.html_safe
+      end
+    end
+
     private
 
     def normalize_args!(method_name, args)
