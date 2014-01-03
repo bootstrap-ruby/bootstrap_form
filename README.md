@@ -83,7 +83,9 @@ This gem wraps the following Rails form helpers:
 * time_select
 * datetime_select
 * check_box
+* check_boxes_collection
 * radio_button
+* radio_buttons_collection
 
 ### Default Form Style
 
@@ -209,6 +211,22 @@ To display checkboxes and radios inline, pass the `inline: true` option:
   <%= f.radio_button :skill_level, 2, label: "Advanced", inline: true %>
 <% end %>
 ```
+
+#### Collections
+
+BootstrapForms also provide helpful helpers that automatically creates the
+`form_group` and the `radio_button`s or `check_box`es for you:
+
+```erb
+<%= f.radio_buttons_collection :skill_level, Skill.all, :id, :name %>
+<%= f.check_boxes_collection :skills, Skill.all, :id, :name %>
+```
+
+Collection methods accept these options:
+* `:label`: Customize the `form_group`'s label;
+* `:hide-label`: Pass true to hide the `form_group`'s label;
+* `:help`: Add a help span to the `form_group`;
+* Other options will be forwarded to the `radio_button`/`check_box` method;
 
 ### Prepending and Appending Inputs
 

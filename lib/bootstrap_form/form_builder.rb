@@ -116,6 +116,19 @@ module BootstrapForm
       end
     end
 
+    def radio_buttons_collection(*args)
+      inputs_collection(*args) do |name, value, options|
+        radio_button(name, value, options)
+      end
+    end
+
+    def check_boxes_collection(*args)
+      inputs_collection(*args) do |name, value, options|
+        options[:multiple] = true
+        check_box(name, options, value, nil)
+      end
+    end
+
     private
 
     def normalize_args!(method_name, args)
@@ -172,6 +185,25 @@ module BootstrapForm
     def generate_help(name, help_text)
       help_text = object.errors[name].join(', ') if has_error?(name)
       content_tag(:span, help_text, class: 'help-block') if help_text
+    end
+
+    def inputs_collection(name, collection, value, text, options = {}, &block)
+      options.symbolize_keys!
+
+      label = options.delete(:label)
+      label_class = hide_class if options.delete(:hide_label)
+      help = options.delete(:help)
+
+      form_group(name, label: { text: label, class: label_class }, help: help) do
+        inputs = ''
+
+        collection.each do |obj|
+          input_options = options.merge(label: obj.send(text))
+          inputs << block.call(name, obj.send(value), input_options)
+        end
+
+        inputs.html_safe
+      end
     end
   end
 end
