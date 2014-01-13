@@ -2,6 +2,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :style, :left_class, :right_class, :has_error
 
+    BOOTSTRAP_OPTIONS = [:label, :hide_label, :help, :prepend, :append]
     FORM_HELPERS = %w{text_field password_field text_area file_field
                      number_field email_field telephone_field phone_field url_field
                      select collection_select date_select time_select datetime_select}
@@ -119,6 +120,8 @@ module BootstrapForm
     private
 
     def normalize_args!(method_name, args)
+      return unless method_name =~ /select/
+
       if method_name == "select"
         args << {} while args.length < 3
       elsif method_name == "collection_select"
@@ -126,6 +129,14 @@ module BootstrapForm
       elsif method_name =~ /_select/
         args << {} while args.length < 2
       end
+
+      html_options = args.extract_options!.symbolize_keys!
+      helper_options = args.extract_options!.symbolize_keys!
+
+      # move the bootstrap-specific arguments from the helper_options hash
+      # the html_options hash
+      html_options.merge! helper_options.extract!(*BOOTSTRAP_OPTIONS)
+      args.concat [helper_options, html_options]
     end
 
     def horizontal?
