@@ -1,3 +1,8 @@
-.rails-bootstrap-forms-multiple-selects select {
-  display: inline-block;
+.rails-bootstrap-forms-date-select,
+.rails-bootstrap-forms-time-select,
+.rails-bootstrap-forms-datetime-select {
+  select {
+    display: inline-block;
+    width: 10%; /* for older browsers without nth-child support */
+  }
 }

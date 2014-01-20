@@ -47,7 +47,7 @@ module BootstrapForm
 
         form_group(name, label: { text: label, class: label_class }, help: help) do
           html_options[:class] = "form-control #{html_options[:class]}".rstrip
-          content_tag(:div, super(name, options, html_options), class: multiple_selects_class)
+          content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
         end
       end
     end
@@ -164,8 +164,8 @@ module BootstrapForm
       "form-control-static"
     end
 
-    def multiple_selects_class
-      'rails-bootstrap-forms-multiple-selects'
+    def control_specific_class(method)
+      "rails-bootstrap-forms-#{method.gsub(/_/, '-')}"
     end
 
     def has_error?(name)
