@@ -151,7 +151,7 @@ buttons.
 ```
 
 You can also use the `primary` helper, which adds `btn btn-primary` to your
-submit button **master branch only**:
+submit button **(master branch only)**:
 
 ```erb
 <%= f.primary "Optional Label" %>
@@ -209,7 +209,7 @@ You can pass `prepend` and/or `append` options to input fields:
 <%= f.text_field :price, prepend: "$", append: ".00" %>
 ```
 
-### Static Controls **master branch**
+### Static Controls **(master branch only)**
 
 You can create a static control like this:
 
