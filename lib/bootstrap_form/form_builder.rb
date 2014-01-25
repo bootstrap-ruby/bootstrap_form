@@ -4,7 +4,9 @@ module BootstrapForm
 
     FORM_HELPERS = %w{text_field password_field text_area file_field
                      number_field email_field telephone_field phone_field url_field
-                     select collection_select date_select time_select datetime_select}
+                     select collection_select}
+
+    DATE_HELPERS = %w{date_select time_select datetime_select}
 
     delegate :content_tag, to: :@template
     delegate :capture, to: :@template
@@ -30,6 +32,22 @@ module BootstrapForm
           args << options.except(:prepend, :append)
           input = super(name, *args)
           prepend_and_append_input(input, options[:prepend], options[:append])
+        end
+      end
+    end
+
+    DATE_HELPERS.each do |method_name|
+      define_method(method_name) do |name, options = {}, html_options = {}|
+        options.symbolize_keys!
+        html_options.symbolize_keys!
+
+        label = options.delete(:label)
+        label_class = hide_class if options.delete(:hide_label)
+        help = options.delete(:help)
+
+        form_group(name, label: { text: label, class: label_class }, help: help) do
+          html_options[:class] = "form-control #{html_options[:class]}".rstrip
+          content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
         end
       end
     end
@@ -136,8 +154,6 @@ module BootstrapForm
         args << {} while args.length < 3
       elsif method_name == "collection_select"
         args << {} while args.length < 5
-      elsif method_name =~ /_select/
-        args << {} while args.length < 2
       end
     end
 
@@ -159,6 +175,10 @@ module BootstrapForm
 
     def static_class
       "form-control-static"
+    end
+
+    def control_specific_class(method)
+      "rails-bootstrap-forms-#{method.gsub(/_/, '-')}"
     end
 
     def has_error?(name)
