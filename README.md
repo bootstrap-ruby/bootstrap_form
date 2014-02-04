@@ -298,7 +298,7 @@ unless a model validation has failed.
 ```
 
 You can turn off inline errors with the option `inline_errors: false`. Combine
-this with `alert_message` to display an error message with an error summary.
+this with `alert_message` to display an alert message with an error summary.
 
 ```erb
 <%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
@@ -306,7 +306,7 @@ this with `alert_message` to display an error message with an error summary.
 <% end %>
 ```
 
-If you don't want an error summary, just pass the `error_summary: false` option
+If you don't want an error summary, just send the `error_summary: false` option
 to `alert_message`.
 
 ```erb
@@ -315,7 +315,7 @@ to `alert_message`.
 <% end %>
 ```
 
-To output a simple ordered list of errors, use `error_summary`.
+To output a simple unordered list of errors, use `error_summary`.
 
 ```erb
 <%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
