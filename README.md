@@ -290,10 +290,37 @@ will be displayed below the field. Rails normally wraps the fields in a div
 (field_with_errors), but this behavior is suppressed.
 
 To display an error message wrapped in `.alert` and `.alert-danger`
-classes, you can use the `alert_message` helper:
+classes, you can use the `alert_message` helper. This won't output anything
+unless a model validation has failed.
 
 ```erb
 <%= f.alert_message "Please fix the errors below." %>
+```
+
+You can turn off inline errors with the option `inline_errors: false`. Combine
+this with `alert_message` to display an error message with an error summary.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.alert_message "Please fix the following errors:" %>
+<% end %>
+```
+
+If you don't want an error summary, just pass the `error_summary: false` option
+to `alert_message`.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.alert_message "Please fix the following errors", error_summary: false %>
+<% end %>
+```
+
+To output a simple ordered list of errors, use `error_summary`.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.error_summary %>
+<% end %>
 ```
 
 ### Internationalization
