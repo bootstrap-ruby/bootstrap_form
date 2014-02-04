@@ -12,7 +12,7 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
-      @left_class = (options[:left] || default_left_class) + " control-label"
+      @left_class = options[:left] || default_left_class
       @right_class = options[:right] || default_right_class
       super
     end
@@ -151,6 +151,10 @@ module BootstrapForm
       "col-sm-10"
     end
 
+    def default_label_class
+      "control-label"
+    end
+
     def hide_class
       "sr-only" # still accessible for screen readers
     end
@@ -172,11 +176,12 @@ module BootstrapForm
 
     def generate_label(name, options)
       if options
-        options[:class] = "#{options[:class]} #{left_class}".lstrip if horizontal?
+        options[:class] = "#{options[:class]} #{default_label_class}".lstrip
+        options[:class] << " #{left_class}" if horizontal?
         label(name, options[:text], options.except(:text))
       elsif horizontal?
         # no label. create an empty one to keep proper form alignment.
-        content_tag(:label, "", class: left_class)
+        content_tag(:label, "", class: "#{default_label_class} #{left_class}")
       end
     end
 
