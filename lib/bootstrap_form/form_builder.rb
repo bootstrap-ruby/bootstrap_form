@@ -1,6 +1,6 @@
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    attr_reader :style, :left_class, :right_class, :has_error
+    attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
 
     FORM_HELPERS = %w{text_field password_field text_area file_field
                      number_field email_field telephone_field phone_field url_field
@@ -8,13 +8,13 @@ module BootstrapForm
 
     DATE_HELPERS = %w{date_select time_select datetime_select}
 
-    delegate :content_tag, to: :@template
-    delegate :capture, to: :@template
+    delegate :content_tag, :capture, :concat, to: :@template
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
       @left_class = (options[:left] || default_left_class) + " control-label"
       @right_class = options[:right] || default_right_class
+      @inline_errors = options[:inline_errors] != false
       super
     end
 
@@ -106,7 +106,18 @@ module BootstrapForm
       css = options[:class] || 'alert alert-danger'
 
       if object.respond_to?(:errors) && object.errors.full_messages.any?
-        content_tag :div, title, class: css
+        content_tag :div, class: css do
+          concat content_tag :p, title
+          concat error_summary unless inline_errors || options[:error_summary] == false
+        end
+      end
+    end
+
+    def error_summary
+      content_tag :ul, class: 'rails-bootstrap-forms-error-summary' do
+        object.errors.full_messages.each do |error|
+          concat content_tag(:li, error)
+        end
       end
     end
 
@@ -203,7 +214,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = object.errors[name].join(', ') if has_error?(name)
+      help_text = object.errors[name].join(', ') if has_error?(name) && inline_errors
       content_tag(:span, help_text, class: 'help-block') if help_text
     end
 

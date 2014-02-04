@@ -3,6 +3,9 @@
 .rails-bootstrap-forms-datetime-select {
   select {
     display: inline-block;
-    width: 10%; /* for older browsers without nth-child support */
+    width: 10%;
   }
+}
+.rails-bootstrap-forms-error-summary {
+  margin-top: 10px;
 }
