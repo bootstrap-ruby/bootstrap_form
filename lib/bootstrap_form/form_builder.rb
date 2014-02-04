@@ -35,6 +35,11 @@ module BootstrapForm
       end
     end
 
+    def hidden_field(name, options = {})
+      options = options.symbolize_keys!
+      html = super(name, options)
+    end
+
     def check_box(name, options = {}, checked_value = '1', unchecked_value = '0')
       options = options.symbolize_keys!
 

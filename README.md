@@ -75,6 +75,7 @@ This gem wraps the following Rails form helpers:
 * datetime_select
 * check_box
 * radio_button
+* hidden_field
 
 ### Default Form Style
 
