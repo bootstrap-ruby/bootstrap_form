@@ -51,8 +51,28 @@ class BootstrapFormTest < ActionView::TestCase
       f.alert_message('Please fix the following errors:')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li></ul></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li></ul></div></form>}
     assert_equal expected, output
+  end
+
+  test "alert_message allows the error_summary to be turned off" do
+    @user.email = nil
+    @user.valid?
+
+    output = bootstrap_form_for(@user, inline_errors: false) do |f|
+      f.alert_message('Please fix the following errors:', error_summary: false)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p></div></form>}
+    assert_equal expected, output
+  end
+
+  test "error_summary returns an unordered list of errors" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li></ul>}
+    assert_equal expected, @builder.error_summary
   end
 
   test "text fields are wrapped correctly" do

@@ -106,16 +106,17 @@ module BootstrapForm
       css = options[:class] || 'alert alert-danger'
 
       if object.respond_to?(:errors) && object.errors.full_messages.any?
-        errors = unless inline_errors
-          content_tag :ul, class: 'rails-bootstrap-forms-error-summary' do
-            object.errors.full_messages.each do |error|
-              concat content_tag(:li, error)
-            end
-          end
-        end
         content_tag :div, class: css do
           concat content_tag :p, title
-          concat errors
+          concat error_summary unless inline_errors || options[:error_summary] == false
+        end
+      end
+    end
+
+    def error_summary
+      content_tag :ul, class: 'rails-bootstrap-forms-error-summary' do
+        object.errors.full_messages.each do |error|
+          concat content_tag(:li, error)
         end
       end
     end
