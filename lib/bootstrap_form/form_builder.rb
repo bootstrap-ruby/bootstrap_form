@@ -1,10 +1,11 @@
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    include BootstrapForm::BootstrapHelpers
+
     attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
 
     FORM_HELPERS = %w{text_field password_field text_area file_field
-                     number_field email_field telephone_field phone_field url_field
-                     select collection_select}
+                     number_field email_field telephone_field phone_field url_field}
 
     DATE_HELPERS = %w{date_select time_select datetime_select}
 
@@ -12,43 +13,39 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
-      @left_class = (options[:left] || default_left_class) + " control-label"
+      @left_class = (options[:left] || default_left_class) + " #{label_class}"
       @right_class = options[:right] || default_right_class
       @inline_errors = options[:inline_errors] != false
       super
     end
 
     FORM_HELPERS.each do |method_name|
-      define_method(method_name) do |name, *args|
-        normalize_args!(method_name, args)
-        options = args.extract_options!.symbolize_keys!
-
-        label = options.delete(:label)
-        label_class = hide_class if options.delete(:hide_label)
-        help = options.delete(:help)
-
-        form_group(name, label: { text: label, class: label_class }, help: help) do
-          options[:class] = "form-control #{options[:class]}".rstrip
-          args << options.except(:prepend, :append)
-          input = super(name, *args)
-          prepend_and_append_input(input, options[:prepend], options[:append])
+      define_method(method_name) do |name, options = {}|
+        form_group_builder(name, options) do
+          prepend_and_append_input(options) do
+            super(name, options)
+          end
         end
       end
     end
 
     DATE_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}, html_options = {}|
-        options.symbolize_keys!
-        html_options.symbolize_keys!
-
-        label = options.delete(:label)
-        label_class = hide_class if options.delete(:hide_label)
-        help = options.delete(:help)
-
-        form_group(name, label: { text: label, class: label_class }, help: help) do
-          html_options[:class] = "form-control #{html_options[:class]}".rstrip
+        form_group_builder(name, options, html_options) do
           content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
         end
+      end
+    end
+
+    def select(method, choices, options = {}, html_options = {})
+      form_group_builder(method, options, html_options) do
+        super(method, choices, options, html_options)
+      end
+    end
+
+    def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
+      form_group_builder(method, options, html_options) do
+        super(method, collection, value_method, text_method, options, html_options)
       end
     end
 
@@ -78,6 +75,19 @@ module BootstrapForm
       label("#{name}_#{value}", html, class: css)
     end
 
+    def check_boxes_collection(*args)
+      inputs_collection(*args) do |name, value, options|
+        options[:multiple] = true
+        check_box(name, options, value, nil)
+      end
+    end
+
+    def radio_buttons_collection(*args)
+      inputs_collection(*args) do |name, value, options|
+        radio_button(name, value, options)
+      end
+    end
+
     def form_group(name = nil, options = {}, &block)
       options[:class] = 'form-group'
       options[:class] << ' has-error' if has_error?(name)
@@ -91,82 +101,15 @@ module BootstrapForm
       end
     end
 
-    def submit(name = nil, options = {})
-      options.merge! class: 'btn btn-default' unless options.has_key? :class
-      super(name, options)
-    end
-
-    def primary(name = nil, options = {})
-      options.merge! class: 'btn btn-primary'
-      submit(name, options)
-    end
-
-    def alert_message(title, *args)
-      options = args.extract_options!
-      css = options[:class] || 'alert alert-danger'
-
-      if object.respond_to?(:errors) && object.errors.full_messages.any?
-        content_tag :div, class: css do
-          concat content_tag :p, title
-          concat error_summary unless inline_errors || options[:error_summary] == false
-        end
-      end
-    end
-
-    def error_summary
-      content_tag :ul, class: 'rails-bootstrap-forms-error-summary' do
-        object.errors.full_messages.each do |error|
-          concat content_tag(:li, error)
-        end
-      end
-    end
-
     def fields_for(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_options[:style] ||= options[:style]
-      fields_options[:left] = (fields_options.include?(:left)) ? fields_options[:left] + " control-label" : options[:left]
+      fields_options[:left] = (fields_options.include?(:left)) ? fields_options[:left] + " #{label_class}" : options[:left]
       fields_options[:right] ||= options[:right]
       super(record_name, record_object, fields_options, &block)
     end
 
-    def static_control(name, options = {}, &block)
-      label = options.delete(:label)
-      label_class = hide_class if options.delete(:hide_label)
-      help = options.delete(:help)
-
-      html = if block_given?
-        capture(&block)
-      else
-        object.send(name)
-      end
-
-      form_group(name, label: { text: label, class: label_class }, help: help) do
-        content_tag(:p, html, class: static_class)
-      end
-    end
-
-    def radio_buttons_collection(*args)
-      inputs_collection(*args) do |name, value, options|
-        radio_button(name, value, options)
-      end
-    end
-
-    def check_boxes_collection(*args)
-      inputs_collection(*args) do |name, value, options|
-        options[:multiple] = true
-        check_box(name, options, value, nil)
-      end
-    end
-
     private
-
-    def normalize_args!(method_name, args)
-      if method_name == "select"
-        args << {} while args.length < 3
-      elsif method_name == "collection_select"
-        args << {} while args.length < 5
-      end
-    end
 
     def horizontal?
       style == :horizontal
@@ -184,8 +127,12 @@ module BootstrapForm
       "sr-only" # still accessible for screen readers
     end
 
-    def static_class
-      "form-control-static"
+    def control_class
+      "form-control"
+    end
+
+    def label_class
+      "control-label"
     end
 
     def control_specific_class(method)
@@ -196,11 +143,27 @@ module BootstrapForm
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
     end
 
-    def prepend_and_append_input(input, prepend, append)
-      input = content_tag(:span, prepend, class: 'input-group-addon') + input if prepend
-      input << content_tag(:span, append, class: 'input-group-addon') if append
-      input = content_tag(:div, input, class: 'input-group') if prepend || append
-      input
+    def form_group_builder(method, options, html_options = nil)
+      prepare_rails_options!(options, html_options)
+
+      label = options.delete(:label)
+      label_class = hide_class if options.delete(:hide_label)
+      help = options.delete(:help)
+
+      form_group(method, label: { text: label, class: label_class }, help: help) do
+        yield
+      end
+    end
+
+    def prepare_rails_options!(options, html_options = nil)
+      options.symbolize_keys!
+      html_options.symbolize_keys! if html_options
+
+      if html_options
+        html_options[:class] = "#{control_class} #{html_options[:class]}".rstrip
+      else
+        options[:class] = "#{control_class} #{options[:class]}".rstrip
+      end
     end
 
     def generate_label(name, options)
@@ -219,17 +182,12 @@ module BootstrapForm
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)
-      options.symbolize_keys!
-
-      label = options.delete(:label)
-      label_class = hide_class if options.delete(:hide_label)
-      help = options.delete(:help)
-
-      form_group(name, label: { text: label, class: label_class }, help: help) do
+      form_group_builder(name, options) do
         inputs = ''
 
         collection.each do |obj|
           input_options = options.merge(label: obj.send(text))
+          input_options.delete(:class)
           inputs << block.call(name, obj.send(value), input_options)
         end
 
