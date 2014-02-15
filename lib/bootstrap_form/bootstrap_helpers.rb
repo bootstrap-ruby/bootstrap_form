@@ -42,14 +42,12 @@ module BootstrapForm
     end
 
     def prepend_and_append_input(options, &block)
-      bf_options = options.extract!(:prepend, :append)
-      prepend = bf_options[:prepend]
-      append = bf_options[:append]
+      options = options.extract!(:prepend, :append)
       input = capture(&block)
 
-      input = content_tag(:span, prepend, class: 'input-group-addon') + input if prepend
-      input << content_tag(:span, append, class: 'input-group-addon') if append
-      input = content_tag(:div, input, class: 'input-group') if prepend || append
+      input = content_tag(:span, options[:prepend], class: 'input-group-addon') + input if options[:prepend]
+      input << content_tag(:span, options[:append], class: 'input-group-addon') if options[:append]
+      input = content_tag(:div, input, class: 'input-group') if options[:prepend] || options[:append]
       input
     end
 
