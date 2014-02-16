@@ -131,6 +131,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
   end
 
+  test "selects render labels properly" do
+    expected = %{<div class="form-group"><label for="user_status">User Status</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "User Status")
+  end
+
   test "collection_selects are wrapped correctly" do
     expected = %{<div class="form-group"><label for="user_status">Status</label><select class="form-control" id="user_status" name="user[status]"></select></div>}
     assert_equal expected, @builder.collection_select(:status, [], :id, :name)

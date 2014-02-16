@@ -1,3 +1,4 @@
+require 'bootstrap_form/bootstrap_helpers'
 require 'bootstrap_form/form_builder'
 require 'bootstrap_form/helper'
 
