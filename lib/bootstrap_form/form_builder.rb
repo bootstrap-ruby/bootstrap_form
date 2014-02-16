@@ -144,18 +144,6 @@ module BootstrapForm
     end
 
     def form_group_builder(method, options, html_options = nil)
-      prepare_rails_options!(options, html_options)
-
-      label = options.delete(:label)
-      label_class = hide_class if options.delete(:hide_label)
-      help = options.delete(:help)
-
-      form_group(method, label: { text: label, class: label_class }, help: help) do
-        yield
-      end
-    end
-
-    def prepare_rails_options!(options, html_options = nil)
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
 
@@ -163,6 +151,14 @@ module BootstrapForm
         html_options[:class] = "#{control_class} #{html_options[:class]}".rstrip
       else
         options[:class] = "#{control_class} #{options[:class]}".rstrip
+      end
+
+      label = options.delete(:label)
+      label_class = hide_class if options.delete(:hide_label)
+      help = options.delete(:help)
+
+      form_group(method, label: { text: label, class: label_class }, help: help) do
+        yield
       end
     end
 
