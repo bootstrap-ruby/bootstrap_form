@@ -1,8 +1,8 @@
+[![Build Status](https://travis-ci.org/potenza/bootstrap_form.png)](https://travis-ci.org/potenza/bootstrap_form) [![Code Climate](https://codeclimate.com/github/potenza/bootstrap_form.png)](https://codeclimate.com/github/potenza/bootstrap_form)
+
 # Rails Bootstrap Forms
 
 ---
-
-## WIP
 
 We are currently merging the following repositories:
 
