@@ -1,8 +1,17 @@
-[![Build Status](https://travis-ci.org/potenza/bootstrap_form.png?branch=master)](https://travis-ci.org/potenza/bootstrap_form) [![Code Climate](https://codeclimate.com/github/potenza/bootstrap_form.png)](https://codeclimate.com/github/potenza/bootstrap_form)
+# Rails Bootstrap Forms
 
-# BootstrapForm
+---
 
-**BootstrapForm** is a rails form builder that makes it super easy to integrate
+## WIP
+
+We are currently merging the following repositories:
+
+- https://github.com/sethvargo/bootstrap_forms
+- https://github.com/potenza/bootstrap_form
+
+---
+
+**Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
 twitter bootstrap-style forms into your rails application.
 
 ## Requirements
@@ -21,9 +30,13 @@ Then:
 
 `bundle`
 
+Then require the CSS on your `application.css` file:
+
+`//= require rails_bootstrap_forms`
+
 ## Usage
 
-To get started, just use the **BootstrapForm** form helper. Here's an example:
+To get started, just use the **Rails Bootstrap Forms** form helper. Here's an example:
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
@@ -74,7 +87,9 @@ This gem wraps the following Rails form helpers:
 * time_select
 * datetime_select
 * check_box
+* check_boxes_collection
 * radio_button
+* radio_buttons_collection
 
 ### Default Form Style
 
@@ -201,6 +216,22 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 <% end %>
 ```
 
+#### Collections
+
+BootstrapForms also provide helpful helpers that automatically creates the
+`form_group` and the `radio_button`s or `check_box`es for you:
+
+```erb
+<%= f.radio_buttons_collection :skill_level, Skill.all, :id, :name %>
+<%= f.check_boxes_collection :skills, Skill.all, :id, :name %>
+```
+
+Collection methods accept these options:
+* `:label`: Customize the `form_group`'s label;
+* `:hide-label`: Pass true to hide the `form_group`'s label;
+* `:help`: Add a help span to the `form_group`;
+* Other options will be forwarded to the `radio_button`/`check_box` method;
+
 ### Prepending and Appending Inputs
 
 You can pass `prepend` and/or `append` options to input fields:
@@ -236,6 +267,22 @@ You can also create a static control that isn't based on a model attribute:
 <% end %>
 ```
 
+### Date helpers
+
+The multiple selects that the date and time helpers (`date_select`, 
+`time_select`, `datetime_select`) generate are wrapped inside a
+`div.rails-bootstrap-forms-multiple-selects` tag. This is because Boostrap
+automatically stylizes ours controls as `block`s. This wrapper fix this defining
+these selects as `inline-block`s.
+
+```erb
+<%= f.date_select :birthdate, { label: 'Your day' }, { style: 'width: 10%' } %>
+```
+
+Note that in the example above we passed `width: 10%` to be the style of the 
+generated selects. This is necessary because even the elements being 
+`inline-block`s they must have a width which enable them to stay side by side.
+
 ### Validation Errors
 
 When a validation error is triggered, the field will be outlined and the error
@@ -243,10 +290,37 @@ will be displayed below the field. Rails normally wraps the fields in a div
 (field_with_errors), but this behavior is suppressed.
 
 To display an error message wrapped in `.alert` and `.alert-danger`
-classes, you can use the `alert_message` helper:
+classes, you can use the `alert_message` helper. This won't output anything
+unless a model validation has failed.
 
 ```erb
 <%= f.alert_message "Please fix the errors below." %>
+```
+
+You can turn off inline errors with the option `inline_errors: false`. Combine
+this with `alert_message` to display an alert message with an error summary.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.alert_message "Please fix the following errors:" %>
+<% end %>
+```
+
+If you don't want an error summary, just send the `error_summary: false` option
+to `alert_message`.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.alert_message "Please fix the following errors", error_summary: false %>
+<% end %>
+```
+
+To output a simple unordered list of errors, use `error_summary`.
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  <%= f.error_summary %>
+<% end %>
 ```
 
 ### Internationalization
