@@ -338,4 +338,4 @@ https://github.com/potenza/bootstrap_form/graphs/contributors
 
 ## License
 
-MIT License. Copyright 2012-2013 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2014 Stephen Potenza (https://github.com/potenza)
