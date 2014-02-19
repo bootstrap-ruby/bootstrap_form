@@ -228,7 +228,7 @@ BootstrapForms also provide helpful helpers that automatically creates the
 
 Collection methods accept these options:
 * `:label`: Customize the `form_group`'s label;
-* `:hide-label`: Pass true to hide the `form_group`'s label;
+* `:hide_label`: Pass true to hide the `form_group`'s label;
 * `:help`: Add a help span to the `form_group`;
 * Other options will be forwarded to the `radio_button`/`check_box` method;
 
@@ -269,18 +269,18 @@ You can also create a static control that isn't based on a model attribute:
 
 ### Date helpers
 
-The multiple selects that the date and time helpers (`date_select`, 
+The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
-`div.rails-bootstrap-forms-multiple-selects` tag. This is because Boostrap
-automatically stylizes ours controls as `block`s. This wrapper fix this defining
-these selects as `inline-block`s.
+`div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
+Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
+this defining these selects as `inline-block`s.
 
 ```erb
 <%= f.date_select :birthdate, { label: 'Your day' }, { style: 'width: 10%' } %>
 ```
 
-Note that in the example above we passed `width: 10%` to be the style of the 
-generated selects. This is necessary because even the elements being 
+Note that in the example above we passed `width: 10%` to be the style of the
+generated selects. This is necessary because even the elements being
 `inline-block`s they must have a width which enable them to stay side by side.
 
 ### Validation Errors
