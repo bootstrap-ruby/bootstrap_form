@@ -285,15 +285,7 @@ The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-multiple-selects` tag. This is because Boostrap
 automatically stylizes ours controls as `block`s. This wrapper fix this defining
-these selects as `inline-block`s.
-
-```erb
-<%= f.date_select :birthdate, { label: 'Your day' }, { style: 'width: 10%' } %>
-```
-
-Note that in the example above we passed `width: 10%` to be the style of the
-generated selects. This is necessary because even the elements being
-`inline-block`s they must have a width which enable them to stay side by side.
+these selects as `inline-block` and a width of `auto`.
 
 ### Validation Errors
 
