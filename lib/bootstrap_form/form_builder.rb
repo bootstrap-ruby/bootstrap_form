@@ -94,11 +94,11 @@ module BootstrapForm
 
       html = capture(&block)
       html << generate_help(name, options[:help])
-      html = content_tag(:div, html, class: "#{options[:specific_right_class] || right_class}") if horizontal?
+      html = content_tag(:div, html, class: "#{options[:right] || right_class}") if horizontal?
 
-      content_tag(:div, options.except(:label, :help, :specific_left_class, :specific_right_class)) do
+      content_tag(:div, options.except(:label, :help, :left, :right)) do
         label_configuration_options = {
-          specific_left_class: options[:specific_left_class]
+          left: options[:left]
         }
         "#{generate_label(name, options[:label], label_configuration_options)}#{html}".html_safe
       end
@@ -163,10 +163,10 @@ module BootstrapForm
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       help = options.delete(:help)
-      specific_left_class = options.delete(:left)
-      specific_right_class = options.delete(:right)
+      left = options.delete(:left)
+      right = options.delete(:right)
 
-      form_group(method, label: { text: label, class: label_class }, help: help, specific_left_class: specific_left_class, specific_right_class: specific_right_class) do
+      form_group(method, label: { text: label, class: label_class }, help: help, left: left, right: right) do
         yield
       end
     end
@@ -174,7 +174,7 @@ module BootstrapForm
     def generate_label(name, options, configuration_options = nil)
       if options
         options[:class] = "#{options[:class]} #{label_class}".lstrip
-        options[:class] << " #{configuration_options[:specific_left_class] || left_class}" if horizontal?
+        options[:class] << " #{configuration_options[:left] || left_class}" if horizontal?
         label(name, options[:text], options.except(:text))
       elsif horizontal?
         # no label. create an empty one to keep proper form alignment.
