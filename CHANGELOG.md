@@ -1,0 +1,22 @@
+## 2.1.0
+
+Moved GitHub repository from https://github.com/potenza/bootstrap_form
+to https://github.com/bootstrap-ruby/rails-bootstrap-forms
+
+Bugfixes:
+
+  - selects & collection selects were dropping label options
+  - control-label class was not being added unless the form was horizontal (@slave2zeros)
+  - Wrapped date & time helpers inside control-specific css classes to prevent stacking
+  - i18n fix for checkbox labels (@i10a)
+
+Features:
+
+  - inline_errors can be turned off: bootstrap_form_for(obj, inline_errors: false)
+    When inline errors are off, FormBuilder#alert_message contains the error summary.
+    This can also be turned off with the option 'error_summary: false'
+  - Added a FormBuilder#error_summary helper method
+  - Added support for radio_buttons_collection and check_boxes_collection
+  - Added a FormBuilder#static_control helper
+  - Added the FormBuilder#primary helper back in
+  - Make name optional in FormBuilder#submit (@adrpac)
