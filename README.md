@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/potenza/bootstrap_form.png)](https://travis-ci.org/potenza/bootstrap_form) [![Code Climate](https://codeclimate.com/github/potenza/bootstrap_form.png)](https://codeclimate.com/github/potenza/bootstrap_form)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.png)](https://codeclimate.com/github/bootstrap-ruby/rails-bootstrap-forms) [![Code Climate](https://codeclimate.com/github/bootstrap-ruby/rails-bootstrap-forms.png)](https://codeclimate.com/github/bootstrap-ruby/rails-bootstrap-forms)
 
 # Rails Bootstrap Forms
 
