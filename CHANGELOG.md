@@ -5,6 +5,7 @@ to https://github.com/bootstrap-ruby/rails-bootstrap-forms
 
 Bugfixes:
 
+  - allow html content in check_box tag label (@desheikh)
   - selects & collection selects were dropping label options
   - control-label class was not being added unless the form was horizontal (@slave2zeros)
   - Wrapped date & time helpers inside control-specific css classes to prevent stacking
