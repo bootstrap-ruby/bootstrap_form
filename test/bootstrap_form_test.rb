@@ -101,7 +101,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "file fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="file" /></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input id="user_misc" name="user[misc]" type="file" /></div>}
     assert_equal expected, @builder.file_field(:misc)
   end
 

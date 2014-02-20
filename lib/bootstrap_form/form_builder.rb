@@ -5,7 +5,7 @@ module BootstrapForm
     attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
-      email_field file_field month_field number_field password_field phone_field
+      email_field month_field number_field password_field phone_field
       range_field search_field telephone_field text_area text_field time_field
       url_field week_field}
 
@@ -36,6 +36,12 @@ module BootstrapForm
         form_group_builder(name, options, html_options) do
           content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
         end
+      end
+    end
+
+    def file_field(name, options = {})
+      form_group_builder(name, options.reverse_merge(control_class: nil)) do
+        super(name, options)
       end
     end
 
@@ -154,11 +160,10 @@ module BootstrapForm
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
 
-      if html_options
-        html_options[:class] = "#{control_class} #{html_options[:class]}".rstrip
-      else
-        options[:class] = "#{control_class} #{options[:class]}".rstrip
-      end
+      # Add control_class; allow it to be overridden by :control_class option
+      css_options = html_options || options
+      control = css_options.delete(:control_class) { control_class }
+      css_options[:class] = [control, css_options[:class]].compact.join(" ")
 
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)

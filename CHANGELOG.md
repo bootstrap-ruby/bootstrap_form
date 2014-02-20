@@ -11,6 +11,7 @@ Bugfixes:
   - control-label class was not being added unless the form was horizontal (@slave2zeros)
   - Wrapped date & time helpers inside control-specific css classes to prevent stacking
   - i18n fix for checkbox labels (@i10a)
+  - omit form-control class from file_field (@mbrictson)
 
 Features:
 
@@ -24,3 +25,4 @@ Features:
   - Added a FormBuilder#static_control helper
   - Added the FormBuilder#primary helper back in
   - Make name optional in FormBuilder#submit (@adrpac)
+  - The control_class can be overridden per field by passing in the :control_class option. Default value is "form-control".
