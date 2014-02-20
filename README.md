@@ -144,6 +144,18 @@ In the example below, the checkbox and submit button have been wrapped in a
 <% end %>
 ```
 
+The `left` and `right` css classes can also be added to a single field.
+
+```erb
+<%= bootstrap_form_for(@user, style: :horizontal) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.text_field :age, right: "col-sm-3" %>
+  <%= f.form_group do %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+```
+
 ### Labels
 
 Use the `label` option if you want to specify the field's label text:
@@ -284,15 +296,7 @@ The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
 Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
-this defining these selects as `inline-block`s.
-
-```erb
-<%= f.date_select :birthdate, { label: 'Your day' }, { style: 'width: 10%' } %>
-```
-
-Note that in the example above we passed `width: 10%` to be the style of the
-generated selects. This is necessary because even the elements being
-`inline-block`s they must have a width which enable them to stay side by side.
+this defining these selects as `inline-block` and a width of `auto`.
 
 ### Validation Errors
 
