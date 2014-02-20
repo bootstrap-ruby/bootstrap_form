@@ -73,23 +73,34 @@ This generates the following HTML:
 
 This gem wraps the following Rails form helpers:
 
-* text_field
-* password_field
-* text_area
-* file_field
-* number_field
-* email_field
-* telephone_field / phone_field
-* url_field
-* select
-* collection_select
-* date_select
-* time_select
-* datetime_select
 * check_box
 * check_boxes_collection
+* collection_select
+* color_field
+* date_field
+* date_select
+* datetime_field
+* datetime_local_field
+* datetime_select
+* email_field
+* file_field
+* hidden_field (not wrapped, but supported)
+* month_field
+* number_field
+* password_field
+* phone_field
 * radio_button
 * radio_buttons_collection
+* range_field
+* search_field
+* select
+* telephone_field
+* text_area
+* text_field
+* time_field
+* time_select
+* url_field
+* week_field
 
 ### Default Form Style
 

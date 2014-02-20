@@ -4,10 +4,12 @@ module BootstrapForm
 
     attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
 
-    FORM_HELPERS = %w{text_field password_field text_area file_field number_field
-      email_field telephone_field phone_field url_field search_field}
+    FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
+      email_field file_field month_field number_field password_field phone_field
+      range_field search_field telephone_field text_area text_field time_field
+      url_field week_field}
 
-    DATE_HELPERS = %w{date_select time_select datetime_select}
+    DATE_SELECT_HELPERS = %w{date_select time_select datetime_select}
 
     delegate :content_tag, :capture, :concat, to: :@template
 
@@ -19,7 +21,7 @@ module BootstrapForm
       super
     end
 
-    FORM_HELPERS.each do |method_name|
+    FIELD_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}|
         form_group_builder(name, options) do
           prepend_and_append_input(options) do
@@ -29,7 +31,7 @@ module BootstrapForm
       end
     end
 
-    DATE_HELPERS.each do |method_name|
+    DATE_SELECT_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
           content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))

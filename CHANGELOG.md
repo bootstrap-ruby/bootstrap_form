@@ -13,7 +13,8 @@ Bugfixes:
 
 Features:
 
-  - Added search_field support (#42)
+  - Added support for: color_field, date_field, datetime_field, datetime_local_field,
+    month_field, range_field, search_field (#42), time_field, week_field
   - inline_errors can be turned off: bootstrap_form_for(obj, inline_errors: false)
     When inline errors are off, FormBuilder#alert_message contains the error summary.
     This can also be turned off with the option 'error_summary: false'
