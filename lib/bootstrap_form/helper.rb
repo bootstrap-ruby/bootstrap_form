@@ -1,7 +1,11 @@
+require_relative 'helpers/nested_form'
+
 module BootstrapForm
   module Helper
+    include ::BootstrapForm::Helpers::NestedForm
+
     def bootstrap_form_for(object, options = {}, &block)
-      options[:builder] = BootstrapForm::FormBuilder
+      options.reverse_merge!({builder: BootstrapForm::FormBuilder})
 
       layout = case options[:layout]
         when :inline
