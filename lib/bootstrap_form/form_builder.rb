@@ -1,6 +1,8 @@
+require_relative 'helpers/bootstrap'
+
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    include BootstrapForm::BootstrapHelpers
+    include BootstrapForm::Helpers::Bootstrap
 
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
 
