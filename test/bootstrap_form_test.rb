@@ -279,6 +279,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:misc, label: %{This is a <a href="#">checkbox</a>}.html_safe)
   end
 
+  test "check_box accepts a block to define the label" do
+    expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> This is a checkbox</label></div>}
+    assert_equal expected, @builder.check_box(:misc) { "This is a checkbox" }
+  end
+
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="no" /><input id="user_misc" name="user[misc]" type="checkbox" value="yes" /> This is a checkbox</label></div>}
     assert_equal expected, @builder.check_box(:misc, {label: 'This is a checkbox'}, 'yes', 'no')
@@ -558,5 +563,4 @@ class BootstrapFormTest < ActionView::TestCase
 
     assert_equal expected, @builder.check_boxes_collection(:misc, collection, :id, :street, inline: true)
   end
-
 end
