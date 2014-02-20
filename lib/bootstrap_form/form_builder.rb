@@ -4,8 +4,8 @@ module BootstrapForm
 
     attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
 
-    FORM_HELPERS = %w{text_field password_field text_area file_field
-                     number_field email_field telephone_field phone_field url_field}
+    FORM_HELPERS = %w{text_field password_field text_area file_field number_field
+      email_field telephone_field phone_field url_field search_field}
 
     DATE_HELPERS = %w{date_select time_select datetime_select}
 

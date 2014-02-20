@@ -116,6 +116,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.url_field(:misc)
   end
 
+  test "search fields are wrapped correctly" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /></div>}
+    assert_equal expected, @builder.search_field(:misc)
+  end
+
   test "selects are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]])
