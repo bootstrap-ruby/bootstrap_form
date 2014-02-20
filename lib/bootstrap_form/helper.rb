@@ -12,7 +12,7 @@ module BootstrapForm
 
       if style
         options[:html] ||= {}
-        options[:html][:class] = "#{options[:html][:class]} #{style}".lstrip
+        options[:html][:class] = [options[:html][:class], style].compact.join(" ")
       end
 
       temporarily_disable_field_error_proc do
