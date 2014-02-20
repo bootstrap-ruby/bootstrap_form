@@ -11,6 +11,7 @@ Bugfixes:
   - control-label class was not being added unless the form was horizontal (@slave2zeros)
   - Wrapped date & time helpers inside control-specific css classes to prevent stacking
   - i18n fix for checkbox labels (@i10a)
+  - omit form-control class from file_field (@mbrictson)
 
 Features:
 

@@ -9,6 +9,8 @@ module BootstrapForm
       range_field search_field telephone_field text_area text_field time_field
       url_field week_field}
 
+    FIELDS_WITHOUT_CONTROL_CLASS = %{file_field}
+
     DATE_SELECT_HELPERS = %w{date_select time_select datetime_select}
 
     delegate :content_tag, :capture, :concat, to: :@template
@@ -23,6 +25,9 @@ module BootstrapForm
 
     FIELD_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}|
+        if FIELDS_WITHOUT_CONTROL_CLASS.include?(method_name)
+          options.reverse_merge!(:omit_control_class => true)
+        end
         form_group_builder(name, options) do
           prepend_and_append_input(options) do
             super(name, options)
@@ -154,10 +159,12 @@ module BootstrapForm
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
 
-      if html_options
-        html_options[:class] = "#{control_class} #{html_options[:class]}".rstrip
-      else
-        options[:class] = "#{control_class} #{options[:class]}".rstrip
+      unless options.delete(:omit_control_class)
+        if html_options
+          html_options[:class] = "#{control_class} #{html_options[:class]}".rstrip
+        else
+          options[:class] = "#{control_class} #{options[:class]}".rstrip
+        end
       end
 
       label = options.delete(:label)
