@@ -25,3 +25,4 @@ Features:
   - Added a FormBuilder#static_control helper
   - Added the FormBuilder#primary helper back in
   - Make name optional in FormBuilder#submit (@adrpac)
+  - The control_class can be overridden per field by passing in the :control_class option. Default value is "form-control".
