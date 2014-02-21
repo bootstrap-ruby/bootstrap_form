@@ -57,12 +57,12 @@ module BootstrapForm
       end
     end
 
-    def check_box(name, options = {}, checked_value = '1', unchecked_value = '0', &block)
+    def check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
 
       html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
-      html.concat(' ').concat(label_content || object.class.human_attribute_name(name) || name.to_s.humanize)
+      html.concat(" ").concat(label_content || object.class.human_attribute_name(name) || name.to_s.humanize)
 
       if options[:inline]
         label(name, html, class: "checkbox-inline")
@@ -77,10 +77,10 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :help, :inline)
 
-      html = super(name, value, *args) + ' ' + options[:label]
+      html = super(name, value, *args) + " " + options[:label]
 
-      css = 'radio'
-      css << '-inline' if options[:inline]
+      css = "radio"
+      css << "-inline" if options[:inline]
       label("#{name}_#{value}", html, class: css)
     end
 
@@ -98,18 +98,20 @@ module BootstrapForm
     end
 
     def form_group(name = nil, options = {}, &block)
-      options[:class] = 'form-group'
-      options[:class] << ' has-error' if has_error?(name)
+      options[:class] = "form-group"
+      options[:class] << " has-error" if has_error?(name)
 
       html = capture(&block)
       html << generate_help(name, options[:help])
-      html = content_tag(:div, html, class: "#{options[:right] || right_class}") if horizontal?
+      html = content_tag(:div, html, class: (options[:right] || right_class)) if horizontal?
 
       content_tag(:div, options.except(:label, :help, :left, :right)) do
-        label_configuration_options = {
-          left: options[:left]
-        }
-        "#{generate_label(name, options[:label], label_configuration_options)}#{html}".html_safe
+        if options[:label]
+          label_classes = [options[:label][:class], label_class]
+          label_classes << (options[:left] || left_class) if horizontal?
+          options[:label][:class] = label_classes.compact.join(" ")
+        end
+        "#{generate_label(name, options[:label])}#{html}".html_safe
       end
     end
 
@@ -135,10 +137,6 @@ module BootstrapForm
       "col-sm-10"
     end
 
-    def default_label_class
-      "control-label"
-    end
-
     def hide_class
       "sr-only" # still accessible for screen readers
     end
@@ -152,7 +150,7 @@ module BootstrapForm
     end
 
     def control_specific_class(method)
-      "rails-bootstrap-forms-#{method.gsub(/_/, '-')}"
+      "rails-bootstrap-forms-#{method.gsub(/_/, "-")}"
     end
 
     def has_error?(name)
@@ -165,8 +163,8 @@ module BootstrapForm
 
       # Add control_class; allow it to be overridden by :control_class option
       css_options = html_options || options
-      control = css_options.delete(:control_class) { control_class }
-      css_options[:class] = [control, css_options[:class]].compact.join(" ")
+      control_classes = css_options.delete(:control_class) { control_class }
+      css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
 
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
@@ -181,8 +179,6 @@ module BootstrapForm
 
     def generate_label(name, options, configuration_options = nil)
       if options
-        options[:class] = "#{options[:class]} #{label_class}".lstrip
-        options[:class] << " #{configuration_options[:left] || left_class}" if horizontal?
         label(name, options[:text], options.except(:text))
       elsif horizontal?
         # no label. create an empty one to keep proper form alignment.
@@ -191,13 +187,13 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = object.errors[name].join(', ') if has_error?(name) && inline_errors
-      content_tag(:span, help_text, class: 'help-block') if help_text
+      help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
+      content_tag(:span, help_text, class: "help-block") if help_text
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)
       form_group_builder(name, options) do
-        inputs = ''
+        inputs = ""
 
         collection.each do |obj|
           input_options = options.merge(label: obj.send(text))
