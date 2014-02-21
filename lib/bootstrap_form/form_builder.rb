@@ -90,14 +90,14 @@ module BootstrapForm
       label("#{name}_#{value}", html, class: css)
     end
 
-    def check_boxes_collection(*args)
+    def collection_check_boxes(*args)
       inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
       end
     end
 
-    def radio_buttons_collection(*args)
+    def collection_radio_buttons(*args)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
