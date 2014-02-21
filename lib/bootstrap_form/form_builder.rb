@@ -106,11 +106,7 @@ module BootstrapForm
       html = content_tag(:div, html, class: (options[:right] || right_class)) if horizontal?
 
       content_tag(:div, options.except(:label, :help, :left, :right)) do
-        if options[:label]
-          label_classes = [options[:label][:class], label_class]
-          label_classes << (options[:left] || left_class) if horizontal?
-          options[:label][:class] = label_classes.compact.join(" ")
-        end
+        build_label_options(options[:label], options[:left])
         "#{generate_label(name, options[:label])}#{html}".html_safe
       end
     end
@@ -174,6 +170,14 @@ module BootstrapForm
 
       form_group(method, label: { text: label, class: label_class }, help: help, left: left, right: right) do
         yield
+      end
+    end
+
+    def build_label_options(label_options, left_override)
+      if label_options
+        classes = [label_options[:class], label_class]
+        classes << (left_override || left_class) if horizontal?
+        label_options[:class] = classes.compact.join(" ")
       end
     end
 
