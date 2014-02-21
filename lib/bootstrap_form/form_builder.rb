@@ -177,7 +177,7 @@ module BootstrapForm
       end
     end
 
-    def generate_label(name, options, configuration_options = nil)
+    def generate_label(name, options)
       if options
         label(name, options[:text], options.except(:text))
       elsif horizontal?
