@@ -10,7 +10,7 @@ begin
   module BootstrapForm
     module Helpers
       module NestedForm
-        def bootstrap_form_for(object, options = {}, &block)
+        def bootstrap_nested_form_for(object, options = {}, &block)
           options.reverse_merge!({builder: BootstrapForm::NestedFormBuilder})
           bootstrap_form_for(object, options) do |f|
             capture(f, &block).to_s << after_nested_form_callbacks
