@@ -101,13 +101,13 @@ module BootstrapForm
       options[:class] = "form-group"
       options[:class] << " has-error" if has_error?(name)
 
-      html = capture(&block)
-      html << generate_help(name, options[:help])
-      html = content_tag(:div, html, class: (options[:right] || right_class)) if horizontal?
-
       content_tag(:div, options.except(:label, :help, :left, :right)) do
-        build_label_options(options[:label], options[:left])
-        "#{generate_label(name, options[:label])}#{html}".html_safe
+        label = generate_label(name, options[:label], options[:left])
+        control_and_help = capture(&block).concat(generate_help(name, options[:help]))
+        if horizontal?
+          control_and_help = content_tag(:div, control_and_help, class: (options[:right] || right_class))
+        end
+        concat(label).concat(control_and_help)
       end
     end
 
@@ -173,16 +173,12 @@ module BootstrapForm
       end
     end
 
-    def build_label_options(label_options, left_override)
-      if label_options
-        classes = [label_options[:class], label_class]
-        classes << (left_override || left_class) if horizontal?
-        label_options[:class] = classes.compact.join(" ")
-      end
-    end
-
-    def generate_label(name, options)
+    def generate_label(name, options, left_override)
       if options
+        classes = [options[:class], label_class]
+        classes << (left_override || left_class) if horizontal?
+        options[:class] = classes.compact.join(" ")
+
         label(name, options[:text], options.except(:text))
       elsif horizontal?
         # no label. create an empty one to keep proper form alignment.
