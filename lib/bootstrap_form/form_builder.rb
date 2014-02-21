@@ -57,6 +57,12 @@ module BootstrapForm
       end
     end
 
+    def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+      form_group_builder(method, options, html_options) do
+        super(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+      end
+    end
+
     def check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
 

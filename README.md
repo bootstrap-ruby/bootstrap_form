@@ -84,6 +84,7 @@ This gem wraps the following Rails form helpers:
 * datetime_select
 * email_field
 * file_field
+* grouped_collection_select
 * hidden_field (not wrapped, but supported)
 * month_field
 * number_field
