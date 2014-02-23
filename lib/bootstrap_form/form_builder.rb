@@ -213,6 +213,8 @@ module BootstrapForm
 
         collection.each do |obj|
           input_options = options.merge(label: obj.send(text))
+          input_options[:checked] = input_options[:checked] == obj.send(value) if input_options[:checked]
+
           input_options.delete(:class)
           inputs << block.call(name, obj.send(value), input_options)
         end
