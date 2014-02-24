@@ -12,6 +12,7 @@ Bugfixes:
   - allow html content in check_box tag label (@desheikh)
   - allow check_box label to be defined with a block
   - omit form-control class from file_field (@mbrictson)
+  - Collection inputs honour `checked` attribute (@desheikh)
 
 Features:
 
