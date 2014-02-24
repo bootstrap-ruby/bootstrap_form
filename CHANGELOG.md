@@ -29,3 +29,4 @@ Features:
   - Added ability to override the left/right classes for a particular control
     when using horizontal forms. (@baldwindavid)
   - Added support for grouped_collection_select (@rzane)
+  - Added support of Rails 4 syntax for collection inputs (@desheikh)
