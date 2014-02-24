@@ -90,17 +90,27 @@ module BootstrapForm
       label("#{name}_#{value}", html, class: css)
     end
 
-    def check_boxes_collection(*args)
+    def collection_check_boxes(*args)
       inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
       end
     end
 
-    def radio_buttons_collection(*args)
+    def collection_radio_buttons(*args)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
+    end
+
+    def check_boxes_collection(*args)
+      warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
+      collection_check_boxes(*args)
+    end
+
+    def radio_buttons_collection(*args)
+      warn "'BootstrapForm#radio_buttons_collection' is deprecated, use 'BootstrapForm#collection_radio_buttons' instead"
+      collection_radio_buttons(*args)
     end
 
     def form_group(name = nil, options = {}, &block)
@@ -203,6 +213,8 @@ module BootstrapForm
 
         collection.each do |obj|
           input_options = options.merge(label: obj.send(text))
+          input_options[:checked] = input_options[:checked] == obj.send(value) if input_options[:checked]
+
           input_options.delete(:class)
           inputs << block.call(name, obj.send(value), input_options)
         end

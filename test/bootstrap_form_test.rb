@@ -547,45 +547,60 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, builder.text_field(:email)
   end
 
-  test 'radio_buttons_collection renders the form_group correctly' do
+  test 'collection_radio_buttons renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a radio button collection</label><label class="radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label><span class="help-block">With a help!</span></div>}
 
-    assert_equal expected, @builder.radio_buttons_collection(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
+    assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
 
-  test 'radio_buttons_collection renders multiple radios correctly' do
+  test 'collection_radio_buttons renders multiple radios correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><label class="radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo</label><label class="radio" for="user_misc_2"><input id="user_misc_2" name="user[misc]" type="radio" value="2" /> Bar</label></div>}
 
-    assert_equal expected, @builder.radio_buttons_collection(:misc, collection, :id, :street)
+    assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street)
   end
 
-  test 'radio_buttons_collection renders inline radios correctly' do
+  test 'collection_radio_buttons renders inline radios correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><label class="radio-inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo</label><label class="radio-inline" for="user_misc_2"><input id="user_misc_2" name="user[misc]" type="radio" value="2" /> Bar</label></div>}
 
-    assert_equal expected, @builder.radio_buttons_collection(:misc, collection, :id, :street, inline: true)
+    assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, inline: true)
   end
 
-  test 'check_boxes_collection renders the form_group correctly' do
+  test 'collection_radio_buttons renders with checked option correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><label class="radio" for="user_misc_1"><input checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo</label><label class="radio" for="user_misc_2"><input id="user_misc_2" name="user[misc]" type="radio" value="2" /> Bar</label></div>}
+
+    assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, checked: 1)
+  end
+
+  test 'collection_check_boxes renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a checkbox collection</label><div class="checkbox"><label for="user_misc"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div><span class="help-block">With a help!</span></div>}
 
-    assert_equal expected, @builder.check_boxes_collection(:misc, collection, :id, :street, label: 'This is a checkbox collection', help: 'With a help!')
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, label: 'This is a checkbox collection', help: 'With a help!')
   end
 
-  test 'check_boxes_collection renders multiple checkboxes correctly' do
+  test 'collection_check_boxes renders multiple checkboxes correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label></div><div class="checkbox"><label for="user_misc"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div></div>}
 
-    assert_equal expected, @builder.check_boxes_collection(:misc, collection, :id, :street)
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street)
   end
 
-  test 'check_boxes_collection renders inline checkboxes correctly' do
+  test 'collection_check_boxes renders inline checkboxes correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><label class="checkbox-inline" for="user_misc"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label><label class="checkbox-inline" for="user_misc"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div>}
 
-    assert_equal expected, @builder.check_boxes_collection(:misc, collection, :id, :street, inline: true)
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, inline: true)
   end
+
+  test 'collection_check_boxes renders with checked option correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc"><input checked="checked" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label></div><div class="checkbox"><label for="user_misc"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: 1)
+  end
+
 end
