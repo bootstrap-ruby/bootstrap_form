@@ -125,15 +125,15 @@ using screen readers.
 
 ### Horizontal Forms
 
-To use a horizontal-style form with labels to the left of the inputs, use the
-`style: :horizontal` option. You should specify both `left` and `right` css
-classes as well (they default to `col-sm-2` and `col-sm-10`).
+To use a horizontal-style form with labels to the left of the control, use the
+`style: :horizontal` option. You should specify both `label_col` and
+`control_col` css classes as well (they default to `col-sm-2` and `col-sm-10`).
 
 In the example below, the checkbox and submit button have been wrapped in a
 `form_group` to keep them properly aligned.
 
 ```erb
-<%= bootstrap_form_for(@user, style: :horizontal, left: "col-sm-2", right: "col-sm-10") do |f| %>
+<%= bootstrap_form_for(@user, style: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.form_group do %>
@@ -145,12 +145,12 @@ In the example below, the checkbox and submit button have been wrapped in a
 <% end %>
 ```
 
-The `left` and `right` css classes can also be added to a single field.
+The `label_col` and `control_col` css classes can also be changed per control:
 
 ```erb
 <%= bootstrap_form_for(@user, style: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :age, right: "col-sm-3" %>
+  <%= f.text_field :age, control_col: "col-sm-3" %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>

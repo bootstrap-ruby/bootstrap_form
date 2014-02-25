@@ -2,7 +2,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::BootstrapHelpers
 
-    attr_reader :style, :left_class, :right_class, :has_error, :inline_errors
+    attr_reader :style, :label_col, :control_col, :has_error, :inline_errors
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -15,8 +15,8 @@ module BootstrapForm
 
     def initialize(object_name, object, template, options, proc=nil)
       @style = options[:style]
-      @left_class = options[:left] || default_left_class
-      @right_class = options[:right] || default_right_class
+      @label_col = options[:label_col] || default_label_col
+      @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
       super
     end
@@ -117,11 +117,11 @@ module BootstrapForm
       options[:class] = "form-group"
       options[:class] << " has-error" if has_error?(name)
 
-      content_tag(:div, options.except(:label, :help, :left, :right)) do
-        label = generate_label(name, options[:label], options[:left])
+      content_tag(:div, options.except(:label, :help, :label_col, :control_col)) do
+        label = generate_label(name, options[:label], options[:label_col])
         control_and_help = capture(&block).concat(generate_help(name, options[:help]))
         if horizontal?
-          control_and_help = content_tag(:div, control_and_help, class: (options[:right] || right_class))
+          control_and_help = content_tag(:div, control_and_help, class: (options[:control_col] || control_col))
         end
         concat(label).concat(control_and_help)
       end
@@ -130,8 +130,8 @@ module BootstrapForm
     def fields_for(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_options[:style] ||= options[:style]
-      fields_options[:left] = (fields_options.include?(:left)) ? fields_options[:left] + " #{label_class}" : options[:left]
-      fields_options[:right] ||= options[:right]
+      fields_options[:label_col] = (fields_options.include?(:label_col)) ? fields_options[:label_col] + " #{label_class}" : options[:label_col]
+      fields_options[:control_col] ||= options[:control_col]
       super(record_name, record_object, fields_options, &block)
     end
 
@@ -141,11 +141,11 @@ module BootstrapForm
       style == :horizontal
     end
 
-    def default_left_class
+    def default_label_col
       "col-sm-2"
     end
 
-    def default_right_class
+    def default_control_col
       "col-sm-10"
     end
 
@@ -181,24 +181,24 @@ module BootstrapForm
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       help = options.delete(:help)
-      left = options.delete(:left)
-      right = options.delete(:right)
+      label_col = options.delete(:label_col)
+      control_col = options.delete(:control_col)
 
-      form_group(method, label: { text: label, class: label_class }, help: help, left: left, right: right) do
+      form_group(method, label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col) do
         yield
       end
     end
 
-    def generate_label(name, options, left_override)
+    def generate_label(name, options, custom_label_col)
       if options
         classes = [options[:class], label_class]
-        classes << (left_override || left_class) if horizontal?
+        classes << (custom_label_col || label_col) if horizontal?
         options[:class] = classes.compact.join(" ")
 
         label(name, options[:text], options.except(:text))
       elsif horizontal?
         # no label. create an empty one to keep proper form alignment.
-        content_tag(:label, "", class: "#{label_class} #{left_class}")
+        content_tag(:label, "", class: "#{label_class} #{label_col}")
       end
     end
 
