@@ -16,7 +16,8 @@ Bugfixes:
 
 Features:
 
-  - The control_class can be overridden per field by passing in the :control_class option. Default value is "form-control".
+  - The control_class can be overridden per field by passing in the
+    :control_class option. Default value is "form-control".
   - Make name optional in FormBuilder#submit (@adrpac)
   - Added the FormBuilder#primary helper back in
   - Added a FormBuilder#static_control helper
@@ -31,3 +32,4 @@ Features:
     when using horizontal forms. (@baldwindavid)
   - Added support for grouped_collection_select (@rzane)
   - Added support of Rails 4 syntax for collection inputs (@desheikh)
+  - Renamed options :left -> :label_col and :right -> :control_col
