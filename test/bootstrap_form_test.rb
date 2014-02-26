@@ -6,7 +6,7 @@ class BootstrapFormTest < ActionView::TestCase
   def setup
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {}, nil)
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { style: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" }, nil)
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" }, nil)
   end
 
   test "default-style forms" do
@@ -16,17 +16,17 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "inline-style forms" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :inline) { |f| nil }
+    assert_equal expected, bootstrap_form_for(@user, layout: :inline) { |f| nil }
   end
 
   test "horizontal-style forms" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email }
+    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email }
   end
 
   test "existing styles aren't clobbered when specifying a form style" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="my-style form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
   end
 
   test "alert message is wrapped correctly" do
@@ -356,12 +356,12 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "custom label width for horizontal forms" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-1" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email, label_col: 'col-sm-1' }
+    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: 'col-sm-1' }
   end
 
   test "custom input width for horizontal forms" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-5"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, style: :horizontal) { |f| f.email_field :email, control_col: 'col-sm-5' }
+    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: 'col-sm-5' }
   end
 
   test "passing options to a form control get passed through" do
@@ -518,7 +518,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "fields_for correctly passes horizontal style from parent builder" do
     @user.address = Address.new(street: '123 Main Street')
 
-    output = bootstrap_form_for(@user, style: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f|
+    output = bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
@@ -531,7 +531,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "fields_for correctly passes inline style from parent builder" do
     @user.address = Address.new(street: '123 Main Street')
 
-    output = bootstrap_form_for(@user, style: :inline) do |f|
+    output = bootstrap_form_for(@user, layout: :inline) do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end

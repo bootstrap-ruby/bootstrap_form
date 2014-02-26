@@ -2,7 +2,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::BootstrapHelpers
 
-    attr_reader :style, :label_col, :control_col, :has_error, :inline_errors
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -14,7 +14,7 @@ module BootstrapForm
     delegate :content_tag, :capture, :concat, to: :@template
 
     def initialize(object_name, object, template, options, proc=nil)
-      @style = options[:style]
+      @layout = options[:layout]
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
@@ -129,7 +129,7 @@ module BootstrapForm
 
     def fields_for(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
-      fields_options[:style] ||= options[:style]
+      fields_options[:layout] ||= options[:layout]
       fields_options[:label_col] = (fields_options.include?(:label_col)) ? fields_options[:label_col] + " #{label_class}" : options[:label_col]
       fields_options[:control_col] ||= options[:control_col]
       super(record_name, record_object, fields_options, &block)
@@ -138,7 +138,7 @@ module BootstrapForm
     private
 
     def horizontal?
-      style == :horizontal
+      layout == :horizontal
     end
 
     def default_label_col

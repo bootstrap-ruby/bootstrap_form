@@ -110,12 +110,12 @@ will grow to 100% of the available width.
 
 ### Inline Forms
 
-To use an inline-style form, use the `style: :inline` option. To hide labels,
+To use an inline-layout form, use the `layout: :inline` option. To hide labels,
 use the `hide_label: true` option, which keeps your labels accessible to those
 using screen readers.
 
 ```erb
-<%= bootstrap_form_for(@user, style: :inline) do |f| %>
+<%= bootstrap_form_for(@user, layout: :inline) do |f| %>
   <%= f.email_field :email, hide_label: true %>
   <%= f.password_field :password, hide_label: true %>
   <%= f.check_box :remember_me %>
@@ -125,15 +125,15 @@ using screen readers.
 
 ### Horizontal Forms
 
-To use a horizontal-style form with labels to the left of the control, use the
-`style: :horizontal` option. You should specify both `label_col` and
+To use a horizontal-layout form with labels to the left of the control, use the
+`layout: :horizontal` option. You should specify both `label_col` and
 `control_col` css classes as well (they default to `col-sm-2` and `col-sm-10`).
 
 In the example below, the checkbox and submit button have been wrapped in a
 `form_group` to keep them properly aligned.
 
 ```erb
-<%= bootstrap_form_for(@user, style: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.form_group do %>
@@ -148,7 +148,7 @@ In the example below, the checkbox and submit button have been wrapped in a
 The `label_col` and `control_col` css classes can also be changed per control:
 
 ```erb
-<%= bootstrap_form_for(@user, style: :horizontal) do |f| %>
+<%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
   <%= f.text_field :age, control_col: "col-sm-3" %>
   <%= f.form_group do %>
