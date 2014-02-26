@@ -32,4 +32,5 @@ Features:
     when using horizontal forms. (@baldwindavid)
   - Added support for grouped_collection_select (@rzane)
   - Added support of Rails 4 syntax for collection inputs (@desheikh)
-  - Renamed options :left -> :label_col and :right -> :control_col
+  - Renamed options :left to :label_col and :right to :control_col
+  - Renamed option :style to :layout (@baldwindavid)
