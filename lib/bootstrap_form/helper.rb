@@ -3,16 +3,16 @@ module BootstrapForm
     def bootstrap_form_for(object, options = {}, &block)
       options[:builder] = BootstrapForm::FormBuilder
 
-      style = case options[:style]
+      layout = case options[:layout]
         when :inline
           "form-inline"
         when :horizontal
           "form-horizontal"
       end
 
-      if style
+      if layout
         options[:html] ||= {}
-        options[:html][:class] = [options[:html][:class], style].compact.join(" ")
+        options[:html][:class] = [options[:html][:class], layout].compact.join(" ")
       end
 
       temporarily_disable_field_error_proc do
