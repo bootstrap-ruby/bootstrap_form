@@ -5,8 +5,8 @@ class BootstrapFormTest < ActionView::TestCase
 
   def setup
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
-    @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {}, nil)
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" }, nil)
+    @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" })
   end
 
   test "default-style forms" do
@@ -542,7 +542,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "allows the form object to be nil" do
-    builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}, nil
+    builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = %{<div class="form-group"><label class="control-label" for="other_model_email">Email</label><input class="form-control" id="other_model_email" name="other_model[email]" type="text" /></div>}
     assert_equal expected, builder.text_field(:email)
   end

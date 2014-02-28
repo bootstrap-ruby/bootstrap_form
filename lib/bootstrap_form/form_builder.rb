@@ -13,7 +13,7 @@ module BootstrapForm
 
     delegate :content_tag, :capture, :concat, to: :@template
 
-    def initialize(object_name, object, template, options, proc=nil)
+    def initialize(object_name, object, template, options)
       @layout = options[:layout]
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
