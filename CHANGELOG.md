@@ -13,6 +13,7 @@ Bugfixes:
   - allow check_box label to be defined with a block
   - omit form-control class from file_field (@mbrictson)
   - Collection inputs honour `checked` attribute (@desheikh)
+  - Fixing label/input pairing for checkbox collections (@byped)
 
 Features:
 
