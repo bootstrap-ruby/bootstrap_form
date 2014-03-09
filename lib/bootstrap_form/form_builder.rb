@@ -70,11 +70,14 @@ module BootstrapForm
       label_content = block_given? ? capture(&block) : options[:label]
       html.concat(" ").concat(label_content || object.class.human_attribute_name(name) || name.to_s.humanize)
 
+      label_name = name
+      label_name = "#{name}_#{checked_value}" if options[:multiple]
+
       if options[:inline]
-        label(name, html, class: "checkbox-inline")
+        label(label_name, html, class: "checkbox-inline")
       else
         content_tag(:div, class: "checkbox") do
-          label(name, html)
+          label(label_name, html)
         end
       end
     end
