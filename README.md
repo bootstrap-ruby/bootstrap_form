@@ -4,10 +4,9 @@
 
 ---
 
-We are currently merging the following repositories:
+NOTE: This README reflects the current master branch, which hasn't been released yet.
 
-- https://github.com/sethvargo/bootstrap_forms
-- https://github.com/potenza/bootstrap_form
+Please see https://github.com/bootstrap-ruby/rails-bootstrap-forms/tree/v2.0.1 for the current gem version.
 
 ---
 
