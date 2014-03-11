@@ -75,6 +75,14 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.error_summary
   end
 
+  test 'errors_on renders the errors for a specific attribute when invalid' do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<div class="alert alert-danger">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>}
+    assert_equal expected, @builder.errors_on(:email)
+  end
+
   test "color fields are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" /></div>}
     assert_equal expected, @builder.color_field(:misc)
