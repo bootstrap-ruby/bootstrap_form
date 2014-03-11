@@ -348,7 +348,7 @@ The error will be wrapped in a div with `.alert` and `.alert-danger`
 classes.
 
 ```html
-<div class="alert alert-danger">Please add at least one task.</div>
+<div class="alert alert-danger">Tasks must be added (at least one).</div>
 ```
 
 ### Internationalization
