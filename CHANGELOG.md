@@ -35,3 +35,4 @@ Features:
   - Added support of Rails 4 syntax for collection inputs (@desheikh)
   - Renamed options :left to :label_col and :right to :control_col
   - Renamed option :style to :layout (@baldwindavid)
+  - Added errors_on helper (@baldwindavid)
