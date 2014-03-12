@@ -338,6 +338,19 @@ To output a simple unordered list of errors, use `error_summary`.
 <% end %>
 ```
 
+If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
+
+```erb
+<%= f.errors_on :tasks %>
+```
+
+The error will be wrapped in a div with `.alert` and `.alert-danger`
+classes.
+
+```html
+<div class="alert alert-danger">Tasks must be added (at least one).</div>
+```
+
 ### Internationalization
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
