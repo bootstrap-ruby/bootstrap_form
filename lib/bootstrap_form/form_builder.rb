@@ -183,7 +183,7 @@ module BootstrapForm
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
 
-      options = convert_form_tag_options(method, options)
+      options = convert_form_tag_options(method, options) if acts_like_form_tag
 
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
@@ -197,14 +197,12 @@ module BootstrapForm
     end
 
     def convert_form_tag_options(method, options = {})
-      if acts_like_form_tag
-        options[:name] ||= method
-        options[:id] ||= method
-        if options[:label]
-          options[:label][:for] ||= method
-        else
-          options[:label] = {for: method}
-        end
+      options[:name] ||= method
+      options[:id] ||= method
+      if options[:label]
+        options[:label][:for] ||= method
+      else
+        options[:label] = {for: method}
       end
       options
     end
