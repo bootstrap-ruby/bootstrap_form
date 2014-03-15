@@ -33,6 +33,8 @@ Then require the CSS on your `application.css` file:
 
 `//= require rails_bootstrap_forms`
 
+**NOTICE** : This line is needed if you are using bootstrap via gem `twitter-bootstrap-rails`. Please do not add this line if using CDN or local copied bootstrap package.
+
 ## Usage
 
 To get started, just use the **Rails Bootstrap Forms** form helper. Here's an example:
