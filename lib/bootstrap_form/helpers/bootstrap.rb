@@ -51,12 +51,17 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(options, &block)
-        options = options.extract!(:prepend, :append)
+        options = options.extract!(:prepend, :append, :prepend_button, :append_button)
         input = capture(&block)
 
         input = content_tag(:span, options[:prepend], class: 'input-group-addon') + input if options[:prepend]
         input << content_tag(:span, options[:append], class: 'input-group-addon') if options[:append]
-        input = content_tag(:div, input, class: 'input-group') if options[:prepend] || options[:append]
+
+        input = content_tag(:span, options[:prepend_button], class: "input-group-btn") + input if options[:prepend_button]
+        input << content_tag(:span, options[:append_button], class: "input-group-btn") if options[:append_button]
+
+        input = content_tag(:div, input, class: "input-group") unless options.empty?
+
         input
       end
 
