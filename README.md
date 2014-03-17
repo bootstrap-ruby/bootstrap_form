@@ -156,6 +156,19 @@ The `label_col` and `control_col` css classes can also be changed per control:
 <% end %>
 ```
 
+The `layout` can be overriden per form group:
+
+```erb
+<%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.text_field :feet, layout: :inline %>
+  <%= f.text_field :inches, layout: :inline %>
+  <%= f.form_group do %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+```
+
 ### Labels
 
 Use the `label` option if you want to specify the field's label text:
