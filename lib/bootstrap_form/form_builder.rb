@@ -120,10 +120,10 @@ module BootstrapForm
       options[:class] = "form-group"
       options[:class] << " has-error" if has_error?(name)
 
-      content_tag(:div, options.except(:label, :help, :label_col, :control_col)) do
-        label = generate_label(name, options[:label], options[:label_col])
+      content_tag(:div, options.except(:label, :help, :label_col, :control_col, :layout)) do
+        label = generate_label(name, options[:label], options[:label_col], options[:layout])
         control_and_help = capture(&block).concat(generate_help(name, options[:help]))
-        if horizontal?
+        if get_group_layout(options[:layout]) == :horizontal
           control_and_help = content_tag(:div, control_and_help, class: (options[:control_col] || control_col))
         end
         concat(label).concat(control_and_help)
@@ -142,6 +142,10 @@ module BootstrapForm
 
     def horizontal?
       layout == :horizontal
+    end
+
+    def get_group_layout(group_layout)
+      group_layout || layout
     end
 
     def default_label_col
@@ -186,20 +190,21 @@ module BootstrapForm
       help = options.delete(:help)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
+      layout = get_group_layout(options.delete(:layout))
 
-      form_group(method, label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col) do
+      form_group(method, label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout) do
         yield
       end
     end
 
-    def generate_label(name, options, custom_label_col)
+    def generate_label(name, options, custom_label_col, group_layout)
       if options
         classes = [options[:class], label_class]
-        classes << (custom_label_col || label_col) if horizontal?
+        classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
         options[:class] = classes.compact.join(" ")
 
         label(name, options[:text], options.except(:text))
-      elsif horizontal?
+      elsif get_group_layout(group_layout) == :horizontal
         # no label. create an empty one to keep proper form alignment.
         content_tag(:label, "", class: "#{label_class} #{label_col}")
       end
