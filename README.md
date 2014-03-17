@@ -156,7 +156,9 @@ The `label_col` and `control_col` css classes can also be changed per control:
 <% end %>
 ```
 
-The `layout` can be overriden per form group:
+### Custom Field Layout
+
+The `layout` can be overriden per field:
 
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
