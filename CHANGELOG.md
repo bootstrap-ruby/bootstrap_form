@@ -36,3 +36,4 @@ Features:
   - Renamed options :left to :label_col and :right to :control_col
   - Renamed option :style to :layout (@baldwindavid)
   - Added errors_on helper (@baldwindavid)
+  - Added per field layout option (@baldwindavid)
