@@ -366,6 +366,19 @@ classes.
 <div class="alert alert-danger">Tasks must be added (at least one).</div>
 ```
 
+#### Optional icons (feedback support)
+
+If you want to display error glyph on the input field with error you can specify the `has_feedback` option.
+
+```erb
+<%= bootstrap_form_for(@user, has_feedback: true) do |f| %>
+  <%= f.email_field :email %>
+<% end %>
+```
+
+Read more about feedback support here http://getbootstrap.com/css/?#forms-control-validation
+
+
 ### Internationalization
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
