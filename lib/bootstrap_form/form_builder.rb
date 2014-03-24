@@ -119,6 +119,7 @@ module BootstrapForm
     def form_group(name = nil, options = {}, &block)
       options[:class] = "form-group"
       options[:class] << " has-error" if has_error?(name)
+      options[:class] << ' has-feedback' if(@options[:has_feedback])
 
       content_tag(:div, options.except(:label, :help, :label_col, :control_col, :layout)) do
         label = generate_label(name, options[:label], options[:label_col], options[:layout])
@@ -211,8 +212,10 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
-      content_tag(:span, help_text, class: "help-block") if help_text
+      help_text = object.errors[name].join(', ') if has_error?(name) && inline_errors
+      help_html = content_tag(:span, help_text, class: 'help-block') if help_text
+      help_html = content_tag(:span, '', class: 'glyphicon glyphicon-remove form-control-feedback') + help_html if @options[:has_feedback]
+      help_html
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)
