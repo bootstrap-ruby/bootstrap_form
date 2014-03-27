@@ -407,10 +407,7 @@ accepted right away.
 
 6. Add a line to the CHANGELOG for your bug fix or feature.
 
-7. If you have multiple commits please combine them into a single commit by
-[squashing them](http://git-scm.com/book/en/Git-Tools-Rewriting-History#Squashing-Commits).
-
-8. Push to your fork and submit a pull request.
+7. Push to your fork and submit a pull request.
 
 ## Contributors
 
