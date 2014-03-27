@@ -90,7 +90,7 @@ module BootstrapForm
 
       css = "radio"
       css << "-inline" if options[:inline]
-      label("#{name}_#{value}", html, class: css)
+      label(name, html, class: css, for: nil)
     end
 
     def collection_check_boxes(*args)
