@@ -73,15 +73,13 @@ module BootstrapForm
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]
 
-      html = if options[:inline]
+      if options[:inline]
         label(label_name, html, class: "checkbox-inline")
       else
         content_tag(:div, class: "checkbox") do
           label(label_name, html)
         end
       end
-      html = content_tag(:div, html + generate_help(name, nil), class: error_class) if has_error?(name)
-      html
     end
 
     def radio_button(name, value, *args)

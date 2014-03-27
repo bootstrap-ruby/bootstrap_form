@@ -312,16 +312,6 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
   end
 
-  test "check_box correctly displays error message" do
-    @user.valid?
-    output = bootstrap_form_for(@user) do |f|
-      f.check_box(:terms, label: 'I agree to the terms')
-    end
-
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="has-error"><div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div><span class="help-block">must be accepted</span></div></form>}
-    assert_equal expected, output
-  end
-
   test "inline checkboxes" do
     expected = %{<label class="checkbox-inline" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
