@@ -15,7 +15,6 @@ Bugfixes:
   - Collection inputs honour `checked` attribute (@desheikh)
   - Fixing label/input pairing for checkbox collections (@byped)
   - Removing for attribute on radio button labels (@sigmike)
-  - Adding proper error handling on check_boxes
 
 Features:
 
