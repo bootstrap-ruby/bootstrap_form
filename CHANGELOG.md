@@ -38,3 +38,4 @@ Features:
   - Renamed option :style to :layout (@baldwindavid)
   - Added errors_on helper (@baldwindavid)
   - Added per field layout option (@baldwindavid)
+  - Added support for bootstrap_form_tag (@baldwindavid)
