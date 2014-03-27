@@ -73,13 +73,15 @@ module BootstrapForm
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]
 
-      if options[:inline]
+      html = if options[:inline]
         label(label_name, html, class: "checkbox-inline")
       else
         content_tag(:div, class: "checkbox") do
           label(label_name, html)
         end
       end
+      html = content_tag(:div, html + generate_help(name, nil), class: error_class) if has_error?(name)
+      html
     end
 
     def radio_button(name, value, *args)
@@ -118,7 +120,7 @@ module BootstrapForm
 
     def form_group(name = nil, options = {}, &block)
       options[:class] = "form-group"
-      options[:class] << " has-error" if has_error?(name)
+      options[:class] << " #{error_class}" if has_error?(name)
 
       content_tag(:div, options.except(:label, :help, :label_col, :control_col, :layout)) do
         label = generate_label(name, options[:label], options[:label_col], options[:layout])
@@ -166,6 +168,10 @@ module BootstrapForm
 
     def label_class
       "control-label"
+    end
+
+    def error_class
+      "has-error"
     end
 
     def control_specific_class(method)

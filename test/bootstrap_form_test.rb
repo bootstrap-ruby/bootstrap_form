@@ -51,7 +51,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.alert_message('Please fix the following errors:')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li></ul></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul></div></form>}
     assert_equal expected, output
   end
 
@@ -71,7 +71,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li></ul>}
+    expected = %{<ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>}
     assert_equal expected, @builder.error_summary
   end
 
@@ -114,7 +114,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "hidden fields are supported" do
-    expected = %{<input id=\"user_misc\" name=\"user[misc]\" type=\"hidden\" />}
+    expected = %{<input id="user_misc" name="user[misc]" type="hidden" />}
     assert_equal expected, @builder.hidden_field(:misc)
   end
 
@@ -180,7 +180,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_specific options are handled correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class=\"help-block\">Help!</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class="help-block">Help!</span></div>}
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!" )
   end
 
@@ -293,28 +293,38 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "check_box is wrapped correctly" do
-    expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> This is a checkbox</label></div>}
-    assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox')
+    expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
+    assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
   test "check_box label allows html" do
-    expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> This is a <a href="#">checkbox</a></label></div>}
-    assert_equal expected, @builder.check_box(:misc, label: %{This is a <a href="#">checkbox</a>}.html_safe)
+    expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the <a href="#">terms</a></label></div>}
+    assert_equal expected, @builder.check_box(:terms, label: %{I agree to the <a href="#">terms</a>}.html_safe)
   end
 
   test "check_box accepts a block to define the label" do
-    expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> This is a checkbox</label></div>}
-    assert_equal expected, @builder.check_box(:misc) { "This is a checkbox" }
+    expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
+    assert_equal expected, @builder.check_box(:terms) { "I agree to the terms" }
   end
 
   test "check_box responds to checked_value and unchecked_value arguments" do
-    expected = %{<div class="checkbox"><label for="user_misc"><input name="user[misc]" type="hidden" value="no" /><input id="user_misc" name="user[misc]" type="checkbox" value="yes" /> This is a checkbox</label></div>}
-    assert_equal expected, @builder.check_box(:misc, {label: 'This is a checkbox'}, 'yes', 'no')
+    expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="no" /><input id="user_terms" name="user[terms]" type="checkbox" value="yes" /> I agree to the terms</label></div>}
+    assert_equal expected, @builder.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
+  end
+
+  test "check_box correctly displays error message" do
+    @user.valid?
+    output = bootstrap_form_for(@user) do |f|
+      f.check_box(:terms, label: 'I agree to the terms')
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="has-error"><div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div><span class="help-block">must be accepted</span></div></form>}
+    assert_equal expected, output
   end
 
   test "inline checkboxes" do
-    expected = %{<label class="checkbox-inline" for="user_misc"><input name="user[misc]" type="hidden" value="0" /><input id="user_misc" name="user[misc]" type="checkbox" value="1" /> This is a checkbox</label>}
-    assert_equal expected, @builder.check_box(:misc, label: 'This is a checkbox', inline: true)
+    expected = %{<label class="checkbox-inline" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
+    assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
   test "radio_button is wrapped correctly" do
@@ -470,7 +480,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    output = bootstrap_form_for(@user, help: :block) do |f|
+    output = bootstrap_form_for(@user) do |f|
       f.text_field(:email, help: 'This is required')
     end
 
@@ -494,7 +504,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    output = form_for(@user, builder: BootstrapForm::FormBuilder, help: :block) do |f|
+    output = form_for(@user, builder: BootstrapForm::FormBuilder) do |f|
       f.text_field(:email, help: 'This is required')
     end
 
