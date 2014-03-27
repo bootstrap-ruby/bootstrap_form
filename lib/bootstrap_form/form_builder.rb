@@ -2,7 +2,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::BootstrapHelpers
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -18,6 +18,8 @@ module BootstrapForm
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
+      @acts_like_form_tag = options[:acts_like_form_tag]
+
       super
     end
 
@@ -189,6 +191,8 @@ module BootstrapForm
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
 
+      options = convert_form_tag_options(method, options) if acts_like_form_tag
+
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       help = options.delete(:help)
@@ -199,6 +203,17 @@ module BootstrapForm
       form_group(method, label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout) do
         yield
       end
+    end
+
+    def convert_form_tag_options(method, options = {})
+      options[:name] ||= method
+      options[:id] ||= method
+      if options[:label]
+        options[:label][:for] ||= method
+      else
+        options[:label] = {for: method}
+      end
+      options
     end
 
     def generate_label(name, options, custom_label_col, group_layout)

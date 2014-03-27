@@ -35,7 +35,7 @@ Then require the CSS on your `application.css` file:
 
 ## Usage
 
-To get started, just use the **Rails Bootstrap Forms** form helper. Here's an example:
+To get started, just use the `bootstrap_form_for` helper. Here's an example:
 
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
@@ -66,6 +66,17 @@ This generates the following HTML:
   </div>
   <input class="btn btn-default" name="commit" type="submit" value="Log In">
 </form>
+```
+
+### bootstrap_form_tag
+
+If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of this helper is the same as `bootstrap_form_for`, except no model object is passed in as the first argument. Here's an example:
+
+```erb
+<%= bootstrap_form_tag url: '/subscribe' do |f| %>
+  <%= f.email_field :email %>
+  <%= f.submit %>
+<% end %>
 ```
 
 ### Supported Form Helpers

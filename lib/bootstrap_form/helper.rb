@@ -20,6 +20,12 @@ module BootstrapForm
       end
     end
 
+    def bootstrap_form_tag(options = {}, &block)
+      options[:acts_like_form_tag] = true
+
+      bootstrap_form_for("", options, &block)
+    end
+
     def temporarily_disable_field_error_proc
       original_proc = ActionView::Base.field_error_proc
       ActionView::Base.field_error_proc = proc { |input, instance| input }
