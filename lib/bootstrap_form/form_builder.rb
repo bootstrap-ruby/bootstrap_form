@@ -18,6 +18,7 @@ module BootstrapForm
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
+      @optional_icons = options[:optional_icons]
       super
     end
 
@@ -119,7 +120,7 @@ module BootstrapForm
     def form_group(name = nil, options = {}, &block)
       options[:class] = "form-group"
       options[:class] << " has-error" if has_error?(name)
-      options[:class] << ' has-feedback' if(@options[:optional_icons])
+      options[:class] << ' has-feedback' if(@optional_icons)
 
       content_tag(:div, options.except(:label, :help, :label_col, :control_col, :layout)) do
         label = generate_label(name, options[:label], options[:label_col], options[:layout])
@@ -215,7 +216,7 @@ module BootstrapForm
       help_text = object.errors[name].join(', ') if has_error?(name) && inline_errors
       if help_text
         help_html = content_tag(:span, help_text, class: 'help-block')
-        help_html = content_tag(:span, '', class: 'glyphicon glyphicon-remove form-control-feedback') + help_html if @options[:optional_icons]
+        help_html = content_tag(:span, '', class: 'glyphicon glyphicon-remove form-control-feedback') + help_html if @optional_icons
       end
       help_html
     end
