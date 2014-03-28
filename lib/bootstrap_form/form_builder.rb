@@ -213,8 +213,10 @@ module BootstrapForm
 
     def generate_help(name, help_text)
       help_text = object.errors[name].join(', ') if has_error?(name) && inline_errors
-      help_html = content_tag(:span, help_text, class: 'help-block') if help_text
-      help_html = content_tag(:span, '', class: 'glyphicon glyphicon-remove form-control-feedback') + help_html if @options[:optional_icons]
+      if help_text
+        help_html = content_tag(:span, help_text, class: 'help-block')
+        help_html = content_tag(:span, '', class: 'glyphicon glyphicon-remove form-control-feedback') + help_html if @options[:optional_icons]
+      end
       help_html
     end
 

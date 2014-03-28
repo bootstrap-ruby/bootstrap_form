@@ -6,7 +6,7 @@ class BootstrapFormTest < ActionView::TestCase
   def setup
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" })
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10"})
   end
 
   test "default-style forms" do
@@ -26,7 +26,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "existing styles aren't clobbered when specifying a form style" do
     expected = %{<form accept-charset="UTF-8" action="/users" class="my-style form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></div></form>}
-    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+    assert_equal expected, bootstrap_form_for(@user, layout: :horizontal, html: {class: "my-style"}) { |f| f.email_field :email }
   end
 
   test "alert message is wrapped correctly" do
@@ -114,7 +114,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "hidden fields are supported" do
-    expected = %{<input id=\"user_misc\" name=\"user[misc]\" type=\"hidden\" />}
+    expected = %{<input id="user_misc" name="user[misc]" type="hidden" />}
     assert_equal expected, @builder.hidden_field(:misc)
   end
 
@@ -180,8 +180,8 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_specific options are handled correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class=\"help-block\">Help!</span></div>}
-    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!" )
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class="help-block">Help!</span></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!")
   end
 
   test "selects with options are wrapped correctly" do
@@ -191,7 +191,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "selects with both options and html_options are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control my-select" id="user_status" name="user[status]"><option value="">Please Select</option>\n<option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
-    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], {prompt: "Please Select"}, class: "my-select")
   end
 
   test "selects render labels properly" do
@@ -211,7 +211,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "collection_selects with options and html_options are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control my-select" id="user_status" name="user[status]"><option value="">Please Select</option>\n</select></div>}
-    assert_equal expected, @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
+    assert_equal expected, @builder.collection_select(:status, [], :id, :name, {prompt: "Please Select"}, class: "my-select")
   end
 
   test "grouped_collection_selects are wrapped correctly" do
@@ -226,7 +226,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "grouped_collection_selects with options and html_options are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control my-select" id="user_status" name="user[status]"><option value="">Please Select</option>\n</select></div>}
-    assert_equal expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" }, class: "my-select")
+    assert_equal expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, {prompt: "Please Select"}, class: "my-select")
   end
 
   test "date selects are wrapped correctly" do
@@ -246,7 +246,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "date selects with options and html_options are wrapped correctly" do
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="rails-bootstrap-forms-date-select"><select class="form-control my-date-select" id="user_misc_1i" name="user[misc(1i)]">\n<option value=""></option>\n<option value="2007">2007</option>\n<option value="2008">2008</option>\n<option value="2009">2009</option>\n<option value="2010">2010</option>\n<option value="2011">2011</option>\n<option value="2012">2012</option>\n<option value="2013">2013</option>\n<option value="2014">2014</option>\n<option value="2015">2015</option>\n<option value="2016">2016</option>\n<option value="2017">2017</option>\n</select>\n<select class="form-control my-date-select" id="user_misc_2i" name="user[misc(2i)]">\n<option value=""></option>\n<option value="1">January</option>\n<option value="2">February</option>\n<option value="3">March</option>\n<option value="4">April</option>\n<option value="5">May</option>\n<option value="6">June</option>\n<option value="7">July</option>\n<option value="8">August</option>\n<option value="9">September</option>\n<option value="10">October</option>\n<option value="11">November</option>\n<option value="12">December</option>\n</select>\n<select class="form-control my-date-select" id="user_misc_3i" name="user[misc(3i)]">\n<option value=""></option>\n<option value="1">1</option>\n<option value="2">2</option>\n<option value="3">3</option>\n<option value="4">4</option>\n<option value="5">5</option>\n<option value="6">6</option>\n<option value="7">7</option>\n<option value="8">8</option>\n<option value="9">9</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n</select>\n</div></div>}
-      assert_equal expected, @builder.date_select(:misc, { include_blank: true }, class: "my-date-select")
+      assert_equal expected, @builder.date_select(:misc, {include_blank: true}, class: "my-date-select")
     end
   end
 
@@ -267,7 +267,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "time selects with options and html_options are wrapped correctly" do
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="rails-bootstrap-forms-time-select"><input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />\n<input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />\n<input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />\n<select class="form-control my-time-select" id="user_misc_4i" name="user[misc(4i)]">\n<option value=""></option>\n<option value="00">00</option>\n<option value="01">01</option>\n<option value="02">02</option>\n<option value="03">03</option>\n<option value="04">04</option>\n<option value="05">05</option>\n<option value="06">06</option>\n<option value="07">07</option>\n<option value="08">08</option>\n<option value="09">09</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n</select>\n : <select class="form-control my-time-select" id="user_misc_5i" name="user[misc(5i)]">\n<option value=""></option>\n<option value="00">00</option>\n<option value="01">01</option>\n<option value="02">02</option>\n<option value="03">03</option>\n<option value="04">04</option>\n<option value="05">05</option>\n<option value="06">06</option>\n<option value="07">07</option>\n<option value="08">08</option>\n<option value="09">09</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n<option value="32">32</option>\n<option value="33">33</option>\n<option value="34">34</option>\n<option value="35">35</option>\n<option value="36">36</option>\n<option value="37">37</option>\n<option value="38">38</option>\n<option value="39">39</option>\n<option value="40">40</option>\n<option value="41">41</option>\n<option value="42">42</option>\n<option value="43">43</option>\n<option value="44">44</option>\n<option value="45">45</option>\n<option value="46">46</option>\n<option value="47">47</option>\n<option value="48">48</option>\n<option value="49">49</option>\n<option value="50">50</option>\n<option value="51">51</option>\n<option value="52">52</option>\n<option value="53">53</option>\n<option value="54">54</option>\n<option value="55">55</option>\n<option value="56">56</option>\n<option value="57">57</option>\n<option value="58">58</option>\n<option value="59">59</option>\n</select>\n</div></div>}
-      assert_equal expected, @builder.time_select(:misc, { include_blank: true }, class: "my-time-select")
+      assert_equal expected, @builder.time_select(:misc, {include_blank: true}, class: "my-time-select")
     end
   end
 
@@ -288,7 +288,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "datetime selects with options and html_options are wrapped correctly" do
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="rails-bootstrap-forms-datetime-select"><select class="form-control my-datetime-select" id="user_misc_1i" name="user[misc(1i)]">\n<option value=""></option>\n<option value="2007">2007</option>\n<option value="2008">2008</option>\n<option value="2009">2009</option>\n<option value="2010">2010</option>\n<option value="2011">2011</option>\n<option value="2012">2012</option>\n<option value="2013">2013</option>\n<option value="2014">2014</option>\n<option value="2015">2015</option>\n<option value="2016">2016</option>\n<option value="2017">2017</option>\n</select>\n<select class="form-control my-datetime-select" id="user_misc_2i" name="user[misc(2i)]">\n<option value=""></option>\n<option value="1">January</option>\n<option value="2">February</option>\n<option value="3">March</option>\n<option value="4">April</option>\n<option value="5">May</option>\n<option value="6">June</option>\n<option value="7">July</option>\n<option value="8">August</option>\n<option value="9">September</option>\n<option value="10">October</option>\n<option value="11">November</option>\n<option value="12">December</option>\n</select>\n<select class="form-control my-datetime-select" id="user_misc_3i" name="user[misc(3i)]">\n<option value=""></option>\n<option value="1">1</option>\n<option value="2">2</option>\n<option value="3">3</option>\n<option value="4">4</option>\n<option value="5">5</option>\n<option value="6">6</option>\n<option value="7">7</option>\n<option value="8">8</option>\n<option value="9">9</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n</select>\n &mdash; <select class="form-control my-datetime-select" id="user_misc_4i" name="user[misc(4i)]">\n<option value=""></option>\n<option value="00">00</option>\n<option value="01">01</option>\n<option value="02">02</option>\n<option value="03">03</option>\n<option value="04">04</option>\n<option value="05">05</option>\n<option value="06">06</option>\n<option value="07">07</option>\n<option value="08">08</option>\n<option value="09">09</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n</select>\n : <select class="form-control my-datetime-select" id="user_misc_5i" name="user[misc(5i)]">\n<option value=""></option>\n<option value="00">00</option>\n<option value="01">01</option>\n<option value="02">02</option>\n<option value="03">03</option>\n<option value="04">04</option>\n<option value="05">05</option>\n<option value="06">06</option>\n<option value="07">07</option>\n<option value="08">08</option>\n<option value="09">09</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n<option value="32">32</option>\n<option value="33">33</option>\n<option value="34">34</option>\n<option value="35">35</option>\n<option value="36">36</option>\n<option value="37">37</option>\n<option value="38">38</option>\n<option value="39">39</option>\n<option value="40">40</option>\n<option value="41">41</option>\n<option value="42">42</option>\n<option value="43">43</option>\n<option value="44">44</option>\n<option value="45">45</option>\n<option value="46">46</option>\n<option value="47">47</option>\n<option value="48">48</option>\n<option value="49">49</option>\n<option value="50">50</option>\n<option value="51">51</option>\n<option value="52">52</option>\n<option value="53">53</option>\n<option value="54">54</option>\n<option value="55">55</option>\n<option value="56">56</option>\n<option value="57">57</option>\n<option value="58">58</option>\n<option value="59">59</option>\n</select>\n</div></div>}
-      assert_equal expected, @builder.datetime_select(:misc, { include_blank: true }, class: "my-datetime-select")
+      assert_equal expected, @builder.datetime_select(:misc, {include_blank: true}, class: "my-datetime-select")
     end
   end
 
@@ -383,7 +383,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "form_group creates a valid structure and allows arbitrary html to be added via a block" do
-    output = @horizontal_builder.form_group :nil, label: { text: 'Foo' } do
+    output = @horizontal_builder.form_group :nil, label: {text: 'Foo'} do
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
@@ -401,7 +401,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "form_group renders the label correctly" do
-    output = @horizontal_builder.form_group :email, label: { text: 'Custom Control' } do
+    output = @horizontal_builder.form_group :email, label: {text: 'Custom Control'} do
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
@@ -426,7 +426,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
-    output = @horizontal_builder.form_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
+    output = @horizontal_builder.form_group nil, label: {text: 'Custom Control', class: 'foo', for: 'bar'} do
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
@@ -516,7 +516,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do
-    @user.preferences = { favorite_color: "cerulean" }
+    @user.preferences = {favorite_color: "cerulean"}
 
     output = bootstrap_form_for(@user) do |f|
       f.fields_for :preferences do |builder|
@@ -614,6 +614,16 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input checked="checked" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label></div><div class="checkbox"><label for="user_misc_2"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div></div>}
 
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: 1)
+  end
+
+  test 'optional_icons renders has-feedback class' do
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-feedback"><label class="control-label" for="user_address">Address</label><input class="form-control" id="user_address" name="user[address]" type="text" /></div></form>}
+    assert_equal expected, bootstrap_form_for(@user, optional_icons: true) { |f| f.text_field :address }
+  end
+
+  test 'optional_icons renders glyph icon on error' do
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-feedback"><label class="control-label" for="user_address">Address</label><input class="form-control" id="user_address" name="user[address]" type="text" /><span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block">Required</span></div></form>}
+    assert_equal expected, bootstrap_form_for(@user, optional_icons: true) { |f| f.text_field :address, help: 'Required' }
   end
 
 end
