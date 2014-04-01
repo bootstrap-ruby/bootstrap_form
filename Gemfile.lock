@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bootstrap_form (2.0.1)
+    bootstrap_form (2.1.0)
 
 GEM
   remote: http://rubygems.org/
