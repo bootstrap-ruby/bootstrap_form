@@ -1,6 +1,8 @@
+require_relative 'helpers/bootstrap'
+
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
-    include BootstrapForm::BootstrapHelpers
+    include BootstrapForm::Helpers::Bootstrap
 
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
 
@@ -135,7 +137,7 @@ module BootstrapForm
     def fields_for(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_options[:layout] ||= options[:layout]
-      fields_options[:label_col] = (fields_options.include?(:label_col)) ? fields_options[:label_col] + " #{label_class}" : options[:label_col]
+      fields_options[:label_col] = fields_options[:label_col].present? ? "#{fields_options[:label_col]} #{label_class}" : options[:label_col]
       fields_options[:control_col] ||= options[:control_col]
       super(record_name, record_object, fields_options, &block)
     end
