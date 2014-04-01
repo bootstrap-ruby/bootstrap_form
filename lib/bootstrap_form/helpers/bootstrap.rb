@@ -30,6 +30,14 @@ module BootstrapForm
         end
       end
 
+      def errors_on(name)
+        if has_error?(name)
+          content_tag :div, class: "alert alert-danger" do
+            object.errors.full_messages_for(name).join(", ")
+          end
+        end
+      end
+
       def static_control(name, options = {}, &block)
         html = if block_given?
           capture(&block)
