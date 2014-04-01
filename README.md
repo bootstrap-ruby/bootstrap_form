@@ -2,21 +2,13 @@
 
 # Rails Bootstrap Forms
 
----
-
-NOTE: This README reflects the current master branch, which hasn't been released yet.
-
-Please see https://github.com/bootstrap-ruby/rails-bootstrap-forms/tree/v2.0.1 for the current gem version.
-
----
-
 **Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
 twitter bootstrap-style forms into your rails application.
 
 ## Requirements
 
 * Ruby 1.9+
-* Rails 3+
+* Rails 4.0+
 * Twitter Bootstrap 3.0+
 
 ## Installation
