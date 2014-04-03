@@ -419,6 +419,15 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "form_group accepts class thorugh options hash" do
+    output = @horizontal_builder.form_group :email, class: "foo" do
+      %{<p class="form-control-static">Bar</p>}.html_safe
+    end
+
+    expected = %{<div class="form-group foo"><label class="control-label col-sm-2"></label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    assert_equal expected, output
+  end
+
   test "static control" do
     output = @horizontal_builder.static_control :email
 
