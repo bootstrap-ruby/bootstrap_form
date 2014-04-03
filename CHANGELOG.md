@@ -1,3 +1,9 @@
+## 2.1.1
+
+Bugfixes:
+
+  - Do not reset additional classes on the form-group (@rzane)
+
 ## 2.1.0
 
 Moved GitHub repository from https://github.com/potenza/bootstrap_form
