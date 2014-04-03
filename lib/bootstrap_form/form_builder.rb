@@ -121,7 +121,7 @@ module BootstrapForm
     end
 
     def form_group(name = nil, options = {}, &block)
-      options[:class] = "form-group"
+      options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
 
       content_tag(:div, options.except(:label, :help, :label_col, :control_col, :layout)) do
