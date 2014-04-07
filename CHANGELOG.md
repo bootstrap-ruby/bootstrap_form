@@ -3,6 +3,7 @@
 Bugfixes:
 
   - Do not reset additional classes on the form-group (@rzane)
+  - Fixed an exception when specifying a label while using bootstrap_form_tag
 
 ## 2.1.0
 
