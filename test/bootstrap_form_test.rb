@@ -30,13 +30,13 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_tag acts like a form tag" do
-    expected = %{<form accept-charset="UTF-8" action="/users" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="email">Email</label><input class="form-control" id="email" name="email" type="text" /></div></form>}
-    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email }
+    expected = %{<form accept-charset="UTF-8" action="/users" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="email">Your Email</label><input class="form-control" id="email" name="email" type="text" /></div></form>}
+    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, label: "Your Email" }
   end
 
   test "bootstrap_form_tag does not clobber custom options" do
-    expected = %{<form accept-charset="UTF-8" action="/users" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="FOR">Email</label><input class="form-control" id="ID" name="NAME" type="text" /></div></form>}
-    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, label: {for: 'FOR'}, name: 'NAME', id: "ID" }
+    expected = %{<form accept-charset="UTF-8" action="/users" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="ID">Email</label><input class="form-control" id="ID" name="NAME" type="text" /></div></form>}
+    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, name: 'NAME', id: "ID" }
   end
 
   test "alert message is wrapped correctly" do

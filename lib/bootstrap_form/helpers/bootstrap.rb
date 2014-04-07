@@ -60,8 +60,6 @@ module BootstrapForm
         input
       end
 
-      private
-
       def static_class
         "form-control-static"
       end
