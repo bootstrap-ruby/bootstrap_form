@@ -5,6 +5,11 @@ Bugfixes:
   - Do not reset additional classes on the form-group (@rzane)
   - Fixed an exception when specifying a label while using bootstrap_form_tag
 
+Features:
+
+  - [nested_form](https://github.com/ryanb/nested_form) integration via
+    `bootstrap_nested_form_for` (#44 and #66)
+
 ## 2.1.0
 
 Moved GitHub repository from https://github.com/potenza/bootstrap_form
