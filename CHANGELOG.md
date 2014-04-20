@@ -9,6 +9,7 @@ Features:
 
   - [nested_form](https://github.com/ryanb/nested_form) integration via
     `bootstrap_nested_form_for` (#44 and #66)
+  - `form_group` no longer requires a name (#83)
 
 ## 2.1.0
 
