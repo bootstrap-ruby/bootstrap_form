@@ -120,7 +120,10 @@ module BootstrapForm
       collection_radio_buttons(*args)
     end
 
-    def form_group(name = nil, options = {}, &block)
+    def form_group(*args, &block)
+      options = args.extract_options!
+      name    = args.first
+      
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
 
