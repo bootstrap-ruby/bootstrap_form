@@ -122,8 +122,8 @@ module BootstrapForm
 
     def form_group(*args, &block)
       options = args.extract_options!
-      name    = args.first
-      
+      name = args.first
+
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
 
