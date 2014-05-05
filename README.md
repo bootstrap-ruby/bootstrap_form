@@ -172,8 +172,8 @@ The `layout` can be overriden per field:
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :feet, layout: :inline %>
-  <%= f.text_field :inches, layout: :inline %>
+  <%= f.text_field :feet, layout: :default %>
+  <%= f.text_field :inches, layout: :default %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>
