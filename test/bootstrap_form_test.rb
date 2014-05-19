@@ -174,6 +174,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.time_field(:misc)
   end
 
+  test "time zone selects are wrapped correctly" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select></div>}
+    assert_equal expected, @builder.time_zone_select(:misc)
+  end
+
   test "url fields are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="url" /></div>}
     assert_equal expected, @builder.url_field(:misc)

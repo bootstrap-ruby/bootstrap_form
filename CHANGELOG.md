@@ -2,7 +2,8 @@
 
 Features:
 
-  - Adding the ability to append/prepend buttons (@retoo)
+  - Added the ability to append/prepend buttons (@retoo)
+  - Added support for time_zone_select
 
 ## 2.1.1 (2014-04-20)
 

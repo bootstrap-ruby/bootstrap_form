@@ -67,6 +67,12 @@ module BootstrapForm
       end
     end
 
+    def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
+      form_group_builder(method, options, html_options) do
+        super(method, priority_zones, options, html_options)
+      end
+    end
+
     def check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
 

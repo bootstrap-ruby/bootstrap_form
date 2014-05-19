@@ -112,6 +112,7 @@ This gem wraps the following Rails form helpers:
 * text_field
 * time_field
 * time_select
+* time_zone_select
 * url_field
 * week_field
 
