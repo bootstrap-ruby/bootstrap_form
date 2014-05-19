@@ -22,9 +22,13 @@ Then:
 
 `bundle`
 
-Then require the CSS on your `application.css` file:
+Then require the CSS in your `application.css` file:
 
-`//= require rails_bootstrap_forms`
+```css
+/*
+ *= require rails_bootstrap_forms
+ */
+```
 
 ## Usage
 
