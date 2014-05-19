@@ -357,6 +357,20 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, append: '.00')
   end
 
+  test "append and prepend button" do
+    prefix = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group">}
+    field = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
+    button = %{<span class="input-group-btn"><a class="btn btn-default" href="#">Click</a></span>}
+    suffix = %{</div></div>}
+    after_button = prefix + field + button + suffix
+    before_button = prefix + button + field + suffix
+    both_button = prefix + button + field + button  + suffix
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    assert_equal after_button, @builder.text_field(:email, append_button: button_src)
+    assert_equal before_button, @builder.text_field(:email, prepend_button: button_src)
+    assert_equal both_button, @builder.text_field(:email, append_button: button_src, prepend_button: button_src)
+  end
+
   test "adding both prepend and append text" do
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '$', append: '.00')
