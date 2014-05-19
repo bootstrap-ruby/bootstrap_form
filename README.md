@@ -291,7 +291,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
 ```erb
-<%= f.text_field :price, append_button: link_to("FX Rates", ..., class: "btn btn-default") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
 ```
 
 ### Static Controls **(master branch only)**
