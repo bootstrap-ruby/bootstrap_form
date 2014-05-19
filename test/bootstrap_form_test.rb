@@ -366,9 +366,9 @@ class BootstrapFormTest < ActionView::TestCase
     before_button = prefix + button + field + suffix
     both_button = prefix + button + field + button  + suffix
     button_src = link_to("Click", "#", class: "btn btn-default")
-    assert_equal after_button, @builder.text_field(:email, append_button: button_src)
-    assert_equal before_button, @builder.text_field(:email, prepend_button: button_src)
-    assert_equal both_button, @builder.text_field(:email, append_button: button_src, prepend_button: button_src)
+    assert_equal after_button, @builder.text_field(:email, append: button_src)
+    assert_equal before_button, @builder.text_field(:email, prepend: button_src)
+    assert_equal both_button, @builder.text_field(:email, append: button_src, prepend: button_src)
   end
 
   test "adding both prepend and append text" do

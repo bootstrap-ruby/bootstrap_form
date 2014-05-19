@@ -1,3 +1,9 @@
+## Pending Release
+
+Features:
+
+  - Adding the ability to append/prepend buttons (@retoo)
+
 ## 2.1.1 (2014-04-20)
 
 Bugfixes:

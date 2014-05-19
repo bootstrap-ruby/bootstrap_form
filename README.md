@@ -287,7 +287,8 @@ You can pass `prepend` and/or `append` options to input fields:
 <%= f.text_field :price, prepend: "$", append: ".00" %>
 ```
 
-Using the same system you can add buttons, `append_button` and `prepend_button`:
+You can also prepend and append buttons. Note: The buttons must contain the
+`btn` class to generate the correct markup.
 
 ```erb
 <%= f.text_field :price, append_button: link_to("FX Rates", ..., class: "btn btn-default") %>
