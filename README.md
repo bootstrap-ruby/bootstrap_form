@@ -76,7 +76,7 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 
 ```erb
 <%= bootstrap_form_tag url: '/subscribe' do |f| %>
-  <%= f.email_field :email %>
+  <%= f.email_field :email, value: 'name@example.com' %>
   <%= f.submit %>
 <% end %>
 ```
