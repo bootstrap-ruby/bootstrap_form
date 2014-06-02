@@ -299,6 +299,18 @@ You can also prepend and append buttons. Note: The buttons must contain the
 <%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
 ```
 
+### Prepending and Appending Selects
+
+You can pass `prepend` and/or `append` options to select controls:
+
+```erb
+<%= f.select :status, ['online', 'offline'], include_blank: true, prepend: "Status", append: link_to('reset', '#', class: 'btn btn-default btn-sm') %>
+```
+Since the Bootstrap docs don't recommend using input groups for select elements (http://getbootstrap.com/components/#input-groups) the values
+of the append/prepend options are simply rendered before, respectively after the select(s). If the option value contains simply text, the text is wrapped
+in a `span` tag. In addition the selects get rendered inside a `div.rails-bootstrap-forms-appended-prepended-select` tag, which defines the selects as
+`inline-block` and a width of `auto`. This behavior is mimics the one of the date helpers and date helpers can also be used with `append` and `prepend`.
+
 ### Static Controls **(master branch only)**
 
 You can create a static control like this:
