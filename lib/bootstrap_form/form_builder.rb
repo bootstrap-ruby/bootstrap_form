@@ -38,8 +38,10 @@ module BootstrapForm
     DATE_SELECT_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          prepend_and_append_select(options) do
-            content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
+          content_tag(:div, class: control_specific_class(method_name)) do
+            prepend_and_append_select(options) do
+              super(name, options, html_options)
+            end
           end
         end
       end

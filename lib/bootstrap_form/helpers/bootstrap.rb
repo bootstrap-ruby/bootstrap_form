@@ -67,6 +67,7 @@ module BootstrapForm
         unless options.empty?
           input = append_prepend_select_wrapper(options[:prepend]) + input if options[:prepend]
           input << append_prepend_select_wrapper(options[:append]) if options[:append]
+          input = content_tag(:div, input, class: 'rails-bootstrap-forms-appended-prepended-select')
         end
         
         input
