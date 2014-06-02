@@ -380,6 +380,39 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '$', append: '.00')
   end
+  
+  test "adding append text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span>.00</span></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: '.00')
+  end
+  
+  test "adding prepend text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><span>.00</span><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: '.00')
+  end
+  
+  test "adding both prepend and append text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><span>.00</span><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span>.50</span></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: '.00', append: '.50')
+  end
+  
+  test "adding append button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select>#{button_src}</div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: button_src)
+  end
+  
+  test "adding prepend button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label>#{button_src}<select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: button_src)
+  end
+  
+  test "adding both append and prepend button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label>#{button_src}<select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select>#{button_src}</div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: button_src, prepend: button_src)
+  end  
 
   test "help messages for default forms" do
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}

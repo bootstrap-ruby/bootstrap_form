@@ -59,6 +59,18 @@ module BootstrapForm
         input = content_tag(:div, input, class: "input-group") unless options.empty?
         input
       end
+      
+      def prepend_and_append_select(options, &block)
+        options = options.extract!(:prepend, :append)
+        input = capture(&block)
+        
+        unless options.empty?
+          input = append_prepend_select_wrapper(options[:prepend]) + input if options[:prepend]
+          input << append_prepend_select_wrapper(options[:append]) if options[:append]
+        end
+        
+        input
+      end
 
       def input_group_class(add_on_content)
         if add_on_content.match /btn/
@@ -66,6 +78,11 @@ module BootstrapForm
         else
           'input-group-addon'
         end
+      end
+      
+      def append_prepend_select_wrapper(add_on_content)
+        add_on_content = content_tag(:span, add_on_content) unless add_on_content.match /btn/
+        add_on_content
       end
 
       def static_class
