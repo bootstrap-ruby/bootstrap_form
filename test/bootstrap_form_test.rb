@@ -663,4 +663,12 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: 1)
   end
 
+  test 'errors_on hide attribute name in message' do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>}
+
+    assert_equal expected, @builder.errors_on(:email, hide_attribute_name: true)
+  end
 end

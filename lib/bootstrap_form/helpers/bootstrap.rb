@@ -30,10 +30,16 @@ module BootstrapForm
         end
       end
 
-      def errors_on(name)
+      def errors_on(name, options = {})
         if has_error?(name)
+          hide_attribute_name = options[:hide_attribute_name] || false
+
           content_tag :div, class: "alert alert-danger" do
-            object.errors.full_messages_for(name).join(", ")
+            if hide_attribute_name
+              object.errors[name].join(", ")
+            else
+              object.errors.full_messages_for(name).join(", ")
+            end
           end
         end
       end

@@ -387,6 +387,18 @@ classes.
 <div class="alert alert-danger">Tasks must be added (at least one).</div>
 ```
 
+Sometimes you need only the error message and you want to hide the attribute name.
+
+```erb
+<%= f.errors_on :check_point, hide_attribute_name: true %>
+```
+
+This will be produce the following output.
+
+```html
+<div class="alert alert-danger">Error message</div>
+```
+
 ### Internationalization
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
