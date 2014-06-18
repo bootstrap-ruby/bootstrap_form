@@ -68,7 +68,7 @@ This generates the following HTML:
 ### Nested Forms
 
 In order to active [nested_form](https://github.com/ryanb/nested_form) support,
-use `boostrap_nested_form_for` instead of `bootstrap_form_for`.
+use `bootstrap_nested_form_for` instead of `bootstrap_form_for`.
 
 ### bootstrap_form_tag
 
