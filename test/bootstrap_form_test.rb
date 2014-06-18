@@ -381,6 +381,51 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, prepend: '$', append: '.00')
   end
 
+  test "adding append text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select"><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span>.00</span></div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: '.00')
+  end
+  
+  test "adding prepend text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select"><span>.00</span><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: '.00')
+  end
+  
+  test "adding both prepend and append text to a select control" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select"><span>.00</span><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span>.50</span></div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: '.00', append: '.50')
+  end
+  
+  test "adding append button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select"><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select>#{button_src}</div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: button_src)
+  end
+  
+  test "adding prepend button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select">#{button_src}<select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: button_src)
+  end
+  
+  test "adding both append and prepend button to a select control" do
+    button_src = link_to("Click", "#", class: "btn btn-default")
+    expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><div class="rails-bootstrap-forms-appended-prepended-select">#{button_src}<select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select>#{button_src}</div></div>}
+    assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], append: button_src, prepend: button_src)
+  end  
+
+  test "adding append and/or prepend text to a date/time select control" do
+    Timecop.freeze(Time.utc(2012, 2, 3)) do
+      ap_text = %{<span>yes</span>}
+      prefix = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="rails-bootstrap-forms-date-select"><div class="rails-bootstrap-forms-appended-prepended-select">}
+      suffix = %{</div></div></div>}
+      select = %{<select class="form-control" id="user_misc_1i" name="user[misc(1i)]">\n<option value="2007">2007</option>\n<option value="2008">2008</option>\n<option value="2009">2009</option>\n<option value="2010">2010</option>\n<option value="2011">2011</option>\n<option selected="selected" value="2012">2012</option>\n<option value="2013">2013</option>\n<option value="2014">2014</option>\n<option value="2015">2015</option>\n<option value="2016">2016</option>\n<option value="2017">2017</option>\n</select>\n<select class="form-control" id="user_misc_2i" name="user[misc(2i)]">\n<option value="1">January</option>\n<option selected="selected" value="2">February</option>\n<option value="3">March</option>\n<option value="4">April</option>\n<option value="5">May</option>\n<option value="6">June</option>\n<option value="7">July</option>\n<option value="8">August</option>\n<option value="9">September</option>\n<option value="10">October</option>\n<option value="11">November</option>\n<option value="12">December</option>\n</select>\n<select class="form-control" id="user_misc_3i" name="user[misc(3i)]">\n<option value="1">1</option>\n<option value="2">2</option>\n<option selected="selected" value="3">3</option>\n<option value="4">4</option>\n<option value="5">5</option>\n<option value="6">6</option>\n<option value="7">7</option>\n<option value="8">8</option>\n<option value="9">9</option>\n<option value="10">10</option>\n<option value="11">11</option>\n<option value="12">12</option>\n<option value="13">13</option>\n<option value="14">14</option>\n<option value="15">15</option>\n<option value="16">16</option>\n<option value="17">17</option>\n<option value="18">18</option>\n<option value="19">19</option>\n<option value="20">20</option>\n<option value="21">21</option>\n<option value="22">22</option>\n<option value="23">23</option>\n<option value="24">24</option>\n<option value="25">25</option>\n<option value="26">26</option>\n<option value="27">27</option>\n<option value="28">28</option>\n<option value="29">29</option>\n<option value="30">30</option>\n<option value="31">31</option>\n</select>}
+      
+      assert_equal (prefix + select + ap_text + suffix).gsub("\n", ''), @builder.date_select(:misc, append: 'yes').gsub("\n", '')
+      assert_equal (prefix + ap_text + select + suffix).gsub("\n", ''), @builder.date_select(:misc, prepend: 'yes').gsub("\n", '')
+    end
+  end
+
   test "help messages for default forms" do
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')

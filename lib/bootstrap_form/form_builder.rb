@@ -38,7 +38,11 @@ module BootstrapForm
     DATE_SELECT_HELPERS.each do |method_name|
       define_method(method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          content_tag(:div, super(name, options, html_options), class: control_specific_class(method_name))
+          content_tag(:div, class: control_specific_class(method_name)) do
+            prepend_and_append_select(options) do
+              super(name, options, html_options)
+            end
+          end
         end
       end
     end
@@ -51,25 +55,33 @@ module BootstrapForm
 
     def select(method, choices, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        super(method, choices, options, html_options)
+        prepend_and_append_select(options) do
+          super(method, choices, options, html_options)
+        end
       end
     end
 
     def collection_select(method, collection, value_method, text_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        super(method, collection, value_method, text_method, options, html_options)
+        prepend_and_append_select(options) do
+          super(method, collection, value_method, text_method, options, html_options)
+        end
       end
     end
 
     def grouped_collection_select(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        super(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        prepend_and_append_select(options) do
+          super(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
       end
     end
 
     def time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        super(method, priority_zones, options, html_options)
+        prepend_and_append_select(options) do
+          super(method, priority_zones, options, html_options)
+        end
       end
     end
 
