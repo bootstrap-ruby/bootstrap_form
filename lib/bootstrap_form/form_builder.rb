@@ -138,11 +138,15 @@ module BootstrapForm
       options[:class] << " #{error_class}" if has_error?(name)
 
       content_tag(:div, options.except(:id, :label, :help, :label_col, :control_col, :layout)) do
-        label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout])
-        control_and_help = capture(&block).concat(generate_help(name, options[:help]))
+        label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout])
+        control = capture(&block).to_s
+        help    = generate_help(name, options[:help]).to_s
+        control_and_help = control.concat(help)
+
         if get_group_layout(options[:layout]) == :horizontal
           control_and_help = content_tag(:div, control_and_help, class: (options[:control_col] || control_col))
         end
+
         concat(label).concat(control_and_help)
       end
     end

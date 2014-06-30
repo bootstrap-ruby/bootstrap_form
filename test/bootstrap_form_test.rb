@@ -671,4 +671,14 @@ class BootstrapFormTest < ActionView::TestCase
 
     assert_equal expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
+
+  test "doesn't throw undefined method error when the content block returns nil" do
+    output = @builder.form_group :nil, label: { text: 'Foo' } do
+      nil
+    end
+
+    expected = %{<div class="form-group"><label class="control-label" for="user_nil">Foo</label></div>}
+    assert_equal expected, output
+  end
+
 end
