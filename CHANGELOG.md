@@ -59,3 +59,4 @@ Features:
   - Added errors_on helper (@baldwindavid)
   - Added per field layout option (@baldwindavid)
   - Added support for bootstrap_form_tag (@baldwindavid)
+  - Added support for hidding attribute name in errors_on helper (@datWav)
