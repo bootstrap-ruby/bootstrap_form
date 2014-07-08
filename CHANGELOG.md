@@ -1,5 +1,8 @@
 ## Pending Release
 
+Bugfixes:
+  - Fixed an exception raised when form_group block returns nil (#111)
+
 Features:
 
   - Added the ability to append/prepend buttons (@retoo)
