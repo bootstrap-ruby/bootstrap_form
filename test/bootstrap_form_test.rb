@@ -661,6 +661,15 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input checked="checked" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label></div><div class="checkbox"><label for="user_misc_2"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div></div>}
 
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: 1)
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: collection.first)
+  end
+
+  test 'collection_check_boxes renders with multiple checked options correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input checked="checked" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label></div><div class="checkbox"><label for="user_misc_2"><input checked="checked" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: [1, 2])
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
   end
 
   test 'errors_on hide attribute name in message' do
