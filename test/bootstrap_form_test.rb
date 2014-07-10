@@ -39,6 +39,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, name: 'NAME', id: "ID" }
   end
 
+  test "bootstrap_form_tag allows an empty name for checkboxes" do
+    expected = %{<form accept-charset="UTF-8" action="/users" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="checkbox"><label for="_misc"><input name="[misc]" type="hidden" value="0" /><input id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div></form>}
+    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
+  end
+
   test "alert message is wrapped correctly" do
     @user.email = nil
     @user.valid?
