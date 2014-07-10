@@ -108,10 +108,11 @@ module BootstrapForm
     end
 
     def collection_check_boxes(*args)
-      inputs_collection(*args) do |name, value, options|
+      html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
       end
+      hidden_field(args.first,{value: "", multiple: true}).concat(html)
     end
 
     def collection_radio_buttons(*args)
