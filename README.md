@@ -200,6 +200,23 @@ class, which keeps your labels accessible to those using screen readers.
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
 
+### Wrapper form_group
+
+If you want to add a class to the wrapper div, you can use the `wrapper_class: 'additional-class'` option.
+
+```erb
+<%= f.text_field :name, wrapper_class: 'has-warning' %>
+```
+
+Producing the following output:
+
+```erb
+<div class="form-group has-warning">
+  <label class="control-label" for="user_name">Id</label>
+  <input class="form-control" id="user_name" name="user[name]" type="text">
+</div>
+```
+
 ### Help Text
 
 To add help text, use the `help` option:

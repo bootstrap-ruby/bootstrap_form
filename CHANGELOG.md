@@ -63,3 +63,4 @@ Features:
   - Added per field layout option (@baldwindavid)
   - Added support for bootstrap_form_tag (@baldwindavid)
   - Added support for hidding attribute name in errors_on helper (@datWav)
+  - Added support for additional class to the wrapper form_group by a field (@datWav)
