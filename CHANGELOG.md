@@ -7,6 +7,8 @@ Features:
 
   - Added the ability to append/prepend buttons (@retoo)
   - Added support for time_zone_select
+  - Accept multiple values, and objects as well, on `collection_check_boxes`
+    checked option (#114)
 
 ## 2.1.1 (2014-04-20)
 
