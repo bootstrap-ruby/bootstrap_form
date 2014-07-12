@@ -279,9 +279,15 @@ BootstrapForms also provide helpful helpers that automatically creates the
 ```
 
 Collection methods accept these options:
-* `:label`: Customize the `form_group`'s label;
-* `:hide_label`: Pass true to hide the `form_group`'s label;
-* `:help`: Add a help span to the `form_group`;
+* `:label`: Customize the `form_group`'s label
+* `:hide_label`: Pass true to hide the `form_group`'s label
+* `:help`: Add a help span to the `form_group`
+* `:checked`: A collection of the selected/checked values. Can be ids or objects:
+
+      ```
+        <%= f.check_boxes_collection :skills, Skill.all, :id, :name, checked: Skill.find([1,2]) %>
+        <%= f.check_boxes_collection :skills, Skill.all, :id, :name, checked: [1,2] %>
+      ```
 * Other options will be forwarded to the `radio_button`/`check_box` method;
 
 ### Prepending and Appending Inputs
