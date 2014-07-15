@@ -393,7 +393,7 @@ Here's some example output:
 
 ```html
 <div class="alert alert-danger">
-  <p>Please fix the following errors</p>
+  <p>Please fix the errors below.</p>
   <ul class="rails-bootstrap-forms-error-summary">
     <li>Email can't be blank</li>
   </ul>
