@@ -10,6 +10,8 @@ Features:
   - Added support for time_zone_select
   - Accept multiple values, and objects as well, on `collection_check_boxes`
     checked option (#114)
+  - Added support for hidding attribute name in errors_on helper (@datWav)
+  - Added support for additional class to the wrapper form_group by a field (@datWav)
 
 ## 2.1.1 (2014-04-20)
 
@@ -65,5 +67,3 @@ Features:
   - Added errors_on helper (@baldwindavid)
   - Added per field layout option (@baldwindavid)
   - Added support for bootstrap_form_tag (@baldwindavid)
-  - Added support for hidding attribute name in errors_on helper (@datWav)
-  - Added support for additional class to the wrapper form_group by a field (@datWav)
