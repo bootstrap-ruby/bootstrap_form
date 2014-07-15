@@ -357,67 +357,88 @@ The `layout` can be overriden per field:
 
 ## Validation & Errors
 
-When a validation error is triggered, the field will be outlined and the error
-will be displayed below the field. Rails normally wraps the fields in a div
-(field_with_errors), but this behavior is suppressed.
+### Inline Errors
 
-To display an error message wrapped in `.alert` and `.alert-danger`
-classes, you can use the `alert_message` helper. This won't output anything
-unless a model validation has failed.
+By default, fields that have validation errors will outlined in red and the
+error will be displayed below the field. Rails normally wraps the fields in a
+div (field_with_errors), but this behavior is suppressed. Here's an example:
+
+```html
+<div class="form-group has-error">
+  <label class="control-label" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" type="email" value="">
+  <span class="help-block">can't be blank</span>
+</div>
+```
+
+You can turn off inline errors for the entire form like this:
+
+```erb
+<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
+  ...
+<% end %>
+```
+
+### Alert Messages
+
+To display an error message with an error summary, you can use the
+`alert_message` helper. This won't output anything unless a model validation
+has failed.
 
 ```erb
 <%= f.alert_message "Please fix the errors below." %>
 ```
 
-You can turn off inline errors with the option `inline_errors: false`. Combine
-this with `alert_message` to display an alert message with an error summary.
+Here's some example output:
 
-```erb
-<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
-  <%= f.alert_message "Please fix the following errors:" %>
-<% end %>
+```html
+<div class="alert alert-danger">
+  <p>Please fix the following errors</p>
+  <ul class="rails-bootstrap-forms-error-summary">
+    <li>Email can't be blank</li>
+  </ul>
+</div>
 ```
 
-If you don't want an error summary, just send the `error_summary: false` option
-to `alert_message`.
+You can turn off the error summary like this:
 
 ```erb
-<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
-  <%= f.alert_message "Please fix the following errors", error_summary: false %>
-<% end %>
+<%= f.alert_message "Please fix the errors below.", error_summary: false %>
 ```
 
-To output a simple unordered list of errors, use `error_summary`.
+To output a simple unordered list of errors, use the `error_summary` helper.
 
 ```erb
-<%= bootstrap_form_for(@user, inline_errors: false) do |f| %>
-  <%= f.error_summary %>
-<% end %>
+<%= f.error_summary %>
 ```
 
-If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
+Which outputs:
+
+```html
+<ul class="rails-bootstrap-forms-error-summary">
+  <li>Email can't be blank</li>
+</ul>
+```
+
+### Errors On
+
+If you want to display a custom inline error for a specific attribute not
+represented by a form field, use the `errors_on` helper.
 
 ```erb
 <%= f.errors_on :tasks %>
 ```
 
-The error will be wrapped in a div with `.alert` and `.alert-danger`
-classes.
+Which outputs:
 
 ```html
 <div class="alert alert-danger">Tasks must be added (at least one).</div>
 ```
 
-Sometimes you need only the error message and you want to hide the attribute name.
+You can hide the attribute name like this:
 
 ```erb
 <%= f.errors_on :check_point, hide_attribute_name: true %>
-```
-
-This will be produce the following output.
-
-```html
-<div class="alert alert-danger">Error message</div>
 ```
 
 ## Internationalization
