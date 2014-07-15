@@ -200,15 +200,16 @@ class, which keeps your labels accessible to those using screen readers.
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
 
-### Wrapper form_group
+### Additional Form Group Classes
 
-If you want to add a class to the wrapper div, you can use the `wrapper_class: 'additional-class'` option.
+If you want to add an additional css class to the form group div, you can use
+the `wrapper_class: 'additional-class'` option.
 
 ```erb
 <%= f.text_field :name, wrapper_class: 'has-warning' %>
 ```
 
-Producing the following output:
+Which produces the following output:
 
 ```erb
 <div class="form-group has-warning">
@@ -316,7 +317,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 <%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
 ```
 
-### Static Controls **(master branch only)**
+### Static Controls
 
 You can create a static control like this:
 
@@ -343,7 +344,7 @@ You can also create a static control that isn't based on a model attribute:
 <% end %>
 ```
 
-### Date helpers
+### Date Helpers
 
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
