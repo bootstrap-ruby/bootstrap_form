@@ -81,7 +81,7 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 <% end %>
 ```
 
-### Supported Form Helpers
+## Form Helpers
 
 This gem wraps the following Rails form helpers:
 
@@ -115,8 +115,178 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
+ 
+These helpers accept the same options as the standard Rails form helpers, with
+a few extra options:
 
-### Default Form Style
+### Labels
+
+Use the `label` option if you want to specify the field's label text:
+
+```erb
+<%= f.password_field :password_confirmation, label: "Confirm Password" %>
+```
+
+To hide a label, use the `hide_label: true` option. This adds the `sr-only`
+class, which keeps your labels accessible to those using screen readers.
+
+```erb
+<%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
+```
+
+### Help Text
+
+To add help text, use the `help` option:
+
+```erb
+<%= f.password_field :password, help: "Must be at least 6 characters long" %>
+```
+
+### Prepending and Appending Inputs
+
+You can pass `prepend` and/or `append` options to input fields:
+
+```erb
+<%= f.text_field :price, prepend: "$", append: ".00" %>
+```
+
+You can also prepend and append buttons. Note: The buttons must contain the
+`btn` class to generate the correct markup.
+
+```erb
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
+```
+
+### Additional Form Group Classes
+
+If you want to add an additional css class to the form group div, you can use
+the `wrapper_class: 'additional-class'` option.
+
+```erb
+<%= f.text_field :name, wrapper_class: 'has-warning' %>
+```
+
+Which produces the following output:
+
+```erb
+<div class="form-group has-warning">
+  <label class="control-label" for="user_name">Id</label>
+  <input class="form-control" id="user_name" name="user[name]" type="text">
+</div>
+```
+
+### Checkboxes and Radios
+
+Checkboxes and radios should be placed inside of a `form_group` to render
+properly. The following example ensures that the entire form group will display
+an error if an associated validations fails:
+
+```erb
+<%= f.form_group :skill_level, label: { text: "Skill" }, help: "Optional Help Text" do %>
+  <%= f.radio_button :skill_level, 0, label: "Novice", checked: true %>
+  <%= f.radio_button :skill_level, 1, label: "Intermediate" %>
+  <%= f.radio_button :skill_level, 2, label: "Advanced" %>
+<% end %>
+
+<%= f.form_group :terms do %>
+  <%= f.check_box :terms, label: "I agree to the Terms of Service" %>
+<% end %>
+```
+
+You can also create a checkbox using a block:
+
+```erb
+<%= f.form_group :terms, label: { text: "Optional Label" } do %>
+  <%= f.check_box :terms do %>
+    You need to check this box to accept our terms of service and privacy policy
+  <% end %>
+<% end %>
+```
+
+To display checkboxes and radios inline, pass the `inline: true` option:
+
+```erb
+<%= f.form_group :skill_level, label: { text: "Skill" } do %>
+  <%= f.radio_button :skill_level, 0, label: "Novice", inline: true %>
+  <%= f.radio_button :skill_level, 1, label: "Intermediate", inline: true %>
+  <%= f.radio_button :skill_level, 2, label: "Advanced", inline: true %>
+<% end %>
+```
+
+#### Collections
+
+BootstrapForms also provideshelpers that automatically creates the
+`form_group` and the `radio_button`s or `check_box`es for you:
+
+```erb
+<%= f.radio_buttons_collection :skill_level, Skill.all, :id, :name %>
+<%= f.check_boxes_collection :skills, Skill.all, :id, :name %>
+```
+
+Collection methods accept these options:
+* `:label`: Customize the `form_group`'s label
+* `:hide_label`: Pass true to hide the `form_group`'s label
+* `:help`: Add a help span to the `form_group`
+* Other options will be forwarded to the `radio_button`/`check_box` method
+
+### Static Controls
+
+You can create a static control like this:
+
+```erb
+<%= f.static_control :email %>
+```
+
+Here's the output:
+
+```html
+<div class="form-group">
+  <label class="col-sm-2 control-label" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <p class="form-control-static">test@email.com</p>
+  </div>
+</div>
+```
+
+You can also create a static control that isn't based on a model attribute:
+
+```erb
+<%= f.static_control nil, label: "Custom Static Control" do %>
+  Content Here
+<% end %>
+```
+
+### Date Helpers
+
+The multiple selects that the date and time helpers (`date_select`,
+`time_select`, `datetime_select`) generate are wrapped inside a
+`div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
+Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
+this defining these selects as `inline-block` and a width of `auto`.
+
+### Submit Buttons
+
+The `btn btn-default` css classes are automatically added to your submit
+buttons.
+
+```erb
+<%= f.submit %>
+```
+
+You can also use the `primary` helper, which adds `btn btn-primary` to your
+submit button **(master branch only)**:
+
+```erb
+<%= f.primary "Optional Label" %>
+```
+
+You can specify your own classes like this:
+
+```erb
+<%= f.submit "Log In", class: "btn btn-success" %>
+```
+
+## Form Styles
 
 By default, your forms will stack labels on top of controls and your controls
 will grow to 100% of the available width.
@@ -185,174 +355,7 @@ The `layout` can be overriden per field:
 <% end %>
 ```
 
-### Labels
-
-Use the `label` option if you want to specify the field's label text:
-
-```erb
-<%= f.password_field :password_confirmation, label: "Confirm Password" %>
-```
-
-To hide a label, use the `hide_label: true` option. This adds the `sr-only`
-class, which keeps your labels accessible to those using screen readers.
-
-```erb
-<%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
-```
-
-### Additional Form Group Classes
-
-If you want to add an additional css class to the form group div, you can use
-the `wrapper_class: 'additional-class'` option.
-
-```erb
-<%= f.text_field :name, wrapper_class: 'has-warning' %>
-```
-
-Which produces the following output:
-
-```erb
-<div class="form-group has-warning">
-  <label class="control-label" for="user_name">Id</label>
-  <input class="form-control" id="user_name" name="user[name]" type="text">
-</div>
-```
-
-### Help Text
-
-To add help text, use the `help` option:
-
-```erb
-<%= f.password_field :password, help: "Must be at least 6 characters long" %>
-```
-
-### Submit Buttons
-
-The `btn btn-default` css classes are automatically added to your submit
-buttons.
-
-```erb
-<%= f.submit %>
-```
-
-You can also use the `primary` helper, which adds `btn btn-primary` to your
-submit button **(master branch only)**:
-
-```erb
-<%= f.primary "Optional Label" %>
-```
-
-You can specify your own classes like this:
-
-```erb
-<%= f.submit "Log In", class: "btn btn-success" %>
-```
-
-### Checkboxes and Radios
-
-Checkboxes and radios should be placed inside of a `form_group` to render
-properly. The following example ensures that the entire form group will display
-an error if an associated validations fails:
-
-```erb
-<%= f.form_group :skill_level, label: { text: "Skill" }, help: "Optional Help Text" do %>
-  <%= f.radio_button :skill_level, 0, label: "Novice", checked: true %>
-  <%= f.radio_button :skill_level, 1, label: "Intermediate" %>
-  <%= f.radio_button :skill_level, 2, label: "Advanced" %>
-<% end %>
-
-<%= f.form_group :terms do %>
-  <%= f.check_box :terms, label: "I agree to the Terms of Service" %>
-<% end %>
-```
-
-You can also create a checkbox using a block:
-
-```erb
-<%= f.form_group :terms, label: { text: "Optional Label" } do %>
-  <%= f.check_box :terms do %>
-    You need to check this box to accept our terms of service and privacy policy
-  <% end %>
-<% end %>
-```
-
-To display checkboxes and radios inline, pass the `inline: true` option:
-
-```erb
-<%= f.form_group :skill_level, label: { text: "Skill" } do %>
-  <%= f.radio_button :skill_level, 0, label: "Novice", inline: true %>
-  <%= f.radio_button :skill_level, 1, label: "Intermediate", inline: true %>
-  <%= f.radio_button :skill_level, 2, label: "Advanced", inline: true %>
-<% end %>
-```
-
-#### Collections
-
-BootstrapForms also provide helpful helpers that automatically creates the
-`form_group` and the `radio_button`s or `check_box`es for you:
-
-```erb
-<%= f.radio_buttons_collection :skill_level, Skill.all, :id, :name %>
-<%= f.check_boxes_collection :skills, Skill.all, :id, :name %>
-```
-
-Collection methods accept these options:
-* `:label`: Customize the `form_group`'s label;
-* `:hide_label`: Pass true to hide the `form_group`'s label;
-* `:help`: Add a help span to the `form_group`;
-* Other options will be forwarded to the `radio_button`/`check_box` method;
-
-### Prepending and Appending Inputs
-
-You can pass `prepend` and/or `append` options to input fields:
-
-```erb
-<%= f.text_field :price, prepend: "$", append: ".00" %>
-```
-
-You can also prepend and append buttons. Note: The buttons must contain the
-`btn` class to generate the correct markup.
-
-```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
-```
-
-### Static Controls
-
-You can create a static control like this:
-
-```erb
-<%= f.static_control :email %>
-```
-
-Here's the output:
-
-```html
-<div class="form-group">
-  <label class="col-sm-2 control-label" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <p class="form-control-static">test@email.com</p>
-  </div>
-</div>
-```
-
-You can also create a static control that isn't based on a model attribute:
-
-```erb
-<%= f.static_control nil, label: "Custom Static Control" do %>
-  Content Here
-<% end %>
-```
-
-### Date Helpers
-
-The multiple selects that the date and time helpers (`date_select`,
-`time_select`, `datetime_select`) generate are wrapped inside a
-`div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
-Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
-this defining these selects as `inline-block` and a width of `auto`.
-
-### Validation Errors
+## Validation & Errors
 
 When a validation error is triggered, the field will be outlined and the error
 will be displayed below the field. Rails normally wraps the fields in a div
@@ -417,7 +420,7 @@ This will be produce the following output.
 <div class="alert alert-danger">Error message</div>
 ```
 
-### Internationalization
+## Internationalization
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
 here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
