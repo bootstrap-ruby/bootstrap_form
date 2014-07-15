@@ -695,4 +695,28 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "adds class to wrapped form_group by a field" do
+    expected = %{<div class="form-group none-margin"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /></div>}
+    assert_equal expected, @builder.search_field(:misc, wrapper_class: 'none-margin')
+  end
+
+  test "adds class to wrapped form_group by a field with errors" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<div class="form-group none-margin has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    assert_equal expected, @builder.email_field(:email, wrapper_class: 'none-margin')
+  end
+
+  test "adds class to wrapped form_group by a field with errors when bootstrap_form_for is used" do
+    @user.email = nil
+    @user.valid?
+
+    output = bootstrap_form_for(@user) do |f|
+      f.text_field(:email, help: 'This is required', wrapper_class: 'none-margin')
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    assert_equal expected, output
+  end
 end
