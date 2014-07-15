@@ -389,7 +389,7 @@ has failed.
 <%= f.alert_message "Please fix the errors below." %>
 ```
 
-Here's some example output:
+Which outputs:
 
 ```html
 <div class="alert alert-danger">
@@ -432,13 +432,19 @@ represented by a form field, use the `errors_on` helper.
 Which outputs:
 
 ```html
-<div class="alert alert-danger">Tasks must be added (at least one).</div>
+<div class="alert alert-danger">Tasks can't be blank.</div>
 ```
 
 You can hide the attribute name like this:
 
 ```erb
-<%= f.errors_on :check_point, hide_attribute_name: true %>
+<%= f.errors_on :tasks, hide_attribute_name: true %>
+```
+
+Which outputs:
+
+```html
+<div class="alert alert-danger">can't be blank.</div>
 ```
 
 ## Internationalization
