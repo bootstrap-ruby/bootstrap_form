@@ -44,7 +44,10 @@ module BootstrapForm
         end
       end
 
-      def static_control(name, options = {}, &block)
+      def static_control(*args, &block)
+        options = args.extract_options!
+        name = args.first
+
         html = if block_given?
           capture(&block)
         else

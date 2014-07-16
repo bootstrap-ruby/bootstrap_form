@@ -489,6 +489,15 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "static control doesn't require a name" do
+    output = @horizontal_builder.static_control label: "Custom Label" do
+      "Custom Control"
+    end
+
+    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10"><p class="form-control-static">Custom Control</p></div></div>}
+    assert_equal expected, output
+  end
+
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
     output = @horizontal_builder.form_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
       %{<p class="form-control-static">Bar</p>}.html_safe

@@ -13,6 +13,7 @@ Features:
   - Added support for hidding attribute name in errors_on helper (@datWav)
   - Added support for additional class to the wrapper form_group by a field (@datWav)
   - Support showing error summaries when inline_errors is enabled (@rosswilson)
+  - Name is now optional when creating static controls
 
 ## 2.1.1 (2014-04-20)
 

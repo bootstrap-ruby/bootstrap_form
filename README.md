@@ -251,7 +251,7 @@ Here's the output:
 You can also create a static control that isn't based on a model attribute:
 
 ```erb
-<%= f.static_control nil, label: "Custom Static Control" do %>
+<%= f.static_control label: "Custom Static Control" do %>
   Content Here
 <% end %>
 ```
