@@ -78,7 +78,7 @@ module BootstrapForm
 
       html = super(name, options.except(:label, :help, :inline), checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
-      html.concat(" ").concat(label_content || object.class.try(:human_attribute_name, name) || name.to_s.humanize)
+      html.concat(" ").concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
 
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]
