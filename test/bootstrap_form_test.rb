@@ -442,7 +442,7 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2"></label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
@@ -460,7 +460,7 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group foo"><label class="control-label col-sm-2"></label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group foo"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
@@ -469,7 +469,7 @@ class BootstrapFormTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group foo"><label class="control-label col-sm-2"></label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group foo"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
@@ -729,6 +729,24 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds offset for form_group without label" do
+    output = @horizontal_builder.form_group do
+      @horizontal_builder.submit
+    end
+
+    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
+    assert_equal expected, output
+  end
+
+  test "adds offset for form_group without label but specific label_col" do
+    output = @horizontal_builder.form_group label_col: 'col-sm-5', control_col: 'col-sm-8' do
+      @horizontal_builder.submit
+    end
+
+    expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
 end
