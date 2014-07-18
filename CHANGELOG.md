@@ -15,6 +15,7 @@ Features:
   - Added support for additional class to the wrapper form_group by a field (@datWav)
   - Support showing error summaries when inline_errors is enabled (@rosswilson)
   - Name is now optional when creating static controls
+  - Keep original form helper methods with _without_bootstrap suffix (#123, @a2ikm)
 
 ## 2.1.1 (2014-04-20)
 
