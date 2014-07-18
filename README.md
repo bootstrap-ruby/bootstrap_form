@@ -286,27 +286,13 @@ You can specify your own classes like this:
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
 
-### Disabling Form Group Generation per Field
+### Accessing Rails Form Helpers
 
-Sometimes you don't want to generate a `form_group` for a particular field or
-set of fields. You can access the original Rails form helper by appending
-`_without_bootstrap`. For example, here's how might place city, state, and
-zip code on one line:
+If you want to use the original Rails form helpers for a particular field,
+append `_without_bootstrap` to the helper:
 
 ```erb
-<%= f.form_group do %>
-  <div class="row">
-    <div class="col-xs-2">
-      <%= f.text_field_without_bootstrap :city, class: "form-control" %>
-    </div>
-    <div class="col-xs-3">
-      <%= f.text_field_without_bootstrap :state, class: "form-control" %>
-    </div>
-    <div class="col-xs-4">
-      <%= f.text_field_without_bootstrap :zip, class: "form-control" %>
-    </div>
-  </div>
-<% end %>
+<%= f.text_field_without_bootstrap :email %>
 ```
 
 ## Form Styles
