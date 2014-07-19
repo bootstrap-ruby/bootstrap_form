@@ -115,7 +115,7 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
- 
+
 These helpers accept the same options as the standard Rails form helpers, with
 a few extra options:
 
@@ -454,6 +454,33 @@ Which outputs:
 
 ```html
 <div class="alert alert-danger">can't be blank.</div>
+```
+
+### Hightlight valid fields
+
+For hightlighting valid fields you can use `highlight_valid_fields: true` with bootstrap_form_for for the entire form or for a single field use `highlight_valid: true`.
+
+To enable this feature for all fields in the entire form:
+```erb
+  <%= bootstrap_form_for(@user, highlight_valid_fields: true) do |f| %>
+```
+
+For a single field:
+```erb
+  <%= f.text_field :name, highlight_valid: true %>
+```
+
+This generates, if the field is valid, the following output:
+```erb
+<div class="form-group has-success">
+  <label class="control-label" for="user_name">Name</label>
+  <input class="form-control" id="user_name" name="user[name]" value="" type="text">
+</div>
+```
+
+You can disable this feature for a single field with
+```erb
+  <%= f.text_field :name, highlight_valid: false %>
 ```
 
 ## Internationalization

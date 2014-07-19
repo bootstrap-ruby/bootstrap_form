@@ -4,7 +4,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag, :highlight_valid_fields
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -21,6 +21,7 @@ module BootstrapForm
       @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
       @acts_like_form_tag = options[:acts_like_form_tag]
+      @highlight_valid_fields = options[:highlight_valid_fields]
 
       super
     end
@@ -160,6 +161,7 @@ module BootstrapForm
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
+      options[:class] << " #{success_class}" if (options.delete(:highlight_valid)) && has_success?(name)
 
       content_tag(:div, options.except(:id, :label, :help, :label_col, :control_col, :layout)) do
         label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
@@ -229,12 +231,20 @@ module BootstrapForm
       "has-error"
     end
 
+    def success_class
+      "has-success"
+    end
+
     def control_specific_class(method)
       "rails-bootstrap-forms-#{method.gsub(/_/, "-")}"
     end
 
     def has_error?(name)
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+    end
+
+    def has_success?(name)
+      object.respond_to?(:errors) && object.respond_to?(name) && object.changed? && object.errors[name].empty?
     end
 
     def form_group_builder(method, options, html_options = nil)
@@ -251,12 +261,14 @@ module BootstrapForm
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       wrapper_class = options.delete(:wrapper_class)
+      highlight_valid = options.delete(:highlight_valid)
+      highlight_valid = @highlight_valid_fields if highlight_valid.nil?
       help = options.delete(:help)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
       layout = get_group_layout(options.delete(:layout))
 
-      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class) do
+      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class, highlight_valid: highlight_valid) do
         yield
       end
     end

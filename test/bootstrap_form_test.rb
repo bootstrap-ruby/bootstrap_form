@@ -758,4 +758,87 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
+
+  test "adds highlight_valid_fields to bootstrap_form_for" do
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-success"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds highlight_valid_fields to bootstrap_form_for with errors" do
+    @user.email = nil
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds highlight_valid_fields to horizontal bootstrap_form_for" do
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true, layout: :horizontal) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-success"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds highlight_valid_fields to horizontal bootstrap_form_for with errors" do
+    @user.email = nil
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true, layout: :horizontal) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-error"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds highlight_valid to fields with errors" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<div class="form-group has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    assert_equal expected, @builder.email_field(:email, highlight_valid: true)
+  end
+
+  test "adds highlight_valid to fields" do
+    @user.valid?
+
+    expected = %{<div class="form-group has-success"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.email_field(:email, highlight_valid: true)
+  end
+
+  test "adds highlight_valid_fields to bootstrap_form_for and disable it on a field" do
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true) do |f|
+      f.text_field(:email, highlight_valid: false)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds highlight_valid_fields to horizontal bootstrap_form_for and disable it on a field" do
+    @user.valid?
+
+    output = bootstrap_form_for(@user, highlight_valid_fields: true, layout: :horizontal) do |f|
+      f.text_field(:email, highlight_valid: false)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div></form>}
+    assert_equal expected, output
+  end
 end
