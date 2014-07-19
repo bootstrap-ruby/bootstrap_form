@@ -160,12 +160,13 @@ module BootstrapForm
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
+      options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:id, :label, :help, :label_col, :control_col, :layout)) do
+      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
         label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
-        help    = generate_help(name, options[:help]).to_s
-        control_and_help = control.concat(help)
+        control.concat(generate_help(name, options[:help]).to_s)
+        control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = (options[:control_col] || control_col)
@@ -174,10 +175,10 @@ module BootstrapForm
             control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || default_label_col))
             control_class.concat(" #{control_offset}")
           end
-          control_and_help = content_tag(:div, control_and_help, class: control_class)
+          control = content_tag(:div, control, class: control_class)
         end
 
-        concat(label).concat(control_and_help)
+        concat(label).concat(control)
       end
     end
 
@@ -229,6 +230,10 @@ module BootstrapForm
       "has-error"
     end
 
+    def feedback_class
+      "has-feedback"
+    end
+
     def control_specific_class(method)
       "rails-bootstrap-forms-#{method.gsub(/_/, "-")}"
     end
@@ -252,11 +257,12 @@ module BootstrapForm
       label_class = hide_class if options.delete(:hide_label)
       wrapper_class = options.delete(:wrapper_class)
       help = options.delete(:help)
+      icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
       layout = get_group_layout(options.delete(:layout))
 
-      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class) do
+      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, icon: icon, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class) do
         yield
       end
     end
@@ -279,6 +285,10 @@ module BootstrapForm
     def generate_help(name, help_text)
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
       content_tag(:span, help_text, class: "help-block") if help_text
+    end
+
+    def generate_icon(icon)
+      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)

@@ -758,4 +758,9 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
+
+  test "adding an icon to a field" do
+    expected = %{<div class="form-group has-feedback"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="email" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>}
+    assert_equal expected, @builder.email_field(:misc, icon: 'ok')
+  end
 end

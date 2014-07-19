@@ -142,6 +142,25 @@ To add help text, use the `help` option:
 <%= f.password_field :password, help: "Must be at least 6 characters long" %>
 ```
 
+### Icons
+
+To add an icon to a field, use the `icon` option and pass the icon name
+*without* the 'glyphicon' prefix:
+
+```erb
+<%= f.text_field :login, icon: "user" %>
+```
+
+This automatically adds the `has-feedback` class to the `form-group`:
+
+```html
+<div class="form-group has-feedback">
+  <label class="control-label" for="user_login">Login</label>
+  <input class="form-control" id="user_login" name="user[login]" type="text" />
+  <span class="glyphicon glyphicon-user form-control-feedback"></span>
+</div>
+```
+
 ### Prepending and Appending Inputs
 
 You can pass `prepend` and/or `append` options to input fields:
