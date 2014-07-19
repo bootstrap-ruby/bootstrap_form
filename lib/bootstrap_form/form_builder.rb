@@ -4,7 +4,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag, :icons
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -21,7 +21,7 @@ module BootstrapForm
       @control_col = options[:control_col] || default_control_col
       @inline_errors = options[:inline_errors] != false
       @acts_like_form_tag = options[:acts_like_form_tag]
-
+      @icons = options[:icons]
       super
     end
 
@@ -161,11 +161,18 @@ module BootstrapForm
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " #{error_class}" if has_error?(name)
 
-      content_tag(:div, options.except(:id, :label, :help, :label_col, :control_col, :layout)) do
+      content_tag(:div, options.except(:id, :label, :help, :label_col, :control_col, :layout, :icon)) do
         label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         help    = generate_help(name, options[:help]).to_s
+        icon    = options.delete(:icon)
         control_and_help = control.concat(help)
+
+
+        if icon
+          icon = generate_icon(icon)
+          control_and_help = control_and_help.concat(icon)
+        end
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = (options[:control_col] || control_col)
@@ -229,12 +236,60 @@ module BootstrapForm
       "has-error"
     end
 
+    def success_class
+      "has-success"
+    end
+
+    def has_feedback_class
+      "has-feedback"
+    end
+
+    def default_success_icon
+      "ok"
+    end
+
+    def default_error_icon
+      "remove"
+    end
+
     def control_specific_class(method)
       "rails-bootstrap-forms-#{method.gsub(/_/, "-")}"
     end
 
     def has_error?(name)
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+    end
+
+    def has_success?(name)
+      object.respond_to?(:errors) && object.respond_to?(name) && object.changed? &&  object.errors[name].empty?
+    end
+
+    def default_validation_or_user_defined_icon(icon, name)
+      return nil if icon === false
+      if icon === true
+        return default_error_icon if has_error?(name)
+        return default_success_icon if has_success?(name)
+        return nil
+      end
+
+      if icon.is_a?(Hash)
+        if has_error?(name)
+          return nil if icon[:error] === false
+          return icon[:error] || default_error_icon
+        end
+
+        if has_success?(name)
+          return nil if icon[:success] === false
+          return icon[:success] || default_error_icon
+        end
+
+        return nil if icon[:default] === false
+        return icon[:default] || nil
+      end
+
+      return icon if icon
+      return default_error_icon if has_error?(name)
+      return default_success_icon if has_success?(name)
     end
 
     def form_group_builder(method, options, html_options = nil)
@@ -251,12 +306,18 @@ module BootstrapForm
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       wrapper_class = options.delete(:wrapper_class)
+
+      icon = options.delete(:icon)
+      icon = @icons if !(icon===false) && @icons
+      icon = default_validation_or_user_defined_icon(icon, method) if icon
+      wrapper_class = "#{wrapper_class} #{has_feedback_class}" if icon
+
       help = options.delete(:help)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
       layout = get_group_layout(options.delete(:layout))
 
-      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class) do
+      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class, icon: icon) do
         yield
       end
     end
@@ -279,6 +340,10 @@ module BootstrapForm
     def generate_help(name, help_text)
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
       content_tag(:span, help_text, class: "help-block") if help_text
+    end
+
+    def generate_icon(icon)
+      content_tag(:span, nil, class: "glyphicon glyphicon-#{icon} form-control-feedback") if icon
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)

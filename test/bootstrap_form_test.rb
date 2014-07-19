@@ -758,4 +758,69 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
+
+  test "adds icon to field" do
+    expected = %{<div class="form-group  has-feedback"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>}
+    assert_equal expected, @builder.search_field(:misc, icon:'ok')
+  end
+
+  test "adds icon with wrapper_class to field" do
+    expected = %{<div class="form-group has-success has-feedback"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>}
+    assert_equal expected, @builder.search_field(:misc, icon:'ok', wrapper_class: 'has-success')
+  end
+
+  test "adds icon as hash with success-icon to field" do
+    expected = %{<div class="form-group  has-feedback"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /><span class="glyphicon glyphicon-plus form-control-feedback"></span></div>}
+    assert_equal expected, @builder.search_field(:misc, icon: {success: 'plus'})
+  end
+
+  test "adds icon as hash with error-icon to field" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<div class="form-group  has-feedback has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span><span class="glyphicon glyphicon-minus form-control-feedback"></span></div>}
+    assert_equal expected, @builder.email_field(:email, icon: {error: 'minus'})
+  end
+
+  test "adds icon as hash with error- and success-icon to field" do
+    @user.valid?
+    expected = %{<div class="form-group  has-feedback"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /><span class="glyphicon glyphicon-plus form-control-feedback"></span></div>}
+    assert_equal expected, @builder.email_field(:email, icon: {success: 'plus', error: 'minus'})
+
+    @user.email = nil
+    @user.valid?
+    expected = %{<div class="form-group  has-feedback has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span><span class="glyphicon glyphicon-minus form-control-feedback"></span></div>}
+    assert_equal expected, @builder.email_field(:email, icon: {success: 'plus', error: 'minus'})
+  end
+
+  test "adds icon with bootstrap_form_for and icons" do
+    output = bootstrap_form_for(@user, icons: true) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group  has-feedback"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div></form>}
+    assert_equal expected, output
+  end
+
+  test "don't show icon with bootstrap_form_for and icons for a field with icon=false" do
+    output = bootstrap_form_for(@user, icons: true) do |f|
+      f.text_field(:email, icon: false)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></form>}
+    assert_equal expected, output
+  end
+
+  test "adds icon as hash with *-icon=false to field" do
+    icon_hash = {success: false, error: false, default: false}
+
+    @user.valid?
+    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.email_field(:email, icon: icon_hash)
+
+    @user.email = nil
+    @user.valid?
+    expected = %{<div class="form-group has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    assert_equal expected, @builder.email_field(:email, icon: icon_hash)
+  end
 end

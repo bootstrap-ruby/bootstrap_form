@@ -115,7 +115,7 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
- 
+
 These helpers accept the same options as the standard Rails form helpers, with
 a few extra options:
 
@@ -293,6 +293,54 @@ append `_without_bootstrap` to the helper:
 
 ```erb
 <%= f.text_field_without_bootstrap :email %>
+```
+
+### Icon Suport
+
+If you want to use icons for the entire form use bootstrap_form_for `icons=ICON` or for a single field `icon: ICON`.
+
+*ICON* is a hash like `{success: 'ok', error: 'warning-sign', default: false}`, `true` for a default hash or
+only `th` for one icon.
+
+This automatically adds the `has-feedback` class to the `form-group`.
+
+You can disable a single icon in a hash with *false*, like `{success: false}` or disable all icons with `false` instead of a hash.
+Missing icons in a defined hash are filled up with the default value from the hash: `{success: 'ok', error: 'remove', default: false}`.
+
+A icon defined for a field will override the icon defined in *bootstsrap_form_for*.
+
+Here are some examples:
+Use the default hash for all fields:
+```erb
+<%= bootstrap_form_for(@user, icons: true) do |f| %>
+  <%= f.text_field :email %>
+<% end %>
+```
+
+Override the success icon and disabled the default icon for all fields:
+```erb
+<%= bootstrap_form_for(@user, icons: {success: 'plus', default: false}) do |f| %>
+  <%= f.text_field :email %>
+<% end %>
+```
+
+Override the error icon for single field:
+```erb
+<%= bootstrap_form_for(@user, icons: true) do |f| %>
+  <%= f.text_field :email, icon: {error: 'minus'} %>
+<% end %>
+```
+
+Disable the icon for single field:
+```erb
+<%= bootstrap_form_for(@user, icons: true) do |f| %>
+  <%= f.text_field :email, icon: false %>
+<% end %>
+```
+
+Use the default hash for a single field:
+```erb
+<%= f.text_field :email, icon: true
 ```
 
 ## Form Styles
