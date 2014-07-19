@@ -409,7 +409,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help messges for form when help is true" do
-    I18n.backend.store_translations(:en, {activerecord: {helps: {user: {email: "An awesome hint"}}}})
+    I18n.backend.store_translations(:en, {activerecord: {help: {user: {email: "An awesome hint"}}}})
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">An awesome hint</span></div>}
     assert_equal expected, @builder.text_field(:email, help: true)
   end
