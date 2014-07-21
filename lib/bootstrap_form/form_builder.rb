@@ -284,7 +284,10 @@ module BootstrapForm
 
     def generate_help(name, help_text)
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
-      content_tag(:span, help_text, class: "help-block") if help_text
+      return if help_text === false
+
+      help_text ||= I18n.t(name, scope: "activerecord.help.#{object.class.to_s.downcase}", default: '')
+      content_tag(:span, help_text, class: 'help-block') if help_text.present?
     end
 
     def generate_icon(icon)
