@@ -142,6 +142,19 @@ To add help text, use the `help` option:
 <%= f.password_field :password, help: "Must be at least 6 characters long" %>
 ```
 
+This gem is also aware of help messages in locale translation files (i18n):
+
+```yml
+en:
+  activerecord:
+    help:
+      user:
+        password: "A good password should be at least six characters long"
+```
+
+You can override help translations for a particular field by passing the `help`
+option or turn them off completely by passing `help: false`.
+
 ### Icons
 
 To add an icon to a field, use the `icon` option and pass the icon name

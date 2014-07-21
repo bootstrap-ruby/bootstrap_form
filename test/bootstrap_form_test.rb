@@ -7,7 +7,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" })
-    I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should have at least six characters long"}}}})
+    I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
   end
 
   test "default-style forms" do
@@ -157,7 +157,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><span class="help-block">A good password should have at least six characters long</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><span class="help-block">A good password should be at least six characters long</span></div>}
     assert_equal expected, @builder.password_field(:password)
   end
 
@@ -410,7 +410,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help messages to look up I18n automatically" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="text" value="secret" /><span class="help-block">A good password should have at least six characters long</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="text" value="secret" /><span class="help-block">A good password should be at least six characters long</span></div>}
     assert_equal expected, @builder.text_field(:password)
   end
 
