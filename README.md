@@ -86,7 +86,7 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 This gem wraps the following Rails form helpers:
 
 * check_box
-* check_boxes_collection
+* collection_check_boxes
 * collection_select
 * color_field
 * date_field
@@ -103,7 +103,7 @@ This gem wraps the following Rails form helpers:
 * password_field
 * phone_field
 * radio_button
-* radio_buttons_collection
+* collection_radio_buttons
 * range_field
 * search_field
 * select
@@ -251,8 +251,8 @@ BootstrapForms also provideshelpers that automatically creates the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
 ```erb
-<%= f.radio_buttons_collection :skill_level, Skill.all, :id, :name %>
-<%= f.check_boxes_collection :skills, Skill.all, :id, :name %>
+<%= f.collection_radio_buttons :skill_level, Skill.all, :id, :name %>
+<%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
 ```
 
 Collection methods accept these options:
