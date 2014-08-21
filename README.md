@@ -39,7 +39,7 @@ To get started, just use the `bootstrap_form_for` helper. Here's an example:
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me %>
-  <%= f.submit %>
+  <%= f.submit "Log In" %>
 <% end %>
 ```
 
