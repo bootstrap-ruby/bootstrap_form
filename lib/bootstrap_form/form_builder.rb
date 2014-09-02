@@ -272,7 +272,7 @@ module BootstrapForm
         label_col: label_col,
         control_col: control_col,
         layout: layout
-      }.merge(wrapper_options)
+      }.reverse_merge(wrapper_options)
 
       form_group(method, form_group_options) do
         yield
