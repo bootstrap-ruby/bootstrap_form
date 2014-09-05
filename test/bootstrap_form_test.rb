@@ -774,4 +774,16 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group has-feedback"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="email" /><span class="glyphicon glyphicon-ok form-control-feedback"></span></div>}
     assert_equal expected, @builder.email_field(:misc, icon: 'ok')
   end
+
+  test "single form_group call in horizontal form should not be smash design" do
+    output = ''
+    output = @horizontal_builder.form_group do
+      "Hallo"
+    end
+
+    output = output + @horizontal_builder.text_field(:email)
+
+    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    assert_equal expected, output
+  end
 end
