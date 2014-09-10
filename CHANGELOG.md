@@ -4,6 +4,7 @@ Bugfixes:
   - Fixed an exception raised when form_group block returns nil (#111)
   - Fixed an exception on human_attribute_name when using bootstrap_form_tag (#115)
   - Set offset in form_group without label in horizontal layout (#94, @datWav)
+  - Fixes an offset bug in form_group without a given label in horizontal layout (#130, @datWav)
 
 Features:
 

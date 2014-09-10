@@ -169,7 +169,7 @@ module BootstrapForm
         control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
-          control_class = (options[:control_col] || control_col)
+          control_class = (options[:control_col] || control_col.clone)
 
           unless options[:label]
             control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || default_label_col))
