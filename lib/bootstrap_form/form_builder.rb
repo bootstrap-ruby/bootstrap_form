@@ -256,13 +256,31 @@ module BootstrapForm
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
       wrapper_class = options.delete(:wrapper_class)
+      wrapper_options = options.delete(:wrapper)
       help = options.delete(:help)
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
       layout = get_group_layout(options.delete(:layout))
+      form_group_options = {
+        id: options[:id],
+        label: {
+          text: label,
+          class: label_class
+        },
+        help: help,
+        icon: icon,
+        label_col: label_col,
+        control_col: control_col,
+        layout: layout,
+        class: wrapper_class
+      }
 
-      form_group(method, id: options[:id], label: { text: label, class: label_class }, help: help, icon: icon, label_col: label_col, control_col: control_col, layout: layout, class: wrapper_class) do
+      if wrapper_options.is_a?(Hash)
+        form_group_options.reverse_merge!(wrapper_options)
+      end
+
+      form_group(method, form_group_options) do
         yield
       end
     end

@@ -786,4 +786,9 @@ class BootstrapFormTest < ActionView::TestCase
     expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, output
   end
+
+  test "adds data-attributes (or any other options) to wrapper" do
+    expected = %{<div class="form-group" data-foo="bar"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /></div>}
+    assert_equal expected, @builder.search_field(:misc, wrapper: { data: { foo: 'bar' } })
+  end
 end
