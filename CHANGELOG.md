@@ -19,6 +19,7 @@ Features:
   - Keep original form helper methods with _without_bootstrap suffix (#123, @a2ikm)
   - Added glyphicon support
   - Added i18n support for help messages (#122, @huynhquancam)
+  - Added the ability to pass any attributes to wrapper (#136, @atipugin)
 
 ## 2.1.1 (2014-04-20)
 
