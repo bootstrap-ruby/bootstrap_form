@@ -255,7 +255,8 @@ module BootstrapForm
 
       label = options.delete(:label)
       label_class = hide_class if options.delete(:hide_label)
-      wrapper_options = options.delete(:wrapper_options) || {}
+      wrapper_class = options.delete(:wrapper_class)
+      wrapper_options = options.delete(:wrapper)
       help = options.delete(:help)
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
@@ -271,8 +272,13 @@ module BootstrapForm
         icon: icon,
         label_col: label_col,
         control_col: control_col,
-        layout: layout
-      }.reverse_merge(wrapper_options)
+        layout: layout,
+        class: wrapper_class
+      }
+
+      if wrapper_options.is_a?(Hash)
+        form_group_options.reverse_merge!(wrapper_options)
+      end
 
       form_group(method, form_group_options) do
         yield

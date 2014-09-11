@@ -192,10 +192,10 @@ You can also prepend and append buttons. Note: The buttons must contain the
 ### Additional Form Group Attributes
 
 If you want to add an additional css class or any other attribute to the form group div, you can use
-the `wrapper_options: { class: 'additional-class', data: { foo: 'bar' } }` option.
+the `wrapper: { class: 'additional-class', data: { foo: 'bar' } }` option.
 
 ```erb
-<%= f.text_field :name, wrapper_options: { class: 'has-warning', data: { foo: 'bar' } } %>
+<%= f.text_field :name, wrapper: { class: 'has-warning', data: { foo: 'bar' } } %>
 ```
 
 Which produces the following output:
@@ -206,6 +206,8 @@ Which produces the following output:
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
+
+You still can use `wrapper_class` option to set only a css class. This is just a short form of `wrapper: { class: 'additional-class' }`.
 
 ### Checkboxes and Radios
 
