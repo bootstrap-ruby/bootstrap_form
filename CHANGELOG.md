@@ -20,6 +20,8 @@ Features:
   - Added glyphicon support
   - Added i18n support for help messages (#122, @huynhquancam)
   - Added the ability to pass any attributes to wrapper (#136, @atipugin)
+  - Split monolithic test file into several smaller files (#141, @spacewander)
+  - Added role="form" attribute to forms (#142, @spacewander)
 
 ## 2.1.1 (2014-04-20)
 
