@@ -320,6 +320,18 @@ You can specify your own classes like this:
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
 
+### Select Classes
+
+Sometimes you want to inject classes into your `f.select` input helper, but it works differently from others because its first parameter is the collection of options your application will display.
+
+Then, to add your own classes to the input, you should do the following:
+
+```erb
+<%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
+```
+
+Note that you can't just place `label` or `class` wherever you want in your input – there is a flow to follow.
+
 ### Accessing Rails Form Helpers
 
 If you want to use the original Rails form helpers for a particular field,
