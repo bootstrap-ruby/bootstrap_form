@@ -209,6 +209,14 @@ Which produces the following output:
 
 You still can use `wrapper_class` option to set only a css class. This is just a short form of `wrapper: { class: 'additional-class' }`.
 
+### Selects
+
+Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
+
+```erb
+<%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
+```
+
 ### Checkboxes and Radios
 
 Checkboxes and radios should be placed inside of a `form_group` to render
@@ -319,18 +327,6 @@ You can specify your own classes like this:
 ```erb
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
-
-### Select Classes
-
-Sometimes you want to inject classes into your `f.select` input helper, but it works differently from others because its first parameter is the collection of options your application will display.
-
-Then, to add your own classes to the input, you should do the following:
-
-```erb
-<%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
-```
-
-Note that you can't just place `label` or `class` wherever you want in your input – there is a flow to follow.
 
 ### Accessing Rails Form Helpers
 
