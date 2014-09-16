@@ -129,5 +129,4 @@ class BootstrapSelectsTest < ActionView::TestCase
       assert_equal expected, @builder.datetime_select(:misc, { include_blank: true }, class: "my-datetime-select")
     end
   end
-
 end

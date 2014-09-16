@@ -6,7 +6,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   def setup
     setup_test_fixture
   end
-  
+
   test "static control" do
     output = @horizontal_builder.static_control :email
 

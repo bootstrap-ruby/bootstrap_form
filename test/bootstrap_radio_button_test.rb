@@ -44,5 +44,4 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
     assert_equal expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, checked: 1)
   end
-
 end

@@ -6,7 +6,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   def setup
     setup_test_fixture
   end
-  
+
   test "changing the label text" do
     expected = %{<div class="form-group"><label class="control-label" for="user_email">Email Address</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
@@ -215,5 +215,4 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></form>}
     assert_equal expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, layout: :inline }
   end
-
 end

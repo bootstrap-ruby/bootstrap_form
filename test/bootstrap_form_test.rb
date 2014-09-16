@@ -173,5 +173,4 @@ class BootstrapFormTest < ActionView::TestCase
 
     assert_equal expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
-
 end
