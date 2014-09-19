@@ -47,6 +47,22 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
+  test "errors display correctly and inline_errors are turned off by default when label_errors is true" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-error\"><label class=\"control-label\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control\" id=\"user_email\" name=\"user[email]\" type=\"text\" /></div></form>}
+    assert_equal expected, bootstrap_form_for(@user, label_errors: true) { |f| f.text_field :email }
+  end
+
+  test "errors display correctly and inline_errors can also be on when label_errors is true" do
+    @user.email = nil
+    @user.valid?
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-error\"><label class=\"control-label\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"help-block\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    assert_equal expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+  end
+
   test "alert message is wrapped correctly" do
     @user.email = nil
     @user.valid?
