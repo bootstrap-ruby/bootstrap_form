@@ -4,7 +4,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -19,7 +19,12 @@ module BootstrapForm
       @layout = options[:layout]
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
-      @inline_errors = options[:inline_errors] != false
+      @label_errors = options[:label_errors] || false
+      @inline_errors = if options[:inline_errors].nil?
+        @label_errors != true
+      else
+        options[:inline_errors] != false
+      end
       @acts_like_form_tag = options[:acts_like_form_tag]
 
       super
@@ -164,7 +169,7 @@ module BootstrapForm
       options[:class] << " #{feedback_class}" if options[:icon]
 
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
-        label   = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
+        label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
         control.concat(generate_icon(options[:icon])) if options[:icon]
@@ -188,6 +193,8 @@ module BootstrapForm
       fields_options[:layout] ||= options[:layout]
       fields_options[:label_col] = fields_options[:label_col].present? ? "#{fields_options[:label_col]} #{label_class}" : options[:label_col]
       fields_options[:control_col] ||= options[:control_col]
+      fields_options[:inline_errors] ||= options[:inline_errors]
+      fields_options[:label_errors] ||= options[:label_errors]
       fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
     end
 
@@ -298,7 +305,13 @@ module BootstrapForm
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       options[:class] = classes.compact.join(" ")
 
-      label(name, options[:text], options.except(:text))
+      if label_errors && has_error?(name)
+        error_messages = get_error_messages(name)
+        label_text = (options[:text] || name.to_s.humanize).to_s.concat(" #{error_messages}")
+        label(name, label_text, options.except(:text))
+      else
+        label(name, options[:text], options.except(:text))
+      end
     end
 
     def generate_help(name, help_text)
@@ -311,6 +324,10 @@ module BootstrapForm
 
     def generate_icon(icon)
       content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
+    end
+
+    def get_error_messages(name)
+      object.errors[name].join(", ")
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)

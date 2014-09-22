@@ -430,6 +430,26 @@ You can turn off inline errors for the entire form like this:
 <% end %>
 ```
 
+### Label Errors
+
+You can also display validation errors in the field's label; just turn
+on the `:label_errors` option. Here's an example:
+
+```
+<%= bootstrap_form_for(@user, label_errors: true) do |f| %>
+  ...
+<% end %>
+```
+
+By default, turning on `:label_errors` will also turn off
+`:inline_errors`. If you want both turned on, you can do that too:
+
+```
+<%= bootstrap_form_for(@user, label_errors: true, inline_errors: true) do |f| %>
+  ...
+<% end %>
+```
+
 ### Alert Messages
 
 To display an error message with an error summary, you can use the
