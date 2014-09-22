@@ -318,7 +318,19 @@ module BootstrapForm
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
       return if help_text === false
 
-      help_text ||= I18n.t(name, scope: "activerecord.help.#{object.class.to_s.underscore}", default: '')
+      downcased_key = object.class.to_s.downcase
+      underscored_key = object.class.to_s.underscore
+      help_text ||= begin
+        I18n.t(name, scope: "activerecord.help.#{underscored_key}", raise: true)
+      rescue I18n::MissingTranslationData
+        text = I18n.t(name, scope: "activerecord.help.#{downcased_key}", default: '')
+        if text.present? && downcased_key != underscored_key
+          warn "I18n key 'activerecord.help.#{downcased_key}.#{name}' is deprecated, use 'activerecord.help.#{underscored_key}.#{name}' instead"
+        end
+
+        text
+      end
+
       content_tag(:span, help_text, class: 'help-block') if help_text.present?
     end
 
