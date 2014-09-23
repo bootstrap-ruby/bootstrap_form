@@ -318,7 +318,8 @@ module BootstrapForm
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
       return if help_text === false
 
-      help_text ||= I18n.t(name, scope: "activerecord.help.#{object.class.to_s.downcase}", default: '')
+      help_text ||= get_help_text_by_i18n_key(name)
+
       content_tag(:span, help_text, class: 'help-block') if help_text.present?
     end
 
@@ -350,6 +351,18 @@ module BootstrapForm
 
         inputs.html_safe
       end
+    end
+
+    def get_help_text_by_i18n_key(name)
+      underscored_scope = "activerecord.help.#{object.class.name.underscore}"
+      downcased_scope = "activerecord.help.#{object.class.name.downcase}"
+      help_text = I18n.t(name, scope: underscored_scope, default: '').presence
+      help_text ||= if text = I18n.t(name, scope: downcased_scope, default: '').presence
+        warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
+        text
+      end
+
+      help_text
     end
   end
 end

@@ -42,8 +42,11 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.4)
     mime-types (1.23)
     minitest (4.7.5)
+    mocha (1.1.0)
+      metaclass (~> 0.0.1)
     multi_json (1.7.7)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -89,6 +92,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap_form!
   jquery-rails
+  mocha
   rails (~> 4.0)
   sqlite3
   timecop (~> 0.3.5)
