@@ -307,7 +307,7 @@ module BootstrapForm
 
       if label_errors && has_error?(name)
         error_messages = get_error_messages(name)
-        label_text = (options[:text] || name.to_s.humanize).to_s.concat(" #{error_messages}")
+        label_text = (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{error_messages}")
         label(name, label_text, options.except(:text))
       else
         label(name, options[:text], options.except(:text))
