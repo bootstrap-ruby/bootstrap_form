@@ -152,6 +152,9 @@ en:
         password: "A good password should be at least six characters long"
 ```
 
+If your model name has multiple words (like `SuperUser`), the key on the 
+translation file should be underscored (`super_user`).
+
 You can override help translations for a particular field by passing the `help`
 option or turn them off completely by passing `help: false`.
 
