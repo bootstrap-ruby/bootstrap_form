@@ -251,8 +251,11 @@ module BootstrapForm
     end
 
     def required_attribute?(obj, attribute)
-     target = (obj.class == Class) ? obj : obj.class
-     target.validators_on(attribute).map(&:class).include?(
+
+      return false unless obj and attribute
+
+      target = (obj.class == Class) ? obj : obj.class
+      target.validators_on(attribute).map(&:class).include?(
         ActiveRecord::Validations::PresenceValidator)
     end
 

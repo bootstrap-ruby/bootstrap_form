@@ -8,27 +8,27 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "changing the label text" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email Address</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email Address</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
   end
 
   test "hiding a label" do
-    expected = %{<div class="form-group"><label class="sr-only control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    expected = %{<div class="form-group"><label class="sr-only control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, hide_label: true)
   end
 
   test "adding prepend text" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '@')
   end
 
   test "adding append text" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
     assert_equal expected, @builder.text_field(:email, append: '.00')
   end
 
   test "append and prepend button" do
-    prefix = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group">}
+    prefix = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group">}
     field = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
     button = %{<span class="input-group-btn"><a class="btn btn-default" href="#">Click</a></span>}
     suffix = %{</div></div>}
@@ -42,17 +42,17 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "adding both prepend and append text" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '$', append: '.00')
   end
 
   test "help messages for default forms" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
   end
 
   test "help messages for horizontal forms" do
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div></div>}
+    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div></div>}
     assert_equal expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
@@ -107,7 +107,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_email">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
   end
 
@@ -159,7 +159,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<div class="form-group none-margin has-error"><div class="field_with_errors"><label class="control-label" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    expected = %{<div class="form-group none-margin has-error"><div class="field_with_errors"><label class="control-label required" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
     assert_equal expected, @builder.email_field(:email, wrapper_class: 'none-margin')
   end
 
@@ -171,7 +171,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required', wrapper_class: 'none-margin')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-error"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-error"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equal expected, output
   end
 
@@ -206,7 +206,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     output = output + @horizontal_builder.text_field(:email)
 
-    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, output
   end
 
@@ -216,7 +216,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "passing options to a form control get passed through" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, autofocus: true)
   end
 
@@ -230,7 +230,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "custom form group layout option" do
-    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></form>}
     assert_equal expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, layout: :inline }
   end
 end
