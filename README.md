@@ -134,10 +134,11 @@ class, which keeps your labels accessible to those using screen readers.
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
 
-Required fields are automatically annotated with a "required" class.  The label
-by default will append an asterix to the end of the label.  The field is
-determined to be required if the associated model attribute is configured with
-a presence validator (ActiveRecord::Validations::PresenceValidator).
+Required fields are automatically annotated with a "required" CSS class.  The
+required class results in an asterix being added to the end of the label name.
+The field is determined to be required if the associated model attribute is
+configured with a presence validator 
+(ActiveRecord::Validations::PresenceValidator).
 
 ### Help Text
 
