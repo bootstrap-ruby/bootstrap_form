@@ -115,7 +115,7 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
- 
+
 These helpers accept the same options as the standard Rails form helpers, with
 a few extra options:
 
@@ -152,11 +152,16 @@ en:
         password: "A good password should be at least six characters long"
 ```
 
-If your model name has multiple words (like `SuperUser`), the key on the 
+If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
 
 You can override help translations for a particular field by passing the `help`
 option or turn them off completely by passing `help: false`.
+
+Required fields are automatically annotated with a "required" class.  The label
+by default will append an asterix to the end of the label.  The field is
+determined to be required if the associated model attribute is configured with
+a presence validator (ActiveRecord::Validations::PresenceValidator).
 
 ### Icons
 

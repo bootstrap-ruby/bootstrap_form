@@ -253,7 +253,7 @@ module BootstrapForm
     def required_attribute?(obj, attribute)
      target = (obj.class == Class) ? obj : obj.class
      target.validators_on(attribute).map(&:class).include?(
-        ActiveModel::Validations::PresenceValidator)
+        ActiveRecord::Validations::PresenceValidator)
     end
 
     def form_group_builder(method, options, html_options = nil)
@@ -309,7 +309,7 @@ module BootstrapForm
       options[:for] = id if acts_like_form_tag
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
-      classes << "required" if object.required_attribute?
+      classes << "required" if required_attribute?(object, name)
 
       options[:class] = classes.compact.join(" ")
 
