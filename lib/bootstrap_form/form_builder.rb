@@ -250,6 +250,12 @@ module BootstrapForm
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
     end
 
+    def required_attribute?(obj, attribute)
+     target = (obj.class == Class) ? obj : obj.class
+     target.validators_on(attribute).map(&:class).include?(
+        ActiveModel::Validations::PresenceValidator)
+    end
+
     def form_group_builder(method, options, html_options = nil)
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
@@ -303,6 +309,8 @@ module BootstrapForm
       options[:for] = id if acts_like_form_tag
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
+      classes << "required" if object.required_attribute?
+
       options[:class] = classes.compact.join(" ")
 
       if label_errors && has_error?(name)
@@ -312,6 +320,7 @@ module BootstrapForm
       else
         label(name, options[:text], options.except(:text))
       end
+
     end
 
     def generate_help(name, help_text)

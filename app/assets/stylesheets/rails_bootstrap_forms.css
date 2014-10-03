@@ -8,3 +8,7 @@
 .rails-bootstrap-forms-error-summary {
   margin-top: 10px;
 }
+
+label.required:after {
+  content:" *";
+}
