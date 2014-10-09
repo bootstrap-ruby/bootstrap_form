@@ -433,7 +433,7 @@ You can turn off inline errors for the entire form like this:
 <% end %>
 ```
 
-### Label Errors
+### Label Errors (Master-branch only)
 
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
