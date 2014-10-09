@@ -1,4 +1,4 @@
-## Pending Release
+## 2.2.0 (2014-09-16)
 
 Bugfixes:
   - Fixed an exception raised when form_group block returns nil (#111)
