@@ -1,6 +1,17 @@
-## Pending Release
+## Pending Release (master-branch only)
 
 Bugfixes:
+
+  - Use #underscore, not #downcase for help text scope (#140, @atipugin)
+
+Features:
+
+  - Allow users to display validation errors in labels (#144, @timcheadle)
+
+## 2.2.0 (2014-09-16)
+
+Bugfixes:
+
   - Fixed an exception raised when form_group block returns nil (#111)
   - Fixed an exception on human_attribute_name when using bootstrap_form_tag (#115)
   - Set offset in form_group without label in horizontal layout (#94, @datWav)
