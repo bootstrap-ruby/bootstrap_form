@@ -133,12 +133,23 @@ class, which keeps your labels accessible to those using screen readers.
 ```erb
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
+#### Required Fields
 
-Required fields are automatically annotated with a "required" CSS class.  The
-required class results in an asterix being added to the end of the label name.
-The field is determined to be required if the associated model attribute is
-configured with a presence validator 
-(ActiveRecord::Validations::PresenceValidator).
+A label that is associated with a required field is automatically annotated with
+a `required` CSS class. You are free to add any appropriate CSS to style 
+required fields as desired.  One example would be to automatically add an
+asterisk to the end of the label:
+
+```css
+label.required:after {
+  content:" *";
+}
+```
+
+The label `required` class is determined based on the definition of a presence
+validator with the associated model attribute. Presently this is one of:
+ActiveRecord::Validations::PresenceValidator or
+ActiveModel::Validations::PresenceValidator.
 
 ### Help Text
 
