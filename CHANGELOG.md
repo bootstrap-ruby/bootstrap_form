@@ -25,6 +25,7 @@ Features:
   - Added role="form" attribute to forms (#142, @spacewander)
   - Allow users to display validation errors in labels (#144, @timcheadle)
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
+  - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
 
 ## 2.1.1 (2014-04-20)
 
