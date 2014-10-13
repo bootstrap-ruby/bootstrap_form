@@ -3,7 +3,7 @@
 Bugfixes:
 
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
-  - Radio button labels will now include the disabled class as needed. (@ScottSwezey)
+  - Radio button labels will now include the disabled class as needed. (#156, @ScottSwezey)
 
 Features:
 
