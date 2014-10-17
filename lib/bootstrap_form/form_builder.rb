@@ -108,10 +108,12 @@ module BootstrapForm
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]
 
+      disabled_class = options[:disabled] ? " disabled" : ""
+
       if options[:inline]
-        label(label_name, html, class: "checkbox-inline")
+        label(label_name, html, class: "checkbox-inline#{disabled_class}")
       else
-        content_tag(:div, class: "checkbox") do
+        content_tag(:div, class: "checkbox#{disabled_class}") do
           label(label_name, html)
         end
       end
