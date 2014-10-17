@@ -108,10 +108,12 @@ module BootstrapForm
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]
 
+      disabled_class = options[:disabled] ? " disabled" : ""
+
       if options[:inline]
-        label(label_name, html, class: "checkbox-inline")
+        label(label_name, html, class: "checkbox-inline#{disabled_class}")
       else
-        content_tag(:div, class: "checkbox") do
+        content_tag(:div, class: "checkbox#{disabled_class}") do
           label(label_name, html)
         end
       end
@@ -124,11 +126,12 @@ module BootstrapForm
       args << options.except(:label, :help, :inline)
 
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
+      disabled_class = options[:disabled] ? " disabled" : ""
 
       if options[:inline]
-        label(name, html, class: "radio-inline", value: value)
+        label(name, html, class: "radio-inline#{disabled_class}", value: value)
       else
-        content_tag(:div, class: "radio") do
+        content_tag(:div, class: "radio#{disabled_class}") do
           label(name, html, value: value)
         end
       end
