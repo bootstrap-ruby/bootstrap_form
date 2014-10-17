@@ -37,6 +37,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
+  test "disabled inline check_box" do
+    expected = %{<label class="checkbox-inline disabled" for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
+    assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true, disabled: true)
+  end
+
   test 'collection_check_boxes renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">This is a checkbox collection</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div><span class="help-block">With a help!</span></div>}
