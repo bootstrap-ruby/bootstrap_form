@@ -115,7 +115,7 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
- 
+
 These helpers accept the same options as the standard Rails form helpers, with
 a few extra options:
 
@@ -358,6 +358,12 @@ using screen readers.
   <%= f.check_box :remember_me %>
   <%= f.submit %>
 <% end %>
+```
+
+To skip label rendering at all, use `skip_label: true` option.
+
+```erb
+<%= f.password_field :password, skip_label: true %>
 ```
 
 ### Horizontal Forms

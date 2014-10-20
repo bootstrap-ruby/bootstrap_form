@@ -272,10 +272,6 @@ module BootstrapForm
       layout = get_group_layout(options.delete(:layout))
       form_group_options = {
         id: options[:id],
-        label: {
-          text: label,
-          class: label_class
-        },
         help: help,
         icon: icon,
         label_col: label_col,
@@ -286,6 +282,13 @@ module BootstrapForm
 
       if wrapper_options.is_a?(Hash)
         form_group_options.reverse_merge!(wrapper_options)
+      end
+
+      unless options.delete(:skip_label)
+        form_group_options.reverse_merge!(label: {
+          text: label,
+          class: label_class
+        })
       end
 
       form_group(method, form_group_options) do
