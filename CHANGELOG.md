@@ -7,6 +7,7 @@ Bugfixes:
 Features:
 
   - Allow users to display validation errors in labels (#144, @timcheadle)
+  - Use humanized attribute name in label errors (#146, @atipugin)
 
 ## 2.2.0 (2014-09-16)
 
