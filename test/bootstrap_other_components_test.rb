@@ -10,7 +10,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control" do
     output = @horizontal_builder.static_control :email
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
+    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
     assert_equal expected, output
   end
 

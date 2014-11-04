@@ -133,6 +133,23 @@ class, which keeps your labels accessible to those using screen readers.
 ```erb
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
+#### Required Fields
+
+A label that is associated with a required field is automatically annotated with
+a `required` CSS class. You are free to add any appropriate CSS to style 
+required fields as desired.  One example would be to automatically add an
+asterisk to the end of the label:
+
+```css
+label.required:after {
+  content:" *";
+}
+```
+
+The label `required` class is determined based on the definition of a presence
+validator with the associated model attribute. Presently this is one of:
+ActiveRecord::Validations::PresenceValidator or
+ActiveModel::Validations::PresenceValidator.
 
 ### Help Text
 
@@ -152,7 +169,7 @@ en:
         password: "A good password should be at least six characters long"
 ```
 
-If your model name has multiple words (like `SuperUser`), the key on the 
+If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
 
 You can override help translations for a particular field by passing the `help`

@@ -79,7 +79,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "text fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email)
   end
 
