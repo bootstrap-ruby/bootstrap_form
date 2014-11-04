@@ -3,14 +3,14 @@
 Bugfixes:
 
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
-  - Radio button labels will now include the disabled class as needed. (#156, @ScottSwezey)
-  - Check box labels will now include the disabled class as needed. (@ScottSwezey)
+  - Radio button and checkbox labels will now include the disabled class as needed. (#156, @ScottSwezey)
 
 Features:
 
   - Allow users to display validation errors in labels (#144, @timcheadle)
   - Use humanized attribute name in label errors (#146, @atipugin)
   - Allow to skip label rendering (#145, @atipugin)
+  - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
 
 ## 2.2.0 (2014-09-16)
 
@@ -38,9 +38,6 @@ Features:
   - Added the ability to pass any attributes to wrapper (#136, @atipugin)
   - Split monolithic test file into several smaller files (#141, @spacewander)
   - Added role="form" attribute to forms (#142, @spacewander)
-  - Allow users to display validation errors in labels (#144, @timcheadle)
-  - Use #underscore, not #downcase for help text scope (#140, @atipugin)
-  - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
 
 ## 2.1.1 (2014-04-20)
 
