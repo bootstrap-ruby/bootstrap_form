@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rails", "~> 4.0"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "timecop", "~> 0.3.5"
+  s.add_development_dependency "timecop", "~> 0.7.1"
   s.add_development_dependency "mocha"
 end
