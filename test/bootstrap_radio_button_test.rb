@@ -17,6 +17,16 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
   end
 
+  test "radio_button disabled label is set correctly" do
+    expected = %{<div class="radio disabled"><label for="user_misc_1"><input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', disabled: true)
+  end
+
+  test "radio_button disabled inline label is set correctly" do
+    expected = %{<label class="radio-inline disabled" for="user_misc_1"><input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true, disabled: true)
+  end
+
   test 'collection_radio_buttons renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label></div><span class="help-block">With a help!</span></div>}
