@@ -544,8 +544,10 @@ We love pull requests! Here's a quick guide for contributing:
 
 2. Run the existing test suite:
 
-  `$ cd test/dummy && bundle exec rake db:create db:migrate RAILS_ENV=test && cd ../../`
-  `$ bundle exec rake`
+```
+$ bundle exec rake -f test/dummy/Rakefile db:create db:migrate RAILS_ENV=test
+$ bundle exec rake
+```
 
 3. Add tests for your change.
 
