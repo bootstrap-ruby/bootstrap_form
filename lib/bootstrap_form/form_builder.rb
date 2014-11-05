@@ -341,7 +341,7 @@ module BootstrapForm
 
       help_text ||= get_help_text_by_i18n_key(name)
 
-      content_tag(:span, help_text, class: 'help-block') if help_text.present?
+      content_tag(:span, help_text, class: 'help-block') unless help_text.nil?
     end
 
     def generate_icon(icon)
