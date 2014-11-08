@@ -17,6 +17,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, hide_label: true)
   end
 
+  test "adding a custom label class" do
+    expected = %{<div class="form-group"><label class="btn control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, label_class: 'btn')
+  end
+
   test "skipping a label" do
     expected = %{<div class="form-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, skip_label: true)

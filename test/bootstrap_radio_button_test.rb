@@ -12,19 +12,29 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
 
-  test "radio_button inline label is set correctly" do
-    expected = %{<label class="radio-inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
-    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
-  end
-
   test "radio_button disabled label is set correctly" do
     expected = %{<div class="radio disabled"><label for="user_misc_1"><input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', disabled: true)
   end
 
+  test "radio_button label class is set correctly" do
+    expected = %{<div class="radio"><label class="btn" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', label_class: 'btn')
+  end
+
+  test "radio_button inline label is set correctly" do
+    expected = %{<label class="radio-inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
+  end
+
   test "radio_button disabled inline label is set correctly" do
     expected = %{<label class="radio-inline disabled" for="user_misc_1"><input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
     assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true, disabled: true)
+  end
+
+  test "radio_button inline label class is set correctly" do
+    expected = %{<label class="radio-inline btn" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
+    assert_equal expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true, label_class: 'btn')
   end
 
   test 'collection_radio_buttons renders the form_group correctly' do
