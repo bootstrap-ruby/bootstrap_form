@@ -12,6 +12,18 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
+  test "check_box with error wrapped correctly" do
+    expected = %{<div class="has-error"><div class="checkbox"><div class="field_with_errors"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><div class="field_with_errors"><input id="user_terms" name="user[terms]" type="checkbox" value="1" /></div> I agree to the terms</label></div></div></div>}
+    @user.errors.add(:terms, '')
+    assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms')
+  end
+
+  test "check_box display error message" do
+    expected = %{<div class="has-error"><div class="checkbox"><div class="field_with_errors"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><div class="field_with_errors"><input id="user_terms" name="user[terms]" type="checkbox" value="1" /></div> I agree to the terms</label></div></div><span class="help-block">Error message</span></div>}
+    @user.errors.add(:terms, 'Error message')
+    assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms')
+  end
+
   test "disabled check_box has proper wrapper classes" do
     expected = %{<div class="checkbox disabled"><label for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', disabled: true)

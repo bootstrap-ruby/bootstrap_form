@@ -112,7 +112,7 @@ module BootstrapForm
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
 
-      if options[:inline]
+      control = if options[:inline]
         label_class = " #{label_class}" if label_class
         label(label_name, html, class: "checkbox-inline#{disabled_class}#{label_class}")
       else
@@ -120,6 +120,13 @@ module BootstrapForm
           label(label_name, html, class: label_class)
         end
       end
+
+      if has_error? name
+        control = content_tag(:div, class: error_class) do
+          control.concat(generate_help(name, options[:help]).to_s)
+        end
+      end
+      control
     end
 
     alias_method_chain :check_box, :bootstrap
