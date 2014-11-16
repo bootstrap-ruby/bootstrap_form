@@ -4,7 +4,7 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :force_help_block, :acts_like_form_tag
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -25,6 +25,7 @@ module BootstrapForm
       else
         options[:inline_errors] != false
       end
+      @force_help_block = options[:force_help_block] || false
       @acts_like_form_tag = options[:acts_like_form_tag]
 
       super
@@ -198,6 +199,7 @@ module BootstrapForm
       fields_options[:control_col] ||= options[:control_col]
       fields_options[:inline_errors] ||= options[:inline_errors]
       fields_options[:label_errors] ||= options[:label_errors]
+      fields_options[:force_help_block] ||= options[:force_help_block]
       fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
     end
 
@@ -337,11 +339,13 @@ module BootstrapForm
 
     def generate_help(name, help_text)
       help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
-      return if help_text === false
-
-      help_text ||= get_help_text_by_i18n_key(name)
-
-      content_tag(:span, help_text, class: 'help-block') if help_text.present?
+      if help_text === false
+        return unless force_help_block
+        content_tag(:span, '', class: 'help-block')
+      else
+        help_text ||= get_help_text_by_i18n_key(name)
+        content_tag(:span, help_text, class: 'help-block') if help_text.present? || force_help_block
+      end
     end
 
     def generate_icon(icon)

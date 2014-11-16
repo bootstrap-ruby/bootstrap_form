@@ -456,6 +456,27 @@ You can turn off inline errors for the entire form like this:
 <% end %>
 ```
 
+#### Forcefully render help-block of inline-errors
+
+If you intend to populate the help-block upon submit of a remote form (AJAX submit of a form) you could use the option `force_help_block`
+
+```erb
+<%= bootstrap_form_for(@user, force_help_block: true) do |f| %>
+  ...
+<% end %>
+```
+
+This will force the builder to render the help-block regardless if there is a help text or not for that input :
+
+```html
+<div class="form-group has-error">
+  <label class="control-label" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" type="email" value="">
+  <span class="help-block"></span>
+</div>
+```
+Thus you can populate the help-block upon feedback on the form submit.
+
 ### Label Errors (Master-branch only)
 
 You can also display validation errors in the field's label; just turn
