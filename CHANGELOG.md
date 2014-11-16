@@ -11,6 +11,7 @@ Features:
   - Use humanized attribute name in label errors (#146, @atipugin)
   - Allow to skip label rendering (#145, @atipugin)
   - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
+  - Allow users to forcefully render the help-block used for inline-errors, so it could be populated after a remote form submit
 
 ## 2.2.0 (2014-09-16)
 
