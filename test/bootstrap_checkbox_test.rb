@@ -27,6 +27,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equal expected, @builder.check_box(:terms) { "I agree to the terms" }
   end
 
+  test "check_box accepts a custom label class" do
+    expected = %{<div class="checkbox"><label class="btn" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> Terms</label></div>}
+    assert_equal expected, @builder.check_box(:terms, label_class: 'btn')
+  end
+
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="no" /><input id="user_terms" name="user[terms]" type="checkbox" value="yes" /> I agree to the terms</label></div>}
     assert_equal expected, @builder.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
@@ -40,6 +45,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "disabled inline check_box" do
     expected = %{<label class="checkbox-inline disabled" for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true, disabled: true)
+  end
+
+  test "inline checkboxes with custom label class" do
+    expected = %{<label class="checkbox-inline btn" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> Terms</label>}
+    assert_equal expected, @builder.check_box(:terms, inline: true, label_class: 'btn')
   end
 
   test 'collection_check_boxes renders the form_group correctly' do

@@ -11,6 +11,7 @@ Features:
   - Use humanized attribute name in label errors (#146, @atipugin)
   - Allow to skip label rendering (#145, @atipugin)
   - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
+  - Added option to customize labels' class.
 
 ## 2.2.0 (2014-09-16)
 

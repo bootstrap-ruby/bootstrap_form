@@ -133,6 +133,13 @@ class, which keeps your labels accessible to those using screen readers.
 ```erb
 <%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
 ```
+
+To add custom classes to the field's label:
+
+```erb
+<%= f.text_field :email, label_class: "custom-class" %>
+```
+
 #### Required Fields
 
 A label that is associated with a required field is automatically annotated with
