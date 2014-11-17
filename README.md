@@ -182,6 +182,8 @@ translation file should be underscored (`super_user`).
 You can override help translations for a particular field by passing the `help`
 option or turn them off completely by passing `help: false`.
 
+You can also render empty help blocks by passing `help: ''`.
+
 ### Icons
 
 To add an icon to a field, use the `icon` option and pass the icon name

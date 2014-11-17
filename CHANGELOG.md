@@ -4,6 +4,7 @@ Bugfixes:
 
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
   - Radio button and checkbox labels will now include the disabled class as needed. (#156, @ScottSwezey)
+  - Allow empty help blocks.
 
 Features:
 
