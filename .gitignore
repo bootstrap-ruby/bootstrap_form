@@ -7,4 +7,3 @@ test/dummy/tmp/
 *.gem
 .rbenv-gemsets
 *.swp
-.project
