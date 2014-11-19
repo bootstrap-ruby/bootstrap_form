@@ -90,11 +90,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "help-block rendered empty although no help to be shown with a builder that has the force_help_block option" do
+    setup_force_help_builder
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block"></span></div>}
     assert_equal expected, @force_help_builder.text_field(:email)
   end
 
   test "help-block rendered normal when help present and force_help_block option of builder is true" do
+    setup_force_help_builder
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="help-block">This is required</span></div>}
     assert_equal expected, @force_help_builder.text_field(:email, help: 'This is required')
   end
