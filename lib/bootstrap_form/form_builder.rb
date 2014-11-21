@@ -343,7 +343,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
+      help_text = get_error_messages(name) if has_error?(name) && inline_errors
       return if help_text === false
 
       help_text ||= get_help_text_by_i18n_key(name)
