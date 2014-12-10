@@ -284,7 +284,7 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 
 #### Collections
 
-BootstrapForms also provideshelpers that automatically creates the
+BootstrapForms also provides helpers that automatically creates the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
 ```erb
@@ -426,7 +426,7 @@ The `label_col` and `control_col` css classes can also be changed per control:
 
 ### Custom Field Layout
 
-The `layout` can be overriden per field:
+The `layout` can be overridden per field:
 
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
