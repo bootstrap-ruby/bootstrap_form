@@ -65,7 +65,7 @@ module BootstrapForm
 
         input = content_tag(:span, options[:prepend], class: input_group_class(options[:prepend])) + input if options[:prepend]
         input << content_tag(:span, options[:append], class: input_group_class(options[:append])) if options[:append]
-        input = content_tag(:div, input, class: "input-group") unless options.empty?
+        input = content_tag(:div, input, class: input_group_wrapper_class([options[:prepend], options[:append]])) unless options.empty?
         input
       end
 
@@ -75,6 +75,21 @@ module BootstrapForm
         else
           'input-group-addon'
         end
+      end
+
+      def input_group_wrapper_class(add_on_content)
+        input_group_class = 'input-group'
+
+        add_on_content.each do |add_on|
+          unless add_on.nil?
+            if add_on.match /btn-lg/
+              input_group_class << ' input-group-lg' unless input_group_class.match /input-group-lg/
+            elsif add_on.match /btn-sm/
+              input_group_class << ' input-group-sm' unless input_group_class.match /input-group-sm/
+            end
+          end
+        end
+        input_group_class
       end
 
       def static_class

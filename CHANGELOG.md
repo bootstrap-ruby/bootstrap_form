@@ -4,6 +4,7 @@ Bugfixes:
 
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
   - Radio button and checkbox labels will now include the disabled class as needed. (#156, @ScottSwezey)
+  - Input groups will now have the appropriate `input-group-lg` or `input-group-sm` added when a `btn-lg` or `btn-sm` is appended. (#181, @raptblue)
 
 Features:
 
