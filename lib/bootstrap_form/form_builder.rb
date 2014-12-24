@@ -185,9 +185,8 @@ module BootstrapForm
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = (options[:control_col] || control_col.clone)
-
           unless options[:label]
-            control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || default_label_col))
+            control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
             control_class.concat(" #{control_offset}")
           end
           control = content_tag(:div, control, class: control_class)
@@ -343,7 +342,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = object.errors[name].join(", ") if has_error?(name) && inline_errors
+      help_text = get_error_messages(name) if has_error?(name) && inline_errors
       return if help_text === false
 
       help_text ||= get_help_text_by_i18n_key(name)
