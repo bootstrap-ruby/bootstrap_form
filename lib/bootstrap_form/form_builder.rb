@@ -103,8 +103,20 @@ module BootstrapForm
       check_box_options = options.except(:label, :label_class, :help, :inline)
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
-      label_content = block_given? ? capture(&block) : options[:label]
-      html.concat(" ").concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
+      if block_given?
+        label_content = capture(&block)
+      else
+        label_content = if options[:label].blank?
+                          I18n.t("#{object_name}.#{name}", default: "", scope: "helpers.label").presence
+                        else
+                          options[:label]
+                        end
+        label_content ||= if object && object.class.respond_to?(:human_attribute_name)
+                            object.class.human_attribute_name(name)
+                          end
+        label_content ||= name.to_s.humanize
+      end
+      html.concat(" ").concat(label_content)
 
       label_name = name
       label_name = "#{name}_#{checked_value}" if options[:multiple]

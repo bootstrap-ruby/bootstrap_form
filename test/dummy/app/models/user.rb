@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   serialize :preferences
 
+  attr_accessor :remember_me
+
   validates :email, presence: true, :length => { minimum: 5 }
   validates :terms, acceptance: { accept: true }
 
