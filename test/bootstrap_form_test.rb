@@ -201,4 +201,16 @@ class BootstrapFormTest < ActionView::TestCase
 
     assert_equal expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
+
+  test "check_box label can use i18n helpers.label value" do
+    I18n.backend.store_translations(:en, helpers: {
+      label: {
+        user: {
+          remember_me: 'change is ok!'
+        }
+      }
+    })
+    expected = %{<div class="checkbox"><label for="user_remember_me"><input name="user[remember_me]" type="hidden" value="0" /><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" /> change is ok!</label></div>}
+    assert_equal expected, @builder.check_box_with_bootstrap(:remember_me)
+  end
 end
