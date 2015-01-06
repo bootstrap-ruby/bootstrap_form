@@ -281,8 +281,8 @@ module BootstrapForm
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
-      wrapper_class = options.delete(:wrapper_class)
-      wrapper_options = options.delete(:wrapper)
+      wrapper_class = css_options.delete(:wrapper_class)
+      wrapper_options = css_options.delete(:wrapper)
       help = options.delete(:help)
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
@@ -299,7 +299,7 @@ module BootstrapForm
       }
 
       if wrapper_options.is_a?(Hash)
-        form_group_options.reverse_merge!(wrapper_options)
+        form_group_options.merge!(wrapper_options)
       end
 
       unless options.delete(:skip_label)
