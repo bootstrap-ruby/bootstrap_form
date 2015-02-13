@@ -88,4 +88,50 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: [1, 2])
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
   end
+
+  test 'collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> ooF</label></div><div class="checkbox"><label for="user_misc_2"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> raB</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, Proc.new { |a| a.street.reverse })
+  end
+
+  test 'collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" /> Foo</label></div><div class="checkbox"><label for="user_misc_address_2"><input id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, Proc.new { |a| "address_#{a.id}" }, :street)
+  end
+
+  test 'collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> ooF</label></div><div class="checkbox"><label for="user_misc_2"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> raB</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, lambda { |a| a.street.reverse })
+  end
+
+  test 'collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" /> Foo</label></div><div class="checkbox"><label for="user_misc_address_2"><input id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street)
+  end
+
+  test 'collection_check_boxes renders with checked option correctly with Proc :value_method' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_address_1"><input checked="checked" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" /> Foo</label></div><div class="checkbox"><label for="user_misc_address_2"><input id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, Proc.new { |a| "address_#{a.id}" }, :street, checked: "address_1")
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, Proc.new { |a| "address_#{a.id}" }, :street, checked: collection.first)
+  end
+
+  test 'collection_check_boxes renders with multiple checked options correctly with lambda :value_method' do
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_address_1"><input checked="checked" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" /> Foo</label></div><div class="checkbox"><label for="user_misc_address_2"><input checked="checked" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" /> Bar</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, checked: ["address_1", "address_2"])
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, checked: collection)
+  end
+
+
 end
