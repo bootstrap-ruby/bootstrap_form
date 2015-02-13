@@ -369,17 +369,18 @@ module BootstrapForm
         inputs = ""
 
         collection.each do |obj|
-          input_options = options.merge(label: obj.send(text))
+          input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
 
+          input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
           if checked = input_options[:checked]
-            input_options[:checked] = checked == obj.send(value)              ||
-                                      checked.try(:include?, obj.send(value)) ||
-                                      checked == obj                          ||
-                                      checked.try(:include?, obj)
+            input_options[:checked] = checked == input_value                     ||
+                                      Array(checked).try(:include?, input_value) ||
+                                      checked == obj                             ||
+                                      Array(checked).try(:include?, obj)
           end
 
           input_options.delete(:class)
-          inputs << block.call(name, obj.send(value), input_options)
+          inputs << block.call(name, input_value, input_options)
         end
 
         inputs.html_safe
