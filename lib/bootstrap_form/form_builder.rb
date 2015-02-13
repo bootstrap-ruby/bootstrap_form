@@ -264,10 +264,16 @@ module BootstrapForm
 
       target = (obj.class == Class) ? obj : obj.class
       target_validators = target.validators_on(attribute).map(&:class)
-      target_validators.include?(
-        ActiveRecord::Validations::PresenceValidator) || 
-      target_validators.include?(
-        ActiveModel::Validations::PresenceValidator)
+
+      has_presence_validator = target_validators.include?(
+                                 ActiveModel::Validations::PresenceValidator)
+
+      if defined? ActiveRecord::Validations::PresenceValidator
+        has_presence_validator |= target_validators.include?(
+                                    ActiveRecord::Validations::PresenceValidator)
+      end
+
+      has_presence_validator
     end
 
     def form_group_builder(method, options, html_options = nil)
