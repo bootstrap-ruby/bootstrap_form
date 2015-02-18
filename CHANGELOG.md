@@ -6,7 +6,7 @@ Bugfixes:
 
 Features:
 
-  - pending
+  - Allow primary button classes to be overridden (#183, @tanimichi)
 
 ## 2.3.0 (2015-02-17)
 

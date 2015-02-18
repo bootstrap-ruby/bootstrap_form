@@ -51,4 +51,9 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equal expected, @builder.primary("Submit Form")
   end
+
+  test "override primary button classes" do
+    expected = %{<input class="btn btn-primary disabled" name="commit" type="submit" value="Submit Form" />}
+    assert_equal expected, @builder.primary("Submit Form", class: "btn btn-primary disabled")
+  end
 end
