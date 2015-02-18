@@ -1,3 +1,13 @@
+## Pending Release
+
+Bugfixes:
+
+  - Minor README corrections (#184, @msmithstubbs)
+
+Features:
+
+  - pending
+
 ## 2.3.0 (2015-02-17)
 
 Bugfixes:
