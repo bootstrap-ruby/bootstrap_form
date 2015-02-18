@@ -343,7 +343,7 @@ buttons.
 ```
 
 You can also use the `primary` helper, which adds `btn btn-primary` to your
-submit button **(master branch only)**:
+submit button:
 
 ```erb
 <%= f.primary "Optional Label" %>
@@ -463,7 +463,7 @@ You can turn off inline errors for the entire form like this:
 <% end %>
 ```
 
-### Label Errors (Master-branch only)
+### Label Errors
 
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:

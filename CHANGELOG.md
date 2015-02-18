@@ -1,11 +1,13 @@
-## Pending Release (master-branch only)
+## 2.3.0 (2015-02-17)
 
 Bugfixes:
 
   - Use #underscore, not #downcase for help text scope (#140, @atipugin)
   - Radio button and checkbox labels will now include the disabled class as needed. (#156, @ScottSwezey)
-  - Fixed issue with setting offset in form_group without label in horizontal layout  
+  - Fixed issue with setting offset in form_group without label in horizontal layout
     when form uses non-default label_col
+  - Fixed wrapper options (#153, @veilleperso)
+  - Fix errors on non-ActiveRecord setups (#200, @sgnn7)
 
 Features:
 
@@ -14,6 +16,7 @@ Features:
   - Allow to skip label rendering (#145, @atipugin)
   - Added a `required` CSS class for labels with required attributes (#150, @krsyoung)
   - Added option to customize labels' class.
+  - Allow callable value_method and text_method for collection_check_boxes and collection_radio_buttons (#199, @shadwell)
 
 ## 2.2.0 (2014-09-16)
 
