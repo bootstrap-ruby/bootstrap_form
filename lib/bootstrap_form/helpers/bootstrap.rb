@@ -2,12 +2,12 @@ module BootstrapForm
   module Helpers
     module Bootstrap
       def submit(name = nil, options = {})
-        options.merge! class: 'btn btn-default' unless options.has_key? :class
+        options.reverse_merge! class: 'btn btn-default'
         super(name, options)
       end
 
       def primary(name = nil, options = {})
-        options.merge! class: 'btn btn-primary'
+        options.reverse_merge! class: 'btn btn-primary'
         submit(name, options)
       end
 
