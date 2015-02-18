@@ -131,7 +131,7 @@ To hide a label, use the `hide_label: true` option. This adds the `sr-only`
 class, which keeps your labels accessible to those using screen readers.
 
 ```erb
-<%= f.text_area :comment, hide_label: :true, placeholder: "Leave a comment..." %>
+<%= f.text_area :comment, hide_label: true, placeholder: "Leave a comment..." %>
 ```
 
 To add custom classes to the field's label:
