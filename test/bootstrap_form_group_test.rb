@@ -32,6 +32,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, prepend: '@')
   end
 
+  test "adding prepend text with custom group class" do
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group input-group-lg"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    assert_equal expected, @builder.text_field(:email, prepend: '@', group_class: "input-group input-group-lg")
+  end
+
   test "adding append text" do
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
     assert_equal expected, @builder.text_field(:email, append: '.00')
