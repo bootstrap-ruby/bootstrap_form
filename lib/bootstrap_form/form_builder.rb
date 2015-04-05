@@ -392,15 +392,16 @@ module BootstrapForm
     end
 
     def get_help_text_by_i18n_key(name)
-      underscored_scope = "activerecord.help.#{object.class.name.underscore}"
-      downcased_scope = "activerecord.help.#{object.class.name.downcase}"
-      help_text = I18n.t(name, scope: underscored_scope, default: '').presence
-      help_text ||= if text = I18n.t(name, scope: downcased_scope, default: '').presence
-        warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
-        text
+      if object
+        underscored_scope = "activerecord.help.#{object.class.model_name.name.underscore}"
+        downcased_scope = "activerecord.help.#{object.class.model_name.name.downcase}"
+        help_text = I18n.t(name, scope: underscored_scope, default: '').presence
+        help_text ||= if text = I18n.t(name, scope: downcased_scope, default: '').presence
+          warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
+          text
+        end
+        help_text
       end
-
-      help_text
     end
   end
 end

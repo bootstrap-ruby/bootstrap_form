@@ -3,6 +3,7 @@
 Bugfixes:
 
   - Minor README corrections (#184, @msmithstubbs)
+  - Don't rely on `Class#name` for model naming (#217)
 
 Features:
 
