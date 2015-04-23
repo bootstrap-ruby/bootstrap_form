@@ -56,4 +56,34 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     expected = %{<input class="btn btn-primary disabled" name="commit" type="submit" value="Submit Form" />}
     assert_equal expected, @builder.primary("Submit Form", class: "btn btn-primary disabled")
   end
+
+  test "disable submit button uses proper data" do
+    expected = %{<input class="btn btn-default" data-disable-with="Please wait..." name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.submit_with_disable('Save')
+  end
+
+  test "disable submit button with specify message" do
+    expected = %{<input class="btn btn-default" data-disable-with="Saving..." name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.submit_with_disable('Save', disable_msg: 'Saving...')
+  end
+
+  test "disable submit button with other data values" do
+    expected = %{<input class="btn btn-default" data-disable-with="Saving..." data-other="value" name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.submit_with_disable('Save', disable_msg: 'Saving...', data: { other: 'value'})
+  end
+
+  test "disable primary button uses proper data" do
+    expected = %{<input class="btn btn-primary" data-disable-with="Please wait..." name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.primary_with_disable('Save')
+  end
+
+  test "disable primary button with specify message" do
+    expected = %{<input class="btn btn-primary" data-disable-with="Saving..." name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.primary_with_disable('Save', disable_msg: 'Saving...')
+  end
+
+  test "disable primary button with other data values" do
+    expected = %{<input class="btn btn-primary" data-disable-with="Saving..." data-other="value" name="commit" type="submit" value="Save" />}
+    assert_equal expected, @builder.primary_with_disable('Save', disable_msg: 'Saving...', data: { other: 'value'})
+  end
 end

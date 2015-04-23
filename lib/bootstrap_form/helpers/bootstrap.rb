@@ -11,6 +11,24 @@ module BootstrapForm
         submit(name, options)
       end
 
+      def submit_with_disable(name = nil, options = {})
+        options.reverse_merge! data: {}
+
+        disable_msg = options.delete(:disable_msg) || "Please wait..."
+        options[:data].reverse_merge! disable_with: disable_msg
+
+        submit(name, options)
+      end
+
+      def primary_with_disable(name = nil, options = {})
+        options.reverse_merge! data: {}
+
+        disable_msg = options.delete(:disable_msg) || "Please wait..."
+        options[:data].reverse_merge! disable_with: disable_msg
+
+        primary(name, options)
+      end
+
       def alert_message(title, options = {})
         css = options[:class] || 'alert alert-danger'
 

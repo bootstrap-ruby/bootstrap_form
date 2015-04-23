@@ -7,6 +7,7 @@ Bugfixes:
 Features:
 
   - Allow primary button classes to be overridden (#183, @tanimichi)
+  - Added methods for submit buttons with an disable after click (#220, @datWav)
 
 ## 2.3.0 (2015-02-17)
 

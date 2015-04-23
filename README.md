@@ -355,6 +355,16 @@ You can specify your own classes like this:
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
 
+If you want to disable the button after the form was submited, you can use `submit_with_disable`.
+```erb
+<%= f.submit_with_disable 'Save' %>
+```
+
+You can specify the disable message with `disable_msg: 'Saving...'`
+```erb
+<%= f.submit_with_disable 'Save', disable_msg: 'Saving...'
+```
+
 ### Accessing Rails Form Helpers
 
 If you want to use the original Rails form helpers for a particular field,
