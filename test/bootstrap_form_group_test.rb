@@ -27,6 +27,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, skip_label: true)
   end
 
+  test "change label for attribute with specified id" do
+    expected = %{<div class="form-group"><label class="control-label required" for="blabla_blub">Email</label><input class="form-control" id="blabla_blub" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, id: 'blabla_blub')
+  end
+
   test "adding prepend text" do
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '@')
@@ -252,5 +257,5 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
-  end    
+  end
 end

@@ -3,6 +3,7 @@
 Bugfixes:
 
   - Minor README corrections (#184, @msmithstubbs)
+  - Fixed label for bug with specified id (#213, #221, @datWav)
 
 Features:
 
