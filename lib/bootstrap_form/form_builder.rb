@@ -267,7 +267,12 @@ module BootstrapForm
       return false unless obj and attribute
 
       target = (obj.class == Class) ? obj : obj.class
-      target_validators = target.validators_on(attribute).map(&:class)
+
+      target_validators = if target.respond_to? :validators_on 
+                            target.validators_on(attribute).map(&:class)
+                          else
+                            []
+                          end
 
       has_presence_validator = target_validators.include?(
                                  ActiveModel::Validations::PresenceValidator)
