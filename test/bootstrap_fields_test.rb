@@ -98,6 +98,11 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equal expected, @builder.week_field(:misc)
   end
 
+  test "text fields with wrapper params are wrapped correctly" do
+    expected = %{<div class="form-group email_class" id="email_wrapper"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, wrapper: { id: "email_wrapper", class: "email_class" } )
+  end
+
   test "bootstrap_form_for helper works for associations" do
     @user.address = Address.new(street: '123 Main Street')
 
