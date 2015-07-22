@@ -373,6 +373,8 @@ module BootstrapForm
       #object.errors[name].join(", ")
       error_messages = object.errors[name].uniq.to_sentence + '.'
       error_messages[0] = error_messages.first.capitalize
+      
+      return error_messages
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)
