@@ -7,6 +7,7 @@ Bugfixes:
 Features:
 
   - Allow primary button classes to be overridden (#183, @tanimichi)
+  - Allow users to mix form tag helper methods into model-backed forms by passing in `tag: true` to form helper methods. (@vincedevendra)
 
 ## 2.3.0 (2015-02-17)
 
