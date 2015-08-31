@@ -47,6 +47,18 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
+  test "tag option emulates rails form tag helper methods" do
+    output = ""
+    bootstrap_form_for @user do |f|
+      output += f.text_field(:color, tag: true)
+      output += f.text_field(:status)
+    end
+
+    expected = %{<div class=\"form-group\"><label class=\"control-label\" for=\"color\">Color</label><input class=\"form-control\" id=\"color\" name=\"color\" type=\"text\" /></div><div class=\"form-group\"><label class=\"control-label\" for=\"user_status\">Status</label><input class=\"form-control\" id=\"user_status\" name=\"user[status]\" type=\"text\" /></div>}
+
+    assert_equal expected, output
+  end
+
   test "errors display correctly and inline_errors are turned off by default when label_errors is true" do
     @user.email = nil
     @user.valid?

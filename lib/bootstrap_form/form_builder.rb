@@ -4,7 +4,9 @@ module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors
+
+    attr_accessor :acts_like_form_tag
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -181,7 +183,7 @@ module BootstrapForm
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
+      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout, :form_tag_settings)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
@@ -195,6 +197,8 @@ module BootstrapForm
           end
           control = content_tag(:div, control, class: control_class)
         end
+
+        reset_form_tag_settings(options[:form_tag_settings])
 
         concat(label).concat(control)
       end
@@ -268,7 +272,7 @@ module BootstrapForm
 
       target = (obj.class == Class) ? obj : obj.class
 
-      target_validators = if target.respond_to? :validators_on 
+      target_validators = if target.respond_to? :validators_on
                             target.validators_on(attribute).map(&:class)
                           else
                             []
@@ -294,6 +298,12 @@ module BootstrapForm
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
 
+      if options.delete(:tag)
+        form_tag_settings =
+         remember_form_tag_settings(object, object_name, acts_like_form_tag)
+        set_as_tag
+      end
+
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
       wrapper_class = css_options.delete(:wrapper_class)
@@ -312,6 +322,8 @@ module BootstrapForm
         layout: layout,
         class: wrapper_class
       }
+
+      form_group_options[:form_tag_settings] = form_tag_settings
 
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)
@@ -406,6 +418,24 @@ module BootstrapForm
       end
 
       help_text
+    end
+
+    def remember_form_tag_settings(object, object_name, acts_like_form_tag)
+      {object: object, object_name: object_name, acts_like_form_tag: acts_like_form_tag }
+    end
+
+    def set_as_tag
+      self.object = nil
+      self.object_name = ""
+      self.acts_like_form_tag = true
+    end
+
+    def reset_form_tag_settings(options={})
+      if options
+        self.object = options[:object]
+        self.object_name = options[:object_name]
+        self.acts_like_form_tag = options[:acts_like_form_tag]
+      end
     end
   end
 end
