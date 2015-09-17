@@ -26,6 +26,7 @@ module BootstrapForm
         options[:inline_errors] != false
       end
       @acts_like_form_tag = options[:acts_like_form_tag]
+      @inline_form_group_tag = @inline_form_group_content = false
 
       super
     end
@@ -181,23 +182,49 @@ module BootstrapForm
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
-        label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
-        control.concat(generate_icon(options[:icon])) if options[:icon]
+      inline_form_group_handler options[:inline] do
+        content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout, :inline)) do
+          label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
+          control = capture(&block).to_s
+          control.concat(generate_help(name, options[:help]).to_s)
+          control.concat(generate_icon(options[:icon])) if options[:icon]
 
-        if get_group_layout(options[:layout]) == :horizontal
-          control_class = (options[:control_col] || control_col.clone)
-          unless options[:label]
-            control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
-            control_class.concat(" #{control_offset}")
+          if get_group_layout(options[:layout]) == :horizontal
+            control_class = (options[:control_col] || control_col.clone)
+            unless options[:label]
+              control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
+              control_class.concat(" #{control_offset}")
+            end
+            control_class.concat(" form-inline") if options[:inline]
+            control = content_tag(:div, control, class: control_class)
           end
-          control = content_tag(:div, control, class: control_class)
-        end
 
-        concat(label).concat(control)
+          concat(label).concat(control)
+        end
       end
+    end
+
+    def inline_form_group_handler inline_value, &block
+      inline_value = !!inline_value
+
+      if inline_value
+        # opening a form_group tag with the inline flag
+        @inline_form_group_tag = true
+        @inline_form_group_content = false
+      elsif @inline_form_group_tag
+        # building a form_group tag, while inside another form_group with the inline flag
+        @inline_form_group_content = true
+      else
+        # no inline form group being handled
+        @inline_form_group_tag = @inline_form_group_content = false
+      end
+
+      result = capture(&block).to_s
+
+      @inline_form_group_content = false
+      @inline_form_group_tag     = false if inline_value && @inline_form_group_tag # close the inline form group tag
+
+      result
     end
 
     def fields_for_with_bootstrap(record_name, record_object = nil, fields_options = {}, &block)
@@ -218,7 +245,12 @@ module BootstrapForm
       layout == :horizontal
     end
 
+    def inline_form_group_content?
+      @inline_form_group_content
+    end
+
     def get_group_layout(group_layout)
+      return :inline if inline_form_group_content?
       group_layout || layout
     end
 

@@ -7,6 +7,7 @@ Bugfixes:
 Features:
 
   - Allow primary button classes to be overridden (#183, @tanimichi)
+  - Allow inline form groups, to group several elements in one line
 
 ## 2.3.0 (2015-02-17)
 

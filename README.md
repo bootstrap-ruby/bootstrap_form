@@ -439,6 +439,23 @@ The `layout` can be overridden per field:
 <% end %>
 ```
 
+### Inline Form Groups
+
+In an horizontal form, the content of a form group can be turned to inline, to group several elements in one line:
+
+```erb
+<%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.form_group label: { text: "Name" }, inline: true do %>
+    <%= f.text_field :first %>
+    <%= f.text_field :last %>
+  <% end %>
+  <%= f.form_group do %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+```
+
 ## Validation & Errors
 
 ### Inline Errors
