@@ -196,7 +196,11 @@ module BootstrapForm
           control = content_tag(:div, control, class: control_class)
         end
 
-        concat(label).concat(control)
+        if label.nil?
+          control
+        else
+          label.concat(control)
+        end
       end
     end
 
