@@ -9,6 +9,7 @@ Bugfixes:
 Features:
 
   - Add support for input-group-sm and input-group-lg in prepend/append (#226, @rusanu)
+  - Added option to prevent the 'required' CSS class on labels (#205, @LucasAU)
 
 ## [2.4.0][] (2016-07-04)
 

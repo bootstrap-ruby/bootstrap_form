@@ -158,6 +158,12 @@ validator with the associated model attribute. Presently this is one of:
 ActiveRecord::Validations::PresenceValidator or
 ActiveModel::Validations::PresenceValidator.
 
+In cases where this behavior is undesirable, use the `skip_required` option:
+
+```erb
+<%= f.password_field :password, label: "New Password", skip_required: true %>
+```
+
 ### Input Elements / Controls
 
 To specify the class of the generated input, use the `control_class` option:
