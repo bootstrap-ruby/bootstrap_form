@@ -86,6 +86,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:password)
   end
 
+  test "help messages to look up I18n automatically in the default scope" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_common">Common</label><input class="form-control" id="user_common" name="user[common]" type="text" /><span class="help-block">Common has a common help text</span></div>}
+    assert_equal expected, @builder.text_field(:common)
+  end
+
   test "help messages to warn about deprecated I18n key" do
     super_user = SuperUser.new(@user.attributes)
     builder = BootstrapForm::FormBuilder.new(:super_user, super_user, self, {})

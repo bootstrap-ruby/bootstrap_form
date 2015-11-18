@@ -413,7 +413,7 @@ module BootstrapForm
       downcased_scope = "activerecord.help.#{object.class.name.downcase}"
       help_text = underscored_scope_chain.map { |underscored_scope| I18n.t(name, scope: underscored_scope, default: '').presence }.compact.first
       help_text ||= if text = I18n.t(name, scope: downcased_scope, default: '').presence
-        warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
+        warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope_chain.first}.#{name}' instead"
         text
       end
 

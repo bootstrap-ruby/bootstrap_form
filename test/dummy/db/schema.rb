@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922133133) do
+ActiveRecord::Schema.define(version: 20151118013433) do
 
   create_table "addresses", force: true do |t|
     t.integer  "user_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140922133133) do
     t.text     "preferences"
     t.boolean  "terms",       default: false
     t.string   "type"
+    t.string   "common"
   end
 
 end
