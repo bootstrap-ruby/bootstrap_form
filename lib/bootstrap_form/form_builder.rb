@@ -197,6 +197,8 @@ module BootstrapForm
             end
             control_class.concat(" form-inline") if options[:inline]
             control = content_tag(:div, control, class: control_class)
+          elsif layout != :horizontal && inline_form_group_tag? && !inline_form_group_content?
+            control = content_tag(:div, control, class: 'form-group form-inline')
           end
 
           concat(label).concat(control)
@@ -243,6 +245,10 @@ module BootstrapForm
 
     def horizontal?
       layout == :horizontal
+    end
+
+    def inline_form_group_tag?
+      @inline_form_group_tag
     end
 
     def inline_form_group_content?

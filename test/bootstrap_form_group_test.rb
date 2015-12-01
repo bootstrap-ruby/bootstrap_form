@@ -255,6 +255,15 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "inline form_group creates a valid structure and allows inputs to be added via a block" do
+    output = @builder.form_group inline: true do
+      @builder.text_field(:email) + @builder.text_field(:password)
+    end
+
+    expected = %{<div class="form-group"><div class="form-group form-inline"><div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div><div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="text" value="secret" /><span class="help-block">A good password should be at least six characters long</span></div></div></div>}
+    assert_equal expected, output
+  end
+
+  test "inline form_group creates a valid structure and allows inputs to be added via a block, with horizontal layout" do
     output = @horizontal_builder.form_group inline: true do
       @horizontal_builder.text_field(:email) + @horizontal_builder.text_field(:password)
     end
