@@ -3,10 +3,6 @@ require 'test_helper'
 class BootstrapFieldsTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
-
   test "color fields are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" /></div>}
     assert_equal expected, @builder.color_field(:misc)
