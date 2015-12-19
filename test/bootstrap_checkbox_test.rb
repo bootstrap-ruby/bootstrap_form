@@ -3,10 +3,6 @@ require 'test_helper'
 class BootstrapCheckboxTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
-
   test "check_box is wrapped correctly" do
     expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
     assert_equal expected, @builder.check_box(:terms, label: 'I agree to the terms')

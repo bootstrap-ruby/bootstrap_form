@@ -3,10 +3,6 @@ require 'test_helper'
 class BootstrapFormGroupTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
-
   test "changing the label text via the label option parameter" do
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email Address</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equal expected, @builder.text_field(:email, label: 'Email Address')
@@ -267,5 +263,5 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
-  end    
+  end
 end

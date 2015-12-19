@@ -3,10 +3,6 @@ require 'test_helper'
 class BootstrapSelectsTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
-
   test "time zone selects are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select></div>}
     assert_equal expected, @builder.time_zone_select(:misc)
