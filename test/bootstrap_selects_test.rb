@@ -32,6 +32,17 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
   end
 
+  if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
+    test "selects with block use block as content" do
+      expected = %{<div class="form-group"><label class="control-label" for="user_status">Status</label><select class="form-control" name="user[status]" id="user_status"><option>Option 1</option><option>Option 2</option></select></div>}
+      select = @builder.select(:status) do
+        content_tag(:option) { 'Option 1' } +
+        content_tag(:option) { 'Option 2' }
+      end
+      assert_equal expected, select
+    end
+  end
+
   test "selects render labels properly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_status">User Status</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select></div>}
     assert_equal expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "User Status")
