@@ -110,6 +110,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
+      options = convert_form_tag_options(name, options) if acts_like_form_tag
       check_box_options = options.except(:label, :label_class, :help, :inline)
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
@@ -128,12 +129,16 @@ module BootstrapForm
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
 
+      label_opts = { class: label_class }
+      # only add +for+ key if not nil otherwise it prevent standard behaviour of label method
+      label_opts[:for] = options[:id] unless (options[:id].nil? || options[:id].empty?)
+
       if options[:inline]
-        label_class = " #{label_class}" if label_class
-        label(label_name, html, class: "checkbox-inline#{disabled_class}#{label_class}")
+        label_opts[:class] = "checkbox-inline#{disabled_class} #{label_class}".strip
+        label(label_name, html, label_opts)
       else
         content_tag(:div, class: "checkbox#{disabled_class}") do
-          label(label_name, html, class: label_class)
+          label(label_name, html, label_opts)
         end
       end
     end
@@ -142,6 +147,10 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
+      if acts_like_form_tag
+        options[:id] ||= "#{name}_#{value}"
+        options[:name] ||= name
+      end
       args << options.except(:label, :label_class, :help, :inline)
 
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
@@ -149,12 +158,16 @@ module BootstrapForm
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
 
+      label_opts = { value: value, class: label_class }
+      # only add +for+ key if not nil otherwise it prevent standard behaviour of label method
+      label_opts[:for] = options[:id] unless (options[:id].nil? || options[:id].empty?)
+
       if options[:inline]
-        label_class = " #{label_class}" if label_class
-        label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
+        label_opts[:class] = "radio-inline#{disabled_class} #{label_class}".strip
+        label(name, html, label_opts)
       else
         content_tag(:div, class: "radio#{disabled_class}") do
-          label(name, html, value: value, class: label_class)
+          label(name, html, label_opts)
         end
       end
     end
