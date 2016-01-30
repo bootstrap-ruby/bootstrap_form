@@ -267,7 +267,7 @@ module BootstrapForm
     end
 
     def has_error?(name)
-      object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+      object.respond_to?(:errors) && !(name.nil? || (object.errors[name].empty? && object.errors[name.to_s.gsub(/_id$/, '')].empty?))
     end
 
     def required_attribute?(obj, attribute)
@@ -387,7 +387,12 @@ module BootstrapForm
     end
 
     def get_error_messages(name)
-      object.errors[name].join(", ")
+      if name.to_s == name.to_s.gsub(/_id$/, '')
+        object.errors[name].join(", ")
+      else
+        error_messages = object.errors[name] + object.errors[name.to_s.gsub(/_id$/, '')]
+        error_messages.join(", ")
+      end
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)

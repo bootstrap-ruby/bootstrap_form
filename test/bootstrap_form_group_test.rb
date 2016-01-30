@@ -175,6 +175,18 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test 'form_group renders the "error" class when symbol is id' do
+    @user.email = nil
+    @user.valid?
+
+    output = @builder.form_group :email_id do
+      %{<p class="form-control-static">Bar</p>}.html_safe
+    end
+
+    expected = %{<div class="form-group has-error"><p class="form-control-static">Bar</p><span class="help-block">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    assert_equal expected, output
+  end
+
   test "adds class to wrapped form_group by a field" do
     expected = %{<div class="form-group none-margin"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /></div>}
     assert_equal expected, @builder.search_field(:misc, wrapper_class: 'none-margin')
