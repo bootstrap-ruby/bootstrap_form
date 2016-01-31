@@ -143,7 +143,7 @@ To add custom classes to the field's label:
 #### Required Fields
 
 A label that is associated with a required field is automatically annotated with
-a `required` CSS class. You are free to add any appropriate CSS to style 
+a `required` CSS class. You are free to add any appropriate CSS to style
 required fields as desired.  One example would be to automatically add an
 asterisk to the end of the label:
 
@@ -157,6 +157,14 @@ The label `required` class is determined based on the definition of a presence
 validator with the associated model attribute. Presently this is one of:
 ActiveRecord::Validations::PresenceValidator or
 ActiveModel::Validations::PresenceValidator.
+
+### Input Elements / Controls
+
+To specify the class of the generated input, use the `control_class` option:
+
+```erb
+<%= f.text_field :email, control_class: "custom-class" %>
+```
 
 ### Help Text
 
