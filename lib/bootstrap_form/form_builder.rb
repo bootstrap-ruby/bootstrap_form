@@ -401,6 +401,8 @@ module BootstrapForm
     end
 
     def get_help_text_by_i18n_key(name)
+      return nil if object.class.name.nil?
+
       underscored_scope = "activerecord.help.#{object.class.name.underscore}"
       downcased_scope = "activerecord.help.#{object.class.name.downcase}"
       help_text = I18n.t(name, scope: underscored_scope, default: '').presence
