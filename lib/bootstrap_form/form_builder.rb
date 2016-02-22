@@ -117,7 +117,13 @@ module BootstrapForm
       html.concat(" ").concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
 
       label_name = name
-      label_name = "#{name}_#{checked_value}" if options[:multiple]
+      # label's `for` attribute needs to match checkbox tag's id,
+      # IE sanitized value, IE
+      # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
+      if options[:multiple]
+        label_name =
+          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+      end
 
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]

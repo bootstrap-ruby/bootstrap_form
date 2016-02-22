@@ -89,6 +89,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equal expected, @builder.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
   end
 
+  test 'collection_check_boxes sanitizes values when generating label `for`' do
+    collection = [Address.new(id: 1, street: 'Foo St')]
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_foo_st"><input id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" /> Foo St</label></div></div>}
+
+    assert_equal expected, @builder.collection_check_boxes(:misc, collection, :street, :street)
+  end
+
   test 'collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="control-label" for="user_misc">Misc</label><div class="checkbox"><label for="user_misc_1"><input id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> ooF</label></div><div class="checkbox"><label for="user_misc_2"><input id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> raB</label></div></div>}
