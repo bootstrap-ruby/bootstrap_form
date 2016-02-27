@@ -357,8 +357,12 @@ module BootstrapForm
         })
       end
 
-      form_group(method, form_group_options) do
+      if wrapper_options == false
         yield
+      else
+        form_group(method, form_group_options) do
+          yield
+        end
       end
     end
 

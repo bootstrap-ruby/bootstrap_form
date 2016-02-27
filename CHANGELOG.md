@@ -61,6 +61,7 @@ Features:
 
   - Allow primary button classes to be overridden (#183, @tanimichi)
   - Allow to pass a block to select helper in Rails >= 4.1.0 (#229, @doits)
+  - Allow to render input without wrapper (#259, @yevhene)
 
 ## 2.3.0 (2015-02-17)
 
