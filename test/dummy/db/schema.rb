@@ -13,24 +13,24 @@
 
 ActiveRecord::Schema.define(version: 20140922133133) do
 
-  create_table "addresses", force: true do |t|
+  create_table "addresses", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "street"
     t.string   "city"
     t.string   "state"
     t.string   "zip_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "password"
     t.text     "comments"
     t.string   "status"
     t.string   "misc"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.text     "preferences"
     t.boolean  "terms",       default: false
     t.string   "type"

@@ -16,8 +16,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_development_dependency "rails", "~> 4.0"
+  s.add_development_dependency "rails", ">= 4.2"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "timecop", "~> 0.7.1"
+  s.add_development_dependency "timecop", "~> 0.8.0"
   s.add_development_dependency "mocha"
+  s.add_development_dependency "rails-dom-testing"
 end

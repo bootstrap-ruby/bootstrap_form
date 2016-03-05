@@ -1,5 +1,6 @@
 require 'timecop'
 require 'mocha/mini_test'
+require 'rails-dom-testing'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
