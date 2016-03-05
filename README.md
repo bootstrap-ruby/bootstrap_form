@@ -8,8 +8,8 @@ twitter bootstrap-style forms into your rails application.
 
 ## Requirements
 
-* Ruby 1.9+
-* Rails 4.0+
+* Ruby 2.2+
+* Rails 4.2+
 * Twitter Bootstrap 3.0+
 
 ## Installation

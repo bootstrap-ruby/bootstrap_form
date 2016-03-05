@@ -7,7 +7,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :state
       t.string :zip_code
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

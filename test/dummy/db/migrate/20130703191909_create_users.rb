@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :status
       t.string :misc
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
