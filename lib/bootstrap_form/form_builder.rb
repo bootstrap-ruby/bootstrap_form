@@ -133,23 +133,19 @@ module BootstrapForm
     alias_method_chain :check_box, :bootstrap
 
     def radio_button_with_bootstrap(name, value, *args)
-      options = args.extract_options!.symbolize_keys!
-      # args << options.except(:label, :label_class, :help, :inline)
-      args << options.except(:label, :label_class, :label_title, :help, :inline) # RADISH
+      args << options.except(:label, :label_class, :label_title, :help, :inline)
       
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
-      
+
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
-      
+
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        # label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
-        label(name, html, class: "radio-inline#{disabled_class}#{label_class}", title: options[:label_title], value: value) # RADISH
+        label(name, html, class: "radio-inline#{disabled_class}#{label_class}", title: options[:label_title], value: value)
       else
         content_tag(:div, class: "radio#{disabled_class}") do
-          # label(name, html, value: value, class: label_class)
-          label(name, html, value: value, class: label_class, title: options[:label_title]) # RADISH
+          label(name, html, value: value, class: label_class, title: options[:label_title])
         end
       end
     end
@@ -367,7 +363,7 @@ module BootstrapForm
       options[:class] = classes.compact.join(" ")
 
       if label_errors && has_error?(name)
-        error_messages = get_error_messages(name)
+        error_messages = get_error_messages(name, label_errors.is_a?(Hash) ? label_errors : {}) # RADISH UNTESTED
         label_text = (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{error_messages}")
         label(name, label_text, options.except(:text))
       else
@@ -377,7 +373,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = get_error_messages(name) if has_error?(name) && inline_errors
+      help_text = get_error_messages(name, inline_errors.is_a?(Hash) ? inline_errors : {}) if has_error?(name) && inline_errors # RADISH UNTESTED
       return if help_text === false
 
       help_text ||= get_help_text_by_i18n_key(name)
@@ -388,11 +384,21 @@ module BootstrapForm
     def generate_icon(icon)
       content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
     end
-
-    def get_error_messages(name)
-      #object.errors[name].join(", ")
-      error_messages = object.errors[name].uniq.to_sentence + '.'
-      error_messages[0] = error_messages.first.capitalize
+    
+    def get_error_messages(name, error_options = {})
+      # RADISH UNTESTED
+      no_duplicates = error_options[:no_duplicates] || false
+      to_sentence = error_options[:to_sentence] || false
+      
+      error_messages = object.errors[name]
+      
+      error_messages = error_messages.uniq if no_duplicates
+      if to_sentence
+        error_messages = error_messages.to_sentence + '.'
+        error_messages[0] = error_messages.first.capitalize
+      else
+        error_messages = error_messages.join(", ")
+      end
       
       return error_messages
     end
