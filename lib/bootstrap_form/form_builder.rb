@@ -133,6 +133,7 @@ module BootstrapForm
     alias_method_chain :check_box, :bootstrap
 
     def radio_button_with_bootstrap(name, value, *args)
+      options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :label_class, :label_title, :help, :inline)
       
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
