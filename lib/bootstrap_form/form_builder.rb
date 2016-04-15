@@ -28,9 +28,6 @@ module BootstrapForm
       @acts_like_form_tag = options[:acts_like_form_tag]
 
       super
-      
-      p "form forin!"
-      p @inline_errors
     end
 
     FIELD_HELPERS.each do |method_name|
