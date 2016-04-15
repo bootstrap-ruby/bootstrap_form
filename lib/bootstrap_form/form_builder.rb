@@ -21,13 +21,16 @@ module BootstrapForm
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
       @inline_errors = if options[:inline_errors].nil?
-        @label_errors != true
+        !@label_errors
       else
-        options[:inline_errors] != false
+        options[:inline_errors]
       end
       @acts_like_form_tag = options[:acts_like_form_tag]
 
       super
+      
+      p "form forin!"
+      p @inline_errors
     end
 
     FIELD_HELPERS.each do |method_name|
@@ -135,7 +138,7 @@ module BootstrapForm
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       args << options.except(:label, :label_class, :label_title, :help, :inline)
-      
+
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
 
       disabled_class = " disabled" if options[:disabled]
@@ -364,7 +367,7 @@ module BootstrapForm
       options[:class] = classes.compact.join(" ")
 
       if label_errors && has_error?(name)
-        error_messages = get_error_messages(name, label_errors.is_a?(Hash) ? label_errors : {}) # RADISH UNTESTED
+        error_messages = get_error_messages(name, label_errors.is_a?(Hash) ? label_errors : {})
         label_text = (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{error_messages}")
         label(name, label_text, options.except(:text))
       else
@@ -374,7 +377,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = get_error_messages(name, inline_errors.is_a?(Hash) ? inline_errors : {}) if has_error?(name) && inline_errors # RADISH UNTESTED
+      help_text = get_error_messages(name, inline_errors.is_a?(Hash) ? inline_errors : {}) if has_error?(name) && inline_errors
       return if help_text === false
 
       help_text ||= get_help_text_by_i18n_key(name)
@@ -387,7 +390,6 @@ module BootstrapForm
     end
     
     def get_error_messages(name, error_options = {})
-      # RADISH UNTESTED
       no_duplicates = error_options[:no_duplicates] || false
       to_sentence = error_options[:to_sentence] || false
       
