@@ -3,6 +3,7 @@
 Bugfixes:
 
   - Minor README corrections (#184, @msmithstubbs)
+  - Fix `alias_method_chain` deprecation warnings when using Rails 5
 
 Features:
 
