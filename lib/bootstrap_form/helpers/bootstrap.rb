@@ -70,7 +70,7 @@ module BootstrapForm
       end
 
       def input_group_class(add_on_content)
-        if add_on_content.match /btn/
+        if add_on_content.match(/btn/)
           'input-group-btn'
         else
           'input-group-addon'
