@@ -86,24 +86,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:password)
   end
 
-  test "help messages to warn about deprecated I18n key" do
-    super_user = SuperUser.new(@user.attributes)
-    builder = BootstrapForm::FormBuilder.new(:super_user, super_user, self, {})
-
-    I18n.backend.store_translations(:en, activerecord: {
-      help: {
-        superuser: {
-          password: 'A good password should be at least six characters long'
-        }
-      }
-    })
-
-    builder.stubs(:warn).returns(true)
-    builder.expects(:warn).at_least_once
-
-    builder.password_field(:password)
-  end
-
   test "help messages to ignore translation when user disables help" do
     expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" type="text" value="secret" name="user[password]" id="user_password" /></div>}
     assert_equal expected, @builder.text_field(:password, help: false)
