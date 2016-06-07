@@ -46,7 +46,7 @@ To get started, just use the `bootstrap_form_for` helper. Here's an example:
 This generates the following HTML:
 
 ```html
-<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+<form role="form" accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="form-group">
     <label for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" type="email">
@@ -91,7 +91,6 @@ This gem wraps the following Rails form helpers:
 * color_field
 * date_field
 * date_select
-* datetime_field
 * datetime_local_field
 * datetime_select
 * email_field
