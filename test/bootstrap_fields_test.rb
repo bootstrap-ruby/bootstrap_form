@@ -17,11 +17,6 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equal expected, @builder.date_field(:misc)
   end
 
-  test "date time fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" type="datetime" name="user[misc]" id="user_misc" /></div>}
-    assert_equal expected, @builder.datetime_field(:misc)
-  end
-
   test "date time local fields are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" type="datetime-local" name="user[misc]" id="user_misc" /></div>}
     assert_equal expected, @builder.datetime_local_field(:misc)

@@ -91,7 +91,6 @@ This gem wraps the following Rails form helpers:
 * color_field
 * date_field
 * date_select
-* datetime_field
 * datetime_local_field
 * datetime_select
 * email_field
