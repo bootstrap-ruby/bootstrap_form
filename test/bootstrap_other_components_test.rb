@@ -33,27 +33,27 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "submit button defaults to rails action name" do
-    expected = %{<input class="btn btn-default" name="commit" type="submit" value="Create User" />}
+    expected = %{<input type="submit" name="commit" value="Create User" class="btn btn-default" data-disable-with="Create User" />}
     assert_equal expected, @builder.submit
   end
 
   test "submit button uses default button classes" do
-    expected = %{<input class="btn btn-default" name="commit" type="submit" value="Submit Form" />}
+    expected = %{<input type="submit" name="commit" value="Submit Form" class="btn btn-default" data-disable-with="Submit Form" />}
     assert_equal expected, @builder.submit("Submit Form")
   end
 
   test "override submit button classes" do
-    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
+    expected = %{<input type="submit" name="commit" value="Submit Form" class="btn btn-primary" data-disable-with="Submit Form" />}
     assert_equal expected, @builder.submit("Submit Form", class: "btn btn-primary")
   end
 
   test "primary button uses proper css classes" do
-    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
+    expected = %{<input type="submit" name="commit" value="Submit Form" class="btn btn-primary" data-disable-with="Submit Form" />}
     assert_equal expected, @builder.primary("Submit Form")
   end
 
   test "override primary button classes" do
-    expected = %{<input class="btn btn-primary disabled" name="commit" type="submit" value="Submit Form" />}
+    expected = %{<input type="submit" name="commit" value="Submit Form" class="btn btn-primary disabled" data-disable-with="Submit Form" />}
     assert_equal expected, @builder.primary("Submit Form", class: "btn btn-primary disabled")
   end
 end
