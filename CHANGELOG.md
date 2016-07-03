@@ -4,6 +4,7 @@ Bugfixes:
 
   - Minor README corrections (#184, @msmithstubbs)
   - Fix `alias_method_chain` deprecation warnings when using Rails 5
+  - Allow `form_group` to work with frozen string options
 
 Features:
 
