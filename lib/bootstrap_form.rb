@@ -8,4 +8,6 @@ module BootstrapForm
   end
 end
 
-ActionView::Base.send :include, BootstrapForm::Helper
+ActiveSupport.on_load(:action_view) do
+  include BootstrapForm::Helper
+end
