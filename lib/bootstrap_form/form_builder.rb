@@ -198,10 +198,10 @@ module BootstrapForm
         control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
-          control_class = (options[:control_col] || control_col.clone)
+          control_class = options[:control_col] || control_col
           unless options[:label]
             control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
-            control_class.concat(" #{control_offset}")
+            control_class = "#{control_class} #{control_offset}"
           end
           control = content_tag(:div, control, class: control_class)
         end

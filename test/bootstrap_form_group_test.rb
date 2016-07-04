@@ -267,5 +267,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3"><p class="form-control-static">Bar</p></div></div>}
     assert_equal expected, output
-  end    
+  end
+
+  test "non-default column span on form isn't mutated" do
+    frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3".freeze, control_col: "col-sm-9".freeze })
+    output = frozen_horizontal_builder.form_group { 'test' }
+
+    expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
+    assert_equal expected, output
+  end
 end
