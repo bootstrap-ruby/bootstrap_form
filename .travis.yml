@@ -1,2 +1,11 @@
+language: ruby
+rvm:
+  - 1.9
+  - 2.0
+  - 2.1
+  - 2.2
+  - 2.3.0
+before_install:
+  - gem install bundler --conservative --version '~> 1.10'
 before_script:
   - bundle exec rake -f test/dummy/Rakefile db:create db:migrate RAILS_ENV=test
