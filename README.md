@@ -330,7 +330,7 @@ You can also create a static control that isn't based on a model attribute:
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
-Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
+Bootstrap automatically stylizes ours controls as `block`s. This wrapper fix
 this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
