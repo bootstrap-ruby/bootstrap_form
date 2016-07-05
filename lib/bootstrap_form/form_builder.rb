@@ -1,7 +1,9 @@
+require_relative 'aliasing'
 require_relative 'helpers/bootstrap'
 
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
+    extend BootstrapForm::Aliasing
     include BootstrapForm::Helpers::Bootstrap
 
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
@@ -42,7 +44,7 @@ module BootstrapForm
         end
       end
 
-      alias_method_chain method_name, :bootstrap
+      bootstrap_method_alias method_name
     end
 
     DATE_SELECT_HELPERS.each do |method_name|
@@ -55,7 +57,7 @@ module BootstrapForm
         end
       end
 
-      alias_method_chain method_name, :bootstrap
+      bootstrap_method_alias method_name
     end
 
     def file_field_with_bootstrap(name, options = {})
@@ -64,7 +66,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :file_field, :bootstrap
+    bootstrap_method_alias :file_field
 
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
       def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
@@ -80,7 +82,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :select, :bootstrap
+    bootstrap_method_alias :select
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
@@ -88,7 +90,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :collection_select, :bootstrap
+    bootstrap_method_alias :collection_select
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
@@ -96,7 +98,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :grouped_collection_select, :bootstrap
+    bootstrap_method_alias :grouped_collection_select
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
@@ -104,7 +106,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :time_zone_select, :bootstrap
+    bootstrap_method_alias :time_zone_select
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
@@ -130,7 +132,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :check_box, :bootstrap
+    bootstrap_method_alias :check_box
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
@@ -151,7 +153,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :radio_button, :bootstrap
+    bootstrap_method_alias :radio_button
 
     def collection_check_boxes_with_bootstrap(*args)
       html = inputs_collection(*args) do |name, value, options|
@@ -161,7 +163,7 @@ module BootstrapForm
       hidden_field(args.first,{value: "", multiple: true}).concat(html)
     end
 
-    alias_method_chain :collection_check_boxes, :bootstrap
+    bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
       inputs_collection(*args) do |name, value, options|
@@ -169,7 +171,7 @@ module BootstrapForm
       end
     end
 
-    alias_method_chain :collection_radio_buttons, :bootstrap
+    bootstrap_method_alias :collection_radio_buttons
 
     def check_boxes_collection(*args)
       warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
@@ -196,10 +198,10 @@ module BootstrapForm
         control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
-          control_class = (options[:control_col] || control_col.clone)
+          control_class = options[:control_col] || control_col
           unless options[:label]
             control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
-            control_class.concat(" #{control_offset}")
+            control_class = "#{control_class} #{control_offset}"
           end
           control = content_tag(:div, control, class: control_class)
         end
@@ -218,7 +220,7 @@ module BootstrapForm
       fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
     end
 
-    alias_method_chain :fields_for, :bootstrap
+    bootstrap_method_alias :fields_for
 
     private
 
@@ -276,7 +278,7 @@ module BootstrapForm
 
       target = (obj.class == Class) ? obj : obj.class
 
-      target_validators = if target.respond_to? :validators_on 
+      target_validators = if target.respond_to? :validators_on
                             target.validators_on(attribute).map(&:class)
                           else
                             []

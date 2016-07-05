@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.png)](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](http://badge.fury.io/rb/bootstrap_form)
 
 # Rails Bootstrap Forms
@@ -143,7 +143,7 @@ To add custom classes to the field's label:
 #### Required Fields
 
 A label that is associated with a required field is automatically annotated with
-a `required` CSS class. You are free to add any appropriate CSS to style 
+a `required` CSS class. You are free to add any appropriate CSS to style
 required fields as desired.  One example would be to automatically add an
 asterisk to the end of the label:
 
@@ -336,7 +336,7 @@ You can also create a static control that isn't based on a model attribute:
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
-Boostrap automatically stylizes ours controls as `block`s. This wrapper fix
+Bootstrap automatically stylizes ours controls as `block`s. This wrapper fix
 this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons

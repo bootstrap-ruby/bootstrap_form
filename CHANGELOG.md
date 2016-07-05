@@ -1,8 +1,22 @@
-## Pending Release
+## [Pending Release][]
+
+Bugfixes:
+
+  - Your contribution here!
+
+Features:
+
+  - Your contribution here!
+
+## [2.4.0][] (2016-07-04)
+
+This version is ready to use with Rails 5.0.0!
 
 Bugfixes:
 
   - Minor README corrections (#184, @msmithstubbs)
+  - Fix `alias_method_chain` deprecation warnings when using Rails 5
+  - Allow `form_group` to work with frozen string options
 
 Features:
 
@@ -110,3 +124,7 @@ Features:
   - Added errors_on helper (@baldwindavid)
   - Added per field layout option (@baldwindavid)
   - Added support for bootstrap_form_tag (@baldwindavid)
+
+
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.4.0...HEAD
+[2.4.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.3.0...v2.4.0
