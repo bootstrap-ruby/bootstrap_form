@@ -5,6 +5,11 @@ rvm:
   - 2.1
   - 2.2
   - 2.3.0
+gemfile:
+  - gemfiles/4.0.gemfile
+  - gemfiles/4.1.gemfile
+  - gemfiles/4.2.gemfile
+  - gemfiles/5.0.gemfile
 before_install:
   - gem install bundler --conservative --version '~> 1.10'
 before_script:

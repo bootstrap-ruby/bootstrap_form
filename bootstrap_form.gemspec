@@ -17,8 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_development_dependency "mime-types", "~> 2.6.2"
-  s.add_development_dependency "rails", "~> 4.0"
+  s.add_development_dependency "rails", ">= 4.0"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "timecop", "~> 0.7.1"
   s.add_development_dependency "mocha"
+  s.add_development_dependency "appraisal"
 end
