@@ -216,6 +216,12 @@ You can also prepend and append buttons. Note: The buttons must contain the
 <%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
 ```
 
+To add a class to the input group wrapper, use `:input_group_class` option.
+
+```erb
+<%= f.email_field :email, append: f.primary('Subscribe'), input_group_class: 'input-group-lg' %>
+```
+
 ### Additional Form Group Attributes
 
 If you want to add an additional css class or any other attribute to the form group div, you can use

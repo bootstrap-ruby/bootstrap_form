@@ -276,4 +276,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
     assert_equal expected, output
   end
+
+  test ":input_group_class should apply to input-group" do
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group input-group-lg"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /><span class="input-group-btn"><input class="btn btn-primary" name="commit" type="submit" value="Subscribe" /></span></div></div>}
+    assert_equal expected, @builder.email_field(:email, append: @builder.primary('Subscribe'), input_group_class: 'input-group-lg')
+  end
 end

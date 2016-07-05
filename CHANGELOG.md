@@ -6,7 +6,7 @@ Bugfixes:
 
 Features:
 
-  - Your contribution here!
+  - Add support for input-group-sm and input-group-lg in prepend/append (#226, @rusanu)
 
 ## [2.4.0][] (2016-07-04)
 
