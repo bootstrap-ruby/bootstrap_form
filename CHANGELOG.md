@@ -2,6 +2,8 @@
 
 Bugfixes:
 
+  - Sanitize <label> name (IE `for` attribute) in same manner that Rails sanitizes
+    the <input> `id` attribute to fix a11y issue with `for` and `id` mismatch
   - Your contribution here!
 
 Features:
