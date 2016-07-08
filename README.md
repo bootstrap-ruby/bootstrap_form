@@ -158,6 +158,14 @@ validator with the associated model attribute. Presently this is one of:
 ActiveRecord::Validations::PresenceValidator or
 ActiveModel::Validations::PresenceValidator.
 
+### Input Elements / Controls
+
+To specify the class of the generated input, use the `control_class` option:
+
+```erb
+<%= f.text_field :email, control_class: "custom-class" %>
+```
+
 ### Help Text
 
 To add help text, use the `help` option:
