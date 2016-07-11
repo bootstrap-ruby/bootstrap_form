@@ -42,6 +42,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equal expected, @builder.text_field(:email, skip_label: true)
   end
 
+  test "preventing a label from having the required class" do
+    expected = %{<div class="form-group"><label class="control-label" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, skip_required: true)
+  end
+
   test "adding prepend text" do
     expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equal expected, @builder.text_field(:email, prepend: '@')

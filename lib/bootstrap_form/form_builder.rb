@@ -348,7 +348,8 @@ module BootstrapForm
 
         form_group_options.merge!(label: {
           text: label_text,
-          class: label_class
+          class: label_class,
+          skip_required: options.delete(:skip_required)
         })
       end
 
@@ -367,7 +368,9 @@ module BootstrapForm
       options[:for] = id if acts_like_form_tag
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
-      classes << "required" if required_attribute?(object, name)
+      unless options.delete(:skip_required)
+        classes << "required" if required_attribute?(object, name)
+      end
 
       options[:class] = classes.compact.join(" ")
 
