@@ -20,6 +20,7 @@ Bugfixes:
   - Minor README corrections (#184, @msmithstubbs)
   - Fix `alias_method_chain` deprecation warnings when using Rails 5
   - Allow `form_group` to work with frozen string options
+  - Fix loading of ActionView helpers in combination with RSpec and `rails-controller-testing`. (see [rails-controller-testing/issues#24](https://github.com/rails/rails-controller-testing/issues/24))
 
 Features:
 
