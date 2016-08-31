@@ -1,6 +1,7 @@
 ## [Pending Release][]
 
 Bugfixes:
+  - Fix getting help text for elements when using anonymous models (see [issue 282](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/282))
   - Your contribution here!
 
 Features:
