@@ -1,11 +1,15 @@
 ## [Pending Release][]
 
 Bugfixes:
-  - Fix getting help text for elements when using anonymous models (see [issue 282](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/282))
   - Your contribution here!
 
 Features:
   - Your contribution here!
+
+## [2.5.1][] (2016-09-23)
+
+Bugfixes:
+  - Fix getting help text for elements when using anonymous models (see [issue 282](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/282))
 
 ## [2.5.0][] (2016-08-12)
 
@@ -138,6 +142,7 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...HEAD
+[2.5.1]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.3.0...v2.4.0

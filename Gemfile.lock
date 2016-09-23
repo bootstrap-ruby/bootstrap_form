@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bootstrap_form (2.5.0)
+    bootstrap_form (2.5.1)
 
 GEM
   remote: http://rubygems.org/
@@ -89,4 +89,4 @@ DEPENDENCIES
   timecop (~> 0.7.1)
 
 BUNDLED WITH
-   1.12.5
+   1.13.1
