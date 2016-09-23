@@ -206,7 +206,7 @@ module BootstrapForm
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
           unless options[:label]
-            control_offset = offset_col(/([0-9]+)$/.match(options[:label_col] || @label_col))
+            control_offset = offset_col(options[:label_col] || @label_col)
             control_class = "#{control_class} #{control_offset}"
           end
           control = content_tag(:div, control, class: control_class)
@@ -242,8 +242,8 @@ module BootstrapForm
       "col-sm-2"
     end
 
-    def offset_col(offset)
-      "col-sm-offset-#{offset}"
+    def offset_col(label_col)
+      label_col.sub(/^col-(\w+)-(\d)$/, 'col-\1-offset-\2')
     end
 
     def default_control_col
