@@ -2,6 +2,7 @@
 
 Bugfixes:
   - Allow objects without `model_name`s to act as form objects (#295, @laserlemon)
+  - Fix offset for submit for horizontal forms when using non-sm column breakers for label column (#293, @oteyatosys)
   - Your contribution here!
 
 Features:
