@@ -1,6 +1,7 @@
 ## [Pending Release][]
 
 Bugfixes:
+  - Allow objects without `model_name`s to act as form objects (#295, @laserlemon)
   - Your contribution here!
 
 Features:

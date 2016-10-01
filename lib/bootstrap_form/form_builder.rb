@@ -425,10 +425,14 @@ module BootstrapForm
     end
 
     def get_help_text_by_i18n_key(name)
-       if object
+      if object
 
-         # ActiveModel::Naming 3.X.X does not support .name; it is supported as of 4.X.X
-        partial_scope = object.class.model_name.respond_to?(:name) ? object.class.model_name.name : object.class.model_name
+        if object.class.respond_to?(:model_name)
+          # ActiveModel::Naming 3.X.X does not support .name; it is supported as of 4.X.X
+          partial_scope = object.class.model_name.respond_to?(:name) ? object.class.model_name.name : object.class.model_name
+        else
+          partial_scope = object.class.name
+        end
 
         underscored_scope = "activerecord.help.#{partial_scope.underscore}"
         downcased_scope = "activerecord.help.#{partial_scope.downcase}"
@@ -438,7 +442,7 @@ module BootstrapForm
                         text
                       end
         help_text
-       end
+      end
     end
 
   end
