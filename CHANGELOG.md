@@ -1,12 +1,16 @@
 ## [Pending Release][]
 
 Bugfixes:
-  - Allow objects without `model_name`s to act as form objects (#295, @laserlemon)
-  - Fix offset for submit for horizontal forms when using non-sm column breakers for label column (#293, @oteyatosys)
   - Your contribution here!
 
 Features:
   - Your contribution here!
+
+## [2.5.2][] (2016-10-08)
+
+Bugfixes:
+  - Allow objects without `model_name`s to act as form objects (#295, @laserlemon)
+  - Fix offset for submit for horizontal forms when using non-sm column breakers for label column (#293, @oteyatosys)
 
 ## [2.5.1][] (2016-09-23)
 
@@ -144,7 +148,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...HEAD
+[2.5.2]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.3.0...v2.4.0
