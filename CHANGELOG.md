@@ -2,6 +2,7 @@
 
 Bugfixes:
   - Change error class from `has-error` to `has-danger`
+  - Change validation text class from `help-block` to `form-control-feedback`
 
 Features:
   - Update to Bootstrap v4
