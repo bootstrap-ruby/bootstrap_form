@@ -1,10 +1,10 @@
-## [Pending Release][]
+## [Pending Release][] (2016-10-18)
 
 Bugfixes:
-  - Your contribution here!
+  - Change error class from `has-error` to `has-danger`
 
 Features:
-  - Your contribution here!
+  - Update to Bootstrap v4
 
 ## [2.5.2][] (2016-10-08)
 
