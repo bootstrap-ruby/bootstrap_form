@@ -77,17 +77,17 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "help messages for default forms" do
-    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><div class="form-control-feedback">This is required</div></div>}
+    expected = %{<div class="form-group"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><p class="form-text text-muted">This is required</p></div>}
     assert_equal expected, @builder.text_field(:email, help: 'This is required')
   end
 
   test "help messages for horizontal forms" do
-    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><div class="form-control-feedback">This is required</div></div></div>}
+    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><p class="form-text text-muted">This is required</p></div></div>}
     assert_equal expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
   test "help messages to look up I18n automatically" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="text" value="secret" /><div class="form-control-feedback">A good password should be at least six characters long</div></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="text" value="secret" /><p class="form-text text-muted">A good password should be at least six characters long</p></div>}
     assert_equal expected, @builder.text_field(:password)
   end
 
@@ -201,7 +201,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required', wrapper_class: 'none-margin')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-danger"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><div class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-danger"><label class="control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><div class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</div></div></form>}
     assert_equal expected, output
   end
 
