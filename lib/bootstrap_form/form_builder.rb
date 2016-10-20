@@ -216,6 +216,63 @@ module BootstrapForm
       end
     end
 
+    def form_group_builder(method, options = {}, html_options = nil)
+      options.symbolize_keys!
+      html_options.symbolize_keys! if html_options
+
+      # Add control_class; allow it to be overridden by :control_class option
+      css_options = html_options || options
+      control_classes = css_options.delete(:control_class) { control_class }
+      css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
+
+      options = convert_form_tag_options(method, options) if acts_like_form_tag
+
+      wrapper_class = css_options.delete(:wrapper_class)
+      wrapper_options = css_options.delete(:wrapper)
+      help = options.delete(:help)
+      icon = options.delete(:icon)
+      label_col = options.delete(:label_col)
+      control_col = options.delete(:control_col)
+      layout = get_group_layout(options.delete(:layout))
+      form_group_options = {
+        id: options[:id],
+        help: help,
+        icon: icon,
+        label_col: label_col,
+        control_col: control_col,
+        layout: layout,
+        class: wrapper_class
+      }
+
+      if wrapper_options.is_a?(Hash)
+        form_group_options.merge!(wrapper_options)
+      end
+
+      unless options.delete(:skip_label)
+        if options[:label].is_a?(Hash)
+          label_text  = options[:label].delete(:text)
+          label_class = options[:label].delete(:class)
+          options.delete(:label)
+        end
+        label_class ||= options.delete(:label_class)
+        label_class = hide_class if options.delete(:hide_label)
+
+        if options[:label].is_a?(String)
+          label_text ||= options.delete(:label)
+        end
+
+        form_group_options.merge!(label: {
+          text: label_text,
+          class: label_class,
+          skip_required: options.delete(:skip_required)
+        })
+      end
+
+      form_group(method, form_group_options) do
+        yield
+      end
+    end
+
     def fields_for_with_bootstrap(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_options[:layout] ||= options[:layout]
@@ -299,63 +356,6 @@ module BootstrapForm
       end
 
       has_presence_validator
-    end
-
-    def form_group_builder(method, options, html_options = nil)
-      options.symbolize_keys!
-      html_options.symbolize_keys! if html_options
-
-      # Add control_class; allow it to be overridden by :control_class option
-      css_options = html_options || options
-      control_classes = css_options.delete(:control_class) { control_class }
-      css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
-
-      options = convert_form_tag_options(method, options) if acts_like_form_tag
-
-      wrapper_class = css_options.delete(:wrapper_class)
-      wrapper_options = css_options.delete(:wrapper)
-      help = options.delete(:help)
-      icon = options.delete(:icon)
-      label_col = options.delete(:label_col)
-      control_col = options.delete(:control_col)
-      layout = get_group_layout(options.delete(:layout))
-      form_group_options = {
-        id: options[:id],
-        help: help,
-        icon: icon,
-        label_col: label_col,
-        control_col: control_col,
-        layout: layout,
-        class: wrapper_class
-      }
-
-      if wrapper_options.is_a?(Hash)
-        form_group_options.merge!(wrapper_options)
-      end
-
-      unless options.delete(:skip_label)
-        if options[:label].is_a?(Hash)
-          label_text  = options[:label].delete(:text)
-          label_class = options[:label].delete(:class)
-          options.delete(:label)
-        end
-        label_class ||= options.delete(:label_class)
-        label_class = hide_class if options.delete(:hide_label)
-
-        if options[:label].is_a?(String)
-          label_text ||= options.delete(:label)
-        end
-
-        form_group_options.merge!(label: {
-          text: label_text,
-          class: label_class,
-          skip_required: options.delete(:skip_required)
-        })
-      end
-
-      form_group(method, form_group_options) do
-        yield
-      end
     end
 
     def convert_form_tag_options(method, options = {})
