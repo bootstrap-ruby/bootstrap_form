@@ -127,12 +127,12 @@ module BootstrapForm
       end
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
 
       if options[:inline]
-        label_class = " #{label_class}" if label_class
+        label_class = " #{options[:label_class]}" if options[:label_class]
         label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
+        label_class    = ["form-check-label", options[:label_class]].compact.join(' ')
         content_tag(:div, class: "form-check#{disabled_class}") do
           label(label_name, html, class: label_class)
         end
