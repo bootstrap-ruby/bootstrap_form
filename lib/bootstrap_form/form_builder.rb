@@ -111,6 +111,7 @@ module BootstrapForm
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline)
+      check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
@@ -126,13 +127,13 @@ module BootstrapForm
       end
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
 
       if options[:inline]
-        label_class = " #{label_class}" if label_class
-        label(label_name, html, class: "checkbox-inline#{disabled_class}#{label_class}")
+        label_class = " #{options[:label_class]}" if options[:label_class]
+        label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
-        content_tag(:div, class: "checkbox#{disabled_class}") do
+        label_class    = ["form-check-label", options[:label_class]].compact.join(' ')
+        content_tag(:div, class: "form-check#{disabled_class}") do
           label(label_name, html, class: label_class)
         end
       end
@@ -201,6 +202,7 @@ module BootstrapForm
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
+        # TODO create `generate_error`
         control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
@@ -263,7 +265,7 @@ module BootstrapForm
     end
 
     def error_class
-      "has-error"
+      "has-danger"
     end
 
     def feedback_class
@@ -385,12 +387,19 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = get_error_messages(name) if has_error?(name) && inline_errors
+      if is_error = has_error?(name) && inline_errors
+        help_text = get_error_messages(name)
+      end
       return if help_text === false
 
       help_text ||= get_help_text_by_i18n_key(name)
 
-      content_tag(:span, help_text, class: 'help-block') if help_text.present?
+      return if help_text.blank?
+      if is_error
+        content_tag(:div, help_text, class: 'form-control-feedback')
+      else
+        content_tag(:p, help_text, class: 'form-text text-muted')
+      end
     end
 
     def generate_icon(icon)

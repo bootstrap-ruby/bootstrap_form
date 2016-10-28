@@ -53,7 +53,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><span class="help-block">A good password should be at least six characters long</span></div>}
+    expected = %{<div class="form-group"><label class="control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><p class="form-text text-muted">A good password should be at least six characters long</p></div>}
     assert_equal expected, @builder.password_field(:password)
   end
 
