@@ -43,7 +43,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="checkbox"><label for="_misc"><input name="[misc]" type="hidden" value="0" /><input id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-check"><label class="form-check-label" for="_misc"><input name="[misc]" type="hidden" value="0" /><input class="form-check-input" id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div></form>}
     assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
