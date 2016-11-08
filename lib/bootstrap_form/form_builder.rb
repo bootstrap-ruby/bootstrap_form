@@ -198,6 +198,7 @@ module BootstrapForm
       name = args.first
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
+      options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 

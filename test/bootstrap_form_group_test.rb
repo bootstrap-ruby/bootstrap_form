@@ -82,7 +82,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "help messages for horizontal forms" do
-    expected = %{<div class="form-group"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="form-text text-muted">This is required</span></div></div>}
+    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="form-text text-muted">This is required</span></div></div>}
     assert_equivalent_xml expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
@@ -119,7 +119,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="form-control-label col-sm-2" for="user_nil">Foo</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2" for="user_nil">Foo</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -128,7 +128,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -137,7 +137,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="form-control-label col-sm-2 required" for="user_email">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2 required" for="user_email">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -146,7 +146,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group foo"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group foo row"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -155,7 +155,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group foo"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group foo row"><div class="col-sm-10 col-sm-offset-2"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -164,7 +164,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><label class="foo form-control-label col-sm-2" for="bar">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group row"><label class="foo form-control-label col-sm-2" for="bar">Custom Control</label><div class="col-sm-10"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -210,7 +210,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       @horizontal_builder.submit
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-10 col-sm-offset-2"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -219,7 +219,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       @horizontal_builder.submit
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -236,7 +236,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     output = output + @horizontal_builder.text_field(:email)
 
-    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-10 col-sm-offset-2">Hallo</div></div><div class="form-group row"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -260,7 +260,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "custom form group layout option" do
-    expected = %{<form accept-charset="UTF-8" action="/users" class="form-horizontal" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /></div></form>}
     assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, layout: :inline }
   end
 
@@ -270,7 +270,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3"><p class="form-control-static">Bar</p></div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-9 col-sm-offset-3"><p class="form-control-static">Bar</p></div></div>}
     assert_equivalent_xml expected, output
   end
 
@@ -278,7 +278,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3".freeze, control_col: "col-sm-9".freeze })
     output = frozen_horizontal_builder.form_group { 'test' }
 
-    expected = %{<div class="form-group"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
     assert_equivalent_xml expected, output
   end
 
