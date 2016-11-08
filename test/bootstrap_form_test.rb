@@ -44,9 +44,9 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "bootstrap_form_tag allows an empty name for checkboxes" do
     checkbox = if ::Rails::VERSION::STRING >= '5.1'
-      %{<div class="checkbox"><label for="misc"><input name="misc" type="hidden" value="0" /><input id="misc" name="misc" type="checkbox" value="1" /> Misc</label></div>}
+      %{<div class="form-check"><label for="misc"><input name="misc" type="hidden" value="0" /><input id="misc" name="misc" type="checkbox" value="1" /> Misc</label></div>}
     else
-      %{<div class="checkbox"><label for="_misc"><input name="[misc]" type="hidden" value="0" /><input id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div>}
+      %{<div class="form-check"><label for="_misc"><input name="[misc]" type="hidden" value="0" /><input id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div>}
     end
     expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>#{checkbox}</form>}
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
