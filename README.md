@@ -61,7 +61,7 @@ This generates the following HTML:
       <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> Remember me
     </label>
   </div>
-  <input class="btn btn-default" name="commit" type="submit" value="Log In">
+  <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -227,7 +227,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
 ```
 
 To add a class to the input group wrapper, use `:input_group_class` option.
@@ -355,7 +355,7 @@ this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
 
-The `btn btn-default` css classes are automatically added to your submit
+The `btn btn-secondary` css classes are automatically added to your submit
 buttons.
 
 ```erb
