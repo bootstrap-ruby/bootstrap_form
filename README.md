@@ -209,7 +209,7 @@ This automatically adds the `has-feedback` class to the `form-group`:
 
 ```html
 <div class="form-group has-feedback">
-  <label class="control-label" for="user_login">Login</label>
+  <label class="form-control-label" for="user_login">Login</label>
   <input class="form-control" id="user_login" name="user[login]" type="text" />
   <span class="glyphicon glyphicon-user form-control-feedback"></span>
 </div>
@@ -249,7 +249,7 @@ Which produces the following output:
 
 ```erb
 <div class="form-group has-warning" data-foo="bar">
-  <label class="control-label" for="user_name">Id</label>
+  <label class="form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
@@ -330,7 +330,7 @@ Here's the output:
 
 ```html
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="user_email">Email</label>
+  <label class="col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <p class="form-control-static">test@email.com</p>
   </div>
@@ -469,7 +469,7 @@ div (field_with_errors), but this behavior is suppressed. Here's an example:
 
 ```html
 <div class="form-group has-danger">
-  <label class="control-label" for="user_email">Email</label>
+  <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" type="email" value="">
   <span class="form-control-feedback">can't be blank</span>
 </div>
