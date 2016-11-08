@@ -138,7 +138,7 @@ module BootstrapForm
         label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
         content_tag(:div, class: "form-check#{disabled_class}") do
-          label(label_name, html, class: label_class)
+          label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
         end
       end
     end
