@@ -314,6 +314,7 @@ module BootstrapForm
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
+      css_options[:class] << " form-control-danger" if has_error?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
