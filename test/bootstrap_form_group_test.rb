@@ -189,7 +189,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<div class="form-group none-margin has-danger"><div class="field_with_errors"><label class="form-control-label required" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control" id="user_email" name="user[email]" type="email" /></div><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
+    expected = %{<div class="form-group none-margin has-danger"><div class="field_with_errors"><label class="form-control-label required" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control form-control-danger" id="user_email" name="user[email]" type="email" /></div><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div>}
     assert_equal expected, @builder.email_field(:email, wrapper_class: 'none-margin')
   end
 
@@ -201,7 +201,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required', wrapper_class: 'none-margin')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" /><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group none-margin has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" /><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equal expected, output
   end
 
