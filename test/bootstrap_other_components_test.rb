@@ -10,7 +10,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control" do
     output = @horizontal_builder.static_control :email
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
     assert_equal expected, output
   end
 
@@ -19,7 +19,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_">My Label</label><div class="col-sm-10"><p class="form-control-static">this is a test</p></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label col-sm-2" for="user_">My Label</label><div class="col-sm-10"><p class="form-control-static">this is a test</p></div></div>}
     assert_equal expected, output
   end
 
@@ -28,7 +28,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "Custom Control"
     end
 
-    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10"><p class="form-control-static">Custom Control</p></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10"><p class="form-control-static">Custom Control</p></div></div>}
     assert_equal expected, output
   end
 
