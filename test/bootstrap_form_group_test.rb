@@ -60,12 +60,12 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "append and prepend button" do
     prefix = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group">}
     field = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
-    button = %{<span class="input-group-btn"><a class="btn btn-default" href="#">Click</a></span>}
+    button = %{<span class="input-group-btn"><a class="btn btn-secondary" href="#">Click</a></span>}
     suffix = %{</div></div>}
     after_button = prefix + field + button + suffix
     before_button = prefix + button + field + suffix
     both_button = prefix + button + field + button  + suffix
-    button_src = link_to("Click", "#", class: "btn btn-default")
+    button_src = link_to("Click", "#", class: "btn btn-secondary")
     assert_equal after_button, @builder.text_field(:email, append: button_src)
     assert_equal before_button, @builder.text_field(:email, prepend: button_src)
     assert_equal both_button, @builder.text_field(:email, append: button_src, prepend: button_src)
@@ -210,7 +210,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       @horizontal_builder.submit
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
+    expected = %{<div class="form-group"><div class="col-sm-10 col-sm-offset-2"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
 
@@ -219,7 +219,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       @horizontal_builder.submit
     end
 
-    expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-default" name="commit" type="submit" value="Create User" /></div></div>}
+    expected = %{<div class="form-group"><div class="col-sm-8 col-sm-offset-5"><input class="btn btn-secondary" name="commit" type="submit" value="Create User" /></div></div>}
     assert_equal expected, output
   end
 

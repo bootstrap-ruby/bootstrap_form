@@ -2,7 +2,7 @@ module BootstrapForm
   module Helpers
     module Bootstrap
       def submit(name = nil, options = {})
-        options.reverse_merge! class: 'btn btn-default'
+        options.reverse_merge! class: 'btn btn-secondary'
         super(name, options)
       end
 
