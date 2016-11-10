@@ -59,7 +59,10 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-control-file" id="user_misc" name="user[misc]" type="file" />
+        <div class="custom-file">
+          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Choose file</label>
+        </div>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.file_field(:misc)
@@ -72,7 +75,10 @@ class BootstrapFieldsTest < ActionView::TestCase
       <input name="utf8" type="hidden" value="&#x2713;"/>
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-control-file is-invalid" id="user_misc" name="user[misc]" type="file" />
+        <div class="custom-file">
+          <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Choose file</label>
+        </div>
         <div class="invalid-feedback">error for test</div>
       </div>
     </form>
