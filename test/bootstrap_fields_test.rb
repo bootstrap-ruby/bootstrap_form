@@ -33,8 +33,13 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "file fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input id="user_misc" name="user[misc]" type="file" /></div>}
+    expected = %{<div class="form-group"><label class="custom-file" for="user_misc">Misc<input class="custom-file-input" id="user_misc" name="user[misc]" type="file" /><span class="custom-file-control"></span></label></div>}
     assert_equal expected, @builder.file_field(:misc)
+  end
+
+  test "file fields can have span attributes set correctly" do
+    expected = %{<div class="form-group"><label class="custom-file" for="user_misc">Misc<input class="custom-file-input" id="user_misc" name="user[misc]" type="file" /><span attribute="value" class="custom-file-control"></span></label></div>}
+    assert_equal expected, @builder.file_field(:misc, span: {attribute: 'value'})
   end
 
   test "hidden fields are supported" do

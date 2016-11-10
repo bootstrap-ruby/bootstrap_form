@@ -61,8 +61,21 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
-      form_group_builder(name, options.reverse_merge(control_class: nil)) do
-        file_field_without_bootstrap(name, options)
+      options = options.symbolize_keys!
+      file_field_options = options.except(:label, :label_class, :help, :span)
+      file_field_options[:class] = ["custom-file-input", file_field_options[:class]].compact.join(' ')
+
+      label_content = block_given? ? capture(&block) : options[:label]
+      label_content = (label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
+      html = label_content.concat(file_field_without_bootstrap(name, file_field_options))
+
+      span_options = options[:span] || {}
+      span_class = ["custom-file-control", span_options[:class]].compact.join(' ')
+      html = html.concat(content_tag(:span, nil, span_options.merge(class: span_class)))
+
+      label_class    = ["custom-file", options[:label_class]].compact.join(' ')
+      content_tag(:div, class: "form-group") do
+        label(name, html.html_safe, class: label_class)
       end
     end
 
