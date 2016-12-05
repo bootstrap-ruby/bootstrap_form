@@ -17,6 +17,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email, label: {text: 'Email Address'})
   end
 
+  test "preserving the label for via the html_options label hash" do
+    expected = %{<div class="form-group"><label class="control-label required" for="super_user_email">Email Address</label><input class="form-control" id="super_user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, label: {text: 'Email Address', for: 'super_user_email'}, id: "super_user_email")
+  end
+
+  test "properly generate the label for if we give a specific id" do
+    expected = %{<div class="form-group"><label class="control-label required" for="super_user_email">Email Address</label><input class="form-control" id="super_user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    assert_equal expected, @builder.text_field(:email, label: {text: 'Email Address'}, id: "super_user_email")
+  end
+
   test "hiding a label" do
     expected = %{<div class="form-group"><label class="sr-only control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
     assert_equivalent_xml expected, @builder.text_field(:email, hide_label: true)
