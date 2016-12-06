@@ -1,8 +1,10 @@
 ## [Pending Release][]
 
 Bugfixes:
-  - Your contribution here!
-
+  - Fix id and name generation for fields when using `bootstrap_form_tag` to use the same conventions as in Rails (Fix #266, #193, #241)
+	- In `form_group`, we allow the hash for label to include a `for` parameter
+	- In `form_group`, use the id specified for the input as the value of `for` parameter in the matching label (Fix #213)
+	
 Features:
   - The project is now tested against and compatible with the following Rails versions 4.0, 4.1, 4.2 and 5.0 (#278).
   - Your contribution here!
