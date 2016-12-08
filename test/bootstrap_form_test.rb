@@ -47,6 +47,17 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
+  test "bootstrap_form_tag use proper rails naming convention for select" do
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label class=\"control-label\" for=\"misc\">Misc</label><select class=\"form-control\" id=\"misc\" name=\"misc\"><option value=\"0\">0</option>
+<option value=\"1\">1</option></select></div></form>}
+    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.select :misc, ['0', '1'] }
+  end
+
+  test "bootstrap_form_tag use proper rails naming convention for radio button" do
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"radio\"><label for=\"misc_1\"><input id=\"misc_1\" name=\"misc\" type=\"radio\" value=\"1\" /> </label></div></form>}
+    assert_equal expected, bootstrap_form_tag(url: '/users') { |f| f.radio_button :misc, 1 }
+  end
+
   test "errors display correctly and inline_errors are turned off by default when label_errors is true" do
     @user.email = nil
     @user.valid?
