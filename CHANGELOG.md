@@ -4,6 +4,7 @@ Bugfixes:
   - Your contribution here!
 
 Features:
+  - The project is now tested against and compatible with the following Rails versions 4.0, 4.1, 4.2 and 5.0 (#278).
   - Your contribution here!
 
 ## [2.5.2][] (2016-10-08)
