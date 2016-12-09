@@ -1,4 +1,5 @@
 require 'timecop'
+require 'diffy'
 require 'mocha/mini_test'
 
 # Configure Rails Environment
@@ -23,7 +24,10 @@ class ActionView::TestCase
   def assert_equivalent_xml(expected, actual)
     expected_xml = Nokogiri::XML(expected)
     actual_xml = Nokogiri::XML(actual)
-    assert EquivalentXml.equivalent?(expected_xml, actual_xml),
-      "Expected: #{expected}, got #{actual}"
+    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml)
+    assert equivalent, lambda {
+      # using a lambda because diffing is expensive
+      Diffy::Diff.new(expected_xml.root, actual_xml.root).to_s(:color)
+    }
   end
 end

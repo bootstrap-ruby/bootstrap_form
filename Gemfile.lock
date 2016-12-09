@@ -37,6 +37,7 @@ GEM
     arel (4.0.2)
     builder (3.1.4)
     concurrent-ruby (1.0.2)
+    diffy (3.1.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -91,6 +92,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal
   bootstrap_form!
+  diffy
   equivalent-xml
   jquery-rails
   mime-types (~> 2.6.2)
