@@ -18,3 +18,12 @@ def setup_test_fixture
   @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" })
   I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
 end
+
+class ActionView::TestCase
+  def assert_equivalent_xml(expected, actual)
+    expected_xml = Nokogiri::XML(expected)
+    actual_xml = Nokogiri::XML(actual)
+    assert EquivalentXml.equivalent?(expected_xml, actual_xml),
+      "Expected: #{expected}, got #{actual}"
+  end
+end

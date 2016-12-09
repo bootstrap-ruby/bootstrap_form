@@ -15,7 +15,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
 
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="date" /></div>}
-    assert_equal expected, @builder.date_field(:misc)
+    assert_equivalent_xml expected, @builder.date_field(:misc)
   end
 
   test "Nil models are supported for form builder" do
@@ -25,7 +25,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
 
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="date" /></div>}
-    assert_equal expected, @builder.date_field(:misc)
+    assert_equivalent_xml expected, @builder.date_field(:misc)
   end
 
   test "Objects without model names are supported for form builder" do
@@ -37,7 +37,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     I18n.backend.store_translations(:en, {activerecord: {help: {faux_user: {password: "A good password should be at least six characters long"}}}})
 
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="date" /></div>}
-    assert_equal expected, @builder.date_field(:misc)
+    assert_equivalent_xml expected, @builder.date_field(:misc)
   end
 
 end
