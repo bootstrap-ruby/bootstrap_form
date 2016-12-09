@@ -20,6 +20,19 @@ def setup_test_fixture
   I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
 end
 
+def sort_attributes doc
+  doc.dup.traverse do |node|
+    if node.is_a?(Nokogiri::XML::Element)
+      attributes = node.attribute_nodes.sort_by(&:name)
+      attributes.each do |attribute|
+        node.delete(attribute.name)
+        node[attribute.name] = attribute.value
+      end
+    end
+    node
+  end
+end
+
 class ActionView::TestCase
   def assert_equivalent_xml(expected, actual)
     expected_xml = Nokogiri::XML(expected)
@@ -27,7 +40,10 @@ class ActionView::TestCase
     equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml)
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
-      Diffy::Diff.new(expected_xml.root, actual_xml.root).to_s(:color)
+      Diffy::Diff.new(
+        sort_attributes(expected_xml.root),
+        sort_attributes(actual_xml.root)
+      ).to_s(:color)
     }
   end
 end
