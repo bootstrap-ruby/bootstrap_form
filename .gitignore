@@ -8,3 +8,4 @@ test/dummy/tmp/
 .rbenv-gemsets
 *.swp
 gemfiles/*.lock
+Gemfile.lock
