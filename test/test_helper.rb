@@ -51,7 +51,17 @@ class ActionView::TestCase
     expected_xml = Nokogiri::XML(expected)
     actual_xml = Nokogiri::XML(actual)
     ignored_attributes = %w(style)
-    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, ignore_attr_values: ignored_attributes)
+    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, {
+      ignore_attr_values: ignored_attributes
+    }) do |a, b, result|
+      if result === false && b.is_a?(Nokogiri::XML::Element)
+        if b.attr('name') == 'utf8'
+          # Handle wrapped utf8 hidden field
+          result = EquivalentXml.equivalent?(a.child, b)
+        end
+      end
+      result
+    end
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
