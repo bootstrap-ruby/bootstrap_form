@@ -50,7 +50,8 @@ class ActionView::TestCase
   def assert_equivalent_xml(expected, actual)
     expected_xml = Nokogiri::XML(expected)
     actual_xml = Nokogiri::XML(actual)
-    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml)
+    ignored_attributes = %w(style)
+    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, ignore_attr_values: ignored_attributes)
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
