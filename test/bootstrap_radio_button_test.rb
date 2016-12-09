@@ -1,6 +1,4 @@
 require 'test_helper'
-require 'nokogiri'
-require 'equivalent-xml'
 
 class BootstrapRadioButtonTest < ActionView::TestCase
   include BootstrapForm::Helper

@@ -1,5 +1,7 @@
 require 'timecop'
 require 'diffy'
+require 'nokogiri'
+require 'equivalent-xml'
 require 'mocha/mini_test'
 
 # Configure Rails Environment
