@@ -50,14 +50,19 @@ class ActionView::TestCase
   def assert_equivalent_xml(expected, actual)
     expected_xml = Nokogiri::XML(expected)
     actual_xml = Nokogiri::XML(actual)
-    ignored_attributes = %w(style)
+    ignored_attributes = %w(style data-disable-with)
     equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, {
       ignore_attr_values: ignored_attributes
     }) do |a, b, result|
       if result === false && b.is_a?(Nokogiri::XML::Element)
         if b.attr('name') == 'utf8'
-          # Handle wrapped utf8 hidden field
+          # Handle wrapped utf8 hidden field for Rails 4.2+
           result = EquivalentXml.equivalent?(a.child, b)
+        end
+        if b.delete('data-disable-with')
+          # Remove data-disable-with for Rails 5+
+          # Workaround because ignoring in EquivalentXml doesn't work
+          result = EquivalentXml.equivalent?(a, b)
         end
       end
       result
