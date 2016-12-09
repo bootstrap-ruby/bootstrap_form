@@ -64,6 +64,12 @@ class ActionView::TestCase
           # Workaround because ignoring in EquivalentXml doesn't work
           result = EquivalentXml.equivalent?(a, b)
         end
+        if a.attr('type') == 'datetime' && b.attr('type') == 'datetime-local'
+          a.delete('type')
+          b.delete('type')
+          # Handle new datetime type for Rails 5+
+          result = EquivalentXml.equivalent?(a, b)
+        end
       end
       result
     end
