@@ -108,6 +108,16 @@ module BootstrapForm
 
     bootstrap_method_alias :time_zone_select
 
+    def hidden_field_with_bootstrap(method, options = {})
+      if acts_like_form_tag
+        options[:id] ||= method.to_s
+        options[:name] ||= method.to_s
+      end
+      hidden_field_without_bootstrap(method, options)
+    end
+
+    bootstrap_method_alias :hidden_field
+
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       options = convert_form_tag_options(name, options) if acts_like_form_tag
