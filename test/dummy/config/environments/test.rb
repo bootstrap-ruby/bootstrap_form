@@ -12,9 +12,23 @@ Dummy::Application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
 
+  version = Rails.version.to_f
+
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_assets  = true
-  config.static_cache_control = "public, max-age=3600"
+  if version < 4.2
+    config.serve_static_assets  = true
+  elsif version < 5
+    config.serve_static_files  = true
+  end
+
+  if version < 5
+    config.static_cache_control = "public, max-age=3600"
+  else
+    config.public_file_server.enabled = true
+    config.public_file_server.headers = {
+      "Cache-Control" => "public, max-age=3600"
+    }
+  end
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -33,4 +47,7 @@ Dummy::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  # In Rails 5, the default value of this option will change from `:sorted` to `:random`.
+  config.active_support.test_order = :sorted
 end
