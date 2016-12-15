@@ -6,7 +6,8 @@ module BootstrapForm
     extend BootstrapForm::Aliasing
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors,
+        :acts_like_form_tag, :html5_validations
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
       email_field month_field number_field password_field phone_field
@@ -28,6 +29,7 @@ module BootstrapForm
         options[:inline_errors] != false
       end
       @acts_like_form_tag = options[:acts_like_form_tag]
+      @html5_validations = options[:html5_validations]
 
       super
     end
@@ -311,6 +313,7 @@ module BootstrapForm
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
+      add_required_option(method, options, html_options) if html5_validations
 
       wrapper_class = css_options.delete(:wrapper_class)
       wrapper_options = css_options.delete(:wrapper)
@@ -355,6 +358,13 @@ module BootstrapForm
 
       form_group(method, form_group_options) do
         yield
+      end
+    end
+
+    def add_required_option(method, options, html_options)
+      require_options = (html_options || options)
+      if !require_options.key?(:required) && required_attribute?(object, require_options[:name] || method)
+        require_options[:required] = true
       end
     end
 
