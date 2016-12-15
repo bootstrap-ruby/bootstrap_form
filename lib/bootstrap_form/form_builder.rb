@@ -363,7 +363,8 @@ module BootstrapForm
 
     def add_required_option(method, options, html_options)
       require_options = (html_options || options)
-      if !require_options.key?(:required) && required_attribute?(object, require_options[:name] || method)
+      if !require_options[:skip_required] && !require_options.key?(:required) &&
+          required_attribute?(object, require_options[:name] || method)
         require_options[:required] = true
       end
     end
