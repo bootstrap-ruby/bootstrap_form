@@ -4,8 +4,11 @@ Bugfixes:
   - Your contribution here!
 
 Features:
-  - The project is now tested against and compatible with the following Rails versions 4.0, 4.1, 4.2 and 5.0 (#278).
   - Your contribution here!
+
+## [2.5.3][] (2016-12-23)
+
+There are no user-facing changes with this release. Behind the scenes, the tests have been greatly improved. The project is now tested against and compatible with the following Rails versions 4.0, 4.1, 4.2 and 5.0 (#278).
 
 ## [2.5.2][] (2016-10-08)
 
@@ -149,7 +152,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.3...HEAD
+[2.5.3]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...v2.5.3
 [2.5.2]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.4.0...v2.5.0
