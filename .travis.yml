@@ -18,6 +18,11 @@ matrix:
       gemfile: gemfiles/5.0.gemfile
     - rvm: 2.1
       gemfile: gemfiles/5.0.gemfile
+  include:
+    # Run Danger only once
+    - rvm: 2.3.0
+      gemfile: gemfiles/5.0.gemfile
+      script: bundle exec danger
 before_install:
   - gem install bundler --conservative --version '~> 1.10'
 before_script:
