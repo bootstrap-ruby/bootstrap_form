@@ -15,3 +15,6 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# nokogiri 1.7+ is not compatible with Ruby < 2.1, so pin at older version.
+gem "nokogiri", "~> 1.6.8" if RUBY_VERSION =~ /^(1\.9|2\.0)\./
