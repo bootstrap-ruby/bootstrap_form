@@ -4,5 +4,6 @@ source "http://rubygems.org"
 
 gem "jquery-rails"
 gem "rails", "~> 5.0"
+gem "danger"
 
 gemspec :path => "../"
