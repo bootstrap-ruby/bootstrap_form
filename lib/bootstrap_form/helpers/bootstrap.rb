@@ -63,9 +63,7 @@ module BootstrapForm
         options = args.extract_options!
         name = args.first
 
-        form_group_builder(name, options) do
-          capture(&block)
-        end
+        form_group_builder(name, options, &block)
       end
 
       def prepend_and_append_input(options, &block)
