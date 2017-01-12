@@ -32,6 +32,33 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equal expected, output
   end
 
+  test "custom control does't wrap given block in a p tag" do
+    output = @horizontal_builder.custom_control :email do
+      "this is a test"
+    end
+
+    expected = %{<div class="form-group"><label class="control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10">this is a test</div></div>}
+    assert_equal expected, output
+  end
+
+  test "custom control doesn't require an actual attribute" do
+    output = @horizontal_builder.custom_control nil, label: "My Label" do
+      "this is a test"
+    end
+
+    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_">My Label</label><div class="col-sm-10">this is a test</div></div>}
+    assert_equal expected, output
+  end
+
+  test "custom control doesn't require a name" do
+    output = @horizontal_builder.custom_control label: "Custom Label" do
+      "Custom Control"
+    end
+
+    expected = %{<div class="form-group"><label class="control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10">Custom Control</div></div>}
+    assert_equal expected, output
+  end
+
   test "submit button defaults to rails action name" do
     expected = %{<input class="btn btn-default" name="commit" type="submit" value="Create User" />}
     assert_equal expected, @builder.submit
