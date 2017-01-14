@@ -5,6 +5,7 @@ Bugfixes:
 
 Features:
   - Your contribution here!
+  - Add a FormBuilder#custom_control helper [#289](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/289)
 
 ## [2.5.3][] (2016-12-23)
 
