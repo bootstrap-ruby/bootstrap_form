@@ -5,6 +5,13 @@ Bugfixes:
 
 Features:
   - Your contribution here!
+
+## [2.6.0][] (2017-02-03)
+
+Bugfixes:
+  - None
+
+Features:
   - Add a FormBuilder#custom_control helper [#289](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/289)
 
 ## [2.5.3][] (2016-12-23)
@@ -153,7 +160,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.3...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.3...v2.6.0
 [2.5.3]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...v2.5.3
 [2.5.2]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...v2.5.1
