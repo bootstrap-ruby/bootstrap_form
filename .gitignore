@@ -7,3 +7,5 @@ test/dummy/tmp/
 *.gem
 .rbenv-gemsets
 *.swp
+gemfiles/*.lock
+Gemfile.lock

@@ -59,6 +59,13 @@ module BootstrapForm
         end
       end
 
+      def custom_control(*args, &block)
+        options = args.extract_options!
+        name = args.first
+
+        form_group_builder(name, options, &block)
+      end
+
       def prepend_and_append_input(options, &block)
         options = options.extract!(:prepend, :append, :input_group_class)
         input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
