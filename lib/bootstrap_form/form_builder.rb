@@ -374,14 +374,14 @@ module BootstrapForm
 
       options[:class] = classes.compact.join(" ")
 
+      label_text = options[:text]
       if label_errors && has_error?(name)
         error_messages = get_error_messages(name)
         label_text = (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{error_messages}")
         label(name, label_text, options.except(:text))
-      else
-        label(name, options[:text], options.except(:text))
       end
-
+      
+      label(name, label_text.try(:html_safe), options.except(:text))
     end
 
     def generate_help(name, help_text)
