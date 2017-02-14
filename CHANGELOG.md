@@ -9,7 +9,7 @@ Features:
 ## [2.6.0][] (2017-02-03)
 
 Bugfixes:
-  - None
+  - Fix ambiguous first argument warning (#311, @mikenicklas)
 
 Features:
   - Add a FormBuilder#custom_control helper [#289](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/289)
