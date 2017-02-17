@@ -1,3 +1,11 @@
+## [Pending Release][]
+
+Bugfixes:
+  - Your contribution here!
+
+Features:
+  - Your contribution here!
+
 ## [Pending Release][] (2016-10-18)
 
 Bugfixes:
