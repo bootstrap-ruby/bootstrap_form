@@ -195,6 +195,7 @@ module BootstrapForm
       name = args.first
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
+      options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
@@ -261,7 +262,7 @@ module BootstrapForm
     end
 
     def label_class
-      "control-label"
+      "form-control-label"
     end
 
     def error_class
@@ -311,6 +312,7 @@ module BootstrapForm
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
+      css_options[:class] << " form-control-danger" if has_error?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
