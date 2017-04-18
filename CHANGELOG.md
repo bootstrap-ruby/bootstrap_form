@@ -5,6 +5,8 @@ Bugfixes:
 
 Features:
   - Your contribution here!
+  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+
 
 ## [2.6.0][] (2017-02-03)
 
