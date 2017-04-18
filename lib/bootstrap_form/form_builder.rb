@@ -71,13 +71,17 @@ module BootstrapForm
     if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
       def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
         form_group_builder(method, options, html_options) do
-          select_without_bootstrap(method, choices, options, html_options, &block)
+          prepend_and_append_input(options) do
+            select_without_bootstrap(method, choices, options, html_options, &block)
+          end
         end
       end
     else
       def select_with_bootstrap(method, choices, options = {}, html_options = {})
         form_group_builder(method, options, html_options) do
-          select_without_bootstrap(method, choices, options, html_options)
+          prepend_and_append_input(options) do
+            select_without_bootstrap(method, choices, options, html_options)
+          end
         end
       end
     end
