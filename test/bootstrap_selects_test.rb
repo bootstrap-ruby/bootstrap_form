@@ -32,6 +32,23 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
   end
 
+  test 'selects with addons are wrapped correctly' do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="form-control-label" for="user_status">Status</label>
+        <div class="input-group">
+          <span class="input-group-addon">Before</span>
+          <select class="form-control" id="user_status" name="user[status]">
+            <option value="1">activated</option>
+            <option value="2">blocked</option>
+          </select>
+          <span class="input-group-addon">After</span>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: 'Before', append: 'After')
+  end
+
   if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
     test "selects with block use block as content" do
       expected = %{<div class="form-group"><label class="form-control-label" for="user_status">Status</label><select class="form-control" name="user[status]" id="user_status"><option>Option 1</option><option>Option 2</option></select></div>}
