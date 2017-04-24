@@ -35,7 +35,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test 'selects with addons are wrapped correctly' do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="control-label" for="user_status">Status</label>
+        <label class="form-control-label" for="user_status">Status</label>
         <div class="input-group">
           <span class="input-group-addon">Before</span>
           <select class="form-control" id="user_status" name="user[status]">
