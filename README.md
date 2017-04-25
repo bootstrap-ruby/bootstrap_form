@@ -10,7 +10,7 @@ twitter bootstrap-style forms into your rails application.
 
 * Ruby 1.9+
 * Rails 4.0+
-* Twitter Bootstrap 3.0+
+* Twitter Bootstrap 4.0+
 
 ## Installation
 
@@ -471,7 +471,7 @@ div (field_with_errors), but this behavior is suppressed. Here's an example:
 <div class="form-group has-danger">
   <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" type="email" value="">
-  <span class="form-control-feedback">can't be blank</span>
+  <div class="form-control-feedback">can't be blank</div>
 </div>
 ```
 

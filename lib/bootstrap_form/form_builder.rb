@@ -131,14 +131,14 @@ module BootstrapForm
       end
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
 
       if options[:inline]
-        label_class = " #{label_class}" if label_class
+        label_class = " #{options[:label_class]}" if options[:label_class]
         label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
+        label_class    = ["form-check-label", options[:label_class]].compact.join(' ')
         content_tag(:div, class: "form-check#{disabled_class}") do
-          label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
+          label(label_name, html, class: label_class)
         end
       end
     end
@@ -392,16 +392,19 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      if has_error?(name) && inline_errors
+      if is_error = has_error?(name) && inline_errors
         help_text = get_error_messages(name)
-        help_klass = 'form-control-feedback'
       end
-      return if help_text == false
+      return if help_text === false
 
-      help_klass ||= 'form-text text-muted'
       help_text ||= get_help_text_by_i18n_key(name)
 
-      content_tag(:span, help_text, class: help_klass) if help_text.present?
+      return if help_text.blank?
+      if is_error
+        content_tag(:div, help_text, class: 'form-control-feedback')
+      else
+        content_tag(:p, help_text, class: 'form-text text-muted')
+      end
     end
 
     def generate_icon(icon)
