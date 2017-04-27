@@ -30,6 +30,8 @@ Then require the CSS in your `application.css` file:
  */
 ```
 
+**NOTICE** : This line is needed if you are using bootstrap via gem `twitter-bootstrap-rails`. Please do not add this line if using CDN or local copied bootstrap package.
+
 ## Usage
 
 To get started, just use the `bootstrap_form_for` helper. Here's an example:
