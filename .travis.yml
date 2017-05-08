@@ -31,6 +31,8 @@ matrix:
     - rvm: 2.3.1
       gemfile: gemfiles/5.0.gemfile
       script: bundle exec danger
+  allow_failures:
+    - gemfile: gemfiles/5.1.gemfile
 before_install:
   - gem install bundler --conservative --version '~> 1.10'
 before_script:
