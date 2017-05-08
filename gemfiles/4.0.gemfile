@@ -4,8 +4,6 @@ source "http://rubygems.org"
 
 gem "jquery-rails"
 gem "rails", "~> 4.0.0"
+gem "nokogiri", "~> 1.6.8", platforms: [:ruby_19, :ruby_20]
 
-# nokogiri 1.7+ is not compatible with Ruby < 2.1, so pin at older version.
-gem "nokogiri", "~> 1.6.8" if RUBY_VERSION =~ /^(1\.9|2\.0)\./
-
-gemspec :path => "../"
+gemspec path: "../"
