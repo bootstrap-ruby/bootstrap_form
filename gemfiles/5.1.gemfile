@@ -3,7 +3,6 @@
 source "http://rubygems.org"
 
 gem "jquery-rails"
-gem "rails", "~> 5.0.0"
-gem "danger"
+gem "rails", "~> 5.1.0"
 
 gemspec :path => "../"

@@ -11,6 +11,7 @@ gemfile:
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
 matrix:
   exclude:
     - rvm: 1.9
@@ -19,6 +20,12 @@ matrix:
       gemfile: gemfiles/5.0.gemfile
     - rvm: 2.1
       gemfile: gemfiles/5.0.gemfile
+    - rvm: 1.9
+      gemfile: gemfiles/5.1.gemfile
+    - rvm: 2.0
+      gemfile: gemfiles/5.1.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/5.1.gemfile
   include:
     # Run Danger only once
     - rvm: 2.3.1
