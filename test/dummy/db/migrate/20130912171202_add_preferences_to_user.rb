@@ -1,4 +1,4 @@
-class AddPreferencesToUser < ActiveRecord::Migration
+class AddPreferencesToUser < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :preferences, :text
   end
