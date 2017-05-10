@@ -18,6 +18,7 @@ end
 
 appraise "5.0" do
   gem "rails", "~> 5.0.0"
+  gem "minitest", "< 5.10.2"
   gem "danger"
 end
 
