@@ -1,4 +1,4 @@
-class AddTypeToUsers < ActiveRecord::Migration[4.2]
+class AddTypeToUsers < GenericMigration
   def change
     add_column :users, :type, :string
   end
