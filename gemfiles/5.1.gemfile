@@ -3,7 +3,7 @@
 source "http://rubygems.org"
 
 gem "jquery-rails"
-gem "rails", "~> 4.1.0"
-gem "nokogiri", "~> 1.6.8", platforms: [:ruby_19, :ruby_20]
+gem "rails", "~> 5.1.0"
+gem "minitest", "< 5.10.2"
 
 gemspec path: "../"
