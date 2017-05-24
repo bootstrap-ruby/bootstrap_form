@@ -157,4 +157,12 @@ class BootstrapSelectsTest < ActionView::TestCase
       assert_equivalent_xml expected, @builder.datetime_select(:misc, { include_blank: true }, class: "my-datetime-select")
     end
   end
+
+  test "collection_selects display errors correctly when error_key is set" do
+    @address = Address.new
+    @address.valid?
+
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/addresses\" class=\"new_address\" id=\"new_address\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-error\"><label class=\"control-label required\" for=\"address_user_id\">User can&#39;t be blank</label><select class=\"form-control\" id=\"address_user_id\" name=\"address[user_id]\"></select><span class=\"help-block\">can&#39;t be blank</span></div></form>}
+    assert_equivalent_xml expected, bootstrap_form_for(@address, url: "/addresses", label_errors: true, inline_errors: true) { |f| f.collection_select :user_id, [], :id, :email, error_key: :user }
+  end
 end

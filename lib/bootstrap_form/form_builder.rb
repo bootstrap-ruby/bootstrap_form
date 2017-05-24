@@ -196,15 +196,16 @@ module BootstrapForm
     def form_group(*args, &block)
       options = args.extract_options!
       name = args.first
+      error_name = options.delete(:error_key) || name
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
-      options[:class] << " #{error_class}" if has_error?(name)
+      options[:class] << " #{error_class}" if has_error?(error_name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
-        label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
+        label = generate_label(options[:id], name, error_name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
+        control.concat(generate_help(error_name, options[:help]).to_s)
         control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
@@ -322,6 +323,7 @@ module BootstrapForm
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
+      error_key = options.delete(:error_key)
       layout = get_group_layout(options.delete(:layout))
       form_group_options = {
         id: options[:id],
@@ -329,6 +331,7 @@ module BootstrapForm
         icon: icon,
         label_col: label_col,
         control_col: control_col,
+        error_key: error_key,
         layout: layout,
         class: wrapper_class
       }
@@ -368,19 +371,19 @@ module BootstrapForm
       options
     end
 
-    def generate_label(id, name, options, custom_label_col, group_layout)
+    def generate_label(id, name, error_name, options, custom_label_col, group_layout)
       options[:for] = id if acts_like_form_tag
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       unless options.delete(:skip_required)
-        classes << "required" if required_attribute?(object, name)
+        classes << "required" if required_attribute?(object, error_name)
       end
 
       options[:class] = classes.compact.join(" ")
 
-      if label_errors && has_error?(name)
-        error_messages = get_error_messages(name)
-        label_text = (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{error_messages}")
+      if label_errors && has_error?(error_name)
+        error_messages = get_error_messages(error_name)
+        label_text = (options[:text] || object.class.human_attribute_name(error_name)).to_s.concat(" #{error_messages}")
         label(name, label_text, options.except(:text))
       else
         label(name, options[:text], options.except(:text))
