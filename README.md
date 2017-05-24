@@ -264,6 +264,19 @@ Our select helper accepts the same arguments as the [default Rails helper](http:
 <%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
 ```
 
+#### Collection select on an association
+
+Validations on foreign key columns used for assigning associations do not by
+default know about validation errors on the association itself. This can be
+changed by using the `error_key` option, which will look for errors using the
+given key rather than the value being assigned to by the select:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.collection_select(:product_id, Product.all, :id, :name, error_key: :product) %>
+<% end %>
+```
+
 ### Checkboxes and Radios
 
 Checkboxes and radios should be placed inside of a `form_group` to render
