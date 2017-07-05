@@ -1,10 +1,15 @@
 ## [Pending Release][]
 
 Bugfixes:
-  - Fix an issue that occurs when the output buffer of the calling template is based on a type other than a String (i.e. an Array).
+  - Your contribution here!
 
 Features:
   - Your contribution here!
+  
+## [Pending Release][]
+  
+Bugfixes:
+  - Fix an issue that occurs when the output buffer of the calling template is based on a type other than a String (i.e. an Array).
 
 ## [2.7.0][] (2017-04-21)
 
