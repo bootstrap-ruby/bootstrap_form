@@ -9,7 +9,7 @@ Features:
 ## [Pending Release][]
   
 Bugfixes:
-  - Fix an issue that occurs when the output buffer of the calling template is based on a type other than a String (i.e. an Array).
+  - Fix an issue that occurs when the output buffer of the view layer does not respond to "concat" (i.e. an Array).
 
 ## [2.7.0][] (2017-04-21)
 
