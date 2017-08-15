@@ -43,7 +43,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-check"><label class="form-check-label" for="_misc"><input name="[misc]" type="hidden" value="0" /><input class="form-check-input" id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-check"><label class="form-check-label" for="misc"><input name="misc" type="hidden" value="0" /><input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" /> Misc</label></div></form>}
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
@@ -51,7 +51,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-danger\"><label class=\"form-control-label required\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control form-control-danger\" id=\"user_email\" name=\"user[email]\" type=\"text\" /></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group"><label class=\"form-control-label required\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control is-invalid\" id=\"user_email\" name=\"user[email]\" type=\"text\" /></div></form>}
     assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true) { |f| f.text_field :email }
   end
 
@@ -59,7 +59,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-danger\"><label class=\"form-control-label required\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control form-control-danger\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"form-control-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group"><label class=\"form-control-label required\" for=\"user_email\">Email can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control is-invalid\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"invalid-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
   end
 
@@ -69,7 +69,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     @user.valid?
 
-    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-danger\"><label class=\"form-control-label required\" for=\"user_email\">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control form-control-danger\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"form-control-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group\"><label class=\"form-control-label required\" for=\"user_email\">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control is-invalid\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"invalid-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
 
     I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
@@ -164,7 +164,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" /><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control is-invalid" id="user_email" name="user[email]" type="text" /><span class="invalid-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equivalent_xml expected, output
   end
 
@@ -176,7 +176,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-danger"><div class="field_with_errors"><label class="form-control-label required" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" /></div><span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><div class="field_with_errors"><label class="form-control-label required" for="user_email">Email</label></div><div class="field_with_errors"><input class="form-control is-invalid" id="user_email" name="user[email]" type="text" /></div><span class="invalid-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
     assert_equivalent_xml expected, output
   end
 
@@ -188,7 +188,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" /><span class="form-text text-muted">This is required</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control is-invalid" id="user_email" name="user[email]" type="text" /><span class="form-text text-muted">This is required</span></div></form>}
     assert_equivalent_xml expected, output
   end
 
