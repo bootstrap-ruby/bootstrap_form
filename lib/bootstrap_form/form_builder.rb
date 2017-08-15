@@ -200,7 +200,6 @@ module BootstrapForm
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
-      options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
@@ -315,7 +314,7 @@ module BootstrapForm
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
-      css_options[:class] << " form-control-danger" if has_error?(method)
+      css_options[:class] << " is-invalid" if has_error?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
@@ -394,7 +393,7 @@ module BootstrapForm
     def generate_help(name, help_text)
       if has_error?(name) && inline_errors
         help_text = get_error_messages(name)
-        help_klass = 'form-control-feedback'
+        help_klass = 'invalid-feedback'
       end
       return if help_text == false
 
