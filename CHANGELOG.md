@@ -5,6 +5,7 @@ Bugfixes:
 
 Features:
   - Your contribution here!
+  * Support for Rails 5.1 `form_with`.
   * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
 
 

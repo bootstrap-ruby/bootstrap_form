@@ -39,6 +39,7 @@ module BootstrapForm
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
           prepend_and_append_input(options) do
+            # puts "Sending #{without_method_name} #{name} #{options.inspect}"
             send(without_method_name, name, options)
           end
         end
@@ -114,6 +115,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
+      label_for = label_for_from_options(options)
       check_box_options = options.except(:label, :label_class, :help, :inline)
       check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
 
@@ -135,10 +137,10 @@ module BootstrapForm
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
+        label(label_name, html, label_for.merge(class: "form-check-inline#{disabled_class}#{label_class}"))
       else
         content_tag(:div, class: "form-check#{disabled_class}") do
-          label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
+          label(label_name, html, label_for.merge(class: ["form-check-label", label_class].compact.join(" ")))
         end
       end
     end
@@ -147,6 +149,7 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
+      label_for = label_for_from_options(options)
       args << options.except(:label, :label_class, :help, :inline)
 
       html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
@@ -156,10 +159,10 @@ module BootstrapForm
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
+        label(name, html, label_for.merge(class: "radio-inline#{disabled_class}#{label_class}", value: value))
       else
         content_tag(:div, class: "radio#{disabled_class}") do
-          label(name, html, value: value, class: label_class)
+          label(name, html, label_for.merge(value: value, class: label_class))
         end
       end
     end
@@ -372,7 +375,8 @@ module BootstrapForm
     end
 
     def generate_label(id, name, options, custom_label_col, group_layout)
-      options[:for] = id if acts_like_form_tag
+      add_for_option_if_needed!(options, id)
+      # puts "acts_like_form_tag: #{acts_like_form_tag}. options[:for]: #{options[:for]}"
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       unless options.delete(:skip_required)
@@ -389,6 +393,14 @@ module BootstrapForm
         label(name, options[:text], options.except(:text))
       end
 
+    end
+
+    def add_for_option_if_needed!(options, id)
+      options[:for] = id if acts_like_form_tag
+    end
+
+    def label_for_from_options(options)
+      {}
     end
 
     def generate_help(name, help_text)
