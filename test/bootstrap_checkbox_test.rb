@@ -12,6 +12,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
+  test "check_box is wrapped correctly with custom id" do
+    expected = %{<div class="checkbox"><label for="custom_id"><input name="user[terms]" type="hidden" value="0" /><input id="custom_id" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', id: :custom_id)
+  end
+
   test "disabled check_box has proper wrapper classes" do
     expected = %{<div class="checkbox disabled"><label for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', disabled: true)
