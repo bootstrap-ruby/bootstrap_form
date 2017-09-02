@@ -190,6 +190,16 @@ en:
         password: "A good password should be at least six characters long"
 ```
 
+Help translations containing HTML should follow the convention of appending `_html` to the name:
+
+```yml
+en:
+  activerecord:
+    help:
+      user:
+        password_html: "A <strong>good</strong> password should be at least six characters long"
+``` 
+
 If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
 
