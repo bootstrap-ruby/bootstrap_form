@@ -4,6 +4,7 @@ Bugfixes:
   - Your contribution here!
 
 Features:
+  - Your contribution here!
   - Allow HTML in help translations by using the '_html' suffix on the key - [@unikitty37](https://github.com/unikitty37)
 
 ## [2.7.0][] (2017-04-21)
