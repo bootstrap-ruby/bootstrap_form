@@ -284,6 +284,10 @@ module BootstrapForm
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
     end
 
+    def is_valid?(name)
+      object.respond_to?(:changed?) && object.respond_to?(:new_record?) && object.changed? && object.new_record? && !has_error?(name)
+    end
+
     def required_attribute?(obj, attribute)
 
       return false unless obj and attribute
@@ -315,7 +319,8 @@ module BootstrapForm
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
-      css_options[:class] << " form-control-danger" if has_error?(method)
+      css_options[:class] << " is-invalid" if has_error?(method)
+      css_options[:class] << " is-valid" if is_valid?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
@@ -394,18 +399,20 @@ module BootstrapForm
     def generate_help(name, help_text)
       if has_error?(name) && inline_errors
         help_text = get_error_messages(name)
-        help_klass = 'form-control-feedback'
+        help_klass = 'invalid-feedback'
+        help_tag = :span
       end
       return if help_text == false
 
       help_klass ||= 'form-text text-muted'
       help_text ||= get_help_text_by_i18n_key(name)
+      help_tag ||= :small
 
-      content_tag(:span, help_text, class: help_klass) if help_text.present?
+      content_tag(help_tag, help_text, class: help_klass) if help_text.present?
     end
 
     def generate_icon(icon)
-      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
+      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} invalid-feedback")
     end
 
     def get_error_messages(name)
