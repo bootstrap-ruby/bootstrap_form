@@ -20,14 +20,14 @@ module BootstrapForm
       bootstrap_form_for('', options, &block)
     end
 
-    def bootstrap_form_with(**options, &block)
+    def bootstrap_form_with(options = {}, &block)
       options.reverse_merge!(builder: BootstrapForm::FormBuilderFormWith)
       # options[:acts_like_form_tag] = true if model.nil?
 
       options = process_options(options)
 
       temporarily_disable_field_error_proc do
-        form_with(**options, &block)
+        form_with(options, &block)
       end
     end
 
