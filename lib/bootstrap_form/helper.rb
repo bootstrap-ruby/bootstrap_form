@@ -20,14 +20,16 @@ module BootstrapForm
       bootstrap_form_for('', options, &block)
     end
 
-    def bootstrap_form_with(model: nil, scope: nil, url: nil, format: nil, **options, &block)
-      options.reverse_merge!(builder: BootstrapForm::FormBuilderFormWith)
-      # options[:acts_like_form_tag] = true if model.nil?
+    if ::Rails::VERSION::STRING >= '5.1'
+      def bootstrap_form_with(model: nil, scope: nil, url: nil, format: nil, **options, &block)
+        options.reverse_merge!(builder: BootstrapForm::FormBuilderFormWith)
+        # options[:acts_like_form_tag] = true if model.nil?
 
-      options = process_options(options)
+        options = process_options(options)
 
-      temporarily_disable_field_error_proc do
-        form_with(model: model, scope: scope, url: url, format: format, **options, &block)
+        temporarily_disable_field_error_proc do
+          form_with(model: model, scope: scope, url: url, format: format, **options, &block)
+        end
       end
     end
 
