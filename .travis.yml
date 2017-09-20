@@ -1,3 +1,4 @@
+sudo: false
 language: ruby
 rvm:
   - 1.9
@@ -9,20 +10,18 @@ gemfile:
   - gemfiles/4.0.gemfile
   - gemfiles/4.1.gemfile
   - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
 matrix:
-  exclude:
-    - rvm: 1.9
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 2.0
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 2.1
-      gemfile: gemfiles/5.0.gemfile
   include:
-    # Run Danger only once
+    - rvm: 2.2.2
+      gemfile: gemfiles/5.0.gemfile
     - rvm: 2.3.1
       gemfile: gemfiles/5.0.gemfile
+      # Run Danger only once
       script: bundle exec danger
+    - rvm: 2.2.2
+      gemfile: gemfiles/5.1.gemfile
+    - rvm: 2.3.1
+      gemfile: gemfiles/5.1.gemfile
 before_install:
   - gem install bundler --conservative --version '~> 1.10'
 before_script:
