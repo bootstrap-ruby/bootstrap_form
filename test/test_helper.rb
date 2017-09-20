@@ -74,6 +74,23 @@ class ActionView::TestCase
           # Handle new datetime type for Rails 5+
           result = EquivalentXml.equivalent?(a, b)
         end
+        divs_a=a.search('div[style="margin:0;padding:0;display:inline"],div[style="display:none"]')
+        divs_b=b.search('div[style="margin:0;padding:0;display:inline"],div[style="display:none"]')
+        if divs_a || divs_b
+          # Remove "div's" for hidden input fields and 
+          # include its children in the comparison
+          divs_a.each do |div|
+            div.replace(div.children)
+          end
+          divs_b.each do |div|
+            div.replace(div.children)
+          end
+          # Remove data-disable-with attributes. Dunno why 'ignore_attr_values' is not working...
+          b.search('[data-disable-with]').each do |elem|
+            elem.delete('data-disable-with')
+          end
+          result = EquivalentXml.equivalent?(a, b, { ignore_attr_values: ignored_attributes} )
+        end
       end
       result
     end
