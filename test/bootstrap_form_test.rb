@@ -188,7 +188,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: 'This is required')
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control is-invalid" id="user_email" name="user[email]" type="text" /><small class="form-text text-muted">This is required</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group has-danger"><label class="form-control-label required" for="user_email">Email</label><input class="form-control is-invalid" id="user_email" name="user[email]" type="text" /><small class="form-text text-muted">This is required</small></div></form>}
     assert_equivalent_xml expected, output
   end
 
