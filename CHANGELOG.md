@@ -1,11 +1,13 @@
 ## [Pending Release][]
 
 Bugfixes:
+  - Your contribution here!
   - form-control-danger is replaced with is-invalid for bootstrap 4.0.0.beta
   - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta
   - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta 
 
 Features:
+  - Your contribution here!
   - is-valid will be applied to validated form field (i.e. not on unchanged or new records)
 
 ## [2.7.0][] (2017-04-21)
