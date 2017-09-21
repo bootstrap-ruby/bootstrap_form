@@ -1,5 +1,4 @@
 require 'bootstrap_form/form_builder'
-require 'bootstrap_form/form_builder_form_with'
 require 'bootstrap_form/helper'
 
 module BootstrapForm

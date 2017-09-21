@@ -182,7 +182,8 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.email = nil
       @user.valid?
 
-      output = form_with(model: @user, builder: BootstrapForm::FormBuilderFormWith) do |f|
+      # Simulate how the builder would be called from `form_with`.
+      output = form_with(model: @user, builder: BootstrapForm::FormBuilder, skip_default_ids: true) do |f|
         f.text_field(:email, help: 'This is required')
       end
 
@@ -203,7 +204,8 @@ if ::Rails::VERSION::STRING >= '5.1'
     end
 
     test "form_with allows the form object to be nil" do
-      builder = BootstrapForm::FormBuilderFormWith.new :other_model, nil, self, {}
+      # Simulate how the builder would be called from `form_with`.
+      builder = BootstrapForm::FormBuilder.new :other_model, nil, self, { skip_default_ids: true }
       expected = %{<div class="form-group"><label class="form-control-label">Email</label><input class="form-control" name="other_model[email]" type="text" /></div>}
       assert_equivalent_xml expected, builder.text_field(:email)
     end
