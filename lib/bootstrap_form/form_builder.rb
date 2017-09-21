@@ -28,8 +28,6 @@ module BootstrapForm
                          options[:inline_errors] != false
       end
       @acts_like_form_tag = options[:acts_like_form_tag]
-      @acts_like_form_with = options.delete(:acts_like_form_with)
-      options[:skip_default_ids] = true if (options[:skip_default_ids].nil? && acts_like_form_with)
 
       super
     end
@@ -317,7 +315,7 @@ module BootstrapForm
     def form_group_builder(method, options, html_options = nil)
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
-      options[:id] = html_options[:id] if html_options && acts_like_form_with
+      options[:id] = html_options[:id] if html_options && @options[:skip_default_ids]
 
       # Add control_class; allow it to be overridden by :control_class option
       css_options = html_options || options
@@ -370,7 +368,7 @@ module BootstrapForm
     end
 
     def convert_form_tag_options(method, options = {})
-      unless acts_like_form_with
+      unless @options[:skip_default_ids]
         options[:name] ||= method
         options[:id] ||= method
       end
@@ -399,11 +397,11 @@ module BootstrapForm
 
     def add_for_option_if_needed!(options, id)
       options[:for] = id if acts_like_form_tag
-      options[:for] ||= id if acts_like_form_with
+      options[:for] ||= id if @options[:skip_default_ids]
     end
 
     def label_for_from_options(options)
-      if !acts_like_form_with
+      if !@options[:skip_default_ids]
         {}
       elsif options.key?(:for)
         { for: options[:for] }
