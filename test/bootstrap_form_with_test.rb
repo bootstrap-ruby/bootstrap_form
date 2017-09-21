@@ -203,7 +203,7 @@ if ::Rails::VERSION::STRING >= '5.1'
     end
 
     test "form_with allows the form object to be nil" do
-      builder = BootstrapForm::FormBuilderFormWith.new :other_model, nil, self, { acts_like_form_with: true }
+      builder = BootstrapForm::FormBuilderFormWith.new :other_model, nil, self, {}
       expected = %{<div class="form-group"><label class="form-control-label">Email</label><input class="form-control" name="other_model[email]" type="text" /></div>}
       assert_equivalent_xml expected, builder.text_field(:email)
     end

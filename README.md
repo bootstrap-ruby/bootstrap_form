@@ -100,15 +100,19 @@ so new applications should use `bootstrap_form_with`.
 `form_with` is different compared to `form_for` and `form_tag`.
 `bootstrap_form_width` basically just wraps `form_with`
 and adds some functionality,
-so it's different compared to `bootstrap_form_for`
+and so the different behaviour of `form_with`
+is refelected in `bootstrap_form_with`
+compared to `bootstrap_form_for`
 and `bootstrap_form_tag`.
 
+##### Ajax by Default
 `form_with` defaults to submitting forms via Javascript XHR calls,
 like `form_for` or `form_tag` would do if you specified `remote: true`.
 If you want the browser to submit the request
 the same way `form_for` and `form_tag` would do by default,
 you need to specify `local: true` as an option to `form_with`.
 
+##### No Default DOM IDs
 When used with the builder (variable) yielded by `form_with`,
 the Rails field helpers do not generate a default DOM id.
 Because `bootstrap_form_width` just wraps and adds some functionality
@@ -168,6 +172,10 @@ This should not affect your application,
 but it might affect automated testing using Capybara or similar tools,
 if you wrote actions or tests that selected on the DOM id of an element.
 
+##### User `fields` Instead Of `fields_for` In Nested Forms
+For nested forms, use `fields` instead of `fields_for`.
+
+##### No Default Classes
 Finally, `bootstrap_form_with` doesn't attach a default class
 to the form.
 If you attached styling to the DOM class that `form_for` added to the form element,

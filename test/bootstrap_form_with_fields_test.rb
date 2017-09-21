@@ -45,7 +45,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.address = Address.new(street: '123 Main Street')
 
       output = bootstrap_form_with(model: @user, local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street)
         end
       end
@@ -54,7 +54,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
 
       output = bootstrap_form_with(model: @user, local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street, id: :user_address_attributes_street)
         end
       end
@@ -67,7 +67,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.preferences = { favorite_color: "cerulean" }
 
       output = bootstrap_form_with(model: @user, local: true) do |f|
-        f.fields_for :preferences do |builder|
+        f.fields :preferences do |builder|
           builder.text_field :favorite_color, value: @user.preferences[:favorite_color]
         end
       end
@@ -76,7 +76,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
 
       output = bootstrap_form_with(model: @user, local: true) do |f|
-        f.fields_for :preferences do |builder|
+        f.fields :preferences do |builder|
           builder.text_field :favorite_color, value: @user.preferences[:favorite_color], id: :user_preferences_favorite_color
         end
       end
@@ -85,11 +85,11 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
     end
 
-    test "form_with fields_for correctly passes horizontal style from parent builder" do
+    test "form_with fields correctly passes horizontal style from parent builder" do
       @user.address = Address.new(street: '123 Main Street')
 
       output = bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street)
         end
       end
@@ -98,7 +98,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
 
       output = bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street, id: :user_address_attributes_street)
         end
       end
@@ -107,11 +107,11 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
     end
 
-    test "form_with fields_for correctly passes inline style from parent builder" do
+    test "form_with fields correctly passes inline style from parent builder" do
       @user.address = Address.new(street: '123 Main Street')
 
       output = bootstrap_form_with(model: @user, layout: :inline, local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street)
         end
       end
@@ -120,7 +120,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, output
 
       output = bootstrap_form_with(model: @user, layout: :inline, local: true) do |f|
-        f.fields_for :address do |af|
+        f.fields :address do |af|
           af.text_field(:street, id: :user_address_attributes_street)
         end
       end
