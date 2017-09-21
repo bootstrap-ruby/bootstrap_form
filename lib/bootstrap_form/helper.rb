@@ -22,6 +22,9 @@ module BootstrapForm
 
     def bootstrap_form_with(options = {}, &block)
       options.reverse_merge!(builder: BootstrapForm::FormBuilderFormWith)
+      options[:acts_like_form_with] = true
+      # TODO: If the above works, we can dry up this a lot by doing like
+      # `bootstrap_form_tag`.
       # options[:acts_like_form_tag] = true if model.nil?
 
       options = process_options(options)
