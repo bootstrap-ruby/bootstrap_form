@@ -8,12 +8,12 @@ module BootstrapForm
 
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
 
-    FIELD_HELPERS = %w(color_field date_field datetime_field datetime_local_field
+    FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
                        email_field month_field number_field password_field phone_field
                        range_field search_field telephone_field text_area text_field time_field
-                       url_field week_field).freeze
+                       url_field week_field}
 
-    DATE_SELECT_HELPERS = %w(date_select time_select datetime_select).freeze
+    DATE_SELECT_HELPERS = %w{date_select time_select datetime_select}
 
     delegate :content_tag, :capture, :concat, to: :@template
 
@@ -23,9 +23,9 @@ module BootstrapForm
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
       @inline_errors = if options[:inline_errors].nil?
-                         @label_errors != true
-                       else
-                         options[:inline_errors] != false
+        @label_errors != true
+      else
+        options[:inline_errors] != false
       end
       @acts_like_form_tag = options[:acts_like_form_tag]
 
@@ -39,7 +39,6 @@ module BootstrapForm
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
           prepend_and_append_input(options) do
-            # puts "Sending #{without_method_name} #{name} #{options.inspect}"
             send(without_method_name, name, options)
           end
         end
@@ -69,7 +68,7 @@ module BootstrapForm
 
     bootstrap_method_alias :file_field
 
-    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new('4.1.0')
+    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
       def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
         form_group_builder(method, options, html_options) do
           prepend_and_append_input(options) do
@@ -113,15 +112,15 @@ module BootstrapForm
 
     bootstrap_method_alias :time_zone_select
 
-    def check_box_with_bootstrap(name, options = {}, checked_value = '1', unchecked_value = '0', &block)
+    def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       label_for = label_for_from_options(options)
       check_box_options = options.except(:label, :label_class, :help, :inline)
-      check_box_options[:class] = ['form-check-input', check_box_options[:class]].compact.join(' ')
+      check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
-      html.concat(' ').concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
+      html.concat(" ").concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
 
       label_name = name
       # label's `for` attribute needs to match checkbox tag's id,
@@ -129,10 +128,10 @@ module BootstrapForm
       # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
       if options[:multiple]
         label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, '_').gsub(/[^-\w]/, '').downcase}"
+          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
       end
 
-      disabled_class = ' disabled' if options[:disabled]
+      disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
 
       if options[:inline]
@@ -140,7 +139,7 @@ module BootstrapForm
         label(label_name, html, label_for.merge(class: "form-check-inline#{disabled_class}#{label_class}"))
       else
         content_tag(:div, class: "form-check#{disabled_class}") do
-          label(label_name, html, label_for.merge(class: ['form-check-label', label_class].compact.join(' ')))
+          label(label_name, html, label_for.merge(class: ["form-check-label", label_class].compact.join(" ")))
         end
       end
     end
@@ -152,9 +151,9 @@ module BootstrapForm
       label_for = label_for_from_options(options)
       args << options.except(:label, :label_class, :help, :inline)
 
-      html = radio_button_without_bootstrap(name, value, *args) + ' ' + options[:label]
+      html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
 
-      disabled_class = ' disabled' if options[:disabled]
+      disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
 
       if options[:inline]
@@ -174,7 +173,7 @@ module BootstrapForm
         options[:multiple] = true
         check_box(name, options, value, nil)
       end
-      hidden_field(args.first, value: '', multiple: true).concat(html)
+      hidden_field(args.first, {value: "", multiple: true}).concat(html)
     end
 
     bootstrap_method_alias :collection_check_boxes
@@ -201,8 +200,8 @@ module BootstrapForm
       options = args.extract_options!
       name = args.first
 
-      options[:class] = ['form-group', options[:class]].compact.join(' ')
-      options[:class] << ' row' if get_group_layout(options[:layout]) == :horizontal
+      options[:class] = ["form-group", options[:class]].compact.join(' ')
+      options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
@@ -251,7 +250,7 @@ module BootstrapForm
     end
 
     def default_label_col
-      'col-sm-2'
+      "col-sm-2"
     end
 
     def offset_col(label_col)
@@ -259,31 +258,31 @@ module BootstrapForm
     end
 
     def default_control_col
-      'col-sm-10'
+      "col-sm-10"
     end
 
     def hide_class
-      'sr-only' # still accessible for screen readers
+      "sr-only" # still accessible for screen readers
     end
 
     def control_class
-      'form-control'
+      "form-control"
     end
 
     def label_class
-      'form-control-label'
+      "form-control-label"
     end
 
     def error_class
-      'has-danger'
+      "has-danger"
     end
 
     def feedback_class
-      'has-feedback'
+      "has-feedback"
     end
 
     def control_specific_class(method)
-      "rails-bootstrap-forms-#{method.tr('_', '-')}"
+      "rails-bootstrap-forms-#{method.gsub(/_/, "-")}"
     end
 
     def has_error?(name)
@@ -291,7 +290,8 @@ module BootstrapForm
     end
 
     def required_attribute?(obj, attribute)
-      return false unless obj && attribute
+
+      return false unless obj and attribute
 
       target = (obj.class == Class) ? obj : obj.class
 
@@ -320,8 +320,8 @@ module BootstrapForm
       # Add control_class; allow it to be overridden by :control_class option
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
-      css_options[:class] = [control_classes, css_options[:class]].compact.join(' ')
-      css_options[:class] << ' form-control-danger' if has_error?(method)
+      css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
+      css_options[:class] << " form-control-danger" if has_error?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
@@ -342,7 +342,9 @@ module BootstrapForm
         class: wrapper_class
       }
 
-      form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
+      if wrapper_options.is_a?(Hash)
+        form_group_options.merge!(wrapper_options)
+      end
 
       unless options.delete(:skip_label)
         if options[:label].is_a?(Hash)
@@ -353,7 +355,9 @@ module BootstrapForm
         label_class ||= options.delete(:label_class)
         label_class = hide_class if options.delete(:hide_label)
 
-        label_text ||= options.delete(:label) if options[:label].is_a?(String)
+        if options[:label].is_a?(String)
+          label_text ||= options.delete(:label)
+        end
 
         form_group_options[:label] = {
           text: label_text,
@@ -377,14 +381,13 @@ module BootstrapForm
 
     def generate_label(id, name, options, custom_label_col, group_layout)
       add_for_option_if_needed!(options, id)
-      # puts "acts_like_form_tag: #{acts_like_form_tag}. options[:for]: #{options[:for]}"
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       unless options.delete(:skip_required)
-        classes << 'required' if required_attribute?(object, name)
+        classes << "required" if required_attribute?(object, name)
       end
 
-      options[:class] = classes.compact.join(' ')
+      options[:class] = classes.compact.join(" ")
 
       if label_errors && has_error?(name)
         error_messages = get_error_messages(name)
@@ -426,16 +429,16 @@ module BootstrapForm
     end
 
     def generate_icon(icon)
-      content_tag(:span, '', class: "glyphicon glyphicon-#{icon} form-control-feedback")
+      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} form-control-feedback")
     end
 
     def get_error_messages(name)
-      object.errors[name].join(', ')
+      object.errors[name].join(", ")
     end
 
-    def inputs_collection(name, collection, value, text, options = {})
+    def inputs_collection(name, collection, value, text, options = {}, &block)
       form_group_builder(name, options) do
-        inputs = ''
+        inputs = ""
 
         collection.each do |obj|
           input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
@@ -449,7 +452,7 @@ module BootstrapForm
           end
 
           input_options.delete(:class)
-          inputs << yield(name, input_value, input_options)
+          inputs << block.call(name, input_value, input_options)
         end
 
         inputs.html_safe
