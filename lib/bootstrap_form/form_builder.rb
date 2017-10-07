@@ -114,12 +114,24 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline)
-      check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom)
+      if options[:custom]
+        validation = ""
+        validation = "is-invalid" if has_error?(name)
+        validation = "is-valid" if is_valid?(name)
+        check_box_options[:class] = ["custom-control-input", validation, check_box_options[:class]].compact.join(' ')
+      else
+        check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
+      end
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
-      html.concat(" ").concat(label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize)
+      label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
+      if options[:custom]
+        html.concat(content_tag(:span, "", class: "custom-control-indicator")).concat(content_tag(:span, label_description, class: "custom-control-description"))
+      else
+        html.concat(" ").concat(label_description)
+      end
 
       label_name = name
       # label's `for` attribute needs to match checkbox tag's id,
@@ -131,14 +143,15 @@ module BootstrapForm
       end
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
+      label_class = options[:label_class]
+      custom_label_class = options[:custom] ? "custom-control custom-checkbox" : "form-check-label"
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
         label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
         content_tag(:div, class: "form-check#{disabled_class}") do
-          label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
+          label(label_name, html, class: [custom_label_class, label_class].compact.join(" "))
         end
       end
     end
@@ -147,9 +160,15 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      args << options.except(:label, :label_class, :help, :inline)
-
-      html = radio_button_without_bootstrap(name, value, *args) + " " + options[:label]
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom)
+      radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ') if options[:custom]
+      args << radio_options
+      html = radio_button_without_bootstrap(name, value, *args)
+      if options[:custom]
+        html.concat(content_tag(:span, "", class: "custom-control-indicator")).concat(content_tag(:span, options[:label], class: "custom-control-description"))
+      else
+        html.concat(" ").concat(options[:label])
+      end
 
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
@@ -158,6 +177,7 @@ module BootstrapForm
         label_class = " #{label_class}" if label_class
         label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
       else
+        label_class = ["custom-control", "custom-radio", options[:class]].compact.join(' ') if options[:custom]
         content_tag(:div, class: "radio#{disabled_class}") do
           label(name, html, value: value, class: label_class)
         end

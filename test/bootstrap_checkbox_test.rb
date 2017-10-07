@@ -140,5 +140,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, checked: collection)
   end
 
+  test "check_box with custom option set is wrapped correctly" do
+    expected = %{<div class="form-check"><label class="custom-control custom-checkbox" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="custom-control-input is-valid" id="user_terms" name="user[terms]" type="checkbox" value="1" /><span class="custom-control-indicator"></span><span class="custom-control-description">I agree to the terms</span></label></div>}
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms', custom: true)
+  end
 
 end

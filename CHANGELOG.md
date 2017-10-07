@@ -9,6 +9,7 @@ Bugfixes:
 Features:
   - Your contribution here!
   - is-valid will be applied to validated form field (i.e. not on unchanged or new records)
+  - custom: true option will generate bootstrap custom check boxes and options
 
 ## [2.7.0][] (2017-04-21)
 

@@ -121,4 +121,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, lambda { |a| "address_#{a.id}" }, :street)
   end
 
+  test "radio_button with custom options set is wrapped correctly" do
+    expected = %{<div class="radio"><label class="custom-control custom-radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" class="custom-control-input"/><span class="custom-control-indicator"></span><span class="custom-control-description">This is a radio button</span></label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', custom: true)
+  end
+
 end
