@@ -1,4 +1,4 @@
-class CreateAddresses < ActiveRecord::Migration
+class CreateAddresses < GenericMigration
   def change
     create_table :addresses do |t|
       t.integer :user_id
