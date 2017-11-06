@@ -81,6 +81,16 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 <% end %>
 ```
 
+### bootstrap_form_with
+
+If you are using Rails >= 5.1 just use the `bootstrap_form_with` helper. Here's an example:
+
+```erb
+<%= bootstrap_form_with(model: @user) do |f| %>
+  <%= f.email_field :email %>
+<% end %>
+```
+
 ## Form Helpers
 
 This gem wraps the following Rails form helpers:

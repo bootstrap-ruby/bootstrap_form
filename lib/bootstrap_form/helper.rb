@@ -39,5 +39,29 @@ module BootstrapForm
     ensure
       ActionView::Base.field_error_proc = original_proc
     end
+
+    if ::Rails::VERSION::STRING >= '5.1'
+      def bootstrap_form_with(options = {}, &block)
+        options.reverse_merge!({builder: BootstrapForm::FormBuilder})
+
+        options[:html] ||= {}
+        options[:html][:role] ||= 'form'
+
+        layout = case options[:layout]
+          when :inline
+            "form-inline"
+          when :horizontal
+            "form-horizontal"
+        end
+
+        if layout
+          options[:html][:class] = [options[:html][:class], layout].compact.join(" ")
+        end
+
+        temporarily_disable_field_error_proc do
+          form_with(options, &block)
+        end
+      end
+    end
   end
 end
