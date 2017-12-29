@@ -9,52 +9,52 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box is wrapped correctly" do
     expected = %{<div class="form-check"><label class="form-check-label" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms')
   end
 
   test "disabled check_box has proper wrapper classes" do
     expected = %{<div class="form-check disabled"><label class="form-check-label" for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', disabled: true)
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms', disabled: true)
   end
 
   test "check_box label allows html" do
     expected = %{<div class="form-check"><label class="form-check-label" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the <a href="#">terms</a></label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: %{I agree to the <a href="#">terms</a>}.html_safe)
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: %{I agree to the <a href="#">terms</a>}.html_safe)
   end
 
   test "check_box accepts a block to define the label" do
     expected = %{<div class="form-check"><label class="form-check-label" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms) { "I agree to the terms" }
+    assert_equivalent_xml expected, @builder_new.check_box(:terms) { "I agree to the terms" }
   end
 
   test "check_box accepts a custom label class" do
     expected = %{<div class="form-check"><label class="form-check-label btn" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> Terms</label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label_class: 'btn')
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label_class: 'btn')
   end
 
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = %{<div class="form-check"><label class="form-check-label" for="user_terms"><input name="user[terms]" type="hidden" value="no" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="yes" /> I agree to the terms</label></div>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
   end
 
   test "inline checkboxes" do
     expected = %{<label class="form-check-inline" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
   test "disabled inline check_box" do
     expected = %{<label class="form-check-inline disabled" for="user_terms"><input disabled="disabled" name="user[terms]" type="hidden" value="0" /><input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" /> I agree to the terms</label>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true, disabled: true)
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms', inline: true, disabled: true)
   end
 
   test "inline checkboxes with custom label class" do
     expected = %{<label class="form-check-inline btn" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /> Terms</label>}
-    assert_equivalent_xml expected, @builder.check_box(:terms, inline: true, label_class: 'btn')
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, inline: true, label_class: 'btn')
   end
 
   test 'collection_check_boxes renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="form-control-label" for="user_misc">This is a checkbox collection</label><div class="form-check"><label class="form-check-label" for="user_misc_1"><input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" /><div class="form-group"><label class="form-control-label" for="user_misc">This is a checkbox collection</label><div class="form-check"><label class="form-check-label" for="user_misc_1"><input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street, label: 'This is a checkbox collection', help: 'With a help!')
   end
@@ -140,5 +140,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, checked: collection)
   end
 
+  test "check_box with custom option set is wrapped correctly" do
+    expected = %{<div class="form-check"><label class="custom-control custom-checkbox" for="user_terms"><input name="user[terms]" type="hidden" value="0" /><input class="custom-control-input is-valid" id="user_terms" name="user[terms]" type="checkbox" value="1" /><span class="custom-control-indicator"></span><span class="custom-control-description">I agree to the terms</span></label></div>}
+    assert_equivalent_xml expected, @builder_new.check_box(:terms, label: 'I agree to the terms', custom: true)
+  end
 
 end

@@ -14,7 +14,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10"})
     I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
 
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="date" /></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control is-valid" id="user_misc" name="user[misc]" type="date" /></div>}
     assert_equivalent_xml expected, @builder.date_field(:misc)
   end
 

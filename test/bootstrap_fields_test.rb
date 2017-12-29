@@ -53,7 +53,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><span class="form-text text-muted">A good password should be at least six characters long</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><small class="form-text text-muted">A good password should be at least six characters long</small></div>}
     assert_equivalent_xml expected, @builder.password_field(:password)
   end
 
@@ -99,24 +99,24 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "bootstrap_form_for helper works for associations" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user_new.address = Address.new(street: '123 Main Street')
 
-    output = bootstrap_form_for(@user) do |f|
+    output = bootstrap_form_for(@user_new) do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control is-valid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
     assert_equivalent_xml expected, output
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do
-    @user.preferences = { favorite_color: "cerulean" }
+    @user_new.preferences = { favorite_color: "cerulean" }
 
-    output = bootstrap_form_for(@user) do |f|
+    output = bootstrap_form_for(@user_new) do |f|
       f.fields_for :preferences do |builder|
-        builder.text_field :favorite_color, value: @user.preferences[:favorite_color]
+        builder.text_field :favorite_color, value: @user_new.preferences[:favorite_color]
       end
     end
 
@@ -125,28 +125,28 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "fields_for correctly passes horizontal style from parent builder" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user_new.address = Address.new(street: '123 Main Street')
 
-    output = bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f|
+    output = bootstrap_form_for(@user_new, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group row"><label class="form-control-label col-sm-2" for="user_address_attributes_street">Street</label><div class="col-sm-10"><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group row"><label class="form-control-label col-sm-2" for="user_address_attributes_street">Street</label><div class="col-sm-10"><input class="form-control is-valid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></div></form>}
     assert_equivalent_xml expected, output
   end
 
   test "fields_for correctly passes inline style from parent builder" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user_new.address = Address.new(street: '123 Main Street')
 
-    output = bootstrap_form_for(@user, layout: :inline) do |f|
+    output = bootstrap_form_for(@user_new, layout: :inline) do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control is-valid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
     assert_equivalent_xml expected, output
   end
 end

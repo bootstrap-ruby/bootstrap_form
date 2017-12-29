@@ -2,11 +2,19 @@
 
 Bugfixes:
   - Your contribution here!
+  - form-control-danger is replaced with is-invalid for bootstrap 4.0.0.beta
+  - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta
+  - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta 
 
 Features:
   - Your contribution here!
-  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+  - is-valid will be applied to validated form field (i.e. not on unchanged or new records)
+  - custom: true option will generate bootstrap custom check boxes and options
 
+## [2.7.0][] (2017-04-21)
+
+Features:
+  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
 
 ## [2.6.0][] (2017-02-03)
 
@@ -162,7 +170,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.6.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.3...v2.6.0
 [2.5.3]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...v2.5.3
 [2.5.2]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...v2.5.2

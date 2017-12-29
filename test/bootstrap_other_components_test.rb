@@ -59,8 +59,13 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  test "submit button defaults to rails action name" do
+  test "submit button defaults to rails action name for new user" do
     expected = %{<input class="btn btn-secondary" name="commit" type="submit" value="Create User" />}
+    assert_equivalent_xml expected, @builder_new.submit
+  end
+
+  test "submit button defaults to rails action name for existing user" do
+    expected = %{<input class="btn btn-secondary" name="commit" type="submit" value="Update User" />}
     assert_equivalent_xml expected, @builder.submit
   end
 

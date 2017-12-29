@@ -16,8 +16,10 @@ Rails.backtrace_cleaner.remove_silencers!
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 def setup_test_fixture
-  @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
+  @user = User.create!(email: 'steve@example.com', password: 'secret', comments: 'my comment', terms: true)
   @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
+  @user_new = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
+  @builder_new = BootstrapForm::FormBuilder.new(:user, @user_new, self, {})
   @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" })
   I18n.backend.store_translations(:en, {
     activerecord: {
@@ -71,6 +73,23 @@ class ActionView::TestCase
           b.delete('type')
           # Handle new datetime type for Rails 5+
           result = EquivalentXml.equivalent?(a, b)
+        end
+        divs_a=a.search('div[style="margin:0;padding:0;display:inline"],div[style="display:none"]')
+        divs_b=b.search('div[style="margin:0;padding:0;display:inline"],div[style="display:none"]')
+        if divs_a || divs_b
+          # Remove "div's" for hidden input fields and 
+          # include its children in the comparison
+          divs_a.each do |div|
+            div.replace(div.children)
+          end
+          divs_b.each do |div|
+            div.replace(div.children)
+          end
+          # Remove data-disable-with attributes. Dunno why 'ignore_attr_values' is not working...
+          b.search('[data-disable-with]').each do |elem|
+            elem.delete('data-disable-with')
+          end
+          result = EquivalentXml.equivalent?(a, b, { ignore_attr_values: ignored_attributes} )
         end
       end
       result

@@ -18,7 +18,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "bootstrap_specific options are handled correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><span class="form-text text-muted">Help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_status">My Status Label</label><select class="form-control" id="user_status" name="user[status]"><option value="1">activated</option>\n<option value="2">blocked</option></select><small class="form-text text-muted">Help!</small></div>}
     assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!" )
   end
 

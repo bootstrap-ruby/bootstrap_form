@@ -39,7 +39,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test 'collection_radio_buttons renders the form_group correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foobar</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
@@ -67,14 +67,14 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test 'collection_radio_buttons renders label defined by Proc correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, Proc.new { |a| a.street.reverse }, label: 'This is a radio button collection', help: 'With a help!')
   end
 
   test 'collection_radio_buttons renders value defined by Proc correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, Proc.new { |a| "address_#{a.id}" }, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
@@ -95,14 +95,14 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test 'collection_radio_buttons renders label defined by lambda correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, lambda { |a| a.street.reverse }, label: 'This is a radio button collection', help: 'With a help!')
   end
 
   test 'collection_radio_buttons renders value defined by lambda correctly' do
     collection = [Address.new(id: 1, street: 'Foobar')]
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar</label></div><span class="form-text text-muted">With a help!</span></div>}
+    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">This is a radio button collection</label><div class="radio"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar</label></div><small class="form-text text-muted">With a help!</small></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
@@ -119,6 +119,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><div class="radio"><label for="user_misc_address_1"><input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foo</label></div><div class="radio"><label for="user_misc_address_2"><input id="user_misc_address_2" name="user[misc]" type="radio" value="address_2" /> Bar</label></div></div>}
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, lambda { |a| "address_#{a.id}" }, :street)
+  end
+
+  test "radio_button with custom options set is wrapped correctly" do
+    expected = %{<div class="radio"><label class="custom-control custom-radio" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" class="custom-control-input"/><span class="custom-control-indicator"></span><span class="custom-control-description">This is a radio button</span></label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', custom: true)
   end
 
 end
