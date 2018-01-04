@@ -618,4 +618,4 @@ https://github.com/bootstrap-ruby/rails-bootstrap-forms/graphs/contributors
 
 ## License
 
-MIT License. Copyright 2012-2014 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2018 Stephen Potenza (https://github.com/potenza)
