@@ -582,9 +582,24 @@ http://www.codetriage.com/potenza/bootstrap_form
 
 ## Contributing
 
+The release of Bootstrap 4 and Rails 5.1 have implications
+for the future direction of `bootstrap_form`.
+Don't worry.
+We plan to move this gem forward to Bootstrap 4
+and to support Rails 5.1 and beyond.
+If you're thinking of contributing to `bootstrap_form`,
+please read issue #TBD.
+Your comments are welcome.
+
 We love pull requests! Here's a quick guide for contributing:
 
-1. Fork the repo.
+1. Make sure no one else is working on the same issue or feature.
+Search the issues and pull requests for anything
+that looks like the issue or feature you want to address.
+If no one else is working on your issue or feature,
+carry on with the following steps.
+
+2. Fork the repo.
 
 2. Install the required dependencies.
 
