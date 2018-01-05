@@ -588,7 +588,7 @@ Don't worry.
 We plan to move this gem forward to Bootstrap 4
 and to support Rails 5.1 and beyond.
 If you're thinking of contributing to `bootstrap_form`,
-please read issue #361.
+please read [issue #361](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/361).
 Your comments are welcome.
 
 We love pull requests! Here's a quick guide for contributing:
