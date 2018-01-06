@@ -1,22 +1,30 @@
+⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/rails-bootstrap-forms/tree/legacy-2.7) branch.
+
+---
+
+# bootstrap_form
+
 [![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms)
-[![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](http://badge.fury.io/rb/bootstrap_form)
+[![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-# Rails Bootstrap Forms
-
-**Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
-twitter bootstrap-style forms into your rails application.
+**bootstrap_form** is a Rails form builder that makes it super easy to integrate
+Bootstrap v4-style forms into your Rails application.
 
 ## Requirements
 
-* Ruby 1.9+
-* Rails 4.0+
-* Twitter Bootstrap 3.0+
+* Ruby 2.3+
+* Rails 5.0+
+* Bootstrap 4.0.0-beta.3+
 
 ## Installation
 
 Add it to your Gemfile:
 
-`gem 'bootstrap_form'`
+```ruby
+gem "bootstrap_form",
+    git: "https://github.com/bootstrap-ruby/rails-bootstrap-forms.git",
+    branch: "master"
+```
 
 Then:
 
@@ -589,4 +597,4 @@ document first.
 
 ## License
 
-MIT License. Copyright 2012-2014 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2018 Stephen Potenza (https://github.com/potenza)
