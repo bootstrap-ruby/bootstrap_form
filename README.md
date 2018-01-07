@@ -55,13 +55,13 @@ This generates the following HTML:
     <label for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="checkbox">
+  <div class="form-check">
     <label for="user_remember_me">
       <input name="user[remember_me]" type="hidden" value="0">
       <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> Remember me
     </label>
   </div>
-  <input class="btn btn-default" name="commit" type="submit" value="Log In">
+  <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -209,7 +209,7 @@ This automatically adds the `has-feedback` class to the `form-group`:
 
 ```html
 <div class="form-group has-feedback">
-  <label class="control-label" for="user_login">Login</label>
+  <label class="form-control-label" for="user_login">Login</label>
   <input class="form-control" id="user_login" name="user[login]" type="text" />
   <span class="glyphicon glyphicon-user form-control-feedback"></span>
 </div>
@@ -227,7 +227,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
 ```
 
 To add a class to the input group wrapper, use `:input_group_class` option.
@@ -249,7 +249,7 @@ Which produces the following output:
 
 ```erb
 <div class="form-group has-warning" data-foo="bar">
-  <label class="control-label" for="user_name">Id</label>
+  <label class="form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
@@ -330,7 +330,7 @@ Here's the output:
 
 ```html
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="user_email">Email</label>
+  <label class="col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <p class="form-control-static">test@email.com</p>
   </div>
@@ -355,7 +355,7 @@ this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
 
-The `btn btn-default` css classes are automatically added to your submit
+The `btn btn-secondary` css classes are automatically added to your submit
 buttons.
 
 ```erb
@@ -468,10 +468,10 @@ error will be displayed below the field. Rails normally wraps the fields in a
 div (field_with_errors), but this behavior is suppressed. Here's an example:
 
 ```html
-<div class="form-group has-error">
-  <label class="control-label" for="user_email">Email</label>
+<div class="form-group has-danger">
+  <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" type="email" value="">
-  <span class="help-block">can't be blank</span>
+  <span class="form-control-feedback">can't be blank</span>
 </div>
 ```
 

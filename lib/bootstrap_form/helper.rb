@@ -10,15 +10,8 @@ module BootstrapForm
       options[:html] ||= {}
       options[:html][:role] ||= 'form'
 
-      layout = case options[:layout]
-        when :inline
-          "form-inline"
-        when :horizontal
-          "form-horizontal"
-      end
-
-      if layout
-        options[:html][:class] = [options[:html][:class], layout].compact.join(" ")
+      if options[:layout] == :inline
+        options[:html][:class] = [options[:html][:class], "form-inline"].compact.join(" ")
       end
 
       temporarily_disable_field_error_proc do
