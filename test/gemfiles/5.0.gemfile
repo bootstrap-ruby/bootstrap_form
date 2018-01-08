@@ -7,10 +7,8 @@ gem "rails", "~> 5.0.0"
 group :test do
   gem "diffy"
   gem "equivalent-xml"
-  gem "mime-types", "~> 2.6.2"
   gem "mocha"
-  gem "nokogiri"
-
   gem "sqlite3"
   gem "timecop", "~> 0.7.1"
 end
+
