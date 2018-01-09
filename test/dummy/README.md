@@ -12,6 +12,6 @@ Following files were added or changed:
 
 ### Usage
 
-- rake db:schema:load
-- rails s
+- `rake db:schema:load`
+- `rails s`
 - Navigate to http://localhost:3000
