@@ -37,12 +37,12 @@ class BootstrapSelectsTest < ActionView::TestCase
       <div class="form-group">
         <label class="form-control-label" for="user_status">Status</label>
         <div class="input-group">
-          <span class="input-group-addon">Before</span>
+          <div class="input-group-prepend"><span class="input-group-text">Before</span></div>
           <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
-          <span class="input-group-addon">After</span>
+          <div class="input-group-append"><span class="input-group-text">After</span></div>
         </div>
       </div>
     HTML
