@@ -10,4 +10,13 @@ gemfile:
   - test/gemfiles/5.2.gemfile
 before_install:
   - gem update --system
-  - gem update bundler
+  - gem update bundle
+
+# Running one job to execute DANGER bot
+matrix:
+  include:
+    - rvm: 2.5.0
+      gemfile: test/gemfiles/5.2.gemfile
+      script:
+        - gem install danger
+        - danger
