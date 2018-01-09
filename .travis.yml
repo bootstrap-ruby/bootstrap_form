@@ -12,11 +12,19 @@ before_install:
   - gem update --system
   - gem update bundle
 
-# Running one job to execute DANGER bot
+
 matrix:
   include:
+    # Bleeding edge
+    - rvm: ruby-head
+      gemfile: test/gemfiles/5.2.gemfile
+
+    # Running one job to execute DANGER bot
     - rvm: 2.5.0
       gemfile: test/gemfiles/5.2.gemfile
       script:
         - gem install danger
         - danger
+
+  allow_failures:
+    - rvm: ruby-head
