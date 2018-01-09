@@ -6,6 +6,10 @@ Bootstrap 4 and to support Rails 5.1 and beyond. If you're thinking of
 contributing to `bootstrap_form`, please read
 [issue #361](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/361).
 
+Your comments are welcome.
+
+Thanks so much for considering a contribution to bootstrap_form. We love pull requests!
+
 Here's a quick guide for contributing:
 
 ### 1. Check if issue or feature is available to work on
