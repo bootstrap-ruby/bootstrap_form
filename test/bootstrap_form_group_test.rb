@@ -48,23 +48,24 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "adding prepend text" do
-    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">@</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text">@</span></div><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div></div>}
     assert_equivalent_xml expected, @builder.text_field(:email, prepend: '@')
   end
 
   test "adding append text" do
-    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><div class="input-group-append"><span class="input-group-text">.00</span></div></div></div>}
     assert_equivalent_xml expected, @builder.text_field(:email, append: '.00')
   end
 
   test "append and prepend button" do
     prefix = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group">}
     field = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
-    button = %{<span class="input-group-btn"><a class="btn btn-secondary" href="#">Click</a></span>}
+    button_prepend = %{<div class="input-group-prepend"><a class="btn btn-secondary" href="#">Click</a></div>}
+    button_append = %{<div class="input-group-append"><a class="btn btn-secondary" href="#">Click</a></div>}
     suffix = %{</div></div>}
-    after_button = prefix + field + button + suffix
-    before_button = prefix + button + field + suffix
-    both_button = prefix + button + field + button  + suffix
+    after_button = prefix + field + button_append + suffix
+    before_button = prefix + button_prepend + field + suffix
+    both_button = prefix + button_prepend + field + button_append  + suffix
     button_src = link_to("Click", "#", class: "btn btn-secondary")
     assert_equivalent_xml after_button, @builder.text_field(:email, append: button_src)
     assert_equivalent_xml before_button, @builder.text_field(:email, prepend: button_src)
@@ -72,7 +73,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "adding both prepend and append text" do
-    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><span class="input-group-addon">$</span><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="input-group-addon">.00</span></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text">$</div></div><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><div class="input-group-append"><span class="input-group-text">.00</span></div></div></div>}
     assert_equivalent_xml expected, @builder.text_field(:email, prepend: '$', append: '.00')
   end
 
@@ -283,7 +284,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test ":input_group_class should apply to input-group" do
-    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group input-group-lg"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /><span class="input-group-btn"><input class="btn btn-primary" name="commit" type="submit" value="Subscribe" /></span></div></div>}
+    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group input-group-lg"><input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" /><div class="input-group-append"><input class="btn btn-primary" name="commit" type="submit" value="Subscribe" /></div></div></div>}
     assert_equivalent_xml expected, @builder.email_field(:email, append: @builder.primary('Subscribe'), input_group_class: 'input-group-lg')
   end
 end
