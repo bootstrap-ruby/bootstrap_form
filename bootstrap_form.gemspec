@@ -1,4 +1,5 @@
-$LOAD_PATH.push File.expand_path("lib", __dir__)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require "bootstrap_form/version"
 
@@ -14,8 +15,11 @@ Gem::Specification.new do |s|
                   "easy to create beautiful-looking forms using Bootstrap 4"
   s.license     = "MIT"
 
-  s.files         = `git ls-files`.split("\n")
-  s.platform      = Gem::Platform::RUBY
+  s.files = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test)/})
+  end
+
+  s.bindir        = "exe"
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.2.2"

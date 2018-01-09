@@ -10,7 +10,7 @@ gemfile:
   - test/gemfiles/5.2.gemfile
 before_install:
   - gem update --system
-  - gem update bundle
+  - gem install bundler --no-document
 
 matrix:
   include:
