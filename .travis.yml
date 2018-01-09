@@ -1,8 +1,8 @@
 language: ruby
 rvm:
-  - 2.2.7
-  - 2.3.5
-  - 2.4.2
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
   - 2.5.0
 gemfile:
   - test/gemfiles/5.0.gemfile
@@ -11,7 +11,6 @@ gemfile:
 before_install:
   - gem update --system
   - gem update bundle
-
 
 matrix:
   include:
