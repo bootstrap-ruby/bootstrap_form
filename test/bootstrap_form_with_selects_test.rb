@@ -51,12 +51,12 @@ if ::Rails::VERSION::STRING >= '5.1'
         <div class="form-group">
           <label class="form-control-label">Status</label>
           <div class="input-group">
-            <span class="input-group-addon">Before</span>
+            <div class="input-group-prepend"><span class="input-group-text">Before</span></div>
             <select class="form-control" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
-            <span class="input-group-addon">After</span>
+            <div class="input-group-append"><span class="input-group-text">After</span></div>
           </div>
         </div>
       HTML
@@ -65,12 +65,12 @@ if ::Rails::VERSION::STRING >= '5.1'
         <div class="form-group">
           <label class="form-control-label" for="custom_id">Status</label>
           <div class="input-group">
-            <span class="input-group-addon">Before</span>
+            <div class="input-group-prepend"><span class="input-group-text">Before</span></div>
             <select class="form-control" id="custom_id" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
-            <span class="input-group-addon">After</span>
+            <div class="input-group-append"><span class="input-group-text">After</span></div>
           </div>
         </div>
       HTML
