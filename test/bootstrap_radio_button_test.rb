@@ -12,6 +12,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
 
+  test "radio_button is wrapped correctly with custom id" do
+    expected = %{<div class="radio"><label for="custom_id"><input id="custom_id" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', id: "custom_id")
+  end
+
   test "radio_button disabled label is set correctly" do
     expected = %{<div class="radio disabled"><label for="user_misc_1"><input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', disabled: true)
