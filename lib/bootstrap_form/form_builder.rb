@@ -115,6 +115,7 @@ module BootstrapForm
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline)
+      check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
 
       html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
       label_content = block_given? ? capture(&block) : options[:label]
@@ -134,10 +135,10 @@ module BootstrapForm
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        label(label_name, html, class: "checkbox-inline#{disabled_class}#{label_class}")
+        label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
       else
-        content_tag(:div, class: "checkbox#{disabled_class}") do
-          label(label_name, html, class: label_class)
+        content_tag(:div, class: "form-check#{disabled_class}") do
+          label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
         end
       end
     end
@@ -198,6 +199,7 @@ module BootstrapForm
       name = args.first
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
+      options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
@@ -263,11 +265,11 @@ module BootstrapForm
     end
 
     def label_class
-      "control-label"
+      "form-control-label"
     end
 
     def error_class
-      "has-error"
+      "has-danger"
     end
 
     def feedback_class
@@ -313,6 +315,7 @@ module BootstrapForm
       css_options = html_options || options
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
+      css_options[:class] << " form-control-danger" if has_error?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
@@ -389,12 +392,16 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      help_text = get_error_messages(name) if has_error?(name) && inline_errors
-      return if help_text === false
+      if has_error?(name) && inline_errors
+        help_text = get_error_messages(name)
+        help_klass = 'form-control-feedback'
+      end
+      return if help_text == false
 
+      help_klass ||= 'form-text text-muted'
       help_text ||= get_help_text_by_i18n_key(name)
 
-      content_tag(:span, help_text, class: 'help-block') if help_text.present?
+      content_tag(:span, help_text, class: help_klass) if help_text.present?
     end
 
     def generate_icon(icon)

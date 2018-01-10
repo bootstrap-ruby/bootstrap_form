@@ -1,22 +1,30 @@
+⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/rails-bootstrap-forms/tree/legacy-2.7) branch.
+
+---
+
+# bootstrap_form
+
 [![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms)
-[![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](http://badge.fury.io/rb/bootstrap_form)
+[![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-# Rails Bootstrap Forms
-
-**Rails Bootstrap Forms** is a rails form builder that makes it super easy to integrate
-twitter bootstrap-style forms into your rails application.
+**bootstrap_form** is a Rails form builder that makes it super easy to integrate
+Bootstrap v4-style forms into your Rails application.
 
 ## Requirements
 
-* Ruby 1.9+
-* Rails 4.0+
-* Twitter Bootstrap 3.0+
+* Ruby 2.3+
+* Rails 5.0+
+* Bootstrap 4.0.0-beta.3+
 
 ## Installation
 
 Add it to your Gemfile:
 
-`gem 'bootstrap_form'`
+```ruby
+gem "bootstrap_form",
+    git: "https://github.com/bootstrap-ruby/rails-bootstrap-forms.git",
+    branch: "master"
+```
 
 Then:
 
@@ -55,13 +63,13 @@ This generates the following HTML:
     <label for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="checkbox">
+  <div class="form-check">
     <label for="user_remember_me">
       <input name="user[remember_me]" type="hidden" value="0">
       <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> Remember me
     </label>
   </div>
-  <input class="btn btn-default" name="commit" type="submit" value="Log In">
+  <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -219,7 +227,7 @@ This automatically adds the `has-feedback` class to the `form-group`:
 
 ```html
 <div class="form-group has-feedback">
-  <label class="control-label" for="user_login">Login</label>
+  <label class="form-control-label" for="user_login">Login</label>
   <input class="form-control" id="user_login" name="user[login]" type="text" />
   <span class="glyphicon glyphicon-user form-control-feedback"></span>
 </div>
@@ -237,7 +245,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-default") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
 ```
 
 To add a class to the input group wrapper, use `:input_group_class` option.
@@ -259,7 +267,7 @@ Which produces the following output:
 
 ```erb
 <div class="form-group has-warning" data-foo="bar">
-  <label class="control-label" for="user_name">Id</label>
+  <label class="form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
@@ -271,7 +279,7 @@ You still can use `wrapper_class` option to set only a css class. This is just a
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
 
 ```erb
-<%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
+<%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
 ```
 
 ### Checkboxes and Radios
@@ -340,7 +348,7 @@ Here's the output:
 
 ```html
 <div class="form-group">
-  <label class="col-sm-2 control-label" for="user_email">Email</label>
+  <label class="col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <p class="form-control-static">test@email.com</p>
   </div>
@@ -365,7 +373,7 @@ this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
 
-The `btn btn-default` css classes are automatically added to your submit
+The `btn btn-secondary` css classes are automatically added to your submit
 buttons.
 
 ```erb
@@ -478,10 +486,10 @@ error will be displayed below the field. Rails normally wraps the fields in a
 div (field_with_errors), but this behavior is suppressed. Here's an example:
 
 ```html
-<div class="form-group has-error">
-  <label class="control-label" for="user_email">Email</label>
+<div class="form-group has-danger">
+  <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" type="email" value="">
-  <span class="help-block">can't be blank</span>
+  <span class="form-control-feedback">can't be blank</span>
 </div>
 ```
 
@@ -592,40 +600,11 @@ http://www.codetriage.com/potenza/bootstrap_form
 
 ## Contributing
 
-We love pull requests! Here's a quick guide for contributing:
-
-1. Fork the repo.
-
-2. Install the required dependencies.
-
-```
-bundle install
-bundle exec appraisal install
-```
-
-3. Run the existing test suite:
-
-```
-$ bundle exec rake -f test/dummy/Rakefile db:create db:migrate RAILS_ENV=test
-$ bundle exec appraisal rake test
-```
-
-4. Add tests for your change.
-
-5. Add your changes and make your test(s) pass. Following the conventions you
-see used in the source will increase the chance that your pull request is
-accepted right away.
-
-6. Update the README if necessary.
-
-7. Add a line to the CHANGELOG for your bug fix or feature.
-
-8. Push to your fork and submit a pull request.
-
-## Contributors
-
-https://github.com/bootstrap-ruby/rails-bootstrap-forms/graphs/contributors
+We welcome contributions.
+If you're considering contributing to bootstrap_form,
+please review the [Contributing](/CONTRIBUTING.md)
+document first.
 
 ## License
 
-MIT License. Copyright 2012-2014 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2018 Stephen Potenza (https://github.com/potenza)
