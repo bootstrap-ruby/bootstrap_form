@@ -2,7 +2,7 @@ module BootstrapForm
   module Helpers
     module Bootstrap
       def submit(name = nil, options = {})
-        options.reverse_merge! class: 'btn btn-default'
+        options.reverse_merge! class: 'btn btn-secondary'
         super(name, options)
       end
 
@@ -72,18 +72,15 @@ module BootstrapForm
 
         input = capture(&block)
 
-        input = content_tag(:span, options[:prepend], class: input_group_class(options[:prepend])) + input if options[:prepend]
-        input << content_tag(:span, options[:append], class: input_group_class(options[:append])) if options[:append]
+        input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
+        input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
         input = content_tag(:div, input, class: input_group_class) unless options.empty?
         input
       end
 
-      def input_group_class(add_on_content)
-        if add_on_content.match(/btn/)
-          'input-group-btn'
-        else
-          'input-group-addon'
-        end
+      def input_group_content(content)
+        return content if content.match(/btn/)
+        content_tag(:span, content, class: 'input-group-text')
       end
 
       def static_class
