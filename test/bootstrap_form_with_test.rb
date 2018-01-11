@@ -118,7 +118,14 @@ if ::Rails::VERSION::STRING >= '5.1'
         f.alert_message('Please fix the following errors:', error_summary: false)
       end
 
-      expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="alert alert-danger"><p>Please fix the following errors:</p></div></form>}
+      expected = <<-HTML.strip_heredoc
+        <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <div class="alert alert-danger">
+            <p>Please fix the following errors:</p>
+          </div>
+        </form>
+      HTML
       assert_equivalent_xml expected, output
     end
 
