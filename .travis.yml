@@ -1,28 +1,29 @@
-sudo: false
 language: ruby
 rvm:
-  - 1.9
-  - 2.0
-  - 2.1
-  - 2.2
-  - 2.3.1
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
 gemfile:
-  - gemfiles/4.0.gemfile
-  - gemfiles/4.1.gemfile
-  - gemfiles/4.2.gemfile
+  - test/gemfiles/5.0.gemfile
+  - test/gemfiles/5.1.gemfile
+  - test/gemfiles/5.2.gemfile
+before_install:
+  - gem update --system
+  - gem install bundler --no-document
+
 matrix:
   include:
-    - rvm: 2.2.2
-      gemfile: gemfiles/5.0.gemfile
-    - rvm: 2.3.1
-      gemfile: gemfiles/5.0.gemfile
-      # Run Danger only once
-      script: bundle exec danger
-    - rvm: 2.2.2
-      gemfile: gemfiles/5.1.gemfile
-    - rvm: 2.3.1
-      gemfile: gemfiles/5.1.gemfile
-before_install:
-  - gem install bundler --conservative --version '~> 1.10'
-before_script:
-  - bundle exec rake -f test/dummy/Rakefile db:create db:migrate RAILS_ENV=test
+    # Bleeding edge
+    - rvm: ruby-head
+      gemfile: test/gemfiles/5.2.gemfile
+
+    # Running one job to execute DANGER bot
+    - rvm: 2.5.0
+      gemfile: test/gemfiles/5.2.gemfile
+      script:
+        - gem install danger
+        - danger
+
+  allow_failures:
+    - rvm: ruby-head
