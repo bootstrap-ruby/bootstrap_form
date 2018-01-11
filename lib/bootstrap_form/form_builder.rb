@@ -234,7 +234,6 @@ module BootstrapForm
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
-      options[:class] << " #{error_class}" if has_error?(name)
       options[:class] << " #{feedback_class}" if options[:icon]
 
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
@@ -259,7 +258,7 @@ module BootstrapForm
     def fields_for_with_bootstrap(record_name, record_object = nil, fields_options = {}, &block)
       fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_options[:layout] ||= options[:layout]
-      fields_options[:label_col] = fields_options[:label_col].present? ? "#{fields_options[:label_col]} #{label_class}" : options[:label_col]
+      fields_options[:label_col] = fields_options[:label_col].present? ? "#{fields_options[:label_col]}" : options[:label_col]
       fields_options[:control_col] ||= options[:control_col]
       fields_options[:inline_errors] ||= options[:inline_errors]
       fields_options[:label_errors] ||= options[:label_errors]
@@ -296,14 +295,6 @@ module BootstrapForm
 
     def control_class
       "form-control"
-    end
-
-    def label_class
-      "form-control-label"
-    end
-
-    def error_class
-      "has-danger"
     end
 
     def feedback_class
@@ -412,7 +403,7 @@ module BootstrapForm
 
     def generate_label(id, name, options, custom_label_col, group_layout)
       options[:for] = id if acts_like_form_tag
-      classes = [options[:class], label_class]
+      classes = [options[:class]]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       unless options.delete(:skip_required)
         classes << "required" if required_attribute?(object, name)
