@@ -78,9 +78,8 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.email = nil
       @user.valid?
 
-      # FIXME: This expected string isn't right. Why does it have id and for and still pass?
-      expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" class=\"new_user\" id=\"new_user\" method=\"post\" role=\"form\"><div style=\"margin:0;padding:0;display:inline\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /></div><div class=\"form-group has-danger\"><label class=\"form-control-label required\" for=\"user_email\">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control form-control-danger\" id=\"user_email\" name=\"user[email]\" type=\"text\" /><span class=\"form-control-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
-      assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+      expected = %{<form accept-charset=\"UTF-8\" action=\"/users\" method=\"post\" role=\"form\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><div class=\"form-group has-danger\"><label class=\"form-control-label required\">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label><input class=\"form-control form-control-danger\" name=\"user[email]\" type=\"text\" /><span class=\"form-control-feedback\">can&#39;t be blank, is too short (minimum is 5 characters)</span></div></form>}
+      assert_equivalent_xml expected, bootstrap_form_with(model: @user, local: true, label_errors: true, inline_errors: true) { |f| f.text_field :email }
 
       I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
     end
