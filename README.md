@@ -70,9 +70,8 @@ This generates:
   </div>
   <div class="form-check">
     <label class="form-check-label">
-      <input name="user[remember_me]" type="hidden" value="0" />
-      <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember menu
-    </label>
+    <input name="user[remember_me]" type="hidden" value="0" />
+    <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
   </div>
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>
@@ -109,7 +108,7 @@ so new applications should use `bootstrap_form_with`.
 `bootstrap_form_width` basically just wraps `form_with`
 and adds some functionality,
 and so the different behaviour of `form_with`
-is refelected in `bootstrap_form_with`
+is reflected in `bootstrap_form_with`
 compared to `bootstrap_form_for`
 and `bootstrap_form_tag`.
 
@@ -125,18 +124,35 @@ When used with the builder (variable) yielded by `form_with`,
 the Rails field helpers do not generate a default DOM id.
 Because `bootstrap_form_width` just wraps and adds some functionality
 to `form_with`,
-the `bootstrap_form` field helpers also do not generate a default DOM id.
+the `bootstrap_form_with` field helpers also do not generate a default DOM id.
 This should not affect your application,
 but it might affect automated testing if you're using Capybara or similar tools,
-if you wrote actions or tests that selected on the DOM id of an element.
+and if you wrote actions or tests that selected on the DOM id of an element.
 
-There is a Rails [pull request](https://github.com/rails/rails/pull/29439)
-to enable the `skip_default_ids: false` option to reproduce
-the old default DOM id behaviour in `form_with`.
-This option will be supported by `bootstrap_form_with`
-if/when the PR is merged into Rails.
+For Rails 5.2+,
+there is a `skip_default_ids: false` option
+which will reproduce
+the old default DOM id behaviour in `form_with`
+and therefore in `bootstrap_form_with`.
 
-You can also specify the id explicitly in most cases:
+```erb
+<%= bootstrap_form_with(model: @user,
+  local: true,
+  skip_default_ids: false) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
+generates:
+
+```erb
+# FIXME:
+```
+
+For Rails 5.1+, you can specify the id explicitly in most cases:
 
 ```erb
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
@@ -161,7 +177,8 @@ generates:
     <input id="password" class="form-control" type="password" name="user[password]" />
     <span class="form-text text-muted">A good password should be at least six characters long</span>
   </div>
-  <div class="form-check"><label for="remember" class="form-check-label">
+  <div class="form-check">
+    <label for="remember" class="form-check-label">
     <input name="user[remember_me]" type="hidden" value="0" />
     <input id="remember" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
   </div>
@@ -169,9 +186,11 @@ generates:
 </form>
 ```
 
-The current exception to specifying an id are for the "collection" helpers.
-Because they generate multiple elements that require multiple ids,
-you need to rely on the default id generation.
+The current exception to specifying an id are for the .
+Because the "collection" helpers
+generate multiple elements that require multiple ids,
+you can't use the approach of specifying the ID explicitly.
+You need to rely on the default id generation.
 
 Another result of the lack of default DOM ids
 is that text fields AND OTHERS TBD
@@ -180,7 +199,7 @@ This should not affect your application,
 but it might affect automated testing using Capybara or similar tools,
 if you wrote actions or tests that selected on the DOM id of an element.
 
-##### User `fields` Instead Of `fields_for` In Nested Forms
+##### Use `fields` Instead Of `fields_for` In Nested Forms
 For nested forms, use `fields` instead of `fields_for`.
 
 ##### No Default Classes
@@ -230,7 +249,7 @@ This generates the following HTML:
 
 ### Nested Forms
 
-In order to active [nested_form](https://github.com/ryanb/nested_form) support,
+In order to activate [nested_form](https://github.com/ryanb/nested_form) support,
 use `bootstrap_nested_form_for` instead of `bootstrap_form_for`.
 
 ### bootstrap_form_tag

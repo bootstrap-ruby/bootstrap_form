@@ -218,5 +218,21 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
     end
     # End of the tests that mirror `bootstrap_form_test`.
+
+    if ::Rails::VERSION::STRING >= '5.2'
+      test "form_with and skip_default_ids false" do
+        expected = <<-HTML.strip_heredoc
+        <div class="form-group">
+          <label class="form-control-label required" for="email">Email</label>
+          <input id="email" class="form-control" type="email" value="steve@example.com" name="user[email]" />
+        </div>
+        HTML
+
+        actual = bootstrap_form_with(model: @user, local: true, skip_default_ids: false)
+                 .email_field(:email)
+
+        assert_equivalent_xml expected, actual
+      end
+    end
   end
 end

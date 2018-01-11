@@ -50,7 +50,15 @@ if ::Rails::VERSION::STRING >= '5.1'
         end
       end
 
-      expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label">Street</label><input class="form-control" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
+      expected = <<-HTML.strip_heredoc
+        <form accept-charset="UTF-8" action="/users" method="post" role="form">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <div class="form-group">
+            <label class="form-control-label">Street</label>
+            <input class="form-control" name="user[address_attributes][street]" type="text" value="123 Main Street" />
+          </div>
+        </form>
+      HTML
       assert_equivalent_xml expected, output
 
       output = bootstrap_form_with(model: @user, local: true) do |f|
