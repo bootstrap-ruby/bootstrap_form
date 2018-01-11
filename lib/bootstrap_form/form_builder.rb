@@ -118,7 +118,6 @@ module BootstrapForm
       if options[:custom]
         validation = nil
         validation = "is-invalid" if has_error?(name)
-        validation = "is-valid" if is_valid?(name)
         check_box_options[:class] = ["custom-control-input", validation, check_box_options[:class]].compact.join(' ')
       else
         check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
@@ -309,10 +308,6 @@ module BootstrapForm
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
     end
 
-    def is_valid?(name)
-      object.respond_to?(:errors) && object.respond_to?(:changed?) && object.respond_to?(:new_record?) && object.changed? && !object.errors.empty? && object.new_record? && !has_error?(name)
-    end
-
     def required_attribute?(obj, attribute)
 
       return false unless obj and attribute
@@ -345,7 +340,6 @@ module BootstrapForm
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
       css_options[:class] << " is-invalid" if has_error?(method)
-      css_options[:class] << " is-valid" if is_valid?(method)
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
