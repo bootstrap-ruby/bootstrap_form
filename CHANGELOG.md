@@ -8,7 +8,6 @@ Bugfixes:
 
 Features:
   - Your contribution here!
-  - is-valid will be applied to validated form field (i.e. not on unchanged or new records)
   - new `custom: true` option for radio buttons and check boxes according to bootstrap 4.0.0.beta3
   * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
 
