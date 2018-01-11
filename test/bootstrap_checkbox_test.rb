@@ -140,5 +140,23 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, lambda { |a| "address_#{a.id}" }, :street, checked: collection)
   end
 
+  test "check_box is wrapped correctly with custom option set" do
+    expected = %{<div class="custom-control custom-checkbox"><input name="user[terms]" type="hidden" value="0" /><input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /><label class="custom-control-label" for="user_terms">I agree to the terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true})
+  end
 
+  test "check_box is wrapped correctly with custom and inline options set" do
+    expected = %{<div class="custom-control custom-checkbox custom-control-inline"><input name="user[terms]" type="hidden" value="0" /><input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" /><label class="custom-control-label" for="user_terms">I agree to the terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', inline: true, custom: true})
+  end
+
+  test "check_box is wrapped correctly with custom and disabled options set" do
+    expected = %{<div class="custom-control custom-checkbox"><input name="user[terms]" type="hidden" value="0" disabled="disabled" /><input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" disabled="disabled" value="1" /><label class="custom-control-label" for="user_terms">I agree to the terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', disabled: true, custom: true})
+  end
+
+  test "check_box is wrapped correctly with custom, inline and disabled options set" do
+    expected = %{<div class="custom-control custom-checkbox custom-control-inline"><input name="user[terms]" type="hidden" value="0" disabled="disabled" /><input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" /><label class="custom-control-label" for="user_terms">I agree to the terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', inline: true, disabled: true, custom: true})
+  end
 end
