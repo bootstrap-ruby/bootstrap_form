@@ -125,34 +125,11 @@ the Rails field helpers do not generate a default DOM id.
 Because `bootstrap_form_width` just wraps and adds some functionality
 to `form_with`,
 the `bootstrap_form_with` field helpers also do not generate a default DOM id.
-This should not affect your application,
-but it might affect automated testing if you're using Capybara or similar tools,
-and if you wrote actions or tests that selected on the DOM id of an element.
+This affect how labels work in your application,
+and may affect automated testing if you're using Capybara or similar tools,
+and you wrote actions or tests that selected on the DOM id of an element.
 
-For Rails 5.2+,
-there is a `skip_default_ids: false` option
-which will reproduce
-the old default DOM id behaviour in `form_with`
-and therefore in `bootstrap_form_with`.
-
-```erb
-<%= bootstrap_form_with(model: @user,
-  local: true,
-  skip_default_ids: false) do |f| %>
-  <%= f.email_field :email %>
-  <%= f.password_field :password %>
-  <%= f.check_box :remember_me %>
-  <%= f.submit "Log In" %>
-<% end %>
-```
-
-generates:
-
-```erb
-# FIXME:
-```
-
-For Rails 5.1+, you can specify the id explicitly in most cases:
+For Rails 5.1, you can specify the id explicitly in most cases:
 
 ```erb
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
@@ -185,19 +162,6 @@ generates:
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>
 ```
-
-The current exception to specifying an id are for the .
-Because the "collection" helpers
-generate multiple elements that require multiple ids,
-you can't use the approach of specifying the ID explicitly.
-You need to rely on the default id generation.
-
-Another result of the lack of default DOM ids
-is that text fields AND OTHERS TBD
-are no longer linked to their label.
-This should not affect your application,
-but it might affect automated testing using Capybara or similar tools,
-if you wrote actions or tests that selected on the DOM id of an element.
 
 ##### Use `fields` Instead Of `fields_for` In Nested Forms
 For nested forms, use `fields` instead of `fields_for`.
@@ -262,6 +226,14 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
   <%= f.submit %>
 <% end %>
 ```
+
+### Future Compatibility
+
+The Rails team has suggested that `form_for` and `form_tag`
+may be deprecated and then removed in future versions of Rails.
+`bootstrap_form` will continue to support
+`bootstrap_form_for` and `bootstrap_form_tag`
+as long as Rails supports `form_for` and `form_tag`.
 
 ## Form Helpers
 
