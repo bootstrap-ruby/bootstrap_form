@@ -1,0 +1,13 @@
+source "http://rubygems.org"
+
+gemspec path: "../../"
+
+gem "rails", "~> 5.2.0.beta2"
+
+group :test do
+  gem "diffy"
+  gem "equivalent-xml"
+  gem "mocha"
+  gem "sqlite3"
+  gem "timecop", "~> 0.7.1"
+end
