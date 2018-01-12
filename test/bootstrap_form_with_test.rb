@@ -1,3 +1,7 @@
+# The following allows us to test this file individually with:
+# 'bundle exec rake test TEST=test/bootstrap_form_with_test.rb'
+require 'rails'
+
 # Tests for `form_with`.
 # Do all the tests for `bootstrap_form_for` and `bootstrap_form_tag`, but with
 # `bootstrap_form_with`.
@@ -181,7 +185,13 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.email = nil
       @user.valid?
       expected = <<-HTML.strip_heredoc
-        <div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>
+        <div class="alert alert-danger">
+          <p>Please fix the following errors:</p>
+          <ul class="rails-bootstrap-forms-error-summary">
+            <li>Email can&#39;t be blank</li>
+            <li>Email is too short (minimum is 5 characters)</li>
+            <li>Terms must be accepted</li>
+          </ul>
         </div>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @builder.alert_message('Please fix the following errors:')
@@ -191,7 +201,13 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.email = nil
       @user.valid?
       expected = <<-HTML.strip_heredoc
-        <div class="my-css-class"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>
+        <div class="my-css-class">
+          <p>Please fix the following errors:</p>
+          <ul class="rails-bootstrap-forms-error-summary">
+            <li>Email can&#39;t be blank</li>
+            <li>Email is too short (minimum is 5 characters)</li>
+            <li>Terms must be accepted</li>
+          </ul>
         </div>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @builder.alert_message('Please fix the following errors:', class: 'my-css-class')
@@ -208,7 +224,13 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>
+          <div class="alert alert-danger">
+            <p>Please fix the following errors:</p>
+            <ul class="rails-bootstrap-forms-error-summary">
+              <li>Email can&#39;t be blank</li>
+              <li>Email is too short (minimum is 5 characters)</li>
+              <li>Terms must be accepted</li>
+            </ul>
           </div>
         </form>
       HTML
@@ -245,7 +267,13 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="alert alert-danger"><p>Please fix the following errors:</p><ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>
+          <div class="alert alert-danger">
+            <p>Please fix the following errors:</p>
+            <ul class="rails-bootstrap-forms-error-summary">
+              <li>Email can&#39;t be blank</li>
+              <li>Email is too short (minimum is 5 characters)</li>
+              <li>Terms must be accepted</li>
+            </ul>
           </div>
         </form>
       HTML
@@ -257,7 +285,11 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.valid?
 
       expected = <<-HTML.strip_heredoc
-        <ul class="rails-bootstrap-forms-error-summary"><li>Email can&#39;t be blank</li><li>Email is too short (minimum is 5 characters)</li><li>Terms must be accepted</li></ul>
+        <ul class="rails-bootstrap-forms-error-summary">
+          <li>Email can&#39;t be blank</li>
+          <li>Email is too short (minimum is 5 characters)</li>
+          <li>Terms must be accepted</li>
+        </ul>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @builder.error_summary
     end
@@ -341,8 +373,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       @user.email = nil
       @user.valid?
 
-      # Simulate how the builder would be called from `form_with`.
-      output = form_with(model: @user, builder: BootstrapForm::FormBuilder, skip_default_ids: true) do |f|
+      output = form_with(model: @user, builder: BootstrapForm::FormBuilder) do |f|
         f.text_field(:email, help: 'This is required')
       end
 
@@ -360,6 +391,7 @@ if ::Rails::VERSION::STRING >= '5.1'
           </div>
         </form>
         HTML
+      # puts "Rails: #{ActionView::Helpers::FormBuilder.new(:user, @user, self, skip_default_ids: true).label(:email)}"
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), output
     end
 
