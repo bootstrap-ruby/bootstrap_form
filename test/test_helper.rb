@@ -17,7 +17,11 @@ class ActionView::TestCase
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     # Simulate how the builder would be called from `form_with`.
-    @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { skip_default_ids: true })
+    if '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'
+      @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { skip_default_ids: true })
+    else
+      @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
+    end
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {
       layout:       :horizontal,
       label_col:    "col-sm-2",
