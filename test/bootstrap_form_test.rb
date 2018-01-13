@@ -133,25 +133,27 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "label error messages use humanized attribute names" do
-    I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: 'Your e-mail address'}}}})
+    begin
+      I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: 'Your e-mail address'}}}})
 
-    @user.email = nil
-    @user.valid?
+      @user.email = nil
+      @user.valid?
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
-          <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
-          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-        </div>
-      </form>
-    HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+      expected = <<-HTML.strip_heredoc
+        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <div class="form-group">
+            <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          </div>
+        </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
 
-  ensure
-    I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
+    ensure
+      I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
+    end
   end
 
   test "alert message is wrapped correctly" do
@@ -389,26 +391,27 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help translations do not escape HTML when _html is appended to the name" do
-    I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: "This is <strong>useful</strong> help"}}}})
+    begin
+      I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: "This is <strong>useful</strong> help"}}}})
 
-    output = bootstrap_form_for(@user) do |f|
-      f.text_field(:email)
+      output = bootstrap_form_for(@user) do |f|
+        f.text_field(:email)
+      end
+
+      expected = <<-HTML.strip_heredoc
+        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+          <div class="form-group">
+            <label class="required" for="user_email">Email</label>
+            <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+            <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+          </div>
+        </form>
+      HTML
+      assert_equivalent_xml expected, output
+    ensure
+      I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
     end
-
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
-          <label class="required" for="user_email">Email</label>
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
-        </div>
-      </form>
-    HTML
-    assert_equivalent_xml expected, output
-
-  ensure
-    I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
   end
 
   test "allows the form object to be nil" do
