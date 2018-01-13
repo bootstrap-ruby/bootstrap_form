@@ -1,8 +1,8 @@
-lib = File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require "bootstrap_form/version"
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "bootstrap_form"
   s.version     = BootstrapForm::VERSION
@@ -16,17 +16,13 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   s.files = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+    f.match(%r{^(test)/})
   end
-  s.bindir = "exe"
 
-  s.add_development_dependency "appraisal"
-  s.add_development_dependency "diffy"
-  s.add_development_dependency "equivalent-xml"
-  s.add_development_dependency "mime-types", "~> 2.6.2"
-  s.add_development_dependency "mocha"
-  s.add_development_dependency "nokogiri"
-  s.add_development_dependency "rails", ">= 4.0"
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "timecop", "~> 0.7.1"
+  s.bindir        = "exe"
+  s.require_paths = ["lib"]
+
+  s.required_ruby_version = ">= 2.2.2"
+
+  s.add_dependency "rails", ">= 5.0"
 end

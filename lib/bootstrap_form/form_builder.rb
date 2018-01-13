@@ -478,6 +478,11 @@ module BootstrapForm
                         warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
                         text
                       end
+        help_text ||= I18n.t("#{name}_html", scope: underscored_scope, default: '').html_safe.presence
+        help_text ||= if text = I18n.t("#{name}_html", scope: downcased_scope, default: '').html_safe.presence
+                        warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
+                        text
+                      end
         help_text
       end
     end

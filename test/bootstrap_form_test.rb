@@ -197,6 +197,19 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  test "help translations do not escape HTML when _html is appended to the name" do
+     I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: "This is <strong>useful</strong> help"}}}})
+
+    output = bootstrap_form_for(@user) do |f|
+      f.text_field(:email)
+    end
+
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><input name="utf8" type="hidden" value="&#x2713;" /><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="form-text text-muted">This is <strong>useful</strong> help</span></div></form>}
+    assert_equivalent_xml expected, output
+
+     I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
+  end
+
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = %{<div class="form-group"><label class="" for="other_model_email">Email</label><input class="form-control" id="other_model_email" name="other_model[email]" type="text" /></div>}
