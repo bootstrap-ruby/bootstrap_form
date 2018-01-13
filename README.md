@@ -477,6 +477,19 @@ The `layout` can be overridden per field:
 <% end %>
 ```
 
+### Custom Form Element Styles
+
+The `custom` option can be used to replace the browser default styles for check boxes and radio buttons with dedicated Bootstrap styled form elements. Here's an example:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me, custom: true %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
 ## Validation & Errors
 
 ### Inline Errors
@@ -488,8 +501,8 @@ div (field_with_errors), but this behavior is suppressed. Here's an example:
 ```html
 <div class="form-group has-danger">
   <label class="form-control-label" for="user_email">Email</label>
-  <input class="form-control" id="user_email" name="user[email]" type="email" value="">
-  <span class="form-control-feedback">can't be blank</span>
+  <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
+  <small class="invalid-feedback">can't be blank</small>
 </div>
 ```
 
