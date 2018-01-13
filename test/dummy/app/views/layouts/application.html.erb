@@ -15,10 +15,12 @@
         border: .2rem solid #f7f7f9;
         margin-bottom: 3em;
       }
+      form {
+        margin-bottom: 1.5em;
+      }
       .CodeMirror {
         border: 1px solid #eee;
         height: auto;
-        margin-top: 1.5em;
       }
     </style>
 
@@ -41,14 +43,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/xml/xml.min.js"></script>
 
     <script type="text/javascript">
-      $('textarea.codemirror').each(function(i, element){
-        CodeMirror.fromTextArea(element, {
+      $(document).on("click", "button.toggle", function(){
+        var example = $(this).parent(".example");
+        $(this).hide();
+        $(".code", example).show()
+        CodeMirror.fromTextArea($("textarea.codemirror", example)[0], {
           mode:           "htmlmixed",
           tabSize:        2,
           lineNumbers:    true,
           viewportMargin: Infinity
         })
-      })
+      });
     </script>
   </body>
 </html>
