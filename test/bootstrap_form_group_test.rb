@@ -8,7 +8,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "changing the label text via the label option parameter" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email Address</label>
+        <label class="required" for="user_email">Email Address</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -18,7 +18,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "changing the label text via the html_options label hash" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email Address</label>
+        <label class="required" for="user_email">Email Address</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -28,7 +28,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "hiding a label" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="sr-only form-control-label required" for="user_email">Email</label>
+        <label class="sr-only required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -38,7 +38,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label class via the label_class parameter" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="btn form-control-label required" for="user_email">Email</label>
+        <label class="btn required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -48,7 +48,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label class via the html_options label hash" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="btn form-control-label required" for="user_email">Email</label>
+        <label class="btn required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -58,7 +58,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label and changing the label text via the html_options label hash" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="btn form-control-label required" for="user_email">Email Address</label>
+        <label class="btn required" for="user_email">Email Address</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -77,7 +77,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "preventing a label from having the required class" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_email">Email</label>
+        <label class="" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -87,7 +87,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding prepend text" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">@</span>
@@ -102,7 +102,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding append text" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <div class="input-group">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <div class="input-group-append">
@@ -115,7 +115,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "append and prepend button" do
-    prefix = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><div class="input-group">}
+    prefix = %{<div class="form-group"><label class="required" for="user_email">Email</label><div class="input-group">}
     field = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
     button_prepend = %{<div class="input-group-prepend"><a class="btn btn-secondary" href="#">Click</a></div>}
     button_append = %{<div class="input-group-append"><a class="btn btn-secondary" href="#">Click</a></div>}
@@ -132,7 +132,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding both prepend and append text" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">$</div>
@@ -150,9 +150,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages for default forms" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-        <span class="form-text text-muted">This is required</span>
+        <small class="form-text text-muted">This is required</small>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, help: 'This is required')
@@ -161,10 +161,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages for horizontal forms" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <span class="form-text text-muted">This is required</span>
+          <small class="form-text text-muted">This is required</small>
         </div>
       </div>
     HTML
@@ -174,9 +174,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages to look up I18n automatically" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_password">Password</label>
+        <label class="" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
-        <span class="form-text text-muted">A good password should be at least six characters long</span>
+        <small class="form-text text-muted">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:password)
@@ -203,7 +203,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages to ignore translation when user disables help" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_password">Password</label>
+        <label class="" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
       </div>
     HTML
@@ -217,7 +217,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="form-control-label col-sm-2" for="user_nil">Foo</label>
+        <label class="col-sm-2" for="user_nil">Foo</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
@@ -248,7 +248,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="form-control-label col-sm-2 required" for="user_email">Custom Control</label>
+        <label class="col-sm-2 required" for="user_email">Custom Control</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
@@ -294,7 +294,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="foo form-control-label col-sm-2" for="bar">Custom Control</label>
+        <label class="foo col-sm-2" for="bar">Custom Control</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
@@ -312,9 +312,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group has-danger">
+      <div class="form-group">
         <p class="form-control-static">Bar</p>
-        <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -323,7 +323,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adds class to wrapped form_group by a field" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group none-margin">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
@@ -335,14 +335,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
     @user.valid?
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group none-margin has-danger">
+      <div class="form-group none-margin">
         <div class="field_with_errors">
-          <label class="form-control-label required" for="user_email">Email</label>
+          <label class="required" for="user_email">Email</label>
         </div>
         <div class="field_with_errors">
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="email" />
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" />
         </div>
-        <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.email_field(:email, wrapper_class: 'none-margin')
@@ -359,10 +359,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group none-margin has-danger">
-          <label class="form-control-label required" for="user_email">Email</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-          <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="form-group none-margin">
+          <label class="required" for="user_email">Email</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
@@ -402,9 +402,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding an icon to a field" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group has-feedback">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="email" />
-        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        <span class="glyphicon glyphicon-ok invalid-feedback"></span>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.email_field(:misc, icon: 'ok')
@@ -423,7 +423,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="col-sm-10 col-sm-offset-2">Hallo</div>
       </div>
       <div class="form-group row">
-        <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+        <label class=" col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -435,7 +435,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adds data-attributes (or any other options) to wrapper" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group" data-foo="bar">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
@@ -445,7 +445,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "passing options to a form control get passed through" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -459,7 +459,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_nil">Foo</label>
+        <label class="" for="user_nil">Foo</label>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -470,7 +470,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label required" for="user_email">Email</label>
+          <label class="required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
@@ -505,7 +505,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test ":input_group_class should apply to input-group" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <div class="input-group input-group-lg">
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           <div class="input-group-append">

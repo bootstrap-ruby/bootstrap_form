@@ -28,7 +28,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -43,7 +43,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -67,7 +67,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="email">Your Email</label>
+          <label class="" for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
         </div>
       </form>
@@ -80,7 +80,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="ID">Email</label>
+          <label class="" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
         </div>
       </form>
@@ -106,9 +106,9 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
-          <label class="form-control-label required" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
+        <div class="form-group">
+          <label class="required" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
         </div>
       </form>
     HTML
@@ -122,10 +122,10 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
-          <label class="form-control-label required" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-          <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="form-group">
+          <label class="required" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
       </form>
     HTML
@@ -141,15 +141,16 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
-          <label class="form-control-label required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-          <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="form-group">
+          <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
 
+  ensure
     I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
   end
 
@@ -281,7 +282,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-1 required" for="user_email">Email</label>
+          <label class="col-sm-1 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -310,7 +311,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-5">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -331,10 +332,10 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
-          <label class="form-control-label required" for="user_email">Email</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-          <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+        <div class="form-group">
+          <label class="required" for="user_email">Email</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
@@ -352,14 +353,14 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
+        <div class="form-group">
           <div class="field_with_errors">
-            <label class="form-control-label required" for="user_email">Email</label>
+            <label class="required" for="user_email">Email</label>
           </div>
           <div class="field_with_errors">
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
-          <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
       </form>
     HTML
@@ -377,21 +378,44 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group has-danger">
-          <label class="form-control-label required" for="user_email">Email</label>
-          <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-          <span class="form-text text-muted">This is required</span>
+        <div class="form-group">
+          <label class="required" for="user_email">Email</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <small class="form-text text-muted">This is required</small>
         </div>
       </form>
     HTML
     assert_equivalent_xml expected, output
   end
 
+  test "help translations do not escape HTML when _html is appended to the name" do
+    I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: "This is <strong>useful</strong> help"}}}})
+
+    output = bootstrap_form_for(@user) do |f|
+      f.text_field(:email)
+    end
+
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, output
+
+  ensure
+    I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
+  end
+
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="other_model_email">Email</label>
+        <label class="" for="other_model_email">Email</label>
         <input class="form-control" id="other_model_email" name="other_model[email]" type="text" />
       </div>
     HTML

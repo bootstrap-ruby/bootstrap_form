@@ -75,14 +75,14 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a radio button collection</label>
+        <label class="" for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
             Foobar
           </label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -93,7 +93,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
@@ -114,7 +114,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <label class="radio-inline" for="user_misc_1">
           <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
         </label>
@@ -131,7 +131,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
@@ -152,13 +152,13 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a radio button collection</label>
+        <label class="" for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF
           </label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -169,13 +169,13 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a radio button collection</label>
+        <label class="" for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar
           </label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -186,7 +186,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> ooF
@@ -207,7 +207,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foo
@@ -228,13 +228,13 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a radio button collection</label>
+        <label class="" for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF
           </label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -245,13 +245,13 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a radio button collection</label>
+        <label class="" for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar
           </label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -262,7 +262,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> ooF
@@ -283,7 +283,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label class="" for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foo
@@ -298,6 +298,25 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, lambda { |a| "address_#{a.id}" }, :street)
+  end
+
+  test "radio_button is wrapped correctly with custom option set" do
+    expected = %{<div class="custom-control custom-radio"><input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" /><label class="custom-control-label" for="user_misc_1">This is a radio button</label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true})
+  end
+
+  test "radio_button is wrapped correctly with custom and inline options set" do
+    expected = %{<div class="custom-control custom-radio custom-control-inline"><input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" /><label class="custom-control-label" for="user_misc_1">This is a radio button</label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', inline: true, custom: true})
+  end
+
+  test "radio_button is wrapped correctly with custom and disabled options set" do
+    expected = %{<div class="custom-control custom-radio"><input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" disabled="disabled"/><label class="custom-control-label" for="user_misc_1">This is a radio button</label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', disabled: true, custom: true})
+  end
+  test "radio_button is wrapped correctly with custom, inline and disabled options set" do
+    expected = %{<div class="custom-control custom-radio custom-control-inline"><input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" disabled="disabled"/><label class="custom-control-label" for="user_misc_1">This is a radio button</label></div>}
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', inline: true, disabled: true, custom: true})
   end
 
 end

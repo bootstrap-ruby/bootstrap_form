@@ -198,6 +198,16 @@ en:
         password: "A good password should be at least six characters long"
 ```
 
+Help translations containing HTML should follow the convention of appending `_html` to the name:
+
+```yml
+en:
+  activerecord:
+    help:
+      user:
+        password_html: "A <strong>good</strong> password should be at least six characters long"
+``` 
+
 If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
 
@@ -269,7 +279,7 @@ You still can use `wrapper_class` option to set only a css class. This is just a
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
 
 ```erb
-<%= f.select :product, [[1, "Apple"], [2, "Grape"]], { label: "Choose your favorite fruit:" }, { class: "selectpicker" } %>
+<%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:" }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
 ```
 
 ### Checkboxes and Radios
@@ -467,6 +477,19 @@ The `layout` can be overridden per field:
 <% end %>
 ```
 
+### Custom Form Element Styles
+
+The `custom` option can be used to replace the browser default styles for check boxes and radio buttons with dedicated Bootstrap styled form elements. Here's an example:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me, custom: true %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
 ## Validation & Errors
 
 ### Inline Errors
@@ -478,8 +501,8 @@ div (field_with_errors), but this behavior is suppressed. Here's an example:
 ```html
 <div class="form-group has-danger">
   <label class="form-control-label" for="user_email">Email</label>
-  <input class="form-control" id="user_email" name="user[email]" type="email" value="">
-  <span class="form-control-feedback">can't be blank</span>
+  <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
+  <small class="invalid-feedback">can't be blank</small>
 </div>
 ```
 
