@@ -5,6 +5,7 @@ gemspec path: "../../"
 gem "rails", "~> 5.1.0"
 
 group :test do
+  gem "minitest", "~> 5.10.3"
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
