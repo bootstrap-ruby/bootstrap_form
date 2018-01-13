@@ -57,9 +57,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <label class="" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
-
           <option value="1">activated</option>
-
           <option value="2">blocked</option>
         </select>
       </div>
