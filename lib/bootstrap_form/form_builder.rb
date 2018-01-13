@@ -149,7 +149,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           checkbox_html.concat(label(label_name, html, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
@@ -185,7 +185,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           radio_html.concat(label(name, html, value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         if options[:inline]
           label_class = " #{label_class}" if label_class
           label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
@@ -239,7 +239,6 @@ module BootstrapForm
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
-        control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -428,10 +427,6 @@ module BootstrapForm
       help_tag ||= :small
 
       content_tag(help_tag, help_text, class: help_klass) if help_text.present?
-    end
-
-    def generate_icon(icon)
-      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} invalid-feedback")
     end
 
     def get_error_messages(name)
