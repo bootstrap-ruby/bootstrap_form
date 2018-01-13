@@ -204,7 +204,7 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email)
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><input name="utf8" type="hidden" value="&#x2713;" /><div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><span class="form-text text-muted">This is <strong>useful</strong> help</span></div></form>}
+    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><input name="utf8" type="hidden" value="&#x2713;" /><div class="form-group"><label class="required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /><small class="form-text text-muted">This is <strong>useful</strong> help</small></div></form>}
     assert_equivalent_xml expected, output
 
      I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
