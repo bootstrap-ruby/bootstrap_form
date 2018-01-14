@@ -4,7 +4,8 @@ Bugfixes:
   - Your contribution here!
   - form-control-danger is replaced with is-invalid for bootstrap 4.0.0.beta3
   - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta3
-  - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta3 
+  - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta3
+  - removing support for `nested_form` gem
 
 Features:
   - Your contribution here!

@@ -73,11 +73,6 @@ This generates the following HTML:
 </form>
 ```
 
-### Nested Forms
-
-In order to active [nested_form](https://github.com/ryanb/nested_form) support,
-use `bootstrap_nested_form_for` instead of `bootstrap_form_for`.
-
 ### bootstrap_form_tag
 
 If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of this helper is the same as `bootstrap_form_for`, except no model object is passed in as the first argument. Here's an example:
@@ -206,7 +201,7 @@ en:
     help:
       user:
         password_html: "A <strong>good</strong> password should be at least six characters long"
-``` 
+```
 
 If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
