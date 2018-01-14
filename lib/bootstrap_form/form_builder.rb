@@ -149,7 +149,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           checkbox_html.concat(label(label_name, html, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
@@ -185,7 +185,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           radio_html.concat(label(name, html, value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         if options[:inline]
           label_class = " #{label_class}" if label_class
           label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
@@ -216,16 +216,6 @@ module BootstrapForm
     end
 
     bootstrap_method_alias :collection_radio_buttons
-
-    def check_boxes_collection(*args)
-      warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
-      collection_check_boxes(*args)
-    end
-
-    def radio_buttons_collection(*args)
-      warn "'BootstrapForm#radio_buttons_collection' is deprecated, use 'BootstrapForm#collection_radio_buttons' instead"
-      collection_radio_buttons(*args)
-    end
 
     def form_group(*args, &block)
       options = args.extract_options!
