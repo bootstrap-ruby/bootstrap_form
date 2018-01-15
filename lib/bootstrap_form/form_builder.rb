@@ -61,7 +61,8 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
-      form_group_builder(name, options.reverse_merge(control_class: nil)) do
+      options = options.reverse_merge(control_class: 'form-control-file')
+      form_group_builder(name, options) do
         file_field_without_bootstrap(name, options)
       end
     end
