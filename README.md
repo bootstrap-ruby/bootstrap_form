@@ -26,17 +26,9 @@ gem "bootstrap_form",
     branch: "master"
 ```
 
-Then:
+Then run:
 
-`bundle`
-
-Then require the CSS in your `application.css` file:
-
-```css
-/*
- *= require rails_bootstrap_forms
- */
-```
+`bundle install`
 
 ## Usage
 
@@ -206,7 +198,7 @@ en:
     help:
       user:
         password_html: "A <strong>good</strong> password should be at least six characters long"
-``` 
+```
 
 If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
