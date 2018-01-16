@@ -98,23 +98,21 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: 'Before', append: 'After')
   end
 
-  if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
-    test "selects with block use block as content" do
-      expected = <<-HTML.strip_heredoc
-        <div class="form-group">
-          <label class="" for="user_status">Status</label>
-          <select class="form-control" name="user[status]" id="user_status">
-            <option>Option 1</option>
-            <option>Option 2</option>
-          </select>
-        </div>
-      HTML
-      select = @builder.select(:status) do
-        content_tag(:option) { 'Option 1' } +
-        content_tag(:option) { 'Option 2' }
-      end
-      assert_equivalent_xml expected, select
+  test "selects with block use block as content" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_status">Status</label>
+        <select class="form-control" name="user[status]" id="user_status">
+          <option>Option 1</option>
+          <option>Option 2</option>
+        </select>
+      </div>
+    HTML
+    select = @builder.select(:status) do
+      content_tag(:option) { 'Option 1' } +
+      content_tag(:option) { 'Option 2' }
     end
+    assert_equivalent_xml expected, select
   end
 
   test "selects render labels properly" do
