@@ -430,7 +430,8 @@ module BootstrapForm
         classes << "required" if required_attribute?(object, name)
       end
 
-      options[:class] = classes.compact.join(" ")
+      options[:class] = classes.compact.join(" ").strip
+      options.delete(:class) if options[:class].empty?
 
       if label_errors && has_error?(name)
         error_messages = get_error_messages(name)
