@@ -83,7 +83,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group">
-            <label class="form-control-label" for="email">Your Email</label>
+            <label for="email">Your Email</label>
             <input class="form-control" id="email" name="email" type="text" />
           </div>
         </form>
@@ -98,7 +98,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group">
-            <label class="form-control-label" for="ID">Email</label>
+            <label for="ID">Email</label>
             <input class="form-control" id="ID" name="NAME" type="text" />
           </div>
         </form>
@@ -422,7 +422,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       builder = BootstrapForm::FormBuilder.new :other_model, nil, self, { skip_default_ids: true }
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label">Email</label>
+          <label>Email</label>
           <input class="form-control" name="other_model[email]" type="text" />
         </div>
       HTML

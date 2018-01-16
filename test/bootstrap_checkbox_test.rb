@@ -121,7 +121,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">This is a checkbox collection</label>
+        <label for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -140,7 +140,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -164,7 +164,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <label class="form-check-inline" for="user_misc_1">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           Foo
@@ -184,7 +184,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -209,7 +209,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -234,7 +234,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_foo_st">
             <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
@@ -251,7 +251,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -275,7 +275,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_address_1">
             <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -298,7 +298,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
             <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -322,7 +322,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_address_1">
             <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -346,7 +346,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_address_1">
             <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -371,7 +371,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_address_1">
             <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />

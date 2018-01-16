@@ -19,11 +19,11 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label required" for="email">Email</label>
+          <label class="required" for="email">Email</label>
           <input id="email" class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
-          <label class="form-control-label" for="password">Password</label>
+          <label for="password">Password</label>
           <input id="password" class="form-control" type="password" name="user[password]" />
           <span class="form-text text-muted">A good password should be at least six characters long</span>
         </div>
@@ -53,11 +53,11 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label required">Email</label>
+          <label class="required">Email</label>
           <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
-          <label class="form-control-label">Password</label>
+          <label>Password</label>
           <input class="form-control" type="password" name="user[password]" />
           <span class="form-text text-muted">A good password should be at least six characters long</span>
         </div>
@@ -85,7 +85,7 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/subscribe" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label">Email</label>
+          <label>Email</label>
           <input value="name@example.com" class="form-control" type="email" name="email" />
         </div>
         <input type="submit" name="commit" value="Save " class="btn btn-secondary" data-disable-with="Save " />
@@ -105,11 +105,11 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label required">Email</label>
+          <label class="required">Email</label>
           <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
-          <label class="form-control-label" for="password">Password</label>
+          <label for="password">Password</label>
           <input id="password" class="form-control" type="password" name="user[password]" />
           <span class="form-text text-muted">A good password should be at least six characters long</span>
         </div>

@@ -18,7 +18,7 @@ if ::Rails::VERSION::STRING >= '5.1'
     test "form_with text areas are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label" for="user_comments">Comments</label>
+          <label for="user_comments">Comments</label>
           <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
         </div>
       HTML
@@ -27,7 +27,7 @@ if ::Rails::VERSION::STRING >= '5.1'
 
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label" for="TEST_ID">Comments</label>
+          <label for="TEST_ID">Comments</label>
           <textarea class="form-control" id="TEST_ID" name="user[comments]">\nmy comment</textarea>
         </div>
       HTML
@@ -37,7 +37,7 @@ if ::Rails::VERSION::STRING >= '5.1'
     test "form_with password fields are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label" for="user_password">Password</label>
+          <label for="user_password">Password</label>
           <input class="form-control" id="user_password" name="user[password]" type="password" />
           <span class="form-text text-muted">A good password should be at least six characters long</span>
         </div>
@@ -45,7 +45,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @form_with_builder.password_field(:password)
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label" for="TEST_ID">Password</label>
+          <label for="TEST_ID">Password</label>
           <input class="form-control" id="TEST_ID" name="user[password]" type="password" />
           <span class="form-text text-muted">A good password should be at least six characters long</span>
         </div>
@@ -56,14 +56,14 @@ if ::Rails::VERSION::STRING >= '5.1'
     test "form_with file fields are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <input id="user_misc" name="user[misc]" type="file" />
       </div>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @form_with_builder.file_field(:misc)
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label" for="TEST_ID">Misc</label>
+          <label for="TEST_ID">Misc</label>
           <input id="TEST_ID" name="user[misc]" type="file" />
         </div>
       HTML
@@ -73,14 +73,14 @@ if ::Rails::VERSION::STRING >= '5.1'
     test "form_with text fields are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="form-control-label required" for="user_email">Email</label>
+        <label class="required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @form_with_builder.text_field(:email)
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="form-control-label required" for="TEST_ID">Email</label>
+          <label class="required" for="TEST_ID">Email</label>
           <input class="form-control" id="TEST_ID" name="user[email]" type="text" value="steve@example.com" />
         </div>
       HTML
@@ -100,7 +100,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="user_address_attributes_street">Street</label>
+          <label for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
       </form>
@@ -117,7 +117,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group">
-            <label class="form-control-label" for="TEST_ID">Street</label>
+            <label for="TEST_ID">Street</label>
             <input class="form-control" id="TEST_ID" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>
         </form>
@@ -138,7 +138,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="user_preferences_favorite_color">Favorite color</label>
+          <label for="user_preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" />
         </div>
       </form>
@@ -155,7 +155,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group">
-            <label class="form-control-label" for="TEST_ID">Favorite color</label>
+            <label for="TEST_ID">Favorite color</label>
             <input class="form-control" id="TEST_ID" name="user[preferences][favorite_color]" type="text" value="cerulean" />
           </div>
         </form>
@@ -176,7 +176,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-2" for="user_address_attributes_street">Street</label>
+          <label class="col-sm-2" for="user_address_attributes_street">Street</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>
@@ -195,7 +195,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="form-control-label col-sm-2" for="TEST_ID">Street</label>
+          <label class="col-sm-2" for="TEST_ID">Street</label>
           <div class="col-sm-10">
             <input class="form-control" id="TEST_ID" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>
@@ -218,7 +218,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" class="form-inline" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="user_address_attributes_street">Street</label>
+          <label for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
       </form>
@@ -235,7 +235,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       <form accept-charset="UTF-8" action="/users" class="form-inline" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="form-control-label" for="TEST_ID">Street</label>
+          <label for="TEST_ID">Street</label>
           <input class="form-control" id="TEST_ID" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
       </form>
