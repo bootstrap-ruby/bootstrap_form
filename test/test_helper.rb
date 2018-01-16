@@ -6,7 +6,7 @@ require 'mocha/mini_test'
 
 ENV["RAILS_ENV"] = "test"
 
-require_relative "./dummy/config/environment.rb"
+require_relative "../demo/config/environment.rb"
 require "rails/test_help"
 
 Rails.backtrace_cleaner.remove_silencers!
