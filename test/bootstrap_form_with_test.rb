@@ -42,7 +42,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group row">
-            <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+            <label class="col-sm-2 required" for="user_email">Email</label>
             <div class="col-sm-10">
               <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
             </div>
@@ -57,7 +57,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" class="my-style" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group row">
-            <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+            <label class="col-sm-2 required" for="user_email">Email</label>
             <div class="col-sm-10">
               <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
             </div>
@@ -88,6 +88,7 @@ if ::Rails::VERSION::STRING >= '5.1'
           </div>
         </form>
       HTML
+      puts bootstrap_form_with(url: '/users') { |f| f.text_field :email, label: "Your Email" }
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), bootstrap_form_with(url: '/users') { |f| f.text_field :email, label: "Your Email" }
     end
 
@@ -130,11 +131,11 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
-            <label class="form-control-label required" for="user_email">
+          <div class="form-group">
+            <label class="required" for="user_email">
               Email can&#39;t be blank, is too short (minimum is 5 characters)
             </label>
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
         </form>
       HTML
@@ -148,12 +149,12 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
-            <label class="form-control-label required" for="user_email">
+          <div class="form-group">
+            <label class="required" for="user_email">
               Email can&#39;t be blank, is too short (minimum is 5 characters)
             </label>
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-            <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
       HTML
@@ -169,10 +170,10 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
-            <label class="form-control-label required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-            <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+          <div class="form-group">
+            <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
       HTML
@@ -309,7 +310,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group row">
-            <label class="form-control-label col-sm-1 required" for="user_email">Email</label>
+            <label class="col-sm-1 required" for="user_email">Email</label>
             <div class="col-sm-10">
               <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
             </div>
@@ -338,7 +339,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group row">
-            <label class="form-control-label col-sm-2 required" for="user_email">Email</label>
+            <label class="col-sm-2 required" for="user_email">Email</label>
             <div class="col-sm-5">
               <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
             </div>
@@ -359,10 +360,10 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
-            <label class="form-control-label required" for="user_email">Email</label>
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-            <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+          <div class="form-group">
+            <label class="required" for="user_email">Email</label>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
       HTML
@@ -380,14 +381,14 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
+          <div class="form-group">
             <div class="field_with_errors">
-              <label class="form-control-label required" for="user_email">Email</label>
+              <label class="required" for="user_email">Email</label>
             </div>
             <div class="field_with_errors">
-              <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
+              <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
             </div>
-            <span class="form-control-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</span>
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
         HTML
@@ -406,10 +407,10 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group has-danger">
-            <label class="form-control-label required" for="user_email">Email</label>
-            <input class="form-control form-control-danger" id="user_email" name="user[email]" type="text" />
-            <span class="form-text text-muted">This is required</span>
+          <div class="form-group">
+            <label class="required" for="user_email">Email</label>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <small class="form-text text-muted">This is required</small>
           </div>
         </form>
       HTML

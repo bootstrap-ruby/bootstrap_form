@@ -96,7 +96,7 @@ class ActionView::TestCase
   end
 
   ##
-  # Remove ids and fors on labels if running on Rails 5.1
+  # Remove ids on labels if running on Rails 5.1
   def remove_default_ids_for_rails_5_1(expected)
     return expected unless '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'
     root = Nokogiri::XML(expected)
@@ -107,7 +107,7 @@ class ActionView::TestCase
     root.traverse do |node|
       # puts("NODE: #{node}: #{node.name}")
       node.delete("id") if node.has_attribute?("id")
-      node.delete("for") if node.name.downcase == "label" && node.has_attribute?("for")
+      # node.delete("for") if node.name.downcase == "label" && node.has_attribute?("for")
     end
     root.to_s
   end

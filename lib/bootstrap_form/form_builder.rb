@@ -283,6 +283,8 @@ module BootstrapForm
 
     bootstrap_method_alias :fields_for
 
+    # TODO: Add `fields_with_bootstrap` method and alias
+
     private
 
     def horizontal?
