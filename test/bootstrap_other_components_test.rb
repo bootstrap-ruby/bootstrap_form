@@ -1,16 +1,21 @@
-require 'test_helper'
+require_relative "./test_helper"
 
 class BootstrapOtherComponentsTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
+  setup :setup_test_fixture
 
   test "static control" do
     output = @horizontal_builder.static_control :email
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10"><p class="form-control-static">steve@example.com</p></div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2 required" for="user_email">Email</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">steve@example.com</p>
+        </div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -19,7 +24,14 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2" for="user_">My Label</label><div class="col-sm-10"><p class="form-control-static">this is a test</p></div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2" for="user_">My Label</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">this is a test</p>
+        </div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -28,7 +40,14 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "Custom Control"
     end
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10"><p class="form-control-static">Custom Control</p></div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2" for="user_">Custom Label</label>
+        <div class="col-sm-10">
+          <p class="form-control-static">Custom Control</p>
+        </div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -37,7 +56,12 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2 required" for="user_email">Email</label><div class="col-sm-10">this is a test</div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2 required" for="user_email">Email</label>
+        <div class="col-sm-10">this is a test</div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -46,7 +70,12 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2" for="user_">My Label</label><div class="col-sm-10">this is a test</div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2" for="user_">My Label</label>
+        <div class="col-sm-10">this is a test</div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -55,7 +84,12 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "Custom Control"
     end
 
-    expected = %{<div class="form-group row"><label class="form-control-label col-sm-2" for="user_">Custom Label</label><div class="col-sm-10">Custom Control</div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-sm-2" for="user_">Custom Label</label>
+        <div class="col-sm-10">Custom Control</div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 

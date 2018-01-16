@@ -5,10 +5,10 @@ gemspec path: "../../"
 gem "rails", "~> 5.0.0"
 
 group :test do
+  gem "minitest", "~> 5.10.3"
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
   gem "sqlite3"
   gem "timecop", "~> 0.7.1"
 end
-

@@ -1,39 +1,67 @@
-require 'test_helper'
+require_relative "./test_helper"
 
 class BootstrapFieldsTest < ActionView::TestCase
   include BootstrapForm::Helper
 
-  def setup
-    setup_test_fixture
-  end
+  setup :setup_test_fixture
 
   test "color fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.color_field(:misc)
   end
 
   test "date fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="date" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="date" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.date_field(:misc)
   end
 
   test "date time fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="datetime" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="datetime" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.datetime_field(:misc)
   end
 
   test "date time local fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.datetime_local_field(:misc)
   end
 
   test "email fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="email" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="email" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.email_field(:misc)
   end
 
   test "file fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input id="user_misc" name="user[misc]" type="file" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input id="user_misc" name="user[misc]" type="file" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.file_field(:misc)
   end
 
@@ -43,58 +71,114 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "month local fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="month" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="month" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.month_field(:misc)
   end
 
   test "number fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="number" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="number" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.number_field(:misc)
   end
 
   test "password fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_password">Password</label><input class="form-control" id="user_password" name="user[password]" type="password" /><span class="form-text text-muted">A good password should be at least six characters long</span></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_password">Password</label>
+        <input class="form-control" id="user_password" name="user[password]" type="password" />
+        <small class="form-text text-muted">A good password should be at least six characters long</small>
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.password_field(:password)
   end
 
   test "phone/telephone fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="tel" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="tel" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.phone_field(:misc)
     assert_equivalent_xml expected, @builder.telephone_field(:misc)
   end
 
   test "range fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="range" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="range" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.range_field(:misc)
   end
 
   test "search fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="search" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="search" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.search_field(:misc)
   end
 
   test "text areas are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_comments">Comments</label><textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_comments">Comments</label>
+        <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.text_area(:comments)
   end
 
   test "text fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label required" for="user_email">Email</label><input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="required" for="user_email">Email</label>
+        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.text_field(:email)
   end
 
   test "time fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="time" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="time" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.time_field(:misc)
   end
 
   test "url fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="url" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="url" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.url_field(:misc)
   end
 
   test "week fields are wrapped correctly" do
-    expected = %{<div class="form-group"><label class="form-control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="week" /></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="week" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.week_field(:misc)
   end
 
@@ -107,7 +191,15 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="" for="user_address_attributes_street">Street</label>
+          <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
+        </div>
+      </form>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -120,7 +212,15 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_preferences_favorite_color">Favorite color</label><input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" /></div></form>}
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="" for="user_preferences_favorite_color">Favorite color</label>
+          <input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" />
+        </div>
+      </form>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -133,7 +233,17 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group row"><label class="form-control-label col-sm-2" for="user_address_attributes_street">Street</label><div class="col-sm-10"><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></div></form>}
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group row">
+          <label class="col-sm-2" for="user_address_attributes_street">Street</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
+          </div>
+        </div>
+      </form>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -146,7 +256,15 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = %{<form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div><div class="form-group"><label class="form-control-label" for="user_address_attributes_street">Street</label><input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" /></div></form>}
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="" for="user_address_attributes_street">Street</label>
+          <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
+        </div>
+      </form>
+    HTML
     assert_equivalent_xml expected, output
   end
 end
