@@ -68,20 +68,10 @@ module BootstrapForm
 
     bootstrap_method_alias :file_field
 
-    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
-      def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options, &block)
-          end
-        end
-      end
-    else
-      def select_with_bootstrap(method, choices, options = {}, html_options = {})
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options)
-          end
+    def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
+      form_group_builder(method, options, html_options) do
+        prepend_and_append_input(options) do
+          select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
     end
@@ -511,8 +501,7 @@ module BootstrapForm
       if object
 
         if object.class.respond_to?(:model_name)
-          # ActiveModel::Naming 3.X.X does not support .name; it is supported as of 4.X.X
-          partial_scope = object.class.model_name.respond_to?(:name) ? object.class.model_name.name : object.class.model_name
+          partial_scope = object.class.model_name.name
         else
           partial_scope = object.class.name
         end
