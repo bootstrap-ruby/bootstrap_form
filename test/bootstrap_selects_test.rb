@@ -101,7 +101,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects with block use block as content" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" name="user[status]" id="user_status">
           <option>Option 1</option>
           <option>Option 2</option>
