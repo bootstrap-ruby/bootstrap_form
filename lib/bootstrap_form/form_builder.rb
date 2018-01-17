@@ -421,9 +421,10 @@ module BootstrapForm
       # TODO: Possibly remove comment
       # id is the caller's options[:id] at the only place this method is called.
       # The options argument is a small subset of the options that might have
-      # been passed to generate_label's caller, and definitely doesn't include :id.
+      # been passed to generate_label's caller, and definitely doesn't include
+      # :id.
       # puts "generate_label: id: #{id}"
-      options[:for] = id if acts_like_form_tag
+      options[:for] = id if acts_like_form_tag || id
       classes = [options[:class]]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
       unless options.delete(:skip_required)

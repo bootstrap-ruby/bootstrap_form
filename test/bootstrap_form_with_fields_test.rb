@@ -1,6 +1,4 @@
-# The following allows us to test this file individually with:
-# 'bundle exec rake test TEST=test/bootstrap_form_with_fields_test.rb'
-require 'rails'
+require_relative 'test_helper'
 
 if ::Rails::VERSION::STRING >= '5.1'
   require 'test_helper'
@@ -47,7 +45,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <div class="form-group">
           <label for="TEST_ID">Password</label>
           <input class="form-control" id="TEST_ID" name="user[password]" type="password" />
-          <span class="form-text text-muted">A good password should be at least six characters long</span>
+          <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
       HTML
       assert_equivalent_xml expected, @form_with_builder.password_field(:password, id: :TEST_ID)

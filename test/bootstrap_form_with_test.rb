@@ -1,12 +1,9 @@
-# The following allows us to test this file individually with:
-# 'bundle exec rake test TEST=test/bootstrap_form_with_test.rb'
-require 'rails'
+require_relative 'test_helper'
 
 # Tests for `form_with`.
 # Do all the tests for `bootstrap_form_for` and `bootstrap_form_tag`, but with
 # `bootstrap_form_with`.
 if ::Rails::VERSION::STRING >= '5.1'
-  require 'test_helper'
 
   class BootstrapFormWithTest < ActionView::TestCase
     include BootstrapForm::Helper
@@ -66,7 +63,6 @@ if ::Rails::VERSION::STRING >= '5.1'
       HTML
       # puts Nokogiri::XML(expected)
       # puts Nokogiri::XML(bootstrap_form_with(model: @user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email })
-      expected = remove_default_ids_for_rails_5_1(expected)
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), bootstrap_form_with(model: @user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
     end
 
@@ -107,9 +103,6 @@ if ::Rails::VERSION::STRING >= '5.1'
     end
 
     test "form_with bootstrap_form_tag allows an empty name for checkboxes" do
-      checkbox = %{<div class="form-check">
-        <label class="form-check-label"><input name="misc" type="hidden" value="0" /><input class="form-check-input" name="misc" type="checkbox" value="1" /> Misc</label>
-        </div>}
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" method="post" role="form" data-remote="true">
           <input name="utf8" type="hidden" value="&#x2713;" />

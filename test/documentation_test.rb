@@ -1,7 +1,7 @@
 # Test examples that appear in the documentation.
 # The expected string should be what you can cut and paste directly into
 # the documentation.
-require 'test_helper'
+require_relative 'test_helper'
 
 class DocumentationTest < ActionView::TestCase
   include BootstrapForm::Helper

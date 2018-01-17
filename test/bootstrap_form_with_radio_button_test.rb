@@ -1,6 +1,4 @@
-# The following allows us to test this file individually with:
-# 'bundle exec rake test TEST=test/bootstrap_form_with_test.rb'
-require 'rails'
+require_relative 'test_helper'
 
 if ::Rails::VERSION::STRING >= '5.1'
   require 'test_helper'
@@ -16,7 +14,9 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = %{<div class="radio"><label for="user_misc_1"><input id="user_misc" name="user[misc]" type="radio" value="1" /> This is a radio button</label></div>}
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
         @form_with_builder.radio_button(:misc, '1', label: 'This is a radio button')
-      # assert_equivalent_xml expected.gsub(/user_misc_1/, "custom_id"), @form_with_builder.radio_button(:misc, '1', label: 'This is a radio button', id: :custom_id)
+        puts @builder.radio_button(:misc, '1', label: 'This is a radio button', id: :custom_id)
+      assert_equivalent_xml expected.gsub(/user_misc/, "custom_id"), @builder.radio_button(:misc, '1', label: 'This is a radio button', id: :custom_id)
+      assert_equivalent_xml expected.gsub(/user_misc/, "custom_id"), @form_with_builder.radio_button(:misc, '1', label: 'This is a radio button', id: :custom_id)
     end
 
     test "radio_button disabled label is set correctly" do

@@ -1,6 +1,4 @@
-# The following allows us to test this file individually with:
-# 'bundle exec rake test TEST=test/bootstrap_form_with_test.rb'
-require 'rails'
+require_relative 'test_helper'
 
 if ::Rails::VERSION::STRING >= '5.1'
   require 'test_helper'
@@ -19,7 +17,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       expected = %{<div class="form-group"><label for="user_misc">Misc</label><select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select></div>}
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
         @form_with_builder.time_zone_select(:misc)
-      # assert_equivalent_xml expected.gsub(/user_misc/, "custom_id"), @form_with_builder.time_zone_select(:misc, nil, {}, id: "custom_id")
+      assert_equivalent_xml expected.gsub(/user_misc/, "custom_id"), @form_with_builder.time_zone_select(:misc, nil, {}, id: "custom_id")
     end
 
     test "selects are wrapped correctly" do
