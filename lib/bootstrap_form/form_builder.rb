@@ -207,16 +207,6 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_radio_buttons
 
-    def check_boxes_collection(*args)
-      warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
-      collection_check_boxes(*args)
-    end
-
-    def radio_buttons_collection(*args)
-      warn "'BootstrapForm#radio_buttons_collection' is deprecated, use 'BootstrapForm#collection_radio_buttons' instead"
-      collection_radio_buttons(*args)
-    end
-
     def form_group(*args, &block)
       options = args.extract_options!
       name = args.first
