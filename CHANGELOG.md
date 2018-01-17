@@ -6,6 +6,7 @@ Bugfixes:
   - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta3
   - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta3
   - removed stylesheet packaged with this gem
+  - completely removing deprecated methods: `check_boxes_collection` and `radio_buttons_collection`
 
 Features:
   - Your contribution here!
