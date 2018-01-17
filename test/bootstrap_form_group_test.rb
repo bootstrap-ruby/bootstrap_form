@@ -77,7 +77,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "preventing a label from having the required class" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_email">Email</label>
+        <label for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -174,7 +174,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages to look up I18n automatically" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_password">Password</label>
+        <label for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
         <small class="form-text text-muted">A good password should be at least six characters long</small>
       </div>
@@ -203,7 +203,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages to ignore translation when user disables help" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_password">Password</label>
+        <label for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
       </div>
     HTML
@@ -323,7 +323,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adds class to wrapped form_group by a field" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group none-margin">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
@@ -424,7 +424,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adds data-attributes (or any other options) to wrapper" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group" data-foo="bar">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
@@ -448,7 +448,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_nil">Foo</label>
+        <label for="user_nil">Foo</label>
       </div>
     HTML
     assert_equivalent_xml expected, output

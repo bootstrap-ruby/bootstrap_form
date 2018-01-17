@@ -67,7 +67,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="" for="email">Your Email</label>
+          <label for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
         </div>
       </form>
@@ -80,7 +80,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="" for="ID">Email</label>
+          <label for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
         </div>
       </form>
@@ -418,7 +418,7 @@ class BootstrapFormTest < ActionView::TestCase
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="other_model_email">Email</label>
+        <label for="other_model_email">Email</label>
         <input class="form-control" id="other_model_email" name="other_model[email]" type="text" />
       </div>
     HTML

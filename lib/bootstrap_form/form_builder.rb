@@ -68,20 +68,10 @@ module BootstrapForm
 
     bootstrap_method_alias :file_field
 
-    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
-      def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options, &block)
-          end
-        end
-      end
-    else
-      def select_with_bootstrap(method, choices, options = {}, html_options = {})
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options)
-          end
+    def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
+      form_group_builder(method, options, html_options) do
+        prepend_and_append_input(options) do
+          select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
     end
@@ -216,16 +206,6 @@ module BootstrapForm
     end
 
     bootstrap_method_alias :collection_radio_buttons
-
-    def check_boxes_collection(*args)
-      warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
-      collection_check_boxes(*args)
-    end
-
-    def radio_buttons_collection(*args)
-      warn "'BootstrapForm#radio_buttons_collection' is deprecated, use 'BootstrapForm#collection_radio_buttons' instead"
-      collection_radio_buttons(*args)
-    end
 
     def form_group(*args, &block)
       options = args.extract_options!
@@ -402,7 +382,8 @@ module BootstrapForm
         classes << "required" if required_attribute?(object, name)
       end
 
-      options[:class] = classes.compact.join(" ")
+      options[:class] = classes.compact.join(" ").strip
+      options.delete(:class) if options[:class].empty?
 
       if label_errors && has_error?(name)
         error_messages = get_error_messages(name)
@@ -460,8 +441,7 @@ module BootstrapForm
       if object
 
         if object.class.respond_to?(:model_name)
-          # ActiveModel::Naming 3.X.X does not support .name; it is supported as of 4.X.X
-          partial_scope = object.class.model_name.respond_to?(:name) ? object.class.model_name.name : object.class.model_name
+          partial_scope = object.class.model_name.name
         else
           partial_scope = object.class.name
         end
