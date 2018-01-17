@@ -88,7 +88,7 @@ if ::Rails::VERSION::STRING >= '5.1'
           </div>
         </form>
       HTML
-      puts bootstrap_form_with(url: '/users') { |f| f.text_field :email, label: "Your Email" }
+      # puts bootstrap_form_with(url: '/users') { |f| f.text_field :email, label: "Your Email" }
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), bootstrap_form_with(url: '/users') { |f| f.text_field :email, label: "Your Email" }
     end
 
@@ -422,7 +422,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       builder = BootstrapForm::FormBuilder.new :other_model, nil, self, { skip_default_ids: true }
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label>Email</label>
+          <label for="other_model_email">Email</label>
           <input class="form-control" name="other_model[email]" type="text" />
         </div>
       HTML

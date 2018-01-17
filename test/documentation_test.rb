@@ -53,16 +53,16 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required">Email</label>
+          <label class="required" for="user_email">Email</label>
           <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label for="user_password">Password</label>
           <input class="form-control" type="password" name="user[password]" />
-          <span class="form-text text-muted">A good password should be at least six characters long</span>
+          <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
         <div class="form-check">
-          <label class="form-check-label">
+          <label class="form-check-label" for="user_remember_me">
           <input name="user[remember_me]" type="hidden" value="0" />
           <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
         </div>
@@ -77,7 +77,7 @@ class DocumentationTest < ActionView::TestCase
          .concat(f.submit("Log In"))
       end
 
-      assert_equivalent_xml expected, actual
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), actual
     end
 
     test "form_with no model example" do
@@ -85,7 +85,7 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/subscribe" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label>Email</label>
+          <label for="email">Email</label>
           <input value="name@example.com" class="form-control" type="email" name="email" />
         </div>
         <input type="submit" name="commit" value="Save " class="btn btn-secondary" data-disable-with="Save " />
@@ -105,13 +105,13 @@ class DocumentationTest < ActionView::TestCase
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required">Email</label>
+          <label class="required" for="user_email">Email</label>
           <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <input id="password" class="form-control" type="password" name="user[password]" />
-          <span class="form-text text-muted">A good password should be at least six characters long</span>
+          <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
         <div class="form-check">
           <label for="remember" class="form-check-label">

@@ -39,7 +39,7 @@ if ::Rails::VERSION::STRING >= '5.1'
         <div class="form-group">
           <label for="user_password">Password</label>
           <input class="form-control" id="user_password" name="user[password]" type="password" />
-          <span class="form-text text-muted">A good password should be at least six characters long</span>
+          <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
       HTML
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @form_with_builder.password_field(:password)
