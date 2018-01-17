@@ -17,7 +17,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "time zone selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
     HTML
@@ -27,7 +27,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
           <option value="2">blocked</option>
@@ -40,7 +40,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "bootstrap_specific options are handled correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">My Status Label</label>
+        <label for="user_status">My Status Label</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
           <option value="2">blocked</option>
@@ -54,7 +54,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects with options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
           <option value="1">activated</option>
@@ -68,7 +68,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects with both options and html_options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control my-select" id="user_status" name="user[status]">
           <option value="">Please Select</option>
           <option value="1">activated</option>
@@ -82,7 +82,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test 'selects with addons are wrapped correctly' do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <div class="input-group">
           <div class="input-group-prepend"><span class="input-group-text">Before</span></div>
           <select class="form-control" id="user_status" name="user[status]">
@@ -99,7 +99,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects with block use block as content" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" name="user[status]" id="user_status">
           <option>Option 1</option>
           <option>Option 2</option>
@@ -116,7 +116,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "selects render labels properly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">User Status</label>
+        <label for="user_status">User Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
           <option value="2">blocked</option>
@@ -129,7 +129,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "collection_selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]"></select>
       </div>
     HTML
@@ -139,7 +139,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "collection_selects with options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
         </select>
@@ -151,7 +151,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "collection_selects with options and html_options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control my-select" id="user_status" name="user[status]">
           <option value="">Please Select</option>
         </select>
@@ -163,7 +163,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "grouped_collection_selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]"></select>
       </div>
     HTML
@@ -173,7 +173,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "grouped_collection_selects with options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
         </select>
@@ -185,7 +185,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "grouped_collection_selects with options and html_options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_status">Status</label>
+        <label for="user_status">Status</label>
         <select class="form-control my-select" id="user_status" name="user[status]">
           <option value="">Please Select</option>
         </select>
@@ -198,7 +198,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -220,7 +220,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               <option value=""></option>
@@ -246,7 +246,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control my-date-select" id="user_misc_1i" name="user[misc(1i)]">
               <option value=""></option>
@@ -271,7 +271,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
@@ -294,7 +294,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
@@ -319,7 +319,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
@@ -344,7 +344,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -374,7 +374,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               <option value=""></option>
@@ -409,7 +409,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
-          <label class="" for="user_misc">Misc</label>
+          <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control my-datetime-select" id="user_misc_1i" name="user[misc(1i)]">
               <option value=""></option>
