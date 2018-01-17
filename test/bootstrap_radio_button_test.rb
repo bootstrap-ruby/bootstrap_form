@@ -75,7 +75,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">This is a radio button collection</label>
+        <label for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -93,7 +93,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
@@ -114,7 +114,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <label class="radio-inline" for="user_misc_1">
           <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
         </label>
@@ -131,7 +131,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
@@ -152,7 +152,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">This is a radio button collection</label>
+        <label for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF
@@ -169,7 +169,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">This is a radio button collection</label>
+        <label for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar
@@ -186,7 +186,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> ooF
@@ -207,7 +207,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foo
@@ -228,7 +228,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">This is a radio button collection</label>
+        <label for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> rabooF
@@ -245,7 +245,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foobar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">This is a radio button collection</label>
+        <label for="user_misc">This is a radio button collection</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foobar
@@ -262,7 +262,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_1">
             <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> ooF
@@ -283,7 +283,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <label class="" for="user_misc">Misc</label>
+        <label for="user_misc">Misc</label>
         <div class="radio">
           <label for="user_misc_address_1">
             <input id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" /> Foo
