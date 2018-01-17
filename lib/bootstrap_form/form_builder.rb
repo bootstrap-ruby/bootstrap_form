@@ -68,20 +68,10 @@ module BootstrapForm
 
     bootstrap_method_alias :file_field
 
-    if Gem::Version.new(Rails::VERSION::STRING) >= Gem::Version.new("4.1.0")
-      def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options, &block)
-          end
-        end
-      end
-    else
-      def select_with_bootstrap(method, choices, options = {}, html_options = {})
-        form_group_builder(method, options, html_options) do
-          prepend_and_append_input(options) do
-            select_without_bootstrap(method, choices, options, html_options)
-          end
+    def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
+      form_group_builder(method, options, html_options) do
+        prepend_and_append_input(options) do
+          select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
     end
@@ -149,7 +139,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           checkbox_html.concat(label(label_name, html, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
@@ -185,7 +175,7 @@ module BootstrapForm
         content_tag(:div, class: div_class.compact.join(" ")) do
           radio_html.concat(label(name, html, value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
-      else 
+      else
         if options[:inline]
           label_class = " #{label_class}" if label_class
           label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
@@ -465,8 +455,7 @@ module BootstrapForm
       if object
 
         if object.class.respond_to?(:model_name)
-          # ActiveModel::Naming 3.X.X does not support .name; it is supported as of 4.X.X
-          partial_scope = object.class.model_name.respond_to?(:name) ? object.class.model_name.name : object.class.model_name
+          partial_scope = object.class.model_name.name
         else
           partial_scope = object.class.name
         end
