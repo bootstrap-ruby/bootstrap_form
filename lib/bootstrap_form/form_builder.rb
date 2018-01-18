@@ -104,8 +104,6 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      # TODO: Validate that I need `label_for`
-      label_for = label_for_from_options(options)
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom)
       if options[:custom]
         validation = nil
@@ -145,13 +143,9 @@ module BootstrapForm
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          # TODO: Remove or use the next line.
-          # label(label_name, html, label_for.merge(class: "form-check-inline#{disabled_class}#{label_class}"))
           label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
         else
           content_tag(:div, class: "form-check#{disabled_class}") do
-            # TODO: Remove or use the next line.
-            # label(label_name, html, label_for.merge(class: ["form-check-label", label_class].compact.join(" ")))
             label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
           end
         end
@@ -163,7 +157,6 @@ module BootstrapForm
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       # TODO: Validate if I need the next line
-      label_for = label_for_from_options(options)
       radio_options = options.except(:label, :label_class, :help, :inline, :custom)
       radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ') if options[:custom]
       args << radio_options
@@ -181,20 +174,14 @@ module BootstrapForm
         div_class = ["custom-control", "custom-radio"]
         div_class.append("custom-control-inline") if options[:inline]
         content_tag(:div, class: div_class.compact.join(" ")) do
-          # TODO: Use or remove the next line.
-          # radio_html.concat(label(name, html,  label_for.merge(value: value, class: ["custom-control-label", label_class].compact.join(" "))))
           radio_html.concat(label(name, html, value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          # TODO: Use or remove the next line.
-          # label(name, html,  label_for.merge(class: "radio-inline#{disabled_class}#{label_class}", value: value))
           label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
         else
           content_tag(:div, class: "radio#{disabled_class}") do
-            # TODO: Use or remove the next line.
-            # label(name, html,  label_for.merge(value: value, class: label_class))
             label(name, html, value: value, class: label_class)
           end
         end
@@ -431,24 +418,6 @@ module BootstrapForm
         label(name, label_text, options.except(:text))
       else
         label(name, options[:text], options.except(:text))
-      end
-    end
-
-    # TODO: Validate if next two methods are needed
-    def add_for_option_if_needed!(options, id)
-      options[:for] = id if acts_like_form_tag # Legacy behaviour
-      options[:for] ||= id if @options[:skip_default_ids]
-    end
-
-    def label_for_from_options(options)
-      if !@options[:skip_default_ids]
-        {}
-      elsif options.key?(:for)
-        { for: options[:for] }
-      elsif options.key?(:id)
-        { for: options[:id] }
-      else
-        { for: nil }
       end
     end
 

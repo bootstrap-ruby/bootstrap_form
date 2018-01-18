@@ -98,11 +98,8 @@ class ActionView::TestCase
   ##
   # Test with the @builder, and with @form_with_builder if Rails 5.1+
   def assert_with_builder(expected, method, *args)
-    puts "-------- pre 5.1 test"
-    puts "args: #{args}"
     assert_equivalent_xml expected, @builder.send(method, *args)
     if ::Rails::VERSION::STRING >= '5.1'
-      puts "-------- 5.1 test"
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
                             @form_with_builder.send(method, *args)
     end

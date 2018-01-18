@@ -12,6 +12,8 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
+    assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
+                          bootstrap_form_with(model: @user) { |f| nil }
   end
 
   test "inline-style forms" do

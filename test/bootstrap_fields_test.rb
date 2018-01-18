@@ -12,7 +12,8 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.color_field(:misc)
+    # assert_equivalent_xml expected, @builder.color_field(:misc)
+    assert_with_builder expected, :color_field, :misc
   end
 
   test "date fields are wrapped correctly" do
