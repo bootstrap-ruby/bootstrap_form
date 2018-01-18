@@ -209,25 +209,6 @@ translation file should be underscored (`super_user`).
 You can override help translations for a particular field by passing the `help`
 option or turn them off completely by passing `help: false`.
 
-### Icons
-
-To add an icon to a field, use the `icon` option and pass the icon name
-*without* the 'glyphicon' prefix:
-
-```erb
-<%= f.text_field :login, icon: "user" %>
-```
-
-This automatically adds the `has-feedback` class to the `form-group`:
-
-```html
-<div class="form-group has-feedback">
-  <label class="form-control-label" for="user_login">Login</label>
-  <input class="form-control" id="user_login" name="user[login]" type="text" />
-  <span class="glyphicon glyphicon-user form-control-feedback"></span>
-</div>
-```
-
 ### Prepending and Appending Inputs
 
 You can pass `prepend` and/or `append` options to input fields:
