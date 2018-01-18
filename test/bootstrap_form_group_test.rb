@@ -399,8 +399,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  # TODO: Translate test name to english
   test "single form_group call in horizontal form should not be smash design" do
-    output = ''
     output = @horizontal_builder.form_group do
       "Hallo"
     end
@@ -412,7 +412,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="col-sm-10 col-sm-offset-2">Hallo</div>
       </div>
       <div class="form-group row">
-        <label class=" col-sm-2 required" for="user_email">Email</label>
+        <label class="col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
