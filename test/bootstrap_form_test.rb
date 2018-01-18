@@ -28,7 +28,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -43,7 +43,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -284,7 +284,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="col-sm-1 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -313,7 +313,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-5">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
