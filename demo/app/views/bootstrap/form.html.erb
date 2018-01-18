@@ -1,0 +1,53 @@
+<h3>Horizontal Form</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, layout: :horizontal do |form| %>
+    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
+    <%= form.password_field :password, placeholder: "Password" %>
+    <%= form.select :status, [['activated', 1], ['blocked', 2]], prompt: "Please Select" %>
+    <%= form.text_area :misc %>
+    <%= form.check_box :terms, label: "Agree to Terms" %>
+    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.collection_radio_buttons :misc, @collection, :id, :street %>
+    <%= form.file_field :misc %>
+    <%= form.datetime_select :misc, include_blank: true %>
+
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>With Validation Error</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user_with_error, layout: :horizontal do |form| %>
+    <%= form.alert_message "This is an alert" %>
+    <%= form.error_summary %>
+    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
+    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>Inline Form</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, layout: :inline do |form| %>
+    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
+    <%= form.password_field :password, placeholder: "Password" %>
+    <%= form.check_box :terms, label: "Agree to Terms" %>
+    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>Simple</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/" do |form| %>
+    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
+    <%= form.password_field :password, placeholder: "Password" %>
+    <%= form.check_box :terms, label: "Agree to Terms" %>
+    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
