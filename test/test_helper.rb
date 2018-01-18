@@ -96,6 +96,27 @@ class ActionView::TestCase
   end
 
   ##
+  # Test with the @builder, and with @form_with_builder if Rails 5.1+
+  def assert_with_builder(expected, method, *args)
+    puts "-------- pre 5.1 test"
+    puts "args: #{args}"
+    assert_equivalent_xml expected, @builder.send(method, *args)
+    if ::Rails::VERSION::STRING >= '5.1'
+      puts "-------- 5.1 test"
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
+                            @form_with_builder.send(method, *args)
+    end
+  end
+
+  def assert_with_builder_radio(expected, *args)
+    assert_equivalent_xml expected, @builder.radio_button(*args)
+    if ::Rails::VERSION::STRING >= '5.1'
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
+                            @form_with_builder.radio_button(*args)
+    end
+  end
+
+  ##
   # Remove ids on labels if running on Rails 5.1
   def remove_default_ids_for_rails_5_1(expected)
     return expected unless '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'

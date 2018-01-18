@@ -214,6 +214,7 @@ module BootstrapForm
     bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
+      puts "collection_radio_buttons_with_bootstrap args: #{args}"
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
