@@ -35,9 +35,9 @@ For the project. Optionally, create a branch you want to work on
 - Update the README if necessary.
 - Add a line to the CHANGELOG for your bug fix or feature.
 
-You may find using test/dummy application useful for development and debugging.
+You may find using demo application useful for development and debugging.
 
-- `cd test/dummy`
+- `cd demo`
 - `rake db:schema:load`
 - `rails s`
 - Navigate to http://localhost:3000
