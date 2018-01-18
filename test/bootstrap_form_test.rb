@@ -101,7 +101,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "errors display correctly and inline_errors are turned off by default when label_errors is true" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
@@ -117,7 +117,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "errors display correctly and inline_errors can also be on when label_errors is true" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
@@ -137,7 +137,7 @@ class BootstrapFormTest < ActionView::TestCase
       I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: 'Your e-mail address'}}}})
 
       @user.email = nil
-      @user.valid?
+      assert @user.invalid?
 
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
@@ -158,7 +158,8 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "alert message is wrapped correctly" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
+
     expected = <<-HTML.strip_heredoc
       <div class="alert alert-danger">
         <p>Please fix the following errors:</p>
@@ -174,7 +175,8 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "changing the class name for the alert message" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
+
     expected = <<-HTML.strip_heredoc
       <div class="my-css-class">
         <p>Please fix the following errors:</p>
@@ -190,7 +192,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "alert_message contains the error summary when inline_errors are turned off" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
       f.alert_message('Please fix the following errors:')
@@ -214,7 +216,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "alert_message allows the error_summary to be turned off" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
       f.alert_message('Please fix the following errors:', error_summary: false)
@@ -233,7 +235,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "alert_message allows the error_summary to be turned on with inline_errors also turned on" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: true) do |f|
       f.alert_message('Please fix the following errors:', error_summary: true)
@@ -257,7 +259,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "error_summary returns an unordered list of errors" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
       <ul class="rails-bootstrap-forms-error-summary">
@@ -271,7 +273,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test 'errors_on renders the errors for a specific attribute when invalid' do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
       <div class="alert alert-danger">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
@@ -325,7 +327,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user) do |f|
       f.text_field(:email, help: 'This is required')
@@ -346,7 +348,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "the field is wrapped with div.field_with_errors when form_for is used" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = form_for(@user, builder: BootstrapForm::FormBuilder) do |f|
       f.text_field(:email, help: 'This is required')
@@ -371,7 +373,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "help is preserved when inline_errors: false is passed to bootstrap_form_for" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
       f.text_field(:email, help: 'This is required')
@@ -427,7 +429,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test 'errors_on hide attribute name in message' do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = %{<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>}
 
