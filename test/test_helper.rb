@@ -52,8 +52,8 @@ class ActionView::TestCase
   end
 
   def assert_equivalent_xml(expected, actual)
-    expected_xml        = Nokogiri::XML(expected)
-    actual_xml          = Nokogiri::XML(actual)
+    expected_xml        = Nokogiri::XML("<test-xml>#{expected}</test-xml>")
+    actual_xml          = Nokogiri::XML("<test-xml>#{actual}</test-xml>")
     ignored_attributes  = %w(style data-disable-with)
 
     equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, {
