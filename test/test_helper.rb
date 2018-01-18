@@ -51,9 +51,10 @@ class ActionView::TestCase
     end
   end
 
+  # Expected and actual are wrapped in a root tag to ensure proper XML structure
   def assert_equivalent_xml(expected, actual)
-    expected_xml        = Nokogiri::XML(expected)
-    actual_xml          = Nokogiri::XML(actual)
+    expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>")
+    actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>")
     ignored_attributes  = %w(style data-disable-with)
 
     equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, {
