@@ -156,7 +156,6 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      # TODO: Validate if I need the next line
       radio_options = options.except(:label, :label_class, :help, :inline, :custom)
       radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ') if options[:custom]
       args << radio_options
@@ -201,7 +200,6 @@ module BootstrapForm
     bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
-      puts "collection_radio_buttons_with_bootstrap args: #{args}"
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
@@ -396,12 +394,10 @@ module BootstrapForm
     end
 
     def generate_label(id, name, options, custom_label_col, group_layout)
-      # TODO: Possibly remove comment
       # id is the caller's options[:id] at the only place this method is called.
       # The options argument is a small subset of the options that might have
       # been passed to generate_label's caller, and definitely doesn't include
       # :id.
-      # puts "generate_label: id: #{id}"
       options[:for] = id if acts_like_form_tag || id
       classes = [options[:class]]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal

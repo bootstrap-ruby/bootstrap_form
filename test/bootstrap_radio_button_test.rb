@@ -87,9 +87,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     # assert_with_builder expected, :collection_radio_buttons, :misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!'
-    puts "form_for:"
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
-    puts "form_with:"
     assert_equivalent_xml remove_default_ids_for_rails_5_1(expected), @form_with_builder.collection_radio_buttons(:misc, collection, :id, :street, label: 'This is a radio button collection', help: 'With a help!')
   end
 

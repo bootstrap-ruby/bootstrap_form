@@ -118,14 +118,10 @@ class ActionView::TestCase
   def remove_default_ids_for_rails_5_1(expected)
     return expected unless '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'
     root = Nokogiri::XML(expected)
-    # puts("NODE: #{root}")
-    # puts("NODE CHILDREN: #{root.children}")
-    # nodes.remove_attr("id")
+
     # There are more elegant ways to do this, I'm sure, but later for that.
     root.traverse do |node|
-      # puts("NODE: #{node}: #{node.name}")
       node.delete("id") if node.has_attribute?("id")
-      # node.delete("for") if node.name.downcase == "label" && node.has_attribute?("for")
     end
     root.to_s
   end
