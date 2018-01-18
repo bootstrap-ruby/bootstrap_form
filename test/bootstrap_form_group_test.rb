@@ -399,17 +399,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  test "adding an icon to a field" do
-    expected = <<-HTML.strip_heredoc
-      <div class="form-group has-feedback">
-        <label for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="email" />
-        <span class="glyphicon glyphicon-ok invalid-feedback"></span>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.email_field(:misc, icon: 'ok')
-  end
-
   test "single form_group call in horizontal form should not be smash design" do
     output = ''
     output = @horizontal_builder.form_group do

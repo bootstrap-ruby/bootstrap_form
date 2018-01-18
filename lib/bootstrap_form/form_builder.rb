@@ -219,7 +219,6 @@ module BootstrapForm
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
-        control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -409,10 +408,6 @@ module BootstrapForm
       help_tag ||= :small
 
       content_tag(help_tag, help_text, class: help_klass) if help_text.present?
-    end
-
-    def generate_icon(icon)
-      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} invalid-feedback")
     end
 
     def get_error_messages(name)
