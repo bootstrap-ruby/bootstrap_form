@@ -305,7 +305,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test 'form_group renders the "error" class and message corrrectly when object is invalid' do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = @builder.form_group :email do
       %{<p class="form-control-static">Bar</p>}.html_safe
@@ -332,7 +332,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "adds class to wrapped form_group by a field with errors" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group none-margin">
@@ -350,7 +350,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "adds class to wrapped form_group by a field with errors when bootstrap_form_for is used" do
     @user.email = nil
-    @user.valid?
+    assert @user.invalid?
 
     output = bootstrap_form_for(@user) do |f|
       f.text_field(:email, help: 'This is required', wrapper_class: 'none-margin')
