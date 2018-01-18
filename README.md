@@ -369,15 +369,6 @@ You can specify your own classes like this:
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
 
-### Accessing Rails Form Helpers
-
-If you want to use the original Rails form helpers for a particular field,
-append `_without_bootstrap` to the helper:
-
-```erb
-<%= f.text_field_without_bootstrap :email %>
-```
-
 ## Form Styles
 
 By default, your forms will stack labels on top of controls and your controls
