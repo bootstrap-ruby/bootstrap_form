@@ -113,21 +113,23 @@ class DocumentationTest < ActionView::TestCase
           <input id="password" class="form-control" type="password" name="user[password]" />
           <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
-        <div class="form-check">
-          <label for="remember" class="form-check-label">
-          <input name="user[remember_me]" type="hidden" value="0" />
-          <input id="remember" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
-        </div>
         <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
       </form>
       HTML
 
+      # Removed this from above pending #357
+      # <div class="form-check">
+      #   <label for="remember" class="form-check-label">
+      #   <input name="user[remember_me]" type="hidden" value="0" />
+      #   <input id="remember" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+      # </div>
+
       actual = bootstrap_form_with(model: @user, local: true) do |f|
         f.email_field(:email)
          .concat(f.password_field(:password, id: :password))
-         .concat(f.check_box(:remember_me, id: :remember))
          .concat(f.submit("Log In"))
       end
+      #  .concat(f.check_box(:remember_me, id: :remember)) pending #357 place above "Log In"
 
       assert_equivalent_xml expected, actual
     end
