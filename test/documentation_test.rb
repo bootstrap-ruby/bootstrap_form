@@ -13,26 +13,26 @@ class DocumentationTest < ActionView::TestCase
   # Tests for field types that have explicit labels, and therefore are
   # potentially affected by the lack of default DOM ids from `form_with`.
 
-  if ::Rails::VERSION::STRING >= '5.2'
+  if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.2.0')
     test "form_with skip_default_ids example" do
       expected = <<-HTML.strip_heredoc
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required" for="email">Email</label>
-          <input id="email" class="form-control" type="email" value="steve@example.com" name="user[email]" />
+          <label class="required" for="user_email">Email</label>
+          <input id="user_email" class="form-control" type="email" value="steve@example.com" name="user[email]" />
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input id="password" class="form-control" type="password" name="user[password]" />
-          <span class="form-text text-muted">A good password should be at least six characters long</span>
+          <label for="user_password">Password</label>
+          <input id="user_password" class="form-control" type="password" name="user[password]" />
+          <small class="form-text text-muted">A good password should be at least six characters long</small>
         </div>
         <div class="form-check">
-          <label for="remember" class="form-check-label">
+          <label for="user_remember_me" class="form-check-label">
           <input name="user[remember_me]" type="hidden" value="0" />
-          <input id="remember_me" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+          <input id="user_remember_me" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
         </div>
-        <input id="log_in" type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
+        <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
       </form>
       HTML
 
@@ -47,7 +47,10 @@ class DocumentationTest < ActionView::TestCase
     end
   end
 
-  if ::Rails::VERSION::STRING >= '5.1'
+  # The documentation is for Rails 5.1, so only run if testing that version.
+  # Obviously this needs to be updated in the future.
+  if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0') &&
+    Gem::Version.new(::Rails::VERSION::STRING).release < Gem::Version.new('5.2.0')
     test "initial form_with example" do
       expected = <<-HTML.strip_heredoc
       <form role="form" action="/users" accept-charset="UTF-8" method="post">
