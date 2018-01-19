@@ -13,7 +13,7 @@ class BootstrapFormTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
     # TODO: Could argue that we should test without `local: true`
-    assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(' class="new_user"', "")),
+    assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
                           bootstrap_form_with(model: @user, local: true) { |f| nil }
   end
 

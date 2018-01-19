@@ -17,7 +17,7 @@ class ActionView::TestCase
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     # Simulate how the builder would be called from `form_with`.
-    if '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'
+    if '5.1.0' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2.0'
       @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { skip_default_ids: true })
     else
       @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
@@ -96,10 +96,10 @@ class ActionView::TestCase
   end
 
   ##
-  # Test with the @builder, and with @form_with_builder if Rails 5.1+
+  # Test with the @builder, and with @form_with_builder if Rails 5.1.0+
   def assert_with_builder(expected, method, *args)
     assert_equivalent_xml expected, @builder.send(method, *args)
-    if ::Rails::VERSION::STRING >= '5.1'
+    if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('5.1.0')
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
                             @form_with_builder.send(method, *args)
     end
@@ -107,16 +107,16 @@ class ActionView::TestCase
 
   def assert_with_builder_radio(expected, *args)
     assert_equivalent_xml expected, @builder.radio_button(*args)
-    if ::Rails::VERSION::STRING >= '5.1'
+    if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('5.1.0')
       assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
                             @form_with_builder.radio_button(*args)
     end
   end
 
   ##
-  # Remove ids on labels if running on Rails 5.1
+  # Remove ids on labels if running on Rails 5.1.0
   def remove_default_ids_for_rails_5_1(expected)
-    return expected unless '5.1' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2'
+    return expected unless Gem::Version.new('5.1.0') <= Gem::Version.new(::Rails::VERSION::STRING) && Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('5.2.0.beta2')
     root = Nokogiri::XML(expected)
 
     # There are more elegant ways to do this, I'm sure, but later for that.
