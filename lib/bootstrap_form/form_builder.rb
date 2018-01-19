@@ -245,6 +245,26 @@ module BootstrapForm
 
     bootstrap_method_alias :fields_for
 
+    # Add bootstrap formatted submit button. It's a primary button by default.
+    # If you need to change its type or add another css class, you need to
+    # override all css classes like so:
+    #
+    #   <%= form.submit class: "btn btn-secondary custom-class" %>
+    #
+    # You may add additional content that directly follows the button. Here's
+    # an example of a cancel link:
+    #
+    #   <%= form.submit do %>
+    #     <%= link_to "Cancel", "/", class: "btn btn-link" %>
+    #   <% end %>
+    #
+    def submit(value = nil, options = {}, &block)
+      options.reverse_merge!(class: "btn btn-primary")
+      out = super(value, options)
+      out += capture(&block) if block_given?
+      out
+    end
+
     private
 
     def horizontal?

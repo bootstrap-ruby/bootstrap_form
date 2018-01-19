@@ -38,19 +38,6 @@ class ActionView::TestCase
     })
   end
 
-  def sort_attributes doc
-    doc.dup.traverse do |node|
-      if node.is_a?(Nokogiri::XML::Element)
-        attributes = node.attribute_nodes.sort_by(&:name)
-        attributes.each do |attribute|
-          node.delete(attribute.name)
-          node[attribute.name] = attribute.value
-        end
-      end
-      node
-    end
-  end
-
   # Expected and actual are wrapped in a root tag to ensure proper XML structure
   def assert_equivalent_xml(expected, actual)
     expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>")
@@ -87,6 +74,22 @@ class ActionView::TestCase
         sort_attributes(actual_xml.root)
       ).to_s(:color)
     }
+  end
+
+private
+
+  def sort_attributes(doc)
+    return if doc.blank?
+    doc.dup.traverse do |node|
+      if node.is_a?(Nokogiri::XML::Element)
+        attributes = node.attribute_nodes.sort_by(&:name)
+        attributes.each do |attribute|
+          node.delete(attribute.name)
+          node[attribute.name] = attribute.value
+        end
+      end
+      node
+    end
   end
 
 end
