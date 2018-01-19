@@ -14,7 +14,7 @@ Bootstrap v4-style forms into your Rails application.
 
 * Ruby 2.3+
 * Rails 5.0+
-* Bootstrap 4.0.0-beta.3+
+* Bootstrap 4.0.0+
 
 ## Installation
 
