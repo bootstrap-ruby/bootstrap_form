@@ -60,16 +60,16 @@ This generates:
 <form role="form" action="/users" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <div class="form-group">
-    <label class="form-control-label required">Email</label>
+    <label class="required" for="user_email">Email</label>
     <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
   </div>
   <div class="form-group">
-    <label class="form-control-label">Password</label>
+    <label for="user_password">Password</label>
     <input class="form-control" type="password" name="user[password]" />
-    <span class="form-text text-muted">A good password should be at least six characters long</span>
+    <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <div class="form-check">
-    <label class="form-check-label">
+    <label class="form-check-label" for="user_remember_me">
     <input name="user[remember_me]" type="hidden" value="0" />
     <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
   </div>
@@ -90,7 +90,7 @@ If your form is not backed by a model, use `bootstrap_form_with` like this:
 <form role="form" action="/subscribe" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <div class="form-group">
-    <label class="form-control-label">Email</label>
+    <label for="email">Email</label>
     <input value="name@example.com" class="form-control" type="email" name="email" />
   </div>
   <input type="submit" name="commit" value="Save " class="btn btn-secondary" data-disable-with="Save " />
@@ -135,7 +135,6 @@ For Rails 5.1, you can specify the id explicitly in most cases:
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password, id: :password %>
-  <%= f.check_box :remember_me, id: :remember %>
   <%= f.submit "Log In" %>
 <% end %>
 ```
@@ -146,18 +145,13 @@ generates:
 <form role="form" action="/users" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <div class="form-group">
-    <label class="form-control-label required">Email</label>
+    <label class="required" for="user_email">Email</label>
     <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
   </div>
   <div class="form-group">
-    <label class="form-control-label" for="password">Password</label>
+    <label for="password">Password</label>
     <input id="password" class="form-control" type="password" name="user[password]" />
-    <span class="form-text text-muted">A good password should be at least six characters long</span>
-  </div>
-  <div class="form-check">
-    <label for="remember" class="form-check-label">
-    <input name="user[remember_me]" type="hidden" value="0" />
-    <input id="remember" class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+    <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>
@@ -352,7 +346,7 @@ en:
     help:
       user:
         password_html: "A <strong>good</strong> password should be at least six characters long"
-``` 
+```
 
 If your model name has multiple words (like `SuperUser`), the key on the
 translation file should be underscored (`super_user`).
