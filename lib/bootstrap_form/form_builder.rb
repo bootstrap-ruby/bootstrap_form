@@ -207,16 +207,6 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_radio_buttons
 
-    def check_boxes_collection(*args)
-      warn "'BootstrapForm#check_boxes_collection' is deprecated, use 'BootstrapForm#collection_check_boxes' instead"
-      collection_check_boxes(*args)
-    end
-
-    def radio_buttons_collection(*args)
-      warn "'BootstrapForm#radio_buttons_collection' is deprecated, use 'BootstrapForm#collection_radio_buttons' instead"
-      collection_radio_buttons(*args)
-    end
-
     def form_group(*args, &block)
       options = args.extract_options!
       name = args.first
@@ -229,7 +219,6 @@ module BootstrapForm
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
         control.concat(generate_help(name, options[:help]).to_s)
-        control.concat(generate_icon(options[:icon])) if options[:icon]
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -430,10 +419,6 @@ module BootstrapForm
       help_tag ||= :small
 
       content_tag(help_tag, help_text, class: help_klass) if help_text.present?
-    end
-
-    def generate_icon(icon)
-      content_tag(:span, "", class: "glyphicon glyphicon-#{icon} invalid-feedback")
     end
 
     def get_error_messages(name)

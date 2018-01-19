@@ -5,10 +5,13 @@ Bugfixes:
   - form-control-danger is replaced with is-invalid for bootstrap 4.0.0.beta3
   - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta3
   - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta3
+  - removing support for `nested_form` gem
+  - `icon` option is no longer available
+  - completely removing deprecated methods: `check_boxes_collection` and `radio_buttons_collection`
 
 Features:
   - Your contribution here!
-  * Support for Rails 5.1 `form_with`.
+  - [#369]Support for Rails 5.1 `form_with` - [@lcreid](https://github.com/lcreid).
   - new `custom: true` option for radio buttons and check boxes according to bootstrap 4.0.0.beta3
   - Allow HTML in help translations by using the '_html' suffix on the key - [@unikitty37](https://github.com/unikitty37)
   * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
