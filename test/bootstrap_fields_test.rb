@@ -202,6 +202,17 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
+
+    ## TODO: DRY up the tests for the _with version
+    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
+      output = bootstrap_form_with(model: @user, local: true) do |f|
+        f.fields :address do |af|
+          af.text_field(:street)
+        end
+      end
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
+                            output
+    end
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do
@@ -246,11 +257,23 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
+
+    ## TODO: DRY up the tests for the _with version
+    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
+      output = bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
+        f.fields :address do |af|
+          af.text_field(:street)
+        end
+      end
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
+                            output
+    end
   end
 
   test "fields_for correctly passes inline style from parent builder" do
     @user.address = Address.new(street: '123 Main Street')
 
+    # NOTE: This test works with even if you use `fields_for_without_bootstrap`
     output = bootstrap_form_for(@user, layout: :inline) do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
@@ -267,5 +290,17 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
+
+    ## TODO: DRY up the tests for the _with version
+    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
+      output = bootstrap_form_with(model: @user, layout: :inline, local: true) do |f|
+        f.fields :address do |af|
+          af.text_field(:street)
+        end
+      end
+      # FIXME: Why doesn't this one generate `class="new_user"`?
+      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ id="new_user"/, "")),
+                            output
+    end
   end
 end
