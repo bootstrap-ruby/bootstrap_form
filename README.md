@@ -26,17 +26,9 @@ gem "bootstrap_form",
     branch: "master"
 ```
 
-Then:
+Then run:
 
-`bundle`
-
-Then require the CSS in your `application.css` file:
-
-```css
-/*
- *= require rails_bootstrap_forms
- */
-```
+`bundle install`
 
 ## Usage
 
