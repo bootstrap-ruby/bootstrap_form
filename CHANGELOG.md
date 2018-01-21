@@ -13,7 +13,9 @@ Features:
   - Your contribution here!
   - new `custom: true` option for radio buttons and check boxes according to bootstrap 4.0.0.beta3
   - Allow HTML in help translations by using the '_html' suffix on the key - [@unikitty37](https://github.com/unikitty37)
-  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+  - [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+  - Removing support for `_without_bootstrap` methods. Use `form_for object do`
+    fallback to the default Rails form builder.
 
 ## [2.7.0][] (2017-04-21)
 
