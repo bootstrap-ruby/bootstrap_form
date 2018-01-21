@@ -127,11 +127,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
-            <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-            Foobar
-          </label>
+            <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foobar</label>
         </div>
-        <span class="form-text text-muted">With a help!</span>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -215,15 +213,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_1">
-            <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-            Foo
-          </label>
+            <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" /> Foo</label>
         </div>
         <div class="form-check">
           <label class="form-check-label" for="user_misc_2">
-            <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-            Bar
-          </label>
+            <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" /> Bar</label>
         </div>
       </div>
     HTML
