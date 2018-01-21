@@ -249,7 +249,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <label class="col-sm-2" for="user_address_attributes_street">Street</label>
+          <label class="col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>
