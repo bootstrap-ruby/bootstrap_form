@@ -161,7 +161,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages for horizontal forms" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <small class="form-text text-muted">This is required</small>
@@ -217,7 +217,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="col-sm-2" for="user_nil">Foo</label>
+        <label class="col-form-label col-sm-2" for="user_nil">Foo</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
@@ -248,7 +248,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="col-sm-2 required" for="user_email">Custom Control</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Custom Control</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
@@ -294,7 +294,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <label class="foo col-sm-2" for="bar">Custom Control</label>
+        <label class="foo col-form-label col-sm-2" for="bar">Custom Control</label>
         <div class="col-sm-10">
           <p class="form-control-static">Bar</p>
         </div>
