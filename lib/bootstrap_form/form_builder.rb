@@ -207,6 +207,7 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_radio_buttons
 
+    # TODO: Needs documention
     def form_group(*args, &block)
       options = args.extract_options!
       name = args.first
@@ -245,6 +246,32 @@ module BootstrapForm
 
     bootstrap_method_alias :fields_for
 
+    # Add bootstrap formatted submit button. If you need to change its type or
+    # add another css class, you need to override all css classes like so:
+    #
+    #   <%= form.submit class: "btn btn-info custom-class" %>
+    #
+    # You may add additional content that directly follows the button. Here's
+    # an example of a cancel link:
+    #
+    #   <%= form.submit do %>
+    #     <%= link_to "Cancel", "/", class: "btn btn-link" %>
+    #   <% end %>
+    #
+    def submit(value = nil, options = {}, &block)
+      out = super(value, options.reverse_merge(class: "btn"))
+      out += capture(&block) if block_given?
+
+      form_group do
+        out
+      end
+    end
+
+    # Same as submit button, only with btn-primary class added
+    def primary(value = nil, options = {}, &block)
+      submit(value, options.reverse_merge(class: "btn btn-primary"), &block)
+    end
+
     private
 
     def horizontal?
@@ -260,7 +287,7 @@ module BootstrapForm
     end
 
     def offset_col(label_col)
-      label_col.sub(/^col-(\w+)-(\d)$/, 'col-\1-offset-\2')
+      label_col.sub(/^col-(\w+)-(\d)$/, 'offset-\1-\2')
     end
 
     def default_control_col

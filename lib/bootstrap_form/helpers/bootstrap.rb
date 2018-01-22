@@ -1,15 +1,6 @@
 module BootstrapForm
   module Helpers
     module Bootstrap
-      def submit(name = nil, options = {})
-        options.reverse_merge! class: 'btn btn-secondary'
-        super(name, options)
-      end
-
-      def primary(name = nil, options = {})
-        options.reverse_merge! class: 'btn btn-primary'
-        submit(name, options)
-      end
 
       def alert_message(title, options = {})
         css = options[:class] || 'alert alert-danger'

@@ -13,6 +13,9 @@
     <%= form.datetime_select :misc, include_blank: true %>
 
     <%= form.submit %>
+    <%= form.primary do %>
+      <%= link_to "Cancel", "/", class: "btn-link ml-2" %>
+    <% end %>
   <% end %>
 <% end %>
 

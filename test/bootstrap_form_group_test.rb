@@ -233,7 +233,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -264,7 +264,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -272,14 +272,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  test "form_group accepts class thorugh options hash without needing a name" do
+  test "form_group accepts class through options hash without needing a name" do
     output = @horizontal_builder.form_group class: "foo" do
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -371,14 +371,12 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "adds offset for form_group without label" do
     output = @horizontal_builder.form_group do
-      @horizontal_builder.submit
+      "test"
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">
-          <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
-        </div>
+        <div class="col-sm-10 offset-sm-2">test</div>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -386,36 +384,12 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "adds offset for form_group without label but specific label_col" do
     output = @horizontal_builder.form_group label_col: 'col-sm-5', control_col: 'col-sm-8' do
-      @horizontal_builder.submit
+      "test"
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-8 col-sm-offset-5">
-          <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
-        </div>
-      </div>
-    HTML
-    assert_equivalent_xml expected, output
-  end
-
-  # TODO: What is this actually testing? Improve the test name
-  test "single form_group call in horizontal form should not be smash design" do
-    output = @horizontal_builder.form_group do
-      "Hallo"
-    end
-
-    output = output + @horizontal_builder.text_field(:email)
-
-    expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">Hallo</div>
-      </div>
-      <div class="form-group row">
-        <label class="col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-        </div>
+        <div class="col-sm-8 offset-sm-5">test</div>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -468,14 +442,19 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "non-default column span on form is reflected in form_group" do
-    non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" })
+    non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self,
+      layout:       :horizontal,
+      label_col:    "col-sm-3",
+      control_col:  "col-sm-9"
+    )
+
     output = non_default_horizontal_builder.form_group do
       %{<p class="form-control-static">Bar</p>}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-9 col-sm-offset-3">
+        <div class="col-sm-9 offset-sm-3">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -484,10 +463,18 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "non-default column span on form isn't mutated" do
-    frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3".freeze, control_col: "col-sm-9".freeze })
+    frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self,
+      layout: :horizontal,
+      label_col: "col-sm-3".freeze,
+      control_col: "col-sm-9".freeze
+    )
     output = frozen_horizontal_builder.form_group { 'test' }
 
-    expected = %{<div class="form-group row"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <div class="col-sm-9 offset-sm-3">test</div>
+      </div>
+    HTML
     assert_equivalent_xml expected, output
   end
 
@@ -498,11 +485,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="input-group input-group-lg">
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           <div class="input-group-append">
-            <input class="btn btn-primary" name="commit" type="submit" value="Subscribe" />
+            <button class="btn">Subscribe</button>
           </div>
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.email_field(:email, append: @builder.primary('Subscribe'), input_group_class: 'input-group-lg')
+    assert_equivalent_xml expected, @builder.email_field(:email,
+      append: %{<button class="btn">Subscribe</button>}.html_safe,
+      input_group_class: 'input-group-lg'
+    )
   end
 end

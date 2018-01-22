@@ -301,13 +301,14 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <div class="col-md-10 col-md-offset-2">
-            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          <div class="col-md-10 offset-md-2">
+            <input class="btn" name="commit" type="submit" value="Create User" />
           </div>
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-md-2', control_col: 'col-md-10') { |f| f.form_group { f.submit } }
+    options = {layout: :horizontal, label_col: 'col-md-2', control_col: 'col-md-10'}
+    assert_equivalent_xml expected, bootstrap_form_for(@user, options){|f| f.submit}
   end
 
   test "custom input width for horizontal forms" do
