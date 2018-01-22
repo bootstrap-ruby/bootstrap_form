@@ -404,7 +404,12 @@ module BootstrapForm
     def generate_label(id, name, options, custom_label_col, group_layout)
       options[:for] = id if acts_like_form_tag
       classes = [options[:class]]
-      classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal
+
+      if get_group_layout(group_layout) == :horizontal
+        classes << "col-form-label"
+        classes << (custom_label_col || label_col)
+      end
+
       unless options.delete(:skip_required)
         classes << "required" if required_attribute?(object, name)
       end
