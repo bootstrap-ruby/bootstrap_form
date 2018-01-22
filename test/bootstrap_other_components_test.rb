@@ -94,24 +94,47 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "submit button" do
-    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Create User" />}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <input class="btn" name="commit" type="submit" value="Create User" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.submit
   end
 
+  test "submit button as primary" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <input class="btn btn-primary" name="commit" type="submit" value="Create User" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.primary
+  end
+
   test "submit button with defined name" do
-    expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Test" />}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <input class="btn" name="commit" type="submit" value="Test" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.submit("Test")
   end
 
   test "submit button with custom class" do
-    expected = %{<input class="test" name="commit" type="submit" value="Create User" />}
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <input class="test" name="commit" type="submit" value="Create User" />
+      </div>
+    HTML
     assert_equivalent_xml expected, @builder.submit(class: "test")
   end
 
   test "submit button with block" do
     expected = <<-HTML.strip_heredoc
-      <input class="btn btn-primary" name="commit" type="submit" value="Create User"/>
-      <a href="/" class="btn btn-link">Cancel</a>
+      <div class="form-group">
+        <input class="btn" name="commit" type="submit" value="Create User"/>
+        <a href="/" class="btn btn-link">Cancel</a>
+      </div>
     HTML
 
     result = @builder.submit do
@@ -124,8 +147,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "submit button for horizontal form" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 offset-md-2">
-          <input class="btn btn-primary" name="commit" type="submit" value="Create User"/>
+        <div class="col-sm-10 offset-sm-2">
+          <input class="btn" name="commit" type="submit" value="Create User"/>
         </div>
       </div>
     HTML
