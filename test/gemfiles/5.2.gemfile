@@ -5,7 +5,7 @@ gemspec path: "../../"
 gem "rails", "~> 5.2.0.beta2"
 
 group :test do
-  # can relax version requirement for Rails 5.2.beta3+
+  # TODO: remove once Rails > 5.2.0.beta2 is released
   gem "minitest", "~> 5.10.3"
 
   gem "diffy"
