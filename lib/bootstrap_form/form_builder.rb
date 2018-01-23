@@ -249,7 +249,13 @@ module BootstrapForm
 
     bootstrap_method_alias :fields_for
 
-    # TODO: Add `fields_with_bootstrap` method and alias
+    # the Rails `fields` method passes its options
+    # to the builder, so there is no need to write a `bootstrap_form` helper
+    # for the `fields` method.
+    # See the test "rails fields passes options to builder" in
+    # `test/bootstrap_fields_test.rb` for evidence of the above.
+    # It's not obvious from my reading of the Rails code, where this happens,
+    # and why it doesn't happen for `fields_for`.
 
     private
 

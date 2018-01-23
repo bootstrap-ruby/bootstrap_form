@@ -270,6 +270,31 @@ class BootstrapFieldsTest < ActionView::TestCase
     end
   end
 
+  # This test demonstrates that the Rails `fields` method passes its options
+  # to the builder, so there is no need to write a `bootstrap_form` helper
+  # for the `fields` method. If this test fails, it probably means you have to
+  # write a `fields` helper in `lib/bootstrap_form/form_builder.rb`.
+  if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
+    test "rails fields passes options to builder" do
+      bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
+        f.fields :address,
+                 label_col: 'col-sm-3',
+                 control_col: 'col-sm-9',
+                 inline_errors: 'bogus_ie',
+                 label_errors: 'bogus_le',
+                 layout: 'bogus_l' do |af|
+          puts af.object_id
+          assert_equal 'col-sm-3', af.label_col
+          assert_equal 'col-sm-9', af.control_col
+          assert_equal 'bogus_ie', af.inline_errors
+          assert_equal 'bogus_le', af.label_errors
+          assert_equal 'bogus_l', af.layout
+          af.text_field(:street)
+        end
+      end
+    end
+  end
+
   test "fields_for correctly passes inline style from parent builder" do
     @user.address = Address.new(street: '123 Main Street')
 
