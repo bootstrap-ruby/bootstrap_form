@@ -90,12 +90,18 @@ class BootstrapFormTest < ActionView::TestCase
 
   # TODO: difference in rendering between 5.0 and 5.1?
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    checkbox = if ::Rails::VERSION::STRING >= '5.1'
-      %{<div class="form-check"><label class="form-check-label" for="misc"><input name="misc" type="hidden" value="0" /><input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" /> Misc</label></div>}
-    else
-      %{<div class="form-check"><label class="form-check-label" for="_misc"><input name="[misc]" type="hidden" value="0" /><input class="form-check-input" id="_misc" name="[misc]" type="checkbox" value="1" /> Misc</label></div>}
-    end
-    expected = %{<form accept-charset="UTF-8" action="/users" method="post" role="form"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>#{checkbox}</form>}
+    id = :misc
+    name_string = id_string = id.to_s
+    id_string, name_string = "_" + id_string, "[#{name_string}]" unless ::Rails::VERSION::STRING >= '5.1'
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;" />
+      <div class="form-check">
+        <label class="form-check-label" for="#{id_string}"><input name="#{name_string}" type="hidden" value="0" />
+          <input class="form-check-input" id="#{id_string}" name="#{name_string}" type="checkbox" value="1" /> Misc</label>
+      </div>
+    </form>
+    HTML
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
   end
 
