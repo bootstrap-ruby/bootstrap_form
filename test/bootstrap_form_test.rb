@@ -90,15 +90,20 @@ class BootstrapFormTest < ActionView::TestCase
 
   # TODO: difference in rendering between 5.0 and 5.1?
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    id = :misc
-    name_string = id_string = id.to_s
-    id_string, name_string = "_" + id_string, "[#{name_string}]" unless ::Rails::VERSION::STRING >= '5.1'
+    if ::Rails::VERSION::STRING >= '5.1'
+      id = 'misc'
+      name = 'misc'
+    else
+      id = '_misc'
+      name = '[misc]'
+    end
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;" />
       <div class="form-check">
-        <label class="form-check-label" for="#{id_string}"><input name="#{name_string}" type="hidden" value="0" />
-          <input class="form-check-input" id="#{id_string}" name="#{name_string}" type="checkbox" value="1" /> Misc</label>
+        <label class="form-check-label" for="#{id}"><input name="#{name}" type="hidden" value="0" />
+          <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" /> Misc
+        </label>
       </div>
     </form>
     HTML
