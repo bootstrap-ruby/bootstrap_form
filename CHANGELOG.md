@@ -1,19 +1,29 @@
 ## [Pending Release][]
 
-Bugfixes:
-  - Your contribution here!
-  - form-control-danger is replaced with is-invalid for bootstrap 4.0.0.beta3
-  - form-control-feedback is replaced with invalid-feedback for bootstrap 4.0.0.beta3
-  - help texts are rendered with <small> tag instead of <span> tag, i.e. like in bootstrap 4.0.0.beta3
-  - removing support for `nested_form` gem
-  - `icon` option is no longer available
-  - completely removing deprecated methods: `check_boxes_collection` and `radio_buttons_collection`
+🚨 **This release adds support for Bootstrap v4 and drops support for Bootstrap v3.** 🚨
 
-Features:
-  - Your contribution here!
-  - new `custom: true` option for radio buttons and check boxes according to bootstrap 4.0.0.beta3
-  - Allow HTML in help translations by using the '_html' suffix on the key - [@unikitty37](https://github.com/unikitty37)
-  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+If your app uses Bootstrap v3, you should continue using bootstrap_form 2.7.x instead.
+
+Bootstrap v3 and v4 are very different, and thus bootstrap_form now produces different markup in order to target v4. The changes are too many to list here; you can refer to Bootstrap's [Migrating to v4](https://getbootstrap.com/docs/4.0/migration/) page for a detailed explanation.
+
+In addition to these necessary markup changes, the bootstrap_form API itself has the following important changes in this release.
+
+### Breaking changes
+
+* Built-in support for the `nested_form` gem has been completely removed
+* The `icon` option is no longer supported (Bootstrap v4 does not include icons)
+* The deprecated Rails methods `check_boxes_collection` and `radio_buttons_collection` have been removed
+* Your contribution here!
+
+### New features
+
+* Support Bootstrap v4's [Custom Checkboxes and Radios](https://getbootstrap.com/docs/4.0/components/forms/#checkboxes-and-radios-1) with a new `custom: true` option
+* Allow HTML in help translations by using the `_html` suffix on the key - [@unikitty37](https://github.com/unikitty37)
+* Your contribution here!
+
+### Bugfixes
+
+* Your contribution here!
 
 ## [2.7.0][] (2017-04-21)
 
