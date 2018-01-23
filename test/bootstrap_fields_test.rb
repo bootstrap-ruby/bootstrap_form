@@ -60,7 +60,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input id="user_misc" name="user[misc]" type="file" />
+        <input class="form-control-file" id="user_misc" name="user[misc]" type="file" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.file_field(:misc)
