@@ -8,4 +8,5 @@ demo/tmp/
 .rbenv-gemsets
 *.swp
 Gemfile.lock
+test/gemfiles/*.lock
 .ruby-version
