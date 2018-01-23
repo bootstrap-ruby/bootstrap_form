@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = BootstrapForm::VERSION
   s.authors     = ["Stephen Potenza", "Carlos Lopes"]
   s.email       = ["potenza@gmail.com", "carlos.el.lopes@gmail.com"]
-  s.homepage    = "https://github.com/bootstrap-ruby/rails-bootstrap-forms"
+  s.homepage    = "https://github.com/bootstrap-ruby/bootstrap_form"
   s.summary     = "Rails form builder that makes it easy to style forms using "\
                   "Bootstrap 4"
   s.description = "bootstrap_form is a rails form builder that makes it super "\
