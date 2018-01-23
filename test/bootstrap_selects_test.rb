@@ -21,8 +21,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
     HTML
-    # assert_equivalent_xml expected, @builder.time_zone_select(:misc)
-    assert_with_builder expected, :time_zone_select, :misc
+    assert_equivalent_xml expected, @builder.time_zone_select(:misc)
+    # TODO: Re-introduce the following when the correct factoring is figured out.
+    # assert_with_builder expected, :time_zone_select, :misc
   end
 
   test "selects are wrapped correctly" do
