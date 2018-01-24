@@ -45,7 +45,7 @@ end
 # Did you remove the CHANGELOG's "Your contribution here!" line?
 # ------------------------------------------------------------------------------
 if has_changelog_changes
-  if IO.read("CHANGELOG.md").scan(/^\s*- Your contribution here/i).count < 2
+  if IO.read("CHANGELOG.md").scan(/^\s*[-\*] Your contribution here/i).count < 3
     fail(
       "Please put the `- Your contribution here!` line back into CHANGELOG.md.",
       :sticky => false
