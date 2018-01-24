@@ -51,8 +51,8 @@ class ActionView::TestCase
 
   # Expected and actual are wrapped in a root tag to ensure proper XML structure
   def assert_equivalent_xml(expected, actual)
-    expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>")
-    actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>")
+    expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>") { |config| config.default_xml.noblanks }
+    actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>") { |config| config.default_xml.noblanks }
     ignored_attributes  = %w(style data-disable-with)
 
     equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml, {
@@ -81,8 +81,8 @@ class ActionView::TestCase
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
-        sort_attributes(expected_xml.root),
-        sort_attributes(actual_xml.root)
+        sort_attributes(expected_xml.root).to_xml(indent: 2),
+        sort_attributes(actual_xml.root).to_xml(indent: 2)
       ).to_s(:color)
     }
   end
