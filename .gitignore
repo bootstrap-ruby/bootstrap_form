@@ -10,3 +10,5 @@ demo/tmp/
 Gemfile.lock
 test/gemfiles/*.lock
 .ruby-version
+Vagrantfile
+.vagrant
