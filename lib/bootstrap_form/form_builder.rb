@@ -9,9 +9,9 @@ module BootstrapForm
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
 
     FIELD_HELPERS = %w{color_field date_field datetime_field datetime_local_field
-                       email_field month_field number_field password_field phone_field
-                       range_field search_field telephone_field text_area text_field time_field
-                       url_field week_field}
+      email_field month_field number_field password_field phone_field
+      range_field search_field telephone_field text_area text_field time_field
+      url_field week_field}
 
     DATE_SELECT_HELPERS = %w{date_select time_select datetime_select}
 
@@ -195,7 +195,7 @@ module BootstrapForm
         options[:multiple] = true
         check_box(name, options, value, nil)
       end
-      hidden_field(args.first, {value: "", multiple: true}).concat(html)
+      hidden_field(args.first,{value: "", multiple: true}).concat(html)
     end
 
     bootstrap_method_alias :collection_check_boxes
@@ -252,10 +252,6 @@ module BootstrapForm
     # the Rails `fields` method passes its options
     # to the builder, so there is no need to write a `bootstrap_form` helper
     # for the `fields` method.
-    # See the test "rails fields passes options to builder" in
-    # `test/bootstrap_fields_test.rb` for evidence of the above.
-    # It's not obvious from my reading of the Rails code, where this happens,
-    # and why it doesn't happen for `fields_for`.
 
     private
 
@@ -312,11 +308,11 @@ module BootstrapForm
                           end
 
       has_presence_validator = target_validators.include?(
-        ActiveModel::Validations::PresenceValidator)
+                                 ActiveModel::Validations::PresenceValidator)
 
       if defined? ActiveRecord::Validations::PresenceValidator
         has_presence_validator |= target_validators.include?(
-          ActiveRecord::Validations::PresenceValidator)
+                                    ActiveRecord::Validations::PresenceValidator)
       end
 
       has_presence_validator
@@ -325,7 +321,6 @@ module BootstrapForm
     def form_group_builder(method, options, html_options = nil)
       options.symbolize_keys!
       html_options.symbolize_keys! if html_options
-      options[:id] = html_options[:id] if html_options && @options[:skip_default_ids]
 
       # Add control_class; allow it to be overridden by :control_class option
       css_options = html_options || options
@@ -394,7 +389,7 @@ module BootstrapForm
       # The options argument is a small subset of the options that might have
       # been passed to generate_label's caller, and definitely doesn't include
       # :id.
-      options[:for] = id if acts_like_form_tag || id
+      options[:for] = id if acts_like_form_tag
       classes = [options[:class]]
 
       if get_group_layout(group_layout) == :horizontal

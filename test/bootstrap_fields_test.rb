@@ -225,17 +225,6 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
-
-    ## TODO: DRY up the tests for the _with version
-    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
-      output = bootstrap_form_with(model: @user, local: true) do |f|
-        f.fields :address do |af|
-          af.text_field(:street)
-        end
-      end
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
-                            output
-    end
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do

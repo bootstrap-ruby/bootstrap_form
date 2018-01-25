@@ -93,35 +93,4 @@ class ActionView::TestCase
       ).to_s(:color)
     }
   end
-
-  ##
-  # Test with the @builder, and with @form_with_builder if Rails 5.1.0+
-  def assert_with_builder(expected, method, *args)
-    assert_equivalent_xml expected, @builder.send(method, *args)
-    if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('5.1.0')
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
-                            @form_with_builder.send(method, *args)
-    end
-  end
-
-  def assert_with_builder_radio(expected, *args)
-    assert_equivalent_xml expected, @builder.radio_button(*args)
-    if Gem::Version.new(::Rails::VERSION::STRING) >= Gem::Version.new('5.1.0')
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
-                            @form_with_builder.radio_button(*args)
-    end
-  end
-
-  ##
-  # Remove ids on labels if running on Rails 5.1.0
-  def remove_default_ids_for_rails_5_1(expected)
-    return expected unless Gem::Version.new('5.1.0') <= Gem::Version.new(::Rails::VERSION::STRING) && Gem::Version.new(::Rails::VERSION::STRING) < Gem::Version.new('5.2.0.beta2')
-    root = Nokogiri::XML(expected)
-
-    # There are more elegant ways to do this, I'm sure, but later for that.
-    root.traverse do |node|
-      node.delete("id") if node.has_attribute?("id")
-    end
-    root.to_s
-  end
 end

@@ -12,11 +12,6 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
-    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
-      # TODO: Could argue that we should test without `local: true`
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
-                            bootstrap_form_with(model: @user, local: true) { |f| nil }
-    end
   end
 
   if  ::Rails::VERSION::STRING >= '5.1'
