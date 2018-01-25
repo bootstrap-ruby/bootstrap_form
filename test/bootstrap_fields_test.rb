@@ -12,8 +12,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
       </div>
     HTML
-    # assert_equivalent_xml expected, @builder.color_field(:misc)
-    assert_with_builder expected, :color_field, :misc
+    assert_equivalent_xml expected, @builder.color_field(:misc)
   end
 
   test "date fields are wrapped correctly" do
@@ -143,6 +142,30 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_area(:comments)
   end
 
+  if ::Rails::VERSION::STRING > '5.1' && ::Rails::VERSION::STRING < '5.2'
+    test "text areas are wrapped correctly form_with Rails 5.1" do
+      expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_comments">Comments</label>
+        <textarea class="form-control" name="user[comments]">\nmy comment</textarea>
+      </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
+    end
+  end
+
+  if ::Rails::VERSION::STRING > '5.2'
+    test "text areas are wrapped correctly form_with Rails 5.2+" do
+      expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_comments">Comments</label>
+        <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+      </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
+    end
+  end
+
   test "text fields are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -257,42 +280,6 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
-
-    ## TODO: DRY up the tests for the _with version
-    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
-      output = bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
-        f.fields :address do |af|
-          af.text_field(:street)
-        end
-      end
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ class="new_user" id="new_user"/, "")),
-                            output
-    end
-  end
-
-  # This test demonstrates that the Rails `fields` method passes its options
-  # to the builder, so there is no need to write a `bootstrap_form` helper
-  # for the `fields` method. If this test fails, it probably means you have to
-  # write a `fields` helper in `lib/bootstrap_form/form_builder.rb`.
-  if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
-    test "rails fields passes options to builder" do
-      bootstrap_form_with(model: @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10', local: true) do |f|
-        f.fields :address,
-                 label_col: 'col-sm-3',
-                 control_col: 'col-sm-9',
-                 inline_errors: 'bogus_ie',
-                 label_errors: 'bogus_le',
-                 layout: 'bogus_l' do |af|
-          puts af.object_id
-          assert_equal 'col-sm-3', af.label_col
-          assert_equal 'col-sm-9', af.control_col
-          assert_equal 'bogus_ie', af.inline_errors
-          assert_equal 'bogus_le', af.label_errors
-          assert_equal 'bogus_l', af.layout
-          af.text_field(:street)
-        end
-      end
-    end
   end
 
   test "fields_for correctly passes inline style from parent builder" do
@@ -315,17 +302,5 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, output
-
-    ## TODO: DRY up the tests for the _with version
-    if Gem::Version.new(::Rails::VERSION::STRING).release >= Gem::Version.new('5.1.0')
-      output = bootstrap_form_with(model: @user, layout: :inline, local: true) do |f|
-        f.fields :address do |af|
-          af.text_field(:street)
-        end
-      end
-      # FIXME: Why doesn't this one generate `class="new_user"`?
-      assert_equivalent_xml remove_default_ids_for_rails_5_1(expected.gsub(/ id="new_user"/, "")),
-                            output
-    end
   end
 end

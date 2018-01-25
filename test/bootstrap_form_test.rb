@@ -19,6 +19,19 @@ class BootstrapFormTest < ActionView::TestCase
     end
   end
 
+  if  ::Rails::VERSION::STRING >= '5.1'
+    # No need to test 5.2 separately for this case, since 5.2 does *not*
+    # generate a default ID for the form element.
+    test "default-style forms bootstrap_form_with Rails 5.1+" do
+      expected = <<-HTML.strip_heredoc
+        <form accept-charset="UTF-8" action="/users" data-remote="true" method="post" role="form">
+          <input name="utf8" type="hidden" value="&#x2713;" />
+        </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |f| nil }
+    end
+  end
+
   test "inline-style forms" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">

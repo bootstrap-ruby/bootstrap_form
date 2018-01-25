@@ -14,12 +14,6 @@ class ActionView::TestCase
   def setup_test_fixture
     @user = User.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    # Simulate how the builder would be called from `form_with`.
-    if '5.1.0' <= ::Rails::VERSION::STRING && ::Rails::VERSION::STRING < '5.2.0'
-      @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { skip_default_ids: true })
-    else
-      @form_with_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    end
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {
       layout:       :horizontal,
       label_col:    "col-sm-2",
@@ -40,6 +34,13 @@ class ActionView::TestCase
         }
       }
     })
+  end
+
+  # Originally only used in one test file but placed here in case it's needed in others in the future.
+  def form_with_builder
+    builder = nil
+    bootstrap_form_with(model: @user) { |f| builder = f }
+    builder
   end
 
   def sort_attributes doc
