@@ -11,7 +11,7 @@ end
 
 group :test do
   # can relax version requirement for Rails 5.2.beta3+
-  gem "minitest", "5.10.3"
+  gem "minitest", "~> 5.10.3"
 
   gem "diffy"
   gem "equivalent-xml"
