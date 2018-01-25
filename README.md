@@ -40,138 +40,6 @@ Then require the CSS in your `application.css` file:
 
 ## Usage
 
-### Rails >= 5.1
-
-To get started, just use the `bootstrap_form_with` helper
-in place of `form_with`. Here's an example:
-
-```erb
-<%= bootstrap_form_with(model: @user, local: true) do |f| %>
-  <%= f.email_field :email %>
-  <%= f.password_field :password %>
-  <%= f.check_box :remember_me %>
-  <%= f.submit "Log In" %>
-<% end %>
-```
-
-This generates:
-
-```html
-<form role="form" action="/users" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="&#x2713;" />
-  <div class="form-group">
-    <label class="required" for="user_email">Email</label>
-    <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
-  </div>
-  <div class="form-group">
-    <label for="user_password">Password</label>
-    <input class="form-control" type="password" name="user[password]" />
-    <small class="form-text text-muted">A good password should be at least six characters long</small>
-  </div>
-  <div class="form-check">
-    <label class="form-check-label" for="user_remember_me">
-    <input name="user[remember_me]" type="hidden" value="0" />
-    <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
-  </div>
-  <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
-</form>
-```
-
-If your form is not backed by a model, use `bootstrap_form_with` like this:
-
-```erb
-<%= bootstrap_form_with url: '/subscribe', local: true do |f| %>
-  <%= f.email_field :email, value: 'name@example.com' %>
-  <%= f.submit %>
-<% end %>
-```
-
-```html
-<form role="form" action="/subscribe" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="&#x2713;" />
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input value="name@example.com" class="form-control" type="email" name="email" />
-  </div>
-  <input type="submit" name="commit" value="Save " class="btn btn-secondary" data-disable-with="Save " />
-</form>
-```
-
-#### Important Differences Between `form_with` and `form_for`
-
-Rails 5.1 introduced `form_with`,
-which unifies the functionality previously found in `form_for` and `form_tag`.
-`form_for` and `form_tag` will be deprecated in a future version of Rails,
-so new applications should use `bootstrap_form_with`.
-
-`form_with` is different compared to `form_for` and `form_tag`.
-`bootstrap_form_width` basically just wraps `form_with`
-and adds some functionality,
-and so the different behaviour of `form_with`
-is reflected in `bootstrap_form_with`
-compared to `bootstrap_form_for`
-and `bootstrap_form_tag`.
-
-##### Ajax by Default
-`form_with` defaults to submitting forms via Javascript XHR calls,
-like `form_for` or `form_tag` would do if you specified `remote: true`.
-If you want the browser to submit the request
-the same way `form_for` and `form_tag` would do by default,
-you need to specify `local: true` as an option to `form_with`.
-
-##### No Default DOM IDs
-When used with the builder (variable) yielded by `form_with`,
-the Rails field helpers do not generate a default DOM id.
-Because `bootstrap_form_width` just wraps and adds some functionality
-to `form_with`,
-the `bootstrap_form_with` field helpers also do not generate a default DOM id.
-This affect how labels work in your application,
-and may affect automated testing if you're using Capybara or similar tools,
-and you wrote actions or tests that selected on the DOM id of an element.
-
-For Rails 5.1, you can specify the id explicitly in most cases:
-
-```erb
-<%= bootstrap_form_with(model: @user, local: true) do |f| %>
-  <%= f.email_field :email %>
-  <%= f.password_field :password, id: :password %>
-  <%= f.submit "Log In" %>
-<% end %>
-```
-
-generates:
-
-```html
-<form role="form" action="/users" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="&#x2713;" />
-  <div class="form-group">
-    <label class="required" for="user_email">Email</label>
-    <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input id="password" class="form-control" type="password" name="user[password]" />
-    <small class="form-text text-muted">A good password should be at least six characters long</small>
-  </div>
-  <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
-</form>
-```
-
-##### Use `fields` Instead Of `fields_for` In Nested Forms
-For nested forms, use `fields` instead of `fields_for`.
-
-##### No Default Classes
-Finally, `bootstrap_form_with` doesn't attach a default class
-to the form.
-If you attached styling to the DOM class that `form_for` added to the form element,
-you'll have to add your own code to attach the appropriate class.
-
-#### Nested Forms with `bootstrap_form_with`
-
-This hasn't been tested yet.
-
-### Rails < 5.1
-
 To get started, just use the `bootstrap_form_for` helper. Here's an example:
 
 ```erb
@@ -216,13 +84,52 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 <% end %>
 ```
 
+### `bootstrap_form_with` (Rails 5.1+)
+
+Note that `form_with` in Rails 5.1 does not add IDs to form elements and labels by default, which are both important to Bootstrap markup. This behavior is corrected in Rails 5.2.
+
+To get started, just use the `bootstrap_form_with` helper in place of `form_with`. Here's an example:
+
+```erb
+<%= bootstrap_form_with(model: @user, local: true) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
+This generates:
+
+```html
+<form role="form" action="/users" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <div class="form-group">
+    <label class="required" for="user_email">Email</label>
+    <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
+  </div>
+  <div class="form-group">
+    <label for="user_password">Password</label>
+    <input class="form-control" type="password" name="user[password]" />
+    <small class="form-text text-muted">A good password should be at least six characters long</small>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label" for="user_remember_me">
+    <input name="user[remember_me]" type="hidden" value="0" />
+    <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+  </div>
+  <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
+</form>
+```
+
+`bootstrap_form_with` supports both the `model:` and `url:` use cases
+in `form_with`.
+
+`form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
+
 ### Future Compatibility
 
-The Rails team has suggested that `form_for` and `form_tag`
-may be deprecated and then removed in future versions of Rails.
-`bootstrap_form` will continue to support
-`bootstrap_form_for` and `bootstrap_form_tag`
-as long as Rails supports `form_for` and `form_tag`.
+The Rails team has [suggested](https://github.com/rails/rails/issues/25197) that `form_for` and `form_tag` may be deprecated and then removed in future versions of Rails. `bootstrap_form` will continue to support `bootstrap_form_for` and `bootstrap_form_tag` as long as Rails supports `form_for` and `form_tag`.
 
 ## Form Helpers
 
