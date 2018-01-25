@@ -22,8 +22,6 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.time_zone_select(:misc)
-    # TODO: Re-introduce the following when the correct factoring is figured out.
-    # assert_with_builder expected, :time_zone_select, :misc
   end
 
   test "selects are wrapped correctly" do

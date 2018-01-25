@@ -15,10 +15,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    # assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
-    # assert_equivalent_xml remove_default_ids_for_rails_5_1(expected),
-    #   @form_with_builder.check_box(:terms, label: "I agree to the terms") if ::Rails::VERSION::STRING >= '5.1'
-    assert_with_builder expected, :check_box, :terms, label: 'I agree to the terms'
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
   test "disabled check_box has proper wrapper classes" do
