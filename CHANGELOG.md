@@ -29,7 +29,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 ## [2.7.0][] (2017-04-21)
 
 Features:
-  * [#325](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
+  * [#325](https://github.com/bootstrap-ruby/bootstrap_form/pull/325): Support :prepend and :append for the `select` helper - [@donv](https://github.com/donv).
 
 ## [2.6.0][] (2017-02-03)
 
@@ -37,7 +37,7 @@ Bugfixes:
   - Fix ambiguous first argument warning (#311, @mikenicklas)
 
 Features:
-  - Add a FormBuilder#custom_control helper [#289](https://github.com/bootstrap-ruby/rails-bootstrap-forms/pull/289)
+  - Add a FormBuilder#custom_control helper [#289](https://github.com/bootstrap-ruby/bootstrap_form/pull/289)
 
 ## [2.5.3][] (2016-12-23)
 
@@ -52,7 +52,7 @@ Bugfixes:
 ## [2.5.1][] (2016-09-23)
 
 Bugfixes:
-  - Fix getting help text for elements when using anonymous models (see [issue 282](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/282))
+  - Fix getting help text for elements when using anonymous models (see [issue 282](https://github.com/bootstrap-ruby/bootstrap_form/issues/282))
 
 ## [2.5.0][] (2016-08-12)
 
@@ -145,7 +145,7 @@ Features:
 ## 2.1.0 (2014-04-01)
 
 Moved GitHub repository from https://github.com/potenza/bootstrap_form
-to https://github.com/bootstrap-ruby/rails-bootstrap-forms
+to https://github.com/bootstrap-ruby/bootstrap_form
 
 Bugfixes:
 
@@ -185,11 +185,11 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.7.0...HEAD
-[2.7.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.6.0...v2.7.0
-[2.6.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.3...v2.6.0
-[2.5.3]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.2...v2.5.3
-[2.5.2]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.1...v2.5.2
-[2.5.1]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.5.0...v2.5.1
-[2.5.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.4.0...v2.5.0
-[2.4.0]: https://github.com/bootstrap-ruby/rails-bootstrap-forms/compare/v2.3.0...v2.4.0
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.6.0...v2.7.0
+[2.6.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.3...v2.6.0
+[2.5.3]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.2...v2.5.3
+[2.5.2]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.1...v2.5.2
+[2.5.1]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.0...v2.5.1
+[2.5.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.4.0...v2.5.0
+[2.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.3.0...v2.4.0
