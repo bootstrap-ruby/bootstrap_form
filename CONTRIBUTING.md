@@ -4,7 +4,7 @@ The release of Bootstrap 4 and Rails 5.1 have implications for the future
 direction of `bootstrap_form`. Don't worry. We plan to move this gem forward to
 Bootstrap 4 and to support Rails 5.1 and beyond. If you're thinking of
 contributing to `bootstrap_form`, please read
-[issue #361](https://github.com/bootstrap-ruby/rails-bootstrap-forms/issues/361).
+[issue #361](https://github.com/bootstrap-ruby/bootstrap_form/issues/361).
 
 Your comments are welcome.
 
@@ -54,4 +54,4 @@ merged into master brach. Eventually gem will be published with your changes.
 
 ---
 
-Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/rails-bootstrap-forms/graphs/contributors
+Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors

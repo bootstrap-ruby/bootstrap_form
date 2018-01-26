@@ -1,10 +1,10 @@
-⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/rails-bootstrap-forms/tree/legacy-2.7) branch.
+⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
 
 ---
 
 # bootstrap_form
 
-[![Build Status](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/rails-bootstrap-forms)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
 **bootstrap_form** is a Rails form builder that makes it super easy to integrate
@@ -22,7 +22,7 @@ Add it to your Gemfile:
 
 ```ruby
 gem "bootstrap_form",
-    git: "https://github.com/bootstrap-ruby/rails-bootstrap-forms.git",
+    git: "https://github.com/bootstrap-ruby/bootstrap_form.git",
     branch: "master"
 ```
 
