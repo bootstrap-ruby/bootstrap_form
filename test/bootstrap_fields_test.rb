@@ -142,6 +142,30 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_area(:comments)
   end
 
+  if ::Rails::VERSION::STRING > '5.1' && ::Rails::VERSION::STRING < '5.2'
+    test "text areas are wrapped correctly form_with Rails 5.1" do
+      expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_comments">Comments</label>
+        <textarea class="form-control" name="user[comments]">\nmy comment</textarea>
+      </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
+    end
+  end
+
+  if ::Rails::VERSION::STRING > '5.2'
+    test "text areas are wrapped correctly form_with Rails 5.2+" do
+      expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_comments">Comments</label>
+        <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+      </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
+    end
+  end
+
   test "text fields are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -250,6 +274,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "fields_for correctly passes inline style from parent builder" do
     @user.address = Address.new(street: '123 Main Street')
 
+    # NOTE: This test works with even if you use `fields_for_without_bootstrap`
     output = bootstrap_form_for(@user, layout: :inline) do |f|
       f.fields_for :address do |af|
         af.text_field(:street)

@@ -235,7 +235,10 @@ module BootstrapForm
     end
 
     def fields_for_with_bootstrap(record_name, record_object = nil, fields_options = {}, &block)
-      fields_options, record_object = record_object, nil if record_object.is_a?(Hash) && record_object.extractable_options?
+      if record_object.is_a?(Hash) && record_object.extractable_options?
+        fields_options = record_object
+        record_object = nil
+      end
       fields_options[:layout] ||= options[:layout]
       fields_options[:label_col] = fields_options[:label_col].present? ? "#{fields_options[:label_col]}" : options[:label_col]
       fields_options[:control_col] ||= options[:control_col]
@@ -245,6 +248,10 @@ module BootstrapForm
     end
 
     bootstrap_method_alias :fields_for
+
+    # the Rails `fields` method passes its options
+    # to the builder, so there is no need to write a `bootstrap_form` helper
+    # for the `fields` method.
 
     private
 
@@ -357,11 +364,11 @@ module BootstrapForm
           label_text ||= options.delete(:label)
         end
 
-        form_group_options.merge!(label: {
+        form_group_options[:label] = {
           text: label_text,
           class: label_class,
           skip_required: options.delete(:skip_required)
-        })
+        }
       end
 
       form_group(method, form_group_options) do
@@ -370,12 +377,18 @@ module BootstrapForm
     end
 
     def convert_form_tag_options(method, options = {})
-      options[:name] ||= method
-      options[:id] ||= method
+      unless @options[:skip_default_ids]
+        options[:name] ||= method
+        options[:id] ||= method
+      end
       options
     end
 
     def generate_label(id, name, options, custom_label_col, group_layout)
+      # id is the caller's options[:id] at the only place this method is called.
+      # The options argument is a small subset of the options that might have
+      # been passed to generate_label's caller, and definitely doesn't include
+      # :id.
       options[:for] = id if acts_like_form_tag
       classes = [options[:class]]
 
@@ -398,7 +411,6 @@ module BootstrapForm
       else
         label(name, options[:text], options.except(:text))
       end
-
     end
 
     def generate_help(name, help_text)
@@ -467,6 +479,5 @@ module BootstrapForm
         help_text
       end
     end
-
   end
 end
