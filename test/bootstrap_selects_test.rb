@@ -32,6 +32,20 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
   end
 
+  test "select 'id' attribute is used to specify label 'for' attribute" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="control-label" for="custom_id">Status</label>
+        <select id="custom_id" class="form-control" name="user[status]">
+          <option value="">Please Select</option>
+          <option value="1">activated</option>
+          <option value="2">blocked</option>
+        </select>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, id: "custom_id")
+  end
+
   test 'selects with addons are wrapped correctly' do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">

@@ -32,6 +32,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label_class: 'btn')
   end
 
+  test "check_box 'id' attribute is used to specify label 'for' attribute" do
+    expected = %{<div class="checkbox"><label for="custom_id"><input name="user[terms]" type="hidden" value="0" /><input id="custom_id" type="checkbox" value="1" name="user[terms]" /> Terms</label></div>}
+    assert_equivalent_xml expected, @builder.check_box(:terms, id: 'custom_id')
+  end
+
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = %{<div class="checkbox"><label for="user_terms"><input name="user[terms]" type="hidden" value="no" /><input id="user_terms" name="user[terms]" type="checkbox" value="yes" /> I agree to the terms</label></div>}
     assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms'}, 'yes', 'no')
