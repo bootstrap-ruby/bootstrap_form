@@ -17,6 +17,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 
 ### New features
 
+* Support for Rails 5.1 `form_with` - [@lcreid](https://github.com/lcreid).
 * Support Bootstrap v4's [Custom Checkboxes and Radios](https://getbootstrap.com/docs/4.0/components/forms/#checkboxes-and-radios-1) with a new `custom: true` option
 * Allow HTML in help translations by using the `_html` suffix on the key - [@unikitty37](https://github.com/unikitty37)
 * Your contribution here!

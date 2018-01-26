@@ -36,6 +36,13 @@ class ActionView::TestCase
     })
   end
 
+  # Originally only used in one test file but placed here in case it's needed in others in the future.
+  def form_with_builder
+    builder = nil
+    bootstrap_form_with(model: @user) { |f| builder = f }
+    builder
+  end
+
   def sort_attributes doc
     doc.dup.traverse do |node|
       if node.is_a?(Nokogiri::XML::Element)
@@ -86,5 +93,4 @@ class ActionView::TestCase
       ).to_s(:color)
     }
   end
-
 end

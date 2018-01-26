@@ -13,7 +13,7 @@ Bootstrap v4-style forms into your Rails application.
 ## Requirements
 
 * Ruby 2.2.2+
-* Rails 5.0+
+* Rails 5.0+ (Rails 5.1+ for `bootstrap_form_with`)
 * Bootstrap 4.0.0+
 
 ## Installation
@@ -83,6 +83,53 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
   <%= f.submit %>
 <% end %>
 ```
+
+### `bootstrap_form_with` (Rails 5.1+)
+
+Note that `form_with` in Rails 5.1 does not add IDs to form elements and labels by default, which are both important to Bootstrap markup. This behavior is corrected in Rails 5.2.
+
+To get started, just use the `bootstrap_form_with` helper in place of `form_with`. Here's an example:
+
+```erb
+<%= bootstrap_form_with(model: @user, local: true) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
+This generates:
+
+```html
+<form role="form" action="/users" accept-charset="UTF-8" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <div class="form-group">
+    <label class="required" for="user_email">Email</label>
+    <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
+  </div>
+  <div class="form-group">
+    <label for="user_password">Password</label>
+    <input class="form-control" type="password" name="user[password]" />
+    <small class="form-text text-muted">A good password should be at least six characters long</small>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label" for="user_remember_me">
+    <input name="user[remember_me]" type="hidden" value="0" />
+    <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+  </div>
+  <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
+</form>
+```
+
+`bootstrap_form_with` supports both the `model:` and `url:` use cases
+in `form_with`.
+
+`form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
+
+### Future Compatibility
+
+The Rails team has [suggested](https://github.com/rails/rails/issues/25197) that `form_for` and `form_tag` may be deprecated and then removed in future versions of Rails. `bootstrap_form` will continue to support `bootstrap_form_for` and `bootstrap_form_tag` as long as Rails supports `form_for` and `form_tag`.
 
 ## Form Helpers
 
