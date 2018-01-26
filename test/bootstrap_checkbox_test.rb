@@ -70,6 +70,19 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label_class: 'btn')
   end
 
+  test "check_box 'id' attribute is used to specify label 'for' attribute" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <label class="form-check-label" for="custom_id">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
+          Terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, id: 'custom_id')
+  end
+
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">

@@ -144,10 +144,10 @@ module BootstrapForm
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          label(label_name, html, class: "form-check-inline#{disabled_class}#{label_class}")
+          label(label_name, html, { class: "form-check-inline#{disabled_class}#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {}))
         else
           content_tag(:div, class: "form-check#{disabled_class}") do
-            label(label_name, html, class: ["form-check-label", label_class].compact.join(" "))
+            label(label_name, html, { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {}))
           end
         end
       end
@@ -179,10 +179,10 @@ module BootstrapForm
       else
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
+          label(name, html, { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {}))
         else
           content_tag(:div, class: "radio#{disabled_class}") do
-            label(name, html, value: value, class: label_class)
+            label(name, html, { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {}))
           end
         end
       end
@@ -368,7 +368,7 @@ module BootstrapForm
           text: label_text,
           class: label_class,
           skip_required: options.delete(:skip_required)
-        }
+        }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
       end
 
       form_group(method, form_group_options) do
