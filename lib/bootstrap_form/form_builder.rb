@@ -161,6 +161,8 @@ module BootstrapForm
       radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ') if options[:custom]
       args << radio_options
       radio_html = radio_button_without_bootstrap(name, value, *args)
+      radio_html_without_bootstrap = radio_html.clone
+
       if options[:custom]
         html = options[:label]
       else
@@ -182,7 +184,8 @@ module BootstrapForm
           label(name, html, { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {}))
         else
           content_tag(:div, class: "radio#{disabled_class}") do
-            label(name, html, { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {}))
+            radio_html_without_bootstrap
+              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
         end
       end
