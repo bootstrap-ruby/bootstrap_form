@@ -181,7 +181,8 @@ module BootstrapForm
       else
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          label(name, html, { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {}))
+          radio_html_without_bootstrap
+            .concat(label(name, options[:label], { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
         else
           content_tag(:div, class: "radio#{disabled_class}") do
             radio_html_without_bootstrap
