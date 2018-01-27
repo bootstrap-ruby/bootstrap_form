@@ -115,6 +115,7 @@ module BootstrapForm
       end
 
       checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
+      checkbox_html_without_bootstrap = checkbox_html.clone
       label_content = block_given? ? capture(&block) : options[:label]
       label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
       if options[:custom]
@@ -147,7 +148,8 @@ module BootstrapForm
           label(label_name, html, { class: "form-check-inline#{disabled_class}#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {}))
         else
           content_tag(:div, class: "form-check#{disabled_class}") do
-            label(label_name, html, { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {}))
+            checkbox_html_without_bootstrap
+              .concat(label(label_name, label_description, { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
         end
       end
