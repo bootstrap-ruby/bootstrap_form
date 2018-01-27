@@ -101,7 +101,6 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, name: 'NAME', id: "ID" }
   end
 
-  # TODO: difference in rendering between 5.0 and 5.1?
   test "bootstrap_form_tag allows an empty name for checkboxes" do
     if ::Rails::VERSION::STRING >= '5.1'
       id = 'misc'
@@ -114,9 +113,9 @@ class BootstrapFormTest < ActionView::TestCase
     <form accept-charset="UTF-8" action="/users" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;" />
       <div class="form-check">
-        <label class="form-check-label" for="#{id}"><input name="#{name}" type="hidden" value="0" />
-          <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" /> Misc
-        </label>
+        <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
+        <input name="#{name}" type="hidden" value="0" />
+        <label class="form-check-label" for="#{id}"> Misc</label>
       </div>
     </form>
     HTML
