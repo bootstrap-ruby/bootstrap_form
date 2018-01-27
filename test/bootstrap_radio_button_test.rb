@@ -55,8 +55,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label is set correctly" do
     expected = <<-HTML.strip_heredoc
+      <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
       <label class="radio-inline" for="user_misc_1">
-        <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
         This is a radio button
       </label>
     HTML
@@ -65,8 +65,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button disabled inline label is set correctly" do
     expected = <<-HTML.strip_heredoc
+      <input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
       <label class="radio-inline disabled" for="user_misc_1">
-        <input disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         This is a radio button
       </label>
     HTML
@@ -75,8 +75,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label class is set correctly" do
     expected = <<-HTML.strip_heredoc
+      <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
       <label class="radio-inline btn" for="user_misc_1">
-        <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
         This is a radio button
       </label>
     HTML
@@ -125,12 +125,10 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <label class="radio-inline" for="user_misc_1">
-          <input id="user_misc_1" name="user[misc]" type="radio" value="1" /> Foo
-        </label>
-        <label class="radio-inline" for="user_misc_2">
-          <input id="user_misc_2" name="user[misc]" type="radio" value="2" /> Bar
-        </label>
+        <input id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="radio-inline" for="user_misc_1"> Foo</label>
+        <input id="user_misc_2" name="user[misc]" type="radio" value="2" />
+        <label class="radio-inline" for="user_misc_2"> Bar</label>
       </div>
     HTML
 
