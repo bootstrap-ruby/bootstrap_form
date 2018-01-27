@@ -115,14 +115,8 @@ module BootstrapForm
       end
 
       checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
-      checkbox_html_without_bootstrap = checkbox_html.clone
       label_content = block_given? ? capture(&block) : options[:label]
       label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
-      if options[:custom]
-        html = label_description
-      else
-        html = checkbox_html.concat(" ").concat(label_description)
-      end
 
       label_name = name
       # label's `for` attribute needs to match checkbox tag's id,
@@ -139,16 +133,17 @@ module BootstrapForm
         div_class = ["custom-control", "custom-checkbox"]
         div_class.append("custom-control-inline") if options[:inline]
         content_tag(:div, class: div_class.compact.join(" ")) do
-          checkbox_html.concat(label(label_name, html, class: ["custom-control-label", label_class].compact.join(" ")))
+          checkbox_html.concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
         disabled_class = " disabled" if options[:disabled]
         if options[:inline]
           label_class = " #{label_class}" if label_class
-          label(label_name, html, { class: "form-check-inline#{disabled_class}#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {}))
+          checkbox_html
+            .concat(label(label_name, label_description, { class: "form-check-inline#{disabled_class}#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {})))
         else
           content_tag(:div, class: "form-check#{disabled_class}") do
-            checkbox_html_without_bootstrap
+            checkbox_html
               .concat(label(label_name, label_description, { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
         end

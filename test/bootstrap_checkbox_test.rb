@@ -98,9 +98,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes" do
     expected = <<-HTML.strip_heredoc
+    <input name="user[terms]" type="hidden" value="0" />
+    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       <label class="form-check-inline" for="user_terms">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         I agree to the terms
       </label>
     HTML
@@ -109,9 +109,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "disabled inline check_box" do
     expected = <<-HTML.strip_heredoc
+    <input disabled="disabled" name="user[terms]" type="hidden" value="0" />
+    <input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       <label class="form-check-inline disabled" for="user_terms">
-        <input disabled="disabled" name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         I agree to the terms
       </label>
     HTML
@@ -120,9 +120,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes with custom label class" do
     expected = <<-HTML.strip_heredoc
+    <input name="user[terms]" type="hidden" value="0" />
+    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       <label class="form-check-inline btn" for="user_terms">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         Terms
       </label>
     HTML
@@ -176,12 +176,12 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
         <label for="user_misc">Misc</label>
+        <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
         <label class="form-check-inline" for="user_misc_1">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           Foo
         </label>
+        <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
         <label class="form-check-inline" for="user_misc_2">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
           Bar
         </label>
       </div>
