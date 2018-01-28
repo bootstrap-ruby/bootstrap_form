@@ -20,9 +20,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "disabled check_box has proper wrapper classes" do
     expected = <<-HTML.strip_heredoc
-      <div class="form-check disabled">
-        <input disabled="disabled" name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
@@ -109,9 +109,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "disabled inline check_box" do
     expected = <<-HTML.strip_heredoc
-    <input disabled="disabled" name="user[terms]" type="hidden" value="0" />
-    <input class="form-check-input" disabled="disabled" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-      <label class="form-check-inline disabled" for="user_terms">
+    <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
+    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
+      <label class="form-check-inline" for="user_terms">
         I agree to the terms
       </label>
     HTML
@@ -424,7 +424,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="custom-control custom-checkbox">
         <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" disabled="disabled" value="1" />
+        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label class="custom-control-label" for="user_terms">I agree to the terms</label>
       </div>
     HTML
