@@ -158,7 +158,11 @@ module BootstrapForm
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       radio_options = options.except(:label, :label_class, :help, :inline, :custom)
-      radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ') if options[:custom]
+      if options[:custom]
+        radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ')
+      else
+        radio_options[:class] = ["form-check-input", options[:class]].compact.join(' ')
+      end
       args << radio_options
       radio_html = radio_button_without_bootstrap(name, value, *args)
 
@@ -172,14 +176,14 @@ module BootstrapForm
           radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
+        label_class = " #{label_class}" if label_class
         if options[:inline]
-          label_class = " #{label_class}" if label_class
           radio_html
-            .concat(label(name, options[:label], { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
+            .concat(label(name, options[:label], { class: "form-check-label#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
         else
           content_tag(:div, class: "form-check#{disabled_class}") do
             radio_html
-              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+              .concat(label(name, options[:label], { class: "form-check-label#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
         end
       end
