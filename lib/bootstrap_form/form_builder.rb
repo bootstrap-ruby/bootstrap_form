@@ -136,19 +136,13 @@ module BootstrapForm
           checkbox_html.concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
-        if options[:inline]
-          label_class = " #{label_class}" if label_class
+        wrapper_class = "form-check"
+        wrapper_class += " form-check-inline" if options[:inline]
+        content_tag(:div, class: wrapper_class) do
           checkbox_html
             .concat(label(label_name,
                           label_description,
-                          { class: "form-check-inline#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {})))
-        else
-          content_tag(:div, class: "form-check") do
-            checkbox_html
-              .concat(label(label_name,
-                            label_description,
-                            { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
+                          { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
         end
       end
     end
