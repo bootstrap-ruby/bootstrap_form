@@ -174,7 +174,7 @@ module BootstrapForm
           radio_html
             .concat(label(name, options[:label], { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
         else
-          content_tag(:div, class: "radio#{disabled_class}") do
+          content_tag(:div, class: "form-check#{disabled_class}") do
             radio_html
               .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
