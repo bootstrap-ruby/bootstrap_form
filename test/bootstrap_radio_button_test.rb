@@ -55,30 +55,36 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label is set correctly" do
     expected = <<-HTML.strip_heredoc
-      <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-      <label class="form-check-label" for="user_misc_1">
-        This is a radio button
-      </label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="user_misc_1">
+          This is a radio button
+        </label>
+      </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
   end
 
   test "radio_button disabled inline label is set correctly" do
     expected = <<-HTML.strip_heredoc
-      <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-      <label class="form-check-label" for="user_misc_1">
-        This is a radio button
-      </label>
+      <div class="form-check form-check-inline disabled">
+        <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="user_misc_1">
+          This is a radio button
+        </label>
+      </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true, disabled: true)
   end
 
   test "radio_button inline label class is set correctly" do
     expected = <<-HTML.strip_heredoc
-      <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-      <label class="form-check-label btn" for="user_misc_1">
-        This is a radio button
-      </label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label btn" for="user_misc_1">
+          This is a radio button
+        </label>
+      </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true, label_class: 'btn')
   end
@@ -125,10 +131,14 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1"> Foo</label>
-        <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-        <label class="form-check-label" for="user_misc_2"> Bar</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label class="form-check-label" for="user_misc_1"> Foo</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+          <label class="form-check-label" for="user_misc_2"> Bar</label>
+        </div>
       </div>
     HTML
 
