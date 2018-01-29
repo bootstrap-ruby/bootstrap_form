@@ -98,33 +98,39 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes" do
     expected = <<-HTML.strip_heredoc
-    <input name="user[terms]" type="hidden" value="0" />
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-      <label class="form-check-inline" for="user_terms">
-        I agree to the terms
-      </label>
+      <div class="form-check form-check-inline">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+      </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
   test "disabled inline check_box" do
     expected = <<-HTML.strip_heredoc
-    <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
-      <label class="form-check-inline" for="user_terms">
-        I agree to the terms
-      </label>
+      <div class="form-check form-check-inline">
+        <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+      </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true, disabled: true)
   end
 
   test "inline checkboxes with custom label class" do
     expected = <<-HTML.strip_heredoc
-    <input name="user[terms]" type="hidden" value="0" />
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-      <label class="form-check-inline btn" for="user_terms">
+    <div class="form-check form-check-inline">
+      <input name="user[terms]" type="hidden" value="0" />
+      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+      <label class="form-check-label btn" for="user_terms">
         Terms
       </label>
+    </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, inline: true, label_class: 'btn')
   end
@@ -176,14 +182,18 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-        <label class="form-check-inline" for="user_misc_1">
-          Foo
-        </label>
-        <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-        <label class="form-check-inline" for="user_misc_2">
-          Bar
-        </label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_misc_1">
+            Foo
+          </label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label class="form-check-label" for="user_misc_2">
+            Bar
+          </label>
+        </div>
       </div>
     HTML
 
