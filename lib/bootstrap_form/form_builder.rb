@@ -103,6 +103,24 @@ module BootstrapForm
 
     bootstrap_method_alias :time_zone_select
 
+    # @!macro [new] check_box_options
+    #   @param options [Hash] Options processed by this method.
+    #     Additional options are passed to the Rails helper as options.
+    #   @option options [Boolean] :custom If true, generate HTML for a custom radio
+    #     button.
+    #   @option options [String] :help Help text to add to the HTML.
+    #   @option options [Boolean] :hide_label If true, hide the label and provide
+    #     `sr-only` for screen readers.
+    #   @option options [Boolean] :inline If true, place the label on the same line
+    #     as the radio button.
+    #   @option options [String] :label Text to use for the label.
+    #   @option options [String] :label_class A user-defined CSS class to add to
+    #     the label element, in addition to the classes added by this method.
+    #   @return [String] Bootstrap HTML for a radio button
+    #   @option options [Boolean] :skip_label If true, don't generate a label tag at all.
+
+    # Generate Bootstrap markup for a check box.
+    # @!macro check_box_options
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
@@ -163,6 +181,25 @@ module BootstrapForm
 
     bootstrap_method_alias :check_box
 
+    # Generates Bootstrap markup for a radio button.
+    #
+    # @param name [String] Passed to the Rails helper as the name of the control
+    #   and the label.
+    # @param value Passed to the Rails helper as the value of the control.
+    # @param args [Hash] Options processed by this method.
+    #   Additional options are passed to the Rails helper as options.
+    # @option args [Boolean] :custom If true, generate HTML for a custom radio
+    #   button.
+    # @option args [String] :help Help text to add to the HTML.
+    # @option args [Boolean] :hide_label If true, hide the label and provide
+    #   `sr-only` for screen readers.
+    # @option args [Boolean] :inline If true, place the label on the same line
+    #   as the radio button.
+    # @option args [String] :label Text to use for the label.
+    # @option args [String] :label_class A user-defined CSS class to add to
+    #   the label element, in addition to the classes added by this method.
+    # @return [String] Bootstrap HTML for a radio button
+    # @option args [Boolean] :skip_label If true, don't generate a label tag at all.
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
