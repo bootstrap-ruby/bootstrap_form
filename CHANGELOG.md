@@ -10,6 +10,8 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 
 ### Breaking changes
 
+* Rails 4.x is no longer supported
+* Ruby 2.2 or newer is required
 * Built-in support for the `nested_form` gem has been completely removed
 * The `icon` option is no longer supported (Bootstrap v4 does not include icons)
 * The deprecated Rails methods `check_boxes_collection` and `radio_buttons_collection` have been removed
