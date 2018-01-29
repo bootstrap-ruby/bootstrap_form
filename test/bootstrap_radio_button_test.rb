@@ -343,12 +343,21 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', inline: true, disabled: true, custom: true})
   end
 
-  test "skip label" do
+  test "radio button skip label" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', skip_label: true)
+  end
+
+  test "radio button skip label with custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true, skip_label: true})
   end
 end

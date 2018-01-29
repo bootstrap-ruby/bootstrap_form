@@ -171,7 +171,11 @@ module BootstrapForm
         div_class = ["custom-control", "custom-radio"]
         div_class.append("custom-control-inline") if options[:inline]
         content_tag(:div, class: div_class.compact.join(" ")) do
-          radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+          if options[:skip_label]
+            radio_html
+          else
+            radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+          end
         end
       else
         wrapper_class = "form-check"
