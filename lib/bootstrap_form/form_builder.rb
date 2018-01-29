@@ -136,19 +136,13 @@ module BootstrapForm
           checkbox_html.concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
-        if options[:inline]
-          label_class = " #{label_class}" if label_class
+        wrapper_class = "form-check"
+        wrapper_class += " form-check-inline" if options[:inline]
+        content_tag(:div, class: wrapper_class) do
           checkbox_html
             .concat(label(label_name,
                           label_description,
-                          { class: "form-check-inline#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {})))
-        else
-          content_tag(:div, class: "form-check") do
-            checkbox_html
-              .concat(label(label_name,
-                            label_description,
-                            { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
+                          { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
         end
       end
     end
@@ -176,15 +170,12 @@ module BootstrapForm
           radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
         end
       else
-        label_class = " #{label_class}" if label_class
-        if options[:inline]
+        wrapper_class = "form-check"
+        wrapper_class += " form-check-inline" if options[:inline]
+        label_class = ["form-check-label", label_class].compact.join(" ")
+        content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
           radio_html
-            .concat(label(name, options[:label], { class: "form-check-label#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
-        else
-          content_tag(:div, class: "form-check#{disabled_class}") do
-            radio_html
-              .concat(label(name, options[:label], { class: "form-check-label#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
+            .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
         end
       end
     end
