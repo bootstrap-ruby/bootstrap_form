@@ -28,6 +28,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * [#357](https://github.com/bootstrap-ruby/bootstrap_form/pull/357) if provided,
   use html option `id` to specify `for` attribute on label
   [@duleorlovic](https://github.com/duleorlovic)
+* [#408](https://github.com/bootstrap-ruby/bootstrap_form/pull/408): Add option[:id] on static control #245 - [@duleorlovic](https://github.com/duleorlovic).
 
 ## [2.7.0][] (2017-04-21)
 
