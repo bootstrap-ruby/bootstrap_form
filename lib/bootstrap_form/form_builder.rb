@@ -130,7 +130,7 @@ module BootstrapForm
       end
 
       label_classes = [options[:label_class]]
-      label_classes << "sr-only" if options[:hide_label]
+      label_classes << hide_class if options[:hide_label]
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
@@ -178,7 +178,7 @@ module BootstrapForm
 
       disabled_class = " disabled" if options[:disabled]
       label_classes  = [options[:label_class]]
-      label_classes << "sr-only" if options[:hide_label]
+      label_classes << hide_class if options[:hide_label]
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
