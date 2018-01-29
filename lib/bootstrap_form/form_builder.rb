@@ -106,12 +106,14 @@ module BootstrapForm
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_classes = [check_box_options[:class]]
+      check_box_classes << "position-static" if options[:skip_label]
       if options[:custom]
         validation = nil
         validation = "is-invalid" if has_error?(name)
-        check_box_options[:class] = ["custom-control-input", validation, check_box_options[:class]].compact.join(' ')
+        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
       else
-        check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
+        check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
       end
 
       checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
@@ -164,10 +166,12 @@ module BootstrapForm
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      radio_classes = [options[:class]]
+      radio_classes << "position-static" if options[:skip_label]
       if options[:custom]
-        radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ')
+        radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(' ')
       else
-        radio_options[:class] = ["form-check-input", options[:class]].compact.join(' ')
+        radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
       end
       args << radio_options
       radio_html = radio_button_without_bootstrap(name, value, *args)
