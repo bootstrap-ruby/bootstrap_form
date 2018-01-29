@@ -105,7 +105,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :skip_label)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       if options[:custom]
         validation = nil
         validation = "is-invalid" if has_error?(name)
@@ -127,26 +127,34 @@ module BootstrapForm
           "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
       end
 
-      label_class = options[:label_class]
+      label_classes = [options[:label_class]]
+      label_classes << "sr-only" if options[:hide_label]
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
         div_class.append("custom-control-inline") if options[:inline]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          checkbox_html.concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
+          if options[:skip_label]
+            checkbox_html
+          else
+            # TODO: Notice we don't seem to pass the ID into the custom control.
+            checkbox_html.concat(label(label_name, label_description, class: label_class))
+          end
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if options[:inline]
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: wrapper_class) do
-          # if options[:skip_label]
-          #   checkbox_html
-          # else
+          if options[:skip_label]
+            checkbox_html
+          else
             checkbox_html
               .concat(label(label_name,
                             label_description,
-                            { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          # end
+                            { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          end
         end
       end
     end
