@@ -155,7 +155,7 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :skip_label)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       if options[:custom]
         radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ')
       else
@@ -165,22 +165,25 @@ module BootstrapForm
       radio_html = radio_button_without_bootstrap(name, value, *args)
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
+      label_classes  = [options[:label_class]]
+      label_classes << "sr-only" if options[:hide_label]
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
         div_class.append("custom-control-inline") if options[:inline]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
           if options[:skip_label]
             radio_html
           else
-            radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+            # TODO: Notice we don't seem to pass the ID into the custom control.
+            radio_html.concat(label(name, options[:label], value: value, class: label_class))
           end
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if options[:inline]
-        label_class = ["form-check-label", label_class].compact.join(" ")
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
           if options[:skip_label]
             radio_html
