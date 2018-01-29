@@ -6,7 +6,10 @@ gemspec
 # gem "rails", "~> 5.2.0.beta2"
 
 group :development do
+  gem "github-markup"
   gem "htmlbeautifier"
+  gem "redcarpet"
+  gem "yard"
 end
 
 group :test do
