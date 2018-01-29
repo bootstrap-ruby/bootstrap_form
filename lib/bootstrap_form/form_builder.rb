@@ -105,7 +105,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :skip_label)
       if options[:custom]
         validation = nil
         validation = "is-invalid" if has_error?(name)
@@ -139,10 +139,14 @@ module BootstrapForm
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if options[:inline]
         content_tag(:div, class: wrapper_class) do
-          checkbox_html
-            .concat(label(label_name,
-                          label_description,
-                          { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          # if options[:skip_label]
+          #   checkbox_html
+          # else
+            checkbox_html
+              .concat(label(label_name,
+                            label_description,
+                            { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          # end
         end
       end
     end
@@ -151,7 +155,7 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :skip_label)
       if options[:custom]
         radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ')
       else
@@ -174,8 +178,12 @@ module BootstrapForm
         wrapper_class += " form-check-inline" if options[:inline]
         label_class = ["form-check-label", label_class].compact.join(" ")
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
-          radio_html
-            .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          if options[:skip_label]
+            radio_html
+          else
+            radio_html
+              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          end
         end
       end
     end
