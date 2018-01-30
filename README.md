@@ -64,10 +64,9 @@ This generates the following HTML:
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="form-check">
-    <label for="user_remember_me">
-      <input name="user[remember_me]" type="hidden" value="0">
-      <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1"> Remember me
-    </label>
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
@@ -114,9 +113,9 @@ This generates:
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <div class="form-check">
-    <label class="form-check-label" for="user_remember_me">
-    <input name="user[remember_me]" type="hidden" value="0" />
-    <input class="form-check-input" type="checkbox" value="1" name="user[remember_me]" /> Remember me</label>
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>
