@@ -106,19 +106,20 @@ module BootstrapForm
     # @!macro [new] check_box_options
     #   @param options [Hash] Options processed by this method.
     #     Additional options are passed to the Rails helper as options.
-    #   @option options [Boolean] :custom If true, generate HTML for a custom radio
-    #     button.
+    #   @option options [Boolean] :custom If true, generate HTML for a custom check
+    #     box.
     #   @option options [String] :help Help text to add to the HTML.
-    #   @option options [Boolean] :hide_label If true, hide the label and provide
+    #   @option options [Boolean] :hide_label If true, hide the label and and mark it
     #     `sr-only` for screen readers.
     #   @option options [Boolean] :inline If true, place the label on the same line
-    #     as the radio button.
+    #     as the check box.
     #   @option options [String] :label Text to use for the label.
     #   @option options [String] :label_class A user-defined CSS class to add to
     #     the label element, in addition to the classes added by this method.
-    #   @return [String] Bootstrap HTML for a radio button
     #   @option options [Boolean] :skip_label If true, don't generate a label tag at all.
+    #   @return [ActiveSupport::SafeBuffer] Bootstrap HTML for a check box
 
+    # @overload check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
     # Generate Bootstrap markup for a check box.
     # @!macro check_box_options
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
@@ -181,6 +182,7 @@ module BootstrapForm
 
     bootstrap_method_alias :check_box
 
+    # @overload radio_button(name, value, *args)
     # Generates Bootstrap markup for a radio button.
     #
     # @param name [String] Passed to the Rails helper as the name of the control
@@ -198,8 +200,8 @@ module BootstrapForm
     # @option args [String] :label Text to use for the label.
     # @option args [String] :label_class A user-defined CSS class to add to
     #   the label element, in addition to the classes added by this method.
-    # @return [String] Bootstrap HTML for a radio button
     # @option args [Boolean] :skip_label If true, don't generate a label tag at all.
+    # @return [ActiveSupport::SafeBuffer] Bootstrap HTML for a radio button.
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
@@ -246,6 +248,59 @@ module BootstrapForm
 
     bootstrap_method_alias :radio_button
 
+    # @overload collection_check_boxes((name, collection, value, text, options = {})
+    #   Generates a check box tag with Bootstrap 4 markup for each of the members of `collection`,
+    #   wrapped inside a `form-group`.
+    #   Unlike many of the `BootstrapForm::FormBuilder` helpers, this method does *not* call
+    #   `ActionView::Helpers::FormBuilder#collection_check_boxes`.
+    #   This method calls `BootstrapForm::FormBuilder#check_box` for each item in `collection`
+    #   Note that, again unlike `ActionView::Helpers::FormBuilder#collection_check_boxes`,
+    #   you can't give a block to this helper.
+    #   A hidden field is generated before the sequence of check box tags, to ensure
+    #   that a value is returned when the user doesn't check any boxes.
+    #   @param name [String]
+    #   @param collection [Enumerable] A collection of objects that respond to
+    #     methods named `value` and `text`.
+    #   @param value [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
+    #     The method is used to determine the value of each `input` tag.
+    #     If an object, and if it responds to `call`, `call` is sent to `value`
+    #     with the object from `collection` as an argument.
+    #   @param text [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
+    #     The method is used to determine the `:label` option that is passed to
+    #     `#check_box`.
+    #     If an object, and if it responds to `call`, `call` is sent to `text`
+    #     with the object from `collection` as an argument.
+    #   @param options [Hash] Options that are passed to `#check_box` (TBC).
+    #   @option options [String] :class A class to apply to the `<div class="form-group">`.
+    #     The `:class` option is *not* passed through to `#check_box`. There is
+    #     currently no way to specify a custom class on the individual check boxes.
+    #   @option options [String] :control_class
+    #   @option options [String] :control_col A Bootstrap 4 column class that will
+    #     be applied to the TBD for the collection of check boxes.
+    #   @option options [String] :help Help text for the `<div class="form-group">`.
+    #   @option options [String] :hide_label If true,
+    #     don't display the label for the collection of check boxes. It will still be
+    #     accessible to screen readers, because the `sr-only` attribute will be added.
+    #   @option options [String] :icon Obsolete. Bootstrap 4 doesn't provide icons.
+    #   @option options [String] :id ID attribute for the `<div class="form-group">`.
+    #   @option options [String] :label_col A Bootstrap 4 column class that will
+    #     be applied to the label for the collection of check boxes.
+    #   @option options [String] :label Text for a label that is output for the
+    #     the collection of check boxes. If you don't want a label for the collection of
+    #     check boxes, specify `:skip_label: true`.
+    #     To set labels for the individual check boxes, use the `text` argument.
+    #   @option options [String] :layout If `:horizontal`, the
+    #     label will be placed to the left of the check box. The widths of the
+    #     label and check box will be determined by the `label_col` and `control_col`
+    #     options, respectively. If `inline`, the
+    #     label will be placed to the left of the check box with minimal spacing.
+    #   @option options [String] :skip_label If true, do not generate a label
+    #     for the `<div class="form-group">`.
+    #   @option options [String] :skip_required If true, don't display anything
+    #     beside required fields. Without this option, `bootstrap_form` will display
+    #     a red asterisk beside required fields.
+    #   @option options [String] :wrapper
+    #   @option options [String] :wrapper_class
     def collection_check_boxes_with_bootstrap(*args)
       html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
@@ -256,6 +311,60 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_check_boxes
 
+    # @overload collection_radio_buttons((name, collection, value, text, options = {}, html_options = {})
+    #   Generates a radio button tag with Bootstrap 4 markup for each of the members of `collection`,
+    #   wrapped inside a `form-group`.
+    #   Unlike many of the `BootstrapForm::FormBuilder` helpers, this method does *not* call
+    #   `ActionView::Helpers::FormBuilder#collection_radio_buttons`.
+    #   This method calls `BootstrapForm::FormBuilder#radio` for each item in `collection`
+    #   Note that, again unlike `ActionView::Helpers::FormBuilder#collection_radio_buttons`,
+    #   you can't give a block to this helper.
+    #   A hidden field is generated before the sequence of radio button tags, to ensure
+    #   that a value is returned when the user doesn't select any buttons.
+    #   @param name [String]
+    #   @param collection [Enumerable] A collection of objects that respond to
+    #     methods named `value` and `text`.
+    #   @param value [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
+    #     The method is used to determine the value of each `input` tag.
+    #     If an object, and if it responds to `call`, `call` is sent to `value`
+    #     with the object from `collection` as an argument.
+    #   @param text [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
+    #     The method is used to determine the `:label` option that is passed to
+    #     `#radio`.
+    #     If an object, and if it responds to `call`, `call` is sent to `text`
+    #     with the object from `collection` as an argument.
+    #   @param options [Hash] Options that are passed to `#radio` (TBC).
+    #   @option options [String] :class A class to apply to the `<div class="form-group">`.
+    #     The `:class` option is *not* passed through to `#radio`. There is
+    #     currently no way to specify a custom class on the individual radio_buttons.
+    #   @option options [String] :control_class
+    #   @option options [String] :control_col A Bootstrap 4 column class that will
+    #     be applied to the TBD for the collection of radio_buttons.
+    #   @option options [String] :help Help text for the `<div class="form-group">`.
+    #   @option options [String] :hide_label If true,
+    #     don't display the label for the collection of radio_buttons. It will still be
+    #     accessible to screen readers, because the `sr-only` attribute will be added.
+    #   @option options [String] :icon Obsolete. Bootstrap 4 doesn't provide icons.
+    #   @option options [String] :id ID attribute for the `<div class="form-group">`.
+    #   @option options [String] :label_col A Bootstrap 4 column class that will
+    #     be applied to the label for the collection of radio_buttons.
+    #   @option options [String] :label Text for a label that is output for the
+    #     the collection of check boxes. If you don't want a label for the collection of
+    #     radio buttons, specify `:skip_label: true`.
+    #     To set labels for the individual radio buttons, use the `text` argument.
+    #   @option options [String] :layout If `:horizontal`, the
+    #     label will be placed to the left of the radio button. The widths of the
+    #     label and radio button will be determined by the `label_col` and `control_col`
+    #     options, respectively. If `inline`, the
+    #     label will be placed to the left of the check box with minimal spacing.
+    #   @option options [String] :skip_label If true, do not generate a label
+    #     for the `<div class="form-group">`.
+    #   @option options [String] :skip_required If true, don't display anything
+    #     beside required fields. Without this option, `bootstrap_form` will display
+    #     a red asterisk beside required fields.
+    #   @option options [String] :wrapper
+    #   @option options [String] :wrapper_class
+    #   @param html_options [Hash]
     def collection_radio_buttons_with_bootstrap(*args)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)

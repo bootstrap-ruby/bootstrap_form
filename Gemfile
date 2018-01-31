@@ -8,7 +8,6 @@ gemspec
 group :development do
   gem "github-markup"
   gem "htmlbeautifier"
-  gem "redcarpet"
   gem "yard"
 end
 
