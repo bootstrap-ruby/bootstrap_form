@@ -66,7 +66,15 @@ module BootstrapForm
         form_group_builder(name, options, &block)
       end
 
-      def prepend_and_append_input(options, &block)
+      ##
+      # Add prepend and append, if any, and error if any.
+      # If anything is added, the whole thing is wrapped in an input-group.
+      def prepend_and_append_and_error_input(name, options, &block)
+        puts "options[:help]: #{options[:help]}"
+        prepend_and_append_input(name, options, error_text: generate_help(name, options[:help]).to_s, &block)
+      end
+
+      def prepend_and_append_input(name, options, error_text: nil, &block)
         options = options.extract!(:prepend, :append, :input_group_class)
         input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
 
@@ -74,6 +82,8 @@ module BootstrapForm
 
         input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
         input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
+        input << error_text
+        # FIXME: TBC The following isn't right yet. Wrap if there were errors. Maybe???
         input = content_tag(:div, input, class: input_group_class) unless options.empty?
         input
       end
