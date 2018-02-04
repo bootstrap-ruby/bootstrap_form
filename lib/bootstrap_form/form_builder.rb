@@ -38,7 +38,7 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          prepend_and_append_and_error_input(name, options) do
+          prepend_and_append_input(name, options) do
             send(without_method_name, name, options)
           end
         end
@@ -71,7 +71,7 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        prepend_and_append_and_error_input(method, options) do
+        prepend_and_append_input(method, options) do
           select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
