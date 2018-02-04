@@ -69,9 +69,11 @@ module BootstrapForm
       ##
       # Add prepend and append, if any, and error if any.
       # If anything is added, the whole thing is wrapped in an input-group.
+      # FIXME: I think this has to be the other way around, i.e. we need to be
+      # able to render fields with error or help, but only sometimes with
+      # prepend and append.
       def prepend_and_append_and_error_input(name, options, &block)
-        puts "options[:help]: #{options[:help]}"
-        prepend_and_append_input(name, options, error_text: generate_help(name, options[:help]).to_s, &block)
+        prepend_and_append_input(name, options, error_text: generate_help(name, options.delete(:help)).to_s, &block)
       end
 
       def prepend_and_append_input(name, options, error_text: nil, &block)

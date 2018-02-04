@@ -38,7 +38,7 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          prepend_and_append_input(name, options) do
+          prepend_and_append_and_error_input(name, options) do
             send(without_method_name, name, options)
           end
         end
@@ -71,7 +71,7 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        prepend_and_append_input(method, options) do
+        prepend_and_append_and_error_input(method, options) do
           select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
@@ -128,12 +128,15 @@ module BootstrapForm
       end
 
       label_class = options[:label_class]
+      error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
         div_class.append("custom-control-inline") if options[:inline]
         content_tag(:div, class: div_class.compact.join(" ")) do
-          checkbox_html.concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
+          checkbox_html
+            .concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
+            .concat(error_text)
         end
       else
         wrapper_class = "form-check"
@@ -143,6 +146,7 @@ module BootstrapForm
             .concat(label(label_name,
                           label_description,
                           { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
+            .concat(error_text)
         end
       end
     end
@@ -162,12 +166,15 @@ module BootstrapForm
 
       disabled_class = " disabled" if options[:disabled]
       label_class    = options[:label_class]
+      error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
         div_class.append("custom-control-inline") if options[:inline]
         content_tag(:div, class: div_class.compact.join(" ")) do
-          radio_html.concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+          radio_html
+            .concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+            .concat(error_text)
         end
       else
         wrapper_class = "form-check"
@@ -176,6 +183,7 @@ module BootstrapForm
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
           radio_html
             .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+            .concat(error_text)
         end
       end
     end
@@ -211,7 +219,6 @@ module BootstrapForm
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -324,7 +331,7 @@ module BootstrapForm
 
       wrapper_class = css_options.delete(:wrapper_class)
       wrapper_options = css_options.delete(:wrapper)
-      help = options.delete(:help)
+      help = options[:help]
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
