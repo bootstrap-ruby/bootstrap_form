@@ -77,16 +77,28 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, error_text: nil, &block)
-        options = options.extract!(:prepend, :append, :input_group_class)
+        control_error_help(name,
+                           options,
+                           prepend: options.delete(:prepend),
+                           append: options.delete(:append),
+                           error_text: error_text,
+                           &block)
+      end
+
+      ##
+      # Render a block, and add its error or help.
+      # Add prepend and append if provided.
+      def control_error_help(name, options, prepend: nil, append: nil, error_text: nil, &block)
+        options = options.extract!(:input_group_class)
         input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
 
         input = capture(&block)
 
-        input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
-        input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
+        input = content_tag(:div, input_group_content(prepend), class: 'input-group-prepend') + input if prepend
+        input << content_tag(:div, input_group_content(append), class: 'input-group-append') if append
         input << error_text
         # FIXME: TBC The following isn't right yet. Wrap if there were errors. Maybe???
-        input = content_tag(:div, input, class: input_group_class) unless options.empty?
+        input = content_tag(:div, input, class: input_group_class) unless options.empty? && prepend.nil? && append.nil?
         input
       end
 
