@@ -451,34 +451,4 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', inline: true, disabled: true, custom: true})
   end
-
-  test 'collection_check_boxes renders error after last check box' do
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
-    @user.errors.add(:misc, "a box must be checked")
-
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      <input name="utf8" type="hidden" value="&#x2713;"/>
-      <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">Bar</label>
-          <div class="invalid-feedback">a box must be checked</div>
-        </div>
-      </div>
-    </form>
-    HTML
-
-    actual = bootstrap_form_for(@user) do |f|
-      f.collection_check_boxes(:misc, collection, :id, :street)
-    end
-
-    assert_equivalent_xml expected, actual
-  end
 end
