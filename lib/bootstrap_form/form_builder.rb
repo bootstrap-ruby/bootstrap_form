@@ -65,7 +65,9 @@ module BootstrapForm
     def file_field_with_bootstrap(name, options = {})
       options = options.reverse_merge(control_class: 'form-control-file')
       form_group_builder(name, options) do
-        file_field_without_bootstrap(name, options)
+        control_error_help(name, options) do
+          file_field_without_bootstrap(name, options)
+        end
       end
     end
 
@@ -83,7 +85,9 @@ module BootstrapForm
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        control_error_help(method, options) do
+          collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        end
       end
     end
 
@@ -91,7 +95,9 @@ module BootstrapForm
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        control_error_help(method, options) do
+          grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
       end
     end
 
