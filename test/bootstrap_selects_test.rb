@@ -253,14 +253,14 @@ class BootstrapSelectsTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;"/>
         <div class="form-group">
           <label for="user_misc">Misc</label>
-          <div class="rails-bootstrap-forms-date-select is-invalid">
-            <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
+          <div class="rails-bootstrap-forms-date-select">
+            <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
             </select>
-            <select class="form-control" id="user_misc_2i" name="user[misc(2i)]">
+            <select class="form-control is-invalid" id="user_misc_2i" name="user[misc(2i)]">
               #{options_range(start: 1, stop: 12, selected: 2, months: true)}
             </select>
-            <select class="form-control" id="user_misc_3i" name="user[misc(3i)]">
+            <select class="form-control is-invalid" id="user_misc_3i" name="user[misc(3i)]">
               #{options_range(start: 1, stop: 31, selected: 3)}
             </select>
           </div>
@@ -354,15 +354,15 @@ class BootstrapSelectsTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;"/>
         <div class="form-group">
           <label for="user_misc">Misc</label>
-          <div class="rails-bootstrap-forms-time-select is-invalid">
+          <div class="rails-bootstrap-forms-time-select">
             <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
-            <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
+            <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
               #{options_range(start: "00", stop: "23", selected: "12")}
             </select>
             :
-            <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
+            <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
           </div>
@@ -462,22 +462,22 @@ class BootstrapSelectsTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;"/>
         <div class="form-group">
           <label for="user_misc">Misc</label>
-          <div class="rails-bootstrap-forms-datetime-select is-invalid">
-            <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
+          <div class="rails-bootstrap-forms-datetime-select">
+            <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
             </select>
-            <select class="form-control" id="user_misc_2i" name="user[misc(2i)]">
+            <select class="form-control is-invalid" id="user_misc_2i" name="user[misc(2i)]">
               #{options_range(start: 1, stop: 12, selected: 2, months: true)}
             </select>
-            <select class="form-control" id="user_misc_3i" name="user[misc(3i)]">
+            <select class="form-control is-invalid" id="user_misc_3i" name="user[misc(3i)]">
               #{options_range(start: 1, stop: 31, selected: 3)}
             </select>
             &mdash;
-            <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
+            <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
               #{options_range(start: "00", stop: "23", selected: "12")}
             </select>
             :
-            <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
+            <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
           </div>
@@ -485,7 +485,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </form>
       HTML
-      assert_equivalent_xml expected, @builder.datetime_select(:misc)
+      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc) }
     end
   end
 
