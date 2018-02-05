@@ -53,7 +53,9 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          control_error_help(name, options) do
+            content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          end
         end
       end
 
