@@ -97,7 +97,9 @@ module BootstrapForm
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        control_error_help(method, options) do
+          time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        end
       end
     end
 
