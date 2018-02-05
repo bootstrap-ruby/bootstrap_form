@@ -24,6 +24,21 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.time_zone_select(:misc)
   end
 
+  test "time zone selects are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <select class="form-control is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.time_zone_select(:misc) }
+  end
+
   test "selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
