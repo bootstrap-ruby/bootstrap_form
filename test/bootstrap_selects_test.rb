@@ -165,6 +165,21 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name)
   end
 
+  test "collection_selects are wrapped correctly with error" do
+    @user.errors.add(:status, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_status">Status</label>
+        <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.collection_select(:status, [], :id, :name) }
+  end
+
   test "collection_selects with options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -197,6 +212,21 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s)
+  end
+
+  test "grouped_collection_selects are wrapped correctly with error" do
+    @user.errors.add(:status, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_status">Status</label>
+        <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
   end
 
   test "grouped_collection_selects with options are wrapped correctly" do
