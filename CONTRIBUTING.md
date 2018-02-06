@@ -49,8 +49,17 @@ You may find using demo application useful for development and debugging.
 
 ### 6. Done!
 
-Somebody will shortly review your pull request and if everything is good will be
-merged into master brach. Eventually gem will be published with your changes.
+Somebody will shortly review your pull request and, if everything is good, it will be
+merged into the master branch. Eventually the gem will be published with your changes.
+
+## Documentation
+We invite you to improve the documentation. We use [`yard`](yardoc.org). Take a look at the existing documentation, and then add whatever you feel is appropriate.
+
+To view the documentation on your own computer, before you share it with the rest of the world, type:
+```
+yard server -r&
+```
+then browse to `localhost:8808`. Don't forget to reload the page after every change you make.
 
 ---
 
