@@ -88,6 +88,19 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, label: "Your Email" }
   end
 
+  test "bootstrap_form_for does not clobber custom options" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="required" for="ID">Email</label>
+          <input class="form-control" id="ID" name="NAME" type="text" value="steve@example.com" />
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, name: 'NAME', id: "ID" }
+  end
+
   test "bootstrap_form_tag does not clobber custom options" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" method="post" role="form">

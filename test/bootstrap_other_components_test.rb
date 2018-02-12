@@ -19,6 +19,20 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  test "static control can have custom_id" do
+    output = @horizontal_builder.static_control :email, id: 'custom_id'
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 required" for="custom_id">Email</label>
+        <div class="col-sm-10">
+          <p class="form-control-static" id="custom_id">steve@example.com</p>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
   test "static control doesn't require an actual attribute" do
     output = @horizontal_builder.static_control nil, label: "My Label" do
       "this is a test"
