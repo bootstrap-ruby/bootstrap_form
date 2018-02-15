@@ -343,4 +343,41 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', inline: true, disabled: true, custom: true})
   end
 
+  test "radio button skip label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', skip_label: true)
+  end
+  test "radio button hide label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label sr-only" for="user_misc_1">This is a radio button</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', hide_label: true)
+  end
+
+
+  test "radio button skip label with custom option set" do
+    expected = <<-HTML.strip_heredoc
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+    </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true, skip_label: true})
+  end
+
+  test "radio button hide label with custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="custom-control-label sr-only" for="user_misc_1">This is a radio button</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true, hide_label: true})
+  end
 end

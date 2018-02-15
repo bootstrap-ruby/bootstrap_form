@@ -115,13 +115,15 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_classes = [check_box_options[:class]]
+      check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]
         validation = nil
         validation = "is-invalid" if has_error?(name)
-        check_box_options[:class] = ["custom-control-input", validation, check_box_options[:class]].compact.join(' ')
+        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
       else
-        check_box_options[:class] = ["form-check-input", check_box_options[:class]].compact.join(' ')
+        check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
       end
 
       checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
@@ -137,25 +139,36 @@ module BootstrapForm
           "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
       end
 
-      label_class = options[:label_class]
+      label_classes = [options[:label_class]]
+      label_classes << hide_class if options[:hide_label]
       error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
         div_class.append("custom-control-inline") if options[:inline]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          checkbox_html
-            .concat(label(label_name, label_description, class: ["custom-control-label", label_class].compact.join(" ")))
+          if options[:skip_label]
+            checkbox_html
+          else
+            # TODO: Notice we don't seem to pass the ID into the custom control.
+            checkbox_html.concat(label(label_name, label_description, class: label_class))
+          end
             .concat(error_text)
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if options[:inline]
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: wrapper_class) do
-          checkbox_html
-            .concat(label(label_name,
-                          label_description,
-                          { class: ["form-check-label", label_class].compact.join(" ") }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          if options[:skip_label]
+            checkbox_html
+          else
+            checkbox_html
+              .concat(label(label_name,
+                            label_description,
+                            { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          end
             .concat(error_text)
         end
       end
@@ -165,34 +178,46 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      radio_classes = [options[:class]]
+      radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]
-        radio_options[:class] = ["custom-control-input", options[:class]].compact.join(' ')
+        radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(' ')
       else
-        radio_options[:class] = ["form-check-input", options[:class]].compact.join(' ')
+        radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
       end
       args << radio_options
       radio_html = radio_button_without_bootstrap(name, value, *args)
 
       disabled_class = " disabled" if options[:disabled]
-      label_class    = options[:label_class]
+      label_classes  = [options[:label_class]]
+      label_classes << hide_class if options[:hide_label]
       error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
         div_class.append("custom-control-inline") if options[:inline]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          radio_html
-            .concat(label(name, options[:label], value: value, class: ["custom-control-label", label_class].compact.join(" ")))
+          if options[:skip_label]
+            radio_html
+          else
+            # TODO: Notice we don't seem to pass the ID into the custom control.
+            radio_html.concat(label(name, options[:label], value: value, class: label_class))
+          end
             .concat(error_text)
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if options[:inline]
-        label_class = ["form-check-label", label_class].compact.join(" ")
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
-          radio_html
-            .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          if options[:skip_label]
+            radio_html
+          else
+            radio_html
+              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+          end
             .concat(error_text)
         end
       end

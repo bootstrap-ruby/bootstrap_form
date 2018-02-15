@@ -55,7 +55,7 @@ module BootstrapForm
         end
 
         form_group_builder(name, options) do
-          content_tag(:p, html, class: static_class)
+          content_tag(:p, html, { class: static_class }.merge(options[:id].present? ? { id: options[:id] } : {}))
         end
       end
 

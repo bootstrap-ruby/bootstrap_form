@@ -451,4 +451,46 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', inline: true, disabled: true, custom: true})
   end
+
+  test "check_box skip label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', skip_label: true)
+  end
+
+  test "check_box hide label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label sr-only" for="user_terms">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', hide_label: true)
+  end
+
+  test "check_box skip label with custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true, skip_label: true})
+  end
+
+  test "check_box hide label with custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label sr-only" for="user_terms">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true, hide_label: true})
+  end
 end

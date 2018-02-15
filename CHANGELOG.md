@@ -15,6 +15,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * Built-in support for the `nested_form` gem has been completely removed
 * The `icon` option is no longer supported (Bootstrap v4 does not include icons)
 * The deprecated Rails methods `check_boxes_collection` and `radio_buttons_collection` have been removed
+* `hide_label: true` and `skip_label: true` on individual check boxes and radio buttons apply Bootstrap 4 markup. This means the appearance of a page may change if you're upgrading from the Bootstrap 3 version of `bootstrap_form`, and you used `check_box` or `radio_button` with either of those options
 * Your contribution here!
 
 ### New features
@@ -22,14 +23,15 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * Support for Rails 5.1 `form_with` - [@lcreid](https://github.com/lcreid).
 * Support Bootstrap v4's [Custom Checkboxes and Radios](https://getbootstrap.com/docs/4.0/components/forms/#checkboxes-and-radios-1) with a new `custom: true` option
 * Allow HTML in help translations by using the `_html` suffix on the key - [@unikitty37](https://github.com/unikitty37)
+* [#408](https://github.com/bootstrap-ruby/bootstrap_form/pull/408): Add option[:id] on static control #245 - [@duleorlovic](https://github.com/duleorlovic).
 * Your contribution here!
 
 ### Bugfixes
 
-* Your contribution here!
 * [#357](https://github.com/bootstrap-ruby/bootstrap_form/pull/357) if provided,
   use html option `id` to specify `for` attribute on label
   [@duleorlovic](https://github.com/duleorlovic)
+* Your contribution here!
 
 ## [2.7.0][] (2017-04-21)
 
