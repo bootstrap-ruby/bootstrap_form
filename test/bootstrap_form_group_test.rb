@@ -459,7 +459,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required" for="user_email">Email</label>
+          <label class="mb-2 mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
