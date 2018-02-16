@@ -318,14 +318,16 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :horizontal)
-       .concat(f.check_box(:terms, label: 'I agree to the terms', layout: :horizontal))
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
        .concat(f.collection_check_boxes(:misc, collection, :id, :street, layout: :horizontal))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :horizontal))
     end
 
     assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/1hMYpBHds5
   end
 
+  # FIXME: The following does *not* render as a default layout form.
   test "inline-style form fields layout default" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
@@ -363,12 +365,13 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :default)
-       .concat(f.check_box(:terms, label: 'I agree to the terms', layout: :default))
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :default))
     end
 
     assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/JqdpfgA36j
   end
 
   test "horizontal-style forms" do
