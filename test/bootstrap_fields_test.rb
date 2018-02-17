@@ -65,6 +65,21 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.file_field(:misc)
   end
 
+  test "file fields are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <input class="form-control-file is-invalid" id="user_misc" name="user[misc]" type="file" />
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
+  end
+
   test "hidden fields are supported" do
     expected = %{<input id="user_misc" name="user[misc]" type="hidden" />}
     assert_equivalent_xml expected, @builder.hidden_field(:misc)
