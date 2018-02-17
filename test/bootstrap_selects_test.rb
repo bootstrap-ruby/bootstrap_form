@@ -24,6 +24,21 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.time_zone_select(:misc)
   end
 
+  test "time zone selects are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <select class="form-control is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.time_zone_select(:misc) }
+  end
+
   test "selects are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -150,6 +165,21 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name)
   end
 
+  test "collection_selects are wrapped correctly with error" do
+    @user.errors.add(:status, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_status">Status</label>
+        <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.collection_select(:status, [], :id, :name) }
+  end
+
   test "collection_selects with options are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -182,6 +212,21 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s)
+  end
+
+  test "grouped_collection_selects are wrapped correctly with error" do
+    @user.errors.add(:status, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-group">
+        <label for="user_status">Status</label>
+        <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
   end
 
   test "grouped_collection_selects with options are wrapped correctly" do
@@ -227,6 +272,33 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       HTML
       assert_equivalent_xml expected, @builder.date_select(:misc)
+    end
+  end
+
+  test "date selects are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    Timecop.freeze(Time.utc(2012, 2, 3)) do
+      expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="rails-bootstrap-forms-date-select">
+            <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
+              #{options_range(start: 2007, stop: 2017, selected: 2012)}
+            </select>
+            <select class="form-control is-invalid" id="user_misc_2i" name="user[misc(2i)]">
+              #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+            </select>
+            <select class="form-control is-invalid" id="user_misc_3i" name="user[misc(3i)]">
+              #{options_range(start: 1, stop: 31, selected: 3)}
+            </select>
+          </div>
+          <div class="invalid-feedback">error for test</div>
+        </div>
+      </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.date_select(:misc) }
     end
   end
 
@@ -301,6 +373,34 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       HTML
       assert_equivalent_xml expected, @builder.time_select(:misc)
+    end
+  end
+
+  test "time selects are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="rails-bootstrap-forms-time-select">
+            <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
+            <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
+            <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
+            <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
+              #{options_range(start: "00", stop: "23", selected: "12")}
+            </select>
+            :
+            <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
+              #{options_range(start: "00", stop: "59", selected: "00")}
+            </select>
+          </div>
+          <div class="invalid-feedback">error for test</div>
+        </div>
+      </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.time_select(:misc) }
     end
   end
 
@@ -381,6 +481,41 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       HTML
       assert_equivalent_xml expected, @builder.datetime_select(:misc)
+    end
+  end
+
+  test "datetime selects are wrapped correctly with error" do
+    @user.errors.add(:misc, "error for test")
+    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="rails-bootstrap-forms-datetime-select">
+            <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
+              #{options_range(start: 2007, stop: 2017, selected: 2012)}
+            </select>
+            <select class="form-control is-invalid" id="user_misc_2i" name="user[misc(2i)]">
+              #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+            </select>
+            <select class="form-control is-invalid" id="user_misc_3i" name="user[misc(3i)]">
+              #{options_range(start: 1, stop: 31, selected: 3)}
+            </select>
+            &mdash;
+            <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
+              #{options_range(start: "00", stop: "23", selected: "12")}
+            </select>
+            :
+            <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
+              #{options_range(start: "00", stop: "59", selected: "00")}
+            </select>
+          </div>
+          <div class="invalid-feedback">error for test</div>
+        </div>
+      </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc) }
     end
   end
 
