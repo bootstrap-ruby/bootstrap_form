@@ -105,7 +105,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :layout, :skip_label)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]
@@ -165,7 +165,7 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :layout, :skip_label)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
       radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]

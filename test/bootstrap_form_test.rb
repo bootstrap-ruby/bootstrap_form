@@ -318,7 +318,7 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :horizontal)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: false))
        .concat(f.collection_check_boxes(:misc, collection, :id, :street, layout: :horizontal))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :horizontal))
     end
@@ -365,7 +365,7 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :default)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: false))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :default))
     end
