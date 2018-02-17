@@ -327,7 +327,7 @@ class BootstrapFormTest < ActionView::TestCase
     # See the rendered output at: https://www.bootply.com/1hMYpBHds5
   end
 
-  # FIXME: The following does *not* render as a default layout form.
+  # NOTE: The following does *not* render as a default layout form.
   test "inline-style form fields layout default" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
