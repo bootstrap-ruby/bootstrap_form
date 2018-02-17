@@ -436,7 +436,7 @@ module BootstrapForm
         classes << "col-form-label"
         classes << (custom_label_col || label_col)
       elsif layout_inline?(group_layout)
-        classes.append(["mb-2", "mr-sm-2"])
+        classes << "mr-sm-2"
       end
 
       unless options.delete(:skip_required)
