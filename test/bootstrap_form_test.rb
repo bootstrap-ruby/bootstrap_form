@@ -337,7 +337,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group row">
-          <div class="col-md-10 col-md-offset-2">
+          <div class="col-md-10 offset-md-2">
             <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
           </div>
         </div>
