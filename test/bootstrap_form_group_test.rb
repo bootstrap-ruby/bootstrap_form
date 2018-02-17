@@ -256,7 +256,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -287,7 +287,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -302,7 +302,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -399,7 +399,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-10 offset-sm-2">
           <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
         </div>
       </div>
@@ -414,7 +414,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-8 col-sm-offset-5">
+        <div class="col-sm-8 offset-sm-5">
           <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
         </div>
       </div>
@@ -432,7 +432,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">Hallo</div>
+        <div class="col-sm-10 offset-sm-2">Hallo</div>
       </div>
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
@@ -498,7 +498,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
-        <div class="col-sm-9 col-sm-offset-3">
+        <div class="col-sm-9 offset-sm-3">
           <p class="form-control-static">Bar</p>
         </div>
       </div>
@@ -510,7 +510,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3".freeze, control_col: "col-sm-9".freeze })
     output = frozen_horizontal_builder.form_group { 'test' }
 
-    expected = %{<div class="form-group row"><div class="col-sm-9 col-sm-offset-3">test</div></div>}
+    expected = %{<div class="form-group row"><div class="col-sm-9 offset-sm-3">test</div></div>}
     assert_equivalent_xml expected, output
   end
 

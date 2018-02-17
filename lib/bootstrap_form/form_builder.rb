@@ -922,7 +922,7 @@ module BootstrapForm
     end
 
     def offset_col(label_col)
-      label_col.sub(/^col-(\w+)-(\d)$/, 'col-\1-offset-\2')
+      label_col.sub(/^col-(\w+)-(\d)$/, 'offset-\1-\2')
     end
 
     def default_control_col
