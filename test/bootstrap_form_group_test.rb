@@ -35,6 +35,18 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email, hide_label: true)
   end
 
+  test "hiding a label with horizontal layout" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="sr-only col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:email, hide_label: true, layout: :horizontal)
+  end
+
   test "adding a custom label class via the label_class parameter" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -72,6 +84,17 @@ class BootstrapFormGroupTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, skip_label: true)
+  end
+
+  test "skipping a label horizontal layout" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <div class="col-sm-10 offset-sm-2">
+          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:email, skip_label: true, layout: :horizontal)
   end
 
   test "preventing a label from having the required class" do
