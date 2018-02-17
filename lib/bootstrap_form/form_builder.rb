@@ -24,7 +24,10 @@ module BootstrapForm
     # a form. It's called by {BootstrapForm::Helper#bootstrap_form_for}, {BootstrapForm::Helper#bootstrap_form_tag},
     # and {BootstrapForm::Helper#bootstrap_form_with}.
     #
-    # You can build on top of `bootstrap_form` by sub-classing this class,
+    # You can build on top of `bootstrap_form` if you want to extend the functionality
+    # of `bootstrap_form`.
+    # (This is not necessary for any of the functionality outlined in this documentation.)
+    # To do so, sub-class this class,
     # calling `super` in its `initialize` method:
     # ```
     # class MyFormBuilder < BootstrapForm::FormBuilder
@@ -186,12 +189,13 @@ module BootstrapForm
 
     # @!method text_field(method, options = {})
     # Render a `text_field` input tag using Rails' `text_field` helper,
-    # augmented with Bootstrap 4 markup as described below.
+    # augmented with Bootstrap 4 markup as described below,
+    # and wrapped in a `<div class="form-group">`.
     # `method` is passed as the `method` parameter to Rails' `text_field` helper.
     # @!macro validation_errors
     # @param method [Object] passed to the `method` parameter of Rails' `text_field` helper.
-    # @param options [Hash] ({}) Options affecting how the control and other
-    #   tags are rendered. Anything in 'options' not listed below is passed to
+    # @param options [Hash] Options affecting how the control and other
+    #   tags are rendered. Anything in `options` not listed below is passed to
     #   the Rails helper.
     # @!macro append
     # @todo Test control_class
@@ -208,14 +212,13 @@ module BootstrapForm
     #   automatically being rendered, use `help: false`.
     #   For historical reasons, the help text is not rendered if the field
     #   has an error.
-    # @todo check test for horizontal hide_label
     # @option options [Boolean] :hide_label (false) Render a `label` tag,
     #   but add the `sr-only` class to its classes. Users will not see the
     #   label, but screen readers will announce it.
     # @option options [String, Symbol] :id If given, is rendered as the `id`
     #   attribute of the control tag, and the `for`
     #   attribute of the `label` tag. If no `:id` option is given, the Rails
-    #   default IDs are rendered (which for Rails 5.1, means no IDs are rendered)
+    #   default IDs are rendered (which for Rails 5.1, means no IDs are rendered).
     # @option options [String, Hash] :label Add a label before
     #   the control:
     #   - If a String: text to pass to the `text` parameter of Rails' `label` helper.
@@ -223,7 +226,7 @@ module BootstrapForm
     #     - `:text` gives the text to pass to the `text` parameter of Rails' `label` helper.
     #     - `:class` is added to the `class` attribute of the `label` tag
     #   - If no :label option is given, or the option is a Hash and no `:text`
-    #   value is given, Rails' `label` method will generate its usual defaul label.
+    #   value is given, Rails' `label` method will generate its usual default label.
     #
     #   If the `:id` option is given, the given ID will be used
     #   as the `for` attribute of the label.
@@ -232,16 +235,15 @@ module BootstrapForm
     #   label is given, a column offset equal to `label_col` will be added
     #   on the control tag's classes.
     #   Has no effect unless `layout: :horizontal` is in effect.
-    # @todo test `layout: :default` overriding other layouts.
-    # @todo test `layout: :horizontal` overriding `layout: :inline`
-    # @todo test others???
     # @option options [String] :layout Set the layout style for this control.
-    #   Overrides the `layout` specified at the form level, if any.
+    #   Specify a layout for this field. If `layout: :inline` was specified
+    #   at the form level, the results of this option at the field level are
+    #   undefined.
     #   - `:horizontal`: the
     #   label will be placed to the left of the control. The widths of the
     #   label and control will be determined by the `label_col` and `control_col`
     #   options, respectively. The label and control will be wrapped in a
-    #   `<div class="form-group row">`. Note the `row` added to the `div`'s classes
+    #   `<div class="form-group row">`. Note that `row` is added to the `div`'s classes.
     #
     #   - `:inline`: the
     #   label will be placed to the left of the control with minimal spacing.
@@ -254,11 +256,14 @@ module BootstrapForm
     #   - not specified: Use the `layout` specified at the form level
     # @!macro prepend
     # @option options [Boolean] :skip_label (false) If true, do not render a
-    #   label tag at all.
+    #   label tag at all. If horizontal layout is in effect, add an offset
+    #   class to the control, equal to the width the label would have occupied.
     # @option options [Boolean] :skip_required (false) If false, add `required` to the
-    #   label's `class` attribute. If true, don't add `required` to the label's
+    #   label's `class` attribute. By default, this adds a red asterisk to the
+    #   label. If true, don't add `required` to the label's
     #   `class` attribute.
-    # @option options [String] :wrapper Options to be passed to the wrapper.
+    # @option options [Hash] :wrapper Options to be passed to the wrapper.
+    #   see {#form_group} for options.
     # @option options [String] :wrapper_class A class or classes to be added
     #   to the `class` attribute of the wrapper. This is a short form for:
     #   `wrapper: { class: "additional-class" }`.
@@ -375,7 +380,7 @@ module BootstrapForm
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `collection_select` helper.
     # @!macro validation_errors
-    # @param options [Hash] ({}) Options affecting how the control and other
+    # @param options [Hash] Options affecting how the control and other
     #   tags are rendered. Anything in 'options' not listed below is passed to
     #   the Rails helper. These are the same options with the same meaning as
     #   those for {#text_field}, minus `:append` and `:prepend`.
@@ -401,7 +406,7 @@ module BootstrapForm
     #   default IDs are rendered (which for Rails 5.1, means no IDs are rendered)
     # @option options [String, Hash] :label Add a label before
     #   the control:
-    #   - If a String: text to pass to the `text` parameter of Rails' `label` helper.
+    #   - If a String: text to pass to the `text` parameter of Rails `label` helper.
     #   - If a Hash:
     #     - `:text` gives the text to pass to the `text` parameter of Rails' `label` helper.
     #     - `:class` is added to the `class` attribute of the `label` tag
@@ -488,8 +493,11 @@ module BootstrapForm
     #   @option options [String] :help Help text to add to the HTML.
     #   @option options [Boolean] :hide_label If true, hide the label and and mark it
     #     `sr-only` for screen readers.
-    #   @option options [Boolean] :inline If true, place the label on the same line
-    #     as the check box.
+    #   @option options [Boolean] :inline If true, mark up the label and check box
+    #     so they look good when rendered in an in-line form. If `layout: :inline`
+    #     was specified at the form level, use the same markup as if `inline: true`
+    #     was specified. If `layout: :inline` was specified at the form level,
+    #     specifying `inline: false` gives undefined results.
     #   @option options [String] :label Text to use for the label.
     #   @option options [String] :label_class A user-defined CSS class to add to
     #     the label element, in addition to the classes added by this method.
@@ -498,7 +506,13 @@ module BootstrapForm
 
     # @overload check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
     # Generate Bootstrap markup for a check box.
+    # @param name [Object] Passed to the `method` parameter of Rails' `check_box`.
+    # @param checked_value [Object] Passed to the `checked_value` parameter of Rails' `check_box`.
+    # @param unchecked_value [Object] Passed to the `unchecked_value` parameter of Rails' `check_box`.
     # @!macro check_box_options
+    # @yield The value of the block, if any, is used as the label. If the `label`
+    # option is also given, the value of the block will be used.
+    # @!macro return
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
