@@ -79,7 +79,7 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group">
+        <div class="form-group form-inline">
           <label class="mb-2 mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -109,9 +109,10 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     assert_equivalent_xml expected, actual
-    # See the rendered output at: https://www.bootply.com/WvdETgDeyZ
+    # See the rendered output at: https://www.bootply.com/bnIIcSOOMq
     # Note that the baseline of the label text to the left of the two radio buttons
     # isn't aligned with the text of the radio button labels.
+    # TODO: Align baseline better.
   end
 
   if  ::Rails::VERSION::STRING >= '5.1'
@@ -172,6 +173,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, actual
   end
 
+  # FIXME: The following does *not* render as a horizontal layout form.
   test "inline-style form fields layout horizontal" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
@@ -216,7 +218,7 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :horizontal)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: false))
        .concat(f.collection_check_boxes(:misc, collection, :id, :street, layout: :horizontal))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :horizontal))
     end
@@ -263,7 +265,7 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email, layout: :default)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: false))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
        .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :default))
     end
@@ -381,7 +383,7 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group">
+        <div class="form-group form-inline">
           <label class="mb-2 mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />

@@ -105,7 +105,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :layout, :skip_label)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]
@@ -134,7 +134,7 @@ module BootstrapForm
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
-        div_class.append("custom-control-inline") if options[:inline]
+        div_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
           if options[:skip_label]
@@ -146,7 +146,7 @@ module BootstrapForm
         end
       else
         wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
+        wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: wrapper_class) do
           if options[:skip_label]
@@ -165,7 +165,7 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :layout, :skip_label)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
       radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
       if options[:custom]
@@ -182,7 +182,7 @@ module BootstrapForm
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
-        div_class.append("custom-control-inline") if options[:inline]
+        div_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
           if options[:skip_label]
@@ -194,7 +194,7 @@ module BootstrapForm
         end
       else
         wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
+        wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
           if options[:skip_label]
@@ -233,6 +233,7 @@ module BootstrapForm
 
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
+      options[:class] << " form-inline" if field_inline_override?(options[:layout])
       options[:class] << " #{feedback_class}" if options[:icon]
 
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
@@ -274,8 +275,28 @@ module BootstrapForm
 
     private
 
-    def horizontal?
-      layout == :horizontal
+    def layout_default?(field_layout = nil)
+      [:default, nil].include? layout_in_effect(field_layout)
+    end
+
+    def layout_horizontal?(field_layout = nil)
+      layout_in_effect(field_layout) == :horizontal
+    end
+
+    def layout_inline?(field_layout = nil)
+      layout_in_effect(field_layout) == :inline
+    end
+
+    def field_inline_override?(field_layout = nil)
+      field_layout == :inline && layout != :inline
+    end
+
+    # true and false should only come from check_box and radio_button,
+    # and those don't have a :horizontal layout
+    def layout_in_effect(field_layout)
+      field_layout = :inline if field_layout == true
+      field_layout = :default if field_layout == false
+      field_layout || layout
     end
 
     def get_group_layout(group_layout)
@@ -411,9 +432,11 @@ module BootstrapForm
       options[:for] = id if acts_like_form_tag
       classes = [options[:class]]
 
-      if get_group_layout(group_layout) == :horizontal
+      if layout_horizontal?(group_layout)
         classes << "col-form-label"
         classes << (custom_label_col || label_col)
+      elsif layout_inline?(group_layout)
+        classes.append(["mb-2", "mr-sm-2"])
       end
 
       unless options.delete(:skip_required)
@@ -452,6 +475,7 @@ module BootstrapForm
     end
 
     def inputs_collection(name, collection, value, text, options = {}, &block)
+      options[:inline] ||= layout_inline?(options[:layout])
       form_group_builder(name, options) do
         inputs = ""
 
