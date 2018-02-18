@@ -317,4 +317,46 @@ class BootstrapFieldsTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, output
   end
+
+  if ::Rails::VERSION::STRING >= '5.1'
+    test "fields correctly uses options from parent builder" do
+      @user.address = Address.new(street: '123 Main Street')
+
+      bootstrap_form_with(model: @user,
+                          control_col: "control-style",
+                          inline_errors: false,
+                          label_col: "label-style",
+                          label_errors: true,
+                          layout: :inline) do |f|
+        f.fields :address do |af|
+          af.text_field(:street)
+          assert_equal "control-style", af.control_col
+          assert_equal false, af.inline_errors
+          assert_equal "label-style", af.label_col
+          assert_equal true, af.label_errors
+          assert_equal :inline, af.layout
+        end
+      end
+    end
+  end
+
+  test "fields_for_without_bootstrap does not use options from parent builder" do
+    @user.address = Address.new(street: '123 Main Street')
+
+    bootstrap_form_for(@user,
+                       control_col: "control-style",
+                       inline_errors: false,
+                       label_col: "label-style",
+                       label_errors: true,
+                       layout: :inline) do |f|
+      f.fields_for_without_bootstrap :address do |af|
+        af.text_field(:street)
+        assert_not_equal "control-style", af.control_col
+        assert_not_equal false, af.inline_errors
+        assert_not_equal "label-style", af.label_col
+        assert_not_equal true, af.label_errors
+        assert_not_equal :inline, af.layout
+      end
+    end
+  end
 end
