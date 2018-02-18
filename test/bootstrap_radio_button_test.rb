@@ -99,8 +99,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
           <label class="form-check-label" for="user_misc_1">
             Foobar
           </label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -172,8 +172,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -188,8 +188,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -242,8 +242,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -258,8 +258,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
