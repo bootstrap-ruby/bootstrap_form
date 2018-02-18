@@ -38,9 +38,9 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          prepend_and_append_input(options) do
+          # prepend_and_append_input(name, options) do
             send(without_method_name, name, options)
-          end
+          # end
         end
       end
 
@@ -71,9 +71,9 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        prepend_and_append_input(options) do
+        # prepend_and_append_input(method, options) do
           select_without_bootstrap(method, choices, options, html_options, &block)
-        end
+        # end
       end
     end
 
@@ -235,10 +235,11 @@ module BootstrapForm
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
+      content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
+        control = prepend_and_append_input(name, options, &block).to_s
+        puts "back from prepend_and_append_input control: #{control}"
+        # control.concat(generate_help(name, options[:help]).to_s)
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -365,6 +366,10 @@ module BootstrapForm
         layout: layout,
         class: wrapper_class
       }
+
+      form_group_options[:append] = options.delete(:append) if options[:append]
+      form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
+      form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
 
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)

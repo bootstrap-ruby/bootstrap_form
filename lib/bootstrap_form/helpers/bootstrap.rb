@@ -66,15 +66,23 @@ module BootstrapForm
         form_group_builder(name, options, &block)
       end
 
-      def prepend_and_append_input(options, &block)
-        options = options.extract!(:prepend, :append, :input_group_class)
-        input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
+      def prepend_and_append_input(name, options, &block)
+        local_options = options.extract!(:prepend, :append, :input_group_class)
+        puts "options: #{options}"
+        puts "local_options: #{local_options}"
+        input_group_class = ["input-group", local_options[:input_group_class]].compact.join(' ')
 
-        input = capture(&block)
+        input = capture(&block) || "".html_safe
+        puts "prepend_and_append_input input: #{input}"
 
-        input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
-        input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
-        input = content_tag(:div, input, class: input_group_class) unless options.empty?
+        input = content_tag(:div, input_group_content(local_options[:prepend]), class: 'input-group-prepend') + input if local_options[:prepend]
+        puts "prepend_and_append_input input with prepend: #{input}"
+        input << content_tag(:div, input_group_content(local_options[:append]), class: 'input-group-append') if local_options[:append]
+        puts "prepend_and_append_input input with append: #{input}"
+        input << generate_help(name, options[:help]).to_s
+        puts "prepend_and_append_input input with help: #{input}"
+        input = content_tag(:div, input, class: input_group_class) unless local_options.empty?
+        puts "prepend_and_append_input input to be returned: #{input}"
         input
       end
 
