@@ -238,8 +238,6 @@ module BootstrapForm
       content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = prepend_and_append_input(name, options, &block).to_s
-        puts "back from prepend_and_append_input control: #{control}"
-        # control.concat(generate_help(name, options[:help]).to_s)
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col

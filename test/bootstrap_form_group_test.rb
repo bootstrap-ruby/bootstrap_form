@@ -329,26 +329,26 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  # test 'form_group renders the "error" class and message corrrectly when object is invalid' do
-  #   # It could be said that the meaning of "form-group" has changed in Bootstrap 4,
-  #   # and that's why it shouldn't be outputting the error message anymore. Which
-  #   # would make this test case no longer valid.
-  #   # THIS TEST WAS REMOVED FROM v2.7.
-  #   @user.email = nil
-  #   assert @user.invalid?
-  #
-  #   output = @builder.form_group :email do
-  #     %{<p class="form-control-static">Bar</p>}.html_safe
-  #   end
-  #
-  #   expected = <<-HTML.strip_heredoc
-  #     <div class="form-group">
-  #       <p class="form-control-static">Bar</p>
-  #       <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-  #     </div>
-  #   HTML
-  #   assert_equivalent_xml expected, output
-  # end
+  test 'form_group renders the "error" class and message corrrectly when object is invalid' do
+    # It could be said that the meaning of "form-group" has changed in Bootstrap 4,
+    # and that's why it shouldn't be outputting the error message anymore. Which
+    # would make this test case no longer valid.
+    # THIS TEST WAS REMOVED FROM v2.7.
+    @user.email = nil
+    assert @user.invalid?
+
+    output = @builder.form_group :email do
+      %{<p class="form-control-static">Bar</p>}.html_safe
+    end
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <p class="form-control-static">Bar</p>
+        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
 
   test "adds class to wrapped form_group by a field" do
     expected = <<-HTML.strip_heredoc
