@@ -169,7 +169,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    # TODO: We should build the @builder properly from `bootstrap_form_for`, so it's easier to test errors.
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: '$', append: '.00' }
   end
 
@@ -330,10 +329,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test 'form_group renders the "error" class and message corrrectly when object is invalid' do
-    # It could be said that the meaning of "form-group" has changed in Bootstrap 4,
-    # and that's why it shouldn't be outputting the error message anymore. Which
-    # would make this test case no longer valid.
-    # THIS TEST WAS REMOVED FROM v2.7.
     @user.email = nil
     assert @user.invalid?
 

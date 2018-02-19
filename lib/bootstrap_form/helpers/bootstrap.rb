@@ -67,16 +67,25 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &block)
-        local_options = options.extract!(:prepend, :append, :input_group_class)
-        input_group_class = ["input-group", local_options[:input_group_class]].compact.join(' ')
+        help = options[:help]
+        options = options.extract!(:prepend, :append, :input_group_class)
+        input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
 
         input = capture(&block) || "".html_safe
 
-        input = content_tag(:div, input_group_content(local_options[:prepend]), class: 'input-group-prepend') + input if local_options[:prepend]
-        input << content_tag(:div, input_group_content(local_options[:append]), class: 'input-group-append') if local_options[:append]
-        input << generate_help(name, options[:help]).to_s
-        input = content_tag(:div, input, class: input_group_class) unless local_options.empty?
+        input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
+        input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
+        input << generate_help(name, help).to_s
+        input = content_tag(:div, input, class: input_group_class) unless options.empty?
         input
+      end
+
+      # Some helpers don't currently accept prepend and append. However, it's not
+      # clear if that's corrent. In the meantime, strip to options before calling
+      # methods that don't accept prepend and append.
+      def prevent_prepend_and_append!(options)
+        options.delete(:append)
+        options.delete(:prepend)
       end
 
       def input_group_content(content)

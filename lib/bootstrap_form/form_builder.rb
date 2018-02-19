@@ -38,9 +38,7 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          # prepend_and_append_input(name, options) do
-            send(without_method_name, name, options)
-          # end
+          send(without_method_name, name, options)
         end
       end
 
@@ -52,6 +50,7 @@ module BootstrapForm
       without_method_name = "#{method_name}_without_bootstrap"
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
+        prevent_prepend_and_append!(options)
         form_group_builder(name, options, html_options) do
           content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
         end
@@ -61,6 +60,7 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
+      prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: 'form-control-file')
       form_group_builder(name, options) do
         file_field_without_bootstrap(name, options)
@@ -71,15 +71,14 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        # prepend_and_append_input(method, options) do
-          select_without_bootstrap(method, choices, options, html_options, &block)
-        # end
+        select_without_bootstrap(method, choices, options, html_options, &block)
       end
     end
 
     bootstrap_method_alias :select
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
       end
@@ -88,6 +87,7 @@ module BootstrapForm
     bootstrap_method_alias :collection_select
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
       end
@@ -96,6 +96,7 @@ module BootstrapForm
     bootstrap_method_alias :grouped_collection_select
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
       end
@@ -104,6 +105,7 @@ module BootstrapForm
     bootstrap_method_alias :time_zone_select
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
+      prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
@@ -164,6 +166,7 @@ module BootstrapForm
     bootstrap_method_alias :check_box
 
     def radio_button_with_bootstrap(name, value, *args)
+      prevent_prepend_and_append!(options)
       options = args.extract_options!.symbolize_keys!
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
@@ -210,6 +213,7 @@ module BootstrapForm
     bootstrap_method_alias :radio_button
 
     def collection_check_boxes_with_bootstrap(*args)
+      prevent_prepend_and_append!(options)
       html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
@@ -220,6 +224,7 @@ module BootstrapForm
     bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
+      prevent_prepend_and_append!(options)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
