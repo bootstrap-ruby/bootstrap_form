@@ -75,7 +75,7 @@ module BootstrapForm
 
         input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
         input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
-        input << generate_help(name, help).to_s
+        input << generate_help(name, help).to_s unless in_radio_checkbox_collection?
         input = content_tag(:div, input, class: input_group_class) unless options.empty?
         input
       end

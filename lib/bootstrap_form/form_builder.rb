@@ -191,12 +191,17 @@ module BootstrapForm
       prevent_prepend_and_append!(outer_options)
       # This next line is because the options get munged in the legacy code.
       help = outer_options[:help]
-      inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
-        wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
-          radio_html = unwrapped_radio(name, value, options)
-          radio_html.concat(generate_help(name, help)) if i == collection.size - 1
-          radio_html
+      begin
+        self.in_radio_checkbox_collection = true
+        inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
+          wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+            radio_html = unwrapped_radio(name, value, options)
+            radio_html.concat(generate_help(name, help)) if i == collection.size - 1
+            radio_html
+          end
         end
+      ensure
+        self.in_radio_checkbox_collection = false
       end
     end
 
@@ -266,6 +271,14 @@ module BootstrapForm
 
     def default_control_col
       "col-sm-10"
+    end
+
+    def in_radio_checkbox_collection?
+      @in_radio_checkbox_collection ||= false
+    end
+
+    def in_radio_checkbox_collection=(state)
+      @in_radio_checkbox_collection = state
     end
 
     def hide_class
