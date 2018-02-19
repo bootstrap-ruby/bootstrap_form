@@ -168,45 +168,9 @@ module BootstrapForm
     def radio_button_with_bootstrap(name, value, *args)
       prevent_prepend_and_append!(options)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
-      radio_classes = [options[:class]]
-      radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
-      if options[:custom]
-        radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(' ')
-      else
-        radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
-      end
-      args << radio_options
-      radio_html = radio_button_without_bootstrap(name, value, *args)
 
-      disabled_class = " disabled" if options[:disabled]
-      label_classes  = [options[:label_class]]
-      label_classes << hide_class if options[:hide_label]
-
-      if options[:custom]
-        div_class = ["custom-control", "custom-radio"]
-        div_class.append("custom-control-inline") if options[:inline]
-        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-        content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
-            radio_html
-          else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            radio_html.concat(label(name, options[:label], value: value, class: label_class))
-          end
-        end
-      else
-        wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
-        label_class = label_classes.prepend("form-check-label").compact.join(" ")
-        content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
-          if options[:skip_label]
-            radio_html
-          else
-            radio_html
-              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
-        end
+      wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+        unwrapped_radio(name, value, options, *args)
       end
     end
 
@@ -504,6 +468,49 @@ module BootstrapForm
                         text
                       end
         help_text
+      end
+    end
+
+    def unwrapped_radio(name, value, options, *args)
+      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      radio_classes = [options[:class]]
+      radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
+      if options[:custom]
+        radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(' ')
+      else
+        radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
+      end
+      args << radio_options
+      radio_html = radio_button_without_bootstrap(name, value, *args)
+
+      label_classes = [options[:label_class]]
+      label_classes << hide_class if options[:hide_label]
+
+      if options[:skip_label]
+        radio_html
+      elsif options[:custom]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
+        # TODO: Notice we don't seem to pass the ID into the custom control.
+        radio_html.concat(label(name, options[:label], value: value, class: label_class))
+      else
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
+        radio_html
+          .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+      end
+    end
+
+    def wrapped_radio(custom: false, disabled: false, inline: false)
+      if custom
+        wrapper_classes = ["custom-control", "custom-radio"]
+        wrapper_classes.append("custom-control-inline") if inline
+      else
+        wrapper_classes = ["form-check"]
+        wrapper_classes.append("form-check-inline") if inline
+        wrapper_classes.append("disabled") if disabled
+      end
+      wrapper_class = wrapper_classes.compact.join(" ")
+      content_tag(:div, class: wrapper_class) do
+        yield
       end
     end
   end
