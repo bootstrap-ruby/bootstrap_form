@@ -170,22 +170,7 @@ module BootstrapForm
       options = args.extract_options!.symbolize_keys!
 
       wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
-        radio_html = unwrapped_radio(name, value, options, *args)
-
-        label_classes  = [options[:label_class]]
-        label_classes << hide_class if options[:hide_label]
-
-        if options[:skip_label]
-          radio_html
-        elsif options[:custom]
-          label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-          # TODO: Notice we don't seem to pass the ID into the custom control.
-          radio_html.concat(label(name, options[:label], value: value, class: label_class))
-        else
-          label_class = label_classes.prepend("form-check-label").compact.join(" ")
-          radio_html
-            .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
-        end
+        unwrapped_radio(name, value, options, *args)
       end
     end
 
@@ -496,7 +481,22 @@ module BootstrapForm
         radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
       end
       args << radio_options
-      radio_button_without_bootstrap(name, value, *args)
+      radio_html = radio_button_without_bootstrap(name, value, *args)
+
+      label_classes = [options[:label_class]]
+      label_classes << hide_class if options[:hide_label]
+
+      if options[:skip_label]
+        radio_html
+      elsif options[:custom]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
+        # TODO: Notice we don't seem to pass the ID into the custom control.
+        radio_html.concat(label(name, options[:label], value: value, class: label_class))
+      else
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
+        radio_html
+          .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+      end
     end
 
     def wrapped_radio(custom: false, disabled: false, inline: false)
