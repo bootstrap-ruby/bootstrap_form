@@ -107,59 +107,9 @@ module BootstrapForm
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
-      check_box_classes = [check_box_options[:class]]
-      check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
-      if options[:custom]
-        validation = nil
-        validation = "is-invalid" if has_error?(name)
-        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
-      else
-        check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
-      end
 
-      checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
-      label_content = block_given? ? capture(&block) : options[:label]
-      label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
-
-      label_name = name
-      # label's `for` attribute needs to match checkbox tag's id,
-      # IE sanitized value, IE
-      # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
-      if options[:multiple]
-        label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
-      end
-
-      label_classes = [options[:label_class]]
-      label_classes << hide_class if options[:hide_label]
-
-      if options[:custom]
-        div_class = ["custom-control", "custom-checkbox"]
-        div_class.append("custom-control-inline") if options[:inline]
-        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-        content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
-            checkbox_html
-          else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            checkbox_html.concat(label(label_name, label_description, class: label_class))
-          end
-        end
-      else
-        wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
-        label_class = label_classes.prepend("form-check-label").compact.join(" ")
-        content_tag(:div, class: wrapper_class) do
-          if options[:skip_label]
-            checkbox_html
-          else
-            checkbox_html
-              .concat(label(label_name,
-                            label_description,
-                            { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
-        end
+      wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+        unwrapped_check_box(name, options, checked_value, unchecked_value, &block)
       end
     end
 
@@ -490,6 +440,49 @@ module BootstrapForm
       end
     end
 
+    def unwrapped_check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
+      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_classes = [check_box_options[:class]]
+      check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
+      if options[:custom]
+        validation = nil
+        validation = "is-invalid" if has_error?(name)
+        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
+      else
+        check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
+      end
+
+      checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
+      label_content = block_given? ? capture(&block) : options[:label]
+      label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
+
+      label_name = name
+      # label's `for` attribute needs to match checkbox tag's id,
+      # IE sanitized value, IE
+      # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
+      if options[:multiple]
+        label_name =
+        "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+      end
+
+      label_classes = [options[:label_class]]
+      label_classes << hide_class if options[:hide_label]
+
+      if options[:skip_label]
+        checkbox_html
+      elsif options[:custom]
+        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
+        # TODO: Notice we don't seem to pass the ID into the custom control.
+        checkbox_html.concat(label(label_name, label_description, class: label_class))
+      else
+        label_class = label_classes.prepend("form-check-label").compact.join(" ")
+        checkbox_html
+        .concat(label(label_name,
+          label_description,
+          { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+      end
+    end
+
     def unwrapped_radio(name, value, options, *args)
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
@@ -515,6 +508,20 @@ module BootstrapForm
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         radio_html
           .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+      end
+    end
+
+    def wrapped_check_box(custom: false, disabled: false, inline: false)
+      if custom
+        wrapper_classes = ["custom-control", "custom-checkbox"]
+        wrapper_classes.append("custom-control-inline") if inline
+      else
+        wrapper_classes = ["form-check"]
+        wrapper_classes << "form-check-inline" if inline
+      end
+      wrapper_class = wrapper_classes.compact.join(" ")
+      content_tag(:div, class: wrapper_class) do
+        yield
       end
     end
 
