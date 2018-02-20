@@ -215,7 +215,7 @@ In cases where this behavior is undesirable, use the `skip_required` option:
 
 ### Input Elements / Controls
 
-To specify the class of the generated input, use the `control_class` option:
+To specify the class of the generated input tag, use the `control_class` option:
 
 ```erb
 <%= f.text_field :email, control_class: "custom-class" %>
@@ -270,7 +270,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 <%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
 ```
 
-To add a class to the input group wrapper, use `:input_group_class` option.
+To add a class to the input group wrapper, use the `:input_group_class` option.
 
 ```erb
 <%= f.email_field :email, append: f.primary('Subscribe'), input_group_class: 'input-group-lg' %>
@@ -344,7 +344,7 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 
 #### Collections
 
-BootstrapForms also provides helpers that automatically creates the
+`bootstrap_form` also provides helpers that automatically creates the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
 ```erb
@@ -366,7 +366,7 @@ You can create a static control like this:
 <%= f.static_control :email %>
 ```
 
-Here's the output:
+Here's the output for a horizontal layout:
 
 ```html
 <div class="form-group">
@@ -390,7 +390,7 @@ You can also create a static control that isn't based on a model attribute:
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
-Bootstrap automatically stylizes ours controls as `block`s. This wrapper fix
+Bootstrap automatically styles our controls as `block`s. This wrapper fixes
 this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
@@ -512,16 +512,16 @@ The `custom` option can be used to replace the browser default styles for check 
 <% end %>
 ```
 
-## Validation & Errors
+## Validation and Errors
 
 ### Inline Errors
 
-By default, fields that have validation errors will outlined in red and the
+By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Rails normally wraps the fields in a
 div (field_with_errors), but this behavior is suppressed. Here's an example:
 
 ```html
-<div class="form-group has-danger">
+<div class="form-group">
   <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
   <small class="invalid-feedback">can't be blank</small>
