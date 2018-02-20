@@ -126,13 +126,24 @@ module BootstrapForm
 
     bootstrap_method_alias :radio_button
 
-    def collection_check_boxes_with_bootstrap(*args)
-      prevent_prepend_and_append!(options)
-      html = inputs_collection(*args) do |name, value, options, i|
-        options[:multiple] = true
-        check_box(name, options, value, nil)
+    def collection_check_boxes_with_bootstrap(outer_name, collection, outer_value, text, outer_options = {})
+      prevent_prepend_and_append!(outer_options)
+      # This next line is because the options get munged in the legacy code.
+      help = outer_options[:help]
+      begin
+        self.in_radio_checkbox_collection = true
+        html = inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
+          options[:multiple] = true
+          wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+            check_box_html = unwrapped_check_box(name, options, value, nil)
+            check_box_html.concat(generate_help(name, help)) if i == collection.size - 1
+            check_box_html
+          end
+        end
+      ensure
+        self.in_radio_checkbox_collection = false
       end
-      hidden_field(args.first,{value: "", multiple: true}).concat(html)
+      hidden_field(outer_name, value: "", multiple: true).concat(html)
     end
 
     bootstrap_method_alias :collection_check_boxes
