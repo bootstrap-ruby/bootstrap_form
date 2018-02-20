@@ -236,6 +236,9 @@ module BootstrapForm
       help = outer_options[:help]
       # Use begin..ensure so block returns the html and resets the in...collection flag.
       begin
+        # The following is an ugly way to prevent `form_group` from outputting
+        # the error on the wrapper, when Bootstrap 4 wants it to be in the last
+        # element.
         self.in_radio_checkbox_collection = true
         html = inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
           options[:multiple] = true
@@ -259,6 +262,9 @@ module BootstrapForm
       help = outer_options[:help]
       # Use begin..ensure so block returns the html and resets the in...collection flag.
       begin
+        # The following is an ugly way to prevent `form_group` from outputting
+        # the error on the wrapper, when Bootstrap 4 wants it to be in the last
+        # element.
         self.in_radio_checkbox_collection = true
         inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
           wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
