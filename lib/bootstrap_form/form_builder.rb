@@ -38,9 +38,7 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          prepend_and_append_input(options) do
-            send(without_method_name, name, options)
-          end
+          send(without_method_name, name, options)
         end
       end
 
@@ -52,6 +50,7 @@ module BootstrapForm
       without_method_name = "#{method_name}_without_bootstrap"
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
+        prevent_prepend_and_append!(options)
         form_group_builder(name, options, html_options) do
           content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
         end
@@ -61,6 +60,7 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
+      prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: 'form-control-file')
       form_group_builder(name, options) do
         file_field_without_bootstrap(name, options)
@@ -71,15 +71,14 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        prepend_and_append_input(options) do
-          select_without_bootstrap(method, choices, options, html_options, &block)
-        end
+        select_without_bootstrap(method, choices, options, html_options, &block)
       end
     end
 
     bootstrap_method_alias :select
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
       end
@@ -88,6 +87,7 @@ module BootstrapForm
     bootstrap_method_alias :collection_select
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
       end
@@ -96,6 +96,7 @@ module BootstrapForm
     bootstrap_method_alias :grouped_collection_select
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
+      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
       end
@@ -104,7 +105,32 @@ module BootstrapForm
     bootstrap_method_alias :time_zone_select
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
+      prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
+
+      wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
+        unwrapped_check_box(name, options, checked_value, unchecked_value, &block)
+      end
+    end
+
+    bootstrap_method_alias :check_box
+
+    private
+    def wrapped_check_box(custom: false, disabled: false, inline: false)
+      if custom
+        wrapper_classes = ["custom-control", "custom-checkbox"]
+        wrapper_classes.append("custom-control-inline") if inline
+      else
+        wrapper_classes = ["form-check"]
+        wrapper_classes << "form-check-inline" if inline
+      end
+      wrapper_class = wrapper_classes.compact.join(" ")
+      content_tag(:div, class: wrapper_class) do
+        yield
+      end
+    end
+
+    def unwrapped_check_box(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
@@ -126,45 +152,56 @@ module BootstrapForm
       # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
       if options[:multiple]
         label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+        "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
       end
 
       label_classes = [options[:label_class]]
       label_classes << hide_class if options[:hide_label]
 
-      if options[:custom]
-        div_class = ["custom-control", "custom-checkbox"]
-        div_class.append("custom-control-inline") if options[:inline]
+      if options[:skip_label]
+        checkbox_html
+      elsif options[:custom]
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-        content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
-            checkbox_html
-          else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            checkbox_html.concat(label(label_name, label_description, class: label_class))
-          end
-        end
+        # TODO: Notice we don't seem to pass the ID into the custom control.
+        checkbox_html.concat(label(label_name, label_description, class: label_class))
       else
-        wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
-        content_tag(:div, class: wrapper_class) do
-          if options[:skip_label]
-            checkbox_html
-          else
-            checkbox_html
-              .concat(label(label_name,
-                            label_description,
-                            { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
-        end
+        checkbox_html
+        .concat(label(label_name,
+          label_description,
+          { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
+      end
+    end
+    public
+
+    def radio_button_with_bootstrap(name, value, *args)
+      prevent_prepend_and_append!(options)
+      options = args.extract_options!.symbolize_keys!
+
+      wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
+        unwrapped_radio(name, value, options, *args)
       end
     end
 
-    bootstrap_method_alias :check_box
+    bootstrap_method_alias :radio_button
 
-    def radio_button_with_bootstrap(name, value, *args)
-      options = args.extract_options!.symbolize_keys!
+    private
+    def wrapped_radio(custom: false, disabled: false, inline: false)
+      if custom
+        wrapper_classes = ["custom-control", "custom-radio"]
+        wrapper_classes.append("custom-control-inline") if inline
+      else
+        wrapper_classes = ["form-check"]
+        wrapper_classes.append("form-check-inline") if inline
+        wrapper_classes.append("disabled") if disabled
+      end
+      wrapper_class = wrapper_classes.compact.join(" ")
+      content_tag(:div, class: wrapper_class) do
+        yield
+      end
+    end
+
+    def unwrapped_radio(name, value, options, *args)
       radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
       radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
@@ -176,52 +213,68 @@ module BootstrapForm
       args << radio_options
       radio_html = radio_button_without_bootstrap(name, value, *args)
 
-      disabled_class = " disabled" if options[:disabled]
-      label_classes  = [options[:label_class]]
+      label_classes = [options[:label_class]]
       label_classes << hide_class if options[:hide_label]
 
-      if options[:custom]
-        div_class = ["custom-control", "custom-radio"]
-        div_class.append("custom-control-inline") if options[:inline]
+      if options[:skip_label]
+        radio_html
+      elsif options[:custom]
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-        content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
-            radio_html
-          else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            radio_html.concat(label(name, options[:label], value: value, class: label_class))
-          end
-        end
+        # TODO: Notice we don't seem to pass the ID into the custom control.
+        radio_html.concat(label(name, options[:label], value: value, class: label_class))
       else
-        wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if options[:inline]
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
-        content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
-          if options[:skip_label]
-            radio_html
-          else
-            radio_html
-              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
-          end
-        end
+        radio_html
+          .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
       end
     end
+    public
 
-    bootstrap_method_alias :radio_button
-
-    def collection_check_boxes_with_bootstrap(*args)
-      html = inputs_collection(*args) do |name, value, options|
-        options[:multiple] = true
-        check_box(name, options, value, nil)
+    def collection_check_boxes_with_bootstrap(outer_name, collection, outer_value, text, outer_options = {})
+      prevent_prepend_and_append!(outer_options)
+      # This next line is because the options get munged in the legacy code.
+      help = outer_options[:help]
+      # Use begin..ensure so block returns the html and resets the in...collection flag.
+      begin
+        # The following is an ugly way to prevent `form_group` from outputting
+        # the error on the wrapper, when Bootstrap 4 wants it to be in the last
+        # element.
+        self.in_radio_checkbox_collection = true
+        html = inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
+          options[:multiple] = true
+          wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
+            check_box_html = unwrapped_check_box(name, options, value, nil)
+            check_box_html.concat(generate_help(name, help)) if i == collection.size - 1
+            check_box_html
+          end
+        end
+      ensure
+        self.in_radio_checkbox_collection = false
       end
-      hidden_field(args.first,{value: "", multiple: true}).concat(html)
+      hidden_field(outer_name, value: "", multiple: true).concat(html)
     end
 
     bootstrap_method_alias :collection_check_boxes
 
-    def collection_radio_buttons_with_bootstrap(*args)
-      inputs_collection(*args) do |name, value, options|
-        radio_button(name, value, options)
+    def collection_radio_buttons_with_bootstrap(outer_name, collection, outer_value, text, outer_options = {})
+      prevent_prepend_and_append!(outer_options)
+      # This next line is because the options get munged in the legacy code.
+      help = outer_options[:help]
+      # Use begin..ensure so block returns the html and resets the in...collection flag.
+      begin
+        # The following is an ugly way to prevent `form_group` from outputting
+        # the error on the wrapper, when Bootstrap 4 wants it to be in the last
+        # element.
+        self.in_radio_checkbox_collection = true
+        inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
+          wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
+            radio_html = unwrapped_radio(name, value, options)
+            radio_html.concat(generate_help(name, help)) if i == collection.size - 1
+            radio_html
+          end
+        end
+      ensure
+        self.in_radio_checkbox_collection = false
       end
     end
 
@@ -235,10 +288,9 @@ module BootstrapForm
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
+      content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
+        control = prepend_and_append_input(name, options, &block).to_s
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -274,8 +326,28 @@ module BootstrapForm
 
     private
 
-    def horizontal?
-      layout == :horizontal
+    def layout_default?(field_layout = nil)
+      [:default, nil].include? layout_in_effect(field_layout)
+    end
+
+    def layout_horizontal?(field_layout = nil)
+      layout_in_effect(field_layout) == :horizontal
+    end
+
+    def layout_inline?(field_layout = nil)
+      layout_in_effect(field_layout) == :inline
+    end
+
+    def field_inline_override?(field_layout = nil)
+      field_layout == :inline && layout != :inline
+    end
+
+    # true and false should only come from check_box and radio_button,
+    # and those don't have a :horizontal layout
+    def layout_in_effect(field_layout)
+      field_layout = :inline if field_layout == true
+      field_layout = :default if field_layout == false
+      field_layout || layout
     end
 
     def get_group_layout(group_layout)
@@ -292,6 +364,14 @@ module BootstrapForm
 
     def default_control_col
       "col-sm-10"
+    end
+
+    def in_radio_checkbox_collection?
+      @in_radio_checkbox_collection ||= false
+    end
+
+    def in_radio_checkbox_collection=(state)
+      @in_radio_checkbox_collection = state
     end
 
     def hide_class
@@ -365,6 +445,10 @@ module BootstrapForm
         layout: layout,
         class: wrapper_class
       }
+
+      form_group_options[:append] = options.delete(:append) if options[:append]
+      form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
+      form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
 
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)
@@ -455,7 +539,7 @@ module BootstrapForm
       form_group_builder(name, options) do
         inputs = ""
 
-        collection.each do |obj|
+        collection.each_with_index do |obj, i|
           input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
 
           input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
@@ -467,7 +551,7 @@ module BootstrapForm
           end
 
           input_options.delete(:class)
-          inputs << block.call(name, input_value, input_options)
+          inputs << block.call(name, input_value, input_options, i)
         end
 
         inputs.html_safe
