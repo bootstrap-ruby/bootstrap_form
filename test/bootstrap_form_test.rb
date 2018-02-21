@@ -267,6 +267,7 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/4f23be1nLn
   end
 
   test "horizontal-style form fields layout inline" do
@@ -312,6 +313,7 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     assert_equivalent_xml expected, actual
+    # See the rendered output here: https://www.bootply.com/Qby9FC9d3u#
   end
 
   test "existing styles aren't clobbered when specifying a form style" do
