@@ -486,7 +486,7 @@ The `label_col` and `control_col` css classes can also be changed per control:
 
 ### Custom Field Layout
 
-The `layout` can be overridden per field:
+The form-level `layout` can be overridden per field, unless the form-level layout was `inline`:
 
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
@@ -498,6 +498,8 @@ The `layout` can be overridden per field:
   <% end %>
 <% end %>
 ```
+
+A form-level `layout: :inline` can't be overridden because of the way Bootstrap 4 implements in-line layouts. One possible work-around is to leave the form-level layout as default, and specify the individual fields as `layout: :inline`, except for the fields(s) that should be other than in-line.
 
 ### Custom Form Element Styles
 
