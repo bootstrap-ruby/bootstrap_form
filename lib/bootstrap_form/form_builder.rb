@@ -38,7 +38,7 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          prepend_and_append_input(options) do
+          prepend_and_append_input(name, options) do
             send(without_method_name, name, options)
           end
         end
@@ -53,7 +53,9 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          control_error_help(name, options) do
+            content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          end
         end
       end
 
@@ -63,7 +65,9 @@ module BootstrapForm
     def file_field_with_bootstrap(name, options = {})
       options = options.reverse_merge(control_class: 'form-control-file')
       form_group_builder(name, options) do
-        file_field_without_bootstrap(name, options)
+        control_error_help(name, options) do
+          file_field_without_bootstrap(name, options)
+        end
       end
     end
 
@@ -71,7 +75,7 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        prepend_and_append_input(options) do
+        prepend_and_append_input(method, options) do
           select_without_bootstrap(method, choices, options, html_options, &block)
         end
       end
@@ -81,7 +85,9 @@ module BootstrapForm
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        control_error_help(method, options) do
+          collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        end
       end
     end
 
@@ -89,7 +95,9 @@ module BootstrapForm
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        control_error_help(method, options) do
+          grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
       end
     end
 
@@ -97,7 +105,9 @@ module BootstrapForm
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
-        time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        control_error_help(method, options) do
+          time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        end
       end
     end
 
@@ -131,6 +141,7 @@ module BootstrapForm
 
       label_classes = [options[:label_class]]
       label_classes << hide_class if options[:hide_label]
+      error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-checkbox"]
@@ -143,6 +154,7 @@ module BootstrapForm
             # TODO: Notice we don't seem to pass the ID into the custom control.
             checkbox_html.concat(label(label_name, label_description, class: label_class))
           end
+            .concat(error_text)
         end
       else
         wrapper_class = "form-check"
@@ -157,6 +169,7 @@ module BootstrapForm
                             label_description,
                             { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
+            .concat(error_text)
         end
       end
     end
@@ -179,6 +192,7 @@ module BootstrapForm
       disabled_class = " disabled" if options[:disabled]
       label_classes  = [options[:label_class]]
       label_classes << hide_class if options[:hide_label]
+      error_text = generate_help(name, options.delete(:help)).to_s
 
       if options[:custom]
         div_class = ["custom-control", "custom-radio"]
@@ -191,6 +205,7 @@ module BootstrapForm
             # TODO: Notice we don't seem to pass the ID into the custom control.
             radio_html.concat(label(name, options[:label], value: value, class: label_class))
           end
+            .concat(error_text)
         end
       else
         wrapper_class = "form-check"
@@ -203,6 +218,7 @@ module BootstrapForm
             radio_html
               .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
+            .concat(error_text)
         end
       end
     end
@@ -238,7 +254,6 @@ module BootstrapForm
       content_tag(:div, options.except(:id, :label, :help, :icon, :label_col, :control_col, :layout)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block).to_s
-        control.concat(generate_help(name, options[:help]).to_s)
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
@@ -351,7 +366,7 @@ module BootstrapForm
 
       wrapper_class = css_options.delete(:wrapper_class)
       wrapper_options = css_options.delete(:wrapper)
-      help = options.delete(:help)
+      help = options[:help]
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
