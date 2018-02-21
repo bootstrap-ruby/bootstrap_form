@@ -76,12 +76,12 @@ module BootstrapForm
 
     # @!macro [new] textish_options
     #
-    #   This method takes the same options as {#text_field}.
+    #   This method takes the same options as {text_field}.
 
     # @!macro [new] textish_options_minus_append_prepend
     #
-    #   This method takes the same options as {#collection_select_with_bootstrap collection_select},
-    #   which are the same as {#text_field}, minus `:append` and `:prepend`.
+    #   This method takes the same options as {collection_select_with_bootstrap #collection_select},
+    #   which are the same as {text_field}, minus `:append` and `:prepend`.
 
     # @!macro [new] validation_errors
     #
@@ -193,19 +193,31 @@ module BootstrapForm
     # @!macro textish_options
     # @!macro return
 
-    # @!macro [new] common_control_to_layout
-    #   @option options [String] :control_class ("form-control") If specified, it will be
-    #     rendered as a class on the control tag, instead of `form-control`.
+    # @!macro [new] control_col
     #   @option options [String] :control_col ("col-sm-10") A Bootstrap 4 column
     #     class that will be applied to the control tag. Has no effect
     #     unless `layout: :horizontal` is in effect.
+
+    # @!macro [new] help
     #   @option options [String, false] :help Help text to be rendered below the
     #     control. If no help text is specified, and if there is a translation
-    #     for help text according to Rails conventions, the help text from the
-    #     translation will automatically be rendered. To stop this text from
-    #     automatically being rendered, use `help: false`.
+    #     for help text according to Rails conventions for `method` argument,
+    #     the help text from the translation will automatically be rendered. To
+    #     stop this text from automatically being rendered, use `help: false`.
     #     For historical reasons, the help text is not rendered if the field
     #     has an error.
+
+    # @!macro [new] label_col
+    #   @option options [String] :label_col ("col-sm-2") A Bootstrap 4 column
+    #     class that will be applied to the label tag.  If no label is given,
+    #     a column offset equal to `label_col` will be added on the control.
+    #     Has no effect unless `layout: :horizontal` is in effect.
+
+    # @!macro [new] common_control_to_layout
+    #   @option options [String] :control_class ("form-control") If specified, it will be
+    #     rendered as a class on the control tag, instead of `form-control`.
+    #   @!macro control_col
+    #   @!macro help
     #   @option options [Boolean] :hide_label (false) Render a `label` tag,
     #     but add the `sr-only` class to its classes. Users will not see the
     #     label, but screen readers will announce it.
@@ -224,20 +236,19 @@ module BootstrapForm
     #
     #     If the `:id` option is given, the given ID will be used
     #     as the `for` attribute of the label.
-    #   @option options [String] :label_col ("col-sm-2") A Bootstrap 4 column class that will
-    #     be applied to the label tag.  If no
-    #     label is given, a column offset equal to `label_col` will be added
-    #     on the control tag's classes.
-    #     Has no effect unless `layout: :horizontal` is in effect.
-    #   @option options [String] :layout Set the layout style for this control.
-    #     Specify a layout for this field. If `layout: :inline` was specified
+    #   @!macro label_col
+    #   @option options [String] :layout Set the layout style for this field.
+    #     If `layout: :inline` was specified
     #     at the form level, the results of this option at the field level are
     #     undefined.
     #     - `:horizontal`: the
-    #     label will be placed to the left of the control. The widths of the
-    #     label and control will be determined by the `label_col` and `control_col`
-    #     options, respectively. The label and control will be wrapped in a
-    #     `<div class="form-group row">`. Note that `row` is added to the `div`'s classes.
+    #     label will be placed to the left of the contents of the block.
+    #     The widths of the label and contents of the block will be determined by
+    #     the `label_col` and `control_col`
+    #     options, respectively. "row" will be added to the classes on the `div` tag,
+    #     along with `form-group`. The contents of the block are wrapped in a `div`
+    #     with the `control_col` class applied. If no label is specified, the `div`
+    #     also has an equivalent offset class applied.
     #
     #     - `:inline`: the
     #     label will be placed to the left of the control with minimal spacing.
@@ -249,7 +260,7 @@ module BootstrapForm
     #
     #     - not specified: Use the `layout` specified at the form level
 
-    # @!macro [new] common_skip_to_wrapper
+    # @!macro [new] common_skip
     #   @option options [Boolean] :skip_label (false) If true, do not render a
     #     label tag at all. If horizontal layout is in effect, add an offset
     #     class to the control, equal to the width the label would have occupied.
@@ -262,6 +273,8 @@ module BootstrapForm
     #       content:" *";
     #     }
     #     ```
+
+    # @!macro [new] common_wrapper
     #   @option options [Hash] :wrapper Options to be passed to the wrapper.
     #     see {#form_group} for a description of these options.
     #   @option options [String] :wrapper_class A class or classes to be added
@@ -282,7 +295,8 @@ module BootstrapForm
     # @!macro append
     # @!macro common_control_to_layout
     # @!macro prepend
-    # @!macro common_skip_to_wrapper
+    # @!macro common_skip
+    # @!macro common_wrapper
     # @!macro return
 
     # @!method time_field(method, options = {})
@@ -384,8 +398,9 @@ module BootstrapForm
     # @param method [Object] Passed as the `method` parameter of Rails' `select` method.
     # @param choices [Enumerable] Passed as the `choices` parameter of Rails' `select` method.
     # @!macro textish_options
-    # @todo html_options needs to be looked at in form_group_builder
-    # @param html_options [Hash] Passed to the `html_options` parameter of the Rails' `select` method.
+    # @param html_options [Hash] Combined with the `options` hash. Any
+    #   `html_options` not listed under the `options` parameter are passed to
+    #   the `options` parameter of Rails' `select` helper.
     # @!macro return
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
@@ -402,12 +417,18 @@ module BootstrapForm
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `collection_select` helper.
     # @!macro validation_errors
+    # @param method [Symbol] Passed to the `method` parameter of Rails' `colleciton_select'
+    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `colleciton_select'
+    # @param value_method [Symbol] Passed to the `value_method` parameter of Rails' `colleciton_select'
+    # @param text_method [Symbol] Passed to the `text_method` parameter of Rails' `colleciton_select'
     # @param options [Hash] Options affecting how the control and other
     #   tags are rendered. Anything in 'options' not listed below is passed to
     #   the Rails helper. These are the same options with the same meaning as
-    #   those for {#text_field}, minus `:append` and `:prepend`.
+    #   those for {text_field}, minus `:append` and `:prepend`.
     # @!macro common_control_to_layout
-    # @!macro common_skip_to_wrapper
+    # @!macro common_skip
+    # @!macro common_wrapper
+    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `colleciton_select'
     # @!macro return
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
@@ -422,7 +443,14 @@ module BootstrapForm
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `grouped_collection_select` helper.
     # @!macro validation_errors
+    # @param method [Symbol] Passed to the `method` parameter of Rails' `colleciton_select'
+    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `colleciton_select'
+    # @param group_method [Symbol] Passed to the `group_method` parameter of Rails' `colleciton_select'
+    # @param group_label_method [Symbol] Passed to the `group_label_method` parameter of Rails' `colleciton_select'
+    # @param option_key_method [Symbol] Passed to the `option_key_method` parameter of Rails' `colleciton_select'
+    # @param option_value_method [Symbol] Passed to the `option_value_method` parameter of Rails' `colleciton_select'
     # @!macro textish_options_minus_append_prepend
+    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `colleciton_select'
     # @!macro return
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       form_group_builder(method, options, html_options) do
@@ -448,7 +476,7 @@ module BootstrapForm
     bootstrap_method_alias :time_zone_select
 
     # @!macro [new] check_and_radio_inline
-    #   @option options [Boolean] :inline If true, mark up the label and check box
+    #   @option options [Boolean] :inline If true, mark up the label and control
     #     so they look good when rendered in an in-line form. If `layout: :inline`
     #     was specified at the form level, use the same markup as if `inline: true`
     #     was specified. If `layout: :inline` was specified at the form level,
@@ -604,9 +632,52 @@ module BootstrapForm
 
     bootstrap_method_alias :radio_button
 
-    # @overload collection_check_boxes((name, collection, value, text, options = {})
+    # @!macro [new] collection_check_radio_args
+    #   @param name [String]
+    #   @param collection [Enumerable] A collection of objects.
+    #   @param value [Symbol, Proc, Lambda] If a symbol, it's used as a method name on
+    #     the objects in `collection`, to obtain the value for the `input` tag.
+    #     If an Proc or Lambda, it's called with the object from `collection` as
+    #     its argument, to obtain the value for the `input` tag.
+    #   @param text [Symbol, Proc, Lambda] If a symbol, it's used as a method
+    #     on the objects in `collection`, to obtain the text for the label of
+    #     the `input` tag.
+    #     If Proc or Lambda, it's called
+    #     with the object from `collection` as its argument, to obtain the text
+    #     for the label of the `input` tag.
+
+    # @!macro [new] collection_check_radio_options
+    #   @param options [Hash]
+    #   @option options [String] :class A class to apply to the `<div class="form-group">`.
+    #     The `:class` option is *not* passed through to the control. There is
+    #     currently no way to specify a custom class on the individual control.
+    #   @option options [String] :control_class
+    #   @option options [String] :control_col A Bootstrap 4 column class that will
+    #     be applied to the label for the collection of controls.
+    #   @option options [String] :help Help text for the `<div class="form-group">`.
+    #   @option options [String] :hide_label If true,
+    #     don't display the label for the collection of controls. It will still be
+    #     accessible to screen readers, because the `sr-only` attribute will be added.
+    #   @option options [String] :icon Obsolete. Bootstrap 4 doesn't provide icons.
+    #   @option options [String] :id ID attribute for the `<div class="form-group">`.
+
+    # @!macro [new] collection_check_radio_options_b
+    #   @option options [String] :label_col A Bootstrap 4 column class that will
+    #     be applied to the label for the collection of controls.
+    #   @option options [String] :label Text for a label that is output for the
+    #     the collection of controls. If you don't want a label for the collection of
+    #     controls, specify `:skip_label: true`.
+    #     To set labels for the individual controls, use the `text` argument.
+    #   @option options [String] :layout If `:horizontal`, the
+    #     label will be placed to the left of the controls. The widths of the
+    #     label and group of controls will be determined by the `label_col` and
+    #     `control_col` options, respectively. If `inline`, the
+    #     label will be placed to the left of the group of controls with minimal
+    #     spacing.
+
+    # @overload collection_check_boxes(name, collection, value, text, options = {})
     #   Renders a check box tag with Bootstrap 4 markup for each of the members of `collection`,
-    #   wrapped inside a `form-group`.
+    #   wrapped inside a `form-group`, and with a label before the group of radio buttons.
     #   Unlike many of the `BootstrapForm::FormBuilder` helpers, this method does *not* call
     #   `ActionView::Helpers::FormBuilder#collection_check_boxes`.
     #   This method calls `BootstrapForm::FormBuilder#check_box` for each item in `collection`
@@ -614,49 +685,12 @@ module BootstrapForm
     #   you can't give a block to this helper.
     #   A hidden field is generated before the sequence of check box tags, to ensure
     #   that a value is returned when the user doesn't check any boxes.
-    #   @param name [String]
-    #   @param collection [Enumerable] A collection of objects that respond to
-    #     methods named `value` and `text`.
-    #   @param value [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
-    #     The method is used to determine the value of each `input` tag.
-    #     If an object, and if it responds to `call`, `call` is sent to `value`
-    #     with the object from `collection` as an argument.
-    #   @param text [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
-    #     The method is used to determine the `:label` option that is passed to
-    #     `#check_box`.
-    #     If an object, and if it responds to `call`, `call` is sent to `text`
-    #     with the object from `collection` as an argument.
-    #   @param options [Hash] Options that are passed to `#check_box` (TBC).
-    #   @option options [String] :class A class to apply to the `<div class="form-group">`.
-    #     The `:class` option is *not* passed through to `#check_box`. There is
-    #     currently no way to specify a custom class on the individual check boxes.
-    #   @option options [String] :control_class
-    #   @option options [String] :control_col A Bootstrap 4 column class that will
-    #     be applied to the TBD for the collection of check boxes.
-    #   @option options [String] :help Help text for the `<div class="form-group">`.
-    #   @option options [String] :hide_label If true,
-    #     don't display the label for the collection of check boxes. It will still be
-    #     accessible to screen readers, because the `sr-only` attribute will be added.
-    #   @option options [String] :icon Obsolete. Bootstrap 4 doesn't provide icons.
-    #   @option options [String] :id ID attribute for the `<div class="form-group">`.
-    #   @option options [String] :label_col A Bootstrap 4 column class that will
-    #     be applied to the label for the collection of check boxes.
-    #   @option options [String] :label Text for a label that is output for the
-    #     the collection of check boxes. If you don't want a label for the collection of
-    #     check boxes, specify `:skip_label: true`.
-    #     To set labels for the individual check boxes, use the `text` argument.
-    #   @option options [String] :layout If `:horizontal`, the
-    #     label will be placed to the left of the check box. The widths of the
-    #     label and check box will be determined by the `label_col` and `control_col`
-    #     options, respectively. If `inline`, the
-    #     label will be placed to the left of the check box with minimal spacing.
-    #   @option options [String] :skip_label If true, do not generate a label
-    #     for the `<div class="form-group">`.
-    #   @option options [String] :skip_required If true, don't display anything
-    #     beside required fields. Without this option, `bootstrap_form` will display
-    #     a red asterisk beside required fields.
-    #   @option options [String] :wrapper
-    #   @option options [String] :wrapper_class
+    #   @!macro collection_check_radio_args
+    #   @!macro collection_check_radio_options
+    #   @!macro check_and_radio_inline
+    #   @!macro collection_check_radio_options_b
+    #   @!macro common_skip
+    #   @!macro common_wrapper
     def collection_check_boxes_with_bootstrap(*args)
       html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
@@ -667,9 +701,9 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_check_boxes
 
-    # @overload collection_radio_buttons((name, collection, value, text, options = {}, html_options = {})
+    # @overload collection_radio_buttons(name, collection, value, text, options = {}, html_options = {})
     #   Renders a radio button tag with Bootstrap 4 markup for each of the members of `collection`,
-    #   wrapped inside a `form-group`.
+    #   wrapped inside a `form-group`, and with a label before the group of radio buttons.
     #   Unlike many of the `BootstrapForm::FormBuilder` helpers, this method does *not* call
     #   `ActionView::Helpers::FormBuilder#collection_radio_buttons`.
     #   This method calls `BootstrapForm::FormBuilder#radio` for each item in `collection`
@@ -677,50 +711,13 @@ module BootstrapForm
     #   you can't give a block to this helper.
     #   A hidden field is generated before the sequence of radio button tags, to ensure
     #   that a value is returned when the user doesn't select any buttons.
-    #   @param name [String]
-    #   @param collection [Enumerable] A collection of objects that respond to
-    #     methods named `value` and `text`.
-    #   @param value [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
-    #     The method is used to determine the value of each `input` tag.
-    #     If an object, and if it responds to `call`, `call` is sent to `value`
-    #     with the object from `collection` as an argument.
-    #   @param text [Symbol, Object] If a symbol, it's used as a method name on the objects in `collection`.
-    #     The method is used to determine the `:label` option that is passed to
-    #     `#radio`.
-    #     If an object, and if it responds to `call`, `call` is sent to `text`
-    #     with the object from `collection` as an argument.
-    #   @param options [Hash] Options that are passed to `#radio` (TBC).
-    #   @option options [String] :class A class to apply to the `<div class="form-group">`.
-    #     The `:class` option is *not* passed through to `#radio`. There is
-    #     currently no way to specify a custom class on the individual radio_buttons.
-    #   @option options [String] :control_class
-    #   @option options [String] :control_col A Bootstrap 4 column class that will
-    #     be applied to the TBD for the collection of radio_buttons.
-    #   @option options [String] :help Help text for the `<div class="form-group">`.
-    #   @option options [String] :hide_label If true,
-    #     don't display the label for the collection of radio_buttons. It will still be
-    #     accessible to screen readers, because the `sr-only` attribute will be added.
-    #   @option options [String] :icon Obsolete. Bootstrap 4 doesn't provide icons.
-    #   @option options [String] :id ID attribute for the `<div class="form-group">`.
-    #   @option options [String] :label_col A Bootstrap 4 column class that will
-    #     be applied to the label for the collection of radio_buttons.
-    #   @option options [String] :label Text for a label that is output for the
-    #     the collection of check boxes. If you don't want a label for the collection of
-    #     radio buttons, specify `:skip_label: true`.
-    #     To set labels for the individual radio buttons, use the `text` argument.
-    #   @option options [String] :layout If `:horizontal`, the
-    #     label will be placed to the left of the radio button. The widths of the
-    #     label and radio button will be determined by the `label_col` and `control_col`
-    #     options, respectively. If `inline`, the
-    #     label will be placed to the left of the check box with minimal spacing.
-    #   @option options [String] :skip_label If true, do not generate a label
-    #     for the `<div class="form-group">`.
-    #   @option options [String] :skip_required If true, don't display anything
-    #     beside required fields. Without this option, `bootstrap_form` will display
-    #     a red asterisk beside required fields.
-    #   @option options [String] :wrapper
-    #   @option options [String] :wrapper_class
-    #   @param html_options [Hash]
+    #   @!macro collection_check_radio_args
+    #   @!macro collection_check_radio_options
+    #   @!macro check_and_radio_inline
+    #   @!macro collection_check_radio_options_b
+    #   @!macro common_skip
+    #   @!macro common_wrapper
+    #   @param html_options [Hash] Options to be passed to
     def collection_radio_buttons_with_bootstrap(*args)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
@@ -731,6 +728,7 @@ module BootstrapForm
 
     # @overload form_group(method, options = {}, &block)
     #   Wrap whatever the block renders in a `div` tag with class `form-group`.
+    #   Renders a label if and only if the `:label` option is explicitly given.
     #
     #   If `method` is an object that has an error, and the form's
     #   `:inline_errors` is true, the error is displayed after the contents of
@@ -740,20 +738,8 @@ module BootstrapForm
     #     tags are rendered.
     #   @option options [String] :class Added to the `class` attribute of the `div` tag,
     #     along with `form-group`.
-    #   @option options [String] :control_class ("form-control") If specified, it will be
-    #     rendered as a class on the `div` that wraps the contents of the block.
-    #     Has no effect unless `layout: :horizontal` is in effect.
-    #   @option options [String] :control_col ("col-sm-10") A Bootstrap 4 column class that will
-    #     be applied to the control tag. Has no effect
-    #     unless `layout: :horizontal` is in effect.
-    #   @option options [String, false] :help Help text to be rendered below the
-    #     contents of the block. If no help text is specified, and if there is a translation
-    #     for help text according to Rails conventions for the first argument to `form_group`,
-    #     the help text from the
-    #     translation will automatically be rendered. To stop help text from
-    #     automatically being rendered, use `help: false`.
-    #     For historical reasons, the help text is not rendered if the field
-    #     has an error.
+    #   @!macro control_col
+    #   @!macro help
     #   @option options [String, Symbol] :id If given, is rendered as the `for`
     #     attribute of the `label` tag
     #   @option options [String] :label The text to use for a label, which is placed
@@ -761,13 +747,11 @@ module BootstrapForm
     #     no `label` tag is rendered.
     #     If the `:id` option is given, the given ID will be used
     #     as the `for` attribute of the label.
-    #   @option options [String] :label_col ("col-sm-2") A Bootstrap 4 column class that will
-    #     be applied to the label tag.  If no
-    #     label is given, a column offset equal to `label_col` will be added
-    #     on the control tag's classes.
-    #     Has no effect unless `layout: :horizontal` is in effect.
+    #   @!macro label_col
     #   @option options [String] :layout Set the layout style for this control.
-    #     Overrides the `layout` specified at the form level, if any.
+    #     If `layout: :inline` was specified
+    #     at the form level, the results of this option at the field level are
+    #     undefined.
     #     - `:horizontal`: the
     #     label will be placed to the left of the contents of the block.
     #     The widths of the label and contents of the block will be determined by
