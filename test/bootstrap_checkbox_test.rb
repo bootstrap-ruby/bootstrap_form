@@ -109,6 +109,25 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
+  test "inline checkboxes from form layout" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-check form-check-inline">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">
+            I agree to the terms
+          </label>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user, layout: :inline) do |f|
+      f.check_box(:terms, label: 'I agree to the terms')
+    end
+    assert_equivalent_xml expected, actual
+  end
+
   test "disabled inline check_box" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline">

@@ -108,7 +108,7 @@ module BootstrapForm
       prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
 
-      wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+      wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
         unwrapped_check_box(name, options, checked_value, unchecked_value, &block)
       end
     end
@@ -178,7 +178,7 @@ module BootstrapForm
       prevent_prepend_and_append!(options)
       options = args.extract_options!.symbolize_keys!
 
-      wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+      wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
         unwrapped_radio(name, value, options, *args)
       end
     end
@@ -242,7 +242,7 @@ module BootstrapForm
         self.in_radio_checkbox_collection = true
         html = inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
           options[:multiple] = true
-          wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+          wrapped_check_box(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
             check_box_html = unwrapped_check_box(name, options, value, nil)
             check_box_html.concat(generate_help(name, help)) if i == collection.size - 1
             check_box_html
@@ -267,7 +267,7 @@ module BootstrapForm
         # element.
         self.in_radio_checkbox_collection = true
         inputs_collection(outer_name, collection, outer_value, text, outer_options) do |name, value, options, i|
-          wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: options[:inline]) do
+          wrapped_radio(custom: options[:custom], disabled: options[:disabled], inline: layout_inline?(options[:inline])) do
             radio_html = unwrapped_radio(name, value, options)
             radio_html.concat(generate_help(name, help)) if i == collection.size - 1
             radio_html
@@ -326,8 +326,28 @@ module BootstrapForm
 
     private
 
-    def horizontal?
-      layout == :horizontal
+    def layout_default?(field_layout = nil)
+      [:default, nil].include? layout_in_effect(field_layout)
+    end
+
+    def layout_horizontal?(field_layout = nil)
+      layout_in_effect(field_layout) == :horizontal
+    end
+
+    def layout_inline?(field_layout = nil)
+      layout_in_effect(field_layout) == :inline
+    end
+
+    def field_inline_override?(field_layout = nil)
+      field_layout == :inline && layout != :inline
+    end
+
+    # true and false should only come from check_box and radio_button,
+    # and those don't have a :horizontal layout
+    def layout_in_effect(field_layout)
+      field_layout = :inline if field_layout == true
+      field_layout = :default if field_layout == false
+      field_layout || layout
     end
 
     def get_group_layout(group_layout)

@@ -65,6 +65,24 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)
   end
 
+  test "radio_button inline label is set correctly from form level" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label class="form-check-label" for="user_misc_1">
+            This is a radio button
+          </label>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user, layout: :inline) do |f|
+      f.radio_button(:misc, '1', label: 'This is a radio button')
+    end
+    assert_equivalent_xml expected, actual
+  end
+
   test "radio_button disabled inline label is set correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline disabled">
