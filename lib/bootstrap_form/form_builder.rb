@@ -60,19 +60,25 @@ module BootstrapForm
     end
 
     # @!macro [new] append
-    #   @option options [String] :append Append the string, which may be HTML
-    #     (e.g. a button),
-    #     to the control, and wrap it all in a Bootstrap `input-group`.
+    #   @option options [String] :append Append the string
+    #     to the control, and wrap the rendered HTML in a Bootstrap
+    #     `input-group` appropriately. Unless the string is HTML,
+    #     the string must be wrapped in `<span class="input-group-text">...</span>`.
+    #     The text wrapped in a `<span>` can be the HTML for a simple radio
+    #     button or check box (see https://getbootstrap.com/docs/4.0/components/input-group/#checkboxes-and-radios).
 
     # @!macro [new] prepend
-    #   @option options [String] :prepend Prepend the string, which may be HTML,
-    #     to the control, and wrap it all in a Bootstrap `input-group`.
+    #   @option options [String] :prepend Prepend the string
+    #     to the control, and wrap the rendered HTML in a Bootstrap
+    #     `input-group` appropriately. Unless the string is HTML,
+    #     the string must be wrapped in `<span class="input-group-text">...</span>`.
+    #     The text wrapped in a `<span>` can be the HTML for a simple radio
+    #     button or check box (see https://getbootstrap.com/docs/4.0/components/input-group/#checkboxes-and-radios).
 
     # @!macro [new] return
     #   @return [ActiveSupport::SafeBuffer] Bootstrap HTML for the control,
     #     optional label, and help text and error messages, if any, wrapped in
     #     a form-group.
-
 
     # @!macro [new] textish_options
     #
