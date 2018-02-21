@@ -7,6 +7,7 @@ class BootstrapController < ApplicationController
     ]
 
     @user = User.new
+    @address = Address.new
 
     @user_with_error = User.new
     @user_with_error.errors.add(:email)

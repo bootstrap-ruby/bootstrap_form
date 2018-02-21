@@ -51,3 +51,29 @@
     <%= form.submit %>
   <% end %>
 <% end %>
+
+<!-- For documentation. -->
+<%= form_with_source do %>
+  <%= bootstrap_form_tag url: "/search", layout: :inline do |form| %>
+    <%= form.text_field :search_text,
+                        placeholder: "Search Text",
+                        hide_label: true,
+                        prepend: form.select(:target, ["This Site", "The Web"], hide_label: true),
+                        append: form.submit("Search") %>
+  <% end %>
+<% end %>
+
+<!-- For documentation. -->
+<%= form_with_source do %>
+  <%= bootstrap_form_with model: @user do |user_form| %>
+    <%= user_form.email_field :email %>
+    <%= user_form.fields model: @address do |address_form| %>
+    <div class="form-row">
+      <%= address_form.text_field :address, wrapper_class: "col-4" %>
+      <%= address_form.text_field :city, wrapper_class: "col-4" %>
+      <%= address_form.text_field :state, wrapper_class: "col" %>
+      <%= address_form.text_field :zip_code, wrapper_class: "col" %>
+    </div>
+    <% end %>
+  <% end %>
+<% end %>

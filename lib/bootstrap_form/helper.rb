@@ -1,6 +1,52 @@
 module BootstrapForm
-  module Helper
+  # `bootstrap_form` helps you make beautiful Rails forms using Bootstrap. It:
+  # - Adds appropriate Bootstrap classes to `button`, `input`, `label`,
+  #   `select`, and `textarea` elements (the "controls")
+  # - Adds labels to controls
+  # - Automtically displays validation errors below the field to which they
+  #   apply
+  # - Automatically displays help information, if provided
+  # - Supports Bootstrap's default layout approach, in-line layout (labels
+  #   above fields and fields 100% wide), and horizontal layout (labels to the
+  #   left of the field and widths defined using Bootstrap's column styles)
+  # - Gives options to modify this behavior, for example, to suppress automatic
+  #   label generation, or to display validation errors on the label instead of
+  #   under the field.
+  # - Gives the developer freedom to lay out the form using Bootstrap's grid
+  # - Gives access to Rails form helpers, so you can mix in your own form
+  #   controls if you can't get the results you want with `bootstrap_form`
+  #
+  # To get started, use {bootstrap_form_for} instead of `form_for`, {bootstrap_form_with}
+  # instead of `form_with`, or {bootstrap_form_tag} instead of `form_tag`.
+  # A form for user e-mail and address can look as simple as:
+  # ```erb
+  # <%= bootstrap_form_with model: @user do |user_form| %>
+  #   <%= user_form.email_field :email %>
+  #   <%= user_form.fields model: @address do |address_form| %>
+  #   <div class="form-row">
+  #     <%= address_form.text_field :address, wrapper_class: "col-4" %>
+  #     <%= address_form.text_field :city, wrapper_class: "col-4" %>
+  #     <%= address_form.text_field :state, wrapper_class: "col" %>
+  #     <%= address_form.text_field :zip_code, wrapper_class: "col" %>
+  #   </div>
+  #   <% end %>
+  # <% end %>
+  # ```
+  # Note that the above example uses Bootstrap's grid to put the address fields
+  # on one line and appropriately styled.
+  #
+  # An in-line search form for a menu bar can look as simple as this:
+  # ```erb
+  # <%= bootstrap_form_tag url: "/search", layout: :inline do |form| %>
+  # <%= form.text_field :search_text,
+  #                     placeholder: "Search Text",
+  #                     hide_label: true,
+  #                     prepend: form.select(:target, ["This Site", "The Web"], hide_label: true),
+  #                     append: form.submit("Search") %>
+  # <% end %>
+  # ```
 
+  module Helper
     # @!macro [new] form_options
     #   @option options [String] :control_col ("col-sm-10")
     #     A Bootstrap 4 column-width class
