@@ -14,6 +14,107 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
   end
 
+  test "default-style form fields layout horizontal" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+          <div class="col-sm-10">
+            <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+          </div>
+        </div>
+        <div class="form-check">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="user_status">Status</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="user_status" name="user[status]">
+              <option value="1">activated</option>
+              <option value="2">blocked</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    HTML
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user) do |f|
+      f.email_field(:email, layout: :horizontal)
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :horizontal))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :horizontal))
+    end
+
+    assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/S2WFzEYChf
+  end
+
+  test "default-style form fields layout inline" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group form-inline">
+          <label class="mr-sm-2 required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+        </div>
+        <div class="form-check form-check-inline">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group form-inline">
+          <label class="mr-sm-2" for="user_misc">Misc</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="mr-sm-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
+            <option value="1">activated</option>
+            <option value="2">blocked</option>
+          </select>
+        </div>
+      </form>
+    HTML
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user) do |f|
+      f.email_field(:email, layout: :inline)
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: true))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :inline))
+    end
+
+    assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/fH5sF4fcju
+    # Note that the baseline of the label text to the left of the two radio buttons
+    # isn't aligned with the text of the radio button labels.
+    # TODO: Align baseline better.
+  end
+
   if  ::Rails::VERSION::STRING >= '5.1'
     # No need to test 5.2 separately for this case, since 5.2 does *not*
     # generate a default ID for the form element.
@@ -31,9 +132,45 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="mr-sm-2 required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+        </div>
+        <div class="form-check form-check-inline">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group">
+          <label class="mr-sm-2" for="user_misc">Misc</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="mr-sm-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
+            <option value="1">activated</option>
+            <option value="2">blocked</option>
+          </select>
+        </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :inline) { |f| nil }
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user, layout: :inline) do |f|
+      f.email_field(:email)
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]]))
+    end
+
+    assert_equivalent_xml expected, actual
   end
 
   test "horizontal-style forms" do
@@ -46,9 +183,137 @@ class BootstrapFormTest < ActionView::TestCase
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
+        <div class="form-check">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="user_status">Status</label>
+          <div class="col-sm-10">
+            <select class="form-control" id="user_status" name="user[status]">
+              <option value="1">activated</option>
+              <option value="2">blocked</option>
+            </select>
+          </div>
+        </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email }
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
+      f.email_field(:email)
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]]))
+    end
+
+    assert_equivalent_xml expected, actual
+  end
+
+  test "horizontal-style form fields layout default" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group">
+          <label class="required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+        </div>
+        <div class="form-check">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="form-check">
+            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
+            <option value="1">activated</option>
+            <option value="2">blocked</option>
+          </select>
+        </div>
+      </form>
+    HTML
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
+      f.email_field(:email, layout: :default)
+       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :default))
+    end
+
+    assert_equivalent_xml expected, actual
+    # See the rendered output at: https://www.bootply.com/4f23be1nLn
+  end
+
+  test "horizontal-style form fields layout inline" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group form-inline">
+          <label class="mr-sm-2 required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+        </div>
+        <div class="form-check form-check-inline">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        </div>
+        <div class="form-group form-inline">
+          <label class="mr-sm-2" for="user_misc">Misc</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          </div>
+        </div>
+        <div class="form-group form-inline">
+          <label class="mr-sm-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
+            <option value="1">activated</option>
+            <option value="2">blocked</option>
+          </select>
+        </div>
+      </form>
+    HTML
+
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
+      f.email_field(:email, layout: :inline)
+       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: true))
+       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
+       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :inline))
+    end
+
+    assert_equivalent_xml expected, actual
+    # See the rendered output here: https://www.bootply.com/Qby9FC9d3u#
   end
 
   test "existing styles aren't clobbered when specifying a form style" do
