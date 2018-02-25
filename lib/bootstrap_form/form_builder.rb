@@ -63,10 +63,10 @@ module BootstrapForm
       prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
-        content_tag(:div, :class => "custom-file") do
+        content_tag(:div, class: "custom-file") do
           placeholder = options.delete(:placeholder) || "Choose file"
           placeholder_opts = { class: "custom-file-label" }
-          placeholder_opts[:for] = options[:id] if acts_like_form_tag
+          placeholder_opts[:for] = options[:id] if options[:id].present?
 
           input = file_field_without_bootstrap(name, options)
           placeholder_label = label(name, placeholder, placeholder_opts)

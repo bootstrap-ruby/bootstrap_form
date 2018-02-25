@@ -81,6 +81,21 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
   end
 
+  if ::Rails::VERSION::STRING > '5.1' && ::Rails::VERSION::STRING < '5.2'
+    test "file field placeholder has appropriate `for` attribute when used in form_with" do
+      expected = <<-HTML.strip_heredoc
+        <div class="form-group">
+          <label for="misc_file">Misc</label>
+          <div class="custom-file">
+            <input class="custom-file-input" id="misc_file" name="user[misc]" type="file" />
+            <label class="custom-file-label" for="misc_file">Choose file</label>
+          </div>
+        </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "misc_file")
+    end
+  end
+
   test "file fields are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
