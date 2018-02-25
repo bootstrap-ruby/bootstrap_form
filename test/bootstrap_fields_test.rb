@@ -59,10 +59,41 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-control-file" id="user_misc" name="user[misc]" type="file" />
+        <div class="custom-file">
+          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Choose file</label>
+        </div>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.file_field(:misc)
+  end
+
+  test "file field placeholder can be customized" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <div class="custom-file">
+          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Pick a file</label>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
+  end
+
+  if ::Rails::VERSION::STRING > '5.1'
+    test "file field placeholder has appropriate `for` attribute when used in form_with" do
+      expected = <<-HTML.strip_heredoc
+        <div class="form-group">
+          <label for="custom-id">Misc</label>
+          <div class="custom-file">
+            <input class="custom-file-input" id="custom-id" name="user[misc]" type="file" />
+            <label class="custom-file-label" for="custom-id">Choose file</label>
+          </div>
+        </div>
+      HTML
+      assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "custom-id")
+    end
   end
 
   test "file fields are wrapped correctly with error" do
@@ -72,7 +103,10 @@ class BootstrapFieldsTest < ActionView::TestCase
       <input name="utf8" type="hidden" value="&#x2713;"/>
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <input class="form-control-file is-invalid" id="user_misc" name="user[misc]" type="file" />
+        <div class="custom-file">
+          <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Choose file</label>
+        </div>
         <div class="invalid-feedback">error for test</div>
       </div>
     </form>
