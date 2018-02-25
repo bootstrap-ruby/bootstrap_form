@@ -189,6 +189,12 @@ To add custom classes to the field's label:
 <%= f.text_field :email, label_class: "custom-class" %>
 ```
 
+Or you can add the label as input placeholder instead (this automatically hides the label):
+
+```erb
+<%= f.text_field :email, label_as_placeholder: true %>
+```
+
 #### Required Fields
 
 A label that is associated with a required field is automatically annotated with

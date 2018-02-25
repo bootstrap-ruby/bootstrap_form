@@ -28,6 +28,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * Allow HTML in help translations by using the `_html` suffix on the key - [@unikitty37](https://github.com/unikitty37)
 * [#408](https://github.com/bootstrap-ruby/bootstrap_form/pull/408): Add option[:id] on static control #245 - [@duleorlovic](https://github.com/duleorlovic).
 * [#455](https://github.com/bootstrap-ruby/bootstrap_form/pull/455): Support for i18n `:html` subkeys in help text - [@jsaraiva](https://github.com/jsaraiva).
+* Adds support for `label_as_placeholder` option, which will set the label text as an input fields placeholder (and hiding the label for sr_only).
 * Your contribution here!
 
 ### Bugfixes
