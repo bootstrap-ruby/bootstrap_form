@@ -68,6 +68,19 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.file_field(:misc)
   end
 
+  test "file field placeholder can be customized" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <div class="custom-file">
+          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="custom-file-label" for="user_misc">Pick a file</label>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
+  end
+
   test "file fields are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
