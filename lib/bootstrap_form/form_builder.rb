@@ -419,7 +419,7 @@ module BootstrapForm
           options.delete(:label)
         end
         label_class ||= options.delete(:label_class)
-        label_class = hide_class if options.delete(:hide_label)
+        label_class = hide_class if options.delete(:hide_label) || options[:label_as_placeholder]
 
         if options[:label].is_a?(String)
           label_text ||= options.delete(:label)
@@ -430,6 +430,10 @@ module BootstrapForm
           class: label_class,
           skip_required: options.delete(:skip_required)
         }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
+
+        if options.delete(:label_as_placeholder)
+          css_options[:placeholder] = label_text || object.class.human_attribute_name(method)
+        end
       end
 
       form_group(method, form_group_options) do
