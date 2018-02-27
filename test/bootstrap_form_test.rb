@@ -407,7 +407,7 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label class="required" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
         </div>
@@ -423,10 +423,10 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label class="required" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
       </form>
     HTML
@@ -443,10 +443,10 @@ class BootstrapFormTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
           <input name="utf8" type="hidden" value="&#x2713;" />
-          <div class="form-group">
+          <div class="form-group has-danger">
             <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+            <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
       HTML
@@ -637,10 +637,10 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label class="required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
@@ -658,14 +658,14 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
+        <div class="form-group has-danger">
           <div class="field_with_errors">
             <label class="required" for="user_email">Email</label>
           </div>
           <div class="field_with_errors">
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
       </form>
     HTML
@@ -683,7 +683,7 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label class="required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <small class="form-text text-muted">This is required</small>
