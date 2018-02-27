@@ -29,10 +29,10 @@ class BootstrapSelectsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;"/>
-      <div class="form-group">
+      <div class="form-group has-danger">
         <label for="user_misc">Misc</label>
         <select class="form-control is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
-        <div class="invalid-feedback">error for test</div>
+        <div class="form-control-feedback">error for test</div>
       </div>
     </form>
     HTML
@@ -170,10 +170,10 @@ class BootstrapSelectsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;"/>
-      <div class="form-group">
+      <div class="form-group has-danger">
         <label for="user_status">Status</label>
         <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
-        <div class="invalid-feedback">error for test</div>
+        <div class="form-control-feedback">error for test</div>
       </div>
     </form>
     HTML
@@ -219,10 +219,10 @@ class BootstrapSelectsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;"/>
-      <div class="form-group">
+      <div class="form-group has-danger">
         <label for="user_status">Status</label>
         <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
-        <div class="invalid-feedback">error for test</div>
+        <div class="form-control-feedback">error for test</div>
       </div>
     </form>
     HTML
@@ -281,7 +281,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;"/>
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
@@ -294,7 +294,7 @@ class BootstrapSelectsTest < ActionView::TestCase
               #{options_range(start: 1, stop: 31, selected: 3)}
             </select>
           </div>
-          <div class="invalid-feedback">error for test</div>
+          <div class="form-control-feedback">error for test</div>
         </div>
       </form>
       HTML
@@ -382,7 +382,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;"/>
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
@@ -396,7 +396,7 @@ class BootstrapSelectsTest < ActionView::TestCase
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
           </div>
-          <div class="invalid-feedback">error for test</div>
+          <div class="form-control-feedback">error for test</div>
         </div>
       </form>
       HTML
@@ -490,7 +490,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;"/>
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control is-invalid" id="user_misc_1i" name="user[misc(1i)]">
@@ -511,7 +511,7 @@ class BootstrapSelectsTest < ActionView::TestCase
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
           </div>
-          <div class="invalid-feedback">error for test</div>
+          <div class="form-control-feedback">error for test</div>
         </div>
       </form>
       HTML

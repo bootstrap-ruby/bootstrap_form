@@ -154,7 +154,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;"/>
-        <div class="form-group">
+        <div class="form-group has-danger">
           <label class="required" for="user_email">Email</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -164,7 +164,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
             <div class="input-group-append">
               <span class="input-group-text">.00</span>
             </div>
-            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+            <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</span>
           </div>
         </div>
       </form>
@@ -337,9 +337,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group">
+      <div class="form-group has-danger">
         <p class="form-control-static">Bar</p>
-        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+        <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -360,14 +360,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group none-margin">
+      <div class="form-group none-margin has-danger">
         <div class="field_with_errors">
           <label class="required" for="user_email">Email</label>
         </div>
         <div class="field_with_errors">
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" />
         </div>
-        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+        <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.email_field(:email, wrapper_class: 'none-margin')
@@ -384,10 +384,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group none-margin">
+        <div class="form-group none-margin has-danger">
           <label class="required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <div class="form-control-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML

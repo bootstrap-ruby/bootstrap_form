@@ -248,7 +248,7 @@ module BootstrapForm
       options[:class] = ["form-group", options[:class]].compact.join(' ')
       options[:class] << " row" if get_group_layout(options[:layout]) == :horizontal
       options[:class] << " form-inline" if field_inline_override?(options[:layout])
-      options[:class] << " #{feedback_class}" if options[:icon]
+      options[:class] << " #{error_class}" if has_error?(name)
 
       content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
@@ -336,8 +336,8 @@ module BootstrapForm
       "form-control"
     end
 
-    def feedback_class
-      "has-feedback"
+    def error_class
+      'has-danger'
     end
 
     def control_specific_class(method)
@@ -475,7 +475,7 @@ module BootstrapForm
     def generate_help(name, help_text)
       if has_error?(name) && inline_errors
         help_text = get_error_messages(name)
-        help_klass = 'invalid-feedback'
+        help_klass = 'form-control-feedback'
         help_tag = :div
       end
       return if help_text == false

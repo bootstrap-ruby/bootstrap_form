@@ -526,7 +526,7 @@ div (field_with_errors), but this behavior is suppressed. Here's an example:
 <div class="form-group">
   <label class="form-control-label" for="user_email">Email</label>
   <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
-  <small class="invalid-feedback">can't be blank</small>
+  <small class="form-control-feedback">can't be blank</small>
 </div>
 ```
 

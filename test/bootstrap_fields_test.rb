@@ -101,13 +101,13 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post" role="form">
       <input name="utf8" type="hidden" value="&#x2713;"/>
-      <div class="form-group">
+      <div class="form-group has-danger">
         <label for="user_misc">Misc</label>
         <div class="custom-file">
           <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
           <label class="custom-file-label" for="user_misc">Choose file</label>
         </div>
-        <div class="invalid-feedback">error for test</div>
+        <div class="form-control-feedback">error for test</div>
       </div>
     </form>
     HTML
