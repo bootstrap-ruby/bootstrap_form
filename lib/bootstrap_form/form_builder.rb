@@ -263,7 +263,11 @@ module BootstrapForm
           control = content_tag(:div, control, class: control_class)
         end
 
-        concat(label).concat(control)
+        help = options[:help]
+
+        help_text = generate_help(name, help).to_s
+
+        concat(label).concat(control).concat(help_text)
       end
     end
 
@@ -472,13 +476,22 @@ module BootstrapForm
       end
     end
 
-    def generate_help(name, help_text)
-      if has_error?(name) && inline_errors
+    def has_inline_error?(name)
+      has_error?(name) && inline_errors
+    end
+
+    def generate_error(name)
+      if has_inline_error?(name)
         help_text = get_error_messages(name)
         help_klass = 'invalid-feedback'
         help_tag = :div
+
+        content_tag(help_tag, help_text, class: help_klass)
       end
-      return if help_text == false
+    end
+
+    def generate_help(name, help_text)
+      return if help_text == false || has_inline_error?(name)
 
       help_klass ||= 'form-text text-muted'
       help_text ||= get_help_text_by_i18n_key(name)
