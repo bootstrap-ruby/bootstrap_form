@@ -67,7 +67,6 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &block)
-        help = options[:help]
         options = options.extract!(:prepend, :append, :input_group_class)
         input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
 
@@ -75,7 +74,7 @@ module BootstrapForm
 
         input = content_tag(:div, input_group_content(options[:prepend]), class: 'input-group-prepend') + input if options[:prepend]
         input << content_tag(:div, input_group_content(options[:append]), class: 'input-group-append') if options[:append]
-        input << generate_help(name, help).to_s
+        input << generate_error(name)
         input = content_tag(:div, input, class: input_group_class) unless options.empty?
         input
       end
