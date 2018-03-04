@@ -12,7 +12,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <p class="form-control-static">steve@example.com</p>
+          <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
@@ -26,7 +26,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="custom_id">Email</label>
         <div class="col-sm-10">
-          <p class="form-control-static" id="custom_id">steve@example.com</p>
+          <input class="form-control-plaintext" id="custom_id" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
@@ -42,7 +42,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for="user_">My Label</label>
         <div class="col-sm-10">
-          <p class="form-control-static">this is a test</p>
+          <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value="this is a test"/>
         </div>
       </div>
     HTML
@@ -58,7 +58,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
-          <p class="form-control-static">Custom Control</p>
+          <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value="Custom Control"/>
         </div>
       </div>
     HTML

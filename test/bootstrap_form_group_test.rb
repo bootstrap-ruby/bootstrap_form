@@ -237,14 +237,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group creates a valid structure and allows arbitrary html to be added via a block" do
     output = @horizontal_builder.form_group :nil, label: { text: 'Foo' } do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for="user_nil">Foo</label>
         <div class="col-sm-10">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
@@ -253,13 +253,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group adds a spacer when no label exists for a horizontal form" do
     output = @horizontal_builder.form_group do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <div class="col-sm-10 offset-sm-2">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
@@ -268,14 +268,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group renders the label correctly" do
     output = @horizontal_builder.form_group :email, label: { text: 'Custom Control' } do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Custom Control</label>
         <div class="col-sm-10">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
@@ -284,13 +284,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group accepts class thorugh options hash" do
     output = @horizontal_builder.form_group :email, class: "foo" do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
         <div class="col-sm-10 offset-sm-2">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
@@ -299,13 +299,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group accepts class thorugh options hash without needing a name" do
     output = @horizontal_builder.form_group class: "foo" do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group foo row">
         <div class="col-sm-10 offset-sm-2">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
@@ -314,31 +314,31 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
     output = @horizontal_builder.form_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <label class="foo col-form-label col-sm-2" for="bar">Custom Control</label>
         <div class="col-sm-10">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML
     assert_equivalent_xml expected, output
   end
 
-  test 'form_group renders the "error" class and message corrrectly when object is invalid' do
+  test 'form_group renders the "error" class and message correctly when object is invalid' do
     @user.email = nil
     assert @user.invalid?
 
     output = @builder.form_group :email do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
-        <p class="form-control-static">Bar</p>
+        <input class="form-control-plaintext" value="Bar">
         <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
@@ -495,13 +495,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "non-default column span on form is reflected in form_group" do
     non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, { layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" })
     output = non_default_horizontal_builder.form_group do
-      %{<p class="form-control-static">Bar</p>}.html_safe
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <div class="col-sm-9 offset-sm-3">
-          <p class="form-control-static">Bar</p>
+          <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
     HTML

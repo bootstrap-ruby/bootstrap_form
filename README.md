@@ -372,7 +372,7 @@ Here's the output for a horizontal layout:
 <div class="form-group">
   <label class="col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
-    <p class="form-control-static">test@email.com</p>
+    <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="test@email.com"/>
   </div>
 </div>
 ```
