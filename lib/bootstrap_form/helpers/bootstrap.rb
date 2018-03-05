@@ -50,15 +50,16 @@ module BootstrapForm
 
         value = if block_given?
           capture(&block)
+        elsif options[:value]
+          options[:value]
         else
           object.send(name)
         end
 
         static_options = {
           value: value,
-          class: static_class,
           readonly: true,
-          control_class: nil
+          control_class: static_class
         }
 
         text_field_with_bootstrap(name, options.merge(static_options))
