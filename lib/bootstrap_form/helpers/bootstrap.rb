@@ -44,25 +44,18 @@ module BootstrapForm
         end
       end
 
-      def static_control(*args, &block)
+      def static_control(*args)
         options = args.extract_options!
         name = args.first
 
-        value = if block_given?
-          capture(&block)
-        elsif options[:value]
-          options[:value]
-        else
-          object.send(name)
-        end
-
-        static_options = {
-          value: value,
+        static_options = options.merge({
           readonly: true,
-          control_class: static_class
-        }
+          control_class: [options[:control_class], static_class].compact.join(" ")
+        })
 
-        text_field_with_bootstrap(name, options.merge(static_options))
+        static_options[:value] = object.send(name) if static_options[:value].nil?
+
+        text_field_with_bootstrap(name, static_options)
       end
 
       def custom_control(*args, &block)

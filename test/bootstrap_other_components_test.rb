@@ -34,9 +34,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "static control doesn't require an actual attribute" do
-    output = @horizontal_builder.static_control nil, label: "My Label" do
-      "this is a test"
-    end
+    output = @horizontal_builder.static_control nil, label: "My Label", value: "this is a test"
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
@@ -50,15 +48,27 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "static control doesn't require a name" do
-    output = @horizontal_builder.static_control label: "Custom Label" do
-      "Custom Control"
-    end
+    output = @horizontal_builder.static_control label: "Custom Label", value: "Custom Control"
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value="Custom Control"/>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
+  test "static control won't overwrite a control_class that is passed by the user" do
+    output = @horizontal_builder.static_control :email, control_class: "test_class"
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="col-sm-10">
+          <input class="test_class form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
