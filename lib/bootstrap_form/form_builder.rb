@@ -38,7 +38,9 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          send(without_method_name, name, options)
+          prepend_and_append_input(name, options) do
+            send(without_method_name, name, options)
+          end
         end
       end
 
@@ -52,7 +54,9 @@ module BootstrapForm
       define_method(with_method_name) do |name, options = {}, html_options = {}|
         prevent_prepend_and_append!(options)
         form_group_builder(name, options, html_options) do
-          content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          input_with_error(name) do
+            content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          end
         end
       end
 
@@ -63,15 +67,17 @@ module BootstrapForm
       prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
-        content_tag(:div, class: "custom-file") do
-          placeholder = options.delete(:placeholder) || "Choose file"
-          placeholder_opts = { class: "custom-file-label" }
-          placeholder_opts[:for] = options[:id] if options[:id].present?
+        input_with_error(name) do
+          content_tag(:div, class: "custom-file") do
+            placeholder = options.delete(:placeholder) || "Choose file"
+            placeholder_opts = { class: "custom-file-label" }
+            placeholder_opts[:for] = options[:id] if options[:id].present?
 
-          input = file_field_without_bootstrap(name, options)
-          placeholder_label = label(name, placeholder, placeholder_opts)
-          concat(input)
-          concat(placeholder_label)
+            input = file_field_without_bootstrap(name, options)
+            placeholder_label = label(name, placeholder, placeholder_opts)
+            concat(input)
+            concat(placeholder_label)
+          end
         end
       end
     end
@@ -80,7 +86,9 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        select_without_bootstrap(method, choices, options, html_options, &block)
+        prepend_and_append_input(method, options) do
+          select_without_bootstrap(method, choices, options, html_options, &block)
+        end
       end
     end
 
@@ -89,7 +97,9 @@ module BootstrapForm
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        input_with_error(method) do
+          collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        end
       end
     end
 
@@ -98,7 +108,9 @@ module BootstrapForm
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        input_with_error(method) do
+          grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
       end
     end
 
@@ -107,7 +119,9 @@ module BootstrapForm
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        input_with_error(method) do
+          time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        end
       end
     end
 
@@ -253,7 +267,9 @@ module BootstrapForm
 
       content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        control = prepend_and_append_input(name, options, &block).to_s
+        # control = prepend_and_append_input(name, options, &block).to_s
+        # puts "Just before capturing block #{name} #{options}"
+        control = capture(&block)
 
         help = options[:help]
         help_text = generate_help(name, help).to_s
@@ -405,9 +421,9 @@ module BootstrapForm
         class: wrapper_class
       }
 
-      form_group_options[:append] = options.delete(:append) if options[:append]
-      form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
-      form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
+      # form_group_options[:append] = options.delete(:append) if options[:append]
+      # form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
+      # form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
 
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)
@@ -437,7 +453,9 @@ module BootstrapForm
         end
       end
 
+      # puts "Just before form_group #{method} #{options}"
       form_group(method, form_group_options) do
+        # puts "block in form_group #{method} #{options}"
         yield
       end
     end
