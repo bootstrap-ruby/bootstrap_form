@@ -109,6 +109,25 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true)
   end
 
+  test "inline checkboxes from form layout" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-check form-check-inline">
+          <input name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">
+            I agree to the terms
+          </label>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user, layout: :inline) do |f|
+      f.check_box(:terms, label: 'I agree to the terms')
+    end
+    assert_equivalent_xml expected, actual
+  end
+
   test "disabled inline check_box" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline">
@@ -144,8 +163,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foobar</label>
+          <small class="form-text text-muted">With a help!</small>
         </div>
-        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -546,6 +565,34 @@ class BootstrapCheckboxTest < ActionView::TestCase
       f.collection_check_boxes(:misc, collection, :id, :street)
     end
 
+    assert_equivalent_xml expected, actual
+  end
+
+  test 'collection_check_boxes renders multiple check boxes with error correctly' do
+    @user.errors.add(:misc, "error for test")
+    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="form-check">
+            <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check">
+            <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <div class="invalid-feedback">error for test</div>
+          </div>
+        </div>
+      </form>
+    HTML
+
+    actual = bootstrap_form_for(@user) do |f|
+      f.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
+    end
     assert_equivalent_xml expected, actual
   end
 end
