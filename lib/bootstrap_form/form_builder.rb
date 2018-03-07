@@ -539,7 +539,7 @@ module BootstrapForm
       form_group_builder(name, options) do
         inputs = ""
 
-        collection.each do |obj|
+        collection.each_with_index do |obj, i|
           input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
 
           input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
@@ -551,7 +551,7 @@ module BootstrapForm
           end
 
           input_options.delete(:class)
-          inputs << block.call(name, input_value, input_options)
+          inputs << block.call(name, input_value, input_options.merge(error_message: i == collection.size - 1))
         end
 
         inputs.html_safe
