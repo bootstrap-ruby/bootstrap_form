@@ -52,7 +52,6 @@ module BootstrapForm
       without_method_name = "#{method_name}_without_bootstrap"
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
-        prevent_prepend_and_append!(options)
         form_group_builder(name, options, html_options) do
           input_with_error(name) do
             content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
@@ -64,7 +63,6 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
-      prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
         input_with_error(name) do
@@ -95,7 +93,6 @@ module BootstrapForm
     bootstrap_method_alias :select
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
@@ -106,7 +103,6 @@ module BootstrapForm
     bootstrap_method_alias :collection_select
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
@@ -117,7 +113,6 @@ module BootstrapForm
     bootstrap_method_alias :grouped_collection_select
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
@@ -242,7 +237,6 @@ module BootstrapForm
     bootstrap_method_alias :radio_button
 
     def collection_check_boxes_with_bootstrap(*args)
-      prevent_prepend_and_append!(options)
       html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
@@ -253,7 +247,6 @@ module BootstrapForm
     bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
-      prevent_prepend_and_append!(options)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
