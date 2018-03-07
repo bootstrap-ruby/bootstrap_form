@@ -163,8 +163,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foobar</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -549,11 +549,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">Foo</label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
           <label class="form-check-label" for="user_misc_2">Bar</label>
           <div class="invalid-feedback">a box must be checked</div>
         </div>
@@ -578,11 +578,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <div class="form-group">
           <label for="user_misc">Misc</label>
           <div class="form-check">
-            <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+            <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback">error for test</div>
           </div>
@@ -592,6 +592,45 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
     actual = bootstrap_form_for(@user) do |f|
       f.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
+    end
+    assert_equivalent_xml expected, actual
+  end
+
+  test 'check_box renders error when asked' do
+    @user.errors.add(:terms, "You must accept the terms.")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.check_box(:terms, label: 'I agree to the terms', error_message: true)
+    end
+    assert_equivalent_xml expected, actual
+  end
+
+  test "check_box with error is wrapped correctly with custom option set" do
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="custom-control custom-checkbox">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.check_box(:terms, {label: 'I agree to the terms', custom: true, error_message: true})
     end
     assert_equivalent_xml expected, actual
   end

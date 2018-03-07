@@ -17,6 +17,26 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
 
+  test "radio_button with error is wrapped correctly" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="form-check">
+        <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="user_misc_1">
+          This is a radio button
+        </label>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.radio_button(:misc, '1', label: 'This is a radio button', error_message: true)
+    end
+    assert_equivalent_xml expected, actual
+  end
+
   test "radio_button disabled label is set correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check disabled">
@@ -117,8 +137,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
           <label class="form-check-label" for="user_misc_1">
             Foobar
           </label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -153,11 +173,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-group">
           <label for="user_misc">Misc</label>
           <div class="form-check">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback">error for test</div>
           </div>
@@ -217,8 +237,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -233,8 +253,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -287,8 +307,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -303,8 +323,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
-          <small class="form-text text-muted">With a help!</small>
         </div>
+        <small class="form-text text-muted">With a help!</small>
       </div>
     HTML
 
@@ -357,6 +377,24 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true})
+  end
+
+  test "radio_button with error is wrapped correctly with custom option set" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<-HTML.strip_heredoc
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <input name="utf8" type="hidden" value="&#x2713;"/>
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
+        <div class="invalid-feedback">error for test</div>
+      </div>
+    </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.radio_button(:misc, '1', {label: 'This is a radio button', custom: true, error_message: true})
+    end
+    assert_equivalent_xml expected, actual
   end
 
   test "radio_button is wrapped correctly with custom and inline options set" do
