@@ -128,15 +128,13 @@ module BootstrapForm
     bootstrap_method_alias :time_zone_select
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
-      prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
+      check_box_classes << "is-invalid" if has_error?(name)
       if options[:custom]
-        validation = nil
-        validation = "is-invalid" if has_error?(name)
-        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
+        check_box_options[:class] = (["custom-control-input"] + check_box_classes).compact.join(' ')
       else
         check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
       end
@@ -162,19 +160,21 @@ module BootstrapForm
         div_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
+          html = if options[:skip_label]
             checkbox_html
           else
             # TODO: Notice we don't seem to pass the ID into the custom control.
             checkbox_html.concat(label(label_name, label_description, class: label_class))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: wrapper_class) do
-          if options[:skip_label]
+          html = if options[:skip_label]
             checkbox_html
           else
             checkbox_html
@@ -182,6 +182,8 @@ module BootstrapForm
                             label_description,
                             { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       end
     end
