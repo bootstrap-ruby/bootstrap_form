@@ -77,7 +77,6 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &block)
-        # puts "WELL HERE WE ARE #{name} #{options}"
         options = options.extract!(:prepend, :append, :input_group_class)
         input_group_class = ["input-group", options[:input_group_class]].compact.join(' ')
 

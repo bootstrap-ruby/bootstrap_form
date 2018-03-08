@@ -265,8 +265,6 @@ module BootstrapForm
 
       content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        # control = prepend_and_append_input(name, options, &block).to_s
-        # puts "Just before capturing block #{name} #{options}"
         control = capture(&block)
 
         help = options[:help]
@@ -419,10 +417,6 @@ module BootstrapForm
         class: wrapper_class
       }
 
-      # form_group_options[:append] = options.delete(:append) if options[:append]
-      # form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
-      # form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
-
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)
       end
@@ -451,9 +445,7 @@ module BootstrapForm
         end
       end
 
-      # puts "Just before form_group #{method} #{options}"
       form_group(method, form_group_options) do
-        # puts "block in form_group #{method} #{options}"
         yield
       end
     end
