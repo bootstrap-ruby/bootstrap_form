@@ -392,6 +392,60 @@ class BootstrapFormGroupTest < ActionView::TestCase
   #   assert_equivalent_xml expected, output
   # end
 
+  # It could be argued that this test replaces the commented-out test above.
+  test 'upgrade doc for form_group renders the "error" class and message corrrectly when object is invalid' do
+    @user.email = nil
+    assert @user.invalid?
+
+    output = @builder.form_group :email do
+      html = %{<p class="form-control-plaintext">Bar</p>}.html_safe
+      html.concat(content_tag(:div, @user.errors[:email].join(", "), class: "invalid-feedback", style: "display: block;")) unless @user.errors[:email].empty?
+      html
+    end
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <p class="form-control-plaintext">Bar</p>
+        <div class="invalid-feedback" style="display: block;">can't be blank, is too short (minimum is 5 characters)</div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
+  test 'upgrade doc for form_group renders check box corrrectly when object is invalid' do
+    @user.errors.add(:misc, "Must select one.")
+
+    output = bootstrap_form_for(@user) do |f|
+      f.form_group :email do
+        f.radio_button(:misc, "primary school")
+         .concat(f.radio_button(:misc, "high school"))
+         .concat(f.radio_button(:misc, "university", error_message: true))
+      end
+    end
+
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_primary_school" name="user[misc]" type="radio" value="primary school"/>
+            <label class="form-check-label" for="user_misc_primary_school">Primary school</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_high_school" name="user[misc]" type="radio" value="high school"/>
+            <label class="form-check-label" for="user_misc_high_school">High school</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_university" name="user[misc]" type="radio" value="university"/>
+            <label class="form-check-label" for="user_misc_university">University</label>
+            <div class="invalid-feedback">Must select one.</div>
+          </div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
   test "adds class to wrapped form_group by a field" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group none-margin">
