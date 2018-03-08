@@ -196,8 +196,7 @@ module BootstrapForm
       else
         radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
       end
-      args << radio_options
-      radio_html = radio_button_without_bootstrap(name, value, *args)
+      radio_html = radio_button_without_bootstrap(name, value, radio_options)
 
       disabled_class = " disabled" if options[:disabled]
       label_classes  = [options[:label_class]]
