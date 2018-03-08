@@ -106,8 +106,8 @@ class BootstrapFieldsTest < ActionView::TestCase
         <div class="custom-file">
           <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
           <label class="custom-file-label" for="user_misc">Choose file</label>
+          <div class="invalid-feedback">error for test</div>
         </div>
-        <div class="invalid-feedback">error for test</div>
       </div>
     </form>
     HTML

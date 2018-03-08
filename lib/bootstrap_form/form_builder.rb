@@ -53,8 +53,10 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          input_with_error(name) do
-            content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          content_tag(:div, class: control_specific_class(method_name)) do
+            input_with_error(name) do
+              send(without_method_name, name, options, html_options)
+            end
           end
         end
       end
@@ -65,8 +67,8 @@ module BootstrapForm
     def file_field_with_bootstrap(name, options = {})
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
-        input_with_error(name) do
-          content_tag(:div, class: "custom-file") do
+        content_tag(:div, class: "custom-file") do
+          input_with_error(name) do
             placeholder = options.delete(:placeholder) || "Choose file"
             placeholder_opts = { class: "custom-file-label" }
             placeholder_opts[:for] = options[:id] if options[:id].present?
