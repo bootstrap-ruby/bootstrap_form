@@ -408,7 +408,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
+          <label class="required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
         </div>
       </form>
@@ -424,7 +424,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
         <div class="form-group">
-          <label class="required" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <label class="required text-danger" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
@@ -444,7 +444,7 @@ class BootstrapFormTest < ActionView::TestCase
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
           <input name="utf8" type="hidden" value="&#x2713;" />
           <div class="form-group">
-            <label class="required" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+            <label class="required text-danger" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
             <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
