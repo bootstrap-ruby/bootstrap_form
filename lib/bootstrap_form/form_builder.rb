@@ -433,10 +433,10 @@ module BootstrapForm
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `collection_select` helper.
     # @!macro validation_errors
-    # @param method [Symbol] Passed to the `method` parameter of Rails' `colleciton_select'
-    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `colleciton_select'
-    # @param value_method [Symbol] Passed to the `value_method` parameter of Rails' `colleciton_select'
-    # @param text_method [Symbol] Passed to the `text_method` parameter of Rails' `colleciton_select'
+    # @param method [Symbol] Passed to the `method` parameter of Rails' `collection_select'
+    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `collection_select'
+    # @param value_method [Symbol] Passed to the `value_method` parameter of Rails' `collection_select'
+    # @param text_method [Symbol] Passed to the `text_method` parameter of Rails' `collection_select'
     # @param options [Hash] Options affecting how the control and other
     #   tags are rendered. Anything in 'options' not listed below is passed to
     #   the Rails helper. These are the same options with the same meaning as
@@ -444,7 +444,7 @@ module BootstrapForm
     # @!macro common_class_to_layout
     # @!macro common_skip
     # @!macro common_wrapper
-    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `colleciton_select'
+    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `collection_select'
     # @!macro return
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
@@ -460,14 +460,14 @@ module BootstrapForm
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `grouped_collection_select` helper.
     # @!macro validation_errors
-    # @param method [Symbol] Passed to the `method` parameter of Rails' `colleciton_select'
-    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `colleciton_select'
-    # @param group_method [Symbol] Passed to the `group_method` parameter of Rails' `colleciton_select'
-    # @param group_label_method [Symbol] Passed to the `group_label_method` parameter of Rails' `colleciton_select'
-    # @param option_key_method [Symbol] Passed to the `option_key_method` parameter of Rails' `colleciton_select'
-    # @param option_value_method [Symbol] Passed to the `option_value_method` parameter of Rails' `colleciton_select'
+    # @param method [Symbol] Passed to the `method` parameter of Rails' `collection_select'
+    # @param collection [Enumerable]  Passed to the `collection` parameter of Rails' `collection_select'
+    # @param group_method [Symbol] Passed to the `group_method` parameter of Rails' `collection_select'
+    # @param group_label_method [Symbol] Passed to the `group_label_method` parameter of Rails' `collection_select'
+    # @param option_key_method [Symbol] Passed to the `option_key_method` parameter of Rails' `collection_select'
+    # @param option_value_method [Symbol] Passed to the `option_value_method` parameter of Rails' `collection_select'
     # @!macro textish_options_minus_append_prepend
-    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `colleciton_select'
+    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `collection_select'
     # @!macro return
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
@@ -481,9 +481,14 @@ module BootstrapForm
     # @overload time_zone_select(method, priority_zones = nil, options = {}, html_options = {})
     # Render a `time_zone_select` input tag using Rails' `time_zone_select` helper,
     # augmented with Bootstrap 4 markup as described below.
-    # `method` is passed as the `method` parameter to Rails' `time_zone_select` helper.
     # @!macro validation_errors
+    # @param method [Symbol] Passed to the `method` parameter of Rails' `time_zone_select'
+    # @param priority_zones [Symbol] Passed to the `priority_zones` parameter of Rails' `time_zone_select'
     # @!macro textish_options_minus_append_prepend
+    # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `time_zone_select'.
+    #   Note that if you want to specify a custom DOM ID (like when you're using `bootstrap_form_with` on Rails 5.1),
+    #   you have to specify the ID in `html_options`, not `options`.
+    # @todo Check if ID always has to be in `html_options` when it's a parameter.
     # @!macro return
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
       prevent_prepend_and_append!(options)
@@ -739,7 +744,7 @@ module BootstrapForm
     #   @!macro collection_check_radio_options_b
     #   @!macro common_skip
     #   @!macro common_wrapper
-    #   @param html_options [Hash] Options to be passed to
+    #   @param html_options [Hash] Options to be passed to Rails' `collection_radio_buttons`.
     def collection_radio_buttons_with_bootstrap(*args)
       prevent_prepend_and_append!(options)
       inputs_collection(*args) do |name, value, options|
