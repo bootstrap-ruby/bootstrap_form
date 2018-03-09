@@ -183,6 +183,31 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email, prepend: '$', append: '.00')
   end
 
+  test "adding both prepend and append text with validation error" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group">
+          <label class="required" for="user_email">Email</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">$</div>
+            </div>
+            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <div class="input-group-append">
+              <span class="input-group-text">.00</span>
+            </div>
+            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          </div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: '$', append: '.00' }
+  end
+
   test "help messages for default forms" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -200,8 +225,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is required</small>
         </div>
+        <small class="form-text text-muted">This is required</small>
       </div>
     HTML
     assert_equivalent_xml expected, @horizontal_builder.text_field(:email, help: "This is required")
@@ -494,8 +519,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         <input name="utf8" type="hidden" value="&#x2713;" />
-        <div class="form-group">
-          <label class="required" for="user_email">Email</label>
+        <div class="form-group form-inline">
+          <label class="mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
