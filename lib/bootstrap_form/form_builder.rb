@@ -219,7 +219,10 @@ module BootstrapForm
     #     a column offset equal to `label_col` will be added on the control.
     #     Has no effect unless `layout: :horizontal` is in effect.
 
-    # @!macro [new] common_control_to_layout
+    # @!macro [new] common_class_to_layout
+    #   @option options [String] :class Added to the `class` attribute of the
+    #     `input` tag. This is the option to use if you want to add styles to an
+    #     otherwise Bootstrap-styled control.
     #   @option options [String] :control_class ("form-control") If specified, it will be
     #     rendered as a class on the control tag, instead of `form-control`.
     #   @!macro control_col
@@ -299,7 +302,7 @@ module BootstrapForm
     #   tags are rendered. Anything in `options` not listed below is passed to
     #   the Rails helper.
     # @!macro append
-    # @!macro common_control_to_layout
+    # @!macro common_class_to_layout
     # @!macro prepend
     # @!macro common_skip
     # @!macro common_wrapper
@@ -382,7 +385,7 @@ module BootstrapForm
     # Render a `file_field` input tag using Rails' `file_field` helper,
     # augmented with Bootstrap 4 markup as described below.
     # `method` is passed as the `method` parameter to Rails' `file_field` helper.
-    # This method does *not* use the `:control_class` option. It applies the
+    # This method ignores the `:control_class` option, if given. It applies the
     # `form-control-file` class to the `input` tag.
     # @!macro validation_errors
     # @!macro textish_options_minus_append_prepend
@@ -431,7 +434,7 @@ module BootstrapForm
     #   tags are rendered. Anything in 'options' not listed below is passed to
     #   the Rails helper. These are the same options with the same meaning as
     #   those for {text_field}, minus `:append` and `:prepend`.
-    # @!macro common_control_to_layout
+    # @!macro common_class_to_layout
     # @!macro common_skip
     # @!macro common_wrapper
     # @param html_options [Hash] Passed to the `html_options` parameter of Rails' `colleciton_select'
