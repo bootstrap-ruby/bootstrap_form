@@ -16,6 +16,8 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * The `icon` option is no longer supported (Bootstrap v4 does not include icons)
 * The deprecated Rails methods `check_boxes_collection` and `radio_buttons_collection` have been removed
 * `hide_label: true` and `skip_label: true` on individual check boxes and radio buttons apply Bootstrap 4 markup. This means the appearance of a page may change if you're upgrading from the Bootstrap 3 version of `bootstrap_form`, and you used `check_box` or `radio_button` with either of those options
+* `static_control` will no longer properly show error messages. This is the result of bootstrap changes.
+* `static_control` will also no longer accept a block, use the `value` option instead.
 * Your contribution here!
 
 ### New features
