@@ -419,6 +419,8 @@ module BootstrapForm
     # @param html_options [Hash] Combined with the `options` hash. Any
     #   `html_options` not listed under the `options` parameter are passed to
     #   the `options` parameter of Rails' `select` helper.
+    #   If you want to set a class on the `select` tag, pass the class in
+    #   `html_options[:class]`.
     # @!macro return
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
