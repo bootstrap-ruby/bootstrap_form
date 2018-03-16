@@ -67,6 +67,12 @@ module BootstrapForm
     #     The text wrapped in a `<span>` can be the HTML for a simple radio
     #     button or check box (see https://getbootstrap.com/docs/4.0/components/input-group/#checkboxes-and-radios).
 
+    # @!macro [new] input_group_class
+    #   @option options [String] :input_group_class Add the string to the
+    #     `div.input-group`'s #     classes, if a `div.input-group` is
+    #     generated. Input groups are generated when `:append` or `:prepend`
+    #     are given as options.
+
     # @!macro [new] prepend
     #   @option options [String] :prepend Prepend the string
     #     to the control, and wrap the rendered HTML in a Bootstrap
