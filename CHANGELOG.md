@@ -35,6 +35,8 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
   [@duleorlovic](https://github.com/duleorlovic)
 * Your contribution here!
 
+* [#455](https://github.com/bootstrap-ruby/bootstrap_form/pull/455): Support for i18n :html subkeys in help text - [@jsaraiva](https://github.com/jsaraiva).
+
 ## [2.7.0][] (2017-04-21)
 
 Features:
