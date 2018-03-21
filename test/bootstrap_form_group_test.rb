@@ -207,6 +207,27 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:password)
   end
 
+  test "help messages to look up I18n automatically using HTML key" do
+    I18n.backend.store_translations(:en, activerecord: {
+      help: {
+        user: {
+          password: {
+            html: 'A <strong>good</strong> password should be at least six characters long'
+          }
+        }
+      }
+    })
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label for="user_password">Password</label>
+        <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
+        <small class="form-text text-muted">A <strong>good</strong> password should be at least six characters long</small>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:password)
+  end
+
   test "help messages to warn about deprecated I18n key" do
     super_user = SuperUser.new(@user.attributes)
     builder = BootstrapForm::FormBuilder.new(:super_user, super_user, self, {})

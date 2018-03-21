@@ -26,6 +26,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * Support Bootstrap v4's [Custom Checkboxes and Radios](https://getbootstrap.com/docs/4.0/components/forms/#checkboxes-and-radios-1) with a new `custom: true` option
 * Allow HTML in help translations by using the `_html` suffix on the key - [@unikitty37](https://github.com/unikitty37)
 * [#408](https://github.com/bootstrap-ruby/bootstrap_form/pull/408): Add option[:id] on static control #245 - [@duleorlovic](https://github.com/duleorlovic).
+* [#455](https://github.com/bootstrap-ruby/bootstrap_form/pull/455): Support for i18n `:html` subkeys in help text - [@jsaraiva](https://github.com/jsaraiva).
 * Your contribution here!
 
 ### Bugfixes
@@ -34,6 +35,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
   use html option `id` to specify `for` attribute on label
   [@duleorlovic](https://github.com/duleorlovic)
 * Your contribution here!
+
 
 ## [2.7.0][] (2017-04-21)
 
