@@ -189,8 +189,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text text-muted">This is required</small>
         </div>
-        <small class="form-text text-muted">This is required</small>
       </div>
     HTML
     assert_equivalent_xml expected, @horizontal_builder.text_field(:email, help: "This is required")

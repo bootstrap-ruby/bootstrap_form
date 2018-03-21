@@ -254,20 +254,20 @@ module BootstrapForm
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = prepend_and_append_input(name, options, &block).to_s
 
+        help = options[:help]
+        help_text = generate_help(name, help).to_s
+
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
           unless options[:label]
             control_offset = offset_col(options[:label_col] || @label_col)
             control_class = "#{control_class} #{control_offset}"
           end
-          control = content_tag(:div, control, class: control_class)
+          control = content_tag(:div, control + help_text, class: control_class)
+          concat(label).concat(control)
+        else
+          concat(label).concat(control).concat(help_text)
         end
-
-        help = options[:help]
-
-        help_text = generate_help(name, help).to_s
-
-        concat(label).concat(control).concat(help_text)
       end
     end
 
