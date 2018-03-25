@@ -176,6 +176,31 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street)
   end
 
+  test 'collection_check_boxes renders multiple checkboxes contains unicode characters in IDs correctly' do
+    struct = Struct.new(:id, :name)
+    collection = [struct.new(1, 'Foo'), struct.new('二', 'Bar')]
+    expected = <<-HTML.strip_heredoc
+      <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <div class="form-group">
+        <label for="user_misc">Misc</label>
+        <div class="form-check">
+          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_misc_1">
+            Foo
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
+          <label class="form-check-label" for="user_misc_二">
+            Bar
+          </label>
+        </div>
+      </div>
+    HTML
+
+    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :name)
+  end
+
   test 'collection_check_boxes renders inline checkboxes correctly' do
     collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
     expected = <<-HTML.strip_heredoc
