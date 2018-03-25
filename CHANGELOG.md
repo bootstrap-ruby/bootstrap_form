@@ -19,6 +19,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * `static_control` will no longer properly show error messages. This is the result of bootstrap changes.
 * `static_control` will also no longer accept a block, use the `value` option instead.
 * Your contribution here!
+* [#456](https://github.com/bootstrap-ruby/bootstrap_form/pull/456): Fix label `for` attribute when passing non-english characters using `collection_check_boxes` - [@ug0](https://github.com/ug0).
 
 ### New features
 

@@ -134,10 +134,10 @@ module BootstrapForm
       label_name = name
       # label's `for` attribute needs to match checkbox tag's id,
       # IE sanitized value, IE
-      # https://github.com/rails/rails/blob/c57e7239a8b82957bcb07534cb7c1a3dcef71864/actionview/lib/action_view/helpers/tags/base.rb#L116-L118
+      # https://github.com/rails/rails/blob/5-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L123-L125
       if options[:multiple]
         label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-\w]/, "").downcase}"
+          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-[[:word:]]]/, "").mb_chars.downcase.to_s}"
       end
 
       label_classes = [options[:label_class]]
