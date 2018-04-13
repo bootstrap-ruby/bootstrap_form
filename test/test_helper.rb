@@ -2,10 +2,10 @@ require 'timecop'
 require 'diffy'
 require 'nokogiri'
 require 'equivalent-xml'
-require 'mocha/mini_test'
 
 require_relative "../demo/config/environment.rb"
 require "rails/test_help"
+require 'mocha/minitest'
 
 Rails.backtrace_cleaner.remove_silencers!
 
