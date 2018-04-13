@@ -84,6 +84,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email, skip_required: true)
   end
 
+  test "label as placeholder" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="sr-only required" for="user_email">Email</label>
+        <input class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:email, label_as_placeholder: true)
+  end
+
   test "adding prepend text" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
