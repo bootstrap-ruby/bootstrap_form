@@ -18,6 +18,17 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
+  test "check_box empty label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms"></label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: "")
+  end
+
   test "disabled check_box has proper wrapper classes" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
