@@ -6,6 +6,7 @@
 
 ### New features
 
+* [461](https://github.com/bootstrap-ruby/bootstrap_form/pull/461): default form-inline class applied to parent content div on date select helpers. Can override with a :skip_inline option on the field helper - [@lancecarlson](https://github.com/lancecarlson).
 * Your contribution here!
 
 ### Bugfixes
@@ -51,6 +52,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Passing `.form-row` overrides default `.form-group.row` in horizontal layouts.
 * Added an option to the `submit` (and `primary`, by transitivity) form tag helper, `render_as_button`, which when truthy makes the submit button render as a button instead of an input. This allows you to easily provide further styling to your form submission buttons, without requiring you to reinvent the wheel and use the `button` helper (and having to manually insert the typical Bootstrap classes). - [@jsaraiva](https://github.com/jsaraiva).
 * Add `:error_message` option to `check_box` and `radio_button`, so they can output validation error messages if needed. [@lcreid](https://github.com/lcreid).
+* Your contribution here!
 
 ### Bugfixes
 
