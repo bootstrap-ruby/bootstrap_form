@@ -23,9 +23,11 @@ following steps.
 
 For the project. Optionally, create a branch you want to work on
 
-### 3. Get it running locally
+### 3. Test it locally
 
-- Install the required dependencies with `bundle install`
+- The first time after you've cloned the repository:
+  - Install the required dependencies with `bundle install`
+  - Create the database with `rake -f demo/Rakefile db:schema:load`
 - Run tests via: `bundle exec rake`
 
 ### 4. Hack away
@@ -42,7 +44,7 @@ You may find using demo application useful for development and debugging.
 - `rails s`
 - Navigate to http://localhost:3000
 
-### 5. Make a Pull Request
+### 5. Make a pull request
 
 - If you never done it before read this: https://help.github.com/articles/about-pull-requests/
 - When PR is submitted check if TravisCI ran all tests successfully didn't raise any issues
