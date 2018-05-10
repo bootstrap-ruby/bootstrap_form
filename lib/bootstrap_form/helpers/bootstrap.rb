@@ -6,7 +6,6 @@ module BootstrapForm
 
         if options[:render_as_button]
           options.except! :render_as_button
-          options.reverse_merge! type: 'submit'
           button(name, options)
         else
           super(name, options)
