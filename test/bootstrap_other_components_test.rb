@@ -132,6 +132,14 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.submit("Submit Form", class: "btn btn-primary")
   end
 
+  test "submit button can render as HTML button" do
+    expected = %{<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>}
+    assert_equivalent_xml expected,
+                          @builder.submit("<span>I'm HTML!</span> Submit Form".html_safe,
+                                          render_as_button: true,
+                                          class: "btn btn-primary")
+  end
+
   test "primary button uses proper css classes" do
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equivalent_xml expected, @builder.primary("Submit Form")

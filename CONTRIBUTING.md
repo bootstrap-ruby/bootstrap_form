@@ -50,7 +50,7 @@ You may find using demo application useful for development and debugging.
 ### 6. Done!
 
 Somebody will shortly review your pull request and if everything is good will be
-merged into master brach. Eventually gem will be published with your changes.
+merged into master branch. Eventually gem will be published with your changes.
 
 ---
 
