@@ -117,6 +117,12 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  test "regular button uses proper css classes" do
+    expected = %{<button class="btn btn-secondary" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>}
+    assert_equivalent_xml expected,
+                          @builder.button("<span>I'm HTML!</span> in a button!".html_safe)
+  end
+
   test "submit button defaults to rails action name" do
     expected = %{<input class="btn btn-secondary" name="commit" type="submit" value="Create User" />}
     assert_equivalent_xml expected, @builder.submit
@@ -132,17 +138,24 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.submit("Submit Form", class: "btn btn-primary")
   end
 
-  test "submit button can render as HTML button" do
-    expected = %{<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>}
-    assert_equivalent_xml expected,
-                          @builder.submit("<span>I'm HTML!</span> Submit Form".html_safe,
-                                          render_as_button: true,
-                                          class: "btn btn-primary")
-  end
-
   test "primary button uses proper css classes" do
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equivalent_xml expected, @builder.primary("Submit Form")
+  end
+
+  test "primary button can render as HTML button" do
+    expected = %{<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>}
+    assert_equivalent_xml expected,
+                          @builder.primary("<span>I'm HTML!</span> Submit Form".html_safe,
+                                           render_as_button: true)
+  end
+
+  test "primary button with content block renders as HTML button" do
+    output = @builder.primary do
+      "<span>I'm HTML!</span> Submit Form".html_safe
+    end
+    expected = %{<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>}
+    assert_equivalent_xml expected, output
   end
 
   test "override primary button classes" do
