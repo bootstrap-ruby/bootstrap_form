@@ -20,7 +20,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * `static_control` will also no longer accept a block, use the `value` option instead.
 * Your contribution here!
 * [#456](https://github.com/bootstrap-ruby/bootstrap_form/pull/456): Fix label `for` attribute when passing non-english characters using `collection_check_boxes` - [@ug0](https://github.com/ug0).
-* [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Bootstrap 4 no longer mixes in `.row` in `.form-group`. 'bootstrap_form` adds `.row` to `div.form-group` when layout is horizontal.
+* [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Bootstrap 4 no longer mixes in `.row` in `.form-group`. `bootstrap_form` adds `.row` to `div.form-group` when layout is horizontal.
 
 ### New features
 
