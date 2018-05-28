@@ -343,6 +343,21 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  test "form_group horizontal lets caller override .row" do
+    output = @horizontal_builder.form_group class: "form-row" do
+      %{<input class="form-control-plaintext" value="Bar">}.html_safe
+    end
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group form-row">
+        <div class="col-sm-10 offset-sm-2">
+          <input class="form-control-plaintext" value="Bar">
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
     output = @horizontal_builder.form_group nil, label: { text: 'Custom Control', class: 'foo', for: 'bar' } do
       %{<input class="form-control-plaintext" value="Bar">}.html_safe
