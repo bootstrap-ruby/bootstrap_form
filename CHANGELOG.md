@@ -18,9 +18,11 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * `hide_label: true` and `skip_label: true` on individual check boxes and radio buttons apply Bootstrap 4 markup. This means the appearance of a page may change if you're upgrading from the Bootstrap 3 version of `bootstrap_form`, and you used `check_box` or `radio_button` with either of those options
 * `static_control` will no longer properly show error messages. This is the result of bootstrap changes.
 * `static_control` will also no longer accept a block, use the `value` option instead.
-* Your contribution here!
+* `form_group` with a block that produces arbitrary text needs to be modified to produce validation error messages (see the UPGRADE-4.0 document). [@lcreid](https://github.com/lcreid).
+* `form_group` with a block that contains more than one `check_box` or `radio_button` needs to be modified to produce validation error messages (see the UPGRADE-4.0 document). [@lcreid](https://github.com/lcreid).
 * [#456](https://github.com/bootstrap-ruby/bootstrap_form/pull/456): Fix label `for` attribute when passing non-english characters using `collection_check_boxes` - [@ug0](https://github.com/ug0).
 * [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Bootstrap 4 no longer mixes in `.row` in `.form-group`. `bootstrap_form` adds `.row` to `div.form-group` when layout is horizontal.
+* Your contribution here!
 
 ### New features
 
@@ -32,6 +34,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * Adds support for `label_as_placeholder` option, which will set the label text as an input fields placeholder (and hiding the label for sr_only).
 * [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Passing `.form-row` overrides default `.form-group.row` in horizontal layouts.
 * Added an option to the `submit` (and `primary`, by transitivity) form tag helper, `render_as_button`, which when truthy makes the submit button render as a button instead of an input. This allows you to easily provide further styling to your form submission buttons, without requiring you to reinvent the wheel and use the `button` helper (and having to manually insert the typical Bootstrap classes). - [@jsaraiva](https://github.com/jsaraiva).
+* Add `:error_message` option to `check_box` and `radio_button`, so they can output validation error messages if needed. [@lcreid](https://github.com/lcreid).
 * Your contribution here!
 
 ### Bugfixes

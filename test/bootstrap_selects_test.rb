@@ -293,8 +293,8 @@ class BootstrapSelectsTest < ActionView::TestCase
             <select class="form-control is-invalid" id="user_misc_3i" name="user[misc(3i)]">
               #{options_range(start: 1, stop: 31, selected: 3)}
             </select>
+            <div class="invalid-feedback">error for test</div>
           </div>
-          <div class="invalid-feedback">error for test</div>
         </div>
       </form>
       HTML
@@ -395,8 +395,8 @@ class BootstrapSelectsTest < ActionView::TestCase
             <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
+            <div class="invalid-feedback">error for test</div>
           </div>
-          <div class="invalid-feedback">error for test</div>
         </div>
       </form>
       HTML
@@ -510,8 +510,8 @@ class BootstrapSelectsTest < ActionView::TestCase
             <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
               #{options_range(start: "00", stop: "59", selected: "00")}
             </select>
+            <div class="invalid-feedback">error for test</div>
           </div>
-          <div class="invalid-feedback">error for test</div>
         </div>
       </form>
       HTML

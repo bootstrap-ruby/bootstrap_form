@@ -38,7 +38,9 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}|
         form_group_builder(name, options) do
-          send(without_method_name, name, options)
+          prepend_and_append_input(name, options) do
+            send(without_method_name, name, options)
+          end
         end
       end
 
@@ -50,9 +52,12 @@ module BootstrapForm
       without_method_name = "#{method_name}_without_bootstrap"
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
-        prevent_prepend_and_append!(options)
         form_group_builder(name, options, html_options) do
-          content_tag(:div, send(without_method_name, name, options, html_options), class: control_specific_class(method_name))
+          content_tag(:div, class: control_specific_class(method_name)) do
+            input_with_error(name) do
+              send(without_method_name, name, options, html_options)
+            end
+          end
         end
       end
 
@@ -60,18 +65,19 @@ module BootstrapForm
     end
 
     def file_field_with_bootstrap(name, options = {})
-      prevent_prepend_and_append!(options)
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
         content_tag(:div, class: "custom-file") do
-          placeholder = options.delete(:placeholder) || "Choose file"
-          placeholder_opts = { class: "custom-file-label" }
-          placeholder_opts[:for] = options[:id] if options[:id].present?
+          input_with_error(name) do
+            placeholder = options.delete(:placeholder) || "Choose file"
+            placeholder_opts = { class: "custom-file-label" }
+            placeholder_opts[:for] = options[:id] if options[:id].present?
 
-          input = file_field_without_bootstrap(name, options)
-          placeholder_label = label(name, placeholder, placeholder_opts)
-          concat(input)
-          concat(placeholder_label)
+            input = file_field_without_bootstrap(name, options)
+            placeholder_label = label(name, placeholder, placeholder_opts)
+            concat(input)
+            concat(placeholder_label)
+          end
         end
       end
     end
@@ -80,49 +86,52 @@ module BootstrapForm
 
     def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
       form_group_builder(method, options, html_options) do
-        select_without_bootstrap(method, choices, options, html_options, &block)
+        prepend_and_append_input(method, options) do
+          select_without_bootstrap(method, choices, options, html_options, &block)
+        end
       end
     end
 
     bootstrap_method_alias :select
 
     def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        input_with_error(method) do
+          collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
+        end
       end
     end
 
     bootstrap_method_alias :collection_select
 
     def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        input_with_error(method) do
+          grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+        end
       end
     end
 
     bootstrap_method_alias :grouped_collection_select
 
     def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
-      prevent_prepend_and_append!(options)
       form_group_builder(method, options, html_options) do
-        time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        input_with_error(method) do
+          time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
+        end
       end
     end
 
     bootstrap_method_alias :time_zone_select
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
-      prevent_prepend_and_append!(options)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
+      check_box_classes << "is-invalid" if has_error?(name)
       if options[:custom]
-        validation = nil
-        validation = "is-invalid" if has_error?(name)
-        check_box_options[:class] = (["custom-control-input", validation] + check_box_classes).compact.join(' ')
+        check_box_options[:class] = (["custom-control-input"] + check_box_classes).compact.join(' ')
       else
         check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(' ')
       end
@@ -148,19 +157,21 @@ module BootstrapForm
         div_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
+          html = if options[:skip_label]
             checkbox_html
           else
             # TODO: Notice we don't seem to pass the ID into the custom control.
             checkbox_html.concat(label(label_name, label_description, class: label_class))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: wrapper_class) do
-          if options[:skip_label]
+          html = if options[:skip_label]
             checkbox_html
           else
             checkbox_html
@@ -168,6 +179,8 @@ module BootstrapForm
                             label_description,
                             { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       end
     end
@@ -175,18 +188,17 @@ module BootstrapForm
     bootstrap_method_alias :check_box
 
     def radio_button_with_bootstrap(name, value, *args)
-      prevent_prepend_and_append!(options)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :help, :inline, :custom, :hide_label, :skip_label)
+      radio_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label)
       radio_classes = [options[:class]]
       radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
+      radio_classes << "is-invalid" if has_error?(name)
       if options[:custom]
         radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(' ')
       else
         radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(' ')
       end
-      args << radio_options
-      radio_html = radio_button_without_bootstrap(name, value, *args)
+      radio_html = radio_button_without_bootstrap(name, value, radio_options)
 
       disabled_class = " disabled" if options[:disabled]
       label_classes  = [options[:label_class]]
@@ -197,24 +209,28 @@ module BootstrapForm
         div_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
         content_tag(:div, class: div_class.compact.join(" ")) do
-          if options[:skip_label]
+          html = if options[:skip_label]
             radio_html
           else
             # TODO: Notice we don't seem to pass the ID into the custom control.
             radio_html.concat(label(name, options[:label], value: value, class: label_class))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       else
         wrapper_class = "form-check"
         wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
         content_tag(:div, class: "#{wrapper_class}#{disabled_class}") do
-          if options[:skip_label]
+          html = if options[:skip_label]
             radio_html
           else
             radio_html
               .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
+          html.concat(generate_error(name)) if options[:error_message]
+          html
         end
       end
     end
@@ -222,7 +238,6 @@ module BootstrapForm
     bootstrap_method_alias :radio_button
 
     def collection_check_boxes_with_bootstrap(*args)
-      prevent_prepend_and_append!(options)
       html = inputs_collection(*args) do |name, value, options|
         options[:multiple] = true
         check_box(name, options, value, nil)
@@ -233,7 +248,6 @@ module BootstrapForm
     bootstrap_method_alias :collection_check_boxes
 
     def collection_radio_buttons_with_bootstrap(*args)
-      prevent_prepend_and_append!(options)
       inputs_collection(*args) do |name, value, options|
         radio_button(name, value, options)
       end
@@ -253,7 +267,7 @@ module BootstrapForm
 
       content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
-        control = prepend_and_append_input(name, options, &block).to_s
+        control = capture(&block)
 
         help = options[:help]
         help_text = generate_help(name, help).to_s
@@ -405,10 +419,6 @@ module BootstrapForm
         class: wrapper_class
       }
 
-      form_group_options[:append] = options.delete(:append) if options[:append]
-      form_group_options[:prepend] = options.delete(:prepend) if options[:prepend]
-      form_group_options[:input_group_class] = options.delete(:input_group_class) if options[:input_group_class]
-
       if wrapper_options.is_a?(Hash)
         form_group_options.merge!(wrapper_options)
       end
@@ -515,7 +525,7 @@ module BootstrapForm
       form_group_builder(name, options) do
         inputs = ""
 
-        collection.each do |obj|
+        collection.each_with_index do |obj, i|
           input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
 
           input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
@@ -527,7 +537,7 @@ module BootstrapForm
           end
 
           input_options.delete(:class)
-          inputs << block.call(name, input_value, input_options)
+          inputs << block.call(name, input_value, input_options.merge(error_message: i == collection.size - 1))
         end
 
         inputs.html_safe

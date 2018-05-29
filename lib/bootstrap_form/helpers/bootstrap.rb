@@ -89,12 +89,9 @@ module BootstrapForm
         input
       end
 
-      # Some helpers don't currently accept prepend and append. However, it's not
-      # clear if that's corrent. In the meantime, strip to options before calling
-      # methods that don't accept prepend and append.
-      def prevent_prepend_and_append!(options)
-        options.delete(:append)
-        options.delete(:prepend)
+      def input_with_error(name, &block)
+        input = capture(&block)
+        input << generate_error(name)
       end
 
       def input_group_content(content)
