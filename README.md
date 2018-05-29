@@ -164,6 +164,8 @@ This gem wraps the following Rails form helpers:
 * time_zone_select
 * url_field
 * week_field
+* submit
+* button
 
 These helpers accept the same options as the standard Rails form helpers, with
 a few extra options:
@@ -419,6 +421,26 @@ You can specify your own classes like this:
 
 ```erb
 <%= f.submit "Log In", class: "btn btn-success" %>
+```
+
+If the `primary` helper receives a `render_as_button: true` option or a block,
+it will be rendered as an HTML button, instead of an input tag. This allows you
+to specify HTML content and styling for your buttons (such as adding
+illustrative icons to them). For example, the following statements
+
+```erb
+<%= f.primary "Save changes <span class='fa fa-save'></span>".html_safe, render_as_button: true %>
+
+<%= f.primary do
+      concat 'Save changes '
+      concat content_tag(:span, nil, class: 'fa fa-save')
+    end %>
+```
+
+are equivalent, and each of them both be rendered as
+
+```html
+<button name="button" type="submit" class="btn btn-primary">Save changes <span class="fa fa-save"></span></button>
 ```
 
 ### Accessing Rails Form Helpers

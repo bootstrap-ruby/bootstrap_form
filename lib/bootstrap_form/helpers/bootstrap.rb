@@ -1,14 +1,25 @@
 module BootstrapForm
   module Helpers
     module Bootstrap
-      def submit(name = nil, options = {})
+      def button(value = nil, options = {}, &block)
         options.reverse_merge! class: 'btn btn-secondary'
-        super(name, options)
+        super
       end
 
-      def primary(name = nil, options = {})
+      def submit(name = nil, options = {})
+        options.reverse_merge! class: 'btn btn-secondary'
+        super
+      end
+
+      def primary(name = nil, options = {}, &block)
         options.reverse_merge! class: 'btn btn-primary'
-        submit(name, options)
+
+        if options[:render_as_button] || block_given?
+          options.except! :render_as_button
+          button(name, options, &block)
+        else
+          submit(name, options)
+        end
       end
 
       def alert_message(title, options = {})
