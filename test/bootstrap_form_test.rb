@@ -573,6 +573,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "error_summary returns nothing if no errors" do
+    @user.terms = true
     assert @user.valid?
 
     assert_equal nil, @builder.error_summary
