@@ -23,10 +23,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-check-label" for="user_terms"></label>
+        <label class="form-check-label" for="user_terms">&#8203;</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "")
+    # &#8203; is a zero-width space.
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: "&#8203;".html_safe)
   end
 
   test "disabled check_box has proper wrapper classes" do
