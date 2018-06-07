@@ -1,3 +1,5 @@
+ENV['RAILS_ENV'] ||= 'test'
+
 require 'timecop'
 require 'diffy'
 require 'nokogiri'
