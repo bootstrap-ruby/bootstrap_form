@@ -537,9 +537,10 @@ module BootstrapForm
           end
 
           input_options.delete(:class)
-          inputs << block.call(name, input_value, input_options.merge(error_message: i == collection.size - 1))
+          inputs << block.call(name, input_value, input_options)
         end
 
+        inputs << generate_error(name).to_s
         inputs.html_safe
       end
     end
