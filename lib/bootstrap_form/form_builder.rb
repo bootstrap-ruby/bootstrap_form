@@ -160,8 +160,10 @@ module BootstrapForm
           html = if options[:skip_label]
             checkbox_html
           else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            checkbox_html.concat(label(label_name, label_description, class: label_class))
+            checkbox_html
+              .concat(label(label_name,
+                            label_description,
+                            { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
           html.concat(generate_error(name)) if options[:error_message]
           html
@@ -212,8 +214,8 @@ module BootstrapForm
           html = if options[:skip_label]
             radio_html
           else
-            # TODO: Notice we don't seem to pass the ID into the custom control.
-            radio_html.concat(label(name, options[:label], value: value, class: label_class))
+            radio_html
+              .concat(label(name, options[:label], { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {})))
           end
           html.concat(generate_error(name)) if options[:error_message]
           html

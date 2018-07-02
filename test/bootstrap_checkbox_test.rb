@@ -463,6 +463,17 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true})
   end
 
+  test "check_box is wrapped correctly with id option and custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label" for="custom_id">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', id: "custom_id", custom: true})
+  end
+
   test "check_box is wrapped correctly with custom and inline options set" do
     expected = <<-HTML.strip_heredoc
       <div class="custom-control custom-checkbox custom-control-inline">
