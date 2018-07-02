@@ -11,6 +11,7 @@
 ### Bugfixes
 
 * Your contribution here!
+* [#472](https://github.com/bootstrap-ruby/bootstrap_form/pull/472) Use `id` option value as `for` attribute of label for custom checkboxes and radio buttons.
 
 
 ## [4.0.0.alpha1][] (2018-06-16)
