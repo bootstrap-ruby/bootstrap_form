@@ -1,5 +1,20 @@
 ## [Pending Release][]
 
+### Breaking changes
+
+* Your contribution here!
+
+### New features
+
+* Your contribution here!
+
+### Bugfixes
+
+* Your contribution here!
+
+
+## [4.0.0.alpha1][] (2018-06-16)
+
 🚨 **This release adds support for Bootstrap v4 and drops support for Bootstrap v3.** 🚨
 
 If your app uses Bootstrap v3, you should continue using bootstrap_form 2.7.x instead.
@@ -22,7 +37,6 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * `form_group` with a block that contains more than one `check_box` or `radio_button` needs to be modified to produce validation error messages (see the UPGRADE-4.0 document). [@lcreid](https://github.com/lcreid).
 * [#456](https://github.com/bootstrap-ruby/bootstrap_form/pull/456): Fix label `for` attribute when passing non-english characters using `collection_check_boxes` - [@ug0](https://github.com/ug0).
 * [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Bootstrap 4 no longer mixes in `.row` in `.form-group`. `bootstrap_form` adds `.row` to `div.form-group` when layout is horizontal.
-* Your contribution here!
 
 ### New features
 
@@ -43,7 +57,6 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * [#357](https://github.com/bootstrap-ruby/bootstrap_form/pull/357) if provided,
   use html option `id` to specify `for` attribute on label
   [@duleorlovic](https://github.com/duleorlovic)
-* Your contribution here!
 
 
 ## [2.7.0][] (2017-04-21)
@@ -205,7 +218,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.7.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0.alpha1...HEAD
+[4.0.0.alpha1]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.7.0...v4.0.0.alpha1
 [2.7.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.3...v2.6.0
 [2.5.3]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.2...v2.5.3
