@@ -35,6 +35,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * [#449](https://github.com/bootstrap-ruby/bootstrap_form/pull/449): Passing `.form-row` overrides default `.form-group.row` in horizontal layouts.
 * Added an option to the `submit` (and `primary`, by transitivity) form tag helper, `render_as_button`, which when truthy makes the submit button render as a button instead of an input. This allows you to easily provide further styling to your form submission buttons, without requiring you to reinvent the wheel and use the `button` helper (and having to manually insert the typical Bootstrap classes). - [@jsaraiva](https://github.com/jsaraiva).
 * Add `:error_message` option to `check_box` and `radio_button`, so they can output validation error messages if needed. [@lcreid](https://github.com/lcreid).
+- [#472](https://github.com/bootstrap-ruby/bootstrap_form/pull/472) Use `id` option's value as `for` attribute of label for custom checkboxes and radio buttons.
 * Your contribution here!
 
 ### Bugfixes
