@@ -21,9 +21,7 @@ Bootstrap v4-style forms into your Rails application.
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form",
-    git: "https://github.com/bootstrap-ruby/bootstrap_form.git",
-    branch: "master"
+gem "bootstrap_form", ">= 4.0.0.alpha1"
 ```
 
 Then:
@@ -658,6 +656,21 @@ Which outputs:
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
 here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+
+## Other Tips and Edge Cases
+By their very nature, forms are extremely diverse. It would be extremely difficult to provide a gem that could handle every need. Here are some tips for handling edge cases.
+
+### Empty But Visible Labels
+Some third party plug-ins require an empty but visible label on an input control. The `hide_label` option generates a label that won't appear on the screen, but it's considered invisible and therefore doesn't work with such a plug-in. An empty label (e.g. `""`) causes the underlying Rails helper to generate a label based on the field's attribute's name.
+
+The solution is to use a zero-width character for the label, or some other "empty" HTML. For example:
+```
+label: "&#8203;".html_safe
+```
+or
+```
+label: "<span></span>".html_safe
+```
 
 ## Code Triage page
 

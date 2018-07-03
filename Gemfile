@@ -6,6 +6,7 @@ gemspec
 # gem "rails", "~> 5.2.0.beta2"
 
 group :development do
+  gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
 end
 
