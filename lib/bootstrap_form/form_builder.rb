@@ -406,6 +406,10 @@ module BootstrapForm
 
     def form_group_builder(method, options, html_options = nil)
       options.symbolize_keys!
+
+      wrapper_class = options.delete(:wrapper_class)
+      wrapper_options = options.delete(:wrapper)
+
       html_options.symbolize_keys! if html_options
 
       # Add control_class; allow it to be overridden by :control_class option
@@ -416,8 +420,6 @@ module BootstrapForm
 
       options = convert_form_tag_options(method, options) if acts_like_form_tag
 
-      wrapper_class = css_options.delete(:wrapper_class)
-      wrapper_options = css_options.delete(:wrapper)
       help = options.delete(:help)
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
