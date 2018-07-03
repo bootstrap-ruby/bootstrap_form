@@ -42,6 +42,7 @@ In addition to these necessary markup changes, the bootstrap_form API itself has
 * [#357](https://github.com/bootstrap-ruby/bootstrap_form/pull/357) if provided,
   use html option `id` to specify `for` attribute on label
   [@duleorlovic](https://github.com/duleorlovic)
+* [#347](https://github.com/bootstrap-ruby/bootstrap_form/issues/347) Fix `wrapper_class` and `wrapper` options for helpers that have `html_options`.
 * Your contribution here!
 
 
