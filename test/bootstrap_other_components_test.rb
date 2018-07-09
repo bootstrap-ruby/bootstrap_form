@@ -68,7 +68,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
-          <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value=""/>
+          <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text"/>
         </div>
       </div>
     HTML
