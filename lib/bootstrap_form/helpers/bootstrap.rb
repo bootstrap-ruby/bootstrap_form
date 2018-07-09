@@ -64,7 +64,7 @@ module BootstrapForm
           control_class: [options[:control_class], static_class].compact.join(" ")
         })
 
-        static_options[:value] = object.send(name) if static_options[:value].nil?
+        static_options[:value] = object.send(name) unless static_options.has_key?(:value)
 
         text_field_with_bootstrap(name, static_options)
       end
