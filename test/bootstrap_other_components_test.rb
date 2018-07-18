@@ -61,6 +61,20 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
+  test "static control support a nil value" do
+    output = @horizontal_builder.static_control label: "Custom Label", value: nil
+
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
+        <div class="col-sm-10">
+          <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text"/>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected, output
+  end
+
   test "static control won't overwrite a control_class that is passed by the user" do
     output = @horizontal_builder.static_control :email, control_class: "test_class"
 
