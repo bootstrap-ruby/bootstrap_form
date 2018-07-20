@@ -6,6 +6,7 @@
 
 ### New features
 
+* [#476] Give a way to pass classes to the `div.form-check` wrapper for check boxes and radio buttons - [@lcreid](https://github.com/lcreid).
 * Your contribution here!
 
 ### Bugfixes
