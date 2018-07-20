@@ -130,7 +130,7 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label)
+      check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label, :wrapper_class)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
       check_box_classes << "is-invalid" if has_error?(name)
@@ -160,38 +160,25 @@ module BootstrapForm
         wrapper_class = ["custom-control", "custom-checkbox"]
         wrapper_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-
-        label_options = { class: label_class }
-        label_options[:for] = options[:id] if options[:id].present?
-
-        content_tag(:div, class: wrapper_class.compact.join(" ")) do
-          html = if options[:skip_label]
-            checkbox_html
-          else
-            checkbox_html
-              .concat(label(label_name, label_description, label_options))
-          end
-          html.concat(generate_error(name)) if options[:error_message]
-          html
-        end
       else
         wrapper_class = ["form-check"]
         wrapper_class.append("form-check-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
+      end
+      wrapper_class.append(options[:wrapper_class]) if options[:wrapper_class]
 
-        label_options = { class: label_class }
-        label_options[:for] = options[:id] if options[:id].present?
+      label_options = { class: label_class }
+      label_options[:for] = options[:id] if options[:id].present?
 
-        content_tag(:div, class: wrapper_class.compact.join(" ")) do
-          html = if options[:skip_label]
-            checkbox_html
-          else
-            checkbox_html
-              .concat(label(label_name, label_description, label_options))
-          end
-          html.concat(generate_error(name)) if options[:error_message]
-          html
+      content_tag(:div, class: wrapper_class.compact.join(" ")) do
+        html = if options[:skip_label]
+          checkbox_html
+        else
+          checkbox_html
+          .concat(label(label_name, label_description, label_options))
         end
+        html.concat(generate_error(name)) if options[:error_message]
+        html
       end
     end
 
