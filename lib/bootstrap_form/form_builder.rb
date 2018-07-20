@@ -153,14 +153,14 @@ module BootstrapForm
       label_classes << hide_class if options[:hide_label]
 
       if options[:custom]
-        div_class = ["custom-control", "custom-checkbox"]
-        div_class.append("custom-control-inline") if layout_inline?(options[:inline])
+        wrapper_class = ["custom-control", "custom-checkbox"]
+        wrapper_class.append("custom-control-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("custom-control-label").compact.join(" ")
 
         label_options = { class: label_class }
         label_options[:for] = options[:id] if options[:id].present?
 
-        content_tag(:div, class: div_class.compact.join(" ")) do
+        content_tag(:div, class: wrapper_class.compact.join(" ")) do
           html = if options[:skip_label]
             checkbox_html
           else
@@ -171,14 +171,14 @@ module BootstrapForm
           html
         end
       else
-        wrapper_class = "form-check"
-        wrapper_class += " form-check-inline" if layout_inline?(options[:inline])
+        wrapper_class = ["form-check"]
+        wrapper_class.append("form-check-inline") if layout_inline?(options[:inline])
         label_class = label_classes.prepend("form-check-label").compact.join(" ")
 
         label_options = { class: label_class }
         label_options[:for] = options[:id] if options[:id].present?
 
-        content_tag(:div, class: wrapper_class) do
+        content_tag(:div, class: wrapper_class.compact.join(" ")) do
           html = if options[:skip_label]
             checkbox_html
           else
