@@ -6,6 +6,7 @@
 
 ### New features
 
+* [#476] Give a way to pass classes to the `div.form-check` wrapper for check boxes and radio buttons - [@lcreid](https://github.com/lcreid).
 * [461](https://github.com/bootstrap-ruby/bootstrap_form/pull/461): default form-inline class applied to parent content div on date select helpers. Can override with a :skip_inline option on the field helper - [@lancecarlson](https://github.com/lancecarlson).
 * Your contribution here!
 * The `button`, `submit`, and `primary` helpers can now receive an additional option, `extra_class`. This option allows us to specify additional CSS classes to be added to the corresponding button/input, _while_ maintaining the original default ones. E.g., a primary button with an `extra_class` 'test-button' will have its final CSS classes declaration as 'btn btn-primary test-button'.
