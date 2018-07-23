@@ -13,6 +13,7 @@
 * Your contribution here!
 * [#347](https://github.com/bootstrap-ruby/bootstrap_form/issues/347) Fix `wrapper_class` and `wrapper` options for helpers that have `html_options`.
 * [#472](https://github.com/bootstrap-ruby/bootstrap_form/pull/472) Use `id` option value as `for` attribute of label for custom checkboxes and radio buttons.
+* [#478](https://github.com/bootstrap-ruby/bootstrap_form/issues/478) Fix offset for form group without label when multiple label widths are specified.
 
 
 ## [4.0.0.alpha1][] (2018-06-16)
