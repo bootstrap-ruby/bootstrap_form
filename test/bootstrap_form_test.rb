@@ -11,7 +11,7 @@ class BootstrapFormTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;" />
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
   end
 
   test "default-style form fields layout horizontal" do
@@ -124,7 +124,7 @@ class BootstrapFormTest < ActionView::TestCase
           <input name="utf8" type="hidden" value="&#x2713;" />
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |f| nil }
+      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |_f| nil }
     end
   end
 
@@ -337,7 +337,7 @@ class BootstrapFormTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;" />
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: 'not-a-form'}) {|f| nil}
+    assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: 'not-a-form'}) {|_f| nil}
   end
 
   test "bootstrap_form_tag acts like a form tag" do

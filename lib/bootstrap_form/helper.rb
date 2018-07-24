@@ -44,7 +44,7 @@ module BootstrapForm
 
     def temporarily_disable_field_error_proc
       original_proc = ActionView::Base.field_error_proc
-      ActionView::Base.field_error_proc = proc { |input, instance| input }
+      ActionView::Base.field_error_proc = proc { |input, _instance| input }
       yield
     ensure
       ActionView::Base.field_error_proc = original_proc
