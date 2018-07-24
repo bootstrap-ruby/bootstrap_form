@@ -21,7 +21,7 @@ following steps.
 
 ### 2. Fork the repo
 
-For the project. Optionally, create a branch you want to work on
+Fork the project. Optionally, create a branch you want to work on.
 
 ### 3. Get it running locally
 
@@ -34,6 +34,7 @@ For the project. Optionally, create a branch you want to work on
 - Don't forget to add necessary tests.
 - Update the README if necessary.
 - Add a line to the CHANGELOG for your bug fix or feature.
+- Read the [Coding Guidelines](#coding-guidelines) section and make sure that `rake lint` doesn't find any offences.
 
 You may find using demo application useful for development and debugging.
 
@@ -42,15 +43,25 @@ You may find using demo application useful for development and debugging.
 - `rails s`
 - Navigate to http://localhost:3000
 
-### 5. Make a Pull Request
+### 5. Make a pull request
 
-- If you never done it before read this: https://help.github.com/articles/about-pull-requests/
-- When PR is submitted check if TravisCI ran all tests successfully didn't raise any issues
+- If you have never made a pull request (PR) before, read this: https://help.github.com/articles/about-pull-requests/.
+- When the PR is submitted, check if TravisCI ran all the tests successfully, and didn't raise any issues.
 
 ### 6. Done!
 
 Somebody will shortly review your pull request and if everything is good will be
-merged into master branch. Eventually gem will be published with your changes.
+merged into the master branch. Eventually the gem will be published with your changes.
+
+## Coding guidelines
+
+This project uses [RuboCop](https://github.com/bbatsov/rubocop) to enforce standard Ruby coding
+guidelines. Currently we run RuboCop's lint rules only, which check for readability issues
+like indentation, ambiguity, and useless/unreachable code.
+
+* Test that your contributions pass with `rake lint`
+* The linter is also run as part of the full test suite with `bundle exec rake test`
+* Note the Travis build will fail and your PR cannot be merged if the linter finds errors
 
 ---
 

@@ -24,6 +24,7 @@ matrix:
       script:
         - gem install danger
         - danger
+        - bundle exec rake lint
 
   allow_failures:
     - rvm: ruby-head
