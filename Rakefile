@@ -1,5 +1,6 @@
 begin
   require 'bundler/setup'
+  require 'rubocop/rake_task'
 rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
@@ -30,4 +31,9 @@ task "release:rubygem_push" do
   Rake.application.invoke_task("chandler:push")
 end
 
-task default: :test
+desc 'Run RuboCop lint checks'
+RuboCop::RakeTask.new(:lint) do |task|
+  task.options = ['--lint']
+end
+
+task default: %i[test lint]

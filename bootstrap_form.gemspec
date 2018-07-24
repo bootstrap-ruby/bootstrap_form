@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.2.2"
 
   s.add_dependency "rails", ">= 5.0"
+  s.add_development_dependency("rubocop")
 end
