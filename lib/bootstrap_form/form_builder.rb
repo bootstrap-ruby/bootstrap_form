@@ -160,7 +160,7 @@ module BootstrapForm
       # https://github.com/rails/rails/blob/5-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L123-L125
       if options[:multiple]
         label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-[[:word:]]]/, "").mb_chars.downcase.to_s}"
+          "#{name}_#{checked_value.to_s.gsub(/\s/, "_").gsub(/[^-[[:word:]]]/, "").mb_chars.downcase}"
       end
 
       label_options = { class: label_class }
