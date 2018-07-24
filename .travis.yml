@@ -11,6 +11,8 @@ gemfile:
 before_install:
   - gem update --system
   - gem install bundler --no-document
+script:
+  - bundle exec rake test
 
 matrix:
   include:
@@ -18,7 +20,7 @@ matrix:
     - rvm: ruby-head
       gemfile: test/gemfiles/5.2.gemfile
 
-    # Running one job to execute DANGER bot
+    # Running one job to execute DANGER bot and linting
     - rvm: 2.5.0
       gemfile: test/gemfiles/5.2.gemfile
       script:
