@@ -1,18 +1,19 @@
 module BootstrapForm
   module Helpers
     module Bootstrap
+
       def button(value = nil, options = {}, &block)
-        options.reverse_merge! class: 'btn btn-secondary'
+        setup_css_class 'btn btn-secondary', options
         super
       end
 
       def submit(name = nil, options = {})
-        options.reverse_merge! class: 'btn btn-secondary'
+        setup_css_class 'btn btn-secondary', options
         super
       end
 
       def primary(name = nil, options = {}, &block)
-        options.reverse_merge! class: 'btn btn-primary'
+        setup_css_class 'btn btn-primary', options
 
         if options[:render_as_button] || block_given?
           options.except! :render_as_button
@@ -102,6 +103,19 @@ module BootstrapForm
       def static_class
         "form-control-plaintext"
       end
+
+
+      private
+
+        def setup_css_class(the_class, options = {})
+          unless options.has_key? :class
+            if extra_class = options.delete(:extra_class)
+              the_class = "#{the_class} #{extra_class}"
+            end
+            options[:class] = the_class
+          end
+        end
+
     end
   end
 end
