@@ -572,6 +572,13 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.error_summary
   end
 
+  test "error_summary returns nothing if no errors" do
+    @user.terms = true
+    assert @user.valid?
+
+    assert_equal nil, @builder.error_summary
+  end
+
   test 'errors_on renders the errors for a specific attribute when invalid' do
     @user.email = nil
     assert @user.invalid?
