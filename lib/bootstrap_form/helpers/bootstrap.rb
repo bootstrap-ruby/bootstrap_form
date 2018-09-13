@@ -111,7 +111,7 @@ module BootstrapForm
 
         def setup_css_class(the_class, options = {})
           unless options.has_key? :class
-            if extra_class = options.delete(:extra_class)
+            if (extra_class = options.delete(:extra_class))
               the_class = "#{the_class} #{extra_class}"
             end
             options[:class] = the_class
