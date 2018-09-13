@@ -137,6 +137,12 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
                           @builder.button("<span>I'm HTML!</span> in a button!".html_safe)
   end
 
+  test "regular button can have extra css classes" do
+    expected = %{<button class="btn btn-secondary test-button" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>}
+    assert_equivalent_xml expected,
+                          @builder.button("<span>I'm HTML!</span> in a button!".html_safe, extra_class: 'test-button')
+  end
+
   test "submit button defaults to rails action name" do
     expected = %{<input class="btn btn-secondary" name="commit" type="submit" value="Create User" />}
     assert_equivalent_xml expected, @builder.submit
@@ -147,6 +153,11 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.submit("Submit Form")
   end
 
+  test "submit button can have extra css classes" do
+    expected = %{<input class="btn btn-secondary test-button" name="commit" type="submit" value="Submit Form" />}
+    assert_equivalent_xml expected, @builder.submit("Submit Form", extra_class: 'test-button')
+  end
+
   test "override submit button classes" do
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equivalent_xml expected, @builder.submit("Submit Form", class: "btn btn-primary")
@@ -155,6 +166,11 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "primary button uses proper css classes" do
     expected = %{<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />}
     assert_equivalent_xml expected, @builder.primary("Submit Form")
+  end
+
+  test "primary button can have extra css classes" do
+    expected = %{<input class="btn btn-primary test-button" name="commit" type="submit" value="Submit Form" />}
+    assert_equivalent_xml expected, @builder.primary("Submit Form", extra_class: 'test-button')
   end
 
   test "primary button can render as HTML button" do

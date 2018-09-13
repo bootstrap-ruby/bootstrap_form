@@ -572,6 +572,13 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.error_summary
   end
 
+  test "error_summary returns nothing if no errors" do
+    @user.terms = true
+    assert @user.valid?
+
+    assert_equal nil, @builder.error_summary
+  end
+
   test 'errors_on renders the errors for a specific attribute when invalid' do
     @user.email = nil
     assert @user.invalid?
@@ -609,6 +616,20 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-md-2', control_col: 'col-md-10') { |f| f.form_group { f.submit } }
+  end
+
+  test "offset for form group without label respects multiple label widths for horizontal forms" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group row">
+          <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
+            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          </div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-sm-4 col-md-2', control_col: 'col-sm-8 col-md-10') { |f| f.form_group { f.submit } }
   end
 
   test "custom input width for horizontal forms" do
