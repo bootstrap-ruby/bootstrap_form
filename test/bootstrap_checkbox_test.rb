@@ -658,4 +658,52 @@ class BootstrapCheckboxTest < ActionView::TestCase
     end
     assert_equivalent_xml expected, actual
   end
+
+  test "check box with custom wrapper class" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check custom-class">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', wrapper_class: "custom-class")
+  end
+
+  test "inline check box with custom wrapper class" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check form-check-inline custom-class">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms', inline: true, wrapper_class: "custom-class")
+  end
+
+  test "custom check box with custom wrapper class" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox custom-class">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true, wrapper_class: "custom-class"})
+  end
+
+  test "custom inline check box with custom wrapper class" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox custom-control-inline custom-class">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', inline: true, custom: true, wrapper_class: "custom-class"})
+  end
 end

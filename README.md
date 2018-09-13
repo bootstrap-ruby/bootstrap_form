@@ -348,9 +348,15 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 <% end %>
 ```
 
+Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
+
+```erb
+<%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
+```
+
 #### Collections
 
-`bootstrap_form` also provides helpers that automatically creates the
+`bootstrap_form` also provides helpers that automatically create the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
 ```erb
