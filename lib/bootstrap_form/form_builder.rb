@@ -53,7 +53,11 @@ module BootstrapForm
 
       define_method(with_method_name) do |name, options = {}, html_options = {}|
         form_group_builder(name, options, html_options) do
-          content_tag(:div, class: control_specific_class(method_name)) do
+          html_class = control_specific_class(method_name)
+          if @layout == :horizontal && !options[:skip_inline].present?
+            html_class = "#{html_class} form-inline"
+          end
+          content_tag(:div, class: html_class) do
             input_with_error(name) do
               send(without_method_name, name, options, html_options)
             end
