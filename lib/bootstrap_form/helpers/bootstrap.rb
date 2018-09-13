@@ -34,7 +34,7 @@ module BootstrapForm
       end
 
       def error_summary
-        if object.errors.full_messages.any?
+        if object.errors.any?
           content_tag :ul, class: 'rails-bootstrap-forms-error-summary' do
             object.errors.full_messages.each do |error|
               concat content_tag(:li, error)
