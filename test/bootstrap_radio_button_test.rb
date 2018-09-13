@@ -17,6 +17,17 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button')
   end
 
+  test "radio_button no label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="user_misc_1">&#8203;</label>
+      </div>
+    HTML
+    # &#8203; is a zero-width space.
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: '&#8203;'.html_safe)
+  end
+
   test "radio_button with error is wrapped correctly" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
@@ -377,6 +388,16 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', custom: true})
+  end
+
+  test "radio_button is wrapped correctly with id option and custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-radio">
+        <input class="custom-control-input" id="custom_id" name="user[misc]" type="radio" value="1" />
+        <label class="custom-control-label" for="custom_id">This is a radio button</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', {label: 'This is a radio button', id: "custom_id", custom: true})
   end
 
   test "radio_button with error is wrapped correctly with custom option set" do

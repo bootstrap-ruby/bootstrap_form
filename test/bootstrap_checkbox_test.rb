@@ -18,6 +18,18 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the terms')
   end
 
+  test "check_box empty label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">&#8203;</label>
+      </div>
+    HTML
+    # &#8203; is a zero-width space.
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: "&#8203;".html_safe)
+  end
+
   test "disabled check_box has proper wrapper classes" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
@@ -461,6 +473,17 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', custom: true})
+  end
+
+  test "check_box is wrapped correctly with id option and custom option set" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="custom-control-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
+        <label class="custom-control-label" for="custom_id">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, {label: 'I agree to the terms', id: "custom_id", custom: true})
   end
 
   test "check_box is wrapped correctly with custom and inline options set" do

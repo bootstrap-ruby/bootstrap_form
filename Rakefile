@@ -24,4 +24,10 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+# This automatically updates GitHub Releases whenever we `rake release` the gem
+task "release:rubygem_push" do
+  require "chandler/tasks"
+  Rake.application.invoke_task("chandler:push")
+end
+
 task default: :test

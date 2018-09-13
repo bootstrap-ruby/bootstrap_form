@@ -21,9 +21,7 @@ Bootstrap v4-style forms into your Rails application.
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form",
-    git: "https://github.com/bootstrap-ruby/bootstrap_form.git",
-    branch: "master"
+gem "bootstrap_form", ">= 4.0.0.alpha1"
 ```
 
 Then:
@@ -403,7 +401,7 @@ this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
 
-The `btn btn-secondary` css classes are automatically added to your submit
+The `btn btn-secondary` CSS classes are automatically added to your submit
 buttons.
 
 ```erb
@@ -442,6 +440,29 @@ are equivalent, and each of them both be rendered as
 ```html
 <button name="button" type="submit" class="btn btn-primary">Save changes <span class="fa fa-save"></span></button>
 ```
+
+If you wish to add additional CSS classes to your button, while keeping the
+default ones, you can use the `extra_class` option. This is particularly useful
+for adding extra details to buttons (without forcing you to repeat the
+Bootstrap classes), or for element targeting via CSS classes.
+Be aware, however, that using the `class` option will discard any extra classes
+you add. As an example, the following button declarations
+
+```erb
+<%= f.primary "My Nice Button", extra_class: 'my-button' %>
+
+<%= f.primary "My Button", class: 'my-button' %>
+```
+
+will be rendered as
+
+```html
+<input type="submit" value="My Nice Button" class="btn btn-primary my-button" />
+
+<input type="submit" value="My Button" class="my-button" />
+```
+
+(some unimportant HTML attributes have been removed for simplicity)
 
 ### Accessing Rails Form Helpers
 
@@ -658,6 +679,21 @@ Which outputs:
 
 bootstrap_form follows standard rails conventions so it's i18n-ready. See more
 here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+
+## Other Tips and Edge Cases
+By their very nature, forms are extremely diverse. It would be extremely difficult to provide a gem that could handle every need. Here are some tips for handling edge cases.
+
+### Empty But Visible Labels
+Some third party plug-ins require an empty but visible label on an input control. The `hide_label` option generates a label that won't appear on the screen, but it's considered invisible and therefore doesn't work with such a plug-in. An empty label (e.g. `""`) causes the underlying Rails helper to generate a label based on the field's attribute's name.
+
+The solution is to use a zero-width character for the label, or some other "empty" HTML. For example:
+```
+label: "&#8203;".html_safe
+```
+or
+```
+label: "<span></span>".html_safe
+```
 
 ## Code Triage page
 
