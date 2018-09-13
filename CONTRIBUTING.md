@@ -74,7 +74,7 @@ Note that most editors have plugins to run RuboCop as you type, or when you save
 
 Contributions to documentation are always welcome. Even fixing one typo improves the quality of `bootstrap_form`. To make a documentation contribution, follow steps 1-3 of Code Contributions, then make the documentation changes, then make the pull request (step 6 of Code Contributions).
 
-If you put `[ci skip]` in the title of the PR, you'll be a good citizen by not causing Travis CI to run all the tests when it's not necessary.
+If you put `[ci skip]` in the commit message of the most recent commit of the PR, you'll be a good citizen by not causing Travis CI to run all the tests when it's not necessary.
 
 ## Reviewing Pull Requests
 
