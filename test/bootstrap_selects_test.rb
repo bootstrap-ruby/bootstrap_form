@@ -326,6 +326,33 @@ class BootstrapSelectsTest < ActionView::TestCase
       assert_equivalent_xml expected, @builder.date_select(:misc, wrapper_class: "none-margin")
     end
   end
+  
+  test "date selects inline when layout is horizontal" do
+    Timecop.freeze(Time.utc(2012, 2, 3)) do
+      expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;"/>
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
+          <div class="col-sm-10">
+            <div class="rails-bootstrap-forms-date-select form-inline">
+              <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
+                #{options_range(start: 2007, stop: 2017, selected: 2012)}
+              </select>
+              <select class="form-control" id="user_misc_2i" name="user[misc(2i)]">
+                #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+              </select>
+              <select class="form-control" id="user_misc_3i" name="user[misc(3i)]">
+                #{options_range(start: 1, stop: 31, selected: 3)}
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      HTML
+      assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.date_select(:misc) }
+    end
+  end
 
   test "date selects are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
