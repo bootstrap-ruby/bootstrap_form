@@ -348,9 +348,15 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 <% end %>
 ```
 
+Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
+
+```erb
+<%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
+```
+
 #### Collections
 
-`bootstrap_form` also provides helpers that automatically creates the
+`bootstrap_form` also provides helpers that automatically create the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
 ```erb
@@ -401,7 +407,7 @@ this defining these selects as `inline-block` and a width of `auto`.
 
 ### Submit Buttons
 
-The `btn btn-secondary` css classes are automatically added to your submit
+The `btn btn-secondary` CSS classes are automatically added to your submit
 buttons.
 
 ```erb
@@ -440,6 +446,29 @@ are equivalent, and each of them both be rendered as
 ```html
 <button name="button" type="submit" class="btn btn-primary">Save changes <span class="fa fa-save"></span></button>
 ```
+
+If you wish to add additional CSS classes to your button, while keeping the
+default ones, you can use the `extra_class` option. This is particularly useful
+for adding extra details to buttons (without forcing you to repeat the
+Bootstrap classes), or for element targeting via CSS classes.
+Be aware, however, that using the `class` option will discard any extra classes
+you add. As an example, the following button declarations
+
+```erb
+<%= f.primary "My Nice Button", extra_class: 'my-button' %>
+
+<%= f.primary "My Button", class: 'my-button' %>
+```
+
+will be rendered as
+
+```html
+<input type="submit" value="My Nice Button" class="btn btn-primary my-button" />
+
+<input type="submit" value="My Button" class="my-button" />
+```
+
+(some unimportant HTML attributes have been removed for simplicity)
 
 ### Accessing Rails Form Helpers
 
