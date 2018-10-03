@@ -251,7 +251,7 @@ module BootstrapForm
       options[:class] << " form-inline" if field_inline_override?(options[:layout])
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :layout, :prepend)) do
+      content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :add_control_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block)
 
@@ -260,6 +260,9 @@ module BootstrapForm
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
+          if options[:add_control_col]
+            control_class= [control_class, options[:add_control_col]].compact.join(' ')
+          end
           unless options[:label]
             control_offset = offset_col(options[:label_col] || @label_col)
             control_class = "#{control_class} #{control_offset}"
@@ -396,6 +399,7 @@ module BootstrapForm
       icon = options.delete(:icon)
       label_col = options.delete(:label_col)
       control_col = options.delete(:control_col)
+      add_control_col = options.delete(:add_control_col)
       layout = get_group_layout(options.delete(:layout))
       form_group_options = {
         id: options[:id],
@@ -403,6 +407,7 @@ module BootstrapForm
         icon: icon,
         label_col: label_col,
         control_col: control_col,
+        add_control_col: add_control_col,
         layout: layout,
         class: wrapper_class
       }
