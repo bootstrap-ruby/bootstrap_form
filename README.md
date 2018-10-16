@@ -539,6 +539,18 @@ The `label_col` and `control_col` css classes can also be changed per control:
 <% end %>
 ```
 
+Control col wrapper class can be modified with `add_control_col_class`. This option will preserve column definition:
+
+```erb
+<%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
+  <%= f.email_field :email %>
+  <%= f.text_field :age, add_control_col_class: "additional-control-col-class" %>
+  <%= f.form_group do %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+```
+
 ### Custom Field Layout
 
 The form-level `layout` can be overridden per field, unless the form-level layout was `inline`:
