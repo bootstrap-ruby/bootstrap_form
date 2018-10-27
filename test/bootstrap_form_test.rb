@@ -576,7 +576,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.terms = true
     assert @user.valid?
 
-    assert_equal nil, @builder.error_summary
+    assert_nil @builder.error_summary
   end
 
   test 'errors_on renders the errors for a specific attribute when invalid' do
