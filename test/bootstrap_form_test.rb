@@ -647,6 +647,21 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: 'col-sm-5' }
   end
 
+  test "additional input col class" do
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+        <input name="utf8" type="hidden" value="&#x2713;" />
+        <div class="form-group row">
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+          <div class="col-sm-10 custom-class">
+            <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+          </div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, add_control_col_class: 'custom-class' }
+  end
+
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do
     @user.email = nil
     assert @user.invalid?
