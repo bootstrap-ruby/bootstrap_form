@@ -73,7 +73,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         <small class="form-text text-muted">Help!</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "My Status Label", help: "Help!")
+    assert_equivalent_xml expected,
+                          @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "My Status Label", help: "Help!")
   end
 
   test "selects with options are wrapped correctly" do
@@ -101,7 +102,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, class: "my-select")
+    assert_equivalent_xml expected,
+                          @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
+                                          class: "my-select")
   end
 
   test "select 'id' attribute is used to specify label 'for' attribute" do
@@ -115,7 +118,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, id: "custom_id")
+    assert_equivalent_xml expected,
+                          @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, id: "custom_id")
   end
 
   test "selects with addons are wrapped correctly" do
@@ -221,7 +225,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
+    assert_equivalent_xml expected,
+                          @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
   end
 
   test "grouped_collection_selects are wrapped correctly" do
@@ -241,7 +246,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-control" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, wrapper_class: "none-margin")
+    assert_equivalent_xml expected,
+                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, wrapper_class: "none-margin")
   end
 
   test "grouped_collection_selects are wrapped correctly with error" do
@@ -256,7 +262,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
   end
 
   test "grouped_collection_selects with options are wrapped correctly" do
@@ -268,7 +275,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, prompt: "Please Select")
+    assert_equivalent_xml expected,
+                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, prompt: "Please Select")
   end
 
   test "grouped_collection_selects with options and html_options are wrapped correctly" do
@@ -280,7 +288,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" }, class: "my-select")
+    assert_equivalent_xml expected,
+                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" },
+                                                             class: "my-select")
   end
 
   test "date selects are wrapped correctly" do

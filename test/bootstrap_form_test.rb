@@ -328,7 +328,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
   end
 
   test "given role attribute should not be covered by default role attribute" do
@@ -350,7 +351,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_tag(url: "/users") { |f| f.text_field :email, label: "Your Email" }
+    assert_equivalent_xml expected,
+                          bootstrap_form_tag(url: "/users") { |f| f.text_field :email, label: "Your Email" }
   end
 
   test "bootstrap_form_for does not clobber custom options" do
@@ -600,7 +602,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "col-sm-1" }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "col-sm-1" }
   end
 
   test "offset for form group without label respects label width for horizontal forms" do
@@ -614,7 +617,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-10") { |f| f.form_group { f.submit } }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, label_col: "col-md-2",
+                                                    control_col: "col-md-10") { |f| f.form_group { f.submit } }
   end
 
   test "offset for form group without label respects multiple label widths for horizontal forms" do
@@ -628,7 +633,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-4 col-md-2", control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-4 col-md-2",
+                                                    control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
   end
 
   test "custom input width for horizontal forms" do
@@ -643,7 +650,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "col-sm-5" }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "col-sm-5" }
   end
 
   test "additional input col class" do
@@ -658,7 +666,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, add_control_col_class: "custom-class" }
+    actual = bootstrap_form_for(@user,
+                                layout: :horizontal) { |f| f.email_field :email, add_control_col_class: "custom-class" }
+    assert_equivalent_xml expected, actual
   end
 
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do

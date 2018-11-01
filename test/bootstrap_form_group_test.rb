@@ -380,7 +380,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     output = @builder.form_group :email do
       html = '<p class="form-control-plaintext">Bar</p>'.html_safe
-      html.concat(content_tag(:div, @user.errors[:email].join(", "), class: "invalid-feedback", style: "display: block;")) unless @user.errors[:email].empty?
+      unless @user.errors[:email].empty?
+        html.concat(content_tag(:div, @user.errors[:email].join(", "), class: "invalid-feedback",
+                                                                       style: "display: block;"))
+      end
       html
     end
 
@@ -575,7 +578,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "non-default column span on form is reflected in form_group" do
-    non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9")
+    non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal,
+                                                                                        label_col: "col-sm-3",
+                                                                                        control_col: "col-sm-9")
     output = non_default_horizontal_builder.form_group do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
@@ -591,7 +596,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "non-default column span on form isn't mutated" do
-    frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-3".freeze, control_col: "col-sm-9".freeze)
+    frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal,
+                                                                                   label_col: "col-sm-3".freeze,
+                                                                                   control_col: "col-sm-9".freeze)
     output = frozen_horizontal_builder.form_group { "test" }
 
     expected = '<div class="form-group row"><div class="col-sm-9 offset-sm-3">test</div></div>'
@@ -610,6 +617,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.email_field(:email, append: @builder.primary("Subscribe"), input_group_class: "input-group-lg")
+    assert_equivalent_xml expected, @builder.email_field(:email, append: @builder.primary("Subscribe"),
+                                                                 input_group_class: "input-group-lg")
   end
 end

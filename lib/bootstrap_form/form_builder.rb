@@ -54,9 +54,7 @@ module BootstrapForm
       define_method(with_method_name) do |name, options={}, html_options={}|
         form_group_builder(name, options, html_options) do
           html_class = control_specific_class(method_name)
-          if @layout == :horizontal && options[:skip_inline].blank?
-            html_class = "#{html_class} form-inline"
-          end
+          html_class = "#{html_class} form-inline" if @layout == :horizontal && options[:skip_inline].blank?
           content_tag(:div, class: html_class) do
             input_with_error(name) do
               send(without_method_name, name, options, html_options)
@@ -108,10 +106,14 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_select
 
-    def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options={}, html_options={})
+    def grouped_collection_select_with_bootstrap(method, collection, group_method,
+                                                 group_label_method, option_key_method,
+                                                 option_value_method, options={}, html_options={})
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
-          grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
+          grouped_collection_select_without_bootstrap(method, collection, group_method,
+                                                      group_label_method, option_key_method,
+                                                      option_value_method, options, html_options)
         end
       end
     end
@@ -130,7 +132,8 @@ module BootstrapForm
 
     def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
       options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label, :wrapper_class)
+      check_box_options = options.except(:label, :label_class, :error_message, :help,
+                                         :inline, :custom, :hide_label, :skip_label, :wrapper_class)
       check_box_classes = [check_box_options[:class]]
       check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
       check_box_classes << "is-invalid" if has_error?(name)
@@ -183,7 +186,9 @@ module BootstrapForm
 
     def radio_button_with_bootstrap(name, value, *args)
       options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label, :wrapper_class)
+      radio_options = options.except(:label, :label_class, :error_message, :help,
+                                     :inline, :custom, :hide_label, :skip_label,
+                                     :wrapper_class)
       radio_classes = [options[:class]]
       radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
       radio_classes << "is-invalid" if has_error?(name)
@@ -251,7 +256,9 @@ module BootstrapForm
       options[:class] << " form-inline" if field_inline_override?(options[:layout])
       options[:class] << " #{feedback_class}" if options[:icon]
 
-      content_tag(:div, options.except(:append, :id, :label, :help, :icon, :input_group_class, :label_col, :control_col, :add_control_col_class, :layout, :prepend)) do
+      content_tag(:div, options.except(:append, :id, :label, :help, :icon,
+                                       :input_group_class, :label_col, :control_col,
+                                       :add_control_col_class, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]) if options[:label]
         control = capture(&block)
 
@@ -260,9 +267,7 @@ module BootstrapForm
 
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
-          if options[:add_control_col_class]
-            control_class = [control_class, options[:add_control_col_class]].compact.join(" ")
-          end
+          control_class = [control_class, options[:add_control_col_class]].compact.join(" ") if options[:add_control_col_class]
           unless options[:label]
             control_offset = offset_col(options[:label_col] || @label_col)
             control_class = "#{control_class} #{control_offset}"
@@ -432,9 +437,7 @@ module BootstrapForm
           skip_required: options.delete(:skip_required)
         }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
 
-        if options.delete(:label_as_placeholder)
-          css_options[:placeholder] = label_text || object.class.human_attribute_name(method)
-        end
+        css_options[:placeholder] = label_text || object.class.human_attribute_name(method) if options.delete(:label_as_placeholder)
       end
 
       form_group(method, form_group_options) do
@@ -545,7 +548,9 @@ module BootstrapForm
 
         underscored_scope = "activerecord.help.#{partial_scope.underscore}"
         downcased_scope = "activerecord.help.#{partial_scope.downcase}"
-        # First check for a subkey :html, as it is also accepted by i18n, and the simple check for name would return an hash instead of a string (both with .presence returning true!)
+        # First check for a subkey :html, as it is also accepted by i18n, and the
+        # simple check for name would return an hash instead of a string (both
+        # with .presence returning true!)
         help_text = I18n.t("#{name}.html", scope: underscored_scope, default: "").html_safe.presence
         help_text ||= if (text = I18n.t("#{name}.html", scope: downcased_scope, default: "").html_safe.presence)
                         warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
