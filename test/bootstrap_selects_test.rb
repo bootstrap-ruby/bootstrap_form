@@ -8,7 +8,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   # Helper to generate options
   def options_range(start: 1, stop: 31, selected: nil, months: false)
     (start..stop).map do |n|
-      attr = (n == selected) ? 'selected="selected"' : ""
+      attr = n == selected ? 'selected="selected"' : ""
       label = months ? Date::MONTHNAMES[n] : n
       "<option #{attr} value=\"#{n}\">#{label}</option>"
     end.join("\n")
@@ -59,7 +59,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]])
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]])
   end
 
   test "bootstrap_specific options are handled correctly" do
@@ -73,7 +73,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <small class="form-text text-muted">Help!</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "My Status Label", help: "Help!" )
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "My Status Label", help: "Help!")
   end
 
   test "selects with options are wrapped correctly" do
@@ -87,7 +87,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prompt: "Please Select")
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prompt: "Please Select")
   end
 
   test "selects with both options and html_options are wrapped correctly" do
@@ -101,7 +101,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, class: "my-select")
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, class: "my-select")
   end
 
   test "select 'id' attribute is used to specify label 'for' attribute" do
@@ -115,10 +115,10 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], { prompt: "Please Select" }, id: "custom_id")
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, id: "custom_id")
   end
 
-  test 'selects with addons are wrapped correctly' do
+  test "selects with addons are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_status">Status</label>
@@ -132,7 +132,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], prepend: 'Before', append: 'After')
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prepend: "Before", append: "After")
   end
 
   test "selects with block use block as content" do
@@ -146,8 +146,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     select = @builder.select(:status) do
-      content_tag(:option) { 'Option 1' } +
-      content_tag(:option) { 'Option 2' }
+      content_tag(:option) { "Option 1" } +
+        content_tag(:option) { "Option 2" }
     end
     assert_equivalent_xml expected, select
   end
@@ -162,7 +162,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [['activated', 1], ['blocked', 2]], label: "User Status")
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "User Status")
   end
 
   test "collection_selects are wrapped correctly" do
@@ -326,7 +326,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       assert_equivalent_xml expected, @builder.date_select(:misc, wrapper_class: "none-margin")
     end
   end
-  
+
   test "date selects inline when layout is horizontal" do
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
@@ -442,11 +442,11 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
-              #{options_range(start: "00", stop: "23", selected: "12")}
+              #{options_range(start: '00', stop: '23', selected: '12')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
-              #{options_range(start: "00", stop: "59", selected: "00")}
+              #{options_range(start: '00', stop: '59', selected: '00')}
             </select>
           </div>
         </div>
@@ -468,11 +468,11 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
             <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
-              #{options_range(start: "00", stop: "23", selected: "12")}
+              #{options_range(start: '00', stop: '23', selected: '12')}
             </select>
             :
             <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
-              #{options_range(start: "00", stop: "59", selected: "00")}
+              #{options_range(start: '00', stop: '59', selected: '00')}
             </select>
             <div class="invalid-feedback">error for test</div>
           </div>
@@ -494,12 +494,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "23")}
+              #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "59")}
+              #{options_range(start: '00', stop: '59')}
             </select>
           </div>
         </div>
@@ -519,12 +519,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-control my-time-select" id="user_misc_4i" name="user[misc(4i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "23")}
+              #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control my-time-select" id="user_misc_5i" name="user[misc(5i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "59")}
+              #{options_range(start: '00', stop: '59')}
             </select>
           </div>
         </div>
@@ -550,11 +550,11 @@ class BootstrapSelectsTest < ActionView::TestCase
             </select>
             &mdash;
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
-              #{options_range(start: "00", stop: "23", selected: "12")}
+              #{options_range(start: '00', stop: '23', selected: '12')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
-              #{options_range(start: "00", stop: "59", selected: "00")}
+              #{options_range(start: '00', stop: '59', selected: '00')}
             </select>
           </div>
         </div>
@@ -583,11 +583,11 @@ class BootstrapSelectsTest < ActionView::TestCase
             </select>
             &mdash;
             <select class="form-control is-invalid" id="user_misc_4i" name="user[misc(4i)]">
-              #{options_range(start: "00", stop: "23", selected: "12")}
+              #{options_range(start: '00', stop: '23', selected: '12')}
             </select>
             :
             <select class="form-control is-invalid" id="user_misc_5i" name="user[misc(5i)]">
-              #{options_range(start: "00", stop: "59", selected: "00")}
+              #{options_range(start: '00', stop: '59', selected: '00')}
             </select>
             <div class="invalid-feedback">error for test</div>
           </div>
@@ -619,12 +619,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             &mdash;
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "23")}
+              #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "59")}
+              #{options_range(start: '00', stop: '59')}
             </select>
           </div>
         </div>
@@ -654,12 +654,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             &mdash;
             <select class="form-control my-datetime-select" id="user_misc_4i" name="user[misc(4i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "23")}
+              #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control my-datetime-select" id="user_misc_5i" name="user[misc(5i)]">
               <option value=""></option>
-              #{options_range(start: "00", stop: "59")}
+              #{options_range(start: '00', stop: '59')}
             </select>
           </div>
         </div>

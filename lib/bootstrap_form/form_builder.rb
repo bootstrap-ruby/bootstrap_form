@@ -36,7 +36,7 @@ module BootstrapForm
       with_method_name = "#{method_name}_with_bootstrap"
       without_method_name = "#{method_name}_without_bootstrap"
 
-      define_method(with_method_name) do |name, options = {}|
+      define_method(with_method_name) do |name, options={}|
         form_group_builder(name, options) do
           prepend_and_append_input(name, options) do
             send(without_method_name, name, options)
@@ -51,10 +51,10 @@ module BootstrapForm
       with_method_name = "#{method_name}_with_bootstrap"
       without_method_name = "#{method_name}_without_bootstrap"
 
-      define_method(with_method_name) do |name, options = {}, html_options = {}|
+      define_method(with_method_name) do |name, options={}, html_options={}|
         form_group_builder(name, options, html_options) do
           html_class = control_specific_class(method_name)
-          if @layout == :horizontal && !options[:skip_inline].present?
+          if @layout == :horizontal && options[:skip_inline].blank?
             html_class = "#{html_class} form-inline"
           end
           content_tag(:div, class: html_class) do
@@ -68,7 +68,7 @@ module BootstrapForm
       bootstrap_method_alias method_name
     end
 
-    def file_field_with_bootstrap(name, options = {})
+    def file_field_with_bootstrap(name, options={})
       options = options.reverse_merge(control_class: "custom-file-input")
       form_group_builder(name, options) do
         content_tag(:div, class: "custom-file") do
@@ -88,7 +88,7 @@ module BootstrapForm
 
     bootstrap_method_alias :file_field
 
-    def select_with_bootstrap(method, choices = nil, options = {}, html_options = {}, &block)
+    def select_with_bootstrap(method, choices=nil, options={}, html_options={}, &block)
       form_group_builder(method, options, html_options) do
         prepend_and_append_input(method, options) do
           select_without_bootstrap(method, choices, options, html_options, &block)
@@ -98,7 +98,7 @@ module BootstrapForm
 
     bootstrap_method_alias :select
 
-    def collection_select_with_bootstrap(method, collection, value_method, text_method, options = {}, html_options = {})
+    def collection_select_with_bootstrap(method, collection, value_method, text_method, options={}, html_options={})
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
@@ -108,7 +108,7 @@ module BootstrapForm
 
     bootstrap_method_alias :collection_select
 
-    def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options = {}, html_options = {})
+    def grouped_collection_select_with_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options={}, html_options={})
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           grouped_collection_select_without_bootstrap(method, collection, group_method, group_label_method, option_key_method, option_value_method, options, html_options)
@@ -118,7 +118,7 @@ module BootstrapForm
 
     bootstrap_method_alias :grouped_collection_select
 
-    def time_zone_select_with_bootstrap(method, priority_zones = nil, options = {}, html_options = {})
+    def time_zone_select_with_bootstrap(method, priority_zones=nil, options={}, html_options={})
       form_group_builder(method, options, html_options) do
         input_with_error(method) do
           time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
@@ -128,7 +128,7 @@ module BootstrapForm
 
     bootstrap_method_alias :time_zone_select
 
-    def check_box_with_bootstrap(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
+    def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
       options = options.symbolize_keys!
       check_box_options = options.except(:label, :label_class, :error_message, :help, :inline, :custom, :hide_label, :skip_label, :wrapper_class)
       check_box_classes = [check_box_options[:class]]
@@ -261,7 +261,7 @@ module BootstrapForm
         if get_group_layout(options[:layout]) == :horizontal
           control_class = options[:control_col] || control_col
           if options[:add_control_col_class]
-            control_class= [control_class, options[:add_control_col_class]].compact.join(' ')
+            control_class = [control_class, options[:add_control_col_class]].compact.join(" ")
           end
           unless options[:label]
             control_offset = offset_col(options[:label_col] || @label_col)
@@ -275,7 +275,7 @@ module BootstrapForm
       end
     end
 
-    def fields_for_with_bootstrap(record_name, record_object = nil, fields_options = {}, &block)
+    def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
       if record_object.is_a?(Hash) && record_object.extractable_options?
         fields_options = record_object
         record_object = nil
@@ -296,19 +296,19 @@ module BootstrapForm
 
     private
 
-    def layout_default?(field_layout = nil)
+    def layout_default?(field_layout=nil)
       [:default, nil].include? layout_in_effect(field_layout)
     end
 
-    def layout_horizontal?(field_layout = nil)
+    def layout_horizontal?(field_layout=nil)
       layout_in_effect(field_layout) == :horizontal
     end
 
-    def layout_inline?(field_layout = nil)
+    def layout_inline?(field_layout=nil)
       layout_in_effect(field_layout) == :inline
     end
 
-    def field_inline_override?(field_layout = nil)
+    def field_inline_override?(field_layout=nil)
       field_layout == :inline && layout != :inline
     end
 
@@ -380,7 +380,7 @@ module BootstrapForm
       has_presence_validator
     end
 
-    def form_group_builder(method, options, html_options = nil)
+    def form_group_builder(method, options, html_options=nil)
       options.symbolize_keys!
 
       wrapper_class = options.delete(:wrapper_class)
@@ -442,7 +442,7 @@ module BootstrapForm
       end
     end
 
-    def convert_form_tag_options(method, options = {})
+    def convert_form_tag_options(method, options={})
       unless @options[:skip_default_ids]
         options[:name] ||= method
         options[:id] ||= method
@@ -510,7 +510,7 @@ module BootstrapForm
       object.errors[name].join(", ")
     end
 
-    def inputs_collection(name, collection, value, text, options = {})
+    def inputs_collection(name, collection, value, text, options={})
       options[:inline] ||= layout_inline?(options[:layout])
       form_group_builder(name, options) do
         inputs = ""

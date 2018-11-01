@@ -81,7 +81,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
   end
 
-  if ::Rails::VERSION::STRING > '5.1'
+  if ::Rails::VERSION::STRING > "5.1"
     test "file field placeholder has appropriate `for` attribute when used in form_with" do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
@@ -115,7 +115,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "hidden fields are supported" do
-    expected = %{<input id="user_misc" name="user[misc]" type="hidden" />}
+    expected = '<input id="user_misc" name="user[misc]" type="hidden" />'
     assert_equivalent_xml expected, @builder.hidden_field(:misc)
   end
 
@@ -191,7 +191,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_area(:comments)
   end
 
-  if ::Rails::VERSION::STRING > '5.1' && ::Rails::VERSION::STRING < '5.2'
+  if ::Rails::VERSION::STRING > "5.1" && ::Rails::VERSION::STRING < "5.2"
     test "text areas are wrapped correctly form_with Rails 5.1" do
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -203,7 +203,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     end
   end
 
-  if ::Rails::VERSION::STRING > '5.2'
+  if ::Rails::VERSION::STRING > "5.2"
     test "text areas are wrapped correctly form_with Rails 5.2+" do
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -279,7 +279,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "bootstrap_form_for helper works for associations" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user.address = Address.new(street: "123 Main Street")
 
     output = bootstrap_form_for(@user) do |f|
       f.fields_for :address do |af|
@@ -321,9 +321,9 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "fields_for correctly passes horizontal style from parent builder" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user.address = Address.new(street: "123 Main Street")
 
-    output = bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f|
+    output = bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
@@ -344,7 +344,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "fields_for correctly passes inline style from parent builder" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user.address = Address.new(street: "123 Main Street")
 
     # NOTE: This test works with even if you use `fields_for_without_bootstrap`
     output = bootstrap_form_for(@user, layout: :inline) do |f|
@@ -365,9 +365,9 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  if ::Rails::VERSION::STRING >= '5.1'
+  if ::Rails::VERSION::STRING >= "5.1"
     test "fields correctly uses options from parent builder" do
-      @user.address = Address.new(street: '123 Main Street')
+      @user.address = Address.new(street: "123 Main Street")
 
       bootstrap_form_with(model: @user,
                           control_col: "control-style",
@@ -388,7 +388,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "fields_for_without_bootstrap does not use options from parent builder" do
-    @user.address = Address.new(street: '123 Main Street')
+    @user.address = Address.new(street: "123 Main Street")
 
     bootstrap_form_for(@user,
                        control_col: "control-style",
