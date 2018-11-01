@@ -1,3 +1,5 @@
+# Taken from: https://github.com/mattbrictson/rails-template/blob/master/rubocop.yml.tt
+# Modified for demo app in `demo/` directory.
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -38,6 +40,7 @@ Metrics/ClassLength:
     - "test/**/*"
 
 Metrics/LineLength:
+  Max: 132
   Exclude:
     - "demo/config/**/*"
     - "demo/db/**/*"
