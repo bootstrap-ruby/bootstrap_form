@@ -31,9 +31,9 @@ task "release:rubygem_push" do
   Rake.application.invoke_task("chandler:push")
 end
 
-desc 'Run RuboCop lint checks'
-RuboCop::RakeTask.new(:lint) do |task|
-  task.options = ['--lint']
+desc 'Run RuboCop checks -- see .rubocop_todo.yml for outstanding offenses'
+RuboCop::RakeTask.new(:rubocop) do |task|
+  task.options = %w[--config .rubocop_todo.yml]
 end
 
-task default: %i[test lint]
+task default: %i[test rubocop]
