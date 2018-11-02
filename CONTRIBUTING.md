@@ -1,14 +1,8 @@
 # Contributing
 
-The release of Bootstrap 4 and Rails 5.1 have implications for the future
-direction of `bootstrap_form`. Don't worry. We plan to move this gem forward to
-Bootstrap 4 and to support Rails 5.1 and beyond. If you're thinking of
-contributing to `bootstrap_form`, please read
-[issue #361](https://github.com/bootstrap-ruby/bootstrap_form/issues/361).
-
-Your comments are welcome.
-
 Thanks so much for considering a contribution to bootstrap_form. We love pull requests!
+
+We want everyone to feel welcome to contribute. We encourage respectful exchanges of ideas. We govern ourselves with the Contributor's Covenant [Code of Conduct](/CODE_OF_CONDUCT.md).
 
 Here's a quick guide for contributing:
 
@@ -21,7 +15,7 @@ following steps.
 
 ### 2. Fork the repo
 
-For the project. Optionally, create a branch you want to work on
+Fork the project. Optionally, create a branch you want to work on
 
 ### 3. Get it running locally
 
@@ -44,13 +38,13 @@ You may find using demo application useful for development and debugging.
 
 ### 5. Make a Pull Request
 
-- If you never done it before read this: https://help.github.com/articles/about-pull-requests/
-- When PR is submitted check if TravisCI ran all tests successfully didn't raise any issues
+- If you never done made a pull request before, read this: https://help.github.com/articles/about-pull-requests/
+- When the PR is submitted, check if TravisCI ran all the tests successfully, and didn't raise any issues
 
 ### 6. Done!
 
-Somebody will shortly review your pull request and if everything is good will be
-merged into master branch. Eventually gem will be published with your changes.
+Somebody will shortly review your pull request and if everything is good, it will be
+merged into the master branch. Eventually the gem will be published with your changes.
 
 ---
 
