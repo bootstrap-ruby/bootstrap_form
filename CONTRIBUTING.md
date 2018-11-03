@@ -2,7 +2,7 @@
 
 Thanks so much for considering a contribution to bootstrap_form. We love pull requests!
 
-We want everyone to feel welcome to contribute. We encourage respectful exchanges of ideas. We govern ourselves with the Contributor's Covenant [Code of Conduct](/CODE_OF_CONDUCT.md).
+We want everyone to feel welcome to contribute. We encourage respectful exchanges of ideas. We govern ourselves with the Contributor Covenant [Code of Conduct](/CODE_OF_CONDUCT.md).
 
 There are a number of ways you can contribute to `bootstrap_form`:
 
@@ -63,12 +63,11 @@ merged into the master branch. Eventually the gem will be published with your ch
 ### Coding guidelines
 
 This project uses [RuboCop](https://github.com/bbatsov/rubocop) to enforce standard Ruby coding
-guidelines. Currently we run RuboCop's lint rules only, which check for readability issues
-like indentation, ambiguity, and useless/unreachable code.
+guidelines. Currently we run RuboCop's as described by [this post](https://tech.offgrid-electric.com/rubocop-getting-to-green-in-a-huge-rails-app-12d1ad6678eb), under the section "How to make CI pass". That means we allow certain existing RuboCop offences in the code, but prevent people from adding any new offences. So you might copy some existing code, and then discover that it doesn't pass. Please fix the new code, and if you're ambitious, fix the old code as well.
 
-* Test that your contribution passes with `rake lint`
-* The linter is also run as part of the full test suite with `bundle exec rake`
-* Note the Travis build will fail and your PR cannot be merged if the linter finds errors
+* Test that your contribution passes with `rake rubocop`.
+* RuboCop is also run as part of the full test suite with `bundle exec rake`.
+* Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
 
 Note that most editors have plugins to run RuboCop as you type, or when you save a file. You may find it well worth your time to install and configure the RuboCop plugin for your editor. Read the [RuboCop documentation](https://rubocop.readthedocs.io/en/latest/integration_with_other_tools/).
 
