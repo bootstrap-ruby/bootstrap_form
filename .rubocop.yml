@@ -1,0 +1,102 @@
+# Taken from: https://github.com/mattbrictson/rails-template/blob/master/rubocop.yml.tt
+# Modified for demo app in `demo/` directory.
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.2.2
+  Exclude:
+    - "bin/*"
+    - Capfile
+    - demo/config/boot.rb
+    - demo/config/environment.rb
+    - demo/config/initializers/version.rb
+    - demo/db/schema.rb
+    - "demo/node_modules/**/*"
+    - "demo/bower_components/**/*"
+    - "demo/tmp/**/*"
+    - "demo/vendor/**/*"
+    - Gemfile
+    - Guardfile
+    - demo/Rakefile
+    - Rakefile
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Metrics/AbcSize:
+  Exclude:
+    - "demo/test/**/*"
+    - "test/**/*"
+
+Metrics/BlockLength:
+  Exclude:
+    - "demo/config/**/*"
+    - "demo/test/**/*"
+    - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "demo/test/**/*"
+    - "test/**/*"
+
+Metrics/LineLength:
+  Max: 132
+  Exclude:
+    - "demo/config/**/*"
+    - "demo/db/**/*"
+
+Metrics/MethodLength:
+  Max: 12
+  Exclude:
+    - "demo/db/migrate/*"
+    - "demo/test/**/*"
+    - "test/**/*"
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: optional
+
+Naming/VariableNumber:
+  Enabled: false
+
+Performance/Casecmp:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+Rails/ApplicationRecord:
+  Exclude:
+    - "demo/db/migrate/**"
+
+Rails/RefuteMethods:
+  Enabled: false
+
+Rails/Validation:
+  Enabled: false
+
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/TrivialAccessors:
+  AllowPredicates: true

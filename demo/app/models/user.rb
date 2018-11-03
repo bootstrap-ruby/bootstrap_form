@@ -1,7 +1,7 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   serialize :preferences
 
-  validates :email, presence: true, :length => { minimum: 5 }
+  validates :email, presence: true, length: { minimum: 5 }
   validates :terms, acceptance: { accept: true }
 
   has_one :address

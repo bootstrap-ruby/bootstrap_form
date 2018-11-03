@@ -1,9 +1,8 @@
 class BootstrapController < ApplicationController
-
   def form
     @collection = [
-      Address.new(id: 1, street: 'Foo'),
-      Address.new(id: 2, street: 'Bar')
+      Address.new(id: 1, street: "Foo"),
+      Address.new(id: 2, street: "Bar")
     ]
 
     @user = User.new
@@ -12,5 +11,4 @@ class BootstrapController < ApplicationController
     @user_with_error.errors.add(:email)
     @user_with_error.errors.add(:misc)
   end
-
 end

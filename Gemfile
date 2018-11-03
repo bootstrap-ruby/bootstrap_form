@@ -8,6 +8,7 @@ gemspec
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
+  gem "rubocop", require: false
 end
 
 group :test do
