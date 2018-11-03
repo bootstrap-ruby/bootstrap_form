@@ -1,5 +1,4 @@
 module BootstrapHelper
-
   def form_with_source(&block)
     form_html = capture(&block)
 
@@ -19,5 +18,4 @@ module BootstrapHelper
       concat(codemirror)
     end
   end
-
 end

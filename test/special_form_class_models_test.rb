@@ -9,10 +9,15 @@ class SpecialFormClassModelsTest < ActionView::TestCase
       ActiveModel::Name.new(User)
     end
 
-    @user = user_klass.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
+    @user = user_klass.new(email: "steve@example.com", password: "secret", comments: "my comment")
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10"})
-    I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2",
+                                                                             control_col: "col-sm-10")
+    I18n.backend.store_translations(:en, activerecord: {
+                                      help: {
+                                        user: { password: "A good password should be at least six characters long" }
+                                      }
+                                    })
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -26,8 +31,13 @@ class SpecialFormClassModelsTest < ActionView::TestCase
   test "Nil models are supported for form builder" do
     @user = nil
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10"})
-    I18n.backend.store_translations(:en, {activerecord: {help: {user: {password: "A good password should be at least six characters long"}}}})
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2",
+                                                                             control_col: "col-sm-10")
+    I18n.backend.store_translations(:en, activerecord: {
+                                      help: {
+                                        user: { password: "A good password should be at least six characters long" }
+                                      }
+                                    })
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -41,10 +51,15 @@ class SpecialFormClassModelsTest < ActionView::TestCase
   test "Objects without model names are supported for form builder" do
     user_klass = FauxUser
 
-    @user = user_klass.new(email: 'steve@example.com', password: 'secret', comments: 'my comment')
+    @user = user_klass.new(email: "steve@example.com", password: "secret", comments: "my comment")
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, {layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10"})
-    I18n.backend.store_translations(:en, {activerecord: {help: {faux_user: {password: "A good password should be at least six characters long"}}}})
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2",
+                                                                             control_col: "col-sm-10")
+    I18n.backend.store_translations(:en, activerecord: {
+                                      help: {
+                                        faux_user: { password: "A good password should be at least six characters long" }
+                                      }
+                                    })
 
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
@@ -54,5 +69,4 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, @builder.date_field(:misc)
   end
-
 end

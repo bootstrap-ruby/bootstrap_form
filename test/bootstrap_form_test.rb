@@ -11,7 +11,7 @@ class BootstrapFormTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;" />
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| nil }
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
   end
 
   test "default-style form fields layout horizontal" do
@@ -54,12 +54,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user) do |f|
       f.email_field(:email, layout: :horizontal)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: "I agree to the terms"))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :horizontal))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :horizontal))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :horizontal))
     end
 
     assert_equivalent_xml expected, actual
@@ -100,12 +100,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user) do |f|
       f.email_field(:email, layout: :inline)
-       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: true))
+       .concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :inline))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
     end
 
     assert_equivalent_xml expected, actual
@@ -115,7 +115,7 @@ class BootstrapFormTest < ActionView::TestCase
     # TODO: Align baseline better.
   end
 
-  if  ::Rails::VERSION::STRING >= '5.1'
+  if ::Rails::VERSION::STRING >= "5.1"
     # No need to test 5.2 separately for this case, since 5.2 does *not*
     # generate a default ID for the form element.
     test "default-style forms bootstrap_form_with Rails 5.1+" do
@@ -124,7 +124,7 @@ class BootstrapFormTest < ActionView::TestCase
           <input name="utf8" type="hidden" value="&#x2713;" />
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |f| nil }
+      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |_f| nil }
     end
   end
 
@@ -162,12 +162,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.email_field(:email)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: "I agree to the terms"))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]]))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
     end
 
     assert_equivalent_xml expected, actual
@@ -213,12 +213,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
       f.email_field(:email)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: "I agree to the terms"))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]]))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
     end
 
     assert_equivalent_xml expected, actual
@@ -258,12 +258,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
       f.email_field(:email, layout: :default)
-       .concat(f.check_box(:terms, label: 'I agree to the terms'))
+       .concat(f.check_box(:terms, label: "I agree to the terms"))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :default))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :default))
     end
 
     assert_equivalent_xml expected, actual
@@ -304,12 +304,12 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
 
-    collection = [Address.new(id: 1, street: 'Foo'), Address.new(id: 2, street: 'Bar')]
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
       f.email_field(:email, layout: :inline)
-       .concat(f.check_box(:terms, label: 'I agree to the terms', inline: true))
+       .concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
        .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
-       .concat(f.select(:status, [['activated', 1], ['blocked', 2]], layout: :inline))
+       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
     end
 
     assert_equivalent_xml expected, actual
@@ -328,7 +328,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
   end
 
   test "given role attribute should not be covered by default role attribute" do
@@ -337,7 +338,7 @@ class BootstrapFormTest < ActionView::TestCase
         <input name="utf8" type="hidden" value="&#x2713;" />
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: 'not-a-form'}) {|f| nil}
+    assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: "not-a-form" }) { |_f| nil }
   end
 
   test "bootstrap_form_tag acts like a form tag" do
@@ -350,7 +351,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, label: "Your Email" }
+    assert_equivalent_xml expected,
+                          bootstrap_form_tag(url: "/users") { |f| f.text_field :email, label: "Your Email" }
   end
 
   test "bootstrap_form_for does not clobber custom options" do
@@ -363,7 +365,7 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, name: 'NAME', id: "ID" }
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, name: "NAME", id: "ID" }
   end
 
   test "bootstrap_form_tag does not clobber custom options" do
@@ -376,16 +378,16 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.text_field :email, name: 'NAME', id: "ID" }
+    assert_equivalent_xml expected, bootstrap_form_tag(url: "/users") { |f| f.text_field :email, name: "NAME", id: "ID" }
   end
 
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    if ::Rails::VERSION::STRING >= '5.1'
-      id = 'misc'
-      name = 'misc'
+    if ::Rails::VERSION::STRING >= "5.1"
+      id = "misc"
+      name = "misc"
     else
-      id = '_misc'
-      name = '[misc]'
+      id = "_misc"
+      name = "[misc]"
     end
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" method="post" role="form">
@@ -397,7 +399,7 @@ class BootstrapFormTest < ActionView::TestCase
       </div>
     </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_tag(url: '/users') { |f| f.check_box :misc }
+    assert_equivalent_xml expected, bootstrap_form_tag(url: "/users") { |f| f.check_box :misc }
   end
 
   test "errors display correctly and inline_errors are turned off by default when label_errors is true" do
@@ -435,7 +437,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "label error messages use humanized attribute names" do
     begin
-      I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: 'Your e-mail address'}}}})
+      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
 
       @user.email = nil
       assert @user.invalid?
@@ -451,9 +453,8 @@ class BootstrapFormTest < ActionView::TestCase
         </form>
       HTML
       assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
-
     ensure
-      I18n.backend.store_translations(:en, {activerecord: {attributes: {user: {email: nil}}}})
+      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
     end
   end
 
@@ -471,7 +472,7 @@ class BootstrapFormTest < ActionView::TestCase
         </ul>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.alert_message('Please fix the following errors:')
+    assert_equivalent_xml expected, @builder.alert_message("Please fix the following errors:")
   end
 
   test "changing the class name for the alert message" do
@@ -488,7 +489,7 @@ class BootstrapFormTest < ActionView::TestCase
         </ul>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.alert_message('Please fix the following errors:', class: 'my-css-class')
+    assert_equivalent_xml expected, @builder.alert_message("Please fix the following errors:", class: "my-css-class")
   end
 
   test "alert_message contains the error summary when inline_errors are turned off" do
@@ -496,7 +497,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
-      f.alert_message('Please fix the following errors:')
+      f.alert_message("Please fix the following errors:")
     end
 
     expected = <<-HTML.strip_heredoc
@@ -520,7 +521,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
-      f.alert_message('Please fix the following errors:', error_summary: false)
+      f.alert_message("Please fix the following errors:", error_summary: false)
     end
 
     expected = <<-HTML.strip_heredoc
@@ -539,7 +540,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: true) do |f|
-      f.alert_message('Please fix the following errors:', error_summary: true)
+      f.alert_message("Please fix the following errors:", error_summary: true)
     end
 
     expected = <<-HTML.strip_heredoc
@@ -579,7 +580,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert_nil @builder.error_summary
   end
 
-  test 'errors_on renders the errors for a specific attribute when invalid' do
+  test "errors_on renders the errors for a specific attribute when invalid" do
     @user.email = nil
     assert @user.invalid?
 
@@ -601,7 +602,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: 'col-sm-1' }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "col-sm-1" }
   end
 
   test "offset for form group without label respects label width for horizontal forms" do
@@ -615,7 +617,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-md-2', control_col: 'col-md-10') { |f| f.form_group { f.submit } }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, label_col: "col-md-2",
+                                                    control_col: "col-md-10") { |f| f.form_group { f.submit } }
   end
 
   test "offset for form group without label respects multiple label widths for horizontal forms" do
@@ -629,7 +633,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal, label_col: 'col-sm-4 col-md-2', control_col: 'col-sm-8 col-md-10') { |f| f.form_group { f.submit } }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-4 col-md-2",
+                                                    control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
   end
 
   test "custom input width for horizontal forms" do
@@ -644,7 +650,8 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: 'col-sm-5' }
+    assert_equivalent_xml expected,
+                          bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "col-sm-5" }
   end
 
   test "additional input col class" do
@@ -659,7 +666,9 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, add_control_col_class: 'custom-class' }
+    actual = bootstrap_form_for(@user,
+                                layout: :horizontal) { |f| f.email_field :email, add_control_col_class: "custom-class" }
+    assert_equivalent_xml expected, actual
   end
 
   test "the field contains the error and is not wrapped in div.field_with_errors when bootstrap_form_for is used" do
@@ -667,7 +676,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = bootstrap_form_for(@user) do |f|
-      f.text_field(:email, help: 'This is required')
+      f.text_field(:email, help: "This is required")
     end
 
     expected = <<-HTML.strip_heredoc
@@ -688,7 +697,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = form_for(@user, builder: BootstrapForm::FormBuilder) do |f|
-      f.text_field(:email, help: 'This is required')
+      f.text_field(:email, help: "This is required")
     end
 
     expected = <<-HTML.strip_heredoc
@@ -713,7 +722,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     output = bootstrap_form_for(@user, inline_errors: false) do |f|
-      f.text_field(:email, help: 'This is required')
+      f.text_field(:email, help: "This is required")
     end
 
     expected = <<-HTML.strip_heredoc
@@ -731,7 +740,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "help translations do not escape HTML when _html is appended to the name" do
     begin
-      I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: "This is <strong>useful</strong> help"}}}})
+      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: "This is <strong>useful</strong> help" } } })
 
       output = bootstrap_form_for(@user) do |f|
         f.text_field(:email)
@@ -749,7 +758,7 @@ class BootstrapFormTest < ActionView::TestCase
       HTML
       assert_equivalent_xml expected, output
     ensure
-      I18n.backend.store_translations(:en, {activerecord: {help: {user: {email_html: nil}}}})
+      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: nil } } })
     end
   end
 
@@ -764,11 +773,11 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, builder.text_field(:email)
   end
 
-  test 'errors_on hide attribute name in message' do
+  test "errors_on hide attribute name in message" do
     @user.email = nil
     assert @user.invalid?
 
-    expected = %{<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>}
+    expected = '<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
 
     assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
