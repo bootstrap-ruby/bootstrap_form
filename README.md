@@ -219,6 +219,12 @@ In cases where this behavior is undesirable, use the `skip_required` option:
 <%= f.password_field :password, label: "New Password", skip_required: true %>
 ```
 
+In cases where the label `required` class should be added but the associated model has no presence validation, use the `required` option:
+
+```erb
+<%= f.password_field :password, label: "New Password", required: true %>
+```
+
 ### Input Elements / Controls
 
 To specify the class of the generated input tag, use the `control_class` option:

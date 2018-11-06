@@ -84,6 +84,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email, skip_required: true)
   end
 
+  test "forcing a label to have the required class" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="required" for="user_comments">Comments</label>
+        <input class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:comments, required: true)
+  end
+
   test "label as placeholder" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
