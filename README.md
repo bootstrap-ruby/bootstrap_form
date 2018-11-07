@@ -213,7 +213,7 @@ validator with the associated model attribute. Presently this is one of:
 ActiveRecord::Validations::PresenceValidator or
 ActiveModel::Validations::PresenceValidator.
 
-In cases where this behavior is undesirable, use the `required` to force the class to be present or absent :
+In cases where this behavior is undesirable, use the `required` option to force the class to be present or absent:
 
 ```erb
 <%= f.password_field :login, label: "New Username", required: true %>
