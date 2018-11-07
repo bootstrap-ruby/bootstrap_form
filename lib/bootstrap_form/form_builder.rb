@@ -424,11 +424,19 @@ module BootstrapForm
           label_text ||= options.delete(:label)
         end
 
+        if options.has_key?(:skip_required)
+          warn ":skip_required is deprecated, use :required instead"
+          if options.delete(:skip_required)
+            options[:required]= false
+          else
+            options[:required]= :default
+          end
+        end
+
         form_group_options[:label] = {
           text: label_text,
           class: label_class,
-          required: options.delete(:required),
-          skip_required: options.delete(:skip_required)
+          required: options.delete(:required)
         }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
 
         if options.delete(:label_as_placeholder)
@@ -464,8 +472,11 @@ module BootstrapForm
         classes << "mr-sm-2"
       end
 
-      if options.delete(:required) || (!options.delete(:skip_required) && required_attribute?(object, name))
+      case options.delete(:required)
+      when true
         classes << "required"
+      when nil, :default
+        classes << "required" if required_attribute?(object, name)
       end
 
       options[:class] = classes.compact.join(" ").strip

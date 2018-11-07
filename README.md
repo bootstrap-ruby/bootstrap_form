@@ -213,16 +213,11 @@ validator with the associated model attribute. Presently this is one of:
 ActiveRecord::Validations::PresenceValidator or
 ActiveModel::Validations::PresenceValidator.
 
-In cases where this behavior is undesirable, use the `skip_required` option:
+In cases where this behavior is undesirable, use the `required` to force the class to be present or absent :
 
 ```erb
-<%= f.password_field :password, label: "New Password", skip_required: true %>
-```
-
-In cases where the label `required` class should be added but the associated model has no presence validation, use the `required` option:
-
-```erb
-<%= f.password_field :password, label: "New Password", required: true %>
+<%= f.password_field :login, label: "New Username", required: true %>
+<%= f.password_field :password, label: "New Password", required: false %>
 ```
 
 ### Input Elements / Controls
