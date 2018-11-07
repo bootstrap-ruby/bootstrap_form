@@ -2,7 +2,8 @@ require_relative "aliasing"
 require_relative "helpers/bootstrap"
 
 module BootstrapForm
-  class FormBuilder < ActionView::Helpers::FormBuilder
+  # TODO: Refactor this class and remove the rubocop:disable
+  class FormBuilder < ActionView::Helpers::FormBuilder # rubocop:disable Metrics/ClassLength
     extend BootstrapForm::Aliasing
     include BootstrapForm::Helpers::Bootstrap
 
@@ -385,7 +386,8 @@ module BootstrapForm
       has_presence_validator
     end
 
-    def form_group_builder(method, options, html_options=nil)
+    # TODO: Refactor this method and remove the rubocop:disable
+    def form_group_builder(method, options, html_options=nil) # rubocop:disable Metrics/MethodLength
       options.symbolize_keys!
 
       wrapper_class = options.delete(:wrapper_class)
