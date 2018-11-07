@@ -425,11 +425,11 @@ module BootstrapForm
         end
 
         if options.has_key?(:skip_required)
-          warn ":skip_required is deprecated, use :required instead"
+          warn "`:skip_required` is deprecated, use `:required: false` instead"
           if options.delete(:skip_required)
-            options[:required]= false
+            options[:required] = false
           else
-            options[:required]= :default
+            options[:required] = :default
           end
         end
 
