@@ -424,10 +424,10 @@ module BootstrapForm
           label_text ||= options.delete(:label)
         end
 
-        options[:required] = if options.key?(:skip_required)
-                               warn "`:skip_required` is deprecated, use `:required: false` instead"
-                               options.delete(:skip_required) ? false : :default
-                             end
+        if options.key?(:skip_required)
+          warn "`:skip_required` is deprecated, use `:required: false` instead"
+          options[:required] = options.delete(:skip_required) ? false : :default
+        end
 
         form_group_options[:label] = {
           text: label_text,
