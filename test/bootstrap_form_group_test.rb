@@ -104,6 +104,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:comments, required: true)
   end
 
+  test "Explicitly specify field is required." do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group">
+        <label class="required" for="user_email">Email</label>
+        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" required="required" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.text_field(:email, required: true)
+  end
+
   test "label as placeholder" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
