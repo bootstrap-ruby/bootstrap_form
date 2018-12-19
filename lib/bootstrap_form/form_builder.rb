@@ -441,7 +441,7 @@ module BootstrapForm
         form_group_options[:label] = {
           text: label_text,
           class: label_class,
-          required: options.delete(:required)
+          required: options[:required]
         }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
 
         css_options[:placeholder] = label_text || object.class.human_attribute_name(method) if options.delete(:label_as_placeholder)
