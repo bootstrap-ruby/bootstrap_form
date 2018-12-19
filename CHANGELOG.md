@@ -10,6 +10,7 @@
 
 ### Bugfixes
 
+* [#496] Ensure required attribute is passed through to input tag.
 * Your contribution here!
 
 ## [4.0.0][] (2018-10-27)

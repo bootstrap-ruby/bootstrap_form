@@ -81,7 +81,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, skip_required: true)
+    assert_output(nil, "`:skip_required` is deprecated, use `:required: false` instead\n") do
+      assert_equivalent_xml expected, @builder.text_field(:email, skip_required: true)
+    end
   end
 
   test "preventing a label from having the required class" do
@@ -98,7 +100,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label class="required" for="user_comments">Comments</label>
-        <input class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" />
+        <input class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" required="required" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:comments, required: true)
