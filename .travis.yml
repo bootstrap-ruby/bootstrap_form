@@ -9,7 +9,7 @@ gemfile:
   - test/gemfiles/5.1.gemfile
   - test/gemfiles/5.2.gemfile
 before_install:
-  - gem update --system
+  - gem i rubygems-update -v '<3' && update_rubygems
   - gem install bundler --no-document
 script:
   - bundle exec rake test
