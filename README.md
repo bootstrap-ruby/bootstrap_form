@@ -540,6 +540,22 @@ The `label_col` and `control_col` css classes can also be changed per control:
 <% end %>
 ```
 
+or default value can be changed in initializer:
+
+```erb
+# config/initializers/bootstrap_form.rb
+module BootstrapForm
+  class FormBuilder
+    def default_label_col
+      'col-sm-4'
+    end
+    def default_control_col
+      'col-sm-8'
+    end
+  end
+end
+```
+
 Control col wrapper class can be modified with `add_control_col_class`. This option will preserve column definition:
 
 ```erb
