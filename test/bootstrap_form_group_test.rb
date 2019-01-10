@@ -563,6 +563,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.search_field(:misc, wrapper: { data: { foo: "bar" } })
   end
 
+  test "rendering without wrapper" do
+    expected = %{<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />}
+    assert_equivalent_xml expected, @builder.text_field(:email, wrapper: false)
+  end
+
   test "passing options to a form control get passed through" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
