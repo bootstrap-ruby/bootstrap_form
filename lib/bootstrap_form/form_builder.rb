@@ -447,8 +447,12 @@ module BootstrapForm
         css_options[:placeholder] = label_text || object.class.human_attribute_name(method) if options.delete(:label_as_placeholder)
       end
 
-      form_group(method, form_group_options) do
+      if wrapper_options == false
         yield
+      else
+        form_group(method, form_group_options) do
+          yield
+        end
       end
     end
 
