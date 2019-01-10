@@ -303,6 +303,18 @@ Which produces the following output:
 
 You still can use `wrapper_class` option to set only a css class. This is just a short form of `wrapper: { class: 'additional-class' }`.
 
+### Suppressing the Form Group Altogether
+
+You may have want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
+
+```
+f.form_group :user do
+  f.email_field :email, wrapper: false
+end
+```
+
+Note that Bootstrap relies on the form group div to correctly format most fields, so if you use the `wrapper: false` option, you should provide your own form group div around the input field. You can write your own HTML, or use the `form_group` helper.
+
 ### Selects
 
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
