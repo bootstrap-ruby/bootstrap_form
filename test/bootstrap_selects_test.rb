@@ -677,4 +677,24 @@ class BootstrapSelectsTest < ActionView::TestCase
       assert_equivalent_xml expected, @builder.datetime_select(:misc, { include_blank: true }, class: "my-datetime-select")
     end
   end
+
+  test "confirm documentation example for HTML options" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-group has-warning" data-foo="bar">
+        <label for="user_misc">Choose your favorite fruit:</label>
+        <select class="form-control selectpicker" id="user_misc" name="user[misc]">
+          <option value="1">Apple</option>
+          <option value="2">Grape</option>
+        </select>
+      </div>
+    HTML
+    assert_equivalent_xml expected,
+                          @builder.select(:misc,
+                                          [["Apple", 1], ["Grape", 2]],
+                                          {
+                                            label: "Choose your favorite fruit:",
+                                            wrapper: { class: "has-warning", data: { foo: "bar" } }
+                                          },
+                                          class: "selectpicker")
+  end
 end
