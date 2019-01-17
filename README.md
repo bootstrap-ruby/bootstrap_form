@@ -366,6 +366,13 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
+#### Switches
+
+To render checkboxes as switches with Bootstrap 4.2+, add the proper wrapper class:
+
+```erb
+<%= f.check_box :remember_me, custom: true, wrapper_class: 'custom-switch' %>
+```
 
 #### Collections
 
