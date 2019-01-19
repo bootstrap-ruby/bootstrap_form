@@ -6,13 +6,21 @@
 
 ### New features
 
-- [#259] Allow to render input without wrapper (, @yevhene)
 * Your contribution here!
 
 ### Bugfixes
 
-* [#496] Ensure required attribute is passed through to input tag.
 * Your contribution here!
+
+## [4.1.0][] (2019-01-19)
+
+### New features
+
+- [#259] Allow to render input without wrapper [@yevhene].
+
+### Bugfixes
+
+* [#496] Ensure required attribute is passed through to input tag.
 
 ## [4.0.0][] (2018-10-27)
 
@@ -247,7 +255,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.1.0...HEAD
+[4.1.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0.alpha1...v4.0.0
 [4.0.0.alpha1]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.7.0...v4.0.0.alpha1
 [2.7.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.6.0...v2.7.0

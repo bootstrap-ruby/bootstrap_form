@@ -21,7 +21,7 @@ Bootstrap v4-style forms into your Rails application.
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form", ">= 4.0.0"
+gem "bootstrap_form", ">= 4.1.0"
 ```
 
 Then:
