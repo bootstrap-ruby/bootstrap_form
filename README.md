@@ -405,10 +405,12 @@ Here's the output for a horizontal layout:
 You can also create a static control that isn't based on a model attribute:
 
 ```erb
-<%= f.static_control label: "Custom Static Control" do %>
-  Content Here
-<% end %>
+<%= f.static_control label: "Custom Static Control" value: "Content Here" %>
 ```
+Prior to version 4 of `bootstrap_form`, you could pass a block to the `static_control` method.
+The value of the block would be used for the content of the static "control".
+Bootstrap 4 actually creates and styles a disabled input field for static controls, so the value of the control has to be specified by the `value:` option.
+Passing a block to `static_control` no longer has any effect.
 
 ### Date Helpers
 
