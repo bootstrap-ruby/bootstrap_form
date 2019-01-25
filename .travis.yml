@@ -16,9 +16,13 @@ script:
 
 matrix:
   include:
-    # Bleeding edge
+    # Bleeding edge Ruby
     - rvm: ruby-head
       gemfile: test/gemfiles/5.2.gemfile
+
+    # Next version of Rails
+    - rvm: 2.5.0
+      gemfile: test/gemfiles/6.0.gemfile
 
     # Running one job to execute DANGER bot and linting
     - rvm: 2.5.0
@@ -30,3 +34,5 @@ matrix:
 
   allow_failures:
     - rvm: ruby-head
+    - rvm: 2.5.0
+      gemfile: test/gemfiles/6.0.gemfile
