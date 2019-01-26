@@ -100,7 +100,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post" role="form">
-      <input name="utf8" type="hidden" value="&#x2713;"/>
+      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <div class="custom-file">
@@ -289,7 +289,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
@@ -310,7 +310,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" />
@@ -331,7 +331,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group row">
           <label class="col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
           <div class="col-sm-10">
@@ -355,7 +355,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label class="mr-sm-2" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />

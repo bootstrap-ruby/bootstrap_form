@@ -38,7 +38,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      <input name="utf8" type="hidden" value="&#x2713;"/>
+      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <select class="form-control is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
@@ -193,7 +193,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      <input name="utf8" type="hidden" value="&#x2713;"/>
+      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_status">Status</label>
         <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
@@ -254,7 +254,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<-HTML.strip_heredoc
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      <input name="utf8" type="hidden" value="&#x2713;"/>
+      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_status">Status</label>
         <select class="form-control is-invalid" id="user_status" name="user[status]"></select>
@@ -341,7 +341,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group row">
           <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
@@ -369,7 +369,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
@@ -470,7 +470,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
@@ -578,7 +578,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
