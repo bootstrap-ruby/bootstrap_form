@@ -185,7 +185,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label class="required" for="user_email">Email</label>
           <div class="input-group">
@@ -431,7 +431,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;"/>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_primary_school" name="user[misc]" type="radio" value="primary school"/>
@@ -490,7 +490,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group none-margin">
           <label class="required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -594,7 +594,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "custom form group layout option" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-        <input name="utf8" type="hidden" value="&#x2713;" />
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group form-inline">
           <label class="mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
