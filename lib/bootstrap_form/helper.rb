@@ -1,3 +1,4 @@
+puts "Running BootstrapForm::Helper"
 module BootstrapForm
   module Helper
     def bootstrap_form_for(object, options={}, &block)

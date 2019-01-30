@@ -215,21 +215,6 @@ class BootstrapFieldsTest < ActionView::TestCase
     end
   end
 
-  # if ::Rails::VERSION::STRING > "6"
-    test "rich text areas are wrapped correctly" do
-      expected = <<-HTML.strip_heredoc
-      <div class="form-group">
-        <label for="user_comments">Comments</label>
-        <input type="hidden" name="user[comments]" id="user_comments_trix_input_message_1">
-        <trix-editor id="content" input="user_comments_trix_input_message_1" class="trix-content">\nmy comment</trix-editor>
-      </div>
-      HTML
-      # <input type="hidden" name="message[content]" id="message_content_trix_input_message_1">
-      # <trix-editor id="content" input="message_content_trix_input_message_1" class="trix-content" ...></trix-editor>
-      assert_equivalent_xml expected, form_with_builder.rich_text_area(:comments)
-    end
-  # end
-
   test "text fields are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="form-group">

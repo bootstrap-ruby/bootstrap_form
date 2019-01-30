@@ -11,7 +11,7 @@ module BootstrapForm
 
     FIELD_HELPERS = %w[color_field date_field datetime_field datetime_local_field
                        email_field month_field number_field password_field phone_field
-                       range_field rich_text_area search_field telephone_field text_area
+                       range_field search_field telephone_field text_area
                        text_field time_field url_field week_field].freeze
 
     DATE_SELECT_HELPERS = %w[date_select time_select datetime_select].freeze
@@ -228,6 +228,17 @@ module BootstrapForm
     end
 
     bootstrap_method_alias :radio_button
+
+    define_method("rich_text_area_with_bootstrap") do |name, options={}|
+      form_group_builder(name, options) do
+        prepend_and_append_input(name, options) do
+          options[:class] = ["trix-content", options[:class]].compact.join(" ")
+          send("rich_text_area_without_bootstrap", name, options)
+        end
+      end
+    end
+
+    bootstrap_method_alias :rich_text_area
 
     def collection_check_boxes_with_bootstrap(*args)
       html = inputs_collection(*args) do |name, value, options|
