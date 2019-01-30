@@ -9,12 +9,6 @@ class BootstrapRichTextAreaTest < ActionView::TestCase
 
   if ::Rails::VERSION::STRING > "6"
     test "rich text areas are wrapped correctly" do
-      puts "respond_to?(:rich_text_area): #{respond_to?(:rich_text_area)}"
-      puts "respond_to?(:rich_text_area_without_bootstrap): #{respond_to?(:rich_text_area_without_bootstrap)}"
-      puts "respond_to?(:rich_text_area_tag): #{respond_to?(:rich_text_area_tag)}"
-      puts "respond_to?(:main_app): #{respond_to?(:main_app)}"
-      # puts method(:main_app).source_location
-
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_life_story">Life story</label>

@@ -12,17 +12,9 @@ require "mocha/minitest"
 Rails.backtrace_cleaner.remove_silencers!
 
 class ActionView::TestCase
-  tests ActionText::TagHelper
-
   def setup_test_fixture
     @user = User.new(email: "steve@example.com", password: "secret", comments: "my comment")
-    # ActionView::Base.include ActionText::TagHelper
-    # ActionView::Base.extend AbstractController::Railties::RoutesHelpers
-    @view_context = BootstrapController.new.view_context
-    # @view_context = ActionView::Base.new
-    # puts ActionText::TagHelper.instance_methods.select { |x| x =~ /_tag\Z/ }.sort
-    # puts @view_context.methods.select { |x| x =~ /_tag\Z/ }.sort
-    @builder = BootstrapForm::FormBuilder.new(:user, @user, @view_context, {})
+    @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self,
                                                          layout: :horizontal,
                                                          label_col: "col-sm-2",
@@ -45,7 +37,6 @@ class ActionView::TestCase
 
   # Originally only used in one test file but placed here in case it's needed in others in the future.
   def form_with_builder
-    puts "Getting form_with builder..."
     builder = nil
     bootstrap_form_with(model: @user) { |f| builder = f }
     builder
