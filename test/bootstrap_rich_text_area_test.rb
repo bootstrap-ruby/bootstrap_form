@@ -1,13 +1,13 @@
 require_relative "./test_helper"
 require "byebug"
 
-class BootstrapRichTextAreaTest < ActionView::TestCase
-  tests ActionText::TagHelper
-  include BootstrapForm::Helper
+if ::Rails::VERSION::STRING > "6"
+  class BootstrapRichTextAreaTest < ActionView::TestCase
+    tests ActionText::TagHelper
+    include BootstrapForm::Helper
 
-  setup :setup_test_fixture
+    setup :setup_test_fixture
 
-  if ::Rails::VERSION::STRING > "6"
     test "rich text areas are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
       <div class="form-group">
