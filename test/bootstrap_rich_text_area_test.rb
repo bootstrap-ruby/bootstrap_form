@@ -1,5 +1,4 @@
 require_relative "./test_helper"
-require "byebug"
 
 if ::Rails::VERSION::STRING > "6"
   class BootstrapRichTextAreaTest < ActionView::TestCase
