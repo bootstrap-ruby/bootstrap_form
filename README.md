@@ -512,7 +512,7 @@ will be rendered as:
 
 To use `bootstrap_form` from the master branch of GitHub, change the `bootstrap_form` line in your `Gemfile` to:
 ```
-gem "bootstrap_form", github: "bootstrap-ruby/bootstrap_form"
+gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form"
 ```
 
 Support for `rich_text_area` is highly experimental at this time.
