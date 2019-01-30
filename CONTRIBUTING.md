@@ -84,3 +84,14 @@ We are an entirely volunteer project. Sometimes it's hard for people to find the
 ---
 
 Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors
+
+## Troubleshooting
+### Models and Database Tables
+`bootstrap_form` needs a few models and tables to support testing. It appears that the necessary tables were created via the `demo/db/schema.rb` file. To support `rich_text_area`, Rails 6 creates some migrations. These migrations had to be run in the existing database (not an empty one) to create a new `schema.rb` that creates the `bootstrap_form` test tables, and the tables needed by Rails 6. The `schema.rb` file was checked in to GitHub, but the migrations were not.
+
+In the future, any new Rails functionality that creates tables would likely have to be prepared the same way:
+```
+cd demo
+rails db:setup # create the databases from `schema.rb`
+rails db:migrate # add the new tables and create a new `schema.rb`
+```
