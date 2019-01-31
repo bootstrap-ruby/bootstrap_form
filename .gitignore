@@ -12,3 +12,21 @@ test/gemfiles/*.lock
 .ruby-version
 Vagrantfile
 .vagrant
+
+// For the demo app.
+
+# Ignore uploaded files in development.
+demo/storage/*
+!demo/storage/.keep
+
+demo/public/assets
+.byebug_history
+
+# Ignore master key for decrypting credentials and more.
+demo/config/master.key
+demo/public/packs
+demo/public/packs-test
+demo/node_modules
+demo/yarn-error.log
+demo/yarn-debug.log*
+demo/.yarn-integrity
