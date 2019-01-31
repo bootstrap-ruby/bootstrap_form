@@ -7,17 +7,18 @@ AllCops:
   Exclude:
     - "bin/*"
     - Capfile
+    - demo/bin/*
+    - "demo/bower_components/**/*"
     - demo/config/boot.rb
     - demo/config/environment.rb
     - demo/config/initializers/version.rb
     - demo/db/schema.rb
     - "demo/node_modules/**/*"
-    - "demo/bower_components/**/*"
+    - demo/Rakefile
     - "demo/tmp/**/*"
     - "demo/vendor/**/*"
     - Gemfile
     - Guardfile
-    - demo/Rakefile
     - Rakefile
 
 Layout/SpaceAroundEqualsInParameterDefault:

@@ -1,7 +1,7 @@
 <h3>Horizontal Form</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user, layout: :horizontal do |form| %>
+  <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.select :status, [['activated', 1], ['blocked', 2]], prompt: "Please Select" %>
@@ -48,6 +48,7 @@
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.check_box :terms, label: "Agree to Terms" %>
     <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.rich_text_area(:life_story) if Rails::VERSION::STRING > "6" %>
     <%= form.submit %>
   <% end %>
 <% end %>

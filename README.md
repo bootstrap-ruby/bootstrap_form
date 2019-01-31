@@ -152,6 +152,7 @@ This gem wraps the following Rails form helpers:
 * radio_button
 * collection_radio_buttons
 * range_field
+* rich_text_area (Rails 6+)
 * search_field
 * select
 * telephone_field
@@ -491,6 +492,31 @@ will be rendered as
 ```
 
 (some unimportant HTML attributes have been removed for simplicity)
+
+### Rich Text Areas AKA Trix Editor
+If you're using Rails 6, and `bootstrap_form` from the master branch on GitHub,
+`bootstrap_form` supports the `rich_text_area` helper.
+
+```
+<%= f.rich_text_area(:life_story) %>
+```
+will be rendered as:
+```
+<div class="form-group">
+  <label for="user_life_story">Life story</label>
+  <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
+  <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
+  </trix-editor>
+</div>
+```
+
+To use `bootstrap_form` from the master branch of GitHub, change the `bootstrap_form` line in your `Gemfile` to:
+```
+gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form"
+```
+
+Support for `rich_text_area` is highly experimental at this time.
+Please submit bugs to the [issue tracker](https://github.com/bootstrap-ruby/bootstrap_form/issues).
 
 ### Accessing Rails Form Helpers
 

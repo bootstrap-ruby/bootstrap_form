@@ -9,6 +9,8 @@ module BootstrapForm
     # This code is copied and pasted from ActiveSupport, but with :bootstrap
     # hardcoded as the feature name, and with the deprecation warning removed.
     def bootstrap_method_alias(target)
+      return unless method_defined?(target)
+
       feature = :bootstrap
 
       # Strip out punctuation on predicates, bang or writer methods since

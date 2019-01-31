@@ -3,12 +3,15 @@ source "http://rubygems.org"
 gemspec
 
 # Uncomment and change rails version for testing purposes
-# gem "rails", "~> 5.2.0.beta2"
+# gem "rails", "~> 5.0.0"
+# gem "rails", "~> 6.0.0.beta1"
 
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
   gem "rubocop", require: false
+  gem "sass-rails"
+  gem 'webpacker', '>= 4.0.0.rc.3'
 end
 
 group :test do
