@@ -1,5 +1,6 @@
 require_relative "aliasing"
 require_relative "helpers/bootstrap"
+require_relative 'inputs/text_field'
 
 module BootstrapForm
   # TODO: Refactor this class and remove the rubocop:disable
@@ -8,6 +9,8 @@ module BootstrapForm
     include BootstrapForm::Helpers::Bootstrap
 
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
+
+    include BootstrapForm::Inputs::TextField
 
     FIELD_HELPERS = %w[color_field date_field datetime_field datetime_local_field
                        email_field month_field number_field password_field phone_field
