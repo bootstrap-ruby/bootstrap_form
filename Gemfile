@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 # Uncomment and change rails version for testing purposes
-# gem "rails", "~> 5.0.0"
+gem "rails", "~> 5.0.0"
 # gem "rails", "~> 6.0.0.beta1"
 
 group :development do
@@ -21,6 +21,7 @@ group :test do
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
-  gem "sqlite3"
+  # sqlite3 1.4.0 breaks the test suite.
+  gem "sqlite3", "~> 1.3.0"
   gem "timecop", "~> 0.7.1"
 end
