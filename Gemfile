@@ -21,6 +21,8 @@ group :test do
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
-  gem "sqlite3"
+  # sqlite3 1.4.0 breaks the test suite.
+  # https://github.com/rails/rails/pull/35154
+  gem "sqlite3", "~> 1.3.6"
   gem "timecop", "~> 0.7.1"
 end
