@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-⚠️ **This documentation is for the master branch, which targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
-=======
 ⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
 >>>>>>> 3af219f79a0a275a995db22baf31b373eefaf20c
 
