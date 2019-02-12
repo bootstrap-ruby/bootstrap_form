@@ -1,4 +1,4 @@
-⚠️ **This documentation is for the master branch, which is not yet stable and targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
+⚠️ **This documentation is for the master branch, which targets Bootstrap v4.** If you are using Bootstrap v3, refer to the stable [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
 
 This is a new take on the `bootstrap_form` README. Please leave comments at: #520. You can go back to the traditional [README](/README.md).
 
@@ -11,12 +11,12 @@ This is a new take on the `bootstrap_form` README. Please leave comments at: #52
 
 `bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
-* [Validation error messages](/validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
-* Automatic [mark-up for the `required` attribute](/required-fields) on required fields.
-* An easy way to consistently show [help](/help-text) text on fields.
-* Mark-up for [Bootstrap horizontal forms](/horizontal-forms) (labels to the left of their fields, like a traditional desktop application), if that's what you want.
-* Many [options](/form-helpers) to modify or augment the generated mark-up.
-* A way to [escape to the Rails form helpers](/accessing-rails-form-helpers) if you need to do something that `bootstrap_form` can't do.
+* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
+* Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
+* An easy way to consistently show [help](#help-text) text on fields.
+* Mark-up for [Bootstrap horizontal forms](#horizontal-forms) (labels to the left of their fields, like a traditional desktop application), if that's what you want.
+* Many [options](#form-helpers) to modify or augment the generated mark-up.
+* A way to [escape to the Rails form helpers](#accessing-rails-form-helpers) if you need to do something that `bootstrap_form` can't do.
 
 Some other nice things that `bootstrap_form` does for you are:
 
@@ -25,7 +25,7 @@ Some other nice things that `bootstrap_form` does for you are:
 * Reduces errors, because you're doing less typing.
 * Makes it easier to see the logic of the form, because it's not mixed in with the Bootstrap mark-up.
 
-`bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](/bootstrap_form_with), [`bootstrap_form_for`](/bootstrap_form_for), or [`bootstrap_form_tag`](/bootstrap_form_tag) in a view file. You get a form builder that calls the (`bootstrap_form` helpers)[/form-helpers] instead of the standard Rails helpers.  
+`bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](#bootstrap_form_with), [`bootstrap_form_for`](#bootstrap_form_for), or [`bootstrap_form_tag`](#bootstrap_form_tag) in a view file. You get a form builder that calls the (`bootstrap_form` helpers)[/form-helpers] instead of the standard Rails helpers.  
 
 ## Requirements
 `bootstrap_form` supports currently supported versions of Rails:
@@ -174,22 +174,22 @@ The `bootstrap_form` helpers accept the same options as the standard Rails form 
 
 Many of the helpers accept the same options. The exceptions are:
 
-[button](/submit-buttons),
-[check_box](/checkboxes-and-radios),
-[collection_check_boxes](/collections),
-[collection_radio_buttons](/collections),
-[collection_select](/selects),
-[date_select](/date-helpers),
-[datetime_select](/date-helpers),
-[file_field](/file-field),
-[grouped_collection_select](/selects),
-[hidden_field](/hidden-field),
-[radio_button](/checkboxes-and-radios),
-[rich_text_area](/rich-text-areas-aka-trix-editor),
-[select](/selects),
-[submit](/submit-buttons),
-[time_select](/date-helpers),
-[time_zone_select](/selects)
+[button](#submit-buttons),
+[check_box](#checkboxes-and-radios),
+[collection_check_boxes](#collections),
+[collection_radio_buttons](#collections),
+[collection_select](#selects),
+[date_select](#date-helpers),
+[datetime_select](#date-helpers),
+[file_field](#file-field),
+[grouped_collection_select](#selects),
+[hidden_field](#hidden-field),
+[radio_button](#checkboxes-and-radios),
+[rich_text_area](#rich-text-areas-aka-trix-editor),
+[select](#selects),
+[submit](#submit-buttons),
+[time_select](#date-helpers),
+[time_zone_select](#selects)
 
 The options for the form helpers that aren't in the exceptions list are described in the following sub-sections:
 
@@ -526,7 +526,7 @@ Support for `rich_text_area` is highly experimental at this time.
 Please submit bugs to the [issue tracker](https://github.com/bootstrap-ruby/bootstrap_form/issues).
 
 ## File Fields
-The `file_field` helper generates mark-up for a Bootstrap 4 custom file field entry. It takes the [options for `text_field`](form-helper-options), minus `append` and `prepend`.
+The `file_field` helper generates mark-up for a Bootstrap 4 custom file field entry. It takes the [options for `text_field`](#form-helper-options), minus `append` and `prepend`.
 
 ## Hidden Fields
 The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, and does no additional mark-up.
