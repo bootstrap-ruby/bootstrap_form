@@ -3,7 +3,7 @@
 require "test_helper"
 
 class BootstrapErrorRenderingTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   def setup
     setup_test_fixture

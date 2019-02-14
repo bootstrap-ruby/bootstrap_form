@@ -3,7 +3,7 @@
 require_relative "./test_helper"
 
 class BootstrapDeferredBuilderTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   setup :setup_test_fixture
 

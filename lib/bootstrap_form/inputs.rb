@@ -24,6 +24,7 @@ module BootstrapForm
     autoload :PhoneField
     autoload :RadioButton
     autoload :RangeField
+    autoload :RichTextArea
     autoload :SearchField
     autoload :Select
     autoload :TelephoneField
