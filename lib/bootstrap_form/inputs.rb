@@ -24,7 +24,7 @@ module BootstrapForm
     autoload :PhoneField
     autoload :RadioButton
     autoload :RangeField
-    autoload :RichTextArea
+    autoload :RichTextArea if Rails::VERSION::MAJOR >= 6
     autoload :SearchField
     autoload :Select
     autoload :TelephoneField

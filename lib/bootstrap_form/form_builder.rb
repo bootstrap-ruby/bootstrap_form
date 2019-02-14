@@ -27,7 +27,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::PhoneField
     include BootstrapForm::Inputs::RadioButton
     include BootstrapForm::Inputs::RangeField
-    include BootstrapForm::Inputs::RichTextArea
+    include BootstrapForm::Inputs::RichTextArea if Rails::VERSION::MAJOR >= 6
     include BootstrapForm::Inputs::SearchField
     include BootstrapForm::Inputs::Select
     include BootstrapForm::Inputs::TelephoneField
