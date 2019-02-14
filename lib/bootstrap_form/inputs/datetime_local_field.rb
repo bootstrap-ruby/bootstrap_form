@@ -2,12 +2,12 @@
 
 module BootstrapForm
   module Inputs
-    module TextField
+    module DatetimeLocalField
       extend ActiveSupport::Concern
       include Base
 
       included do
-        bootstrap_field :text_field
+        bootstrap_field :datetime_local_field
       end
     end
   end

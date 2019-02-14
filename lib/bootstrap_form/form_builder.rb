@@ -1,23 +1,42 @@
-require_relative "aliasing"
-require_relative "helpers/bootstrap"
-require_relative 'inputs/text_field'
+# require 'bootstrap_form/aliasing'
 
 module BootstrapForm
-  # TODO: Refactor this class and remove the rubocop:disable
-  class FormBuilder < ActionView::Helpers::FormBuilder # rubocop:disable Metrics/ClassLength
-    extend BootstrapForm::Aliasing
+  class FormBuilder < ActionView::Helpers::FormBuilder
+    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors,
+                :label_errors, :acts_like_form_tag
+
     include BootstrapForm::Helpers::Bootstrap
 
-    attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors, :label_errors, :acts_like_form_tag
-
+    include BootstrapForm::Inputs::Base
+    include BootstrapForm::Inputs::CheckBox
+    include BootstrapForm::Inputs::CollectionCheckBoxes
+    include BootstrapForm::Inputs::CollectionRadioButtons
+    include BootstrapForm::Inputs::CollectionSelect
+    include BootstrapForm::Inputs::ColorField
+    include BootstrapForm::Inputs::DateField
+    include BootstrapForm::Inputs::DateSelect
+    include BootstrapForm::Inputs::DatetimeField
+    include BootstrapForm::Inputs::DatetimeLocalField
+    include BootstrapForm::Inputs::DatetimeSelect
+    include BootstrapForm::Inputs::EmailField
+    include BootstrapForm::Inputs::FileField
+    include BootstrapForm::Inputs::GroupedCollectionSelect
+    include BootstrapForm::Inputs::MonthField
+    include BootstrapForm::Inputs::NumberField
+    include BootstrapForm::Inputs::PasswordField
+    include BootstrapForm::Inputs::PhoneField
+    include BootstrapForm::Inputs::RadioButton
+    include BootstrapForm::Inputs::RangeField
+    include BootstrapForm::Inputs::SearchField
+    include BootstrapForm::Inputs::Select
+    include BootstrapForm::Inputs::TelephoneField
+    include BootstrapForm::Inputs::TextArea
     include BootstrapForm::Inputs::TextField
-
-    FIELD_HELPERS = %w[color_field date_field datetime_field datetime_local_field
-                       email_field month_field number_field password_field phone_field
-                       range_field search_field telephone_field text_area
-                       text_field time_field url_field week_field].freeze
-
-    DATE_SELECT_HELPERS = %w[date_select time_select datetime_select].freeze
+    include BootstrapForm::Inputs::TimeField
+    include BootstrapForm::Inputs::TimeSelect
+    include BootstrapForm::Inputs::TimeZoneSelect
+    include BootstrapForm::Inputs::UrlField
+    include BootstrapForm::Inputs::WeekField
 
     delegate :content_tag, :capture, :concat, to: :@template
 
@@ -26,240 +45,15 @@ module BootstrapForm
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
+
       @inline_errors = if options[:inline_errors].nil?
                          @label_errors != true
                        else
                          options[:inline_errors] != false
                        end
       @acts_like_form_tag = options[:acts_like_form_tag]
-
       super
     end
-
-    FIELD_HELPERS.each do |method_name|
-      with_method_name = "#{method_name}_with_bootstrap"
-      without_method_name = "#{method_name}_without_bootstrap"
-
-      define_method(with_method_name) do |name, options={}|
-        form_group_builder(name, options) do
-          prepend_and_append_input(name, options) do
-            send(without_method_name, name, options)
-          end
-        end
-      end
-
-      bootstrap_method_alias method_name
-    end
-
-    DATE_SELECT_HELPERS.each do |method_name|
-      with_method_name = "#{method_name}_with_bootstrap"
-      without_method_name = "#{method_name}_without_bootstrap"
-
-      define_method(with_method_name) do |name, options={}, html_options={}|
-        form_group_builder(name, options, html_options) do
-          html_class = control_specific_class(method_name)
-          html_class = "#{html_class} form-inline" if @layout == :horizontal && options[:skip_inline].blank?
-          content_tag(:div, class: html_class) do
-            input_with_error(name) do
-              send(without_method_name, name, options, html_options)
-            end
-          end
-        end
-      end
-
-      bootstrap_method_alias method_name
-    end
-
-    def file_field_with_bootstrap(name, options={})
-      options = options.reverse_merge(control_class: "custom-file-input")
-      form_group_builder(name, options) do
-        content_tag(:div, class: "custom-file") do
-          input_with_error(name) do
-            placeholder = options.delete(:placeholder) || "Choose file"
-            placeholder_opts = { class: "custom-file-label" }
-            placeholder_opts[:for] = options[:id] if options[:id].present?
-
-            input = file_field_without_bootstrap(name, options)
-            placeholder_label = label(name, placeholder, placeholder_opts)
-            concat(input)
-            concat(placeholder_label)
-          end
-        end
-      end
-    end
-
-    bootstrap_method_alias :file_field
-
-    def select_with_bootstrap(method, choices=nil, options={}, html_options={}, &block)
-      form_group_builder(method, options, html_options) do
-        prepend_and_append_input(method, options) do
-          select_without_bootstrap(method, choices, options, html_options, &block)
-        end
-      end
-    end
-
-    bootstrap_method_alias :select
-
-    def collection_select_with_bootstrap(method, collection, value_method, text_method, options={}, html_options={})
-      form_group_builder(method, options, html_options) do
-        input_with_error(method) do
-          collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
-        end
-      end
-    end
-
-    bootstrap_method_alias :collection_select
-
-    def grouped_collection_select_with_bootstrap(method, collection, group_method,
-                                                 group_label_method, option_key_method,
-                                                 option_value_method, options={}, html_options={})
-      form_group_builder(method, options, html_options) do
-        input_with_error(method) do
-          grouped_collection_select_without_bootstrap(method, collection, group_method,
-                                                      group_label_method, option_key_method,
-                                                      option_value_method, options, html_options)
-        end
-      end
-    end
-
-    bootstrap_method_alias :grouped_collection_select
-
-    def time_zone_select_with_bootstrap(method, priority_zones=nil, options={}, html_options={})
-      form_group_builder(method, options, html_options) do
-        input_with_error(method) do
-          time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
-        end
-      end
-    end
-
-    bootstrap_method_alias :time_zone_select
-
-    def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
-      options = options.symbolize_keys!
-      check_box_options = options.except(:label, :label_class, :error_message, :help,
-                                         :inline, :custom, :hide_label, :skip_label, :wrapper_class)
-      check_box_classes = [check_box_options[:class]]
-      check_box_classes << "position-static" if options[:skip_label] || options[:hide_label]
-      check_box_classes << "is-invalid" if has_error?(name)
-
-      label_classes = [options[:label_class]]
-      label_classes << hide_class if options[:hide_label]
-
-      if options[:custom]
-        check_box_options[:class] = (["custom-control-input"] + check_box_classes).compact.join(" ")
-        wrapper_class = ["custom-control", "custom-checkbox"]
-        wrapper_class.append("custom-control-inline") if layout_inline?(options[:inline])
-        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-      else
-        check_box_options[:class] = (["form-check-input"] + check_box_classes).compact.join(" ")
-        wrapper_class = ["form-check"]
-        wrapper_class.append("form-check-inline") if layout_inline?(options[:inline])
-        label_class = label_classes.prepend("form-check-label").compact.join(" ")
-      end
-
-      checkbox_html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
-      label_content = block_given? ? capture(&block) : options[:label]
-      label_description = label_content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
-
-      label_name = name
-      # label's `for` attribute needs to match checkbox tag's id,
-      # IE sanitized value, IE
-      # https://github.com/rails/rails/blob/5-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L123-L125
-      if options[:multiple]
-        label_name =
-          "#{name}_#{checked_value.to_s.gsub(/\s/, '_').gsub(/[^-[[:word:]]]/, '').mb_chars.downcase}"
-      end
-
-      label_options = { class: label_class }
-      label_options[:for] = options[:id] if options[:id].present?
-
-      wrapper_class.append(options[:wrapper_class]) if options[:wrapper_class]
-
-      content_tag(:div, class: wrapper_class.compact.join(" ")) do
-        html = if options[:skip_label]
-                 checkbox_html
-               else
-                 checkbox_html.concat(label(label_name, label_description, label_options))
-               end
-        html.concat(generate_error(name)) if options[:error_message]
-        html
-      end
-    end
-
-    bootstrap_method_alias :check_box
-
-    def radio_button_with_bootstrap(name, value, *args)
-      options = args.extract_options!.symbolize_keys!
-      radio_options = options.except(:label, :label_class, :error_message, :help,
-                                     :inline, :custom, :hide_label, :skip_label,
-                                     :wrapper_class)
-      radio_classes = [options[:class]]
-      radio_classes << "position-static" if options[:skip_label] || options[:hide_label]
-      radio_classes << "is-invalid" if has_error?(name)
-
-      label_classes = [options[:label_class]]
-      label_classes << hide_class if options[:hide_label]
-
-      if options[:custom]
-        radio_options[:class] = radio_classes.prepend("custom-control-input").compact.join(" ")
-        wrapper_class = ["custom-control", "custom-radio"]
-        wrapper_class.append("custom-control-inline") if layout_inline?(options[:inline])
-        label_class = label_classes.prepend("custom-control-label").compact.join(" ")
-      else
-        radio_options[:class] = radio_classes.prepend("form-check-input").compact.join(" ")
-        wrapper_class = ["form-check"]
-        wrapper_class.append("form-check-inline") if layout_inline?(options[:inline])
-        wrapper_class.append("disabled") if options[:disabled]
-        label_class = label_classes.prepend("form-check-label").compact.join(" ")
-      end
-      radio_html = radio_button_without_bootstrap(name, value, radio_options)
-
-      label_options = { value: value, class: label_class }
-      label_options[:for] = options[:id] if options[:id].present?
-
-      wrapper_class.append(options[:wrapper_class]) if options[:wrapper_class]
-
-      content_tag(:div, class: wrapper_class.compact.join(" ")) do
-        html = if options[:skip_label]
-                 radio_html
-               else
-                 radio_html.concat(label(name, options[:label], label_options))
-               end
-        html.concat(generate_error(name)) if options[:error_message]
-        html
-      end
-    end
-
-    bootstrap_method_alias :radio_button
-
-    define_method("rich_text_area_with_bootstrap") do |name, options={}|
-      form_group_builder(name, options) do
-        prepend_and_append_input(name, options) do
-          options[:class] = ["trix-content", options[:class]].compact.join(" ")
-          send("rich_text_area_without_bootstrap", name, options)
-        end
-      end
-    end
-
-    bootstrap_method_alias :rich_text_area
-
-    def collection_check_boxes_with_bootstrap(*args)
-      html = inputs_collection(*args) do |name, value, options|
-        options[:multiple] = true
-        check_box(name, options, value, nil)
-      end
-      hidden_field(args.first, value: "", multiple: true).concat(html)
-    end
-
-    bootstrap_method_alias :collection_check_boxes
-
-    def collection_radio_buttons_with_bootstrap(*args)
-      inputs_collection(*args) do |name, value, options|
-        radio_button(name, value, options)
-      end
-    end
-
-    bootstrap_method_alias :collection_radio_buttons
 
     def form_group(*args, &block)
       options = args.extract_options!
@@ -308,7 +102,7 @@ module BootstrapForm
       fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
     end
 
-    bootstrap_method_alias :fields_for
+    bootstrap_alias :fields_for
 
     # the Rails `fields` method passes its options
     # to the builder, so there is no need to write a `bootstrap_form` helper
@@ -369,7 +163,7 @@ module BootstrapForm
     end
 
     def control_specific_class(method)
-      "rails-bootstrap-forms-#{method.tr('_', '-')}"
+      "rails-bootstrap-forms-#{method.to_s.tr('_', '-')}"
     end
 
     def has_error?(name)
@@ -400,7 +194,7 @@ module BootstrapForm
       has_presence_validator
     end
 
-    # TODO: Refactor this method and remove the rubocop:disable
+    # # TODO: Refactor this method and remove the rubocop:disable
     def form_group_builder(method, options, html_options=nil) # rubocop:disable Metrics/MethodLength
       options.symbolize_keys!
 

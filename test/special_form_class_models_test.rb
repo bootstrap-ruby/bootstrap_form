@@ -1,7 +1,7 @@
 require_relative "./test_helper"
 
 class SpecialFormClassModelsTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   test "Anonymous models are supported for form builder" do
     user_klass = Class.new(User)

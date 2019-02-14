@@ -1,7 +1,7 @@
 require_relative "./test_helper"
 
 class BootstrapOtherComponentsTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   setup :setup_test_fixture
 
