@@ -7,7 +7,7 @@
 ### New features
 
 * [#508] Support `rich_text_area` AKA the Trix editor on Rails 6+.
-* Your contribution here!
+* [#518] Move all inputs to separate, more maintainable files.
 
 ### Bugfixes
 
