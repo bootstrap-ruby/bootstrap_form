@@ -18,7 +18,7 @@ Layout/IndentHeredoc:
 
 # Offense count: 9
 Metrics/AbcSize:
-  Max: 67
+  Max: 69
 
 # Offense count: 2
 # Configuration parameters: CountComments.
@@ -27,7 +27,7 @@ Metrics/ClassLength:
 
 # Offense count: 7
 Metrics/CyclomaticComplexity:
-  Max: 17
+  Max: 18
 
 # Offense count: 1
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
@@ -47,7 +47,7 @@ Metrics/ParameterLists:
 
 # Offense count: 5
 Metrics/PerceivedComplexity:
-  Max: 19
+  Max: 20
 
 # Offense count: 2
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
