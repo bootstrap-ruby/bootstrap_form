@@ -7,9 +7,9 @@
 ### New features
 
 * Your contribution here!
-* [#514](https://github.com/bootstrap-ruby/bootstrap_form/pull/514): Add support for BS 4.2 switches - [@simmerz](https://github.com/simmerz)
 * [#508] Support `rich_text_area` AKA the Trix editor on Rails 6+.
 * [#518] Move all inputs to separate, more maintainable files.
+* [#514](https://github.com/bootstrap-ruby/bootstrap_form/pull/514): Add support for BS 4.2 switches - [@simmerz](https://github.com/simmerz)
 
 ### Bugfixes
 
