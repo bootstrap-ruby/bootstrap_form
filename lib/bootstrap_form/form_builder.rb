@@ -256,38 +256,6 @@ module BootstrapForm
       object.errors[name].join(", ")
     end
 
-    def inputs_collection(name, collection, value, text, options={})
-      options[:inline] ||= layout_inline?(options[:layout])
-
-      form_group_builder(name, options) do
-        inputs = ""
-
-        collection.each_with_index do |obj, i|
-          input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
-          input_options = form_group_collection_input_options(options, text, obj, i, input_value, collection)
-          inputs << yield(name, input_value, input_options)
-        end
-
-        inputs.html_safe
-      end
-    end
-
-    def form_group_collection_input_options(options, text, obj, index, input_value, collection)
-      input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
-      if (checked = input_options[:checked])
-        input_options[:checked] = form_group_collection_input_checked?(checked, obj, input_value)
-      end
-
-      input_options[:error_message] = index == collection.size - 1
-      input_options.except!(:class)
-      input_options
-    end
-
-    def form_group_collection_input_checked?(checked, obj, input_value)
-      checked == input_value || Array(checked).try(:include?, input_value) ||
-        checked == obj || Array(checked).try(:include?, obj)
-    end
-
     def get_help_text_by_i18n_key(name)
       return unless object
 
@@ -313,14 +281,18 @@ module BootstrapForm
       underscored_scope = "activerecord.help.#{partial_scope.underscore}"
       downcased_scope = "activerecord.help.#{partial_scope.downcase}"
 
-      help_text = I18n.t(name, scope: underscored_scope, default: "").html_safe.presence
+      help_text = translated_help_text(name, underscored_scope).presence
 
-      help_text ||= if (text = I18n.t(name, scope: downcased_scope, default: "").html_safe.presence)
+      help_text ||= if (text = translated_help_text(name, downcased_scope).presence)
                       warn "I18n key '#{downcased_scope}.#{name}' is deprecated, use '#{underscored_scope}.#{name}' instead"
                       text
                     end
 
       help_text
+    end
+
+    def translated_help_text(name, scope)
+      ActiveSupport::SafeBuffer.new I18n.t(name, scope: scope, default: "")
     end
   end
 end

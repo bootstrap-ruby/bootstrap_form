@@ -44,25 +44,6 @@ Naming/PredicateName:
     - 'lib/bootstrap_form/form_builder.rb'
 
 # Offense count: 1
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: slashes, arguments
-Rails/FilePath:
-  Exclude:
-    - 'demo/config/environments/development.rb'
-
-# Offense count: 6
-Rails/OutputSafety:
-  Exclude:
-    - 'lib/bootstrap_form/form_builder.rb'
-    - 'lib/bootstrap_form/helpers/bootstrap.rb'
-
-# Offense count: 4
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/bootstrap_form/helpers/bootstrap.rb'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
   Exclude:
