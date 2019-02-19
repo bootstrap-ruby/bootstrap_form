@@ -16,12 +16,14 @@ module BootstrapForm
     autoload :FormBuilder
     autoload :FormGroupBuilder
     autoload :FormGroup
+    autoload :Components
     autoload :Inputs
     autoload :Helpers
   end
 
   def self.eager_load!
     super
+    BootstrapForm::Components.eager_load!
     BootstrapForm::Helpers.eager_load!
     BootstrapForm::Inputs.eager_load!
   end

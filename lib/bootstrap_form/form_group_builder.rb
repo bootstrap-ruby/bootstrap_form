@@ -34,6 +34,14 @@ module BootstrapForm
       options
     end
 
+    def convert_form_tag_options(method, options={})
+      unless @options[:skip_default_ids]
+        options[:name] ||= method
+        options[:id] ||= method
+      end
+      options
+    end
+
     def form_group_opts(options, css_options)
       wrapper_options = options[:wrapper]
       form_group_options = {
