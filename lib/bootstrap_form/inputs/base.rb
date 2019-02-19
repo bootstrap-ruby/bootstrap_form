@@ -5,7 +5,6 @@ module BootstrapForm
     module Base
       extend ActiveSupport::Concern
 
-      # rubocop:disable Metrics/BlockLength
       class_methods do
         def bootstrap_field(field_name)
           define_method "#{field_name}_with_bootstrap" do |name, options={}|
@@ -24,13 +23,7 @@ module BootstrapForm
           without_field_name = "#{field_name}_without_bootstrap"
           define_method(with_field_name) do |name, options={}, html_options={}|
             form_group_builder(name, options, html_options) do
-              html_class = control_specific_class(field_name)
-              html_class = "#{html_class} form-inline" if @layout == :horizontal && options[:skip_inline].blank?
-              content_tag(:div, class: html_class) do
-                input_with_error(name) do
-                  send(without_field_name, name, options, html_options)
-                end
-              end
+              form_group_content_tag(name, field_name, without_field_name, options, html_options)
             end
           end
 
@@ -42,7 +35,6 @@ module BootstrapForm
           alias_method field_name, "#{field_name}_with_bootstrap".to_sym
         end
       end
-      # rubocop:enable Metrics/BlockLength
     end
   end
 end

@@ -7,6 +7,9 @@ module BootstrapForm
 
     include BootstrapForm::Helpers::Bootstrap
 
+    include BootstrapForm::FormGroupBuilder
+    include BootstrapForm::FormGroup
+
     include BootstrapForm::Inputs::Base
     include BootstrapForm::Inputs::CheckBox
     include BootstrapForm::Inputs::CollectionCheckBoxes
@@ -56,22 +59,6 @@ module BootstrapForm
       super
     end
 
-    def form_group(*args, &block)
-      options = args.extract_options!
-      name = args.first
-
-      options[:class] = form_group_classes(options)
-
-      content_tag(:div, options.except(:append, :id, :label, :help, :icon,
-                                       :input_group_class, :label_col, :control_col,
-                                       :add_control_col_class, :layout, :prepend)) do
-        form_group_content(
-          generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]),
-          generate_help(name, options[:help]), options, &block
-        )
-      end
-    end
-
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
       fields_options = fields_for_options(record_object, fields_options)
       record_object.is_a?(Hash) && record_object.extractable_options? &&
@@ -86,33 +73,6 @@ module BootstrapForm
     # for the `fields` method.
 
     private
-
-    def form_group_content(label, help_text, options, &block)
-      if group_layout_horizontal?(options[:layout])
-        concat(label).concat(content_tag(:div, capture(&block) + help_text, class: form_group_control_class(options)))
-      else
-        concat(label).concat(capture(&block)).concat(help_text)
-      end
-    end
-
-    def form_group_control_class(options)
-      classes = [options[:control_col] || control_col]
-      classes << options[:add_control_col_class] if options[:add_control_col_class]
-      classes << offset_col(options[:label_col] || @label_col) unless options[:label]
-      classes.flatten.compact
-    end
-
-    def form_group_classes(options)
-      classes = ["form-group", options[:class].try(:split)].flatten.compact
-      classes << "row" if group_layout_horizontal?(options[:layout]) && classes.exclude?("form-row")
-      classes << "form-inline" if field_inline_override?(options[:layout])
-      classes << feedback_class if options[:icon]
-      classes
-    end
-
-    def group_layout_horizontal?(layout)
-      get_group_layout(layout) == :horizontal
-    end
 
     def fields_for_options(record_object, fields_options)
       field_options = fields_options
@@ -196,6 +156,10 @@ module BootstrapForm
                             []
                           end
 
+      has_presence_validator(target_validators)
+    end
+
+    def has_presence_validator(target_validators)
       has_presence_validator = target_validators.include?(
         ActiveModel::Validations::PresenceValidator
       )
@@ -207,94 +171,6 @@ module BootstrapForm
       end
 
       has_presence_validator
-    end
-
-    def form_group_builder(method, options, html_options=nil)
-      options.symbolize_keys!
-      options = convert_form_tag_options(method, options) if acts_like_form_tag
-      wrapper_options = options[:wrapper] == false
-      css_options = form_group_css_options(method, html_options.try(:symbolize_keys!), options)
-
-      unless options[:skip_label]
-        options[:required] = form_group_required(options) if options.key?(:skip_required)
-      end
-
-      form_group_options = form_group_opts(options, css_options)
-
-      options.except!(
-        :help, :icon, :label_col, :control_col, :add_control_col_class, :layout, :skip_label, :label, :label_class,
-        :hide_label, :skip_required, :label_as_placeholder, :wrapper_class, :wrapper
-      )
-
-      if wrapper_options
-        yield
-      else
-        form_group(method, form_group_options) do
-          yield
-        end
-      end
-    end
-
-    def form_group_opts(options, css_options)
-      wrapper_options = options[:wrapper]
-      form_group_options = {
-        id: options[:id],
-        help: options[:help],
-        icon: options[:icon],
-        label_col: options[:label_col],
-        control_col: options[:control_col],
-        add_control_col_class: options[:add_control_col_class],
-        layout: get_group_layout(options[:layout]),
-        class: options[:wrapper_class]
-      }
-
-      form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
-      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label]
-      form_group_options
-    end
-
-    def form_group_label(options, css_options)
-      hash = {
-        text: form_group_label_text(options[:label]),
-        class: form_group_label_class(options),
-        required: options[:required]
-      }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
-      hash
-    end
-
-    def form_group_label_text(label)
-      text = label[:text] if label.is_a?(Hash)
-      text ||= label if label.is_a?(String)
-      text
-    end
-
-    def form_group_label_class(options)
-      return hide_class if options[:hide_label] || options[:label_as_placeholder]
-
-      classes = options[:label][:class] if options[:label].is_a?(Hash)
-      classes ||= options[:label_class]
-      classes
-    end
-
-    def form_group_required(options)
-      if options.key?(:skip_required)
-        warn "`:skip_required` is deprecated, use `:required: false` instead"
-        options[:skip_required] ? false : :default
-      end
-    end
-
-    def form_group_css_options(method, html_options, options)
-      css_options = html_options || options
-      # Add control_class; allow it to be overridden by :control_class option
-      control_classes = css_options.delete(:control_class) { control_class }
-      css_options[:class] = [control_classes, css_options[:class]].compact.join(" ")
-      css_options[:class] << " is-invalid" if has_error?(method)
-      css_options[:placeholder] = form_group_placeholder(options, method) if options[:label_as_placeholder]
-      css_options
-    end
-
-    def form_group_placeholder(options, method)
-      form_group_label_text(options[:label]) || object.class.human_attribute_name(method)
     end
 
     def convert_form_tag_options(method, options={})

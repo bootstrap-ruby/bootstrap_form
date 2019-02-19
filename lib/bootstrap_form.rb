@@ -14,6 +14,8 @@ module BootstrapForm
 
   eager_autoload do
     autoload :FormBuilder
+    autoload :FormGroupBuilder
+    autoload :FormGroup
     autoload :Inputs
     autoload :Helpers
   end
