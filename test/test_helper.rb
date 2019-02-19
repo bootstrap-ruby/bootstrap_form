@@ -61,26 +61,10 @@ class ActionView::TestCase
     actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>") { |config| config.default_xml.noblanks }
     ignored_attributes  = %w[style data-disable-with]
 
-    equivalent = EquivalentXml.equivalent?(expected_xml, actual_xml,
-                                           ignore_attr_values: ignored_attributes) do |a, b, result|
-      if result === false && b.is_a?(Nokogiri::XML::Element)
-        if b.attr("name") == "utf8"
-          # Handle wrapped utf8 hidden field for Rails 4.2+
-          result = EquivalentXml.equivalent?(a.child, b)
-        end
-        if b.delete("data-disable-with")
-          # Remove data-disable-with for Rails 5+
-          # Workaround because ignoring in EquivalentXml doesn't work
-          result = EquivalentXml.equivalent?(a, b)
-        end
-        if a.attr("type") == "datetime" && b.attr("type") == "datetime-local"
-          a.delete("type")
-          b.delete("type")
-          # Handle new datetime type for Rails 5+
-          result = EquivalentXml.equivalent?(a, b)
-        end
-      end
-      result
+    equivalent = EquivalentXml.equivalent?(
+      expected_xml, actual_xml, ignore_attr_values: ignored_attributes
+    ) do |a, b, result|
+      equivalent_xml?(a, b, result)
     end
 
     assert equivalent, lambda {
@@ -90,5 +74,25 @@ class ActionView::TestCase
         sort_attributes(actual_xml.root).to_xml(indent: 2)
       ).to_s(:color)
     }
+  end
+
+  private
+
+  def equivalent_xml?(before, after, result)
+    return result if result != false || !after.is_a?(Nokogiri::XML::Element)
+
+    if after.attr("name") == "utf8"
+      # Handle wrapped utf8 hidden field for Rails 4.2+
+      before = before.child
+    end
+
+    after.delete("data-disable-with")
+
+    if before.attr("type") == "datetime" && after.attr("type") == "datetime-local"
+      before.delete("type")
+      after.delete("type")
+    end
+
+    EquivalentXml.equivalent?(before, after)
   end
 end
