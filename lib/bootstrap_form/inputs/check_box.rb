@@ -27,8 +27,6 @@ module BootstrapForm
       private
 
       def check_box_label(name, options, checked_value, &block)
-        content = block_given? ? capture(&block) : options[:label]
-        description = content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
         label_name = if options[:multiple]
                        check_box_value(name, checked_value)
                      else
@@ -36,7 +34,12 @@ module BootstrapForm
                      end
         label_options = { class: check_box_label_class(options) }
         label_options[:for] = options[:id] if options[:id].present?
-        label(label_name, description, label_options)
+        label(label_name, check_box_description(name, options, &block), label_options)
+      end
+
+      def check_box_description(name, options, &block)
+        content = block_given? ? capture(&block) : options[:label]
+        content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
       end
 
       def check_box_value(name, value)
@@ -65,15 +68,21 @@ module BootstrapForm
       def check_box_wrapper_class(options)
         classes = []
         if options[:custom]
-          classes << "custom-control"
-          classes << (options[:custom] == :switch ? "custom-switch" : "custom-checkbox")
-          classes << "custom-control-inline" if layout_inline?(options[:inline])
+          classes << custom_check_box_wrapper_class(options)
         else
           classes << "form-check"
           classes << "form-check-inline" if layout_inline?(options[:inline])
         end
         classes << options[:wrapper_class] if options[:wrapper_class].present?
         classes.flatten.compact
+      end
+
+      def custom_check_box_wrapper_class(options)
+        classes = []
+        classes << "custom-control"
+        classes << (options[:custom] == :switch ? "custom-switch" : "custom-checkbox")
+        classes << "custom-control-inline" if layout_inline?(options[:inline])
+        classes
       end
     end
   end

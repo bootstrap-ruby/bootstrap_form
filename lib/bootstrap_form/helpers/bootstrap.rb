@@ -63,7 +63,7 @@ module BootstrapForm
 
         static_options = options.merge(
           readonly: true,
-          control_class: [options[:control_class], static_class].compact.join(" ")
+          control_class: [options[:control_class], static_class].compact
         )
 
         static_options[:value] = object.send(name) unless static_options.key?(:value)
@@ -80,14 +80,13 @@ module BootstrapForm
 
       def prepend_and_append_input(name, options, &block)
         options = options.extract!(:prepend, :append, :input_group_class)
-        input_group_class = ["input-group", options[:input_group_class]].compact.join(" ")
 
         input = capture(&block) || "".html_safe
 
-        input = content_tag(:div, input_group_content(options[:prepend]), class: "input-group-prepend") + input if options[:prepend]
-        input << content_tag(:div, input_group_content(options[:append]), class: "input-group-append") if options[:append]
-        input << generate_error(name)
-        input = content_tag(:div, input, class: input_group_class) unless options.empty?
+        input = prepend_input(options) + input + append_input(options)
+        input += generate_error(name)
+        options.present? &&
+          input = content_tag(:div, input.html_safe, class: ["input-group", options[:input_group_class]].compact)
         input
       end
 
@@ -107,6 +106,16 @@ module BootstrapForm
       end
 
       private
+
+      def append_input(options)
+        html = content_tag(:div, input_group_content(options[:append]), class: "input-group-append") if options[:append]
+        (html || "").html_safe
+      end
+
+      def prepend_input(options)
+        html = content_tag(:div, input_group_content(options[:prepend]), class: "input-group-prepend") if options[:prepend]
+        (html || "").html_safe
+      end
 
       def setup_css_class(the_class, options={})
         unless options.key? :class
