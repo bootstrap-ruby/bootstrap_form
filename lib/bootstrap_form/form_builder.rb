@@ -141,7 +141,7 @@ module BootstrapForm
       "rails-bootstrap-forms-#{method.to_s.tr('_', '-')}"
     end
 
-    def has_error?(name)
+    def error?(name)
       object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
     end
 
@@ -156,10 +156,10 @@ module BootstrapForm
                             []
                           end
 
-      has_presence_validator(target_validators)
+      presence_validator?(target_validators)
     end
 
-    def has_presence_validator(target_validators)
+    def presence_validator?(target_validators)
       has_presence_validator = target_validators.include?(
         ActiveModel::Validations::PresenceValidator
       )
@@ -206,7 +206,7 @@ module BootstrapForm
         classes << "required" if required_attribute?(object, name)
       end
 
-      classes << "text-danger" if label_errors && has_error?(name)
+      classes << "text-danger" if label_errors && error?(name)
       classes.flatten.compact
     end
 
@@ -219,19 +219,19 @@ module BootstrapForm
     end
 
     def label_text(name, options)
-      if label_errors && has_error?(name)
+      if label_errors && error?(name)
         (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{get_error_messages(name)}")
       else
         options[:text]
       end
     end
 
-    def has_inline_error?(name)
-      has_error?(name) && inline_errors
+    def inline_error?(name)
+      error?(name) && inline_errors
     end
 
     def generate_error(name)
-      if has_inline_error?(name)
+      if inline_error?(name)
         help_text = get_error_messages(name)
         help_klass = "invalid-feedback"
         help_tag = :div
@@ -243,7 +243,7 @@ module BootstrapForm
     end
 
     def generate_help(name, help_text)
-      return if help_text == false || has_inline_error?(name)
+      return if help_text == false || inline_error?(name)
 
       help_klass ||= "form-text text-muted"
       help_text ||= get_help_text_by_i18n_key(name)

@@ -7,6 +7,7 @@ module BootstrapForm
       include Base
 
       included do
+        # rubocop:disable Metrics/ParameterLists
         def collection_select_with_bootstrap(method, collection, value_method, text_method, options={}, html_options={})
           form_group_builder(method, options, html_options) do
             input_with_error(method) do
@@ -14,6 +15,7 @@ module BootstrapForm
             end
           end
         end
+        # rubocop:enable Metrics/ParameterLists
 
         bootstrap_alias :collection_select
       end

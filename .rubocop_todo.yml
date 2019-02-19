@@ -8,43 +8,7 @@ inherit_from: .rubocop.yml
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: auto_detection, squiggly, active_support, powerpack, unindent
-Layout/IndentHeredoc:
-  Exclude:
-    - 'Dangerfile'
-
 # Offense count: 2
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
   Max: 244
-
-# Offense count: 1
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 137
-
-# Offense count: 3
-# Configuration parameters: CountKeywordArgs.
-Metrics/ParameterLists:
-  Max: 8
-
-# Offense count: 3
-# Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
-# NamePrefix: is_, has_, have_
-# NamePrefixBlacklist: is_, has_, have_
-# NameWhitelist: is_a?
-# MethodDefinitionMacros: define_method, define_singleton_method
-Naming/PredicateName:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/bootstrap_form/form_builder.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'demo/config/application.rb'

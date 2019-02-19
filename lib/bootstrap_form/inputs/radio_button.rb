@@ -36,7 +36,7 @@ module BootstrapForm
       def radio_button_classes(name, options)
         classes = [options[:class]]
         classes << (options[:custom] ? "custom-control-input" : "form-check-input")
-        classes << "is-invalid" if has_error?(name)
+        classes << "is-invalid" if error?(name)
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end

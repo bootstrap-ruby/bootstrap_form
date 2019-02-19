@@ -43,7 +43,7 @@ module BootstrapForm
       end
 
       def errors_on(name, options={})
-        return unless has_error?(name)
+        return unless error?(name)
 
         hide_attribute_name = options[:hide_attribute_name] || false
 
