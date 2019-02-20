@@ -44,15 +44,13 @@ module BootstrapForm
       end
 
       def generate_error(name)
-        if inline_error?(name)
-          help_text = get_error_messages(name)
-          help_klass = "invalid-feedback"
-          help_tag = :div
+        return unless inline_error?(name)
 
-          content_tag(help_tag, help_text, class: help_klass)
-        else
-          ""
-        end
+        help_text = get_error_messages(name)
+        help_klass = "invalid-feedback"
+        help_tag = :div
+
+        content_tag(help_tag, help_text, class: help_klass)
       end
 
       def get_error_messages(name)
