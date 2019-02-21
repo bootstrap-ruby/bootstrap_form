@@ -5,6 +5,7 @@ module BootstrapForm
     module CollectionCheckBoxes
       extend ActiveSupport::Concern
       include Base
+      include InputsCollection
 
       included do
         def collection_check_boxes_with_bootstrap(*args)

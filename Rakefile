@@ -31,9 +31,7 @@ task "release:rubygem_push" do
   Rake.application.invoke_task("chandler:push")
 end
 
-desc 'Run RuboCop checks -- see .rubocop_todo.yml for outstanding offenses'
-RuboCop::RakeTask.new(:rubocop) do |task|
-  task.options = %w[--config .rubocop_todo.yml]
-end
+desc 'Run RuboCop checks'
+RuboCop::RakeTask.new(:rubocop)
 
 task default: %i[test rubocop]

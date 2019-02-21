@@ -5,6 +5,7 @@ module BootstrapForm
     module CollectionRadioButtons
       extend ActiveSupport::Concern
       include Base
+      include InputsCollection
 
       included do
         def collection_radio_buttons_with_bootstrap(*args)

@@ -14,6 +14,7 @@
 ### Bugfixes
 
 * Your contribution here!
+* [#522](https://github.com/bootstrap-ruby/bootstrap_form/pull/522): Clean up rubocop offences - [@simmerz](https://github.com/simmerz)
 
 ## [4.1.0][] (2019-01-19)
 
