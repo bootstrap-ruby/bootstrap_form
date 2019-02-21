@@ -7,6 +7,7 @@ module BootstrapForm
       include Base
 
       included do
+        # Disabling Metrics/ParameterLists because the upstream Rails method has the same parameters
         # rubocop:disable Metrics/ParameterLists
         def collection_select_with_bootstrap(method, collection, value_method, text_method, options={}, html_options={})
           form_group_builder(method, options, html_options) do

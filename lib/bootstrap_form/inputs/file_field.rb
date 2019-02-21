@@ -12,7 +12,7 @@ module BootstrapForm
           form_group_builder(name, options) do
             content_tag(:div, class: "custom-file") do
               input_with_error(name) do
-                file_filed_input(name, options)
+                file_field_input(name, options)
               end
             end
           end
@@ -23,7 +23,7 @@ module BootstrapForm
 
       private
 
-      def file_filed_input(name, options)
+      def file_field_input(name, options)
         placeholder = options.delete(:placeholder) || "Choose file"
         placeholder_opts = { class: "custom-file-label" }
         placeholder_opts[:for] = options[:id] if options[:id].present?

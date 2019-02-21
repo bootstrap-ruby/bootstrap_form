@@ -21,6 +21,7 @@ module BootstrapForm
         end
       end
 
+      # FIXME: Find a way to reduce the parameter list size
       # rubocop:disable Metrics/ParameterLists
       def form_group_collection_input_options(options, text, obj, index, input_value, collection)
         input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
