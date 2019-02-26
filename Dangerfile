@@ -29,7 +29,7 @@ end
 # Have you updated CHANGELOG.md?
 # ------------------------------------------------------------------------------
 if !has_changelog_changes && has_lib_changes
-  markdown <<-MARKDOWN.strip_heredoc
+  markdown <<~MARKDOWN
     Here's an example of a CHANGELOG.md entry (place it immediately under the `* Your contribution here!` line):
 
     ```markdown
