@@ -18,7 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "mime-types", "~> 2.6.2"
   s.add_development_dependency "rails", ">= 4.0"
-  s.add_development_dependency "sqlite3"
+  # sqlite3 1.4.0 breaks the test suite.
+  # https://github.com/rails/rails/pull/35154
+  s.add_development_dependency "sqlite3", "~> 1.3.6"
   s.add_development_dependency "timecop", "~> 0.7.1"
   s.add_development_dependency "mocha"
   s.add_development_dependency "appraisal"
