@@ -2,13 +2,13 @@ require 'timecop'
 require 'diffy'
 require 'nokogiri'
 require 'equivalent-xml'
-require 'mocha/mini_test'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
+require 'mocha/minitest'
 
 Rails.backtrace_cleaner.remove_silencers!
 
