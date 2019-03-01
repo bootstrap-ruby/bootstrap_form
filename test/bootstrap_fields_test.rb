@@ -1,7 +1,7 @@
 require_relative "./test_helper"
 
 class BootstrapFieldsTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   setup :setup_test_fixture
 
@@ -266,6 +266,39 @@ class BootstrapFieldsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.url_field(:misc)
+  end
+
+  test "check_box fields are wrapped correctly" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check">
+        <input name="user[misc]" type="hidden" value="0"/>
+        <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label class="form-check-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:misc)
+  end
+
+  test "custom check_box fields are wrapped correctly" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-checkbox">
+        <input name="user[misc]" type="hidden" value="0"/>
+        <input class="custom-control-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label class="custom-control-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:misc, custom: true)
+  end
+
+  test "switch-style check_box fields are wrapped correctly" do
+    expected = <<-HTML.strip_heredoc
+      <div class="custom-control custom-switch">
+        <input name="user[misc]" type="hidden" value="0"/>
+        <input class="custom-control-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label class="custom-control-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:misc, custom: :switch)
   end
 
   test "week fields are wrapped correctly" do

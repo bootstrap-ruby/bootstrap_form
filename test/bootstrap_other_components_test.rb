@@ -1,7 +1,7 @@
 require_relative "./test_helper"
 
 class BootstrapOtherComponentsTest < ActionView::TestCase
-  include BootstrapForm::Helper
+  include BootstrapForm::ActionViewExtensions::FormHelper
 
   setup :setup_test_fixture
 
@@ -132,13 +132,17 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "regular button uses proper css classes" do
-    expected = %q(<button class="btn btn-secondary" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>)
+    expected = <<-HTML.strip_heredoc
+      <button class="btn btn-secondary" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
+    HTML
     assert_equivalent_xml expected,
                           @builder.button("<span>I'm HTML!</span> in a button!".html_safe)
   end
 
   test "regular button can have extra css classes" do
-    expected = %q(<button class="btn btn-secondary test-button" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>)
+    expected = <<-HTML.strip_heredoc
+      <button class="btn btn-secondary test-button" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
+    HTML
     assert_equivalent_xml expected,
                           @builder.button("<span>I'm HTML!</span> in a button!".html_safe, extra_class: "test-button")
   end

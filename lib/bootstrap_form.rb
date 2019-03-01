@@ -5,16 +5,35 @@ if ::Rails::VERSION::STRING > "6"
   require Gem::Specification.find_by_name("actiontext").gem_dir + # rubocop:disable Rails/DynamicFindBy
           "/app/helpers/action_text/tag_helper"
 end
-require "bootstrap_form/form_builder"
-require "bootstrap_form/helper"
+require "action_view"
+require "action_pack"
+require "bootstrap_form/action_view_extensions/form_helper"
 
 module BootstrapForm
-  module Rails
-    class Engine < ::Rails::Engine
-    end
+  extend ActiveSupport::Autoload
+
+  eager_autoload do
+    autoload :FormBuilder
+    autoload :FormGroupBuilder
+    autoload :FormGroup
+    autoload :Components
+    autoload :Inputs
+    autoload :Helpers
   end
+
+  def self.eager_load!
+    super
+    BootstrapForm::Components.eager_load!
+    BootstrapForm::Helpers.eager_load!
+    BootstrapForm::Inputs.eager_load!
+  end
+
+  mattr_accessor :field_error_proc
+  # rubocop:disable Style/ClassVars
+  @@field_error_proc = proc do |html_tag, _instance_tag|
+    html_tag
+  end
+  # rubocop:enable Style/ClassVars
 end
 
-ActiveSupport.on_load(:action_view) do
-  include BootstrapForm::Helper
-end
+require "bootstrap_form/engine" if defined?(Rails)
