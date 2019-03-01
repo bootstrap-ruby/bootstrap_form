@@ -134,10 +134,10 @@ module BootstrapForm
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        label(label_name, html, class: "checkbox-inline#{disabled_class}#{label_class}")
+        label(label_name, html, { class: "checkbox-inline#{disabled_class}#{label_class}" }.merge(options[:id].present? ? { for: options[:id] } : {}))
       else
         content_tag(:div, class: "checkbox#{disabled_class}") do
-          label(label_name, html, class: label_class)
+          label(label_name, html, { class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {}))
         end
       end
     end
@@ -155,10 +155,10 @@ module BootstrapForm
 
       if options[:inline]
         label_class = " #{label_class}" if label_class
-        label(name, html, class: "radio-inline#{disabled_class}#{label_class}", value: value)
+        label(name, html, { class: "radio-inline#{disabled_class}#{label_class}", value: value }.merge(options[:id].present? ? { for: options[:id] } : {}))
       else
         content_tag(:div, class: "radio#{disabled_class}") do
-          label(name, html, value: value, class: label_class)
+          label(name, html, { value: value, class: label_class }.merge(options[:id].present? ? { for: options[:id] } : {}))
         end
       end
     end
@@ -350,11 +350,11 @@ module BootstrapForm
           label_text ||= options.delete(:label)
         end
 
-        form_group_options.merge!(label: {
+        form_group_options[:label] = {
           text: label_text,
           class: label_class,
           skip_required: options.delete(:skip_required)
-        })
+        }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
       end
 
       form_group(method, form_group_options) do
@@ -369,6 +369,10 @@ module BootstrapForm
     end
 
     def generate_label(id, name, options, custom_label_col, group_layout)
+      # id is the caller's options[:id] at the only place this method is called.
+      # The options argument is a small subset of the options that might have
+      # been passed to generate_label's caller, and definitely doesn't include
+      # :id.
       options[:for] = id if acts_like_form_tag
       classes = [options[:class], label_class]
       classes << (custom_label_col || label_col) if get_group_layout(group_layout) == :horizontal

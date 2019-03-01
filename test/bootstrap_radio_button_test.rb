@@ -22,6 +22,18 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', label_class: 'btn')
   end
 
+  test "radio_button 'id' attribute is used to specify label 'for' attribute" do
+    expected = <<-HTML.strip_heredoc
+      <div class="radio">
+        <label for="custom_id">
+          <input id="custom_id" name="user[misc]" type="radio" value="1" />
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', id: 'custom_id')
+  end
+
   test "radio_button inline label is set correctly" do
     expected = %{<label class="radio-inline" for="user_misc_1"><input id="user_misc_1" name="user[misc]" type="radio" value="1" /> This is a radio button</label>}
     assert_equivalent_xml expected, @builder.radio_button(:misc, '1', label: 'This is a radio button', inline: true)

@@ -83,6 +83,11 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email)
   end
 
+  test "field 'id' attribute is used to specify label 'for' attribute" do
+    expected = %{<div class="form-group"><label class="control-label required" for="custom_id">Email</label><input id="custom_id" class="form-control" type="text" value="steve@example.com" name="user[email]" /></div>}
+    assert_equivalent_xml expected, @builder.text_field(:email, id: :custom_id)
+  end
+
   test "time fields are wrapped correctly" do
     expected = %{<div class="form-group"><label class="control-label" for="user_misc">Misc</label><input class="form-control" id="user_misc" name="user[misc]" type="time" /></div>}
     assert_equivalent_xml expected, @builder.time_field(:misc)
