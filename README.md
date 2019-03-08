@@ -39,7 +39,7 @@ Some other nice things that `bootstrap_form` does for you are:
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form", ">= 4.1.0"
+gem "bootstrap_form", ">= 4.2.0"
 ```
 
 Then:
