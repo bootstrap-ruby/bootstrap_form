@@ -497,8 +497,7 @@ will be rendered as
 (some unimportant HTML attributes have been removed for simplicity)
 
 ## Rich Text Areas AKA Trix Editor
-If you're using Rails 6, and `bootstrap_form` from the master branch on GitHub,
-`bootstrap_form` supports the `rich_text_area` helper.
+If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
 
 ```
 <%= f.rich_text_area(:life_story) %>
@@ -512,14 +511,6 @@ will be rendered as:
   </trix-editor>
 </div>
 ```
-
-To use `bootstrap_form` from the master branch of GitHub, change the `bootstrap_form` line in your `Gemfile` to:
-```
-gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form"
-```
-
-Support for `rich_text_area` is highly experimental at this time.
-Please submit bugs to the [issue tracker](https://github.com/bootstrap-ruby/bootstrap_form/issues).
 
 ## File Fields
 The `file_field` helper generates mark-up for a Bootstrap 4 custom file field entry. It takes the [options for `text_field`](#form-helper-options), minus `append` and `prepend`.
