@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 # Uncomment and change rails version for testing purposes
-# gem "rails", "~> 5.0.0"
+gem "rails", "~> 5.2.0"
 # gem "rails", "~> 6.0.0.beta1"
 
 group :development do
