@@ -416,8 +416,19 @@ Here's the output for a horizontal layout:
 You can also create a static control that isn't based on a model attribute:
 
 ```erb
-<%= f.static_control label: "Custom Static Control" value: "Content Here" %>
+<%= f.static_control :field_name, label: "Custom Static Control" value: "Content Here" %>
 ```
+
+`field_name` may be any name that isn't already used in the form. Note that you may get "unpermitted parameter" messages in your log file with this approach.
+
+You can also create the static control the following way, if you don't need to get the value of the static control as a parameter when the form is submitted:
+
+```erb
+<%= f.static_control label: "Custom Static Control" value: "Content Here", name: nil %>
+```
+
+(If you neither provide a field name nor `name: nil`, the Rails code that submits the form will give a JavaScript error.)
+
 Prior to version 4 of `bootstrap_form`, you could pass a block to the `static_control` method.
 The value of the block would be used for the content of the static "control".
 Bootstrap 4 actually creates and styles a disabled input field for static controls, so the value of the control has to be specified by the `value:` option.
