@@ -32,7 +32,7 @@ matrix:
         - danger
         - bundle exec rake rubocop
 
-  allow_failures:
-    - rvm: ruby-head
-    - rvm: 2.5.0
-      gemfile: test/gemfiles/6.0.gemfile
+  # allow_failures:
+  #   - rvm: ruby-head
+  #   - rvm: 2.5.0
+  #     gemfile: test/gemfiles/6.0.gemfile

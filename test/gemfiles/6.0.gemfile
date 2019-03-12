@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gemspec path: "../../"
 
-gem "rails", "~> 6.0.0.beta1"
+gem "rails", "~> 6.0.0.beta2"
 
 group :development do
   gem "rubocop", require: false
