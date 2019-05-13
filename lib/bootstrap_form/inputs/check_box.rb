@@ -39,7 +39,10 @@ module BootstrapForm
 
       def check_box_description(name, options, &block)
         content = block_given? ? capture(&block) : options[:label]
-        content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize
+        return content if content
+        return object.class.human_attribute_name(name) if object
+
+        name.to_s.humanize
       end
 
       def check_box_value(name, value)
