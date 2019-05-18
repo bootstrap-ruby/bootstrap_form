@@ -11,6 +11,8 @@ module BootstrapForm
         def collection_check_boxes_with_bootstrap(*args)
           html = inputs_collection(*args) do |name, value, options|
             options[:multiple] = true
+            options[:id] = "#{name}_#{value}" if options[:id].blank?
+
             check_box(name, options, value, nil)
           end
           hidden_field(args.first, value: "", multiple: true).concat(html)
