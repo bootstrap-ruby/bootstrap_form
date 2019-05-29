@@ -11,7 +11,7 @@ group :development do
   gem "htmlbeautifier"
   gem "rubocop", require: false
   gem "sass-rails"
-  gem 'webpacker', '>= 4.0.0.rc.3'
+  gem "webpacker", ">= 4.0.0.rc.3"
 end
 
 group :test do

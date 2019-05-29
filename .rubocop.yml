@@ -59,9 +59,6 @@ Naming/MemoizedInstanceVariableName:
 Naming/VariableNumber:
   Enabled: false
 
-Performance/Casecmp:
-  Enabled: false
-
 Rails:
   Enabled: true
 
