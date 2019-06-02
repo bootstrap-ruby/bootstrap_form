@@ -63,13 +63,19 @@ merged into the master branch. Eventually the gem will be published with your ch
 ### Coding guidelines
 
 This project uses [RuboCop](https://github.com/bbatsov/rubocop) to enforce standard Ruby coding
-guidelines. Currently we run RuboCop's as described by [this post](https://tech.offgrid-electric.com/rubocop-getting-to-green-in-a-huge-rails-app-12d1ad6678eb), under the section "How to make CI pass". That means we allow certain existing RuboCop offences in the code, but prevent people from adding any new offences. So you might copy some existing code, and then discover that it doesn't pass. Please fix the new code, and if you're ambitious, fix the old code as well.
+guidelines.
 
 * Test that your contribution passes with `rake rubocop`.
 * RuboCop is also run as part of the full test suite with `bundle exec rake`.
 * Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
 
 Note that most editors have plugins to run RuboCop as you type, or when you save a file. You may find it well worth your time to install and configure the RuboCop plugin for your editor. Read the [RuboCop documentation](https://rubocop.readthedocs.io/en/latest/integration_with_other_tools/).
+
+### Supported Versions of Ruby and Rails
+
+The goal of `bootstrap_form` is to support all versions of Rails currently supported for bug fixes and security issues. We do not test against versions supported for severe security issues. We test against the minimum [version of Ruby required](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#ruby-versions) for those versions of Rails.
+
+The Ruby on Rails support policy is [here](https://guides.rubyonrails.org/maintenance_policy.html).
 
 ## Documentation Contributions
 

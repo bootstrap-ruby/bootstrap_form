@@ -3,7 +3,7 @@
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.2.2
+  TargetRubyVersion: 2.3
   Exclude:
     - "bin/*"
     - Capfile
@@ -57,9 +57,6 @@ Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
 
 Naming/VariableNumber:
-  Enabled: false
-
-Performance/Casecmp:
   Enabled: false
 
 Rails:
