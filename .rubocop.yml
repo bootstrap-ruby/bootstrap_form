@@ -1,5 +1,7 @@
 # Taken from: https://github.com/mattbrictson/rails-template/blob/master/rubocop.yml.tt
 # Modified for demo app in `demo/` directory.
+require: rubocop-rails
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
