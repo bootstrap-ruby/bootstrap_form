@@ -9,8 +9,8 @@ gem "rails", "~> 6.0.0.rc1"
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
-  gem "rubocop", require: false
-  gem "sass-rails"
+  gem "rubocop-rails", require: false
+  gem "sassc"
   gem "webpacker", ">= 4.0.0.rc.3"
 end
 
