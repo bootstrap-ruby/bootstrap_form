@@ -5,7 +5,7 @@ module BootstrapHelper
     content_tag(:div, class: "example") do
       concat(form_html)
       concat(toggle)
-      concat(codemirror)
+      concat(codemirror(form_html))
     end
   end
 
