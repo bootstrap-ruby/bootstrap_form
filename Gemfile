@@ -10,7 +10,7 @@ group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
   gem "rubocop-rails", require: false
-  gem "sassc"
+  gem "sassc-rails"
   gem "webpacker", ">= 4.0.0.rc.3"
 end
 
