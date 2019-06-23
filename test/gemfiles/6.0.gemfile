@@ -6,7 +6,7 @@ gem "rails", "~> 6.0.0.rc1"
 
 group :development do
   gem "rubocop-rails", require: false
-  gem "sass-rails"
+  gem "sassc"
   gem "webpacker", ">= 4.0.0.rc.3"
 end
 
