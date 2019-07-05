@@ -61,14 +61,14 @@ module BootstrapForm
       end
 
       def standard_radio_button_wrapper_class(options)
-        classes = ["form-check"]
+        classes = %w[form-check]
         classes << "form-check-inline" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
         classes
       end
 
       def custom_radio_button_wrapper_class(options)
-        classes = ["custom-control", "custom-radio"]
+        classes = %w[custom-control custom-radio]
         classes << "custom-control-inline" if layout_inline?(options[:inline])
         classes
       end
