@@ -386,7 +386,7 @@ To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
 <%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
 ```
 
-NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue #477.
+NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue [#477](https://github.com/bootstrap-ruby/bootstrap_form/issues/477). If you need to use the block syntax, use `collection_check_boxes_without_bootstrap` or `collection_radio_buttons_without_bootstrap` for now.
 
 Collection methods accept these options:
 * `:label`: Customize the `form_group`'s label
