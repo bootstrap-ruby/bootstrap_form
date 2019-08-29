@@ -1,8 +1,8 @@
 language: ruby
 rvm:
-  - 2.4.3
-  - 2.5.0
-  - 2.6.0
+  - 2.4.7
+  - 2.5.6
+  - 2.6.4
 gemfile:
   - test/gemfiles/5.0.gemfile
   - test/gemfiles/5.1.gemfile
@@ -15,6 +15,10 @@ script:
   - bundle exec rake test
 
 matrix:
+  exclude:
+    - rvm: 2.4.7
+      gemfile: test/gemfiles/6.0.gemfile
+
   include:
     # Bleeding edge Ruby
     - rvm: ruby-head
