@@ -7,6 +7,7 @@ gemfile:
   - test/gemfiles/5.0.gemfile
   - test/gemfiles/5.1.gemfile
   - test/gemfiles/5.2.gemfile
+  - test/gemfiles/6.0.gemfile
 before_install:
   - gem i rubygems-update -v '<3' && update_rubygems
   - gem install bundler -v 1.17.3 --no-document
