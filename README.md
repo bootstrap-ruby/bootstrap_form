@@ -28,18 +28,19 @@ Some other nice things that `bootstrap_form` does for you are:
 `bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](#bootstrap-form-with), [`bootstrap_form_for`](#bootstrap-form-for), or [`bootstrap_form_tag`](#bootstrap-form-tag) in a view file. You get a form builder that calls the [`bootstrap_form` helpers](#form-helpers) instead of the standard Rails helpers. You use that form builder in the view file to render one or more form fields.
 
 ## Requirements
-`bootstrap_form` supports currently supported versions of Rails:
 
-* Ruby 2.2.2+
+`bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
+
+* Ruby 2.4+
 * Rails 5.0+ (Rails 5.1+ for `bootstrap_form_with`)
-* Bootstrap 4.0.0+
+* Bootstrap 4.0+
 
 ## Installation
 
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form", ">= 4.2.0"
+gem "bootstrap_form"
 ```
 
 Then:
@@ -508,13 +509,17 @@ will be rendered as
 (some unimportant HTML attributes have been removed for simplicity)
 
 ## Rich Text Areas AKA Trix Editor
+
 If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
 
-```
+
+```erb
 <%= f.rich_text_area(:life_story) %>
 ```
+
 will be rendered as:
-```
+
+```html
 <div class="form-group">
   <label for="user_life_story">Life story</label>
   <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
@@ -524,9 +529,11 @@ will be rendered as:
 ```
 
 ## File Fields
+
 The `file_field` helper generates mark-up for a Bootstrap 4 custom file field entry. It takes the [options for `text_field`](#form-helper-options), minus `append` and `prepend`.
 
 ## Hidden Fields
+
 The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, and does no additional mark-up.
 
 ## Accessing Rails Form Helpers
@@ -600,7 +607,7 @@ The `label_col` and `control_col` css classes can also be changed per control:
 
 or default value can be changed in initializer:
 
-```erb
+```ruby
 # config/initializers/bootstrap_form.rb
 module BootstrapForm
   class FormBuilder
@@ -657,6 +664,7 @@ The `custom` option can be used to replace the browser default styles for check 
 ```
 
 ## Validation and Errors
+
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.
 
 ### Inline Errors
@@ -685,7 +693,7 @@ You can turn off inline errors for the entire form like this:
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
 
-```
+```erb
 <%= bootstrap_form_for(@user, label_errors: true) do |f| %>
   ...
 <% end %>
@@ -694,7 +702,7 @@ on the `:label_errors` option. Here's an example:
 By default, turning on `:label_errors` will also turn off
 `:inline_errors`. If you want both turned on, you can do that too:
 
-```
+```erb
 <%= bootstrap_form_for(@user, label_errors: true, inline_errors: true) do |f| %>
   ...
 <% end %>
@@ -803,23 +811,24 @@ here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-mod
 The Rails team has [suggested](https://github.com/rails/rails/issues/25197) that `form_for` and `form_tag` may be deprecated and then removed in future versions of Rails. `bootstrap_form` will continue to support `bootstrap_form_for` and `bootstrap_form_tag` as long as Rails supports `form_for` and `form_tag`.
 
 ## Other Tips and Edge Cases
+
 By their very nature, forms are extremely diverse. It would be extremely difficult to provide a gem that could handle every need. Here are some tips for handling edge cases.
 
 ### Empty But Visible Labels
+
 Some third party plug-ins require an empty but visible label on an input control. The `hide_label` option generates a label that won't appear on the screen, but it's considered invisible and therefore doesn't work with such a plug-in. An empty label (e.g. `""`) causes the underlying Rails helper to generate a label based on the field's attribute's name.
 
 The solution is to use a zero-width character for the label, or some other "empty" HTML. For example:
-```
+
+```ruby
 label: "&#8203;".html_safe
 ```
+
 or
-```
+
+```ruby
 label: "<span></span>".html_safe
 ```
-
-## Code Triage page
-
-http://www.codetriage.com/potenza/bootstrap_form
 
 ## Contributing
 
