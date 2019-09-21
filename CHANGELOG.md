@@ -12,6 +12,13 @@
 
 * Your contribution here!
 
+## [4.3.0][] (2019-03-08)
+
+### New features
+
+* [#503] Support Rails 6.0.0.
+* Small documentation changes.
+
 ## [4.2.0][] (2019-03-08)
 
 ### New features

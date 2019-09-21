@@ -6,13 +6,13 @@ Follow these steps to release a new version of bootstrap_form to rubygems.org.
 
 * You must have commit rights to the bootstrap_form repository.
 * You must have push rights for the bootstrap_form gem on rubygems.org.
-* You must be using Ruby >= 2.2.
+* You must be using Ruby >= 2.4.
 * Your GitHub credentials must be available to Chandler via `~/.netrc` or an environment variable, [as explained here](https://github.com/mattbrictson/chandler#2-configure-credentials).
 
 ## How to release
 
 1. Run `bundle install` to make sure that you have all the gems necessary for testing and releasing.
-2.  **Ensure the tests are passing by running `bundle exec rake`.**
+2. **Ensure the tests are passing by running `bundle exec rake`.**
 3. Determine which would be the correct next version number according to [semver](http://semver.org/).
 4. Update the version in `./lib/bootstrap_form/version.rb`.
 5. Update the `CHANGELOG.md` (for an illustration of these steps, refer to the [4.0.0.alpha1 commit](https://github.com/bootstrap-ruby/bootstrap_form/commit/8aac3667931a16537ab68038ec4cebce186bd596#diff-4ac32a78649ca5bdd8e0ba38b7006a1e) as an example):
