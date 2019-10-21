@@ -47,12 +47,16 @@ Then:
 
 `bundle install`
 
-Then require the CSS in your `application.css` file:
+Depending on which CSS pre-processor you are using, adding the bootstrap form styles differs slightly.
+If you use Rails in the default mode without any pre-processor, you'll have to add the following line to your `application.css` file:
 
 ```css
-/*
- *= require rails_bootstrap_forms
- */
+*= require rails_bootstrap_forms
+```
+
+If you followed the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails), you'll probably have switched to SCSS. In this case add the following line to your `application.scss`:
+```
+@import "rails_bootstrap_forms";
 ```
 
 ## Usage
