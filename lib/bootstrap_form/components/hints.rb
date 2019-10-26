@@ -20,10 +20,10 @@ module BootstrapForm
       def get_help_text_by_i18n_key(name)
         return unless object
 
-        partial_scope = if object.class.respond_to?(:model_name)
-                          object.class.model_name.name
+        partial_scope = if object_class.respond_to?(:model_name)
+                          object_class.model_name.name
                         else
-                          object.class.name
+                          object_class.name
                         end
 
         # First check for a subkey :html, as it is also accepted by i18n, and the
@@ -36,6 +36,10 @@ module BootstrapForm
           help_text = scoped_help_text(scope, partial_scope)
         end
         help_text
+      end
+
+      def object_class
+        object.class.to_s == "Ransack::Search" ? object.klass : object.class
       end
 
       def scoped_help_text(name, partial_scope)
