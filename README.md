@@ -621,6 +621,10 @@ module BootstrapForm
     def default_control_col
       'col-sm-8'
     end
+    def default_layout
+      # :default, :horizontal or :inline
+      :horizontal
+    end
   end
 end
 ```
