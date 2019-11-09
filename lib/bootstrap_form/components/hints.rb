@@ -39,7 +39,13 @@ module BootstrapForm
       end
 
       def object_class
-        object.class.to_s == "Ransack::Search" ? object.klass : object.class
+        if object.class.is_a?(ActiveModel::Naming)
+          object.class
+        elsif object.respond_to?(:klass) && object.klass.is_a?(ActiveModel::Naming)
+          object.klass
+        else
+          object.class
+        end
       end
 
       def scoped_help_text(name, partial_scope)
