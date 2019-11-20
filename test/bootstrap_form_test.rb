@@ -130,7 +130,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "inline-style forms" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label class="mr-sm-2 required" for="user_email">Email</label>
@@ -701,7 +701,7 @@ class BootstrapFormTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <div class="field_with_errors">

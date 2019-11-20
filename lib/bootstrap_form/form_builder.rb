@@ -45,8 +45,9 @@ module BootstrapForm
 
     delegate :content_tag, :capture, :concat, to: :@template
 
+    # rubocop:disable Metrics/AbcSize
     def initialize(object_name, object, template, options)
-      @layout = options[:layout]
+      @layout = options[:layout] || default_layout
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
@@ -57,7 +58,18 @@ module BootstrapForm
                          options[:inline_errors] != false
                        end
       @acts_like_form_tag = options[:acts_like_form_tag]
+      add_form_role_and_form_inline options
       super
+    end
+    # rubocop:enable Metrics/AbcSize
+
+    def add_form_role_and_form_inline(options)
+      options[:html] ||= {}
+      options[:html][:role] ||= "form"
+
+      return unless options[:layout] == :inline
+
+      options[:html][:class] = [options[:html][:class], "form-inline"].compact.join(" ")
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
@@ -84,6 +96,11 @@ module BootstrapForm
       end
       field_options[:label_col] = field_options[:label_col].present? ? (field_options[:label_col]).to_s : options[:label_col]
       field_options
+    end
+
+    def default_layout
+      # :default, :horizontal or :inline
+      :default
     end
 
     def default_label_col

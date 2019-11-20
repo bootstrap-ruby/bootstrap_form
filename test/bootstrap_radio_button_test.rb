@@ -98,7 +98,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label is set correctly from form level" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
