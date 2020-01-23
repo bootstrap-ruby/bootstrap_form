@@ -11,6 +11,7 @@
 ### Bugfixes
 
 * Your contribution here!
+* [#555](https://github.com/bootstrap-ruby/bootstrap_form/pull/555): Fix horizontal layout rendering without help text - [@dunn](https://github.com/dunn)
 
 ## [4.3.0][] (2019-03-08)
 

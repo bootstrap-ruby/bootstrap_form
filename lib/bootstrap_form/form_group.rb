@@ -34,7 +34,13 @@ module BootstrapForm
 
     def form_group_content(label, help_text, options, &block)
       if group_layout_horizontal?(options[:layout])
-        concat(label).concat(content_tag(:div, capture(&block) + help_text, class: form_group_control_class(options)))
+        content = if help_text
+                    capture(&block) + help_text
+                  else
+                    capture(&block)
+                  end
+
+        concat(label).concat(content_tag(:div, content, class: form_group_control_class(options)))
       else
         concat(label)
         concat(capture(&block))
