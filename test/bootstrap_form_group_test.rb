@@ -149,16 +149,18 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "append and prepend button" do
     prefix = '<div class="form-group"><label class="required" for="user_email">Email</label><div class="input-group">'
     field = '<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
-    button_prepend = '<div class="input-group-prepend"><a class="btn btn-secondary" href="#">Click</a></div>'
-    button_append = '<div class="input-group-append"><a class="btn btn-secondary" href="#">Click</a></div>'
+    button_src = link_to("Click", "#", class: "btn btn-secondary")
+    button_prepend = "<div class=\"input-group-prepend\">#{button_src}</div>"
+    button_append = "<div class=\"input-group-append\">#{button_src}</div>"
     suffix = "</div></div>"
     after_button = prefix + field + button_append + suffix
     before_button = prefix + button_prepend + field + suffix
     both_button = prefix + button_prepend + field + button_append + suffix
-    button_src = link_to("Click", "#", class: "btn btn-secondary")
+    multiple_button = prefix + button_prepend + button_prepend + field + button_append + button_append + suffix
     assert_equivalent_xml after_button, @builder.text_field(:email, append: button_src)
     assert_equivalent_xml before_button, @builder.text_field(:email, prepend: button_src)
     assert_equivalent_xml both_button, @builder.text_field(:email, append: button_src, prepend: button_src)
+    assert_equivalent_xml multiple_button, @builder.text_field(:email, append: [button_src] * 2, prepend: [button_src] * 2)
   end
 
   test "adding both prepend and append text" do

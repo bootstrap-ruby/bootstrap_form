@@ -82,7 +82,7 @@ module BootstrapForm
 
         input = capture(&block) || ActiveSupport::SafeBuffer.new
 
-        input = prepend_input(options) + input + append_input(options)
+        input = attach_input(options, :prepend) + input + attach_input(options, :append)
         input += generate_error(name)
         options.present? &&
           input = content_tag(:div, input, class: ["input-group", options[:input_group_class]].compact)
@@ -106,14 +106,11 @@ module BootstrapForm
 
       private
 
-      def append_input(options)
-        html = content_tag(:div, input_group_content(options[:append]), class: "input-group-append") if options[:append]
-        html || ActiveSupport::SafeBuffer.new
-      end
-
-      def prepend_input(options)
-        html = content_tag(:div, input_group_content(options[:prepend]), class: "input-group-prepend") if options[:prepend]
-        html || ActiveSupport::SafeBuffer.new
+      def attach_input(options, key)
+        tags = [*options[key]].map do |item|
+          content_tag(:div, input_group_content(item), class: "input-group-#{key}")
+        end
+        ActiveSupport::SafeBuffer.new(tags.join)
       end
 
       def setup_css_class(the_class, options={})

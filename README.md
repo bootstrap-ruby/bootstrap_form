@@ -276,6 +276,12 @@ You can pass `prepend` and/or `append` options to input fields:
 <%= f.text_field :price, prepend: "$", append: ".00" %>
 ```
 
+If you want to attach multiple items to the input, pass them as an array:
+
+```erb
+<%= f.text_field :price, prepend: ['Net', '$'], append: ['.00', 'per day'] %>
+```
+
 You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
