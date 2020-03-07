@@ -1,13 +1,13 @@
 source "http://rubygems.org"
 
-gemspec path: "../../"
+gemspec path: "../"
 
-gem "rails", "~> 6.0.0"
+gem "rails", git: "https://github.com/rails/rails.git"
 
 group :development do
   gem "rubocop-rails", require: false
-  gem "sassc"
-  gem "webpacker", ">= 4.0.0.rc.3"
+  gem "sassc-rails"
+  gem "webpacker"
 end
 
 group :test do

@@ -20,6 +20,7 @@ AllCops:
     - "demo/tmp/**/*"
     - "demo/vendor/**/*"
     - Gemfile
+    - gemfiles/vendor/bundle/**/*
     - Guardfile
     - Rakefile
 
