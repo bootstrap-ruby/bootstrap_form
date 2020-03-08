@@ -6,6 +6,7 @@
 
 ### New features
 
+* [#557](https://github.com/bootstrap-ruby/bootstrap_form/pull/557): Allow prepending and appending multiple items to an input by passing an array to `prepend` and `append` options - [@donv](https://github.com/donv).
 * Your contribution here!
 
 ### Bugfixes
