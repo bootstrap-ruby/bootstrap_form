@@ -6,14 +6,24 @@
 
 ### New features
 
-* [#557](https://github.com/bootstrap-ruby/bootstrap_form/pull/557): Allow prepending and appending multiple items to an input by passing an array to `prepend` and `append` options - [@donv](https://github.com/donv).
 * Your contribution here!
 
 ### Bugfixes
 
 * Your contribution here!
 
-## [4.3.0][] (2019-03-08)
+## [4.4.0][] (2020-03-08)
+
+### New features
+
+* [#557](https://github.com/bootstrap-ruby/bootstrap_form/pull/557): Allow prepending and appending multiple items to an input by passing an array to `prepend` and `append` options - [@donv](https://github.com/donv).
+* [#550](https://github.com/bootstrap-ruby/bootstrap_form/pull/550): Add `default_layout` so we can use it for all forms - [@duleorlovic](https://github.com/duleorlovic).
+
+### Bugfixes
+
+* Your contribution here!
+
+## [4.3.0][] (2019-09-22)
 
 ### New features
 
@@ -276,7 +286,9 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...HEAD
+[4.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...v4.3.0
 [4.2.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0.alpha1...v4.0.0

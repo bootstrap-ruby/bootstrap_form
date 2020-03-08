@@ -55,7 +55,8 @@ If you use Rails in the default mode without any pre-processor, you'll have to a
 ```
 
 If you followed the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails), you'll probably have switched to SCSS. In this case add the following line to your `application.scss`:
-```
+
+```scss
 @import "rails_bootstrap_forms";
 ```
 
@@ -238,7 +239,8 @@ To add help text, use the `help` option:
 ```
 
 This generates:
-```
+
+```html
 <small class="form-text text-muted">Must be at least 6 characters long</small>
 ```
 
@@ -318,9 +320,9 @@ If you only want to set the class on the form group div, you can use the `wrappe
 
 ### Suppressing the Form Group Altogether
 
-You may have want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
+You may want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
 
-```
+```ruby
 f.form_group :user do
   f.email_field :email, wrapper: false
 end
@@ -379,6 +381,7 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
+
 ### Switches
 
 To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
@@ -400,6 +403,7 @@ To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
 NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue [#477](https://github.com/bootstrap-ruby/bootstrap_form/issues/477). If you need to use the block syntax, use `collection_check_boxes_without_bootstrap` or `collection_radio_buttons_without_bootstrap` for now.
 
 Collection methods accept these options:
+
 * `:label`: Customize the `form_group`'s label
 * `:hide_label`: Pass true to hide the `form_group`'s label
 * `:help`: Add a help span to the `form_group`
@@ -521,7 +525,6 @@ will be rendered as
 ## Rich Text Areas AKA Trix Editor
 
 If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
-
 
 ```erb
 <%= f.rich_text_area(:life_story) %>
@@ -853,4 +856,4 @@ document first.
 
 ## License
 
-MIT License. Copyright 2012-2019 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2020 Stephen Potenza (https://github.com/potenza) and others
