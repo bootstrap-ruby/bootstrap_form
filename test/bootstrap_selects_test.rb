@@ -37,7 +37,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "time zone selects are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_misc">Misc</label>
@@ -192,7 +192,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "collection_selects are wrapped correctly with error" do
     @user.errors.add(:status, "error for test")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_status">Status</label>
@@ -253,7 +253,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "grouped_collection_selects are wrapped correctly with error" do
     @user.errors.add(:status, "error for test")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_status">Status</label>
@@ -340,7 +340,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "date selects inline when layout is horizontal" do
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group row">
           <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
@@ -368,7 +368,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     Timecop.freeze(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -469,7 +469,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -577,7 +577,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>

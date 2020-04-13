@@ -186,7 +186,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label class="required" for="user_email">Email</label>
@@ -432,7 +432,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <div class="form-check">
@@ -491,7 +491,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group none-margin">
           <label class="required" for="user_email">Email</label>
@@ -595,7 +595,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "custom form group layout option" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group form-inline">
           <label class="mr-sm-2 required" for="user_email">Email</label>

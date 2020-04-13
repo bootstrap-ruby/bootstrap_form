@@ -31,7 +31,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "radio_button with error is wrapped correctly" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-check">
         <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -98,7 +98,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label is set correctly from form level" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -182,7 +182,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -417,7 +417,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "radio_button with error is wrapped correctly with custom option set" do
     @user.errors.add(:misc, "error for test")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="custom-control custom-radio">
         <input class="custom-control-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />

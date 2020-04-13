@@ -123,7 +123,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes from form layout" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
@@ -581,7 +581,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     @user.errors.add(:misc, "a box must be checked")
 
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="form-group">
@@ -610,7 +610,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
         <div class="form-group">
@@ -637,7 +637,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box renders error when asked" do
     @user.errors.add(:terms, "You must accept the terms.")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
@@ -658,7 +658,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box with error is wrapped correctly with custom option set" do
     @user.errors.add(:terms, "You must accept the terms.")
     expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="custom-control custom-checkbox">
         <input name="user[terms]" type="hidden" value="0" />

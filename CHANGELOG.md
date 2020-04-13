@@ -10,7 +10,7 @@
 
 ### Bugfixes
 
-* Your contribution here!
+* [#560](https://github.com/bootstrap-ruby/bootstrap_form/pull/560): Do not set role="form" by default - [@sharshenov](https://github.com/sharshenov).
 
 ## [4.4.0][] (2020-03-08)
 

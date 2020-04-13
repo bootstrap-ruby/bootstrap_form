@@ -65,7 +65,6 @@ module BootstrapForm
 
     def add_form_role_and_form_inline(options)
       options[:html] ||= {}
-      options[:html][:role] ||= "form"
 
       return unless options[:layout] == :inline
 
