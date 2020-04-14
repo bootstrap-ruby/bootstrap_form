@@ -341,6 +341,26 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: "not-a-form" }) { |_f| nil }
   end
 
+  test "allows to set blank default form attributes via configuration" do
+    BootstrapForm.config.stubs(:default_form_attributes).returns({})
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
+  end
+
+  test "allows to set custom default form attributes via configuration" do
+    BootstrapForm.config.stubs(:default_form_attributes).returns({ foo: "bar" })
+    expected = <<-HTML.strip_heredoc
+      <form accept-charset="UTF-8" action="/users" class="new_user" foo="bar" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
+  end
+
   test "bootstrap_form_tag acts like a form tag" do
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" method="post" role="form">

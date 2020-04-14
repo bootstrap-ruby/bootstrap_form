@@ -13,6 +13,7 @@ module BootstrapForm
   extend ActiveSupport::Autoload
 
   eager_autoload do
+    autoload :Configuration
     autoload :FormBuilder
     autoload :FormGroupBuilder
     autoload :FormGroup
@@ -21,11 +22,21 @@ module BootstrapForm
     autoload :Helpers
   end
 
-  def self.eager_load!
-    super
-    BootstrapForm::Components.eager_load!
-    BootstrapForm::Helpers.eager_load!
-    BootstrapForm::Inputs.eager_load!
+  class << self
+    def eager_load!
+      super
+      BootstrapForm::Components.eager_load!
+      BootstrapForm::Helpers.eager_load!
+      BootstrapForm::Inputs.eager_load!
+    end
+
+    def config
+      @config ||= BootstrapForm::Configuration.new
+    end
+
+    def configure
+      yield config
+    end
   end
 
   mattr_accessor :field_error_proc

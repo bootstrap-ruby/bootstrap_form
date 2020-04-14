@@ -58,14 +58,14 @@ module BootstrapForm
                          options[:inline_errors] != false
                        end
       @acts_like_form_tag = options[:acts_like_form_tag]
-      add_form_role_and_form_inline options
+      add_default_form_attributes_and_form_inline options
       super
     end
     # rubocop:enable Metrics/AbcSize
 
-    def add_form_role_and_form_inline(options)
+    def add_default_form_attributes_and_form_inline(options)
       options[:html] ||= {}
-      options[:html][:role] ||= "form"
+      options[:html].reverse_merge!(BootstrapForm.config.default_form_attributes)
 
       return unless options[:layout] == :inline
 

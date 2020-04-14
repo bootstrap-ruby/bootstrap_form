@@ -150,6 +150,18 @@ in `form_with`.
 
 `form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
 
+
+## Configuration
+
+`bootstrap_form` has some default options that can be overriden:
+
+```ruby
+# config/initializers/bootstrap_form.rb
+BootstrapForm.configure do |c|
+  # c.default_form_attributes = { role: "form" }
+end
+```
+
 ## Form Helpers
 
 `bootstrap_form` provides its own version of the following Rails form helpers:
