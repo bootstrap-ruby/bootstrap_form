@@ -2,16 +2,22 @@
 
 module BootstrapForm
   class Configuration
-    DEFAULT = {
-      default_form_attributes: {
-        role: "form"
-      }
-    }.freeze
+    def default_form_attributes=(attributes)
+      case attributes
+      when nil
+        @default_form_attributes = {}
+      when Hash
+        @default_form_attributes = attributes
+      else
+        raise ArgumentError, "Unsupported default_form_attributes #{attributes.inspect}"
+      end
+    end
 
-    DEFAULT.keys.each { |key| attr_accessor key }
+    def default_form_attributes
+      return @default_form_attributes if defined? @default_form_attributes
 
-    def initialize
-      DEFAULT.each { |key, value| send("#{key}=", value) }
+      # TODO: Return blank hash ({}) in 5.0.0. Role "form" for form tags is redundant and makes W3C to raise a warning.
+      { role: "form" }
     end
   end
 end

@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
                   "easy to create beautiful-looking forms using Bootstrap 4"
   s.license     = "MIT"
 
+  s.post_install_message = "Default form attribute role=\"form\" will be dropped in 5.0.0"
+
   s.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test)/})
   end
