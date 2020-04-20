@@ -150,6 +150,26 @@ in `form_with`.
 
 `form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
 
+
+## Configuration
+
+`bootstrap_form` can be used out-of-the-box without any configuration. However, `bootstrap_form` does have an optional configuration file at `config/initializers/bootstrap_form.rb` for setting options that affect all generated forms in an application.
+
+The current configuration options are:
+
+| Option | Default value | Description |
+|---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `default_form_attributes` | `{role: "form"}` | version [2.2.0](https://github.com/bootstrap-ruby/bootstrap_form/blob/master/CHANGELOG.md#220-2014-09-16) added a role="form" attribute to all forms.   The W3C validator will raise a **warning** on forms with a role="form" attribute.   Set this option to `{}` to make forms be W3C compliant. |
+
+
+Example:
+```ruby
+# config/initializers/bootstrap_form.rb
+BootstrapForm.configure do |c|
+  c.default_form_attributes = {} # to make forms W3C compliant
+end
+```
+
 ## Form Helpers
 
 `bootstrap_form` provides its own version of the following Rails form helpers:

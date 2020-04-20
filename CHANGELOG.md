@@ -6,7 +6,7 @@
 
 ### New features
 
-* Your contribution here!
+* [#562](https://github.com/bootstrap-ruby/bootstrap_form/pull/562): Allow to configure default form attributes - [@sharshenov](https://github.com/sharshenov).
 
 ### Bugfixes
 
