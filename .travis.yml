@@ -1,12 +1,9 @@
 language: ruby
 rvm:
-  - 2.7
+  - 2.7.1
   - 2.6.5
   - 2.5.7
-  - 2.4.9
 gemfile:
-  - gemfiles/5.0.gemfile
-  - gemfiles/5.1.gemfile
   - gemfiles/5.2.gemfile
   - gemfiles/6.0.gemfile
 cache:
@@ -15,21 +12,17 @@ script:
   - bundle exec rake test
 
 matrix:
-  exclude:
-    - rvm: 2.4.9
-      gemfile: gemfiles/6.0.gemfile
-
   include:
     # Bleeding edge Ruby
     - rvm: ruby-head
       gemfile: gemfiles/6.0.gemfile
 
     # Next version of Rails
-    - rvm: 2.5.7
+    - rvm: 2.7.1
       gemfile: gemfiles/edge.gemfile
 
     # Running one job to execute DANGER bot and linting
-    - rvm: 2.5.7
+    - rvm: 2.7.1
       gemfile: gemfiles/6.0.gemfile
       script:
         - gem install danger
@@ -38,5 +31,5 @@ matrix:
 
   allow_failures:
     - rvm: ruby-head
-    - rvm: 2.5.7
+    - rvm: 2.7.1
       gemfile: gemfiles/edge.gemfile
