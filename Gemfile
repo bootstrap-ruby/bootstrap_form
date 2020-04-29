@@ -11,16 +11,13 @@ group :development do
   gem "htmlbeautifier"
   gem "rubocop-rails", require: false
   gem "sassc-rails"
-  gem "webpacker", ">= 4.0.0.rc.3"
+  gem "webpacker"
 end
 
 group :test do
   # can relax version requirement for Rails 5.2.beta3+
-  gem "minitest", "~> 5.10.3"
-
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
   gem "sqlite3"
-  gem "timecop", "~> 0.7.1"
 end

@@ -456,13 +456,12 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "label error messages use humanized attribute names" do
-    begin
-      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
 
-      @user.email = nil
-      assert @user.invalid?
+    @user.email = nil
+    assert @user.invalid?
 
-      expected = <<-HTML.strip_heredoc
+    expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
           #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
           <div class="form-group">
@@ -471,11 +470,10 @@ class BootstrapFormTest < ActionView::TestCase
             <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           </div>
         </form>
-      HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
-    ensure
-      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
-    end
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+  ensure
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
   end
 
   test "alert message is wrapped correctly" do
@@ -759,14 +757,13 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help translations do not escape HTML when _html is appended to the name" do
-    begin
-      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: "This is <strong>useful</strong> help" } } })
+    I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: "This is <strong>useful</strong> help" } } })
 
-      output = bootstrap_form_for(@user) do |f|
-        f.text_field(:email)
-      end
+    output = bootstrap_form_for(@user) do |f|
+      f.text_field(:email)
+    end
 
-      expected = <<-HTML.strip_heredoc
+    expected = <<-HTML.strip_heredoc
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
           #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
           <div class="form-group">
@@ -775,11 +772,10 @@ class BootstrapFormTest < ActionView::TestCase
             <small class="form-text text-muted">This is <strong>useful</strong> help</small>
           </div>
         </form>
-      HTML
-      assert_equivalent_xml expected, output
-    ensure
-      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: nil } } })
-    end
+    HTML
+    assert_equivalent_xml expected, output
+  ensure
+    I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: nil } } })
   end
 
   test "allows the form object to be nil" do

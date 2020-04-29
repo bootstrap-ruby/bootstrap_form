@@ -294,7 +294,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "date selects are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -316,7 +316,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "date selects are wrapped correctly with wrapper class" do
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group none-margin">
           <label for="user_misc">Misc</label>
@@ -338,7 +338,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "date selects inline when layout is horizontal" do
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
@@ -366,7 +366,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "date selects are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
@@ -392,7 +392,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "date selects with options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -418,7 +418,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "date selects with options and html_options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3)) do
+    travel_to(Time.utc(2012, 2, 3)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -443,7 +443,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "time selects are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -467,7 +467,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "time selects are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
@@ -494,7 +494,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "time selects with options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -519,7 +519,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "time selects with options and html_options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -544,7 +544,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "datetime selects are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -575,7 +575,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "datetime selects are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
@@ -609,7 +609,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "datetime selects with options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
@@ -644,7 +644,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   test "datetime selects with options and html_options are wrapped correctly" do
-    Timecop.freeze(Time.utc(2012, 2, 3, 12, 0, 0)) do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="user_misc">Misc</label>
