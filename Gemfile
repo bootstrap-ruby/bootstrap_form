@@ -20,5 +20,4 @@ group :test do
   gem "equivalent-xml"
   gem "mocha"
   gem "sqlite3"
-  gem "timecop", "~> 0.7.1"
 end
