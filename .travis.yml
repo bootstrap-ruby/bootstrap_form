@@ -4,8 +4,8 @@ rvm:
   - 2.6.5
   - 2.5.7
 gemfile:
-  - gemfiles/5.2.gemfile
   - gemfiles/6.0.gemfile
+  - gemfiles/5.2.gemfile
 cache:
   bundler: true
 script:
