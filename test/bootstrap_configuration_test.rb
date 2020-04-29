@@ -18,15 +18,15 @@ class BootstrapConfigurationTest < ActionView::TestCase
     config = BootstrapForm::Configuration.new
     config.default_form_attributes = nil
 
-    assert_equal({ }, config.default_form_attributes)
+    assert_equal({}, config.default_form_attributes)
   end
 
   test "does not allow to set default_form_attributes with unsupported value" do
     config = BootstrapForm::Configuration.new
 
     exception = assert_raises ArgumentError do
-      config.default_form_attributes = [1,2,3]
+      config.default_form_attributes = [1, 2, 3]
     end
-    assert_equal('Unsupported default_form_attributes [1, 2, 3]', exception.message)
+    assert_equal("Unsupported default_form_attributes [1, 2, 3]", exception.message)
   end
 end
