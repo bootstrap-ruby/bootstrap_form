@@ -5,6 +5,7 @@ gemspec
 # Uncomment and change rails version for testing purposes
 # gem "rails", "~> 5.2.0"
 gem "rails", "~> 6.0.0"
+# gem "rails", git: "https://github.com/rails/rails.git"
 
 group :development do
   gem "chandler", ">= 0.7.0"

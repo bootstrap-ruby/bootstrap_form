@@ -15,7 +15,7 @@ matrix:
   include:
     # Bleeding edge Ruby
     - rvm: ruby-head
-      gemfile: gemfiles/6.0.gemfile
+      gemfile: gemfiles/edge.gemfile
 
     # Next version of Rails
     - rvm: 2.7.1
