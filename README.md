@@ -31,8 +31,8 @@ Some other nice things that `bootstrap_form` does for you are:
 
 `bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
 
-* Ruby 2.4+
-* Rails 5.0+ (Rails 5.1+ for `bootstrap_form_with`)
+* Ruby 2.5+
+* Rails 5.2+
 * Bootstrap 4.0+
 
 ## Installation
@@ -107,7 +107,7 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 <% end %>
 ```
 
-### bootstrap_form_with (Rails 5.1+)
+### bootstrap_form_with
 
 Note that `form_with` in Rails 5.1 does not add IDs to form elements and labels by default, which are both important to Bootstrap markup. This behaviour is corrected in Rails 5.2.
 
