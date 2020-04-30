@@ -10,6 +10,7 @@ gem "rails", "~> 6.0.0"
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
+  gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "sassc-rails"
   gem "webpacker"

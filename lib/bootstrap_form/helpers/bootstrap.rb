@@ -95,7 +95,7 @@ module BootstrapForm
       end
 
       def input_group_content(content)
-        return content if content =~ /btn/
+        return content if /btn/.match?(content)
 
         content_tag(:span, content, class: "input-group-text")
       end
