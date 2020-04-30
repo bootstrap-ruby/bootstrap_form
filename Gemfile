@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gemspec
+gemspec path: __dir__
 
 # Uncomment and change rails version for testing purposes
 # gem "rails", "~> 5.2.0"

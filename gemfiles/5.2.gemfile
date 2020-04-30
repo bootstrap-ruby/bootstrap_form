@@ -1,17 +1,4 @@
-source "http://rubygems.org"
-
-gemspec path: "../"
+gems = "#{File.dirname __dir__}/Gemfile"
+eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 gem "rails", "~> 5.2.0"
-
-group :development do
-  gem "rubocop-rails", require: false
-end
-
-group :test do
-  gem "diffy"
-  gem "equivalent-xml"
-  gem "mocha"
-  gem "sqlite3", "~> 1.4"
-  gem "timecop", "~> 0.7.1"
-end
