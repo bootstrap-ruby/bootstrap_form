@@ -28,4 +28,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency("actionpack", ">= 5.2")
   s.add_dependency("activemodel", ">= 5.2")
+
+  s.add_development_dependency("rails", "~> 6.0.0")
 end
