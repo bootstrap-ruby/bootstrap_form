@@ -6,11 +6,17 @@
 
 ### New features
 
-* [#562](https://github.com/bootstrap-ruby/bootstrap_form/pull/562): Allow to configure default form attributes - [@sharshenov](https://github.com/sharshenov).
+* Your contribution here!
 
 ### Bugfixes
 
 * Your contribution here!
+
+## [4.5.0][] (2020-04-29)
+
+### New features
+
+* [#562](https://github.com/bootstrap-ruby/bootstrap_form/pull/562): Allow to configure default form attributes - [@sharshenov](https://github.com/sharshenov).
 
 ## [4.4.0][] (2020-03-08)
 
@@ -286,7 +292,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...HEAD
+[4.5.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0
 [4.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...v4.3.0
 [4.2.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.1.0...v4.2.0
