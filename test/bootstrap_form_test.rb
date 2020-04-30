@@ -352,7 +352,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "allows to set custom default form attributes via configuration" do
-    BootstrapForm.config.stubs(:default_form_attributes).returns({ foo: "bar" })
+    BootstrapForm.config.stubs(:default_form_attributes).returns(foo: "bar")
     expected = <<-HTML.strip_heredoc
       <form accept-charset="UTF-8" action="/users" class="new_user" foo="bar" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
