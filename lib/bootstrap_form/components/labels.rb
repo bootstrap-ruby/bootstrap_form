@@ -48,7 +48,7 @@ module BootstrapForm
         if label_errors && error?(name)
           (options[:text] || object.class.human_attribute_name(name)).to_s.concat(" #{get_error_messages(name)}")
         else
-          options[:text] || object.class.human_attribute_name(name)
+          options[:text] || object&.class&.human_attribute_name(name)
         end
       end
     end
