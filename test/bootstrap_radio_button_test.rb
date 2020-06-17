@@ -393,76 +393,6 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" }, :street)
   end
 
-  test "radio_button is wrapped correctly with custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", custom: true)
-  end
-
-  test "radio_button is wrapped correctly with id option and custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input" id="custom_id" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="custom_id">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", id: "custom_id", custom: true)
-  end
-
-  test "radio_button with error is wrapped correctly with custom option set" do
-    @user.errors.add(:misc, "error for test")
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-        <div class="invalid-feedback">error for test</div>
-      </div>
-    </form>
-    HTML
-    actual = bootstrap_form_for(@user) do |f|
-      f.radio_button(:misc, "1", label: "This is a radio button", custom: true, error_message: true)
-    end
-    assert_equivalent_xml expected, actual
-  end
-
-  test "radio_button is wrapped correctly with custom and inline options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio custom-control-inline">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, custom: true)
-  end
-
-  test "radio_button is wrapped correctly with custom and disabled options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" disabled="disabled"/>
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", disabled: true, custom: true)
-  end
-  test "radio_button is wrapped correctly with custom, inline and disabled options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio custom-control-inline">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" disabled="disabled"/>
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
-                                                            disabled: true, custom: true)
-  end
-
   test "radio button skip label" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
@@ -471,6 +401,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", skip_label: true)
   end
+
   test "radio button hide label" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
@@ -479,27 +410,6 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", hide_label: true)
-  end
-
-  test "radio button skip label with custom option set" do
-    expected = <<-HTML.strip_heredoc
-    <div class="custom-control custom-radio">
-      <input class="custom-control-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-    </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", custom: true, skip_label: true)
-  end
-
-  test "radio button hide label with custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio">
-        <input class="custom-control-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label sr-only" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", custom: true, hide_label: true)
   end
 
   test "radio button with custom wrapper class" do
@@ -527,29 +437,5 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     assert_equivalent_xml expected,
                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
                                                             wrapper_class: "custom-class")
-  end
-
-  test "custom radio button with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio custom-class">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", custom: true,
-                                                            wrapper_class: "custom-class")
-  end
-
-  test "custom inline radio button with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-radio custom-control-inline custom-class">
-        <input class="custom-control-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="custom-control-label" for="user_misc_1">This is a radio button</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
-                                                            custom: true, wrapper_class: "custom-class")
   end
 end
