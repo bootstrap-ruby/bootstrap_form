@@ -51,14 +51,22 @@ module BootstrapForm
 
     def form_group_classes(options)
       classes = ["mb-3", options[:class].try(:split)].flatten.compact
-      classes << "row" if group_layout_horizontal?(options[:layout]) && classes.exclude?("form-row")
+      classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
       classes << "form-inline" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
       classes
     end
 
+    def horizontal_group_with_gutters?(layout, classes)
+      group_layout_horizontal?(layout) && !classes_include_gutters?(classes)
+    end
+
     def group_layout_horizontal?(layout)
       get_group_layout(layout) == :horizontal
+    end
+
+    def classes_include_gutters?(classes)
+      classes.any? { |c| c =~ /g-\d+/ }
     end
   end
 end

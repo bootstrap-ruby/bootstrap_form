@@ -225,17 +225,17 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_field(:email)
   end
 
-  test "text fields are wrapped correctly when horizontal and form-row given" do
+  test "text fields are wrapped correctly when horizontal and gutter classes are given" do
     expected = <<-HTML.strip_heredoc
-      <div class="mb-3 form-row">
+      <div class="mb-3 g-3">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "form-row")
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper: { class: "form-row" })
+    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "g-3")
+    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper: { class: "g-3" })
   end
 
   test "field 'id' attribute is used to specify label 'for' attribute" do

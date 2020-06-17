@@ -368,12 +368,12 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "form_group horizontal lets caller override .row" do
-    output = @horizontal_builder.form_group class: "form-row" do
+    output = @horizontal_builder.form_group class: "g-3" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="mb-3 form-row">
+      <div class="mb-3 g-3">
         <div class="col-sm-10 offset-sm-2">
           <input class="form-control-plaintext" value="Bar">
         </div>
