@@ -171,7 +171,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -189,7 +189,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -214,7 +214,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -238,7 +238,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -263,7 +263,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -290,7 +290,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -313,7 +313,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
@@ -330,7 +330,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -354,7 +354,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -378,7 +378,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -402,7 +402,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -427,7 +427,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -454,7 +454,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
@@ -506,7 +506,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
+      <div class="mb-3">
         <label for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
@@ -535,7 +535,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-        <div class="form-group">
+        <div class="mb-3">
           <label for="user_misc">Misc</label>
           <div class="form-check">
             <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />

@@ -73,11 +73,11 @@ This generates the following HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-group">
+  <div class="mb-3">
     <label for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" type="email">
   </div>
-  <div class="form-group">
+  <div class="mb-3">
     <label for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
@@ -121,11 +121,11 @@ This generates:
 ```html
 <form role="form" action="/users" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
-  <div class="form-group">
+  <div class="mb-3">
     <label class="required" for="user_email">Email</label>
     <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
   </div>
-  <div class="form-group">
+  <div class="mb-3">
     <label for="user_password">Password</label>
     <input class="form-control" type="password" name="user[password]" />
     <small class="form-text text-muted">A good password should be at least six characters long</small>
@@ -314,7 +314,7 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 
 ### Additional Form Group Attributes
 
-Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.form-group`.
+Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.mb-3`.
 
 If you want to add an additional CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'additional-class', data: { foo: 'bar' } }` option.
 
@@ -325,7 +325,7 @@ If you want to add an additional CSS class or any other attribute to the form gr
 Which produces the following output:
 
 ```erb
-<div class="form-group has-warning" data-foo="bar">
+<div class="mb-3 has-warning" data-foo="bar">
   <label class="form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
@@ -435,7 +435,7 @@ You can create a static control like this:
 Here's the output for a horizontal layout:
 
 ```html
-<div class="form-group">
+<div class="mb-3">
   <label class="col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="test@email.com"/>
@@ -548,7 +548,7 @@ If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
 will be rendered as:
 
 ```html
-<div class="form-group">
+<div class="mb-3">
   <label for="user_life_story">Life story</label>
   <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
   <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
@@ -705,8 +705,8 @@ By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Here's an example:
 
 ```html
-<div class="form-group">
-  <label class="form-control-label" for="user_email">Email</label>
+<div class="mb-3">
+  <label form-control-label" for="user_email">Email</label>
   <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
   <small class="invalid-feedback">can't be blank</small>
 </div>

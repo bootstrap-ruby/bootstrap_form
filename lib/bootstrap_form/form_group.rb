@@ -50,7 +50,7 @@ module BootstrapForm
     end
 
     def form_group_classes(options)
-      classes = ["form-group", options[:class].try(:split)].flatten.compact
+      classes = ["mb-3", options[:class].try(:split)].flatten.compact
       classes << "row" if group_layout_horizontal?(options[:layout]) && classes.exclude?("form-row")
       classes << "form-inline" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
