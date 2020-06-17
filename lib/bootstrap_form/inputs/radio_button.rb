@@ -10,7 +10,7 @@ module BootstrapForm
         def radio_button_with_bootstrap(name, value, *args)
           options = args.extract_options!.symbolize_keys!
           radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                                :inline, :custom, :hide_label, :skip_label, :wrapper_class)
+                                                :inline, :hide_label, :skip_label, :wrapper_class)
 
           radio_button_options[:class] = radio_button_classes(name, options)
 
@@ -34,43 +34,25 @@ module BootstrapForm
       end
 
       def radio_button_classes(name, options)
-        classes = [options[:class]]
-        classes << (options[:custom] ? "custom-control-input" : "form-check-input")
+        classes = [options[:class], "form-check-input"]
         classes << "is-invalid" if error?(name)
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end
 
       def radio_button_label_class(options)
-        classes = []
-        classes << (options[:custom] ? "custom-control-label" : "form-check-label")
+        classes = ["form-check-label"]
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
         classes.flatten.compact
       end
 
       def radio_button_wrapper_class(options)
-        classes = []
-        classes << if options[:custom]
-                     custom_radio_button_wrapper_class(options)
-                   else
-                     standard_radio_button_wrapper_class(options)
-                   end
-        classes << options[:wrapper_class] if options[:wrapper_class].present?
-        classes.flatten.compact
-      end
-
-      def standard_radio_button_wrapper_class(options)
-        classes = %w[form-check]
+        classes = ["form-check"]
         classes << "form-check-inline" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
-        classes
-      end
-
-      def custom_radio_button_wrapper_class(options)
-        classes = %w[custom-control custom-radio]
-        classes << "custom-control-inline" if layout_inline?(options[:inline])
-        classes
+        classes << options[:wrapper_class] if options[:wrapper_class].present?
+        classes.flatten.compact
       end
     end
   end
