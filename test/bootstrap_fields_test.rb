@@ -59,9 +59,9 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <div class="custom-file">
-          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
-          <label class="custom-file-label" for="user_misc">Choose file</label>
+        <div class="form-file">
+          <input class="form-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="form-file-label" for="user_misc">Choose file</label>
         </div>
       </div>
     HTML
@@ -72,9 +72,9 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <div class="custom-file">
-          <input class="custom-file-input" id="user_misc" name="user[misc]" type="file" />
-          <label class="custom-file-label" for="user_misc">Pick a file</label>
+        <div class="form-file">
+          <input class="form-file-input" id="user_misc" name="user[misc]" type="file" />
+          <label class="form-file-label" for="user_misc">Pick a file</label>
         </div>
       </div>
     HTML
@@ -86,9 +86,9 @@ class BootstrapFieldsTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
         <div class="form-group">
           <label for="custom-id">Misc</label>
-          <div class="custom-file">
-            <input class="custom-file-input" id="custom-id" name="user[misc]" type="file" />
-            <label class="custom-file-label" for="custom-id">Choose file</label>
+          <div class="form-file">
+            <input class="form-file-input" id="custom-id" name="user[misc]" type="file" />
+            <label class="form-file-label" for="custom-id">Choose file</label>
           </div>
         </div>
       HTML
@@ -103,9 +103,9 @@ class BootstrapFieldsTest < ActionView::TestCase
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-group">
         <label for="user_misc">Misc</label>
-        <div class="custom-file">
-          <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
-          <label class="custom-file-label" for="user_misc">Choose file</label>
+        <div class="form-file">
+          <input class="form-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
+          <label class="form-file-label" for="user_misc">Choose file</label>
           <div class="invalid-feedback">error for test</div>
         </div>
       </div>

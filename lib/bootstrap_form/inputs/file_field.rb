@@ -8,9 +8,9 @@ module BootstrapForm
 
       included do
         def file_field_with_bootstrap(name, options={})
-          options = options.reverse_merge(control_class: "custom-file-input")
+          options = options.reverse_merge(control_class: "form-file-input")
           form_group_builder(name, options) do
-            tag.div(class: "custom-file") do
+            tag.div(class: "form-file") do
               input_with_error(name) do
                 file_field_input(name, options)
               end
@@ -25,7 +25,7 @@ module BootstrapForm
 
       def file_field_input(name, options)
         placeholder = options.delete(:placeholder) || "Choose file"
-        placeholder_opts = { class: "custom-file-label" }
+        placeholder_opts = { class: "form-file-label" }
         placeholder_opts[:for] = options[:id] if options[:id].present?
 
         file_field_without_bootstrap(name, options) + label(name, placeholder, placeholder_opts)
