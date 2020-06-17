@@ -25,7 +25,7 @@ module BootstrapForm
 
       def file_field_input(name, options)
         placeholder = options.delete(:placeholder) || "Choose file"
-        placeholder_opts = { class: "form-file-label" }
+        placeholder_opts = { class: "form-label form-file-label" }
         placeholder_opts[:for] = options[:id] if options[:id].present?
 
         file_field_without_bootstrap(name, options) + label(name, placeholder, placeholder_opts)
