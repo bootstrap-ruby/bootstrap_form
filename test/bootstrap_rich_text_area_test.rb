@@ -10,7 +10,7 @@ if ::Rails::VERSION::STRING > "6"
     test "rich text areas are wrapped correctly" do
       expected = <<-HTML.strip_heredoc
       <div class="mb-3">
-        <label for="user_life_story">Life story</label>
+        <label class="form-label" for="user_life_story">Life story</label>
         <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
         <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
         </trix-editor>

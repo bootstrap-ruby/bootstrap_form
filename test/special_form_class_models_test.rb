@@ -21,7 +21,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
-        <label for="user_misc">Misc</label>
+        <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
@@ -41,7 +41,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
-        <label for="user_misc">Misc</label>
+        <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
@@ -63,7 +63,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
 
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
-        <label for="user_misc">Misc</label>
+        <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML

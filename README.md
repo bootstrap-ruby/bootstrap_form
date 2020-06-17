@@ -74,17 +74,17 @@ This generates the following HTML:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
-    <label for="user_email">Email</label>
+    <label class="form-label" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" type="email">
   </div>
   <div class="mb-3">
-    <label for="user_password">Password</label>
+    <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="form-check">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <label class="form-label form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
@@ -122,18 +122,18 @@ This generates:
 <form role="form" action="/users" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
   <div class="mb-3">
-    <label class="required" for="user_email">Email</label>
+    <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
   </div>
   <div class="mb-3">
-    <label for="user_password">Password</label>
+    <label class="form-label" for="user_password">Password</label>
     <input class="form-control" type="password" name="user[password]" />
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <div class="form-check">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <label class="form-label form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>
@@ -326,7 +326,7 @@ Which produces the following output:
 
 ```erb
 <div class="mb-3 has-warning" data-foo="bar">
-  <label class="form-control-label" for="user_name">Id</label>
+  <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
@@ -436,7 +436,7 @@ Here's the output for a horizontal layout:
 
 ```html
 <div class="mb-3">
-  <label class="col-sm-2 form-control-label" for="user_email">Email</label>
+  <label class="form-label col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="test@email.com"/>
   </div>
@@ -549,7 +549,7 @@ will be rendered as:
 
 ```html
 <div class="mb-3">
-  <label for="user_life_story">Life story</label>
+  <label class="form-label" for="user_life_story">Life story</label>
   <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
   <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
   </trix-editor>
@@ -706,7 +706,7 @@ error will be displayed below the field. Here's an example:
 
 ```html
 <div class="mb-3">
-  <label form-control-label" for="user_email">Email</label>
+  <label class="form-label form-control-label" for="user_email">Email</label>
   <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
   <small class="invalid-feedback">can't be blank</small>
 </div>
