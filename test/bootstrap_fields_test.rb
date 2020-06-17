@@ -365,7 +365,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="mr-sm-2" for="user_address_attributes_street">Street</label>

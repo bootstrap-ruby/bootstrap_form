@@ -24,7 +24,7 @@ module BootstrapForm
 
     def form_group_content_tag(name, field_name, without_field_name, options, html_options)
       html_class = control_specific_class(field_name)
-      html_class = "#{html_class} form-inline" if @layout == :horizontal && options[:skip_inline].blank?
+      html_class = "#{html_class} col-auto g-3" if @layout == :horizontal && options[:skip_inline].blank?
       tag.div(class: html_class) do
         input_with_error(name) do
           send(without_field_name, name, options, html_options)
@@ -52,7 +52,7 @@ module BootstrapForm
     def form_group_classes(options)
       classes = ["mb-3", options[:class].try(:split)].flatten.compact
       classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
-      classes << "form-inline" if field_inline_override?(options[:layout])
+      classes << "col-auto g-3" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
       classes
     end

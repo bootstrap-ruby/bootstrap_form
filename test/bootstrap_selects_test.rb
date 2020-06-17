@@ -345,7 +345,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
-            <div class="rails-bootstrap-forms-date-select form-inline">
+            <div class="rails-bootstrap-forms-date-select col-auto g-3">
               <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
