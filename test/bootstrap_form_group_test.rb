@@ -121,9 +121,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-          </div>
+          <span class="input-group-text">@</span>
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -137,9 +135,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <div class="input-group-append">
-            <span class="input-group-text">.00</span>
-          </div>
+          <span class="input-group-text">.00</span>
         </div>
       </div>
     HTML
@@ -150,8 +146,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     prefix = '<div class="mb-3"><label class="required" for="user_email">Email</label><div class="input-group">'
     field = '<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
     button_src = link_to("Click", "#", class: "btn btn-secondary")
-    button_prepend = "<div class=\"input-group-prepend\">#{button_src}</div>"
-    button_append = "<div class=\"input-group-append\">#{button_src}</div>"
+    button_prepend = button_src
+    button_append = button_src
     suffix = "</div></div>"
     after_button = prefix + field + button_append + suffix
     before_button = prefix + button_prepend + field + suffix
@@ -168,13 +164,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</div>
-          </div>
+          <span class="input-group-text">$</div>
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <div class="input-group-append">
-            <span class="input-group-text">.00</span>
-          </div>
+          <span class="input-group-text">.00</span>
         </div>
       </div>
     HTML
@@ -191,13 +183,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="mb-3">
           <label class="required" for="user_email">Email</label>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</div>
-            </div>
+            <span class="input-group-text">$</div>
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-            <div class="input-group-append">
-              <span class="input-group-text">.00</span>
-            </div>
+            <span class="input-group-text">.00</span>
             <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
           </div>
         </div>
@@ -640,9 +628,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="required" for="user_email">Email</label>
         <div class="input-group input-group-lg">
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
-          <div class="input-group-append">
-            <input class="btn btn-primary" name="commit" type="submit" value="Subscribe" />
-          </div>
+          <input class="btn btn-primary" name="commit" type="submit" value="Subscribe" />
         </div>
       </div>
     HTML
