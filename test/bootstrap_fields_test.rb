@@ -279,6 +279,17 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:misc)
   end
 
+  test "switch-style check_box fields are wrapped correctly" do
+    expected = <<-HTML.strip_heredoc
+      <div class="form-check form-switch">
+        <input name="user[misc]" type="hidden" value="0"/>
+        <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label class="form-label form-check-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:misc, switch: true)
+  end
+
   test "week fields are wrapped correctly" do
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
