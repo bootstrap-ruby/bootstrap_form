@@ -399,10 +399,10 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 
 ### Switches
 
-To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
+To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 
 ```erb
-<%= f.check_box :remember_me, custom: :switch %>
+<%= f.check_box :remember_me, switch: true %>
 ```
 
 ### Collections
