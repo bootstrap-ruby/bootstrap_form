@@ -1,15 +1,9 @@
-If you are using Bootstrap v3, refer to the legacy [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
-
-This is a new take on the `bootstrap_form` README. Please leave comments at: #520. You can go back to the traditional [README](/OLD-README.md).
-
----
-
 # bootstrap_form
 
 [![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
+`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
 * [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
@@ -33,14 +27,14 @@ Some other nice things that `bootstrap_form` does for you are:
 
 * Ruby 2.5+
 * Rails 5.2+
-* Bootstrap 4.0+
+* Bootstrap 5.0+
 
 ## Installation
 
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form", "~> 4.0"
+gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form.git", branch: "bootstrap-5"
 ```
 
 Then:
@@ -163,6 +157,7 @@ The current configuration options are:
 
 
 Example:
+
 ```ruby
 # config/initializers/bootstrap_form.rb
 BootstrapForm.configure do |c|
