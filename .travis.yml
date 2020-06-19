@@ -13,7 +13,7 @@ script:
 
 matrix:
   include:
-    # Bleeding edge Ruby
+    # Bleeding edge Ruby and Rails
     - rvm: ruby-head
       gemfile: gemfiles/edge.gemfile
 

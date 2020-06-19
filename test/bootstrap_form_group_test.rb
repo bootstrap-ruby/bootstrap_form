@@ -405,8 +405,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     output = @builder.form_group :email do
       html = '<p class="form-control-plaintext">Bar</p>'.html_safe
       unless @user.errors[:email].empty?
-        html.concat(content_tag(:div, @user.errors[:email].join(", "), class: "invalid-feedback",
-                                                                       style: "display: block;"))
+        html.concat(tag.div(@user.errors[:email].join(", "), class: "invalid-feedback",
+                                                             style: "display: block;"))
       end
       html
     end

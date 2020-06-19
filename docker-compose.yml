@@ -1,0 +1,70 @@
+version: '2.4'
+
+services:
+  app: &app
+    build:
+      context: .
+      args:
+        RUBY_VERSION: '2.7.1'
+        NODE_MAJOR: '12'
+        YARN_VERSION: '1.22.4'
+        BUNDLER_VERSION: '2.1.4'
+    image: bootstrap-form:0.0.1
+    tmpfs:
+      - /tmp
+
+  backend: &backend
+    <<: *app
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app:cached
+      - rails_cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - BOOTSNAP_CACHE_DIR=/usr/local/bundle/_bootsnap
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+      - WEB_CONCURRENCY=1
+      - HISTFILE=/app/.bash_history
+      - EDITOR=vi
+
+  shell:
+    <<: *backend
+    command: /bin/bash
+    ports:
+      - '3000:3000'
+
+  server:
+    <<: *backend
+    command: sh -c "cd demo/app && bundle exec rails server -b 0.0.0.0"
+    ports:
+      - '3000:3000'
+
+  test:
+    <<: *backend
+    command: rake test
+
+  webpacker:
+    <<: *app
+    command: ./bin/webpack-dev-server
+    ports:
+      - '3035:3035'
+    volumes:
+      - .:/app:cached
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+
+volumes:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:

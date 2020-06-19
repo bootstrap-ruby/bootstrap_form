@@ -150,8 +150,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     select = @builder.select(:status) do
-      content_tag(:option) { "Option 1" } +
-        content_tag(:option) { "Option 2" }
+      tag.option { "Option 1" } +
+        tag.option { "Option 2" }
     end
     assert_equivalent_xml expected, select
   end

@@ -43,7 +43,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::UrlField
     include BootstrapForm::Inputs::WeekField
 
-    delegate :content_tag, :capture, :concat, to: :@template
+    delegate :content_tag, :capture, :concat, :tag, to: :@template
 
     # rubocop:disable Metrics/AbcSize
     def initialize(object_name, object, template, options)

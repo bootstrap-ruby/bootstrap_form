@@ -26,6 +26,10 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.5"
 
-  s.add_dependency("actionpack", ">= 5.2")
-  s.add_dependency("activemodel", ">= 5.2")
+  REQUIRED_RAILS_VERSION = ">= 5.2".freeze
+
+  s.add_dependency("actionpack", REQUIRED_RAILS_VERSION)
+  s.add_dependency("activemodel", REQUIRED_RAILS_VERSION)
+
+  s.add_development_dependency("rails", REQUIRED_RAILS_VERSION)
 end
