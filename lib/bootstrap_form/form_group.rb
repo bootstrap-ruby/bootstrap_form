@@ -66,7 +66,7 @@ module BootstrapForm
     end
 
     def classes_include_gutters?(classes)
-      classes.any? { |c| c =~ /g-\d+/ }
+      classes.any? { |c| c =~ /^g-\d+$/ }
     end
   end
 end
