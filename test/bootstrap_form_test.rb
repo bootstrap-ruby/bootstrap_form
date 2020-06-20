@@ -45,7 +45,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="mb-3 row">
           <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
-            <select class="form-control" id="user_status" name="user[status]">
+            <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -92,7 +92,7 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
         <div class="mb-3 col-auto g-3">
           <label class="form-label mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -154,7 +154,7 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
         <div class="mb-3">
           <label class="form-label mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -204,7 +204,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="mb-3 row">
           <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
-            <select class="form-control" id="user_status" name="user[status]">
+            <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -250,7 +250,7 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -296,7 +296,7 @@ class BootstrapFormTest < ActionView::TestCase
         </div>
         <div class="mb-3 col-auto g-3">
           <label class="form-label mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
