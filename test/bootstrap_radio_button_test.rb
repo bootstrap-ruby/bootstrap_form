@@ -9,7 +9,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -21,7 +21,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">&#8203;</label>
+        <label class="form-check-label" for="user_misc_1">&#8203;</label>
       </div>
     HTML
     # &#8203; is a zero-width space.
@@ -35,7 +35,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="form-check">
         <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
         <div class="invalid-feedback">error for test</div>
@@ -52,7 +52,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check disabled">
         <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -64,7 +64,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label btn" for="user_misc_1">
+        <label class="form-check-label btn" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -76,7 +76,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input" id="custom_id" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="custom_id">
+        <label class="form-check-label" for="custom_id">
           This is a radio button
         </label>
       </div>
@@ -88,7 +88,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -102,7 +102,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             This is a radio button
           </label>
         </div>
@@ -118,7 +118,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline disabled">
         <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -130,7 +130,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label btn" for="user_misc_1">
+        <label class="form-check-label btn" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -146,7 +146,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             Foobar
           </label>
         </div>
@@ -166,11 +166,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_1"> Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -188,11 +188,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback">error for test</div>
           </div>
         </div>
@@ -212,11 +212,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_1"> Foo</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -231,11 +231,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_1"> Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -250,7 +250,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> rabooF</label>
+          <label class="form-check-label" for="user_misc_1"> rabooF</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -268,7 +268,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1"> Foobar</label>
+          <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -287,11 +287,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> ooF</label>
+          <label class="form-check-label" for="user_misc_1"> ooF</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> raB</label>
+          <label class="form-check-label" for="user_misc_2"> raB</label>
         </div>
       </div>
     HTML
@@ -306,11 +306,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_address_1"> Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_2" name="user[misc]" type="radio" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_address_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -325,7 +325,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> rabooF</label>
+          <label class="form-check-label" for="user_misc_1"> rabooF</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -343,7 +343,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1"> Foobar</label>
+          <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -362,11 +362,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> ooF</label>
+          <label class="form-check-label" for="user_misc_1"> ooF</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> raB</label>
+          <label class="form-check-label" for="user_misc_2"> raB</label>
         </div>
       </div>
     HTML
@@ -381,11 +381,11 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_address_1"> Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_2" name="user[misc]" type="radio" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_address_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -406,7 +406,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check">
         <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label sr-only" for="user_misc_1">This is a radio button</label>
+        <label class="form-check-label sr-only" for="user_misc_1">This is a radio button</label>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", hide_label: true)
@@ -416,7 +416,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check custom-class">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -429,7 +429,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="form-check form-check-inline custom-class">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-label form-check-label" for="user_misc_1">
+        <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>

@@ -10,7 +10,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -23,7 +23,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">&#8203;</label>
+        <label class="form-check-label" for="user_terms">&#8203;</label>
       </div>
     HTML
     # &#8203; is a zero-width space.
@@ -35,7 +35,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -48,7 +48,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the <a href="#">terms</a>
         </label>
       </div>
@@ -61,7 +61,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -74,7 +74,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label btn" for="user_terms">
+        <label class="form-check-label btn" for="user_terms">
           Terms
         </label>
       </div>
@@ -87,7 +87,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="custom_id">
+        <label class="form-check-label" for="custom_id">
           Terms
         </label>
       </div>
@@ -100,7 +100,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="no" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="yes" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -113,7 +113,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check form-check-inline">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -128,7 +128,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">
+          <label class="form-check-label" for="user_terms">
             I agree to the terms
           </label>
         </div>
@@ -145,7 +145,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check form-check-inline">
         <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -159,7 +159,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     <div class="form-check form-check-inline">
       <input name="user[terms]" type="hidden" value="0" />
       <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-      <label class="form-label form-check-label btn" for="user_terms">
+      <label class="form-check-label btn" for="user_terms">
         Terms
       </label>
     </div>
@@ -175,7 +175,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> Foobar</label>
+          <label class="form-check-label" for="user_misc_1"> Foobar</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -193,13 +193,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">
+          <label class="form-check-label" for="user_misc_2">
             Bar
           </label>
         </div>
@@ -218,13 +218,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
-          <label class="form-label form-check-label" for="user_misc_二">
+          <label class="form-check-label" for="user_misc_二">
             Bar
           </label>
         </div>
@@ -242,13 +242,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             Foo
           </label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">
+          <label class="form-check-label" for="user_misc_2">
             Bar
           </label>
         </div>
@@ -267,13 +267,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">
+          <label class="form-check-label" for="user_misc_2">
             Bar
           </label>
         </div>
@@ -294,11 +294,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+          <label class="form-check-label" for="user_misc_1"> Foo</label>
         </div>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+          <label class="form-check-label" for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -317,7 +317,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
-          <label class="form-label form-check-label" for="user_misc_foo_st">
+          <label class="form-check-label" for="user_misc_foo_st">
             Foo St
           </label>
         </div>
@@ -334,13 +334,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             ooF
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">
+          <label class="form-check-label" for="user_misc_2">
             raB
           </label>
         </div>
@@ -358,13 +358,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1">
+          <label class="form-check-label" for="user_misc_address_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2">
+          <label class="form-check-label" for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -382,13 +382,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">
+          <label class="form-check-label" for="user_misc_1">
             ooF
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">
+          <label class="form-check-label" for="user_misc_2">
             raB
           </label>
         </div>
@@ -406,13 +406,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1">
+          <label class="form-check-label" for="user_misc_address_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2">
+          <label class="form-check-label" for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -431,13 +431,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1">
+          <label class="form-check-label" for="user_misc_address_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2">
+          <label class="form-check-label" for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -458,13 +458,13 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-label form-check-label" for="user_misc_address_1">
+          <label class="form-check-label" for="user_misc_address_1">
             Foo
           </label>
         </div>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-label form-check-label" for="user_misc_address_2">
+          <label class="form-check-label" for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -492,7 +492,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label sr-only" for="user_terms">I agree to the terms</label>
+        <label class="form-check-label sr-only" for="user_terms">I agree to the terms</label>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", hide_label: true)
@@ -510,11 +510,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_misc_1">Foo</label>
+          <label class="form-check-label" for="user_misc_1">Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-label form-check-label" for="user_misc_2">Bar</label>
+          <label class="form-check-label" for="user_misc_2">Bar</label>
           <div class="invalid-feedback">a box must be checked</div>
         </div>
       </div>
@@ -539,11 +539,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
             <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
             <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback">error for test</div>
           </div>
         </div>
@@ -564,7 +564,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
         <div class="invalid-feedback">You must accept the terms.</div>
@@ -582,7 +582,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check custom-class">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>
@@ -595,7 +595,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <div class="form-check form-check-inline custom-class">
         <input name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-label form-check-label" for="user_terms">
+        <label class="form-check-label" for="user_terms">
           I agree to the terms
         </label>
       </div>

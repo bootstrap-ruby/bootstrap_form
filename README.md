@@ -84,7 +84,7 @@ This generates the following HTML:
   <div class="form-check">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-label form-check-label" for="user_remember_me">Remember me</label>
+    <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input class="btn btn-secondary" name="commit" type="submit" value="Log In">
 </form>
@@ -133,7 +133,7 @@ This generates:
   <div class="form-check">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-label form-check-label" for="user_remember_me">Remember me</label>
+    <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
   <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
 </form>

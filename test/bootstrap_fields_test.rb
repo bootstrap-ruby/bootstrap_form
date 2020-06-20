@@ -273,7 +273,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="form-check">
         <input name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
-        <label class="form-label form-check-label" for="user_misc">Misc</label>
+        <label class="form-check-label" for="user_misc">Misc</label>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:misc)
@@ -284,7 +284,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="form-check form-switch">
         <input name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
-        <label class="form-label form-check-label" for="user_misc">Misc</label>
+        <label class="form-check-label" for="user_misc">Misc</label>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:misc, switch: true)

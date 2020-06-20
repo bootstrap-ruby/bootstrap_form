@@ -425,15 +425,15 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="mb-3">
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_primary_school" name="user[misc]" type="radio" value="primary school"/>
-            <label class="form-label form-check-label" for="user_misc_primary_school">Primary school</label>
+            <label class="form-check-label" for="user_misc_primary_school">Primary school</label>
           </div>
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_high_school" name="user[misc]" type="radio" value="high school"/>
-            <label class="form-label form-check-label" for="user_misc_high_school">High school</label>
+            <label class="form-check-label" for="user_misc_high_school">High school</label>
           </div>
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_university" name="user[misc]" type="radio" value="university"/>
-            <label class="form-label form-check-label" for="user_misc_university">University</label>
+            <label class="form-check-label" for="user_misc_university">University</label>
             <div class="invalid-feedback">Must select one.</div>
           </div>
         </div>

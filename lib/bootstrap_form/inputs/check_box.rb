@@ -57,7 +57,7 @@ module BootstrapForm
       end
 
       def check_box_label_class(options)
-        classes = %w[form-label form-check-label]
+        classes = ["form-check-label"]
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
         classes.flatten.compact

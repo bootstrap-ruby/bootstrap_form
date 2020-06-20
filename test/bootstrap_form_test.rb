@@ -27,18 +27,18 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 row">
           <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
             </div>
           </div>
         </div>
@@ -77,17 +77,17 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 col-auto g-3">
           <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
@@ -139,17 +139,17 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3">
           <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="mb-3">
@@ -186,18 +186,18 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 row">
           <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
             </div>
           </div>
         </div>
@@ -235,17 +235,17 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="mb-3">
@@ -281,17 +281,17 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-label form-check-label" for="user_terms">I agree to the terms</label>
+          <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 col-auto g-3">
           <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-label form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-label form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
@@ -415,7 +415,7 @@ class BootstrapFormTest < ActionView::TestCase
       <div class="form-check">
         <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
         <input name="#{name}" type="hidden" value="0" />
-        <label class="form-label form-check-label" for="#{id}"> Misc</label>
+        <label class="form-check-label" for="#{id}"> Misc</label>
       </div>
     </form>
     HTML

@@ -41,7 +41,7 @@ module BootstrapForm
       end
 
       def radio_button_label_class(options)
-        classes = %w[form-label form-check-label]
+        classes = ["form-check-label"]
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
         classes.flatten.compact
