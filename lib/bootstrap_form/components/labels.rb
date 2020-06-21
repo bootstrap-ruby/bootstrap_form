@@ -23,7 +23,7 @@ module BootstrapForm
       end
 
       def label_classes(name, options, custom_label_col, group_layout)
-        classes = [options[:class], label_layout_classes(custom_label_col, group_layout)]
+        classes = ["form-label", options[:class], label_layout_classes(custom_label_col, group_layout)]
 
         case options.delete(:required)
         when true

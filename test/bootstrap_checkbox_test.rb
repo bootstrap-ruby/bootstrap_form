@@ -123,7 +123,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes from form layout" do
     expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
+      <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post" role="form">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
           <input name="user[terms]" type="hidden" value="0" />
@@ -171,8 +171,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">This is a checkbox collection</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foobar</label>
@@ -189,8 +189,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -214,8 +214,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -238,8 +238,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -263,8 +263,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -290,8 +290,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -313,8 +313,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
           <label class="form-check-label" for="user_misc_foo_st">
@@ -330,8 +330,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -354,8 +354,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1">
@@ -378,8 +378,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -402,8 +402,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1">
@@ -427,8 +427,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1">
@@ -454,8 +454,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<-HTML.strip_heredoc
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1">
@@ -475,63 +475,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
                                                                     :street, checked: %w[address_1 address_2])
     assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
                                                                     :street, checked: collection)
-  end
-
-  test "check_box is wrapped correctly with custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", custom: true)
-  end
-
-  test "check_box is wrapped correctly with id option and custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="custom_id">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", id: "custom_id", custom: true)
-  end
-
-  test "check_box is wrapped correctly with custom and inline options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox custom-control-inline">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
-                                                               custom: true)
-  end
-
-  test "check_box is wrapped correctly with custom and disabled options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", disabled: true, custom: true)
-  end
-
-  test "check_box is wrapped correctly with custom, inline and disabled options set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox custom-control-inline">
-        <input name="user[terms]" type="hidden" value="0" disabled="disabled" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
-                                                               disabled: true, custom: true)
   end
 
   test "check_box skip label" do
@@ -555,27 +498,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", hide_label: true)
   end
 
-  test "check_box skip label with custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", custom: true, skip_label: true)
-  end
-
-  test "check_box hide label with custom option set" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label sr-only" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", custom: true, hide_label: true)
-  end
-
   test "collection_check_boxes renders error after last check box" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     @user.errors.add(:misc, "a box must be checked")
@@ -584,8 +506,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
     <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -613,8 +535,8 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <input id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
-        <div class="form-group">
-          <label for="user_misc">Misc</label>
+        <div class="mb-3">
+          <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
             <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -655,25 +577,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, actual
   end
 
-  test "check_box with error is wrapped correctly with custom option set" do
-    @user.errors.add(:terms, "You must accept the terms.")
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-      <div class="custom-control custom-checkbox">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-        <div class="invalid-feedback">You must accept the terms.</div>
-      </div>
-    </form>
-    HTML
-    actual = bootstrap_form_for(@user) do |f|
-      f.check_box(:terms, label: "I agree to the terms", custom: true, error_message: true)
-    end
-    assert_equivalent_xml expected, actual
-  end
-
   test "check box with custom wrapper class" do
     expected = <<-HTML.strip_heredoc
       <div class="form-check custom-class">
@@ -699,29 +602,5 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
                                                                wrapper_class: "custom-class")
-  end
-
-  test "custom check box with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox custom-class">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", custom: true,
-                                                               wrapper_class: "custom-class")
-  end
-
-  test "custom inline check box with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
-      <div class="custom-control custom-checkbox custom-control-inline custom-class">
-        <input name="user[terms]" type="hidden" value="0" />
-        <input class="custom-control-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="custom-control-label" for="user_terms">I agree to the terms</label>
-      </div>
-    HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
-                                                               custom: true, wrapper_class: "custom-class")
   end
 end

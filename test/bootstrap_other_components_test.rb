@@ -9,8 +9,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control :email
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
@@ -23,8 +23,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control :email, id: "custom_id"
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 required" for="custom_id">Email</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2 required" for="custom_id">Email</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="custom_id" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
@@ -37,8 +37,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control nil, label: "My Label", value: "this is a test"
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="user_">My Label</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2" for="user_">My Label</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value="this is a test"/>
         </div>
@@ -51,8 +51,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control label: "Custom Label", value: "Custom Control"
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text" value="Custom Control"/>
         </div>
@@ -65,8 +65,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control label: "Custom Label", value: nil
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" id="user_" name="user[]" readonly="readonly" type="text"/>
         </div>
@@ -79,8 +79,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     output = @horizontal_builder.static_control :email, control_class: "test_class"
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input class="test_class form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
@@ -95,8 +95,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">this is a test</div>
       </div>
     HTML
@@ -109,8 +109,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="user_">My Label</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2" for="user_">My Label</label>
         <div class="col-sm-10">this is a test</div>
       </div>
     HTML
@@ -123,8 +123,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     end
 
     expected = <<-HTML.strip_heredoc
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2" for="user_">Custom Label</label>
+      <div class="mb-3 row">
+        <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">Custom Control</div>
       </div>
     HTML
