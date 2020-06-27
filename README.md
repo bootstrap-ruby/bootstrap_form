@@ -11,7 +11,7 @@ This is a new take on the `bootstrap_form` README. Please leave comments at: #52
 
 `bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
-* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
+* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself. _Note that this applies to Rails-generated validation messages._ HTML 5 client-side validation and Rails validation out of the box don't really work well together. One discussion of the challenges and some solutions is [here](https://www.jorgemanrubia.com/2019/02/16/form-validations-with-html5-and-modern-rails/)
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
 * An easy way to consistently show [help](#help-text) text on fields.
 * Mark-up for [Bootstrap horizontal forms](#horizontal-forms) (labels to the left of their fields, like a traditional desktop application), if that's what you want.
