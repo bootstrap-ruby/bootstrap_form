@@ -12,6 +12,20 @@
 
 * Your contribution here!
 
+## [5.0.0.alpha1][]
+
+### Breaking changes
+
+* [#569] Remove `role="form"` from the default generated form HTML so forms pass W3C validation. (Only a breaking change if you depended on the `form` attribute. `bootstrap_form` doesn't depend on it.)
+
+### New features
+
+* Your contribution here!
+
+### Bugfixes
+
+* Your contribution here!
+
 ## [4.5.0][] (2020-04-29)
 
 ### New features
