@@ -16,8 +16,7 @@ module BootstrapForm
     def default_form_attributes
       return @default_form_attributes if defined? @default_form_attributes
 
-      # TODO: Return blank hash ({}) in 5.0.0. Role "form" for form tags is redundant and makes W3C to raise a warning.
-      { role: "form" }
+      {}
     end
   end
 end
