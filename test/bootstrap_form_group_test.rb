@@ -121,9 +121,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">@</span>
-          </div>
+          <span class="input-group-text">@</span>
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -137,9 +135,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <div class="input-group-append">
-            <span class="input-group-text">.00</span>
-          </div>
+          <span class="input-group-text">.00</span>
         </div>
       </div>
     HTML
@@ -168,13 +164,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</div>
-          </div>
+          <span class="input-group-text">$</div>
           <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <div class="input-group-append">
-            <span class="input-group-text">.00</span>
-          </div>
+          <span class="input-group-text">.00</span>
         </div>
       </div>
     HTML
@@ -191,13 +183,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="form-group">
           <label class="required" for="user_email">Email</label>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">$</div>
-            </div>
+            <span class="input-group-text">$</div>
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-            <div class="input-group-append">
-              <span class="input-group-text">.00</span>
-            </div>
+            <span class="input-group-text">.00</span>
             <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
           </div>
         </div>

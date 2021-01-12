@@ -108,7 +108,7 @@ module BootstrapForm
 
       def attach_input(options, key)
         tags = [*options[key]].map do |item|
-          tag.div(input_group_content(item), class: "input-group-#{key}")
+          input_group_content(item)
         end
         ActiveSupport::SafeBuffer.new(tags.join)
       end
