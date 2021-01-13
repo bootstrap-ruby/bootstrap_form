@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  lint:
+  Lint:
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: gemfiles/6.0.gemfile
@@ -22,13 +22,13 @@ jobs:
           gem install danger
           danger
           bundle exec rake rubocop
-  test:
+  Test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         ruby-version: ['2.6', '2.7', '3.0']
-        gemfile: ['5.2.gemfile', '6.0.gemfile', 'edge.gemfile']
+        gemfile: ['5.2', '6.0', 'edge']
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
