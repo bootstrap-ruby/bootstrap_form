@@ -18,9 +18,12 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby-version: ['2.6', '2.7', '3.0']
-
+        gemfile: ['5.2.gemfile', '6.0.gemfile', 'edge.gemfile']
+    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
