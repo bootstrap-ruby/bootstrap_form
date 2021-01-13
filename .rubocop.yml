@@ -1,5 +1,4 @@
-# Taken from: https://github.com/mattbrictson/rails-template/blob/master/rubocop.yml.tt
-# Modified for demo app in `demo/` directory.
+inherit_from: .rubocop_todo.yml
 require:
   - rubocop-performance
   - rubocop-rails
@@ -7,7 +6,7 @@ require:
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.5
+  NewCops: enable
   Exclude:
     - "bin/*"
     - Capfile
