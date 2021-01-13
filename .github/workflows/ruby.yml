@@ -17,11 +17,12 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-      - name: Run tests
+      - name: Danger
         run: |
           gem install danger
           danger
-          bundle exec rake rubocop
+      - name: Rubocop
+        run: bundle exec rake rubocop
   Test:
     runs-on: ubuntu-latest
     strategy:
