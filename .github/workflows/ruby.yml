@@ -22,7 +22,7 @@ jobs:
           gem install danger
           danger
       - name: Rubocop
-        run: bundle exec rake rubocop
+        run: bundle exec rubocop --auto-correct
   Test:
     runs-on: ubuntu-latest
     strategy:

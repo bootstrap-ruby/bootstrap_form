@@ -26,6 +26,12 @@ AllCops:
     - Guardfile
     - Rakefile
 
+Layout/LineLength:
+  Max: 132
+  Exclude:
+    - "demo/config/**/*"
+    - "demo/db/**/*"
+
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
@@ -44,12 +50,6 @@ Metrics/ClassLength:
   Exclude:
     - "demo/test/**/*"
     - "test/**/*"
-
-Metrics/LineLength:
-  Max: 132
-  Exclude:
-    - "demo/config/**/*"
-    - "demo/db/**/*"
 
 Metrics/MethodLength:
   Max: 12
