@@ -18,6 +18,7 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
       - name: Danger
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           gem install danger
           danger
