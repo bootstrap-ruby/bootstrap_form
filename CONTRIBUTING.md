@@ -10,6 +10,11 @@ There are a number of ways you can contribute to `bootstrap_form`:
 - Add to the documentation
 - Review pull requests
 
+*Note:* If you want to work on preparing `bootstrap_form` for Bootstrap 5,
+please start from the `bootstrap-5` branch.
+If you're submitting a pull request with code or documentation,
+say that you want to merge your branch to the `bootstrap-5` branch.
+
 ## Code Contributions
 
 Here's a quick guide for code contributions:
@@ -65,9 +70,9 @@ merged into the master branch. Eventually the gem will be published with your ch
 This project uses [RuboCop](https://github.com/bbatsov/rubocop) to enforce standard Ruby coding
 guidelines.
 
-* Test that your contribution passes with `rake rubocop`.
-* RuboCop is also run as part of the full test suite with `bundle exec rake`.
-* Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
+- Test that your contribution passes with `rake rubocop`.
+- RuboCop is also run as part of the full test suite with `bundle exec rake`.
+- Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
 
 Note that most editors have plugins to run RuboCop as you type, or when you save a file. You may find it well worth your time to install and configure the RuboCop plugin for your editor. Read the [RuboCop documentation](https://rubocop.readthedocs.io/en/latest/integration_with_other_tools/).
 
@@ -92,11 +97,14 @@ We are an entirely volunteer project. Sometimes it's hard for people to find the
 Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors
 
 ## Troubleshooting
+
 ### Models and Database Tables
+
 `bootstrap_form` needs a few models and tables to support testing. It appears that the necessary tables were created via the `demo/db/schema.rb` file. To support `rich_text_area`, Rails 6 creates some migrations. These migrations had to be run in the existing database (not an empty one) to create a new `schema.rb` that creates the `bootstrap_form` test tables, and the tables needed by Rails 6. The `schema.rb` file was checked in to GitHub, but the migrations were not.
 
 In the future, any new Rails functionality that creates tables would likely have to be prepared the same way:
-```
+
+```bash
 cd demo
 rails db:setup # create the databases from `schema.rb`
 rails db:migrate # add the new tables and create a new `schema.rb`
