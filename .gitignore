@@ -1,4 +1,5 @@
 .bundle/
+.idea
 log/*.log
 pkg/
 demo/db/*.sqlite3
@@ -13,7 +14,7 @@ test/gemfiles/*.lock
 Vagrantfile
 .vagrant
 
-// For the demo app.
+# For the demo app.
 
 # Ignore uploaded files in development.
 demo/storage/*
