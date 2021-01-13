@@ -8,22 +8,23 @@ AllCops:
   DisplayStyleGuide: true
   NewCops: enable
   Exclude:
-    - "bin/*"
+    - bin/*
     - Capfile
     - demo/bin/*
-    - "demo/bower_components/**/*"
+    - demo/bower_components/**/*
     - demo/config/boot.rb
     - demo/config/environment.rb
     - demo/config/initializers/version.rb
     - demo/db/schema.rb
-    - "demo/node_modules/**/*"
+    - demo/node_modules/**/*
     - demo/Rakefile
-    - "demo/tmp/**/*"
-    - "demo/vendor/**/*"
+    - demo/tmp/**/*
+    - demo/vendor/**/*
     - Gemfile
     - gemfiles/vendor/bundle/**/*
     - Guardfile
     - Rakefile
+    - vendor/**/*
 
 Layout/LineLength:
   Max: 132
