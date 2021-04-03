@@ -603,7 +603,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<-HTML.strip_heredoc
-      <div class="alert alert-danger">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
+      <div class="invalid-feedback">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
     HTML
     assert_equivalent_xml expected, @builder.errors_on(:email)
   end
@@ -793,7 +793,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
+    expected = '<div class="invalid-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
 
     assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
