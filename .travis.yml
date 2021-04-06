@@ -1,8 +1,8 @@
 language: ruby
 rvm:
-  - 2.7.1
-  - 2.6.5
-  - 2.5.7
+  - 2.7.3
+  - 2.6.7
+  - 2.5.9
 gemfile:
   - gemfiles/6.1.gemfile
   - gemfiles/6.0.gemfile
@@ -19,12 +19,12 @@ matrix:
       gemfile: gemfiles/edge.gemfile
 
     # Next version of Rails
-    - rvm: 2.7.1
+    - rvm: 2.7.3
       gemfile: gemfiles/edge.gemfile
 
     # Running one job to execute DANGER bot and linting
-    - rvm: 2.7.1
-      gemfile: gemfiles/6.0.gemfile
+    - rvm: 2.7.3
+      gemfile: gemfiles/6.1.gemfile
       script:
         - gem install danger
         - danger
@@ -32,5 +32,5 @@ matrix:
 
   allow_failures:
     - rvm: ruby-head
-    - rvm: 2.7.1
+    - rvm: 2.7.3
       gemfile: gemfiles/edge.gemfile
