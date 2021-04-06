@@ -10,7 +10,7 @@
 
 ### Bugfixes
 
-* Your contribution here!
+* [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fixed tests in bootstrap-5 branch and removed Rubocop offenses.
 
 ## [5.0.0.alpha1][]
 
