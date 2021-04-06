@@ -6,7 +6,7 @@
 
 ### New features
 
-* Your contribution here!
+* [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
 
 ### Bugfixes
 
