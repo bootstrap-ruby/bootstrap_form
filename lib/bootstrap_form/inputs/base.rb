@@ -10,7 +10,8 @@ module BootstrapForm
           define_method "#{field_name}_with_bootstrap" do |name, options={}|
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
-                send("#{field_name}_without_bootstrap".to_sym, name, options)
+                options[:placeholder] ||= name if options[:floating]
+                send("#{field_name}_without_bootstrap".to_sym, name, options.except(:floating))
               end
             end
           end
