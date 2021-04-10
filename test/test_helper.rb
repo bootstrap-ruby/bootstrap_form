@@ -4,7 +4,7 @@ require "diffy"
 require "nokogiri"
 require "equivalent-xml"
 
-require_relative "../demo/config/environment.rb"
+require_relative "../demo/config/environment"
 require "rails/test_help"
 require "mocha/minitest"
 

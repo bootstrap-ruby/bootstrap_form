@@ -22,7 +22,7 @@ module BootstrapForm
         end
       end
 
-      def alert_message(title, options={}) # rubocop:disable Metrics/AbcSize
+      def alert_message(title, options={})
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 

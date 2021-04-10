@@ -6,7 +6,7 @@ module BootstrapForm
 
     private
 
-    def form_group_builder(method, options, html_options=nil)
+    def form_group_builder(method, options, html_options=nil, &block)
       no_wrapper = options[:wrapper] == false
 
       options = form_group_builder_options(options, method)
@@ -21,16 +21,14 @@ module BootstrapForm
       if no_wrapper
         yield
       else
-        form_group(method, form_group_options) { yield }
+        form_group(method, form_group_options, &block)
       end
     end
 
     def form_group_builder_options(options, method)
       options.symbolize_keys!
       options = convert_form_tag_options(method, options) if acts_like_form_tag
-      unless options[:skip_label]
-        options[:required] = form_group_required(options) if options.key?(:skip_required)
-      end
+      options[:required] = form_group_required(options) if !options[:skip_label] && options.key?(:skip_required)
       options
     end
 
@@ -57,12 +55,11 @@ module BootstrapForm
     end
 
     def form_group_label(options, css_options)
-      hash = {
+      {
         text: form_group_label_text(options[:label]),
         class: form_group_label_class(options),
         required: options[:required]
       }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
-      hash
     end
 
     def form_group_label_text(label)
