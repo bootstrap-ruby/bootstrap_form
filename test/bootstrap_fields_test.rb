@@ -59,10 +59,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-file">
-          <input class="form-file-input" id="user_misc" name="user[misc]" type="file" />
-          <label class="form-label form-file-label" for="user_misc">Choose file</label>
-        </div>
+        <input class="form-control" id="user_misc" name="user[misc]" type="file"/>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.file_field(:misc)
@@ -72,10 +69,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<-HTML.strip_heredoc
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-file">
-          <input class="form-file-input" id="user_misc" name="user[misc]" type="file" />
-          <label class="form-label form-file-label" for="user_misc">Pick a file</label>
-        </div>
+        <input class="form-control" id="user_misc" name="user[misc]" placeholder="Pick a file" type="file"/>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
@@ -86,10 +80,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       expected = <<-HTML.strip_heredoc
         <div class="mb-3">
           <label class="form-label" for="custom-id">Misc</label>
-          <div class="form-file">
-            <input class="form-file-input" id="custom-id" name="user[misc]" type="file" />
-            <label class="form-label form-file-label" for="custom-id">Choose file</label>
-          </div>
+          <input class="form-control" id="custom-id" name="user[misc]" type="file"/>
         </div>
       HTML
       assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "custom-id")
@@ -103,11 +94,8 @@ class BootstrapFieldsTest < ActionView::TestCase
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-file">
-          <input class="form-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
-          <label class="form-label form-file-label" for="user_misc">Choose file</label>
-          <div class="invalid-feedback">error for test</div>
-        </div>
+        <input class="form-control is-invalid" id="user_misc" name="user[misc]" type="file"/>
+        <div class="invalid-feedback">error for test</div>
       </div>
     </form>
     HTML
