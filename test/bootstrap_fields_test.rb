@@ -430,7 +430,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "can have a floating label" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 form-floating">
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
         <label class="form-label required" for="user_email">Email</label>
