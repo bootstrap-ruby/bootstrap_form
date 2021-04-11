@@ -6,7 +6,7 @@
 
 ### New features
 
-* Your contribution here!
+* [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
 
 ### Bugfixes
 

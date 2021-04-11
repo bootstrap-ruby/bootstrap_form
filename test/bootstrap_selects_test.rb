@@ -698,6 +698,19 @@ class BootstrapSelectsTest < ActionView::TestCase
                                           class: "selectpicker")
   end
 
+  test "can have a floating label" do
+    expected = <<-HTML.strip_heredoc
+      <div class="mb-3 form-floating">
+        <select class="form-select" id="user_misc" name="user[misc]">
+          <option value="1">Apple</option>
+          <option value="2">Grape</option>
+        </select>
+        <label class="form-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)
+  end
+
   def blank_option
     if ::Rails::VERSION::STRING < "6.1"
       '<option value=""></option>'
