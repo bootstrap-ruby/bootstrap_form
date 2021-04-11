@@ -7,7 +7,7 @@ module BootstrapForm
       include Base
 
       included do
-        def file_field_with_bootstrap(name, options = {})
+        def file_field_with_bootstrap(name, options={})
           options = options.reverse_merge(control_class: "form-control")
           form_group_builder(name, options) do
             input_with_error(name) do
