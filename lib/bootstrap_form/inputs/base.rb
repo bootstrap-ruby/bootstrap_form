@@ -20,12 +20,10 @@ module BootstrapForm
         end
 
         def bootstrap_select_group(field_name)
-          with_field_name = "#{field_name}_with_bootstrap"
-          without_field_name = "#{field_name}_without_bootstrap"
-          define_method(with_field_name) do |name, options={}, html_options={}|
+          define_method("#{field_name}_with_bootstrap") do |name, options={}, html_options={}|
             html_options = html_options.reverse_merge(control_class: "form-select")
             form_group_builder(name, options, html_options) do
-              form_group_content_tag(name, field_name, without_field_name, options, html_options)
+              form_group_content_tag(name, field_name, "#{field_name}_without_bootstrap", options, html_options)
             end
           end
 
