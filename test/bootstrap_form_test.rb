@@ -120,7 +120,7 @@ class BootstrapFormTest < ActionView::TestCase
     # generate a default ID for the form element.
     test "default-style forms bootstrap_form_with Rails 5.1+" do
       expected = <<-HTML.strip_heredoc
-        <form accept-charset="UTF-8" action="/users" data-remote="true" method="post" role="form">
+        <form accept-charset="UTF-8" action="/users" method="post" role="form" #{'data-remote="true"' if ::Rails::VERSION::STRING < "6.1"}>
           #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         </form>
       HTML
