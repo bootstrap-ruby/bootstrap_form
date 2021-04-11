@@ -46,7 +46,8 @@ module BootstrapForm
         id: options[:id], help: options[:help], icon: options[:icon],
         label_col: options[:label_col], control_col: options[:control_col],
         add_control_col_class: options[:add_control_col_class],
-        layout: get_group_layout(options[:layout]), class: options[:wrapper_class]
+        layout: get_group_layout(options[:layout]), class: options[:wrapper_class],
+        floating: options[:floating]
       }
 
       form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
