@@ -693,7 +693,7 @@ The `custom` option can be used to replace the browser default styles for check 
 <% end %>
 ```
 
-### Floating labels
+### Floating Labels
 
 The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
 and dropdowns. Here's an example:
