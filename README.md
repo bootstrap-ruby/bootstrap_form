@@ -693,6 +693,21 @@ The `custom` option can be used to replace the browser default styles for check 
 <% end %>
 ```
 
+### Floating labels
+
+The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
+and dropdowns. Here's an example:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
 ## Validation and Errors
 
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.
