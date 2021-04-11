@@ -20,7 +20,7 @@ if ::Rails::VERSION::STRING > "6"
     end
 
     def data_blob_url_template
-      "http://test.host/rails/active_storage/blobs/#{"redirect/" if ::Rails::VERSION::STRING >= "6.1"}:signed_id/:filename"
+      "http://test.host/rails/active_storage/blobs/#{'redirect/' if ::Rails::VERSION::STRING >= '6.1'}:signed_id/:filename"
     end
   end
 end
