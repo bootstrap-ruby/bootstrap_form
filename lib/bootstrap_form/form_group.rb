@@ -11,8 +11,8 @@ module BootstrapForm
       options[:class] = form_group_classes(options)
 
       tag.div(**options.except(:append, :id, :label, :help, :icon,
-                             :input_group_class, :label_col, :control_col,
-                             :add_control_col_class, :layout, :prepend)) do
+                               :input_group_class, :label_col, :control_col,
+                               :add_control_col_class, :layout, :prepend)) do
         form_group_content(
           generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]),
           generate_help(name, options[:help]), options, &block

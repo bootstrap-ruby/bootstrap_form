@@ -398,15 +398,15 @@ class BootstrapSelectsTest < ActionView::TestCase
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 2007, stop: 2017)}
             </select>
             <select class="form-control" id="user_misc_2i" name="user[misc(2i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 12, months: true)}
             </select>
             <select class="form-control" id="user_misc_3i" name="user[misc(3i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 31)}
             </select>
           </div>
@@ -424,15 +424,15 @@ class BootstrapSelectsTest < ActionView::TestCase
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control my-date-select" id="user_misc_1i" name="user[misc(1i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 2007, stop: 2017)}
             </select>
             <select class="form-control my-date-select" id="user_misc_2i" name="user[misc(2i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 12, months: true)}
             </select>
             <select class="form-control my-date-select" id="user_misc_3i" name="user[misc(3i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 31)}
             </select>
           </div>
@@ -503,12 +503,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '59')}
             </select>
           </div>
@@ -528,12 +528,12 @@ class BootstrapSelectsTest < ActionView::TestCase
             <input id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
             <input id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-control my-time-select" id="user_misc_4i" name="user[misc(4i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control my-time-select" id="user_misc_5i" name="user[misc(5i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '59')}
             </select>
           </div>
@@ -615,25 +615,25 @@ class BootstrapSelectsTest < ActionView::TestCase
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 2007, stop: 2017)}
             </select>
             <select class="form-control" id="user_misc_2i" name="user[misc(2i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 12, months: true)}
             </select>
             <select class="form-control" id="user_misc_3i" name="user[misc(3i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 31)}
             </select>
             &mdash;
             <select class="form-control" id="user_misc_4i" name="user[misc(4i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control" id="user_misc_5i" name="user[misc(5i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '59')}
             </select>
           </div>
@@ -650,25 +650,25 @@ class BootstrapSelectsTest < ActionView::TestCase
           <label for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control my-datetime-select" id="user_misc_1i" name="user[misc(1i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 2007, stop: 2017)}
             </select>
             <select class="form-control my-datetime-select" id="user_misc_2i" name="user[misc(2i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 12, months: true)}
             </select>
             <select class="form-control my-datetime-select" id="user_misc_3i" name="user[misc(3i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: 1, stop: 31)}
             </select>
             &mdash;
             <select class="form-control my-datetime-select" id="user_misc_4i" name="user[misc(4i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '23')}
             </select>
             :
             <select class="form-control my-datetime-select" id="user_misc_5i" name="user[misc(5i)]">
-              <option value=""></option>
+              #{blank_option}
               #{options_range(start: '00', stop: '59')}
             </select>
           </div>
@@ -696,5 +696,13 @@ class BootstrapSelectsTest < ActionView::TestCase
                                             wrapper: { class: "has-warning", data: { foo: "bar" } }
                                           },
                                           class: "selectpicker")
+  end
+
+  def blank_option
+    if ::Rails::VERSION::STRING < "6.1"
+      '<option value=""></option>'
+    else
+      '<option label=" " value=""></option>'
+    end
   end
 end

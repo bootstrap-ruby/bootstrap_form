@@ -10,7 +10,7 @@
 
 ### Bugfixes
 
-* Your contribution here!
+* [#586](https://github.com/bootstrap-ruby/bootstrap_form/pull/586): Fix Rails 6.1 tests on master - [@thimo](https://github.com/thimo).
 
 ## [4.5.0][] (2020-04-29)
 

@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require "bootstrap_form/version"
 
+REQUIRED_RAILS_VERSION = ">= 5.2".freeze
+
 Gem::Specification.new do |s|
   s.name        = "bootstrap_form"
   s.version     = BootstrapForm::VERSION
@@ -25,8 +27,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.required_ruby_version = ">= 2.5"
-
-  REQUIRED_RAILS_VERSION = ">= 5.2".freeze
 
   s.add_dependency("actionpack", REQUIRED_RAILS_VERSION)
   s.add_dependency("activemodel", REQUIRED_RAILS_VERSION)
