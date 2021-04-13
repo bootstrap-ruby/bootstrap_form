@@ -6,7 +6,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   setup :setup_test_fixture
 
   test "color fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
@@ -16,7 +16,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "date fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
@@ -26,7 +26,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "date time fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime" />
@@ -36,7 +36,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "date time local fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
@@ -46,7 +46,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "email fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="email" />
@@ -56,7 +56,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "file fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <div class="custom-file">
@@ -69,7 +69,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "file field placeholder can be customized" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <div class="custom-file">
@@ -83,7 +83,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   if ::Rails::VERSION::STRING > "5.1"
     test "file field placeholder has appropriate `for` attribute when used in form_with" do
-      expected = <<-HTML.strip_heredoc
+      expected = <<~HTML
         <div class="form-group">
           <label for="custom-id">Misc</label>
           <div class="custom-file">
@@ -98,18 +98,18 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "file fields are wrapped correctly with error" do
     @user.errors.add(:misc, "error for test")
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post" role="form">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-      <div class="form-group">
-        <label for="user_misc">Misc</label>
-        <div class="custom-file">
-          <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
-          <label class="custom-file-label" for="user_misc">Choose file</label>
-          <div class="invalid-feedback">error for test</div>
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post" role="form">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="form-group">
+          <label for="user_misc">Misc</label>
+          <div class="custom-file">
+            <input class="custom-file-input is-invalid" id="user_misc" name="user[misc]" type="file" />
+            <label class="custom-file-label" for="user_misc">Choose file</label>
+            <div class="invalid-feedback">error for test</div>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
   end
@@ -120,7 +120,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "month local fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="month" />
@@ -130,7 +130,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "number fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="number" />
@@ -140,7 +140,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "password fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
@@ -151,7 +151,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "phone/telephone fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="tel" />
@@ -162,7 +162,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "range fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="range" />
@@ -172,7 +172,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "search fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
@@ -182,7 +182,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "text areas are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_comments">Comments</label>
         <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
@@ -193,11 +193,11 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   if ::Rails::VERSION::STRING > "5.1" && ::Rails::VERSION::STRING < "5.2"
     test "text areas are wrapped correctly form_with Rails 5.1" do
-      expected = <<-HTML.strip_heredoc
-      <div class="form-group">
-        <label for="user_comments">Comments</label>
-        <textarea class="form-control" name="user[comments]">\nmy comment</textarea>
-      </div>
+      expected = <<~HTML
+        <div class="form-group">
+          <label for="user_comments">Comments</label>
+          <textarea class="form-control" name="user[comments]">\nmy comment</textarea>
+        </div>
       HTML
       assert_equivalent_xml expected, form_with_builder.text_area(:comments)
     end
@@ -205,18 +205,18 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   if ::Rails::VERSION::STRING > "5.2"
     test "text areas are wrapped correctly form_with Rails 5.2+" do
-      expected = <<-HTML.strip_heredoc
-      <div class="form-group">
-        <label for="user_comments">Comments</label>
-        <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
-      </div>
+      expected = <<~HTML
+        <div class="form-group">
+          <label for="user_comments">Comments</label>
+          <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+        </div>
       HTML
       assert_equivalent_xml expected, form_with_builder.text_area(:comments)
     end
   end
 
   test "text fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
@@ -226,7 +226,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "text fields are wrapped correctly when horizontal and form-row given" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group form-row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
@@ -239,7 +239,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "field 'id' attribute is used to specify label 'for' attribute" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label class="required" for="custom_id">Email</label>
         <input class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
@@ -249,7 +249,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "time fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="time" />
@@ -259,7 +259,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "url fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="url" />
@@ -269,7 +269,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "check_box fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
@@ -280,7 +280,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "custom check_box fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="custom-control custom-checkbox">
         <input name="user[misc]" type="hidden" value="0"/>
         <input class="custom-control-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
@@ -291,7 +291,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "switch-style check_box fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="custom-control custom-switch">
         <input name="user[misc]" type="hidden" value="0"/>
         <input class="custom-control-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
@@ -302,7 +302,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "week fields are wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-group">
         <label for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="week" />
@@ -320,7 +320,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
@@ -341,7 +341,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
@@ -362,7 +362,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group row">
@@ -386,7 +386,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       end
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user form-inline" id="new_user" method="post" role="form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group">
