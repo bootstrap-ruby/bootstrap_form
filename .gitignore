@@ -31,3 +31,8 @@ demo/node_modules
 demo/yarn-error.log
 demo/yarn-debug.log*
 demo/.yarn-integrity
+
+# For stuff that gets created if using the Dockerfile image
+.bundle/
+.cache/
+vendor/bundle
