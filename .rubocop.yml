@@ -22,6 +22,7 @@ AllCops:
     - demo/vendor/**/*
     - Gemfile
     - gemfiles/vendor/bundle/**/*
+    - vendor/bundle/**/*
     - Guardfile
     - Rakefile
     - vendor/**/*
