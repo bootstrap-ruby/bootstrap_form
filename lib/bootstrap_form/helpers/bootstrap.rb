@@ -14,7 +14,7 @@ module BootstrapForm
       def primary(name=nil, options={}, &block)
         setup_css_class "btn btn-primary", options
 
-        if options[:render_as_button] || block_given?
+        if options[:render_as_button] || block
           options.except! :render_as_button
           button(name, options, &block)
         else
