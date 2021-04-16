@@ -6,7 +6,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   setup :setup_test_fixture
 
   test "radio_button is wrapped correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
@@ -18,7 +18,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button no label" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">&#8203;</label>
@@ -30,17 +30,17 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button with error is wrapped correctly" do
     @user.errors.add(:misc, "error for test")
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-      <div class="form-check">
-        <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
-          This is a radio button
-        </label>
-        <div class="invalid-feedback">error for test</div>
-      </div>
-    </form>
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="form-check">
+          <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label class="form-check-label" for="user_misc_1">
+            This is a radio button
+          </label>
+          <div class="invalid-feedback">error for test</div>
+        </div>
+      </form>
     HTML
     actual = bootstrap_form_for(@user) do |f|
       f.radio_button(:misc, "1", label: "This is a radio button", error_message: true)
@@ -49,7 +49,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button disabled label is set correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check disabled">
         <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
@@ -61,7 +61,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button label class is set correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label btn" for="user_misc_1">
@@ -73,7 +73,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button 'id' attribute is used to specify label 'for' attribute" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input" id="custom_id" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="custom_id">
@@ -85,7 +85,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button inline label is set correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check form-check-inline">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
@@ -97,7 +97,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button inline label is set correctly from form level" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
@@ -115,7 +115,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button disabled inline label is set correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check form-check-inline disabled">
         <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
@@ -127,7 +127,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio_button inline label class is set correctly" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check form-check-inline">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label btn" for="user_misc_1">
@@ -141,7 +141,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
@@ -161,7 +161,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders multiple radios correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -181,7 +181,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios with error correctly" do
     @user.errors.add(:misc, "error for test")
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
@@ -207,7 +207,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders inline radios correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
@@ -226,7 +226,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -245,7 +245,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders label defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
@@ -263,7 +263,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders value defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
@@ -282,7 +282,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders multiple radios with label defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -301,7 +301,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders multiple radios with value defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -320,7 +320,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders label defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
@@ -338,7 +338,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders value defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-check">
@@ -357,7 +357,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders multiple radios with label defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -376,7 +376,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "collection_radio_buttons renders multiple radios with value defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -394,7 +394,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio button skip label" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
       </div>
@@ -403,7 +403,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio button hide label" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check">
         <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label sr-only" for="user_misc_1">This is a radio button</label>
@@ -413,7 +413,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "radio button with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check custom-class">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
@@ -426,7 +426,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   end
 
   test "inline radio button with custom wrapper class" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="form-check form-check-inline custom-class">
         <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">

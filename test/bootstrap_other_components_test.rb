@@ -8,7 +8,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control" do
     output = @horizontal_builder.static_control :email
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
@@ -22,7 +22,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control can have custom_id" do
     output = @horizontal_builder.static_control :email, id: "custom_id"
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2 required" for="custom_id">Email</label>
         <div class="col-sm-10">
@@ -36,7 +36,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control doesn't require an actual attribute" do
     output = @horizontal_builder.static_control nil, label: "My Label", value: "this is a test"
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2" for="user_">My Label</label>
         <div class="col-sm-10">
@@ -50,7 +50,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control doesn't require a name" do
     output = @horizontal_builder.static_control label: "Custom Label", value: "Custom Control"
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
@@ -64,7 +64,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control support a nil value" do
     output = @horizontal_builder.static_control label: "Custom Label", value: nil
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">
@@ -78,7 +78,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "static control won't overwrite a control_class that is passed by the user" do
     output = @horizontal_builder.static_control :email, control_class: "test_class"
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
@@ -94,7 +94,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">this is a test</div>
@@ -108,7 +108,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "this is a test"
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2" for="user_">My Label</label>
         <div class="col-sm-10">this is a test</div>
@@ -122,7 +122,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       "Custom Control"
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2" for="user_">Custom Label</label>
         <div class="col-sm-10">Custom Control</div>
@@ -132,7 +132,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "regular button uses proper css classes" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <button class="btn btn-secondary" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
     HTML
     assert_equivalent_xml expected,
@@ -140,7 +140,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "regular button can have extra css classes" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <button class="btn btn-secondary test-button" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
     HTML
     assert_equivalent_xml expected,
