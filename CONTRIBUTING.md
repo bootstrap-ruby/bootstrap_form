@@ -63,7 +63,7 @@ You may find the demo application useful for development and debugging.
 ### 7. Done!
 
 Somebody will shortly review your pull request and if everything is good, it will be
-merged into the master branch. Eventually the gem will be published with your changes.
+merged into the main branch. Eventually the gem will be published with your changes.
 
 ### Coding guidelines
 
