@@ -98,7 +98,7 @@ If you want to use a different Ruby version, or a smaller Linux distribution (al
 docker build --build-arg "RUBY_VERSION=2.7" --build-arg "DISTRO=slim-buster" --tag bootstrap_form .
 ```
 
-Then run whichever container you built with the shell to create the bundle:
+Then run the container you built with the shell, and create the bundle:
 
 ```bash
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -it bootstrap_form /bin/bash
@@ -108,6 +108,21 @@ bundle install
 You can run tests in the container as normal, with `rake test`.
 
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
+
+To run the demo app, set up the database and run the server:
+
+```bash
+cd demo
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
+rails db:setup
+rails s -b 0.0.0.0
+```
+
+Once the database is set up, you can run the server as a one-liner:
+
+```bash
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form rails s -b 0.0.0.0
+```
 
 ## Documentation Contributions
 

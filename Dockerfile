@@ -16,7 +16,7 @@ RUN (echo 'docker'; echo 'docker') | passwd root
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt update -y -q && \
-    apt install -y -q yarn
+    apt install -y -q yarn sqlite3
 
 # Ruby now comes with bundler, but we're not using the default version yet, because we were using
 # a newer version of bundler already. Ruby 3 comes with Bundler 2.2.3. Ruby 2.7 has Bundler 2.1.2,
