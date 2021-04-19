@@ -112,16 +112,11 @@ You can run tests in the container as normal, with `rake test`.
 To run the demo app, set up the database and run the server:
 
 ```bash
-cd demo
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
+cd demo
+export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
 rails db:setup
 rails s -b 0.0.0.0
-```
-
-Once the database is set up, you can run the server as a one-liner:
-
-```bash
-docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form rails s -b 0.0.0.0
 ```
 
 ## Documentation Contributions
