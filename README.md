@@ -6,7 +6,7 @@ This is a new take on the `bootstrap_form` README. Please leave comments at: #52
 
 # bootstrap_form
 
-[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=main)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
 `bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
@@ -159,7 +159,7 @@ The current configuration options are:
 
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `default_form_attributes` | `{role: "form"}` | version [2.2.0](https://github.com/bootstrap-ruby/bootstrap_form/blob/master/CHANGELOG.md#220-2014-09-16) added a role="form" attribute to all forms.   The W3C validator will raise a **warning** on forms with a role="form" attribute.   Set this option to `{}` to make forms be W3C compliant. |
+| `default_form_attributes` | `{role: "form"}` | version [2.2.0](https://github.com/bootstrap-ruby/bootstrap_form/blob/main/CHANGELOG.md#220-2014-09-16) added a role="form" attribute to all forms.   The W3C validator will raise a **warning** on forms with a role="form" attribute.   Set this option to `{}` to make forms be W3C compliant. |
 
 
 Example:
