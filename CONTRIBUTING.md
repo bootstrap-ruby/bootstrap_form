@@ -109,7 +109,20 @@ You can run tests in the container as normal, with `rake test`.
 
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
 
+### The Demo App
+
+There is a demo app in this repository. It shows some of the features of `bootstrap_form`, and provides a base on which to build ad-hoc testing, if you need it.
+
 To run the demo app, set up the database and run the server:
+
+```bash
+cd demo
+export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
+rails db:setup
+rails s -b 0.0.0.0
+```
+
+To run the demo app in the Docker container:
 
 ```bash
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
@@ -118,6 +131,8 @@ export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
 rails db:setup
 rails s -b 0.0.0.0
 ```
+
+To use other supported versions of Rails, change the `export BUNDLER_GEMFILE...` line to another gem file.
 
 ## Documentation Contributions
 
