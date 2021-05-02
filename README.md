@@ -781,8 +781,7 @@ Which outputs:
 
 ### Errors On
 
-If you want to display a custom inline error for a specific attribute not
-represented by a form field, use the `errors_on` helper.
+If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
 ```erb
 <%= f.errors_on :tasks %>
@@ -791,7 +790,7 @@ represented by a form field, use the `errors_on` helper.
 Which outputs:
 
 ```html
-<div class="alert alert-danger">Tasks can't be blank.</div>
+<div class="invalid-feedback">Tasks can't be blank.</div>
 ```
 
 You can hide the attribute name like this:
@@ -803,7 +802,19 @@ You can hide the attribute name like this:
 Which outputs:
 
 ```html
-<div class="alert alert-danger">can't be blank.</div>
+<div class="invalid-feedback">can't be blank.</div>
+```
+
+You can also use a custom class for the wrapping div, like this:
+
+```erb
+<%= f.errors_on :tasks, custom_class: 'custom-error' %>
+```
+
+Which outputs:
+
+```html
+<div class="custom-error">can't be blank.</div>
 ```
 
 ## Required Fields

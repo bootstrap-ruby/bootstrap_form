@@ -797,4 +797,13 @@ class BootstrapFormTest < ActionView::TestCase
 
     assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
+
+  test "errors_on use custom CSS classes" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = '<div class="custom-error-class">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>'
+
+    assert_equivalent_xml expected, @builder.errors_on(:email, custom_class: "custom-error-class")
+  end
 end

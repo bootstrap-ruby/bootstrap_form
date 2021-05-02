@@ -46,9 +46,9 @@ module BootstrapForm
         return unless error?(name)
 
         hide_attribute_name = options[:hide_attribute_name] || false
-        custom_class_name   = options[:custom_class_name] || false
+        custom_class = options[:custom_class] || false
 
-        tag.div class: custom_class_name || "invalid-feedback" do
+        tag.div class: custom_class || "invalid-feedback" do
           if hide_attribute_name
             object.errors[name].join(", ")
           else
