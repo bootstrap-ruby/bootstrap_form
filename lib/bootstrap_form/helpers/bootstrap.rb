@@ -14,7 +14,7 @@ module BootstrapForm
       def primary(name=nil, options={}, &block)
         setup_css_class "btn btn-primary", options
 
-        if options[:render_as_button] || block_given?
+        if options[:render_as_button] || block
           options.except! :render_as_button
           button(name, options, &block)
         else
@@ -22,7 +22,7 @@ module BootstrapForm
         end
       end
 
-      def alert_message(title, options={}) # rubocop:disable Metrics/AbcSize
+      def alert_message(title, options={})
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 

@@ -1,6 +1,6 @@
 # bootstrap_form
 
-[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=main)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
 `bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
@@ -689,6 +689,21 @@ The `custom` option can be used to replace the browser default styles for check 
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me, custom: true %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
+### Floating Labels
+
+The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
+and dropdowns. Here's an example:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
   <%= f.submit "Log In" %>
 <% end %>
 ```

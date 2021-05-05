@@ -6,11 +6,12 @@
 
 ### New features
 
-* Your contribution here!
+* [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
+* [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
 
 ### Bugfixes
 
-* Your contribution here!
+* [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fix tests in bootstrap-5 branch, removes Rubocop offenses, and adds testing with Rails 6.1.
 
 ## [5.0.0.alpha1][]
 
@@ -24,7 +25,8 @@
 
 ### Bugfixes
 
-* Your contribution here!
+* [#586](https://github.com/bootstrap-ruby/bootstrap_form/pull/586): Fix Rails 6.1 tests on master - [@thimo](https://github.com/thimo).
+* [#587](https://github.com/bootstrap-ruby/bootstrap_form/pull/587): Replace `strip_heredoc` with `<<~` - [@thimo](https://github.com/thimo).
 
 ## [4.5.0][] (2020-04-29)
 

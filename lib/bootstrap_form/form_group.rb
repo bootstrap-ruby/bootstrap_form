@@ -10,9 +10,9 @@ module BootstrapForm
 
       options[:class] = form_group_classes(options)
 
-      tag.div(options.except(:append, :id, :label, :help, :icon,
-                             :input_group_class, :label_col, :control_col,
-                             :add_control_col_class, :layout, :prepend)) do
+      tag.div(**options.except(:append, :id, :label, :help, :icon,
+                               :input_group_class, :label_col, :control_col,
+                               :add_control_col_class, :layout, :prepend, :floating)) do
         form_group_content(
           generate_label(options[:id], name, options[:label], options[:label_col], options[:layout]),
           generate_help(name, options[:help]), options, &block
@@ -36,8 +36,10 @@ module BootstrapForm
       if group_layout_horizontal?(options[:layout])
         concat(label).concat(tag.div(capture(&block) + help_text, class: form_group_control_class(options)))
       else
-        concat(label)
+        # Floating labels need to be rendered after the field
+        concat(label) unless options[:floating]
         concat(capture(&block))
+        concat(label) if options[:floating]
         concat(help_text) if help_text
       end
     end
@@ -54,6 +56,7 @@ module BootstrapForm
       classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
       classes << "col-auto g-3" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
+      classes << "form-floating" if options[:floating]
       classes
     end
 

@@ -13,7 +13,7 @@ There are a number of ways you can contribute to `bootstrap_form`:
 *Note:* If you want to work on preparing `bootstrap_form` for Bootstrap 5,
 please start from the `bootstrap-5` branch.
 If you're submitting a pull request with code or documentation,
-say that you want to merge your branch to the `bootstrap-5` branch.
+target the pull request to the `bootstrap-5` branch.
 
 ## Code Contributions
 
@@ -63,7 +63,7 @@ You may find the demo application useful for development and debugging.
 ### 7. Done!
 
 Somebody will shortly review your pull request and if everything is good, it will be
-merged into the master branch. Eventually the gem will be published with your changes.
+merged into the main branch. Eventually the gem will be published with your changes.
 
 ### Coding guidelines
 
@@ -81,6 +81,58 @@ Note that most editors have plugins to run RuboCop as you type, or when you save
 The goal of `bootstrap_form` is to support all versions of Rails currently supported for bug fixes and security issues. We do not test against versions supported for severe security issues. We test against the minimum [version of Ruby required](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#ruby-versions) for those versions of Rails.
 
 The Ruby on Rails support policy is [here](https://guides.rubyonrails.org/maintenance_policy.html).
+
+### Developing with Docker
+
+This repository includes a `Dockerfile` to build an image with the minimum `bootstrap_form`-supported Ruby environment. To build the image:
+
+```bash
+docker build --tag bootstrap_form .
+```
+
+This builds an image called `bootstrap_form`. You can change that to any tag you wish. Just make sure you use the same tag name in the `docker run` command.
+
+If you want to use a different Ruby version, or a smaller Linux distribution (although the distro may be missing tools you need):
+
+```bash
+docker build --build-arg "RUBY_VERSION=2.7" --build-arg "DISTRO=slim-buster" --tag bootstrap_form .
+```
+
+Then run the container you built with the shell, and create the bundle:
+
+```bash
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -it bootstrap_form /bin/bash
+bundle install
+```
+
+You can run tests in the container as normal, with `rake test`.
+
+(Some of that command line is need for Linux hosts, to run the container as the current user.)
+
+### The Demo App
+
+There is a demo app in this repository. It shows some of the features of `bootstrap_form`, and provides a base on which to build ad-hoc testing, if you need it.
+
+To run the demo app, set up the database and run the server:
+
+```bash
+cd demo
+export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
+rails db:setup
+rails s -b 0.0.0.0
+```
+
+To run the demo app in the Docker container:
+
+```bash
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
+cd demo
+export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
+rails db:setup
+rails s -b 0.0.0.0
+```
+
+To use other supported versions of Rails, change the `export BUNDLER_GEMFILE...` line to another gem file.
 
 ## Documentation Contributions
 
