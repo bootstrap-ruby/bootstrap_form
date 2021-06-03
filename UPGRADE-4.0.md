@@ -33,7 +33,7 @@ One way to make the above behave the same in `bootstrap_form` v4.0 is to write i
 <%= bootstrap_form_for(@user) do |f| %>
   <%= f.form_group(:email) do %>
     <p class="form-control-plaintext">Bar</p>
-    <%= content_tag(:div, @user.errors[:email].join(", "), class: "invalid-feedback", style: "display: block;") unless @user.errors[:email].empty? %>
+    <%= tag.div(@user.errors[:email].join(", "), class: "invalid-feedback", style: "display: block;") unless @user.errors[:email].empty? %>
   <%= end %>
 <%= end %>
 ```

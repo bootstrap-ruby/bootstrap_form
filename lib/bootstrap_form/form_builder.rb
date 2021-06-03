@@ -43,9 +43,8 @@ module BootstrapForm
     include BootstrapForm::Inputs::UrlField
     include BootstrapForm::Inputs::WeekField
 
-    delegate :content_tag, :capture, :concat, to: :@template
+    delegate :content_tag, :capture, :concat, :tag, to: :@template
 
-    # rubocop:disable Metrics/AbcSize
     def initialize(object_name, object, template, options)
       @layout = options[:layout] || default_layout
       @label_col = options[:label_col] || default_label_col
@@ -61,7 +60,6 @@ module BootstrapForm
       add_default_form_attributes_and_form_inline options
       super
     end
-    # rubocop:enable Metrics/AbcSize
 
     def add_default_form_attributes_and_form_inline(options)
       options[:html] ||= {}

@@ -6,12 +6,12 @@ This is a new take on the `bootstrap_form` README. Please leave comments at: #52
 
 # bootstrap_form
 
-[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
+[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=main)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
 `bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
-* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
+* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself. _Note that this applies to Rails-generated validation messages._ HTML 5 client-side validation and Rails validation out of the box don't really work well together. One discussion of the challenges and some solutions is [here](https://www.jorgemanrubia.com/2019/02/16/form-validations-with-html5-and-modern-rails/)
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
 * An easy way to consistently show [help](#help-text) text on fields.
 * Mark-up for [Bootstrap horizontal forms](#horizontal-forms) (labels to the left of their fields, like a traditional desktop application), if that's what you want.
@@ -159,7 +159,7 @@ The current configuration options are:
 
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `default_form_attributes` | `{role: "form"}` | version [2.2.0](https://github.com/bootstrap-ruby/bootstrap_form/blob/master/CHANGELOG.md#220-2014-09-16) added a role="form" attribute to all forms.   The W3C validator will raise a **warning** on forms with a role="form" attribute.   Set this option to `{}` to make forms be W3C compliant. |
+| `default_form_attributes` | `{role: "form"}` | version [2.2.0](https://github.com/bootstrap-ruby/bootstrap_form/blob/main/CHANGELOG.md#220-2014-09-16) added a role="form" attribute to all forms.   The W3C validator will raise a **warning** on forms with a role="form" attribute.   Set this option to `{}` to make forms be W3C compliant. |
 
 
 Example:

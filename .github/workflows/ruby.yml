@@ -1,0 +1,46 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+          bundler-cache: true
+      - name: Danger
+        if: ${{ github.event_name == 'pull_request' }}
+        run: |
+          gem install danger
+          export DANGER_GITHUB_API_TOKEN=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
+          danger
+      - name: Rubocop
+        run: bundle exec rubocop --auto-correct
+  Test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: [ '3.0', '2.7', '2.6' ]
+        gemfile: [ '6.1', '6.0', '5.2', 'edge' ]
+        exclude:
+          - { ruby-version: '3.0', gemfile: "5.2" }
+          - { ruby-version: '2.6', gemfile: "edge" }
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+      - name: Run tests
+        run: bundle exec rake test

@@ -13,7 +13,7 @@ module BootstrapForm
                                              :inline, :custom, :hide_label, :skip_label, :wrapper_class)
           check_box_options[:class] = check_box_classes(name, options)
 
-          content_tag(:div, class: check_box_wrapper_class(options)) do
+          tag.div(class: check_box_wrapper_class(options)) do
             html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
             html.concat(check_box_label(name, options, checked_value, &block)) unless options[:skip_label]
             html.concat(generate_error(name)) if options[:error_message]
@@ -38,7 +38,7 @@ module BootstrapForm
       end
 
       def check_box_description(name, options, &block)
-        content = block_given? ? capture(&block) : options[:label]
+        content = block ? capture(&block) : options[:label]
         content || object&.class&.human_attribute_name(name) || name.to_s.humanize
       end
 
