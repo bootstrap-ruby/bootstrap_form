@@ -185,10 +185,10 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "primary button with content block renders as HTML button" do
-    output = @builder.primary do
+    output = @builder.primary(extra_class: 'special') do
       "<span>I'm HTML!</span> Submit Form".html_safe
     end
-    expected = %q(<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>)
+    expected = %q(<button class="btn btn-primary special" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>)
     assert_equivalent_xml expected, output
   end
 
