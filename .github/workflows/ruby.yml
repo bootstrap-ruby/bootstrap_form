@@ -5,6 +5,8 @@ on:
     branches: [ main fix-ci ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
+    branches: [ main fix-ci ]
 
 jobs:
   Lint:
