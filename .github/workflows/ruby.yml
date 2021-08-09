@@ -16,7 +16,7 @@ jobs:
           ruby-version: 3.0
           bundler-cache: true
       - name: Danger
-        if: ${{ github.event_name == 'pull_request' }}
+        # if: ${{ github.event_name == 'pull_request' }}
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.BOT_ACCESS_TOKEN }}
         run: |
