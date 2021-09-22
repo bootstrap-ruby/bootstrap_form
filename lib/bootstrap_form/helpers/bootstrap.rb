@@ -2,7 +2,10 @@ module BootstrapForm
   module Helpers
     module Bootstrap
       def button(value=nil, options={}, &block)
-        value, options = nil, value if value.is_a?(Hash)
+        if value.is_a?(Hash)
+          options = value
+          value = nil
+        end
         setup_css_class "btn btn-secondary", options
         super
       end
@@ -13,7 +16,10 @@ module BootstrapForm
       end
 
       def primary(name=nil, options={}, &block)
-        name, options = nil, name if name.is_a?(Hash)
+        if name.is_a?(Hash)
+          options = name
+          name = nil
+        end
         setup_css_class "btn btn-primary", options
 
         if options[:render_as_button] || block
