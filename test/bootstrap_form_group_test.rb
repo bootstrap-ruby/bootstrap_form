@@ -9,7 +9,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email Address</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label: "Email Address")
@@ -19,7 +19,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email Address</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label: { text: "Email Address" })
@@ -29,7 +29,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="sr-only required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, hide_label: true)
@@ -39,7 +39,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="btn required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label_class: "btn")
@@ -49,7 +49,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="btn required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label: { class: "btn" })
@@ -59,7 +59,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="btn required" for="user_email">Email Address</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label: { class: "btn", text: "Email Address" })
@@ -68,7 +68,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "skipping a label" do
     expected = <<~HTML
       <div class="form-group">
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, skip_label: true)
@@ -100,7 +100,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_comments">Comments</label>
-        <input class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" required="required" />
+        <input aria-required="true" required="required" class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:comments, required: true)
@@ -110,7 +110,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="sr-only required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, label_as_placeholder: true)
@@ -124,7 +124,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <div class="input-group-prepend">
             <span class="input-group-text">@</span>
           </div>
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
     HTML
@@ -136,7 +136,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
         <div class="input-group">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <div class="input-group-append">
             <span class="input-group-text">.00</span>
           </div>
@@ -148,7 +148,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "append and prepend button" do
     prefix = '<div class="form-group"><label class="required" for="user_email">Email</label><div class="input-group">'
-    field = '<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
+    field = <<~HTML
+      <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+    HTML
     button_src = link_to("Click", "#", class: "btn btn-secondary")
     button_prepend = "<div class=\"input-group-prepend\">#{button_src}</div>"
     button_append = "<div class=\"input-group-append\">#{button_src}</div>"
@@ -171,7 +173,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <div class="input-group-prepend">
             <span class="input-group-text">$</div>
           </div>
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <div class="input-group-append">
             <span class="input-group-text">.00</span>
           </div>
@@ -194,7 +196,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
             <div class="input-group-prepend">
               <span class="input-group-text">$</div>
             </div>
-            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+            <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
             <div class="input-group-append">
               <span class="input-group-text">.00</span>
             </div>
@@ -210,7 +212,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         <small class="form-text text-muted">This is required</small>
       </div>
     HTML
@@ -222,7 +224,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <small class="form-text text-muted">This is required</small>
         </div>
       </div>
@@ -474,7 +476,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <label class="required" for="user_email">Email</label>
         </div>
         <div class="field_with_errors">
-          <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" />
+          <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="email" />
         </div>
         <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
@@ -495,7 +497,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group none-margin">
           <label class="required" for="user_email">Email</label>
-          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
@@ -548,7 +550,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
     HTML
@@ -566,7 +568,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "rendering without wrapper" do
-    expected = '<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
+    expected = <<~HTML
+      <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+    HTML
     assert_equivalent_xml expected, @builder.text_field(:email, wrapper: false)
   end
 
@@ -574,7 +578,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
-        <input autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" autofocus="autofocus" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, autofocus: true)
@@ -599,7 +603,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-group form-inline">
           <label class="mr-sm-2 required" for="user_email">Email</label>
-          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
     HTML
@@ -639,7 +643,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
         <div class="input-group input-group-lg">
-          <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           <div class="input-group-append">
             <input class="btn btn-primary" name="commit" type="submit" value="Subscribe" />
           </div>

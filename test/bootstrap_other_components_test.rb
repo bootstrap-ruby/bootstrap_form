@@ -12,7 +12,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
+          <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" required="required" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
@@ -26,7 +26,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="custom_id">Email</label>
         <div class="col-sm-10">
-          <input class="form-control-plaintext" id="custom_id" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
+          <input aria-required="true" class="form-control-plaintext" id="custom_id" name="user[email]" readonly="readonly" required="required" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
@@ -82,7 +82,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <div class="form-group row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="test_class form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
+          <input aria-required="true" class="test_class form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" required="required" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML

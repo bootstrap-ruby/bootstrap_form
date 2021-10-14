@@ -1,3 +1,18 @@
+<h3>Required fields test</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |form| %>
+    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true" %>
+    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with required false", required: false %>
+    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with skip required false", skip_required: false %>
+    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with skip required true", skip_required: true %>
+    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model" %>
+    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model with required true", required: true %>
+    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model with required false", required: false %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
 <h3>Horizontal Form</h3>
 
 <%= form_with_source do %>
