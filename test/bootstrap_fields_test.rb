@@ -219,7 +219,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email)
@@ -230,7 +230,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="form-group form-row">
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com" />
         </div>
       </div>
     HTML
@@ -242,7 +242,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-group">
         <label class="required" for="custom_id">Email</label>
-        <input class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" class="form-control" id="custom_id" name="user[email]" required="required" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, id: :custom_id)
