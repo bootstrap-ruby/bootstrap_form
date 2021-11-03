@@ -34,11 +34,11 @@ class BootstrapFormTest < ActionView::TestCase
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
             </div>
           </div>
         </div>
@@ -83,11 +83,11 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="form-group form-inline">
@@ -146,11 +146,11 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="form-group">
@@ -194,11 +194,11 @@ class BootstrapFormTest < ActionView::TestCase
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+              <label class="form-check-label" for="user_misc_1"> Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+              <label class="form-check-label" for="user_misc_2"> Bar</label>
             </div>
           </div>
         </div>
@@ -242,11 +242,11 @@ class BootstrapFormTest < ActionView::TestCase
           <label for="user_misc">Misc</label>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="form-group">
@@ -288,11 +288,11 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
           </div>
         </div>
         <div class="form-group form-inline">
