@@ -6,6 +6,20 @@
 
 ### New features
 
+* Your contribution here!
+
+### Bugfixes
+
+* Your contribution here!
+
+## [5.0.0][] (2021-11-11)
+
+### Breaking changes
+
+* Generates markup for Bootstrap 5.
+
+### New features
+
 * [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
 * [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
 
@@ -308,7 +322,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...v5.0.0
 [4.5.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0
 [4.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...v4.3.0
