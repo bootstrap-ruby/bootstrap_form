@@ -9,9 +9,12 @@ module BootstrapForm
       included do
         def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
           options = options.symbolize_keys!
+          check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
+                                             :inline, :hide_label, :skip_label, :wrapper_class, :switch)
+          check_box_options[:class] = check_box_classes(name, options)
 
           tag.div(class: check_box_wrapper_class(options)) do
-            html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
+            html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
             html.concat(check_box_label(name, options, checked_value, &block)) unless options[:skip_label]
             html.concat(generate_error(name)) if options[:error_message]
             html
@@ -22,14 +25,6 @@ module BootstrapForm
       end
 
       private
-
-      def check_box_options(name, options)
-        check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                           :inline, :custom, :hide_label, :skip_label, :wrapper_class)
-        check_box_options[:class] = check_box_classes(name, options)
-        check_box_options[:aria] = { required: true } if options[:required]
-        check_box_options
-      end
 
       def check_box_label(name, options, checked_value, &block)
         label_name = if options[:multiple]
@@ -55,39 +50,25 @@ module BootstrapForm
       end
 
       def check_box_classes(name, options)
-        classes = [options[:class]]
-        classes << (options[:custom] ? "custom-control-input" : "form-check-input")
+        classes = Array(options[:class]) << "form-check-input"
         classes << "is-invalid" if error?(name)
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end
 
       def check_box_label_class(options)
-        classes = []
-        classes << (options[:custom] ? "custom-control-label" : "form-check-label")
+        classes = ["form-check-label"]
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
         classes.flatten.compact
       end
 
       def check_box_wrapper_class(options)
-        classes = []
-        if options[:custom]
-          classes << custom_check_box_wrapper_class(options)
-        else
-          classes << "form-check"
-          classes << "form-check-inline" if layout_inline?(options[:inline])
-        end
+        classes = ["form-check"]
+        classes << "form-check-inline" if layout_inline?(options[:inline])
+        classes << "form-switch" if options[:switch]
         classes << options[:wrapper_class] if options[:wrapper_class].present?
         classes.flatten.compact
-      end
-
-      def custom_check_box_wrapper_class(options)
-        classes = []
-        classes << "custom-control"
-        classes << (options[:custom] == :switch ? "custom-switch" : "custom-checkbox")
-        classes << "custom-control-inline" if layout_inline?(options[:inline])
-        classes
       end
     end
   end

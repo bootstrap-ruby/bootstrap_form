@@ -2,10 +2,6 @@ module BootstrapForm
   module Helpers
     module Bootstrap
       def button(value=nil, options={}, &block)
-        if value.is_a?(Hash)
-          options = value
-          value = nil
-        end
         setup_css_class "btn btn-secondary", options
         super
       end
@@ -16,10 +12,6 @@ module BootstrapForm
       end
 
       def primary(name=nil, options={}, &block)
-        if name.is_a?(Hash)
-          options = name
-          name = nil
-        end
         setup_css_class "btn btn-primary", options
 
         if options[:render_as_button] || block
@@ -54,8 +46,9 @@ module BootstrapForm
         return unless error?(name)
 
         hide_attribute_name = options[:hide_attribute_name] || false
+        custom_class = options[:custom_class] || false
 
-        tag.div class: "alert alert-danger" do
+        tag.div class: custom_class || "invalid-feedback" do
           if hide_attribute_name
             object.errors[name].join(", ")
           else
@@ -116,7 +109,7 @@ module BootstrapForm
 
       def attach_input(options, key)
         tags = [*options[key]].map do |item|
-          tag.div(input_group_content(item), class: "input-group-#{key}")
+          input_group_content(item)
         end
         ActiveSupport::SafeBuffer.new(tags.join)
       end

@@ -28,9 +28,7 @@ module BootstrapForm
     def form_group_builder_options(options, method)
       options.symbolize_keys!
       options = convert_form_tag_options(method, options) if acts_like_form_tag
-
-      options[:required] = form_group_required(options, method)
-      options[:aria] = { required: true } if options[:required]
+      options[:required] = form_group_required(options) if !options[:skip_label] && options.key?(:skip_required)
       options
     end
 
@@ -48,7 +46,8 @@ module BootstrapForm
         id: options[:id], help: options[:help], icon: options[:icon],
         label_col: options[:label_col], control_col: options[:control_col],
         add_control_col_class: options[:add_control_col_class],
-        layout: get_group_layout(options[:layout]), class: options[:wrapper_class]
+        layout: get_group_layout(options[:layout]), class: options[:wrapper_class],
+        floating: options[:floating]
       }
 
       form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
@@ -78,15 +77,11 @@ module BootstrapForm
       classes
     end
 
-    def form_group_required(options, method)
-      if options[:skip_required]
-        warn "`:skip_required` is deprecated, use `:required: false` instead"
-        false
-      elsif options.key?(:required)
-        options[:required]
-      else
-        required_attribute?(object, method)
-      end
+    def form_group_required(options)
+      return unless options.key?(:skip_required)
+
+      warn "`:skip_required` is deprecated, use `:required: false` instead"
+      options[:skip_required] ? false : :default
     end
 
     def form_group_css_options(method, html_options, options)

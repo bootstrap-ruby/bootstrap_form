@@ -1,18 +1,3 @@
-<h3>Required fields test</h3>
-
-<%= form_with_source do %>
-  <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |form| %>
-    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true" %>
-    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with required false", required: false %>
-    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with skip required false", skip_required: false %>
-    <%= form.text_field :email, placeholder: "Enter Email", label: "Email address", help: "Email pressence true with skip required true", skip_required: true %>
-    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model" %>
-    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model with required true", required: true %>
-    <%= form.text_field :misc, placeholder: "Enter Misc", label: "Misc", help: "Misc not required by model with required false", required: false %>
-    <%= form.submit %>
-  <% end %>
-<% end %>
-
 <h3>Horizontal Form</h3>
 
 <%= form_with_source do %>
@@ -64,6 +49,19 @@
     <%= form.check_box :terms, label: "Agree to Terms" %>
     <%= form.collection_check_boxes :misc, @collection, :id, :street %>
     <%= form.rich_text_area(:life_story) if Rails::VERSION::STRING > "6" %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>Floating Labels</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user do |form| %>
+    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else", floating: true %>
+    <%= form.password_field :password, placeholder: "Password", floating: true %>
+    <%= form.text_field :misc, floating: true %>
+    <%= form.text_area :comments, floating: true %>
+    <%= form.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
     <%= form.submit %>
   <% end %>
 <% end %>

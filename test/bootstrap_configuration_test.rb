@@ -4,7 +4,7 @@ class BootstrapConfigurationTest < ActionView::TestCase
   test "has default form attributes" do
     config = BootstrapForm::Configuration.new
 
-    assert_equal({ role: "form" }, config.default_form_attributes)
+    assert_equal({}, config.default_form_attributes)
   end
 
   test "allows to set default_form_attributes with custom value" do

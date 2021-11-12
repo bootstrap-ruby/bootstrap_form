@@ -36,12 +36,3 @@
     }
   }
 }
-label.required {
-  &:after {
-    color: red;
-    content: '*';
-  }
-}
-input[required="required"]{
-  border: 1px solid red;
-}

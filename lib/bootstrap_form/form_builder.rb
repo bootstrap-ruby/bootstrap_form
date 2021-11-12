@@ -67,7 +67,7 @@ module BootstrapForm
 
       return unless options[:layout] == :inline
 
-      options[:html][:class] = [options[:html][:class], "form-inline"].compact.join(" ")
+      options[:html][:class] = [options[:html][:class], "col-auto", "g-3"].compact.join(" ")
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
