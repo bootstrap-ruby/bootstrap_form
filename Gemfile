@@ -18,7 +18,6 @@ group :development do
 end
 
 group :test do
-  # can relax version requirement for Rails 5.2.beta3+
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"

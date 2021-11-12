@@ -34,7 +34,7 @@ Some other nice things that `bootstrap_form` does for you are:
 Add it to your Gemfile:
 
 ```ruby
-gem "bootstrap_form", git: "https://github.com/bootstrap-ruby/bootstrap_form.git", branch: "bootstrap-5"
+gem "bootstrap_form", "~> 5.0"
 ```
 
 Then:
@@ -893,6 +893,10 @@ If you're considering contributing to bootstrap_form,
 please review the [Contributing](/CONTRIBUTING.md)
 document first.
 
+## Previous Version
+
+If you're looking for `bootstrap_form` for Bootstrap 4, go [here](https://github.com/bootstrap-ruby/bootstrap_form/tree/bootstrap-4).
+
 ## License
 
-MIT License. Copyright 2012-2020 Stephen Potenza (https://github.com/potenza) and others
+MIT License. Copyright 2012-2021 Stephen Potenza (https://github.com/potenza) and others
