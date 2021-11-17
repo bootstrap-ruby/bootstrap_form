@@ -25,7 +25,8 @@ class BootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -75,7 +76,8 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -137,7 +139,8 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -184,7 +187,8 @@ class BootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -233,7 +237,8 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -279,7 +284,8 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
@@ -414,7 +420,8 @@ class BootstrapFormTest < ActionView::TestCase
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check">
           <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
-          <input name="#{name}" type="hidden" value="0" />
+          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
+            name="#{name}" type="hidden" value="0" />
           <label class="form-check-label" for="#{id}"> Misc</label>
         </div>
       </form>
