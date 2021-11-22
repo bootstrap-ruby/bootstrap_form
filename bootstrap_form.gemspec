@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.description = "bootstrap_form is a rails form builder that makes it super "\
                   "easy to create beautiful-looking forms using Bootstrap 5"
   s.license     = "MIT"
+  s.metadata    = { "rubygems_mfa_required" => "true" }
 
   s.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test)/})

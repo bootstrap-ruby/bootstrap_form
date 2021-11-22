@@ -6,7 +6,7 @@ gemspec path: __dir__
 # gem "rails", "~> 5.2.0"
 # gem "rails", "~> 6.0.0"
 # gem "rails", "~> 6.1.0"
-# gem "rails", git: "https://github.com/rails/rails.git"
+# gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 
 group :development do
   gem "chandler", ">= 0.7.0"
@@ -21,5 +21,6 @@ group :test do
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
+  gem "sassc-rails"
   gem "sqlite3"
 end
