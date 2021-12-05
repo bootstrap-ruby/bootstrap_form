@@ -28,7 +28,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "hiding a label" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label sr-only required" for="user_email">Email</label>
+        <label class="form-label visually-hidden required" for="user_email">Email</label>
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -109,7 +109,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "label as placeholder" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label sr-only required" for="user_email">Email</label>
+        <label class="form-label visually-hidden required" for="user_email">Email</label>
         <input class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML

@@ -519,7 +519,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
           name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-check-label sr-only" for="user_terms">I agree to the terms</label>
+        <label class="form-check-label visually-hidden" for="user_terms">I agree to the terms</label>
       </div>
     HTML
     assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", hide_label: true)

@@ -114,7 +114,7 @@ module BootstrapForm
     end
 
     def hide_class
-      "sr-only" # still accessible for screen readers
+      "visually-hidden" # still accessible for screen readers
     end
 
     def control_class

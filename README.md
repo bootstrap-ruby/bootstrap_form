@@ -216,7 +216,7 @@ Use the `label` option if you want to specify the field's label text:
 <%= f.password_field :password_confirmation, label: "Confirm Password" %>
 ```
 
-To hide a label, use the `hide_label: true` option. This adds the `sr-only`
+To hide a label, use the `hide_label: true` option. This adds the `visually-hidden`
 class, which keeps your labels accessible to those using screen readers.
 
 ```erb
