@@ -26,7 +26,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "time zone selects are wrapped correctly with wrapper" do
     expected = <<~HTML
-      <div class="mb-3 none-margin">
+      <div class="none-margin">
         <label class="form-label" for="user_misc">Misc</label>
         <select class="form-select" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
@@ -181,7 +181,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "collection_selects are wrapped correctly with wrapper" do
     expected = <<~HTML
-      <div class="mb-3 none-margin">
+      <div class="none-margin">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
@@ -241,7 +241,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "grouped_collection_selects are wrapped correctly with wrapper" do
     expected = <<~HTML
-      <div class="mb-3 none-margin">
+      <div class="none-margin">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
@@ -318,7 +318,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "date selects are wrapped correctly with wrapper class" do
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
-        <div class="mb-3 none-margin">
+        <div class="none-margin">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-select" id="user_misc_1i" name="user[misc(1i)]">
@@ -705,7 +705,7 @@ class BootstrapSelectsTest < ActionView::TestCase
                                           [["Apple", 1], ["Grape", 2]],
                                           {
                                             label: "Choose your favorite fruit:",
-                                            wrapper: { class: "has-warning", data: { foo: "bar" } }
+                                            wrapper: { class: "mb-3 has-warning", data: { foo: "bar" } }
                                           },
                                           class: "selectpicker")
   end

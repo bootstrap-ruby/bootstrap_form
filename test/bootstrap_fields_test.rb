@@ -225,8 +225,8 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "g-3")
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper: { class: "g-3" })
+    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "mb-3 g-3")
+    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper: { class: "mb-3 g-3" })
   end
 
   test "field 'id' attribute is used to specify label 'for' attribute" do
