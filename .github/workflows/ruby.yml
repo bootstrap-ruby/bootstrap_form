@@ -17,7 +17,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           gem install danger
-          export DANGER_GITHUB_API_TOKEN=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
+          export DANGER_GITHUB_API_TOKEN=${{ github.token }}
           danger
       - name: Rubocop
         run: bundle exec rubocop --auto-correct
