@@ -326,7 +326,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "form_group accepts class thorugh options hash" do
-    output = @horizontal_builder.form_group :email, class: "foo" do
+    output = @horizontal_builder.form_group :email, class: "mb-3 foo" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
@@ -341,7 +341,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "form_group accepts class thorugh options hash without needing a name" do
-    output = @horizontal_builder.form_group class: "foo" do
+    output = @horizontal_builder.form_group class: "mb-3 foo" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
@@ -356,7 +356,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "form_group horizontal lets caller override .row" do
-    output = @horizontal_builder.form_group class: "g-3" do
+    output = @horizontal_builder.form_group class: "mb-3 g-3" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
@@ -442,9 +442,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  test "adds class to wrapped form_group by a field" do
+  test "overrides the class of the wrapped form_group by a field" do
     expected = <<~HTML
-      <div class="mb-3 none-margin">
+      <div class="none-margin">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
@@ -452,12 +452,12 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.search_field(:misc, wrapper_class: "none-margin")
   end
 
-  test "adds class to wrapped form_group by a field with errors" do
+  test "overrides the class of the wrapped form_group by a field with errors" do
     @user.email = nil
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="mb-3 none-margin">
+      <div class="none-margin">
         <div class="field_with_errors">
           <label class="form-label required" for="user_email">Email</label>
         </div>
@@ -470,7 +470,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.email_field(:email, wrapper_class: "none-margin")
   end
 
-  test "adds class to wrapped form_group by a field with errors when bootstrap_form_for is used" do
+  test "overrides the class of the wrapped form_group by a field with errors when bootstrap_form_for is used" do
     @user.email = nil
     assert @user.invalid?
 
@@ -481,7 +481,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="mb-3 none-margin">
+        <div class="none-margin">
           <label class="form-label required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
@@ -556,6 +556,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "rendering without wrapper" do
     expected = '<input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
     assert_equivalent_xml expected, @builder.text_field(:email, wrapper: false)
+  end
+
+  test "rendering without wrapper class" do
+    expected = <<~HTML
+      <div>
+        <label class="form-label" for="user_misc">Misc</label>
+        <input class="form-control" id="user_misc" name="user[misc]" type="search" />
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.search_field(:misc, wrapper: { class: false })
   end
 
   test "passing options to a form control get passed through" do

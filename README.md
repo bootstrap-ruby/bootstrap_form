@@ -314,10 +314,10 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 
 Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.mb-3`.
 
-If you want to add an additional CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'additional-class', data: { foo: 'bar' } }` option.
+If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'mb-3 additional-class', data: { foo: 'bar' } }` option.
 
 ```erb
-<%= f.text_field :name, wrapper: { class: 'has-warning', data: { foo: 'bar' } } %>
+<%= f.text_field :name, wrapper: { class: 'mb-3 has-warning', data: { foo: 'bar' } } %>
 ```
 
 Which produces the following output:
@@ -329,7 +329,10 @@ Which produces the following output:
 </div>
 ```
 
-If you only want to set the class on the form group div, you can use the `wrapper_class` option. It's just a short form of `wrapper: { class: 'additional-class' }`.
+If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class''`.
+It's just a short form of `wrapper: { class: 'mb-3 additional-class' }`.
+
+If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
 ### Suppressing the Form Group Altogether
 
