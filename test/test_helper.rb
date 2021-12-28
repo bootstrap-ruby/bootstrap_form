@@ -80,14 +80,14 @@ class ActionView::TestCase
   def equivalent_xml?(expected, real, result)
     return result if result != false || !real.is_a?(Nokogiri::XML::Element)
 
-    if real.attr("name") == "utf8"
+    if real.attr(:name) == "utf8"
       # Handle wrapped utf8 hidden field for Rails 4.2+
       expected = expected.child
     end
 
     real.delete("data-disable-with")
 
-    if expected.attr("type") == "datetime" && real.attr("type") == "datetime-local"
+    if expected.attr(:type) == "datetime" && real.attr(:type) == "datetime-local"
       expected.delete("type")
       real.delete("type")
     end
