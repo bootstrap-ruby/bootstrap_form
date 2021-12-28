@@ -2,6 +2,7 @@
 
 ### Breaking changes
 
+* [#618](https://github.com/bootstrap-ruby/bootstrap_form/pull/618): Allow overriding the wrapper class - [@donv](https://github.com/donv).
 * Your contribution here!
 
 ### New features
