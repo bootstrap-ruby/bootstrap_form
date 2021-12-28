@@ -13,7 +13,6 @@ group :development do
   gem "htmlbeautifier"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "sassc-rails"
   gem "webpacker"
 end
 
@@ -21,6 +20,5 @@ group :test do
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
-  gem "sassc-rails"
   gem "sqlite3"
 end
