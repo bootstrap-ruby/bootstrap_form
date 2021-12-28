@@ -8,10 +8,6 @@ gemspec path: __dir__
 # gem "rails", "~> 6.1.0"
 # gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 
-group :development, :test do
-  gem "sassc-rails"
-end
-
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
