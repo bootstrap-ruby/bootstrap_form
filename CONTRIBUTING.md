@@ -117,7 +117,7 @@ To run the demo app, set up the database and run the server:
 
 ```bash
 cd demo
-export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
+export BUNDLE_GEMFILE=../gemfiles/6.1.gemfile
 rails db:setup
 rails s -b 0.0.0.0
 ```
@@ -127,12 +127,12 @@ To run the demo app in the Docker container:
 ```bash
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
 cd demo
-export BUNDLER_GEMFILE=../gemfiles/6.1.gemfile
+export BUNDLE_GEMFILE=../gemfiles/6.1.gemfile
 rails db:setup
 rails s -b 0.0.0.0
 ```
 
-To use other supported versions of Rails, change the `export BUNDLER_GEMFILE...` line to another gem file.
+To use other supported versions of Rails, change the `export BUNDLE_GEMFILE...` line to another gem file.
 
 ## Documentation Contributions
 
