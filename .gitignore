@@ -10,6 +10,7 @@ demo/tmp/
 *.swp
 Gemfile.lock
 test/gemfiles/*.lock
+gemfiles/*.lock
 .ruby-version
 Vagrantfile
 .vagrant
@@ -31,6 +32,7 @@ demo/node_modules
 demo/yarn-error.log
 demo/yarn-debug.log*
 demo/.yarn-integrity
+demo/vendor/bundle
 
 # For stuff that gets created if using the Dockerfile image
 .bundle/
