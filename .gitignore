@@ -14,6 +14,7 @@ gemfiles/*.lock
 .ruby-version
 Vagrantfile
 .vagrant
+.yarnrc
 
 # For the demo app.
 
@@ -47,3 +48,4 @@ vendor/bundle
 .bash_history
 # For Alpine images
 .ash_history
+.sqlite_history
