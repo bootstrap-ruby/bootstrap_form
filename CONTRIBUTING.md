@@ -125,7 +125,15 @@ yarn build --watch &
 rails s -b 0.0.0.0
 ```
 
-To use other supported versions of Rails, change the `export BUNDLE_GEMFILE...` line to another gem file.
+The app doesn't appear to find the source map, or perhaps it isn't being generated. In the Rails log you will see messages similar to:
+
+```bash
+ActionController::RoutingError (No route matches [GET] "/assets/application.js-c6c0edbd68f05cffd0e2495198bfbc4bf42be8a11b76eecbfade30a8036b6b87.map")
+```
+
+But this doesn't seem to affect how the app runs.
+
+To use other supported versions of Rails, you will need to create a `Gemfile` for the Rails version. Then, change the `export BUNDLE_GEMFILE...` line to your gem file. Finally, figure out how to include the assets.
 
 ## Documentation Contributions
 
