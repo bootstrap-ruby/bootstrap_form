@@ -10,11 +10,6 @@ There are a number of ways you can contribute to `bootstrap_form`:
 - Add to the documentation
 - Review pull requests
 
-*Note:* If you want to work on preparing `bootstrap_form` for Bootstrap 5,
-please start from the `bootstrap-5` branch.
-If you're submitting a pull request with code or documentation,
-target the pull request to the `bootstrap-5` branch.
-
 ## Code Contributions
 
 Here's a quick guide for code contributions:
@@ -47,12 +42,7 @@ Fork the project. Optionally, create a branch you want to work on.
 - Add a line to the CHANGELOG for your bug fix or feature.
 - Read the [Coding Guidelines](#coding-guidelines) section and make sure that `rake lint` doesn't find any offences.
 
-You may find the demo application useful for development and debugging.
-
-- `cd demo`
-- `rake db:schema:load`
-- `rails s`
-- Navigate to http://localhost:3000
+You may find the [demo application](#the-demo-application) useful for development and debugging.
 
 ### 6. Make a pull request
 
@@ -109,16 +99,18 @@ You can run tests in the container as normal, with `rake test`.
 
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
 
-### The Demo App
+### The Demo Application
 
 There is a demo app in this repository. It shows some of the features of `bootstrap_form`, and provides a base on which to build ad-hoc testing, if you need it.
 
+Currently, the demo app is only set up to run for Rails 7, due to the variety of ways to include CSS and JavaScript in a modern Rails application.
 To run the demo app, set up the database and run the server:
 
 ```bash
 cd demo
-export BUNDLE_GEMFILE=../gemfiles/6.1.gemfile
+export BUNDLE_GEMFILE=gemfiles/7.0.gemfile
 rails db:setup
+yarn build --watch &
 rails s -b 0.0.0.0
 ```
 
@@ -127,18 +119,27 @@ To run the demo app in the Docker container:
 ```bash
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
 cd demo
-export BUNDLE_GEMFILE=../gemfiles/6.1.gemfile
+export BUNDLE_GEMFILE=../gemfiles/7.0.gemfile
 rails db:setup
+yarn build --watch &
 rails s -b 0.0.0.0
 ```
 
-To use other supported versions of Rails, change the `export BUNDLE_GEMFILE...` line to another gem file.
+The app doesn't appear to find the source map, or perhaps it isn't being generated. In the Rails log you will see messages similar to:
+
+```bash
+ActionController::RoutingError (No route matches [GET] "/assets/application.js-c6c0edbd68f05cffd0e2495198bfbc4bf42be8a11b76eecbfade30a8036b6b87.map")
+```
+
+But this doesn't seem to affect how the app runs.
+
+To use other supported versions of Rails, you will need to create a `Gemfile` for the Rails version. Then, change the `export BUNDLE_GEMFILE...` line to your gem file. Finally, figure out how to include the assets.
 
 ## Documentation Contributions
 
 Contributions to documentation are always welcome. Even fixing one typo improves the quality of `bootstrap_form`. To make a documentation contribution, follow steps 1-3 of Code Contributions, then make the documentation changes, then make the pull request (step 6 of Code Contributions).
 
-If you put `[ci skip]` in the commit message of the most recent commit of the PR, you'll be a good citizen by not causing Travis CI to run all the tests when it's not necessary.
+If you put `[ci skip]` in the commit message of the most recent commit of the PR, you'll be a good citizen by not causing our CI pipeline to run all the tests when it's not necessary.
 
 ## Reviewing Pull Requests
 

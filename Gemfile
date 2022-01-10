@@ -6,6 +6,7 @@ gemspec path: __dir__
 # gem "rails", "~> 5.2.0"
 # gem "rails", "~> 6.0.0"
 # gem "rails", "~> 6.1.0"
+# gem "rails", "~> 7.0.1"
 # gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 
 group :development do
