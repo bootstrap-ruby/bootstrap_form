@@ -502,6 +502,25 @@ class BootstrapCheckboxTest < ActionView::TestCase
                                                                     :street, checked: collection)
   end
 
+  test "collection_check_boxes renders with include_hidden options correctly" do
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <div class="form-check">
+          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_misc_1">Foo</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label class="form-check-label" for="user_misc_2">Bar</label>
+        </div>
+      </div>
+    HTML
+
+    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street, include_hidden: false)
+  end
+
   test "check_box skip label" do
     expected = <<~HTML
       <div class="form-check">
