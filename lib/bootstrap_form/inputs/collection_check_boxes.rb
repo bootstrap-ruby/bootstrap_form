@@ -13,7 +13,9 @@ module BootstrapForm
             options[:multiple] = true
             check_box(name, options, value, nil)
           end
-          hidden_field(args.first, value: "", multiple: true).concat(html)
+  
+          include_hidden = args.extract_options!.symbolize_keys!.delete(:include_hidden) { true }
+          include_hidden ? hidden_field(args.first, value: "", multiple: true).concat(html) : html
         end
 
         bootstrap_alias :collection_check_boxes
