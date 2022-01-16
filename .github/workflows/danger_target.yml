@@ -2,9 +2,7 @@ name: DangerTarget
 
 on:
   pull_request_target:
-    branches:
-      - master
-
+    types: [opened, reopened, edited, synchronize]
 jobs:
   danger:
     runs-on: ubuntu-latest
