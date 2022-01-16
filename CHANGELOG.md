@@ -10,6 +10,7 @@
 * [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
 * [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
 
+* [#215](https://github.com/bootstrap-ruby/bootstrap_form/issues/215): Add `include_hidden` option to `check_box`
 ### Bugfixes
 
 * [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fix tests in bootstrap-5 branch, removes Rubocop offenses, and adds testing with Rails 6.1.
