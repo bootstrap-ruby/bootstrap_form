@@ -1,3 +1,5 @@
+DUMMY CHANGE
+
 # bootstrap_form
 
 [![Ruby](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml/badge.svg)](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml)
