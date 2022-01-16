@@ -23,3 +23,7 @@ group :test do
   gem "mocha"
   gem "sqlite3"
 end
+
+group :ci do
+  gem "danger"
+end

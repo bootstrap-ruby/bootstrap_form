@@ -2,8 +2,8 @@ name: Ruby
 
 on:
   push:
-  pull_request:
-
+  pull_request_target:
+    types: [opened, reopened, edited, synchronize]
 jobs:
   Lint:
     runs-on: ubuntu-latest
@@ -16,11 +16,11 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
       - name: Danger
-        if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ github.event_name == 'pull_request_target' }}
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gem install danger
-          export DANGER_GITHUB_API_TOKEN=${{ github.token }}
-          danger
+          bundle exec danger
       - name: Rubocop
         run: bundle exec rubocop --auto-correct
   Test:
