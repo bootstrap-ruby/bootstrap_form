@@ -27,8 +27,12 @@ module BootstrapForm
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 
         tag.div class: css do
-          concat tag.p title
-          concat error_summary unless options[:error_summary] == false
+          if options[:error_summary] == false
+            title
+          else
+            concat tag.p title
+            concat error_summary
+          end
         end
       end
 
