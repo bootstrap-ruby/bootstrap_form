@@ -8,7 +8,7 @@ module BootstrapForm
       private
 
       def layout_default?(field_layout=nil)
-        [:default, nil].include? layout_in_effect(field_layout)
+        layout_in_effect(field_layout) == :default
       end
 
       def layout_horizontal?(field_layout=nil)

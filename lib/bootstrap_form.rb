@@ -2,8 +2,7 @@
 # name and not in the usual autoload-reachable way.
 # The following line is definitely need to make `bootstrap_form` work.
 if ::Rails::VERSION::STRING > "6"
-  require Gem::Specification.find_by_name("actiontext").gem_dir + # rubocop:disable Rails/DynamicFindBy
-          "/app/helpers/action_text/tag_helper"
+  require "#{Gem::Specification.find_by_name('actiontext').gem_dir}/app/helpers/action_text/tag_helper"
 end
 require "action_view"
 require "action_pack"
@@ -13,6 +12,7 @@ module BootstrapForm
   extend ActiveSupport::Autoload
 
   eager_autoload do
+    autoload :Configuration
     autoload :FormBuilder
     autoload :FormGroupBuilder
     autoload :FormGroup
@@ -21,11 +21,21 @@ module BootstrapForm
     autoload :Helpers
   end
 
-  def self.eager_load!
-    super
-    BootstrapForm::Components.eager_load!
-    BootstrapForm::Helpers.eager_load!
-    BootstrapForm::Inputs.eager_load!
+  class << self
+    def eager_load!
+      super
+      BootstrapForm::Components.eager_load!
+      BootstrapForm::Helpers.eager_load!
+      BootstrapForm::Inputs.eager_load!
+    end
+
+    def config
+      @config ||= BootstrapForm::Configuration.new
+    end
+
+    def configure
+      yield config
+    end
   end
 
   mattr_accessor :field_error_proc

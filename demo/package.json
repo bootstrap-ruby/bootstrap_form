@@ -2,16 +2,19 @@
   "name": "dummy",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^6.0.0-alpha",
-    "@rails/actiontext": "^6.0.0-beta1",
-    "@rails/activestorage": "^6.0.0-alpha",
-    "@rails/ujs": "^6.0.0-alpha",
-    "@rails/webpacker": "^4.0.0-rc.7",
+    "@rails/actioncable": "^6.1.0",
+    "@rails/actiontext": "^6.1.0",
+    "@rails/activestorage": "^6.1.0",
+    "@rails/ujs": "^6.1.0",
+    "@rails/webpacker": "^5.0.0",
     "trix": "^1.0.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^4.0.0"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
   }
 }

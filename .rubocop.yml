@@ -1,25 +1,39 @@
-# Taken from: https://github.com/mattbrictson/rails-template/blob/master/rubocop.yml.tt
-# Modified for demo app in `demo/` directory.
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.2.2
+  TargetRubyVersion: 2.7
+  NewCops: enable
   Exclude:
-    - "bin/*"
+    - bin/*
     - Capfile
     - demo/bin/*
-    - "demo/bower_components/**/*"
+    - demo/bower_components/**/*
     - demo/config/boot.rb
     - demo/config/environment.rb
     - demo/config/initializers/version.rb
     - demo/db/schema.rb
-    - "demo/node_modules/**/*"
+    - demo/node_modules/**/*
     - demo/Rakefile
-    - "demo/tmp/**/*"
-    - "demo/vendor/**/*"
+    - demo/tmp/**/*
+    - demo/vendor/**/*
     - Gemfile
+    - gemfiles/vendor/bundle/**/*
+    - vendor/bundle/**/*
     - Guardfile
     - Rakefile
+    - vendor/**/*
+
+Layout/LineLength:
+  Max: 132
+  Exclude:
+    - "demo/config/**/*"
+    - "demo/db/**/*"
 
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
@@ -40,12 +54,6 @@ Metrics/ClassLength:
     - "demo/test/**/*"
     - "test/**/*"
 
-Metrics/LineLength:
-  Max: 132
-  Exclude:
-    - "demo/config/**/*"
-    - "demo/db/**/*"
-
 Metrics/MethodLength:
   Max: 12
   Exclude:
@@ -57,9 +65,6 @@ Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
 
 Naming/VariableNumber:
-  Enabled: false
-
-Performance/Casecmp:
   Enabled: false
 
 Rails:

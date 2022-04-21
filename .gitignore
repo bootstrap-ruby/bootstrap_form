@@ -1,4 +1,5 @@
 .bundle/
+.idea
 log/*.log
 pkg/
 demo/db/*.sqlite3
@@ -9,11 +10,13 @@ demo/tmp/
 *.swp
 Gemfile.lock
 test/gemfiles/*.lock
+gemfiles/*.lock
 .ruby-version
 Vagrantfile
 .vagrant
+.yarnrc
 
-// For the demo app.
+# For the demo app.
 
 # Ignore uploaded files in development.
 demo/storage/*
@@ -26,7 +29,25 @@ demo/public/assets
 demo/config/master.key
 demo/public/packs
 demo/public/packs-test
+demo/app/assets/builds/*
+!demo/app/assets/builds/.keep
 demo/node_modules
 demo/yarn-error.log
 demo/yarn-debug.log*
 demo/.yarn-integrity
+demo/vendor/bundle
+
+# For stuff that gets created if using the Dockerfile image
+.bundle/
+.cache/
+vendor/bundle
+
+# or .local/share/pry/pry_history if you need to be more exact
+.local/
+.irb_history
+.byebug_history
+# For Debian images with Bash
+.bash_history
+# For Alpine images
+.ash_history
+.sqlite_history

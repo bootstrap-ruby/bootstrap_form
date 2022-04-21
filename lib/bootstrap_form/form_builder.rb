@@ -43,10 +43,10 @@ module BootstrapForm
     include BootstrapForm::Inputs::UrlField
     include BootstrapForm::Inputs::WeekField
 
-    delegate :content_tag, :capture, :concat, to: :@template
+    delegate :content_tag, :capture, :concat, :tag, to: :@template
 
     def initialize(object_name, object, template, options)
-      @layout = options[:layout]
+      @layout = options[:layout] || default_layout
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
@@ -57,7 +57,17 @@ module BootstrapForm
                          options[:inline_errors] != false
                        end
       @acts_like_form_tag = options[:acts_like_form_tag]
+      add_default_form_attributes_and_form_inline options
       super
+    end
+
+    def add_default_form_attributes_and_form_inline(options)
+      options[:html] ||= {}
+      options[:html].reverse_merge!(BootstrapForm.config.default_form_attributes)
+
+      return unless options[:layout] == :inline
+
+      options[:html][:class] = [options[:html][:class], "col-auto", "g-3"].compact.join(" ")
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
@@ -86,6 +96,11 @@ module BootstrapForm
       field_options
     end
 
+    def default_layout
+      # :default, :horizontal or :inline
+      :default
+    end
+
     def default_label_col
       "col-sm-2"
     end
@@ -99,7 +114,7 @@ module BootstrapForm
     end
 
     def hide_class
-      "sr-only" # still accessible for screen readers
+      "visually-hidden" # still accessible for screen readers
     end
 
     def control_class

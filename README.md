@@ -1,17 +1,11 @@
-If you are using Bootstrap v3, refer to the legacy [legacy-2.7](https://github.com/bootstrap-ruby/bootstrap_form/tree/legacy-2.7) branch.
-
-This is a new take on the `bootstrap_form` README. Please leave comments at: #520. You can go back to the traditional [README](/OLD-README.md).
-
----
-
 # bootstrap_form
 
-[![Build Status](https://travis-ci.org/bootstrap-ruby/bootstrap_form.svg?branch=master)](https://travis-ci.org/bootstrap-ruby/bootstrap_form)
+[![Ruby](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml/badge.svg)](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v4-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
+`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
-* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself.
+* [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself. _Note that this applies to Rails-generated validation messages._ HTML 5 client-side validation and Rails validation out of the box don't really work well together. One discussion of the challenges and some solutions is [here](https://www.jorgemanrubia.com/2019/02/16/form-validations-with-html5-and-modern-rails/)
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
 * An easy way to consistently show [help](#help-text) text on fields.
 * Mark-up for [Bootstrap horizontal forms](#horizontal-forms) (labels to the left of their fields, like a traditional desktop application), if that's what you want.
@@ -28,30 +22,46 @@ Some other nice things that `bootstrap_form` does for you are:
 `bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](#bootstrap-form-with), [`bootstrap_form_for`](#bootstrap-form-for), or [`bootstrap_form_tag`](#bootstrap-form-tag) in a view file. You get a form builder that calls the [`bootstrap_form` helpers](#form-helpers) instead of the standard Rails helpers. You use that form builder in the view file to render one or more form fields.
 
 ## Requirements
-`bootstrap_form` supports currently supported versions of Rails:
 
-* Ruby 2.2.2+
-* Rails 5.0+ (Rails 5.1+ for `bootstrap_form_with`)
-* Bootstrap 4.0.0+
+`bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
+
+* Ruby 2.5+
+* Rails 5.2+
+* Bootstrap 5.0+
 
 ## Installation
 
-Add it to your Gemfile:
+Install Bootstrap 5. There are many ways to do this, depending on the asset pipeline you're using in your Rails application. There is a gem that works with Sprockets. So in a brand new Rails 7.0 application created _without_ the `--webpacker` option, add the `bootstrap` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", ">= 4.2.0"
+gem "bootstrap", "~> 5.0"
+```
+
+And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
+
+You also need to use the SASS preprocessor, so uncomment the following line in your `Gemfile`:
+
+Add the `bootstrap_form` gem to your `Gemfile`:
+
+```ruby
+gem "bootstrap_form", "~> 5.0"
 ```
 
 Then:
 
 `bundle install`
 
-Then require the CSS in your `application.css` file:
+Depending on which CSS pre-processor you are using, adding the bootstrap form styles differs slightly.
+If you use Rails in the default mode without any pre-processor, you'll have to add the following line to your `application.css` file:
 
 ```css
-/*
- *= require rails_bootstrap_forms
- */
+*= require rails_bootstrap_forms
+```
+
+If you followed the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails), you'll probably have switched to SCSS. In this case add the following line to your `application.scss`:
+
+```scss
+@import "rails_bootstrap_forms";
 ```
 
 ## Usage
@@ -73,12 +83,12 @@ This generates the following HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-group">
-    <label for="user_email">Email</label>
+  <div class="mb-3">
+    <label class="form-label" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" type="email">
   </div>
-  <div class="form-group">
-    <label for="user_password">Password</label>
+  <div class="mb-3">
+    <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="form-check">
@@ -101,7 +111,7 @@ If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of th
 <% end %>
 ```
 
-### bootstrap_form_with (Rails 5.1+)
+### bootstrap_form_with
 
 Note that `form_with` in Rails 5.1 does not add IDs to form elements and labels by default, which are both important to Bootstrap markup. This behaviour is corrected in Rails 5.2.
 
@@ -119,14 +129,14 @@ To get started, just use the `bootstrap_form_with` helper in place of `form_with
 This generates:
 
 ```html
-<form role="form" action="/users" accept-charset="UTF-8" method="post">
+<form action="/users" accept-charset="UTF-8" method="post">
   <input name="utf8" type="hidden" value="&#x2713;" />
-  <div class="form-group">
-    <label class="required" for="user_email">Email</label>
+  <div class="mb-3">
+    <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
   </div>
-  <div class="form-group">
-    <label for="user_password">Password</label>
+  <div class="mb-3">
+    <label class="form-label" for="user_password">Password</label>
     <input class="form-control" type="password" name="user[password]" />
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
@@ -143,6 +153,25 @@ This generates:
 in `form_with`.
 
 `form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
+
+## Configuration
+
+`bootstrap_form` can be used out-of-the-box without any configuration. However, `bootstrap_form` does have an optional configuration file at `config/initializers/bootstrap_form.rb` for setting options that affect all generated forms in an application.
+
+The current configuration options are:
+
+| Option | Default value | Description |
+|---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `default_form_attributes` | | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
+
+Example:
+
+```ruby
+# config/initializers/bootstrap_form.rb
+BootstrapForm.configure do |c|
+  c.default_form_attributes = { role: "form" } # to make forms non-compliant with W3C.
+end
+```
 
 ## Form Helpers
 
@@ -197,7 +226,7 @@ Use the `label` option if you want to specify the field's label text:
 <%= f.password_field :password_confirmation, label: "Confirm Password" %>
 ```
 
-To hide a label, use the `hide_label: true` option. This adds the `sr-only`
+To hide a label, use the `hide_label: true` option. This adds the `visually-hidden`
 class, which keeps your labels accessible to those using screen readers.
 
 ```erb
@@ -233,7 +262,8 @@ To add help text, use the `help` option:
 ```
 
 This generates:
-```
+
+```html
 <small class="form-text text-muted">Must be at least 6 characters long</small>
 ```
 
@@ -271,6 +301,12 @@ You can pass `prepend` and/or `append` options to input fields:
 <%= f.text_field :price, prepend: "$", append: ".00" %>
 ```
 
+If you want to attach multiple items to the input, pass them as an array:
+
+```erb
+<%= f.text_field :price, prepend: ['Net', '$'], append: ['.00', 'per day'] %>
+```
+
 You can also prepend and append buttons. Note: The buttons must contain the
 `btn` class to generate the correct markup.
 
@@ -286,30 +322,33 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 
 ### Additional Form Group Attributes
 
-Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.form-group`.
+Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.mb-3`.
 
-If you want to add an additional CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'additional-class', data: { foo: 'bar' } }` option.
+If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'mb-3 additional-class', data: { foo: 'bar' } }` option.
 
 ```erb
-<%= f.text_field :name, wrapper: { class: 'has-warning', data: { foo: 'bar' } } %>
+<%= f.text_field :name, wrapper: { class: 'mb-3 has-warning', data: { foo: 'bar' } } %>
 ```
 
 Which produces the following output:
 
 ```erb
-<div class="form-group has-warning" data-foo="bar">
-  <label class="form-control-label" for="user_name">Id</label>
+<div class="mb-3 has-warning" data-foo="bar">
+  <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
 
-If you only want to set the class on the form group div, you can use the `wrapper_class` option. It's just a short form of `wrapper: { class: 'additional-class' }`.
+If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class'`.
+It's just a short form of `wrapper: { class: 'mb-3 additional-class' }`.
+
+If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
 ### Suppressing the Form Group Altogether
 
-You may have want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
+You may want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
 
-```
+```ruby
 f.form_group :user do
   f.email_field :email, wrapper: false
 end
@@ -368,12 +407,13 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
+
 ### Switches
 
-To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
+To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 
 ```erb
-<%= f.check_box :remember_me, custom: :switch %>
+<%= f.check_box :remember_me, switch: true %>
 ```
 
 ### Collections
@@ -386,9 +426,10 @@ To render checkboxes as switches with Bootstrap 4.2+, use `custom: :switch`:
 <%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
 ```
 
-NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue #477.
+NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue [#477](https://github.com/bootstrap-ruby/bootstrap_form/issues/477). If you need to use the block syntax, use `collection_check_boxes_without_bootstrap` or `collection_radio_buttons_without_bootstrap` for now.
 
 Collection methods accept these options:
+
 * `:label`: Customize the `form_group`'s label
 * `:hide_label`: Pass true to hide the `form_group`'s label
 * `:help`: Add a help span to the `form_group`
@@ -405,8 +446,8 @@ You can create a static control like this:
 Here's the output for a horizontal layout:
 
 ```html
-<div class="form-group">
-  <label class="col-sm-2 form-control-label" for="user_email">Email</label>
+<div class="mb-3">
+  <label class="form-label col-sm-2 form-control-label" for="user_email">Email</label>
   <div class="col-sm-10">
     <input class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="test@email.com"/>
   </div>
@@ -416,7 +457,7 @@ Here's the output for a horizontal layout:
 You can also create a static control that isn't based on a model attribute:
 
 ```erb
-<%= f.static_control :field_name, label: "Custom Static Control" value: "Content Here" %>
+<%= f.static_control :field_name, label: "Custom Static Control", value: "Content Here" %>
 ```
 
 `field_name` may be any name that isn't already used in the form. Note that you may get "unpermitted parameter" messages in your log file with this approach.
@@ -424,7 +465,7 @@ You can also create a static control that isn't based on a model attribute:
 You can also create the static control the following way, if you don't need to get the value of the static control as a parameter when the form is submitted:
 
 ```erb
-<%= f.static_control label: "Custom Static Control" value: "Content Here", name: nil %>
+<%= f.static_control label: "Custom Static Control", value: "Content Here", name: nil %>
 ```
 
 (If you neither provide a field name nor `name: nil`, the Rails code that submits the form will give a JavaScript error.)
@@ -508,15 +549,18 @@ will be rendered as
 (some unimportant HTML attributes have been removed for simplicity)
 
 ## Rich Text Areas AKA Trix Editor
+
 If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
 
-```
+```erb
 <%= f.rich_text_area(:life_story) %>
 ```
+
 will be rendered as:
-```
-<div class="form-group">
-  <label for="user_life_story">Life story</label>
+
+```html
+<div class="mb-3">
+  <label class="form-label" for="user_life_story">Life story</label>
   <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
   <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
   </trix-editor>
@@ -524,9 +568,11 @@ will be rendered as:
 ```
 
 ## File Fields
+
 The `file_field` helper generates mark-up for a Bootstrap 4 custom file field entry. It takes the [options for `text_field`](#form-helper-options), minus `append` and `prepend`.
 
 ## Hidden Fields
+
 The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, and does no additional mark-up.
 
 ## Accessing Rails Form Helpers
@@ -600,7 +646,7 @@ The `label_col` and `control_col` css classes can also be changed per control:
 
 or default value can be changed in initializer:
 
-```erb
+```ruby
 # config/initializers/bootstrap_form.rb
 module BootstrapForm
   class FormBuilder
@@ -609,6 +655,10 @@ module BootstrapForm
     end
     def default_control_col
       'col-sm-8'
+    end
+    def default_layout
+      # :default, :horizontal or :inline
+      :horizontal
     end
   end
 end
@@ -656,7 +706,23 @@ The `custom` option can be used to replace the browser default styles for check 
 <% end %>
 ```
 
+### Floating Labels
+
+The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
+and dropdowns. Here's an example:
+
+```erb
+<%= bootstrap_form_for(@user) do |f| %>
+  <%= f.email_field :email, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.password_field :password, floating: true %>
+  <%= f.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
+  <%= f.submit "Log In" %>
+<% end %>
+```
+
 ## Validation and Errors
+
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.
 
 ### Inline Errors
@@ -665,8 +731,8 @@ By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Here's an example:
 
 ```html
-<div class="form-group">
-  <label class="form-control-label" for="user_email">Email</label>
+<div class="mb-3">
+  <label class="form-label form-control-label" for="user_email">Email</label>
   <input class="form-control is-invalid" id="user_email" name="user[email]" type="email" value="">
   <small class="invalid-feedback">can't be blank</small>
 </div>
@@ -685,7 +751,7 @@ You can turn off inline errors for the entire form like this:
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
 
-```
+```erb
 <%= bootstrap_form_for(@user, label_errors: true) do |f| %>
   ...
 <% end %>
@@ -694,7 +760,7 @@ on the `:label_errors` option. Here's an example:
 By default, turning on `:label_errors` will also turn off
 `:inline_errors`. If you want both turned on, you can do that too:
 
-```
+```erb
 <%= bootstrap_form_for(@user, label_errors: true, inline_errors: true) do |f| %>
   ...
 <% end %>
@@ -743,8 +809,7 @@ Which outputs:
 
 ### Errors On
 
-If you want to display a custom inline error for a specific attribute not
-represented by a form field, use the `errors_on` helper.
+If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
 ```erb
 <%= f.errors_on :tasks %>
@@ -753,7 +818,7 @@ represented by a form field, use the `errors_on` helper.
 Which outputs:
 
 ```html
-<div class="alert alert-danger">Tasks can't be blank.</div>
+<div class="invalid-feedback">Tasks can't be blank.</div>
 ```
 
 You can hide the attribute name like this:
@@ -765,7 +830,19 @@ You can hide the attribute name like this:
 Which outputs:
 
 ```html
-<div class="alert alert-danger">can't be blank.</div>
+<div class="invalid-feedback">can't be blank.</div>
+```
+
+You can also use a custom class for the wrapping div, like this:
+
+```erb
+<%= f.errors_on :tasks, custom_class: 'custom-error' %>
+```
+
+Which outputs:
+
+```html
+<div class="custom-error">can't be blank.</div>
 ```
 
 ## Required Fields
@@ -803,23 +880,24 @@ here: http://guides.rubyonrails.org/i18n.html#translations-for-active-record-mod
 The Rails team has [suggested](https://github.com/rails/rails/issues/25197) that `form_for` and `form_tag` may be deprecated and then removed in future versions of Rails. `bootstrap_form` will continue to support `bootstrap_form_for` and `bootstrap_form_tag` as long as Rails supports `form_for` and `form_tag`.
 
 ## Other Tips and Edge Cases
+
 By their very nature, forms are extremely diverse. It would be extremely difficult to provide a gem that could handle every need. Here are some tips for handling edge cases.
 
 ### Empty But Visible Labels
+
 Some third party plug-ins require an empty but visible label on an input control. The `hide_label` option generates a label that won't appear on the screen, but it's considered invisible and therefore doesn't work with such a plug-in. An empty label (e.g. `""`) causes the underlying Rails helper to generate a label based on the field's attribute's name.
 
 The solution is to use a zero-width character for the label, or some other "empty" HTML. For example:
-```
+
+```ruby
 label: "&#8203;".html_safe
 ```
+
 or
-```
+
+```ruby
 label: "<span></span>".html_safe
 ```
-
-## Code Triage page
-
-http://www.codetriage.com/potenza/bootstrap_form
 
 ## Contributing
 
@@ -828,6 +906,10 @@ If you're considering contributing to bootstrap_form,
 please review the [Contributing](/CONTRIBUTING.md)
 document first.
 
+## Previous Version
+
+If you're looking for `bootstrap_form` for Bootstrap 4, go [here](https://github.com/bootstrap-ruby/bootstrap_form/tree/bootstrap-4).
+
 ## License
 
-MIT License. Copyright 2012-2019 Stephen Potenza (https://github.com/potenza)
+MIT License. Copyright 2012-2021 Stephen Potenza (https://github.com/potenza) and others

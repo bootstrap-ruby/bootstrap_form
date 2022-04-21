@@ -14,7 +14,7 @@ module BootstrapForm
       def primary(name=nil, options={}, &block)
         setup_css_class "btn btn-primary", options
 
-        if options[:render_as_button] || block_given?
+        if options[:render_as_button] || block
           options.except! :render_as_button
           button(name, options, &block)
         else
@@ -26,8 +26,8 @@ module BootstrapForm
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 
-        content_tag :div, class: css do
-          concat content_tag :p, title
+        tag.div class: css do
+          concat tag.p title
           concat error_summary unless options[:error_summary] == false
         end
       end
@@ -35,9 +35,9 @@ module BootstrapForm
       def error_summary
         return unless object.errors.any?
 
-        content_tag :ul, class: "rails-bootstrap-forms-error-summary" do
+        tag.ul class: "rails-bootstrap-forms-error-summary" do
           object.errors.full_messages.each do |error|
-            concat content_tag(:li, error)
+            concat tag.li(error)
           end
         end
       end
@@ -46,8 +46,9 @@ module BootstrapForm
         return unless error?(name)
 
         hide_attribute_name = options[:hide_attribute_name] || false
+        custom_class = options[:custom_class] || false
 
-        content_tag :div, class: "alert alert-danger" do
+        tag.div class: custom_class || "invalid-feedback" do
           if hide_attribute_name
             object.errors[name].join(", ")
           else
@@ -82,10 +83,10 @@ module BootstrapForm
 
         input = capture(&block) || ActiveSupport::SafeBuffer.new
 
-        input = prepend_input(options) + input + append_input(options)
+        input = attach_input(options, :prepend) + input + attach_input(options, :append)
         input += generate_error(name)
         options.present? &&
-          input = content_tag(:div, input, class: ["input-group", options[:input_group_class]].compact)
+          input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
         input
       end
 
@@ -95,9 +96,9 @@ module BootstrapForm
       end
 
       def input_group_content(content)
-        return content if content =~ /btn/
+        return content if /btn/.match?(content)
 
-        content_tag(:span, content, class: "input-group-text")
+        tag.span(content, class: "input-group-text")
       end
 
       def static_class
@@ -106,14 +107,11 @@ module BootstrapForm
 
       private
 
-      def append_input(options)
-        html = content_tag(:div, input_group_content(options[:append]), class: "input-group-append") if options[:append]
-        html || ActiveSupport::SafeBuffer.new
-      end
-
-      def prepend_input(options)
-        html = content_tag(:div, input_group_content(options[:prepend]), class: "input-group-prepend") if options[:prepend]
-        html || ActiveSupport::SafeBuffer.new
+      def attach_input(options, key)
+        tags = [*options[key]].map do |item|
+          input_group_content(item)
+        end
+        ActiveSupport::SafeBuffer.new(tags.join)
       end
 
       def setup_css_class(the_class, options={})

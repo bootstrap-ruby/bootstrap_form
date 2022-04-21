@@ -20,8 +20,6 @@ module BootstrapForm
       def bootstrap_form_for(record, options={}, &block)
         options.reverse_merge!(builder: BootstrapForm::FormBuilder)
 
-        options = process_options(options)
-
         with_bootstrap_form_field_error_proc do
           form_for(record, options, &block)
         end
@@ -30,10 +28,8 @@ module BootstrapForm
       def bootstrap_form_with(options={}, &block)
         options.reverse_merge!(builder: BootstrapForm::FormBuilder)
 
-        options = process_options(options)
-
         with_bootstrap_form_field_error_proc do
-          form_with(options, &block)
+          form_with(**options, &block)
         end
       end
 
@@ -44,16 +40,6 @@ module BootstrapForm
       end
 
       private
-
-      def process_options(options)
-        options[:html] ||= {}
-        options[:html][:role] ||= "form"
-
-        options[:layout] == :inline &&
-          options[:html][:class] = [options[:html][:class], "form-inline"].compact.join(" ")
-
-        options
-      end
 
       def with_bootstrap_form_field_error_proc
         original_proc = ActionView::Base.field_error_proc

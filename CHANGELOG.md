@@ -2,7 +2,24 @@
 
 ### Breaking changes
 
+* [#618](https://github.com/bootstrap-ruby/bootstrap_form/pull/618): Allow overriding the wrapper class - [@donv](https://github.com/donv).
 * Your contribution here!
+
+### New features
+
+* [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
+* [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
+
+* [#215](https://github.com/bootstrap-ruby/bootstrap_form/issues/215): Add `include_hidden` option to `check_box`
+### Bugfixes
+
+* [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fix tests in bootstrap-5 branch, removes Rubocop offenses, and adds testing with Rails 6.1.
+
+## [5.0.0.alpha1][]
+
+### Breaking changes
+
+* [#569] Remove `role="form"` from the default generated form HTML so forms pass W3C validation. (Only a breaking change if you depended on the `form` attribute. `bootstrap_form` doesn't depend on it.)
 
 ### New features
 
@@ -11,6 +28,60 @@
 ### Bugfixes
 
 * [#284] [#300] Field's help message is displayed, even while inline error message is displayed. - [@antpaw](https://github.com/antpaw)
+
+## [5.0.0][] (2021-11-11)
+
+### Breaking changes
+
+* Generates markup for Bootstrap 5.
+
+### New features
+
+* [#572](https://github.com/bootstrap-ruby/bootstrap_form/issues/572): Simplify the formatting of the file upload control to follow the new Bootstrap 5 styles
+* [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
+
+### Bugfixes
+
+* [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fix tests in bootstrap-5 branch, removes Rubocop offenses, and adds testing with Rails 6.1.
+
+## [5.0.0.alpha1][]
+
+### Breaking changes
+
+* [#569] Remove `role="form"` from the default generated form HTML so forms pass W3C validation. (Only a breaking change if you depended on the `form` attribute. `bootstrap_form` doesn't depend on it.)
+
+### New features
+
+* Your contribution here!
+
+### Bugfixes
+
+* [#586](https://github.com/bootstrap-ruby/bootstrap_form/pull/586): Fix Rails 6.1 tests on master - [@thimo](https://github.com/thimo).
+* [#587](https://github.com/bootstrap-ruby/bootstrap_form/pull/587): Replace `strip_heredoc` with `<<~` - [@thimo](https://github.com/thimo).
+
+## [4.5.0][] (2020-04-29)
+
+### New features
+
+* [#562](https://github.com/bootstrap-ruby/bootstrap_form/pull/562): Allow to configure default form attributes - [@sharshenov](https://github.com/sharshenov).
+
+## [4.4.0][] (2020-03-08)
+
+### New features
+
+* [#557](https://github.com/bootstrap-ruby/bootstrap_form/pull/557): Allow prepending and appending multiple items to an input by passing an array to `prepend` and `append` options - [@donv](https://github.com/donv).
+* [#550](https://github.com/bootstrap-ruby/bootstrap_form/pull/550): Add `default_layout` so we can use it for all forms - [@duleorlovic](https://github.com/duleorlovic).
+
+### Bugfixes
+
+* Your contribution here!
+
+## [4.3.0][] (2019-09-22)
+
+### New features
+
+* [#503] Support Rails 6.0.0.
+* Small documentation changes.
 
 ## [4.2.0][] (2019-03-08)
 
@@ -268,7 +339,11 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...v5.0.0
+[4.5.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0
+[4.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0
+[4.3.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...v4.3.0
 [4.2.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0.alpha1...v4.0.0

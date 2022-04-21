@@ -1,0 +1,5 @@
+gems = "#{File.dirname __dir__}/Gemfile"
+eval File.read(gems), binding, gems # rubocop: disable Security/Eval
+
+# 7.0.0 has an issue with Ruby 3.1.
+gem "rails", "~> 7.0.1"

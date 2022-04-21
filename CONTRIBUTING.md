@@ -42,12 +42,7 @@ Fork the project. Optionally, create a branch you want to work on.
 - Add a line to the CHANGELOG for your bug fix or feature.
 - Read the [Coding Guidelines](#coding-guidelines) section and make sure that `rake lint` doesn't find any offences.
 
-You may find the demo application useful for development and debugging.
-
-- `cd demo`
-- `rake db:schema:load`
-- `rails s`
-- Navigate to http://localhost:3000
+You may find the [demo application](#the-demo-application) useful for development and debugging.
 
 ### 6. Make a pull request
 
@@ -58,16 +53,16 @@ You may find the demo application useful for development and debugging.
 ### 7. Done!
 
 Somebody will shortly review your pull request and if everything is good, it will be
-merged into the master branch. Eventually the gem will be published with your changes.
+merged into the main branch. Eventually the gem will be published with your changes.
 
 ### Coding guidelines
 
 This project uses [RuboCop](https://github.com/bbatsov/rubocop) to enforce standard Ruby coding
 guidelines.
 
-* Test that your contribution passes with `rake rubocop`.
-* RuboCop is also run as part of the full test suite with `bundle exec rake`.
-* Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
+- Test that your contribution passes with `rake rubocop`.
+- RuboCop is also run as part of the full test suite with `bundle exec rake`.
+- Note the Travis build will fail and your PR cannot be merged if RuboCop finds offences.
 
 Note that most editors have plugins to run RuboCop as you type, or when you save a file. You may find it well worth your time to install and configure the RuboCop plugin for your editor. Read the [RuboCop documentation](https://rubocop.readthedocs.io/en/latest/integration_with_other_tools/).
 
@@ -77,11 +72,74 @@ The goal of `bootstrap_form` is to support all versions of Rails currently suppo
 
 The Ruby on Rails support policy is [here](https://guides.rubyonrails.org/maintenance_policy.html).
 
+### Developing with Docker
+
+This repository includes a `Dockerfile` to build an image with the minimum `bootstrap_form`-supported Ruby environment. To build the image:
+
+```bash
+docker build --tag bootstrap_form .
+```
+
+This builds an image called `bootstrap_form`. You can change that to any tag you wish. Just make sure you use the same tag name in the `docker run` command.
+
+If you want to use a different Ruby version, or a smaller Linux distribution (although the distro may be missing tools you need):
+
+```bash
+docker build --build-arg "RUBY_VERSION=2.7" --build-arg "DISTRO=slim-buster" --tag bootstrap_form .
+```
+
+Then run the container you built with the shell, and create the bundle:
+
+```bash
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -it bootstrap_form /bin/bash
+bundle install
+```
+
+You can run tests in the container as normal, with `rake test`.
+
+(Some of that command line is need for Linux hosts, to run the container as the current user.)
+
+### The Demo Application
+
+There is a demo app in this repository. It shows some of the features of `bootstrap_form`, and provides a base on which to build ad-hoc testing, if you need it.
+
+Currently, the demo app is only set up to run for Rails 7, due to the variety of ways to include CSS and JavaScript in a modern Rails application.
+To run the demo app, set up the database and run the server:
+
+```bash
+cd demo
+export BUNDLE_GEMFILE=gemfiles/7.0.gemfile
+rails db:setup
+yarn build --watch &
+rails s -b 0.0.0.0
+```
+
+To run the demo app in the Docker container:
+
+```bash
+docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
+cd demo
+export BUNDLE_GEMFILE=../gemfiles/7.0.gemfile
+rails db:setup
+yarn build --watch &
+rails s -b 0.0.0.0
+```
+
+The app doesn't appear to find the source map, or perhaps it isn't being generated. In the Rails log you will see messages similar to:
+
+```bash
+ActionController::RoutingError (No route matches [GET] "/assets/application.js-c6c0edbd68f05cffd0e2495198bfbc4bf42be8a11b76eecbfade30a8036b6b87.map")
+```
+
+But this doesn't seem to affect how the app runs.
+
+To use other supported versions of Rails, you will need to create a `Gemfile` for the Rails version. Then, change the `export BUNDLE_GEMFILE...` line to your gem file. Finally, figure out how to include the assets.
+
 ## Documentation Contributions
 
 Contributions to documentation are always welcome. Even fixing one typo improves the quality of `bootstrap_form`. To make a documentation contribution, follow steps 1-3 of Code Contributions, then make the documentation changes, then make the pull request (step 6 of Code Contributions).
 
-If you put `[ci skip]` in the commit message of the most recent commit of the PR, you'll be a good citizen by not causing Travis CI to run all the tests when it's not necessary.
+If you put `[ci skip]` in the commit message of the most recent commit of the PR, you'll be a good citizen by not causing our CI pipeline to run all the tests when it's not necessary.
 
 ## Reviewing Pull Requests
 
@@ -92,11 +150,14 @@ We are an entirely volunteer project. Sometimes it's hard for people to find the
 Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors
 
 ## Troubleshooting
+
 ### Models and Database Tables
+
 `bootstrap_form` needs a few models and tables to support testing. It appears that the necessary tables were created via the `demo/db/schema.rb` file. To support `rich_text_area`, Rails 6 creates some migrations. These migrations had to be run in the existing database (not an empty one) to create a new `schema.rb` that creates the `bootstrap_form` test tables, and the tables needed by Rails 6. The `schema.rb` file was checked in to GitHub, but the migrations were not.
 
 In the future, any new Rails functionality that creates tables would likely have to be prepared the same way:
-```
+
+```bash
 cd demo
 rails db:setup # create the databases from `schema.rb`
 rails db:migrate # add the new tables and create a new `schema.rb`

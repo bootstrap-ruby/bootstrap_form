@@ -6,8 +6,8 @@ class BootstrapFormTest < ActionView::TestCase
   setup :setup_test_fixture
 
   test "default-style forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
     HTML
@@ -15,37 +15,37 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "default-style form fields layout horizontal" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1"> Foo</label>
+              <label class="form-check-label" for="user_misc_1">Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2"> Bar</label>
+              <label class="form-check-label" for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
-            <select class="form-control" id="user_status" name="user[status]">
+            <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -67,32 +67,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "default-style form fields layout inline" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group form-inline">
-          <label class="mr-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group form-inline">
-          <label class="mr-sm-2" for="user_misc">Misc</label>
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1">Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="form-group form-inline">
-          <label class="mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2" for="user_status">Status</label>
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -119,8 +119,8 @@ class BootstrapFormTest < ActionView::TestCase
     # No need to test 5.2 separately for this case, since 5.2 does *not*
     # generate a default ID for the form element.
     test "default-style forms bootstrap_form_with Rails 5.1+" do
-      expected = <<-HTML.strip_heredoc
-        <form accept-charset="UTF-8" action="/users" data-remote="true" method="post" role="form">
+      expected = <<~HTML
+        <form accept-charset="UTF-8" action="/users" method="post" #{'data-remote="true"' if ::Rails::VERSION::STRING < '6.1'}>
           #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         </form>
       HTML
@@ -129,32 +129,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "inline-style forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="form-inline" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="mr-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3">
+          <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group">
-          <label class="mr-sm-2" for="user_misc">Misc</label>
+        <div class="mb-3">
+          <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1">Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="form-group">
-          <label class="mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+        <div class="mb-3">
+          <label class="form-label mr-sm-2" for="user_status">Status</label>
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -174,37 +174,37 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "horizontal-style forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1"> Foo</label>
+              <label class="form-check-label" for="user_misc_1">Foo</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2"> Bar</label>
+              <label class="form-check-label" for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
-            <select class="form-control" id="user_status" name="user[status]">
+            <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -225,32 +225,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "horizontal-style form fields layout default" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required" for="user_email">Email</label>
+        <div class="mb-3">
+          <label class="form-label required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group">
-          <label for="user_misc">Misc</label>
+        <div class="mb-3">
+          <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1">Foo</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="form-group">
-          <label for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+        <div class="mb-3">
+          <label class="form-label" for="user_status">Status</label>
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -271,32 +271,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "horizontal-style form fields layout inline" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group form-inline">
-          <label class="mr-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="form-check form-check-inline">
-          <input name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="form-group form-inline">
-          <label class="mr-sm-2" for="user_misc">Misc</label>
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+            <label class="form-check-label" for="user_misc_1">Foo</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <label class="form-check-label" for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="form-group form-inline">
-          <label class="mr-sm-2" for="user_status">Status</label>
-          <select class="form-control" id="user_status" name="user[status]">
+        <div class="mb-3 col-auto g-3">
+          <label class="form-label mr-sm-2" for="user_status">Status</label>
+          <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -317,11 +317,11 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "existing styles aren't clobbered when specifying a form style" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -333,7 +333,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "given role attribute should not be covered by default role attribute" do
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="not-a-form">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
@@ -341,12 +341,32 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_xml expected, bootstrap_form_for(@user, html: { role: "not-a-form" }) { |_f| nil }
   end
 
-  test "bootstrap_form_tag acts like a form tag" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" method="post" role="form">
+  test "allows to set blank default form attributes via configuration" do
+    BootstrapForm.config.stubs(:default_form_attributes).returns({})
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label for="email">Your Email</label>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
+  end
+
+  test "allows to set custom default form attributes via configuration" do
+    BootstrapForm.config.stubs(:default_form_attributes).returns(foo: "bar")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" foo="bar" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user) { |_f| nil }
+  end
+
+  test "bootstrap_form_tag acts like a form tag" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="mb-3">
+          <label class="form-label" for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
         </div>
       </form>
@@ -356,11 +376,11 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_for does not clobber custom options" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required" for="ID">Email</label>
+        <div class="mb-3">
+          <label class="form-label required" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" value="steve@example.com" />
         </div>
       </form>
@@ -369,11 +389,11 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_tag does not clobber custom options" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label for="ID">Email</label>
+        <div class="mb-3">
+          <label class="form-label" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
         </div>
       </form>
@@ -389,15 +409,15 @@ class BootstrapFormTest < ActionView::TestCase
       id = "_misc"
       name = "[misc]"
     end
-    expected = <<-HTML.strip_heredoc
-    <form accept-charset="UTF-8" action="/users" method="post" role="form">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-      <div class="form-check">
-        <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
-        <input name="#{name}" type="hidden" value="0" />
-        <label class="form-check-label" for="#{id}"> Misc</label>
-      </div>
-    </form>
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="form-check">
+          <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
+          <input #{autocomplete_attr} name="#{name}" type="hidden" value="0" />
+          <label class="form-check-label" for="#{id}"> Misc</label>
+        </div>
+      </form>
     HTML
     assert_equivalent_xml expected, bootstrap_form_tag(url: "/users") { |f| f.check_box :misc }
   end
@@ -406,11 +426,11 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
         </div>
       </form>
@@ -422,11 +442,11 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required text-danger" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
         </div>
@@ -436,33 +456,31 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "label error messages use humanized attribute names" do
-    begin
-      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
 
-      @user.email = nil
-      assert @user.invalid?
+    @user.email = nil
+    assert @user.invalid?
 
-      expected = <<-HTML.strip_heredoc
-        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="form-group">
-            <label class="required text-danger" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
-            <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          </div>
-        </form>
-      HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
-    ensure
-      I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
-    end
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
+          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+  ensure
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
   end
 
   test "alert message is wrapped correctly" do
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="alert alert-danger">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
@@ -479,7 +497,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <div class="my-css-class">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
@@ -500,8 +518,8 @@ class BootstrapFormTest < ActionView::TestCase
       f.alert_message("Please fix the following errors:")
     end
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
@@ -524,8 +542,8 @@ class BootstrapFormTest < ActionView::TestCase
       f.alert_message("Please fix the following errors:", error_summary: false)
     end
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
@@ -543,8 +561,8 @@ class BootstrapFormTest < ActionView::TestCase
       f.alert_message("Please fix the following errors:", error_summary: true)
     end
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
@@ -563,7 +581,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <ul class="rails-bootstrap-forms-error-summary">
         <li>Email can&#39;t be blank</li>
         <li>Email is too short (minimum is 5 characters)</li>
@@ -584,18 +602,18 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = <<-HTML.strip_heredoc
-      <div class="alert alert-danger">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
+    expected = <<~HTML
+      <div class="invalid-feedback">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
     HTML
     assert_equivalent_xml expected, @builder.errors_on(:email)
   end
 
   test "custom label width for horizontal forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-1 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -607,10 +625,10 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "offset for form group without label respects label width for horizontal forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
+        <div class="mb-3 row">
           <div class="col-md-10 offset-md-2">
             <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
           </div>
@@ -623,10 +641,10 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "offset for form group without label respects multiple label widths for horizontal forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
+        <div class="mb-3 row">
           <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
             <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
           </div>
@@ -639,11 +657,11 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "custom input width for horizontal forms" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-5">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -655,11 +673,11 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "additional input col class" do
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
+        <div class="mb-3 row">
+          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10 custom-class">
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -679,11 +697,11 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: "This is required")
     end
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required" for="user_email">Email</label>
+        <div class="mb-3">
+          <label class="form-label required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
           <small class="form-text text-muted">This is required</small>
@@ -701,12 +719,12 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: "This is required")
     end
 
-    expected = <<-HTML.strip_heredoc
+    expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
+        <div class="mb-3">
           <div class="field_with_errors">
-            <label class="required" for="user_email">Email</label>
+            <label class="form-label required" for="user_email">Email</label>
           </div>
           <div class="field_with_errors">
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -727,11 +745,11 @@ class BootstrapFormTest < ActionView::TestCase
       f.text_field(:email, help: "This is required")
     end
 
-    expected = <<-HTML.strip_heredoc
-      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-group">
-          <label class="required" for="user_email">Email</label>
+        <div class="mb-3">
+          <label class="form-label required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <small class="form-text text-muted">This is required</small>
         </div>
@@ -741,34 +759,32 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "help translations do not escape HTML when _html is appended to the name" do
-    begin
-      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: "This is <strong>useful</strong> help" } } })
+    I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: "This is <strong>useful</strong> help" } } })
 
-      output = bootstrap_form_for(@user) do |f|
-        f.text_field(:email)
-      end
-
-      expected = <<-HTML.strip_heredoc
-        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="form">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="form-group">
-            <label class="required" for="user_email">Email</label>
-            <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-            <small class="form-text text-muted">This is <strong>useful</strong> help</small>
-          </div>
-        </form>
-      HTML
-      assert_equivalent_xml expected, output
-    ensure
-      I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: nil } } })
+    output = bootstrap_form_for(@user) do |f|
+      f.text_field(:email)
     end
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="mb-3">
+          <label class="form-label required" for="user_email">Email</label>
+          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_xml expected, output
+  ensure
+    I18n.backend.store_translations(:en, activerecord: { help: { user: { email_html: nil } } })
   end
 
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
-    expected = <<-HTML.strip_heredoc
-      <div class="form-group">
-        <label for="other_model_email">Email</label>
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="other_model_email">Email</label>
         <input class="form-control" id="other_model_email" name="other_model[email]" type="text" />
       </div>
     HTML
@@ -779,8 +795,17 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="alert alert-danger">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
+    expected = '<div class="invalid-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
 
     assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
+  end
+
+  test "errors_on use custom CSS classes" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = '<div class="custom-error-class">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>'
+
+    assert_equivalent_xml expected, @builder.errors_on(:email, custom_class: "custom-error-class")
   end
 end
