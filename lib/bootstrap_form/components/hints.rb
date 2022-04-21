@@ -8,7 +8,7 @@ module BootstrapForm
       private
 
       def generate_help(name, help_text)
-        return if help_text == false || inline_error?(name)
+        return if help_text == false
 
         help_klass ||= "form-text text-muted"
         help_text ||= get_help_text_by_i18n_key(name)

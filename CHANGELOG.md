@@ -27,7 +27,7 @@
 
 ### Bugfixes
 
-* Your contribution here!
+* [#284] [#300] Field's help message is displayed, even while inline error message is displayed. - [@antpaw](https://github.com/antpaw)
 
 ## [5.0.0][] (2021-11-11)
 

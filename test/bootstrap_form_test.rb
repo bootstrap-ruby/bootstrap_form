@@ -704,6 +704,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
           <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <small class="form-text text-muted">This is required</small>
         </div>
       </form>
     HTML
@@ -729,6 +730,7 @@ class BootstrapFormTest < ActionView::TestCase
             <input class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          <small class="form-text text-muted">This is required</small>
         </div>
       </form>
     HTML
