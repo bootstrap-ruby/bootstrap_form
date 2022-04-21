@@ -1,5 +1,0 @@
-# Temporarily disable copt for false positive
-# https://github.com/rubocop/rubocop/pull/10558
-Style/FetchEnvVar:
-  Exclude:
-    - 'test/test_helper.rb'
