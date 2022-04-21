@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.bindir        = "exe"
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 2.5"
+  s.required_ruby_version = ">= 2.7"
 
   s.add_dependency("actionpack", REQUIRED_RAILS_VERSION)
   s.add_dependency("activemodel", REQUIRED_RAILS_VERSION)

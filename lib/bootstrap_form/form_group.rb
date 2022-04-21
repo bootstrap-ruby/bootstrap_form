@@ -52,7 +52,7 @@ module BootstrapForm
     end
 
     def form_group_classes(options)
-      classes = (options[:class] == false) ? [] : (options[:class] || "mb-3").split
+      classes = options[:class] == false ? [] : (options[:class] || "mb-3").split
       classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
       classes << "col-auto g-3" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
