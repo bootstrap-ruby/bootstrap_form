@@ -8,8 +8,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box is wrapped correctly" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -22,8 +21,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box empty label" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">&#8203;</label>
       </div>
@@ -35,8 +33,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "disabled check_box has proper wrapper classes" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" disabled="disabled" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -49,8 +46,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box label allows html" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the <a href="#">terms</a>
@@ -63,8 +59,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box accepts a block to define the label" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -77,8 +72,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box accepts a custom label class" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label btn" for="user_terms">
           Terms
@@ -91,8 +85,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box 'id' attribute is used to specify label 'for' attribute" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="custom_id" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="custom_id">
           Terms
@@ -105,8 +98,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="no" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="no" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="yes" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -119,8 +111,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "inline checkboxes" do
     expected = <<~HTML
       <div class="form-check form-check-inline">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -135,8 +126,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline">
-          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-            name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">
             I agree to the terms
@@ -153,8 +143,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "disabled inline check_box" do
     expected = <<~HTML
       <div class="form-check form-check-inline">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" disabled="disabled" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -168,8 +157,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "inline checkboxes with custom label class" do
     expected = <<~HTML
       <div class="form-check form-check-inline">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label btn" for="user_terms">
           Terms
@@ -182,13 +170,12 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1"> Foobar</label>
+          <label class="form-check-label" for="user_misc_1">Foobar</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -201,8 +188,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -227,8 +213,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     struct = Struct.new(:id, :name)
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -252,8 +237,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders inline checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
@@ -278,8 +262,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -306,8 +289,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -330,8 +312,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes sanitizes values when generating label `for`" do
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -348,8 +329,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -373,8 +353,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -398,8 +377,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -423,8 +401,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -449,8 +426,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly with Proc :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -477,8 +453,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly with lambda :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -524,8 +499,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box skip label" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       </div>
     HTML
@@ -535,8 +509,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check_box hide label" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label visually-hidden" for="user_terms">I agree to the terms</label>
       </div>
@@ -551,8 +524,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+        <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
@@ -581,8 +553,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
+        <input #{autocomplete_attr} id="user_misc" multiple="multiple" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
@@ -610,8 +581,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check">
-          <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-            name="user[terms]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">
             I agree to the terms
@@ -629,8 +599,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "check box with custom wrapper class" do
     expected = <<~HTML
       <div class="form-check custom-class">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms
@@ -643,8 +612,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "inline check box with custom wrapper class" do
     expected = <<~HTML
       <div class="form-check form-check-inline custom-class">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="form-check-label" for="user_terms">
           I agree to the terms

@@ -94,4 +94,8 @@ class ActionView::TestCase
 
     EquivalentXml.equivalent?(expected, real)
   end
+
+  def autocomplete_attr
+    'autocomplete="off"' if ::Rails::VERSION::STRING >= "6.1"
+  end
 end

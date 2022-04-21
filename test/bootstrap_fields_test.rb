@@ -104,8 +104,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "hidden fields are supported" do
     expected = <<~HTML
-      <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-        id="user_misc" name="user[misc]" type="hidden" />
+      <input #{autocomplete_attr} id="user_misc" name="user[misc]" type="hidden" />
     HTML
     assert_equivalent_xml expected, @builder.hidden_field(:misc)
   end
@@ -262,8 +261,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "check_box fields are wrapped correctly" do
     expected = <<~HTML
       <div class="form-check">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[misc]" type="hidden" value="0"/>
+        <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
         <label class="form-check-label" for="user_misc">Misc</label>
       </div>
@@ -274,8 +272,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "switch-style check_box fields are wrapped correctly" do
     expected = <<~HTML
       <div class="form-check form-switch">
-        <input #{'autocomplete="off"' if ::Rails::VERSION::STRING >= '7'}
-          name="user[misc]" type="hidden" value="0"/>
+        <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
         <label class="form-check-label" for="user_misc">Misc</label>
       </div>
