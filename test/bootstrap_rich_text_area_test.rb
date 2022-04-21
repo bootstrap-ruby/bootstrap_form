@@ -37,6 +37,8 @@ if ::Rails::VERSION::STRING > "6"
     end
 
     def with_stub_token(&block)
+      return unless defined?(ActiveStorage::DirectUploadToken)
+
       ActiveStorage::DirectUploadToken.stub(:generate_direct_upload_token, "token", &block)
     end
   end
