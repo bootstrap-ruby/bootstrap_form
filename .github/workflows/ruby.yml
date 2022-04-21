@@ -15,12 +15,13 @@ jobs:
         with:
           ruby-version: 2.7
           bundler-cache: true
-      - name: Danger
-        if: ${{ github.event_name == 'pull_request' }}
-        env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          bundle exec danger
+      # Disabled since it requires access not granted by GitHub Actions for PRs
+      # - name: Danger
+      #   if: ${{ github.event_name == 'pull_request' }}
+      #   env:
+      #     DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     bundle exec danger
       - name: Rubocop
         run: bundle exec rubocop --auto-correct
   Test:
