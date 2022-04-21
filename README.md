@@ -339,7 +339,7 @@ Which produces the following output:
 </div>
 ```
 
-If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class''`.
+If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class'`.
 It's just a short form of `wrapper: { class: 'mb-3 additional-class' }`.
 
 If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
