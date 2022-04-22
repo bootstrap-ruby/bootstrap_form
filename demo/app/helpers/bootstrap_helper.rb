@@ -21,7 +21,7 @@ module BootstrapHelper
 
   def toggle
     tag.button(class: "toggle btn btn-sm btn-info") do
-      "Show Source Code"
+      "Toggle Source Code"
     end
   end
 end

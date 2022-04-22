@@ -8,10 +8,10 @@ demo/tmp/
 *.gem
 .rbenv-gemsets
 *.swp
-Gemfile.lock
+/Gemfile.lock
 test/gemfiles/*.lock
 gemfiles/*.lock
-.ruby-version
+/.ruby-version
 Vagrantfile
 .vagrant
 .yarnrc

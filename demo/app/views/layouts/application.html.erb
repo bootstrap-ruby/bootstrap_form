@@ -19,8 +19,11 @@
         border: .2rem solid #f7f7f9;
         margin-bottom: 3em;
       }
-      form {
-        margin-bottom: 1.5em;
+      .toggle {
+        margin-top: 1.5em;
+      }
+      .code {
+        margin-top: 1rem;
       }
       .CodeMirror {
         border: 1px solid #eee;
@@ -50,16 +53,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/xml/xml.min.js"></script>
 
     <script type="text/javascript">
-      $(document).on("click", "button.toggle", function(){
-        var example = $(this).parent(".example");
-        $(this).hide();
-        $(".code", example).show()
-        CodeMirror.fromTextArea($("textarea.codemirror", example)[0], {
-          mode:           "htmlmixed",
-          tabSize:        2,
-          lineNumbers:    true,
-          viewportMargin: Infinity
-        })
+      const buttons = document.querySelectorAll('button.toggle');
+      const buttonsArray = Array.prototype.slice.call(buttons);
+      buttonsArray.forEach(function(elem) {
+        elem.addEventListener('click', function() {
+          const example = this.closest('.example');
+          if (example.querySelector('.code').style.display === "block") {
+            example.querySelector('.code').style.display = "none";
+          } else {
+          example.querySelector('.code').style.display = "block";
+          }
+          CodeMirror.fromTextArea(example.querySelector('textarea.codemirror'), {
+            mode: 'htmlmixed',
+            tabSize: 2,
+            lineNumbers: true,
+            viewportMargin: Infinity,
+          });
+        });
       });
     </script>
   </body>
