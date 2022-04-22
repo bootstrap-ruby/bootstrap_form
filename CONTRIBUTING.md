@@ -109,6 +109,7 @@ To run the demo app, set up the database and run the server:
 ```bash
 cd demo
 export BUNDLE_GEMFILE=gemfiles/7.0.gemfile
+bundle
 rails db:setup
 yarn build --watch &
 rails s -b 0.0.0.0
