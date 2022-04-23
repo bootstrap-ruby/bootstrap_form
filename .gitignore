@@ -3,6 +3,8 @@
 log/*.log
 pkg/
 demo/db/*.sqlite3
+demo/doc/screenshots/**/*.committed.png
+demo/doc/screenshots/**/*.latest.png
 demo/log/*.log
 demo/tmp/
 *.gem
