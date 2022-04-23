@@ -9,7 +9,7 @@ class BootstrapTest < ApplicationSystemTestCase
     all(".toggle").each { |btn| execute_script "arguments[0].remove()", btn }
 
     all("h3").each do |header|
-      example = header.first(:xpath, './following-sibling::div')
+      example = header.first(:xpath, "./following-sibling::div")
       scroll_to example
       sleep 0.5
       screenshot header.text.downcase.tr(" ", "_"), crop: bounds(example)
@@ -19,7 +19,7 @@ class BootstrapTest < ApplicationSystemTestCase
   private
 
   def bounds(node)
-    clientRect = evaluate_script("arguments[0].getBoundingClientRect()", node.native)
-    [clientRect['left'].floor, clientRect['top'].floor, clientRect['right'].ceil, clientRect['bottom'].ceil]
+    client_rect = evaluate_script("arguments[0].getBoundingClientRect()", node.native)
+    [client_rect["left"].floor, client_rect["top"].floor, client_rect["right"].ceil, client_rect["bottom"].ceil]
   end
 end
