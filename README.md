@@ -86,7 +86,7 @@ This generates the following HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -135,7 +135,7 @@ To get started, just use the `bootstrap_form_with` helper in place of `form_with
 ```erb
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
   <%= f.email_field :email %>
-  <%= f.password_field :password %>
+  <%= f.password_field :password, help: 'A good password should be at least six characters long' %>
   <%= f.check_box :remember_me %>
   <%= f.submit "Log In" %>
 <% end %>
@@ -286,7 +286,7 @@ This generates:
 <div class="mb-3 row">
   <label class="form-label custom-class col-form-label col-sm-2 required" for="user_email">Email</label>
   <div class="col-sm-10">
-    <input class="form-control" id="user_email" name="user[email]" type="text">
+    <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com">
   </div>
 </div>
 ```
@@ -304,7 +304,7 @@ This generates:
 <div class="mb-3 row">
   <label class="form-label visually-hidden col-form-label col-sm-2 required" for="user_email">Email</label>
   <div class="col-sm-10">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text">
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text" value="steve@example.com">
   </div>
 </div>
 ```
@@ -324,7 +324,7 @@ This generates:
 <div class="mb-3 row">
   <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
   <div class="col-sm-10">
-    <input class="custom-class" id="user_email" name="user[email]" type="text">
+    <input class="custom-class" id="user_email" name="user[email]" type="text" value="steve@example.com">
   </div>
 </div>
 ```
@@ -460,7 +460,7 @@ This generates:
   <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
   <div class="col-sm-10">
     <div class="input-group input-group-lg">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
       <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
     </div>
   </div>
@@ -746,7 +746,7 @@ This generates:
 <div class="mb-3 row">
   <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
   <div class="col-sm-10">
-    <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text">
+    <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
   </div>
 </div>
 ```
@@ -954,7 +954,7 @@ append `_without_bootstrap` to the helper:
 This generates:
 
 ```html
-<input id="user_email" name="user[email]" type="text">
+<input id="user_email" name="user[email]" type="text" value="steve@example.com">
 ```
 
 ## Form Styles
@@ -984,7 +984,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label visually-hidden mr-sm-2 required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
@@ -1046,7 +1046,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1093,7 +1093,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1150,7 +1150,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1190,7 +1190,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3">
@@ -1231,7 +1231,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -1267,7 +1267,7 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 form-floating">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email">
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="steve@example.com">
     <label class="form-label required" for="user_email">Email</label>
   </div>
   <div class="mb-3 form-floating">
