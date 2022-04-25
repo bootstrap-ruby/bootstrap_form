@@ -17,7 +17,7 @@ class BootstrapTest < ApplicationSystemTestCase
     end
   end
 
-  HEADERS = "This generates|Which outputs|will be rendered as".freeze
+  HEADERS = ["Generated HTML", "This generates", "Which outputs", "will be rendered as"].join("|").freeze
   REGEXP =
     /(?:!\[[^\]]*\]\([^)]+\)\s*)?```erb\n(.*?)\n```\s*((?:#{HEADERS}).*?$)?\s*(```html\n(?:.*?)\n```\s*)?/mi
     .freeze
@@ -25,14 +25,29 @@ class BootstrapTest < ApplicationSystemTestCase
     screenshot_group :readme
 
     readme = File.read(File.expand_path("../../../README.md", __dir__))
-    augmented_readme = readme.gsub(REGEXP).with_index do |_, i|
+    augmented_readme = readme.gsub(REGEXP) do |_|
       erb = Regexp.last_match(1)
       header = Regexp.last_match(2)
       unless /\A<%= bootstrap[^>]*>\n\s*...\s*<% end %>\z/.match? erb
-        visit fragment_path erb: erb
+        if erb.start_with? "<%= bootstrap"
+          wrapped_erb = erb
+        else
+          wrapped_erb = <<~ERB
+            <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>
+              #{erb}
+            <% end %>
+          ERB
+        end
+
+        visit fragment_path erb: wrapped_erb
         wrapper = find(".p-3")
+        i = @screenshot_counter
         screenshot :example, crop: bounds(wrapper)
+        if wrapped_erb != erb
+          wrapper = wrapper.find('form')
+        end
         html = wrapper["innerHTML"].strip.gsub("><", ">\n<")
+        assert html.present?, erb
         doc = Nokogiri::HTML.fragment(html)
         doc.traverse do |node|
           if node.is_a?(Nokogiri::XML::Element)
@@ -48,7 +63,7 @@ class BootstrapTest < ApplicationSystemTestCase
         MD
         html = <<~MD
 
-          #{header || 'This generates:'}
+          #{header || 'Generated HTML:'}
 
           ```html
           #{HtmlBeautifier.beautify(html)}

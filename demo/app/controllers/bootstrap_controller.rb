@@ -6,10 +6,6 @@ class BootstrapController < ApplicationController
   def fragment
     @erb = params[:erb]
 
-    unless @erb.start_with? "<%= bootstrap"
-      @erb.prepend "<%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>\n"
-      @erb << "<% end %>"
-    end
     @erb.prepend '<div class="p-3 border">'
     @erb << "</div>"
     load_models
