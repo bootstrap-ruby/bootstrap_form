@@ -144,23 +144,22 @@ To get started, just use the `bootstrap_form_with` helper in place of `form_with
 This generates:
 
 ```html
-<form action="/users" accept-charset="UTF-8" method="post">
-  <input name="utf8" type="hidden" value="&#x2713;" />
+<form accept-charset="UTF-8" action="/users" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" type="email" value="steve@example.com" name="user[email]" />
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
-    <input class="form-control" type="password" name="user[password]" />
+    <input class="form-control" id="user_password" name="user[password]" type="password">
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <div class="form-check">
-    <input name="user[remember_me]" type="hidden" value="0">
+    <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
-  <input type="submit" name="commit" value="Log In" class="btn btn-secondary" data-disable-with="Log In" />
+  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 

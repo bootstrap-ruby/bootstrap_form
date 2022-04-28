@@ -14,8 +14,10 @@ module BootstrapForm
             check_box(name, options, value, nil)
           end
 
-          include_hidden = args.extract_options!.symbolize_keys!.delete(:include_hidden) { true }
-          include_hidden ? hidden_field(args.first, value: "", multiple: true).concat(html) : html
+          if args.extract_options!.symbolize_keys!.delete(:include_hidden) { true }
+            html.prepend hidden_field(args.first, value: "", multiple: true)
+          end
+          html
         end
 
         bootstrap_alias :collection_check_boxes
