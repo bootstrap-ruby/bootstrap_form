@@ -66,6 +66,7 @@ module BootstrapForm
       def check_box_wrapper_class(options)
         classes = ["form-check"]
         classes << "form-check-inline" if layout_inline?(options[:inline])
+        classes << "mb-3" unless options[:multiple] || layout == :horizontal
         classes << "form-switch" if options[:switch]
         classes << options[:wrapper_class] if options[:wrapper_class].present?
         classes.flatten.compact

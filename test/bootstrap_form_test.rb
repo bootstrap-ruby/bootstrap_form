@@ -24,7 +24,7 @@ class BootstrapFormTest < ActionView::TestCase
             <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
-        <div class="form-check">
+        <div class="form-check mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
@@ -74,7 +74,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
@@ -136,7 +136,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
@@ -412,7 +412,7 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-check">
+        <div class="form-check mb-3">
           <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
           <input #{autocomplete_attr} name="#{name}" type="hidden" value="0" />
           <label class="form-check-label" for="#{id}"> Misc</label>

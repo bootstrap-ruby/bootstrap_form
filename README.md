@@ -92,7 +92,7 @@ This generates the following HTML:
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check">
+  <div class="form-check mb-3">
     <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
@@ -154,7 +154,7 @@ This generates:
     <input class="form-control" id="user_password" name="user[password]" type="password">
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
-  <div class="form-check">
+  <div class="form-check mb-3">
     <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
@@ -571,7 +571,7 @@ This generates:
   <small class="form-text text-muted">Optional Help Text</small>
 </div>
 <div class="mb-3">
-  <div class="form-check">
+  <div class="form-check mb-3">
     <input autocomplete="off" name="user[terms]" type="hidden" value="0">
     <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
@@ -595,7 +595,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_terms">Optional Label</label>
-  <div class="form-check">
+  <div class="form-check mb-3">
     <input autocomplete="off" name="user[terms]" type="hidden" value="0">
     <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label class="form-check-label" for="user_terms">
@@ -664,7 +664,7 @@ To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 This generates:
 
 ```html
-<div class="form-check form-switch">
+<div class="form-check mb-3 form-switch">
   <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
   <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
   <label class="form-check-label" for="user_remember_me">Remember me</label>
@@ -972,7 +972,7 @@ This generates:
     <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check form-check-inline">
+  <div class="form-check form-check-inline mb-3">
     <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
@@ -1217,7 +1217,7 @@ This generates:
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check">
+  <div class="form-check mb-3">
     <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" custom="true" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
