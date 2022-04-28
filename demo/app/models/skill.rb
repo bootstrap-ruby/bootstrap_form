@@ -8,8 +8,8 @@ class Skill
 
   def self.all
     [
-      Skill.new(id: 1, name: 'Mind reading'),
-      Skill.new(id: 2, name: 'Farming'),
+      Skill.new(id: 1, name: "Mind reading"),
+      Skill.new(id: 2, name: "Farming")
     ]
   end
 end
