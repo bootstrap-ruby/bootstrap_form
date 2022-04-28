@@ -6,10 +6,6 @@ class BootstrapController < ApplicationController
   def fragment
     @erb = params[:erb]
 
-    unless @erb.start_with? "<%= bootstrap"
-      @erb.prepend "<%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>\n"
-      @erb << "<% end %>"
-    end
     @erb.prepend '<div class="p-3 border">'
     @erb << "</div>"
     load_models
@@ -24,9 +20,9 @@ class BootstrapController < ApplicationController
       Address.new(id: 2, street: "Bar")
     ]
 
-    @user = User.new
+    @user = User.new email: 'steve@example.com'
 
-    @user_with_error = User.new
+    @user_with_error = User.new email: 'steve.example.com'
     @user_with_error.errors.add(:email)
     @user_with_error.errors.add(:misc)
   end

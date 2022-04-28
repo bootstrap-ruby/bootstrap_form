@@ -86,7 +86,7 @@ This generates the following HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -135,7 +135,7 @@ To get started, just use the `bootstrap_form_with` helper in place of `form_with
 ```erb
 <%= bootstrap_form_with(model: @user, local: true) do |f| %>
   <%= f.email_field :email %>
-  <%= f.password_field :password %>
+  <%= f.password_field :password, help: 'A good password should be at least six characters long' %>
   <%= f.check_box :remember_me %>
   <%= f.submit "Log In" %>
 <% end %>
@@ -245,14 +245,12 @@ Use the `label` option if you want to specify the field's label text:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_password_confirmation">Confirm Password</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_password_confirmation">Confirm Password</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
   </div>
-</form>
+</div>
 ```
 
 To hide a label, use the `hide_label: true` option. This adds the `visually-hidden`
@@ -266,15 +264,13 @@ class, which keeps your labels accessible to those using screen readers.
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label visually-hidden col-form-label col-sm-2" for="user_comment">Comment</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
+<div class="mb-3 row">
+  <label class="form-label visually-hidden col-form-label col-sm-2" for="user_comment">Comment</label>
+  <div class="col-sm-10">
+    <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
 </textarea>
-    </div>
   </div>
-</form>
+</div>
 ```
 
 To add custom classes to the field's label:
@@ -287,14 +283,12 @@ To add custom classes to the field's label:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label custom-class col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="text">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label custom-class col-form-label col-sm-2 required" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com">
   </div>
-</form>
+</div>
 ```
 
 Or you can add the label as input placeholder instead (this automatically hides the label):
@@ -307,14 +301,12 @@ Or you can add the label as input placeholder instead (this automatically hides 
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label visually-hidden col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label visually-hidden col-form-label col-sm-2 required" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text" value="steve@example.com">
   </div>
-</form>
+</div>
 ```
 
 ### Input Elements / Controls
@@ -329,14 +321,12 @@ To specify the class of the generated input tag, use the `control_class` option:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
-      <input class="custom-class" id="user_email" name="user[email]" type="text">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <input class="custom-class" id="user_email" name="user[email]" type="text" value="steve@example.com">
   </div>
-</form>
+</div>
 ```
 
 ### Help Text
@@ -351,15 +341,13 @@ To add help text, use the `help` option:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_password">Password</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_password" name="user[password]" type="password">
-      <small class="form-text text-muted">Must be at least 6 characters long</small>
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_password">Password</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_password" name="user[password]" type="password">
+    <small class="form-text text-muted">Must be at least 6 characters long</small>
   </div>
-</form>
+</div>
 ```
 
 This gem is also aware of help messages in locale translation files (i18n):
@@ -400,18 +388,16 @@ You can pass `prepend` and/or `append` options to input fields:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <span class="input-group-text">$</span>
-        <input class="form-control" id="user_price" name="user[price]" type="text">
-        <span class="input-group-text">.00</span>
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <span class="input-group-text">$</span>
+      <input class="form-control" id="user_price" name="user[price]" type="text">
+      <span class="input-group-text">.00</span>
     </div>
   </div>
-</form>
+</div>
 ```
 
 If you want to attach multiple items to the input, pass them as an array:
@@ -424,20 +410,18 @@ If you want to attach multiple items to the input, pass them as an array:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <span class="input-group-text">Net</span>
-        <span class="input-group-text">$</span>
-        <input class="form-control" id="user_price" name="user[price]" type="text">
-        <span class="input-group-text">.00</span>
-        <span class="input-group-text">per day</span>
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <span class="input-group-text">Net</span>
+      <span class="input-group-text">$</span>
+      <input class="form-control" id="user_price" name="user[price]" type="text">
+      <span class="input-group-text">.00</span>
+      <span class="input-group-text">per day</span>
     </div>
   </div>
-</form>
+</div>
 ```
 
 You can also prepend and append buttons. Note: The buttons must contain the
@@ -451,17 +435,15 @@ You can also prepend and append buttons. Note: The buttons must contain the
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_search">Search</label>
-    <div class="col-sm-10">
-      <div class="input-group">
-        <input class="form-control" id="user_search" name="user[search]" type="text">
-        <a class="btn btn-secondary" href="#">Go</a>
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_search">Search</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <input class="form-control" id="user_search" name="user[search]" type="text">
+      <a class="btn btn-secondary" href="#">Go</a>
     </div>
   </div>
-</form>
+</div>
 ```
 
 To add a class to the input group wrapper, use the `:input_group_class` option.
@@ -474,17 +456,15 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
-      <div class="input-group input-group-lg">
-        <input class="form-control" id="user_email" name="user[email]" type="email">
-        <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <div class="input-group input-group-lg">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+      <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
     </div>
   </div>
-</form>
+</div>
 ```
 
 ### Additional Form Group Attributes
@@ -501,14 +481,12 @@ If you want to change the CSS class or any other attribute to the form group div
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 has-warning row" data-foo="bar">
-    <label class="form-label col-form-label col-sm-2" for="user_name">Name</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_name" name="user[name]" type="text">
-    </div>
+<div class="mb-3 has-warning row" data-foo="bar">
+  <label class="form-label col-form-label col-sm-2" for="user_name">Name</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_name" name="user[name]" type="text">
   </div>
-</form>
+</div>
 ```
 
 Which produces the following output:
@@ -524,12 +502,10 @@ Which produces the following output:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 has-warning" data-foo="bar">
-    <label class="form-label form-control-label" for="user_name">Id</label>
-    <input class="form-control" id="user_name" name="user[name]" type="text">
-  </div>
-</form>
+<div class="mb-3 has-warning" data-foo="bar">
+  <label class="form-label form-control-label" for="user_name">Id</label>
+  <input class="form-control" id="user_name" name="user[name]" type="text">
+</div>
 ```
 
 If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class'`.
@@ -561,17 +537,15 @@ Our select helper accepts the same arguments as the [default Rails helper](http:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="has-warning row" data-foo="bar">
-    <label class="form-label col-form-label col-sm-2" for="user_product">Choose your favorite fruit:</label>
-    <div class="col-sm-10">
-      <select class="form-select selectpicker" id="user_product" name="user[product]">
-        <option value="1">Apple</option>
-        <option value="2">Grape</option>
-      </select>
-    </div>
+<div class="has-warning row" data-foo="bar">
+  <label class="form-label col-form-label col-sm-2" for="user_product">Choose your favorite fruit:</label>
+  <div class="col-sm-10">
+    <select class="form-select selectpicker" id="user_product" name="user[product]">
+      <option value="1">Apple</option>
+      <option value="2">Grape</option>
+    </select>
   </div>
-</form>
+</div>
 ```
 
 ## Checkboxes and Radios
@@ -596,35 +570,33 @@ an error if an associated validations fails:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
-    <div class="col-sm-10">
-      <div class="form-check">
-        <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-        <label class="form-check-label" for="user_skill_level_0">Novice</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-        <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-        <label class="form-check-label" for="user_skill_level_2">Advanced</label>
-      </div>
-      <small class="form-text text-muted">Optional Help Text</small>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
+  <div class="col-sm-10">
+    <div class="form-check">
+      <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+      <label class="form-check-label" for="user_skill_level_0">Novice</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+      <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+      <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+    </div>
+    <small class="form-text text-muted">Optional Help Text</small>
+  </div>
+</div>
+<div class="mb-3 row">
+  <div class="col-sm-10 offset-sm-2">
+    <div class="form-check">
+      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
+      <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <div class="form-check">
-        <input autocomplete="off" name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
-      </div>
-    </div>
-  </div>
-</form>
+</div>
 ```
 
 You can also create a checkbox using a block:
@@ -641,20 +613,18 @@ You can also create a checkbox using a block:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_terms">Optional Label</label>
-    <div class="col-sm-10">
-      <div class="form-check">
-        <input autocomplete="off" name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">
-          You need to check this box to accept our terms of service and privacy policy
-        </label>
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_terms">Optional Label</label>
+  <div class="col-sm-10">
+    <div class="form-check">
+      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
+      <label class="form-check-label" for="user_terms">
+        You need to check this box to accept our terms of service and privacy policy
+      </label>
     </div>
   </div>
-</form>
+</div>
 ```
 
 To display checkboxes and radios inline, pass the `inline: true` option:
@@ -671,25 +641,23 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
-    <div class="col-sm-10">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-        <label class="form-check-label" for="user_skill_level_0">Novice</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-        <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-        <label class="form-check-label" for="user_skill_level_2">Advanced</label>
-      </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
+  <div class="col-sm-10">
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+      <label class="form-check-label" for="user_skill_level_0">Novice</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+      <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+      <label class="form-check-label" for="user_skill_level_2">Advanced</label>
     </div>
   </div>
-</form>
+</div>
 ```
 
 Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
@@ -702,12 +670,10 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="form-check form-check-inline w-auto">
-    <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-    <label class="form-check-label" for="user_skill_level_0">Novice</label>
-  </div>
-</form>
+<div class="form-check form-check-inline w-auto">
+  <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+  <label class="form-check-label" for="user_skill_level_0">Novice</label>
+</div>
 ```
 
 ### Switches
@@ -722,13 +688,11 @@ To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="form-check form-switch">
-    <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
-  </div>
-</form>
+<div class="form-check form-switch">
+  <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+  <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+  <label class="form-check-label" for="user_remember_me">Remember me</label>
+</div>
 ```
 
 ### Collections
@@ -745,19 +709,17 @@ This generates:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill level</label>
-    <div class="col-sm-10">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill level</label>
+  <div class="col-sm-10">
   </div>
-  <input autocomplete="off" id="user_skills" multiple name="user[skills][]" type="hidden" value="">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_skills">Skills</label>
-    <div class="col-sm-10">
-    </div>
+</div>
+<input autocomplete="off" id="user_skills" multiple name="user[skills][]" type="hidden" value="">
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_skills">Skills</label>
+  <div class="col-sm-10">
   </div>
-</form>
+</div>
 ```
 
 NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue [#477](https://github.com/bootstrap-ruby/bootstrap_form/issues/477). If you need to use the block syntax, use `collection_check_boxes_without_bootstrap` or `collection_radio_buttons_without_bootstrap` for now.
@@ -781,14 +743,12 @@ You can create a static control like this:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
-      <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+  <div class="col-sm-10">
+    <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
   </div>
-</form>
+</div>
 ```
 
 Here's the output for a horizontal layout:
@@ -812,14 +772,12 @@ You can also create a static control that isn't based on a model attribute:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_field_name">Custom Static Control</label>
-    <div class="col-sm-10">
-      <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_field_name">Custom Static Control</label>
+  <div class="col-sm-10">
+    <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
   </div>
-</form>
+</div>
 ```
 
 `field_name` may be any name that isn't already used in the form. Note that you may get "unpermitted parameter" messages in your log file with this approach.
@@ -834,14 +792,12 @@ You can also create the static control the following way, if you don't need to g
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_">Custom Static Control</label>
-    <div class="col-sm-10">
-      <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_">Custom Static Control</label>
+  <div class="col-sm-10">
+    <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
   </div>
-</form>
+</div>
 ```
 
 (If you neither provide a field name nor `name: nil`, the Rails code that submits the form will give a JavaScript error.)
@@ -872,9 +828,7 @@ buttons.
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
-</form>
+<input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 ```
 
 You can also use the `primary` helper, which adds `btn btn-primary` to your
@@ -888,9 +842,7 @@ submit button:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <input class="btn btn-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
-</form>
+<input class="btn btn-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
 ```
 
 You can specify your own classes like this:
@@ -903,9 +855,7 @@ You can specify your own classes like this:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <input class="btn btn-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
-</form>
+<input class="btn btn-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 ```
 
 If the `primary` helper receives a `render_as_button: true` option or a block,
@@ -926,14 +876,12 @@ illustrative icons to them). For example, the following statements
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
-    </span>
-  </button>
-  <button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
-    </span>
-  </button>
-</form>
+<button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
+  </span>
+</button>
+<button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
+  </span>
+</button>
 ```
 
 are equivalent, and each of them both be rendered as:
@@ -959,9 +907,8 @@ you add. As an example, the following button declarations
 will be rendered as
 
 ```html
-<input type="submit" value="My Nice Button" class="btn btn-primary my-button" />
-
-<input type="submit" value="My Button" class="my-button" />
+<input class="btn btn-primary my-button" data-disable-with="My Nice Button" name="commit" type="submit" value="My Nice Button">
+<input class="my-button" data-disable-with="My Button" name="commit" type="submit" value="My Button">
 ```
 
 (some unimportant HTML attributes have been removed for simplicity)
@@ -1007,9 +954,7 @@ append `_without_bootstrap` to the helper:
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <input id="user_email" name="user[email]" type="text">
-</form>
+<input id="user_email" name="user[email]" type="text" value="steve@example.com">
 ```
 
 ## Form Styles
@@ -1039,7 +984,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label visually-hidden mr-sm-2 required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
@@ -1064,13 +1009,11 @@ To skip label rendering at all, use `skip_label: true` option.
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="form-control" id="user_password" name="user[password]" type="password">
-    </div>
+<div class="mb-3 row">
+  <div class="col-sm-10 offset-sm-2">
+    <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-</form>
+</div>
 ```
 
 ### Horizontal Forms
@@ -1103,7 +1046,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1150,7 +1093,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1207,7 +1150,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1247,7 +1190,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email">
+      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3">
@@ -1288,7 +1231,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -1324,7 +1267,7 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 form-floating">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email">
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="steve@example.com">
     <label class="form-label required" for="user_email">Email</label>
   </div>
   <div class="mb-3 form-floating">
@@ -1398,90 +1341,117 @@ To display an error message with an error summary, you can use the
 `alert_message` helper. This won't output anything unless a model validation
 has failed.
 
-![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
+![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
 ```erb
-<%= f.alert_message "Please fix the errors below." %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.alert_message "Please fix the errors below." %>
+<% end %>
 ```
 
 Which outputs:
 
 ```html
-<div class="alert alert-danger">
-  <p>Please fix the errors below.</p>
-  <ul class="rails-bootstrap-forms-error-summary">
-    <li>Email can't be blank</li>
-  </ul>
-</div>
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="alert alert-danger">
+    <p>Please fix the errors below.</p>
+    <ul class="rails-bootstrap-forms-error-summary">
+      <li>Email is invalid</li>
+      <li>Misc is invalid</li>
+    </ul>
+  </div>
+</form>
 ```
 
 You can turn off the error summary like this:
 
-![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
+![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
 ```erb
-<%= f.alert_message "Please fix the errors below.", error_summary: false %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.alert_message "Please fix the errors below.", error_summary: false %>
+<% end %>
 ```
 
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="alert alert-danger">
+    <p>Please fix the errors below.</p>
+  </div>
 </form>
 ```
 
 To output a simple unordered list of errors, use the `error_summary` helper.
 
-![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
+![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
 ```erb
-<%= f.error_summary %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.error_summary %>
+<% end %>
 ```
 
 Which outputs:
 
 ```html
-<ul class="rails-bootstrap-forms-error-summary">
-  <li>Email can't be blank</li>
-</ul>
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <ul class="rails-bootstrap-forms-error-summary">
+    <li>Email is invalid</li>
+    <li>Misc is invalid</li>
+  </ul>
+</form>
 ```
 
 ### Errors On
 
 If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
-![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
+![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
 ```erb
-<%= f.errors_on :tasks %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.errors_on :email %>
+<% end %>
 ```
 
 Which outputs:
 
 ```html
-<div class="invalid-feedback">Tasks can't be blank.</div>
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="invalid-feedback">Email is invalid</div>
+</form>
 ```
 
 You can hide the attribute name like this:
 
-![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
+![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
 ```erb
-<%= f.errors_on :tasks, hide_attribute_name: true %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.errors_on :email, hide_attribute_name: true %>
+<% end %>
 ```
 
 Which outputs:
 
 ```html
-<div class="invalid-feedback">can't be blank.</div>
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="invalid-feedback">is invalid</div>
+</form>
 ```
 
 You can also use a custom class for the wrapping div, like this:
 
-![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
+![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
 ```erb
-<%= f.errors_on :tasks, custom_class: 'custom-error' %>
+<%= bootstrap_form_for @user_with_error do |f| %>
+  <%= f.errors_on :email, custom_class: 'custom-error' %>
+<% end %>
 ```
 
 Which outputs:
 
 ```html
-<div class="custom-error">can't be blank.</div>
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="custom-error">Email is invalid</div>
+</form>
 ```
 
 ## Required Fields
@@ -1504,7 +1474,7 @@ ActiveModel::Validations::PresenceValidator.
 
 In cases where this behaviour is undesirable, use the `required` option to force the class to be present or absent:
 
-![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
+![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
 ```erb
 <%= f.password_field :login, label: "New Username", required: true %>
 <%= f.password_field :password, label: "New Password", required: false %>
@@ -1513,20 +1483,18 @@ In cases where this behaviour is undesirable, use the `required` option to force
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_login">New Username</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
-    </div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2 required" for="user_login">New Username</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
   </div>
-  <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_password">New Password</label>
-    <div class="col-sm-10">
-      <input class="form-control" id="user_password" name="user[password]" type="password">
-    </div>
+</div>
+<div class="mb-3 row">
+  <label class="form-label col-form-label col-sm-2" for="user_password">New Password</label>
+  <div class="col-sm-10">
+    <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-</form>
+</div>
 ```
 
 ## Internationalization
