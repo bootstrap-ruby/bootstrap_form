@@ -244,11 +244,9 @@ Use the `label` option if you want to specify the field's label text:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_password_confirmation">Confirm Password</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
-  </div>
+<div class="mb-3">
+  <label class="form-label" for="user_password_confirmation">Confirm Password</label>
+  <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
 </div>
 ```
 
@@ -263,12 +261,10 @@ class, which keeps your labels accessible to those using screen readers.
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label visually-hidden col-form-label col-sm-2" for="user_comment">Comment</label>
-  <div class="col-sm-10">
-    <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
+<div class="mb-3">
+  <label class="form-label visually-hidden" for="user_comment">Comment</label>
+  <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
 </textarea>
-  </div>
 </div>
 ```
 
@@ -282,11 +278,9 @@ To add custom classes to the field's label:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label custom-class col-form-label col-sm-2 required" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com">
-  </div>
+<div class="mb-3">
+  <label class="form-label custom-class required" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -300,11 +294,9 @@ Or you can add the label as input placeholder instead (this automatically hides 
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label visually-hidden col-form-label col-sm-2 required" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text" value="steve@example.com">
-  </div>
+<div class="mb-3">
+  <label class="form-label visually-hidden required" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -320,11 +312,9 @@ To specify the class of the generated input tag, use the `control_class` option:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <input class="custom-class" id="user_email" name="user[email]" type="text" value="steve@example.com">
-  </div>
+<div class="mb-3">
+  <label class="form-label required" for="user_email">Email</label>
+  <input class="custom-class" id="user_email" name="user[email]" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -340,12 +330,10 @@ To add help text, use the `help` option:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_password">Password</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_password" name="user[password]" type="password">
-    <small class="form-text text-muted">Must be at least 6 characters long</small>
-  </div>
+<div class="mb-3">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <small class="form-text text-muted">Must be at least 6 characters long</small>
 </div>
 ```
 
@@ -387,14 +375,12 @@ You can pass `prepend` and/or `append` options to input fields:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
-  <div class="col-sm-10">
-    <div class="input-group">
-      <span class="input-group-text">$</span>
-      <input class="form-control" id="user_price" name="user[price]" type="text">
-      <span class="input-group-text">.00</span>
-    </div>
+<div class="mb-3">
+  <label class="form-label" for="user_price">Price</label>
+  <div class="input-group">
+    <span class="input-group-text">$</span>
+    <input class="form-control" id="user_price" name="user[price]" type="text">
+    <span class="input-group-text">.00</span>
   </div>
 </div>
 ```
@@ -409,16 +395,14 @@ If you want to attach multiple items to the input, pass them as an array:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_price">Price</label>
-  <div class="col-sm-10">
-    <div class="input-group">
-      <span class="input-group-text">Net</span>
-      <span class="input-group-text">$</span>
-      <input class="form-control" id="user_price" name="user[price]" type="text">
-      <span class="input-group-text">.00</span>
-      <span class="input-group-text">per day</span>
-    </div>
+<div class="mb-3">
+  <label class="form-label" for="user_price">Price</label>
+  <div class="input-group">
+    <span class="input-group-text">Net</span>
+    <span class="input-group-text">$</span>
+    <input class="form-control" id="user_price" name="user[price]" type="text">
+    <span class="input-group-text">.00</span>
+    <span class="input-group-text">per day</span>
   </div>
 </div>
 ```
@@ -434,13 +418,11 @@ You can also prepend and append buttons. Note: The buttons must contain the
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_search">Search</label>
-  <div class="col-sm-10">
-    <div class="input-group">
-      <input class="form-control" id="user_search" name="user[search]" type="text">
-      <a class="btn btn-secondary" href="#">Go</a>
-    </div>
+<div class="mb-3">
+  <label class="form-label" for="user_search">Search</label>
+  <div class="input-group">
+    <input class="form-control" id="user_search" name="user[search]" type="text">
+    <a class="btn btn-secondary" href="#">Go</a>
   </div>
 </div>
 ```
@@ -455,13 +437,11 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <div class="input-group input-group-lg">
-      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
-      <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
-    </div>
+<div class="mb-3">
+  <label class="form-label required" for="user_email">Email</label>
+  <div class="input-group input-group-lg">
+    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
   </div>
 </div>
 ```
@@ -480,11 +460,9 @@ If you want to change the CSS class or any other attribute to the form group div
 This generates:
 
 ```html
-<div class="mb-3 has-warning row" data-foo="bar">
-  <label class="form-label col-form-label col-sm-2" for="user_name">Name</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_name" name="user[name]" type="text">
-  </div>
+<div class="mb-3 has-warning" data-foo="bar">
+  <label class="form-label" for="user_name">Name</label>
+  <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
 
@@ -545,14 +523,12 @@ Our select helper accepts the same arguments as the [default Rails helper](http:
 This generates:
 
 ```html
-<div class="has-warning row" data-foo="bar">
-  <label class="form-label col-form-label col-sm-2" for="user_product">Choose your favorite fruit:</label>
-  <div class="col-sm-10">
-    <select class="form-select selectpicker" id="user_product" name="user[product]">
-      <option value="1">Apple</option>
-      <option value="2">Grape</option>
-    </select>
-  </div>
+<div class="has-warning" data-foo="bar">
+  <label class="form-label" for="user_product">Choose your favorite fruit:</label>
+  <select class="form-select selectpicker" id="user_product" name="user[product]">
+    <option value="1">Apple</option>
+    <option value="2">Grape</option>
+  </select>
 </div>
 ```
 
@@ -578,31 +554,27 @@ an error if an associated validations fails:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
-  <div class="col-sm-10">
-    <div class="form-check">
-      <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-      <label class="form-check-label" for="user_skill_level_0">Novice</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-      <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-      <label class="form-check-label" for="user_skill_level_2">Advanced</label>
-    </div>
-    <small class="form-text text-muted">Optional Help Text</small>
+<div class="mb-3">
+  <label class="form-label" for="user_skill_level">Skill</label>
+  <div class="form-check">
+    <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label class="form-check-label" for="user_skill_level_0">Novice</label>
   </div>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+  </div>
+  <small class="form-text text-muted">Optional Help Text</small>
 </div>
-<div class="mb-3 row">
-  <div class="col-sm-10 offset-sm-2">
-    <div class="form-check">
-      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
-      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
-    </div>
+<div class="mb-3">
+  <div class="form-check">
+    <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
   </div>
 </div>
 ```
@@ -621,16 +593,14 @@ You can also create a checkbox using a block:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_terms">Optional Label</label>
-  <div class="col-sm-10">
-    <div class="form-check">
-      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
-      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_terms">
-        You need to check this box to accept our terms of service and privacy policy
-      </label>
-    </div>
+<div class="mb-3">
+  <label class="form-label" for="user_terms">Optional Label</label>
+  <div class="form-check">
+    <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label class="form-check-label" for="user_terms">
+      You need to check this box to accept our terms of service and privacy policy
+    </label>
   </div>
 </div>
 ```
@@ -649,21 +619,19 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill</label>
-  <div class="col-sm-10">
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-      <label class="form-check-label" for="user_skill_level_0">Novice</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-      <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-      <label class="form-check-label" for="user_skill_level_2">Advanced</label>
-    </div>
+<div class="mb-3">
+  <label class="form-label" for="user_skill_level">Skill</label>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label class="form-check-label" for="user_skill_level_0">Novice</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
   </div>
 </div>
 ```
@@ -717,15 +685,27 @@ This generates:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_skill_level">Skill level</label>
-  <div class="col-sm-10">
+<div class="mb-3">
+  <label class="form-label" for="user_skill_level">Skill level</label>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label class="form-check-label" for="user_skill_level_2">Farming</label>
   </div>
 </div>
 <input autocomplete="off" id="user_skills" multiple name="user[skills][]" type="hidden" value="">
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_skills">Skills</label>
-  <div class="col-sm-10">
+<div class="mb-3">
+  <label class="form-label" for="user_skills">Skills</label>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
+    <label class="form-check-label" for="user_skills_1">Mind reading</label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
+    <label class="form-check-label" for="user_skills_2">Farming</label>
   </div>
 </div>
 ```
@@ -751,11 +731,9 @@ You can create a static control like this:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
-  <div class="col-sm-10">
-    <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
-  </div>
+<div class="mb-3">
+  <label class="form-label required" for="user_email">Email</label>
+  <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
 </div>
 ```
 
@@ -780,11 +758,9 @@ You can also create a static control that isn't based on a model attribute:
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_field_name">Custom Static Control</label>
-  <div class="col-sm-10">
-    <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
-  </div>
+<div class="mb-3">
+  <label class="form-label" for="user_field_name">Custom Static Control</label>
+  <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
 </div>
 ```
 
@@ -800,11 +776,9 @@ You can also create the static control the following way, if you don't need to g
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_">Custom Static Control</label>
-  <div class="col-sm-10">
-    <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
-  </div>
+<div class="mb-3">
+  <label class="form-label" for="user_">Custom Static Control</label>
+  <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
 </div>
 ```
 
@@ -1017,10 +991,8 @@ To skip label rendering at all, use `skip_label: true` option.
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <div class="col-sm-10 offset-sm-2">
-    <input class="form-control" id="user_password" name="user[password]" type="password">
-  </div>
+<div class="mb-3">
+  <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
 ```
 
@@ -1491,17 +1463,13 @@ In cases where this behaviour is undesirable, use the `required` option to force
 This generates:
 
 ```html
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2 required" for="user_login">New Username</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
-  </div>
+<div class="mb-3">
+  <label class="form-label required" for="user_login">New Username</label>
+  <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
 </div>
-<div class="mb-3 row">
-  <label class="form-label col-form-label col-sm-2" for="user_password">New Password</label>
-  <div class="col-sm-10">
-    <input class="form-control" id="user_password" name="user[password]" type="password">
-  </div>
+<div class="mb-3">
+  <label class="form-label" for="user_password">New Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
 ```
 

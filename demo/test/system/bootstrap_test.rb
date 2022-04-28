@@ -13,7 +13,7 @@ class BootstrapTest < ApplicationSystemTestCase
       example = header.first(:xpath, "./following-sibling::div")
       scroll_to example
       sleep 0.5
-      screenshot header.text.downcase.tr(" ", "_"), crop: bounds(example)
+      screenshot header.text.downcase.tr(" ", "_"), crop: bounds(example), color_distance_limit: 2
     end
   end
 
@@ -30,7 +30,7 @@ class BootstrapTest < ApplicationSystemTestCase
       header = Regexp.last_match(2)
       unless /\A<%= bootstrap[^>]*>\n\s*...\s*<% end %>\z/.match? erb
         wrapped_erb = erb.starts_with?("<%= bootstrap") ? erb : <<~ERB
-          <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>
+          <%= bootstrap_form_with model: @user do |f| %>
             #{erb}
           <% end %>
         ERB
