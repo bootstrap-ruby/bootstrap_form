@@ -260,7 +260,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "check_box fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="form-check">
+      <div class="form-check mb-3">
         <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
         <label class="form-check-label" for="user_misc">Misc</label>
@@ -271,7 +271,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "switch-style check_box fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="form-check form-switch">
+      <div class="form-check mb-3 form-switch">
         <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
         <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
         <label class="form-check-label" for="user_misc">Misc</label>
