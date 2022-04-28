@@ -29,23 +29,17 @@ class BootstrapTest < ApplicationSystemTestCase
       erb = Regexp.last_match(1)
       header = Regexp.last_match(2)
       unless /\A<%= bootstrap[^>]*>\n\s*...\s*<% end %>\z/.match? erb
-        if erb.start_with? "<%= bootstrap"
-          wrapped_erb = erb
-        else
-          wrapped_erb = <<~ERB
-            <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>
-              #{erb}
-            <% end %>
-          ERB
-        end
+        wrapped_erb = erb.starts_with?("<%= bootstrap") ? erb : <<~ERB
+          <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |f| %>
+            #{erb}
+          <% end %>
+        ERB
 
         visit fragment_path erb: wrapped_erb
         wrapper = find(".p-3")
         i = @screenshot_counter
         screenshot :example, crop: bounds(wrapper)
-        if wrapped_erb != erb
-          wrapper = wrapper.find('form')
-        end
+        wrapper = wrapper.find("form") if wrapped_erb != erb
         html = wrapper["innerHTML"].strip.gsub("><", ">\n<")
         assert html.present?, erb
         doc = Nokogiri::HTML.fragment(html)

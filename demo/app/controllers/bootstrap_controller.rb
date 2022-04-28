@@ -20,9 +20,9 @@ class BootstrapController < ApplicationController
       Address.new(id: 2, street: "Bar")
     ]
 
-    @user = User.new email: 'steve@example.com'
+    @user = User.new email: "steve@example.com"
 
-    @user_with_error = User.new email: 'steve.example.com'
+    @user_with_error = User.new email: "steve.example.com"
     @user_with_error.errors.add(:email)
     @user_with_error.errors.add(:misc)
   end
