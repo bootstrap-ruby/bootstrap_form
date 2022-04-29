@@ -39,9 +39,8 @@ module BootstrapForm
       end
 
       def object_class
-        if object.class.is_a?(ActiveModel::Naming)
-          object.class
-        elsif object.respond_to?(:klass) && object.klass.is_a?(ActiveModel::Naming)
+        if !object.class.is_a?(ActiveModel::Naming) &&
+           object.respond_to?(:klass) && object.klass.is_a?(ActiveModel::Naming)
           object.klass
         else
           object.class
