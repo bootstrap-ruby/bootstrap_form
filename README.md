@@ -963,12 +963,12 @@ using screen readers.
 This generates:
 
 ```html
-<form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
-  <div class="mb-3">
+<form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
+  <div class="col">
     <label class="form-label visually-hidden mr-sm-2 required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
   </div>
-  <div class="mb-3">
+  <div class="col">
     <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
@@ -977,7 +977,9 @@ This generates:
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <div class="col">
+    <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  </div>
 </form>
 ```
 
