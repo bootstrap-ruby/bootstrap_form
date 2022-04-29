@@ -1355,9 +1355,7 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger">
-    <p>Please fix the errors below.</p>
-  </div>
+  <div class="alert alert-danger">Please fix the errors below.</div>
 </form>
 ```
 
