@@ -909,8 +909,47 @@ will be rendered as:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_life_story">Life story</label>
-  <input type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
-  <trix-editor id="user_life_story" data-blob-url-template="http://test.host/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control"/>
+  <input autocomplete="off" id="user_life_story_trix_input_user" name="user[life_story]" type="hidden">
+  <trix-toolbar id="trix-toolbar-1">
+    <div class="trix-button-row">
+      <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
+        <button class="trix-button trix-button--icon trix-button--icon-bold" data-trix-attribute="bold" data-trix-key="b" tabindex="-1" title="Bold" type="button">Bold</button>
+        <button class="trix-button trix-button--icon trix-button--icon-italic" data-trix-attribute="italic" data-trix-key="i" tabindex="-1" title="Italic" type="button">Italic</button>
+        <button class="trix-button trix-button--icon trix-button--icon-strike" data-trix-attribute="strike" tabindex="-1" title="Strikethrough" type="button">Strikethrough</button>
+        <button class="trix-button trix-button--icon trix-button--icon-link" data-trix-action="link" data-trix-attribute="href" data-trix-key="k" tabindex="-1" title="Link" type="button">Link</button>
+      </span>
+      <span class="trix-button-group trix-button-group--block-tools" data-trix-button-group="block-tools">
+        <button class="trix-button trix-button--icon trix-button--icon-heading-1" data-trix-attribute="heading1" tabindex="-1" title="Heading" type="button">Heading</button>
+        <button class="trix-button trix-button--icon trix-button--icon-quote" data-trix-attribute="quote" tabindex="-1" title="Quote" type="button">Quote</button>
+        <button class="trix-button trix-button--icon trix-button--icon-code" data-trix-attribute="code" tabindex="-1" title="Code" type="button">Code</button>
+        <button class="trix-button trix-button--icon trix-button--icon-bullet-list" data-trix-attribute="bullet" tabindex="-1" title="Bullets" type="button">Bullets</button>
+        <button class="trix-button trix-button--icon trix-button--icon-number-list" data-trix-attribute="number" tabindex="-1" title="Numbers" type="button">Numbers</button>
+        <button class="trix-button trix-button--icon trix-button--icon-decrease-nesting-level" data-trix-action="decreaseNestingLevel" tabindex="-1" title="Decrease Level" type="button">Decrease Level</button>
+        <button class="trix-button trix-button--icon trix-button--icon-increase-nesting-level" data-trix-action="increaseNestingLevel" tabindex="-1" title="Increase Level" type="button">Increase Level</button>
+      </span>
+      <span class="trix-button-group trix-button-group--file-tools" data-trix-button-group="file-tools">
+        <button class="trix-button trix-button--icon trix-button--icon-attach" data-trix-action="attachFiles" tabindex="-1" title="Attach Files" type="button">Attach Files</button>
+      </span>
+      <span class="trix-button-group-spacer">
+      </span>
+      <span class="trix-button-group trix-button-group--history-tools" data-trix-button-group="history-tools">
+        <button class="trix-button trix-button--icon trix-button--icon-undo" data-trix-action="undo" data-trix-key="z" tabindex="-1" title="Undo" type="button">Undo</button>
+        <button class="trix-button trix-button--icon trix-button--icon-redo" data-trix-action="redo" data-trix-key="shift+z" tabindex="-1" title="Redo" type="button">Redo</button>
+      </span>
+    </div>
+    <div class="trix-dialogs" data-trix-dialogs="">
+      <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
+        <div class="trix-dialog__link-fields">
+          <input aria-label="URL" class="trix-input trix-input--dialog" data-trix-input="" disabled name="href" placeholder="Enter a URL…" required="" type="url">
+          <div class="trix-button-group">
+            <input class="trix-button trix-button--dialog" data-trix-method="setAttribute" type="button" value="Link">
+            <input class="trix-button trix-button--dialog" data-trix-method="removeAttribute" type="button" value="Unlink">
+          </div>
+        </div>
+      </div>
+    </div>
+  </trix-toolbar>
+  <trix-editor aria-label="Life story" class="trix-content form-control" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
   </trix-editor>
 </div>
 ```
