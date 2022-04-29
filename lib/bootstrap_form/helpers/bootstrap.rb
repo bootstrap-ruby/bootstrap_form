@@ -8,7 +8,7 @@ module BootstrapForm
 
       def submit(name=nil, options={})
         setup_css_class "btn btn-secondary", options
-        super
+        layout == :inline ? form_group { super } : super
       end
 
       def primary(name=nil, options={}, &block)

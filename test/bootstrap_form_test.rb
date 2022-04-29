@@ -130,9 +130,9 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "inline-style forms" do
     expected = <<~HTML
-      <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
+      <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="mb-3">
+        <div class="col">
           <label class="form-label mr-sm-2 required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
@@ -141,7 +141,7 @@ class BootstrapFormTest < ActionView::TestCase
           <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
-        <div class="mb-3">
+        <div class="col">
           <label class="form-label mr-sm-2" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -152,7 +152,7 @@ class BootstrapFormTest < ActionView::TestCase
             <label class="form-check-label" for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="col">
           <label class="form-label mr-sm-2" for="user_status">Status</label>
           <select class="form-select" id="user_status" name="user[status]">
             <option value="1">activated</option>

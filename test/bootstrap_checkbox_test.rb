@@ -123,7 +123,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes from form layout" do
     expected = <<~HTML
-      <form accept-charset="UTF-8" action="/users" class="new_user col-auto g-3" id="new_user" method="post">
+      <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check form-check-inline mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />

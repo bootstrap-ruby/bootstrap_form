@@ -67,13 +67,14 @@ module BootstrapForm
 
       return unless options[:layout] == :inline
 
-      options[:html][:class] = [options[:html][:class], "col-auto", "g-3"].compact.join(" ")
+      options[:html][:class] =
+        ([*options[:html][:class]&.split(/\s+/)] + %w[row row-cols-auto g-3 align-items-center])
+        .compact.uniq.join(" ")
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
       fields_options = fields_for_options(record_object, fields_options)
-      record_object.is_a?(Hash) && record_object.extractable_options? &&
-        record_object = nil
+      record_object = nil if record_object.is_a?(Hash) && record_object.extractable_options?
       fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
     end
 
@@ -87,8 +88,7 @@ module BootstrapForm
 
     def fields_for_options(record_object, fields_options)
       field_options = fields_options
-      record_object.is_a?(Hash) && record_object.extractable_options? &&
-        field_options = record_object
+      field_options = record_object if record_object.is_a?(Hash) && record_object.extractable_options?
       %i[layout control_col inline_errors label_errors].each do |option|
         field_options[option] ||= options[option]
       end
