@@ -71,6 +71,7 @@ class BootstrapTest < ApplicationSystemTestCase
         #{html}
       MD
     end
+    augmented_readme.gsub!(/127.0.0.1:\d+/,'test.host')
     File.write(File.expand_path("../../../README.md", __dir__), augmented_readme)
   end
 
