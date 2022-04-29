@@ -545,9 +545,7 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="alert alert-danger">
-          <p>Please fix the following errors:</p>
-        </div>
+        <div class="alert alert-danger">Please fix the following errors:</div>
       </form>
     HTML
     assert_equivalent_xml expected, output
