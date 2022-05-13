@@ -229,6 +229,24 @@ class BootstrapSelectsTest < ActionView::TestCase
                           @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
   end
 
+  test "collection_selects with addons are wrapped correctly" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_status">Status</label>
+        <div class="input-group">
+          <span class="input-group-text">Before</span>
+          <select class="form-select" id="user_status" name="user[status]">
+            <option value="">Please Select</option>
+          </select>
+          <span class="input-group-text">After</span>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected,
+                          @builder.collection_select(:status, [], :id, :name,
+                                                     { prepend: "Before", append: "After", prompt: "Please Select" })
+  end
+
   test "grouped_collection_selects are wrapped correctly" do
     expected = <<~HTML
       <div class="mb-3">

@@ -12,7 +12,7 @@ module BootstrapForm
         def collection_select_with_bootstrap(method, collection, value_method, text_method, options={}, html_options={})
           html_options = html_options.reverse_merge(control_class: "form-select")
           form_group_builder(method, options, html_options) do
-            input_with_error(method) do
+            prepend_and_append_input(method, options) do
               collection_select_without_bootstrap(method, collection, value_method, text_method, options, html_options)
             end
           end
