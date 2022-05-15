@@ -14,7 +14,7 @@ module BootstrapForm
                                                      option_value_method, options={}, html_options={})
           html_options = html_options.reverse_merge(control_class: "form-select")
           form_group_builder(method, options, html_options) do
-            input_with_error(method) do
+            prepend_and_append_input(method, options) do
               grouped_collection_select_without_bootstrap(method, collection, group_method,
                                                           group_label_method, option_key_method,
                                                           option_value_method, options, html_options)

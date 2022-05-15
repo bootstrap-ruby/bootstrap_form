@@ -311,6 +311,24 @@ class BootstrapSelectsTest < ActionView::TestCase
                                                              class: "my-select")
   end
 
+  test "grouped_collection_selects with addons are wrapped correctly" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_status">Status</label>
+        <div class="input-group">
+          <span class="input-group-text">Before</span>
+          <select class="form-select" id="user_status" name="user[status]">
+            <option value="">Please Select</option>
+          </select>
+          <span class="input-group-text">After</span>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_xml expected,
+                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s,
+                                                             { prepend: "Before", append: "After", prompt: "Please Select" })
+  end
+
   test "date selects are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
