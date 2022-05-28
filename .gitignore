@@ -53,3 +53,5 @@ vendor/bundle
 # For Alpine images
 .ash_history
 .sqlite_history
+
+docker-compose.override.yml
