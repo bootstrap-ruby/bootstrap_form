@@ -74,6 +74,41 @@ The Ruby on Rails support policy is [here](https://guides.rubyonrails.org/mainte
 
 ### Developing with Docker
 
+This repository offers experimental support support for a couple of ways to develop using Docker, if you're interested:
+
+- Using `docker-compose`. This way is less tested, and is an attempt to make the Docker container a more complete environment where you can conveniently develop and release the gem.
+- Using just a simple Dockerfile. This way works for simple testing, but doesn't make it easy to release the gem, among other things.
+
+Docker is _not_ requied to work on this gem.
+
+#### Using `docker-compose`
+
+You can run a shell in a Docker container that pretty much should behave like a Debian distrobution with:
+
+```bash
+docker-compose run shell
+```
+
+Linux users should add a `docker-compose.override.yml` in their local directory, that looks like this:
+
+```docker-compose.yml
+version: '3.3'
+
+services:
+  shell:
+    # You have to set the user and group for this process, because you're going to be
+    # creating all kinds of files from inside the container, that need to persist
+    # outside the container.
+    # Change `1000:1000` to the user and default group of your laptop user.
+    user: 1000:1000
+```
+
+You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
+
+If your host is Linux, the `docker-compose` approach should link to enough of your networking configuration that you can release the gem.
+
+#### Simple Dockerfile
+
 This repository includes a `Dockerfile` to build an image with the minimum `bootstrap_form`-supported Ruby environment. To build the image:
 
 ```bash
@@ -98,6 +133,8 @@ bundle install
 You can run tests in the container as normal, with `rake test`.
 
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
+
+One of the disadvantages of this approach is that you can't release the gem from here, because the Docker container doesn't have access to your SSH credentials, or the right user name, or perhaps other things needed to release a gem. But for simple testing, it works.
 
 ### The Demo Application
 
