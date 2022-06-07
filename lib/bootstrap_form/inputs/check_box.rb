@@ -68,8 +68,8 @@ module BootstrapForm
         classes << "form-check-inline" if layout_inline?(options[:inline])
         classes << "mb-3" unless options[:multiple] || layout == :horizontal
         classes << "form-switch" if options[:switch]
-        classes << options[:wrapper][:class] if options.dig(:wrapper, :class).present?
-        classes << options[:wrapper_class] if options[:wrapper_class].present?
+        classes << options.dig(:wrapper, :class).presence
+        classes << options[:wrapper_class].presence
         classes.flatten.compact
       end
     end
