@@ -10,10 +10,10 @@ module BootstrapForm
         def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
           options = options.symbolize_keys!
           check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                             :inline, :hide_label, :skip_label, :wrapper_class, :switch)
+                                             :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
           check_box_options[:class] = check_box_classes(name, options)
 
-          tag.div(class: check_box_wrapper_class(options)) do
+          tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
             html.concat(check_box_label(name, options, checked_value, &block)) unless options[:skip_label]
             html.concat(generate_error(name)) if options[:error_message]
@@ -68,6 +68,7 @@ module BootstrapForm
         classes << "form-check-inline" if layout_inline?(options[:inline])
         classes << "mb-3" unless options[:multiple] || layout == :horizontal
         classes << "form-switch" if options[:switch]
+        classes << options[:wrapper][:class] if options.dig(:wrapper, :class).present?
         classes << options[:wrapper_class] if options[:wrapper_class].present?
         classes.flatten.compact
       end

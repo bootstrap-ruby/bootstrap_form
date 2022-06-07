@@ -10,11 +10,11 @@ module BootstrapForm
         def radio_button_with_bootstrap(name, value, *args)
           options = args.extract_options!.symbolize_keys!
           radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                                :inline, :hide_label, :skip_label, :wrapper_class)
+                                                :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
 
           radio_button_options[:class] = radio_button_classes(name, options)
 
-          tag.div(class: radio_button_wrapper_class(options)) do
+          tag.div(class: radio_button_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = radio_button_without_bootstrap(name, value, radio_button_options)
             html.concat(radio_button_label(name, value, options)) unless options[:skip_label]
             html.concat(generate_error(name)) if options[:error_message]
@@ -51,6 +51,7 @@ module BootstrapForm
         classes = ["form-check"]
         classes << "form-check-inline" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
+        classes << options[:wrapper][:class] if options.dig(:wrapper, :class).present?
         classes << options[:wrapper_class] if options[:wrapper_class].present?
         classes.flatten.compact
       end
