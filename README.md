@@ -719,6 +719,24 @@ Collection methods accept these options:
 * `:help`: Add a help span to the `form_group`
 * Other options will be forwarded to the `radio_button`/`check_box` method
 
+## Range Controls
+
+You can create a range control like this:
+
+![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
+```erb
+<%= f.range_field :excellence %>
+```
+
+This generates:
+
+```html
+<div class="mb-3">
+  <label class="form-label" for="user_excellence">Excellence</label>
+  <input class="form-control" id="user_excellence" name="user[excellence]" type="range">
+</div>
+```
+
 ## Static Controls
 
 You can create a static control like this:
