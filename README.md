@@ -25,7 +25,7 @@ Some other nice things that `bootstrap_form` does for you are:
 
 `bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
 
-* Ruby 2.5+
+* Ruby 2.7+
 * Rails 5.2+
 * Bootstrap 5.0+
 
@@ -38,8 +38,6 @@ gem "bootstrap", "~> 5.0"
 ```
 
 And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
-
-You also need to use the SASS preprocessor, so uncomment the following line in your `Gemfile`:
 
 Add the `bootstrap_form` gem to your `Gemfile`:
 
@@ -1085,7 +1083,7 @@ This generates:
       </div>
     </div>
   </div>
-  
+
   <div class="mb-3 row">
     <div class="col-sm-10 offset-sm-2">
       <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
@@ -1541,6 +1539,19 @@ or
 label: "<span></span>".html_safe
 ```
 
+### Dependencies
+
+Due to some tricky issues due to the range of Rails versions supported, the gem doesn't specify any dependencies itself. Since most uses of this gem are in a Rails application, the right version of all the dependencies will be loaded by the Rails version in your `Gemfile`.
+
+If you were to use this gem without `rails` in your `Gemfile`, you need to include at least the following components of Rails in your `Gemfile`:
+
+```gemfile
+  gem "actionmailer", ">= #{DESIRED_RAILS_VERSION}"
+  gem "actionpack", ">= #{DESIRED_RAILS_VERSION}"
+  gem "actiontext", ">= #{DESIRED_RAILS_VERSION}" # for Rails version 6 and up.
+  gem "activemodel", ">= #{DESIRED_RAILS_VERSION}"
+```
+
 ## Contributing
 
 We welcome contributions.
@@ -1554,4 +1565,4 @@ If you're looking for `bootstrap_form` for Bootstrap 4, go [here](https://github
 
 ## License
 
-MIT License. Copyright 2012-2021 Stephen Potenza (https://github.com/potenza) and others
+MIT License. Copyright 2012-2022 Stephen Potenza (https://github.com/potenza) and others

@@ -9,6 +9,15 @@ gemspec path: __dir__
 # gem "rails", "~> 7.0.1"
 # gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 
+RAILS_VERSION = ENV.fetch("RAILS_VERSION", "7")
+
+group :development, :test do
+  gem "actionmailer", "~> #{RAILS_VERSION}"
+  gem "actionpack", "~> #{RAILS_VERSION}"
+  gem "actiontext", "~> #{RAILS_VERSION}" if RAILS_VERSION > "6"
+  gem "activemodel", "~> #{RAILS_VERSION}"
+end
+
 group :development do
   gem "chandler", ">= 0.7.0"
   gem "htmlbeautifier"
