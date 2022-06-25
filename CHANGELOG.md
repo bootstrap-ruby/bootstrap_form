@@ -1,3 +1,28 @@
+# Change Log
+
+## Apology
+
+The tooling to support our old way of doing the change log doesn't work anymore, and we don't have a better solution, so this change log has become unreliable since version 4.5.0. Please refer to the commit history if you need to debug changes.
+
+
+- [Pending Release](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.1.0...HEAD)
+- [5.1.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...v5.1.0)
+- [5.0.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...v5.0.0)
+- [4.5.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0)
+- [4.4.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0)
+- [4.3.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.2.0...v4.3.0)
+- [4.2.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.1.0...v4.2.0)
+- [4.1.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0...v4.1.0)
+- [4.0.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.0.0.alpha1...v4.0.0)
+- [4.0.0.alpha1](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.7.0...v4.0.0.alpha1)
+- [2.7.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.6.0...v2.7.0)
+- [2.6.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.3...v2.6.0)
+- [2.5.3](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.2...v2.5.3)
+- [2.5.2](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.1...v2.5.2)
+- [2.5.1](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.0...v2.5.1)
+- [2.5.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.4.0...v2.5.0)
+- [2.4.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.3.0...v2.4.0)
+
 ## [Pending Release][]
 
 ### Breaking changes
@@ -339,7 +364,8 @@ Features:
   - Added support for bootstrap_form_tag (@baldwindavid)
 
 
-[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...HEAD
+[Pending Release]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...v5.0.0
 [4.5.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0
 [4.4.0]: https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.3.0...v4.4.0
