@@ -83,16 +83,22 @@ Docker is _not_ requied to work on this gem.
 
 #### Using `docker-compose`
 
-You can run a shell in a Docker container that pretty much should behave like a Debian distrobution with:
+The `docker-compose` approach should link to enough of your networking configuration that you can release the gem.
+However, you have to do some of the configuration yourself, because it's dependent on your host operating system.
+You can run a shell in a Docker container that pretty much should behave like a Debian distribution with:
 
 ```bash
 docker-compose run shell
 ```
 
-Linux users should add a `docker-compose.override.yml` in their local directory, that looks like this:
+The following instructions work for an Ubuntu host, and will probably work for other commong Linux distributions.
+
+Add a `docker-compose.override.yml` in the local directory, that looks like this:
 
 ```docker-compose.yml
 version: '3.3'
+
+# https://blog.giovannidemizio.eu/2021/05/24/how-to-set-user-and-group-in-docker-compose/
 
 services:
   shell:
@@ -101,11 +107,19 @@ services:
     # outside the container.
     # Change `1000:1000` to the user and default group of your laptop user.
     user: 1000:1000
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - ~/.gem/credentials:/app/.gem/credentials:ro
+      # $HOME here is your host computer's `~`, e.g. `/home/reid`.
+      # `ssh` explicitly looks for its config in the home directory from `/etc/passwd`,
+      # so the target for this has to look like your home directory on the host.
+      - ~/.ssh:${HOME}/.ssh:ro
+      - ${SSH_AUTH_SOCK}:/ssh-agent
 ```
 
 You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
 
-If your host is Linux, the `docker-compose` approach should link to enough of your networking configuration that you can release the gem.
+Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own.
 
 #### Simple Dockerfile
 
