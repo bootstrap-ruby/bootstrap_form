@@ -115,6 +115,8 @@ services:
       # so the target for this has to look like your home directory on the host.
       - ~/.ssh:${HOME}/.ssh:ro
       - ${SSH_AUTH_SOCK}:/ssh-agent
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
 ```
 
 You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
