@@ -74,6 +74,57 @@ The Ruby on Rails support policy is [here](https://guides.rubyonrails.org/mainte
 
 ### Developing with Docker
 
+This repository offers experimental support support for a couple of ways to develop using Docker, if you're interested:
+
+- Using `docker-compose`. This way is less tested, and is an attempt to make the Docker container a more complete environment where you can conveniently develop and release the gem.
+- Using just a simple Dockerfile. This way works for simple testing, but doesn't make it easy to release the gem, among other things.
+
+Docker is _not_ requied to work on this gem.
+
+#### Using `docker-compose`
+
+The `docker-compose` approach should link to enough of your networking configuration that you can release the gem.
+However, you have to do some of the configuration yourself, because it's dependent on your host operating system.
+You can run a shell in a Docker container that pretty much should behave like a Debian distribution with:
+
+```bash
+docker-compose run shell
+```
+
+The following instructions work for an Ubuntu host, and will probably work for other commong Linux distributions.
+
+Add a `docker-compose.override.yml` in the local directory, that looks like this:
+
+```docker-compose.yml
+version: '3.3'
+
+# https://blog.giovannidemizio.eu/2021/05/24/how-to-set-user-and-group-in-docker-compose/
+
+services:
+  shell:
+    # You have to set the user and group for this process, because you're going to be
+    # creating all kinds of files from inside the container, that need to persist
+    # outside the container.
+    # Change `1000:1000` to the user and default group of your laptop user.
+    user: 1000:1000
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - ~/.gem/credentials:/app/.gem/credentials:ro
+      # $HOME here is your host computer's `~`, e.g. `/home/reid`.
+      # `ssh` explicitly looks for its config in the home directory from `/etc/passwd`,
+      # so the target for this has to look like your home directory on the host.
+      - ~/.ssh:${HOME}/.ssh:ro
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+```
+
+You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
+
+Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own.
+
+#### Simple Dockerfile
+
 This repository includes a `Dockerfile` to build an image with the minimum `bootstrap_form`-supported Ruby environment. To build the image:
 
 ```bash
@@ -98,6 +149,8 @@ bundle install
 You can run tests in the container as normal, with `rake test`.
 
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
+
+One of the disadvantages of this approach is that you can't release the gem from here, because the Docker container doesn't have access to your SSH credentials, or the right user name, or perhaps other things needed to release a gem. But for simple testing, it works.
 
 ### The Demo Application
 

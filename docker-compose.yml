@@ -7,7 +7,7 @@ services:
       args:
         NODE_MAJOR: '12'
         YARN_VERSION: '1.22.4'
-    image: bootstrap-form:0.0.1
+    image: bootstrap-form:latest
     tmpfs:
       - /tmp
 
@@ -17,15 +17,6 @@ services:
     tty: true
     volumes:
       - .:/app:cached
-      # - rails_cache:/app/tmp/cache
-      # - bundle:/app/vendor/bundle
-      # - node_modules:/app/node_modules
-      # - packs:/app/public/packs
-      - /etc/passwd:/etc/passwd:ro
-      # One or the other of the following lines might be redundant, or one might be
-      # better than the other.
-      - ~/.ssh:${HOME}/.ssh
-      - ${SSH_AUTH_SOCK}:/ssh-agent
     environment:
       - SSH_AUTH_SOCK=/ssh-agent
       - NODE_ENV=development
@@ -35,15 +26,3 @@ services:
       - WEB_CONCURRENCY=1
       - HISTFILE=/app/.bash_history
     command: /bin/bash
-
-  # server:
-  #   <<: *shell
-  #   command: sh -c "cd demo/app && bundle exec rails server -b 0.0.0.0"
-  #   ports:
-  #     - '3000:3000'
-
-# volumes:
-#   bundle:
-#   node_modules:
-#   rails_cache:
-#   packs:
