@@ -88,8 +88,10 @@ However, you have to do some of the configuration yourself, because it's depende
 You can run a shell in a Docker container that pretty much should behave like a Debian distribution with:
 
 ```bash
-docker-compose run shell
+docker-compose run --service-ports shell
 ```
+
+(`--service-ports` exposes port 3000 so you can browse to the demo app on `localhost:3000`. If you just want to run a on-off command, or run the test suite, leave off the `--service-ports`.)
 
 The following instructions work for an Ubuntu host, and will probably work for other commong Linux distributions.
 
