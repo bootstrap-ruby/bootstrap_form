@@ -25,4 +25,6 @@ services:
       - WEBPACKER_DEV_SERVER_HOST=webpacker
       - WEB_CONCURRENCY=1
       - HISTFILE=/app/.bash_history
+    ports:
+      - "3000:3000"
     command: /bin/bash
