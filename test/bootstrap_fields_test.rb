@@ -312,11 +312,11 @@ class BootstrapFieldsTest < ActionView::TestCase
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do
-    @user.preferences = { favorite_color: "cerulean" }
+    @user.preferences = { "favorite_color" => "cerulean" }
 
     output = bootstrap_form_for(@user) do |f|
       f.fields_for :preferences do |builder|
-        builder.text_field :favorite_color, value: @user.preferences[:favorite_color]
+        builder.text_field :favorite_color, value: @user.preferences["favorite_color"]
       end
     end
 
