@@ -2,3 +2,4 @@ gems = "#{__dir__}/common.gemfile"
 eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 gem "rails", git: "https://github.com/rails/rails.git"
+gem "uri", "= 0.10.0"
