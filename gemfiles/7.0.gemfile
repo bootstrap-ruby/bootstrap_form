@@ -1,4 +1,4 @@
-gems = "#{File.dirname __dir__}/Gemfile"
+gems = "#{__dir__}/common.gemfile"
 eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 # 7.0.0 has an issue with Ruby 3.1.
