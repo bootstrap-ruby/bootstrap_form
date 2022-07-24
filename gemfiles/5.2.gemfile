@@ -1,6 +1,4 @@
 gems = "#{__dir__}/common.gemfile"
 eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
-# # Silence a bunch of warnings from earlier versions of Ruby
-# gem "net-http"
 gem "rails", "~> 5.2.0"
