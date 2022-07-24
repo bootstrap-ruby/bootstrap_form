@@ -34,7 +34,7 @@ module BootstrapForm
 
     def form_group_content(label, help_text, options, &block)
       if group_layout_horizontal?(options[:layout])
-        concat(label).concat(tag.div(capture(&block) + help_text, class: form_group_control_class(options)))
+        concat(label) << tag.div(capture(&block) + help_text, class: form_group_control_class(options))
       else
         # Floating labels need to be rendered after the field
         concat(label) unless options[:floating]

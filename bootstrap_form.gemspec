@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.authors     = ["Stephen Potenza", "Carlos Lopes"]
   s.email       = ["potenza@gmail.com", "carlos.el.lopes@gmail.com"]
   s.homepage    = "https://github.com/bootstrap-ruby/bootstrap_form"
-  s.summary     = "Rails form builder that makes it easy to style forms using "\
+  s.summary     = "Rails form builder that makes it easy to style forms using " \
                   "Bootstrap 5"
-  s.description = "bootstrap_form is a rails form builder that makes it super "\
+  s.description = "bootstrap_form is a rails form builder that makes it super " \
                   "easy to create beautiful-looking forms using Bootstrap 5"
   s.license     = "MIT"
   s.metadata    = { "rubygems_mfa_required" => "true" }
