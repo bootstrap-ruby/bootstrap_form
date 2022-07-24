@@ -19,8 +19,8 @@ has_changelog_changes = git.modified_files.include?("CHANGELOG.md")
 # You've made changes to lib, but didn't write any tests?
 # ------------------------------------------------------------------------------
 if has_lib_changes && !has_test_changes
-  warn("There are code changes, but no corresponding tests. "\
-       "Please include tests if this PR introduces any modifications in "\
+  warn("There are code changes, but no corresponding tests. " \
+       "Please include tests if this PR introduces any modifications in " \
        "#{project_name}'s behavior.",
        sticky: false)
 end
@@ -36,8 +36,8 @@ if !has_changelog_changes && has_lib_changes
   * [##{pr_number}](#{pr_url}): #{github.pr_title} - [@#{github.pr_author}](https://github.com/#{github.pr_author}).
   ```
   MARKDOWN
-  warn("Please update CHANGELOG.md with a description of your changes. "\
-       "If this PR is not a user-facing change (e.g. just refactoring), "\
+  warn("Please update CHANGELOG.md with a description of your changes. " \
+       "If this PR is not a user-facing change (e.g. just refactoring), " \
        "you can disregard this.", sticky: false)
 end
 
