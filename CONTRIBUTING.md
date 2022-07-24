@@ -93,7 +93,7 @@ docker-compose run --service-ports shell
 
 (`--service-ports` exposes port 3000 so you can browse to the demo app on `localhost:3000`. If you just want to run a on-off command, or run the test suite, leave off the `--service-ports`.)
 
-The following instructions work for an Ubuntu host, and will probably work for other commong Linux distributions.
+The following instructions work for an Ubuntu host, and will probably work for other common Linux distributions.
 
 Add a `docker-compose.override.yml` in the local directory, that looks like this:
 
@@ -125,6 +125,7 @@ You may have to change the `1000:1000` to the user and group IDs of your laptop.
 
 Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own.
 
+
 #### Simple Dockerfile
 
 This repository includes a `Dockerfile` to build an image with the minimum `bootstrap_form`-supported Ruby environment. To build the image:
@@ -153,6 +154,10 @@ You can run tests in the container as normal, with `rake test`.
 (Some of that command line is need for Linux hosts, to run the container as the current user.)
 
 One of the disadvantages of this approach is that you can't release the gem from here, because the Docker container doesn't have access to your SSH credentials, or the right user name, or perhaps other things needed to release a gem. But for simple testing, it works.
+
+#### Troubleshooting Docker
+
+- With the above configuration, the gems are kept in `vendor/bundle` on your hosts, which is `$GEM_HOME` or `/app/vendor/bundle` in the running Docker container. If you're having permission problems when switching versions of Ruby or Rails, you can try `sudo rm -rf vendor/bundle` on the host, then run `BUNDLE_GEMFILES=gemfiles/7.0.gemfile bundle update` in the Docker container to re-install all the gems with the right permissions.
 
 ### The Demo Application
 
