@@ -8,21 +8,23 @@ module BootstrapForm
       private
 
       def error?(name)
-        object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+        name && object.respond_to?(:errors) &&
+          (object.errors[name].any? || (name.end_with?("_id") && object.errors[name[0..-4]].any?))
       end
 
       def required_attribute?(obj, attribute)
         return false unless obj && attribute
 
         target = obj.instance_of?(Class) ? obj : obj.class
+        return false unless target.respond_to? :validators_on
 
-        target_validators = if target.respond_to? :validators_on
-                              target.validators_on(attribute).map(&:class)
-                            else
-                              []
-                            end
+        presence_validator?(target_validators(target, attribute))
+      end
 
-        presence_validator?(target_validators)
+      def target_validators(target, attribute)
+        target_validators = target.validators_on(attribute).map(&:class)
+        target_validators.concat target.validators_on(attribute[0..-4]).map(&:class) if attribute.end_with?("_id")
+        target_validators
       end
 
       def presence_validator?(target_validators)
@@ -54,7 +56,9 @@ module BootstrapForm
       end
 
       def get_error_messages(name)
-        object.errors[name].join(", ")
+        messages = object.errors[name]
+        messages.concat object.errors[name[0..-4]] if name.end_with?("_id")
+        messages.join(", ")
       end
     end
   end
