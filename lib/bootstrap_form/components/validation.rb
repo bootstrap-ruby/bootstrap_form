@@ -8,8 +8,16 @@ module BootstrapForm
       private
 
       def error?(name)
-        name && object.respond_to?(:errors) &&
-          (object.errors[name].any? || (name.end_with?("_id") && object.errors[name[0..-4]].any?))
+        name && object.respond_to?(:errors) && (object.errors[name].any? || association_error?(name))
+      end
+
+      def association_error?(name)
+        object.class.reflections.any? do |association_name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == name.to_s
+
+          object.errors[association_name].any?
+        end
       end
 
       def required_attribute?(obj, attribute)
