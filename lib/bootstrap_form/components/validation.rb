@@ -18,13 +18,15 @@ module BootstrapForm
         target = obj.instance_of?(Class) ? obj : obj.class
         return false unless target.respond_to? :validators_on
 
-        if presence_validator?(target_validators(target, attribute))
-          return true
-        end
+        presence_validator?(target_validators(target, attribute)) ||
+          required_association?(target, attribute)
+      end
 
+      def required_association?(target, attribute)
         target.reflections.find do |name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == attribute.to_s
+
           presence_validator?(target_validators(target, name))
         end
       end
@@ -35,8 +37,8 @@ module BootstrapForm
 
       def presence_validator?(target_validators)
         target_validators.include?(ActiveModel::Validations::PresenceValidator) ||
-          defined?(ActiveRecord::Validations::PresenceValidator) &&
-            target_validators.include?(ActiveRecord::Validations::PresenceValidator)
+          (defined?(ActiveRecord::Validations::PresenceValidator) &&
+            target_validators.include?(ActiveRecord::Validations::PresenceValidator))
       end
 
       def inline_error?(name)
@@ -55,7 +57,12 @@ module BootstrapForm
 
       def get_error_messages(name)
         messages = object.errors[name]
-        messages.concat object.errors[name[0..-4]] if name.end_with?("_id")
+        object.class.reflections.each do |association_name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == name.to_s
+
+          messages.concat object.errors[association_name]
+        end
         messages.join(", ")
       end
     end
