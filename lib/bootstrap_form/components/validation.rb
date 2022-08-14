@@ -18,27 +18,25 @@ module BootstrapForm
         target = obj.instance_of?(Class) ? obj : obj.class
         return false unless target.respond_to? :validators_on
 
-        presence_validator?(target_validators(target, attribute))
+        if presence_validator?(target_validators(target, attribute))
+          return true
+        end
+
+        target.reflections.find do |name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == attribute.to_s
+          presence_validator?(target_validators(target, name))
+        end
       end
 
       def target_validators(target, attribute)
-        target_validators = target.validators_on(attribute).map(&:class)
-        target_validators.concat target.validators_on(attribute[0..-4]).map(&:class) if attribute.end_with?("_id")
-        target_validators
+        target.validators_on(attribute).map(&:class)
       end
 
       def presence_validator?(target_validators)
-        has_presence_validator = target_validators.include?(
-          ActiveModel::Validations::PresenceValidator
-        )
-
-        if defined? ActiveRecord::Validations::PresenceValidator
-          has_presence_validator |= target_validators.include?(
-            ActiveRecord::Validations::PresenceValidator
-          )
-        end
-
-        has_presence_validator
+        target_validators.include?(ActiveModel::Validations::PresenceValidator) ||
+          defined?(ActiveRecord::Validations::PresenceValidator) &&
+            target_validators.include?(ActiveRecord::Validations::PresenceValidator)
       end
 
       def inline_error?(name)

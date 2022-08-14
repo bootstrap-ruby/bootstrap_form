@@ -1134,7 +1134,7 @@ This generates:
       </div>
     </div>
   </div>
-
+  
   <div class="mb-3 row">
     <div class="col-sm-10 offset-sm-2">
       <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
@@ -1559,6 +1559,53 @@ This generates:
   <label class="form-label" for="user_password">New Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
+```
+
+### Required belongs_to associations
+
+Adding a form control for a `belongs_to` field will automatically pick up the associated presence validator.
+
+![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
+```erb
+<%= bootstrap_form_for(@address, url: '/address') do |f| %>
+  <%= f.collection_select :user_id, @users, :id, :email, include_blank: "Select a value" %>
+  <%= f.text_field :street %>
+  <%= f.text_field :city %>
+  <%= f.text_field :state %>
+  <%= f.text_field :zip_code %>
+  <%= f.submit "Save" %>
+<% end %>
+```
+
+Generated HTML:
+
+```html
+<form accept-charset="UTF-8" action="/address" class="new_address" id="new_address_1" method="post">
+  <div class="mb-3">
+    <label class="form-label required" for="address_user_id">User</label>
+    <select class="form-select" id="address_user_id" name="address[user_id]">
+      <option value="">Select a value</option>
+      <option value="">steve@example.com</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="address_street">Street</label>
+    <input class="form-control" id="address_street" name="address[street]" type="text" value="Foo">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="address_city">City</label>
+    <input class="form-control" id="address_city" name="address[city]" type="text">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="address_state">State</label>
+    <input class="form-control" id="address_state" name="address[state]" type="text">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="address_zip_code">Zip code</label>
+    <input class="form-control" id="address_zip_code" name="address[zip_code]" type="text">
+  </div>
+  <input class="btn btn-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
+</form>
 ```
 
 ## Internationalization
