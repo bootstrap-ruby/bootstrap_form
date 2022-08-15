@@ -15,8 +15,9 @@ class BootstrapController < ApplicationController
   private
 
   def load_models
+    @address = Address.new(id: 1, street: "Foo")
     @collection = [
-      Address.new(id: 1, street: "Foo"),
+      @address,
       Address.new(id: 2, street: "Bar")
     ]
 
@@ -25,5 +26,7 @@ class BootstrapController < ApplicationController
     @user_with_error = User.new email: "steve.example.com"
     @user_with_error.errors.add(:email)
     @user_with_error.errors.add(:misc)
+
+    @users = [@user]
   end
 end

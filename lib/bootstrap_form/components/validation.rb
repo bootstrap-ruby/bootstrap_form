@@ -8,35 +8,45 @@ module BootstrapForm
       private
 
       def error?(name)
-        object.respond_to?(:errors) && !(name.nil? || object.errors[name].empty?)
+        name && object.respond_to?(:errors) && (object.errors[name].any? || association_error?(name))
+      end
+
+      def association_error?(name)
+        object.class.reflections.any? do |association_name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == name.to_s
+
+          object.errors[association_name].any?
+        end
       end
 
       def required_attribute?(obj, attribute)
         return false unless obj && attribute
 
         target = obj.instance_of?(Class) ? obj : obj.class
+        return false unless target.respond_to? :validators_on
 
-        target_validators = if target.respond_to? :validators_on
-                              target.validators_on(attribute).map(&:class)
-                            else
-                              []
-                            end
+        presence_validator?(target_validators(target, attribute)) ||
+          required_association?(target, attribute)
+      end
 
-        presence_validator?(target_validators)
+      def required_association?(target, attribute)
+        target.reflections.find do |name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == attribute.to_s
+
+          presence_validator?(target_validators(target, name))
+        end
+      end
+
+      def target_validators(target, attribute)
+        target.validators_on(attribute).map(&:class)
       end
 
       def presence_validator?(target_validators)
-        has_presence_validator = target_validators.include?(
-          ActiveModel::Validations::PresenceValidator
-        )
-
-        if defined? ActiveRecord::Validations::PresenceValidator
-          has_presence_validator |= target_validators.include?(
-            ActiveRecord::Validations::PresenceValidator
-          )
-        end
-
-        has_presence_validator
+        target_validators.include?(ActiveModel::Validations::PresenceValidator) ||
+          (defined?(ActiveRecord::Validations::PresenceValidator) &&
+            target_validators.include?(ActiveRecord::Validations::PresenceValidator))
       end
 
       def inline_error?(name)
@@ -54,7 +64,14 @@ module BootstrapForm
       end
 
       def get_error_messages(name)
-        object.errors[name].join(", ")
+        messages = object.errors[name]
+        object.class.reflections.each do |association_name, a|
+          next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
+          next unless a.foreign_key == name.to_s
+
+          messages.concat object.errors[association_name]
+        end
+        messages.join(", ")
       end
     end
   end
