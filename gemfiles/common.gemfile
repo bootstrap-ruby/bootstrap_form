@@ -6,6 +6,7 @@ gemspec path: File.dirname(__dir__)
 
 group :development do
   gem "htmlbeautifier"
+  gem "puma"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "webpacker"
@@ -16,6 +17,11 @@ group :test do
   gem "equivalent-xml"
   gem "mocha"
   gem "sqlite3"
+end
+
+group :development, :test do
+  gem "debug"
+  gem "pry-byebug"
 end
 
 group :ci do
