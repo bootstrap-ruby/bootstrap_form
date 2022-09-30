@@ -7,6 +7,8 @@ on:
 jobs:
   Lint:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: gemfiles/6.0.gemfile
     steps:
       - uses: actions/checkout@v2
         with:
