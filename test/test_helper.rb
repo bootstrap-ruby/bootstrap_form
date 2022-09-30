@@ -71,7 +71,7 @@ class ActionView::TestCase
       Diffy::Diff.new(
         sort_attributes(expected_xml.root).to_xml(indent: 2),
         sort_attributes(actual_xml.root).to_xml(indent: 2)
-      ).to_fs(:color)
+      ).to_formatted_s(:color)
     }
   end
 
