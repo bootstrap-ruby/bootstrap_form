@@ -32,7 +32,7 @@ module BootstrapForm
       end
     end
 
-    def form_group_content(label, help_text, options, &block)
+    def form_group_content(label, help_text, options, &block) # rubocop:disable Metrics/AbcSize
       label ||= ActiveSupport::SafeBuffer.new
       if group_layout_horizontal?(options[:layout])
         label + tag.div(capture(&block) + help_text, class: form_group_control_class(options))
