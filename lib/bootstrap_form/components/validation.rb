@@ -69,7 +69,7 @@ module BootstrapForm
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == name.to_s
 
-          messages.concat object.errors[association_name]
+          messages << object.errors[association_name]
         end
         messages.join(", ")
       end

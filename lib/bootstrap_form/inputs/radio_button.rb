@@ -13,8 +13,8 @@ module BootstrapForm
           wrapper_attributes[:class] = radio_button_wrapper_class(options)
           tag.div(**wrapper_attributes) do
             html = radio_button_without_bootstrap(name, value, radio_button_options(name, options))
-            html.concat(radio_button_label(name, value, options)) unless options[:skip_label]
-            html.concat(generate_error(name)) if options[:error_message]
+            html << radio_button_label(name, value, options) unless options[:skip_label]
+            html << generate_error(name) if options[:error_message]
             html
           end
         end

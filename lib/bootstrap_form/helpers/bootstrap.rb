@@ -30,8 +30,7 @@ module BootstrapForm
           if options[:error_summary] == false
             title
           else
-            concat tag.p title
-            concat error_summary
+            tag.p(title) + error_summary
           end
         end
       end
@@ -39,9 +38,9 @@ module BootstrapForm
       def error_summary
         return unless object.errors.any?
 
-        tag.ul class: "rails-bootstrap-forms-error-summary" do
-          object.errors.full_messages.each do |error|
-            concat tag.li(error)
+        tag.ul(class: "rails-bootstrap-forms-error-summary") do
+          object.errors.full_messages.reduce(ActiveSupport::SafeBuffer.new) do |acc, error|
+            acc << tag.li(error)
           end
         end
       end
@@ -88,7 +87,7 @@ module BootstrapForm
         input = capture(&block) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
-        input += generate_error(name)
+        input << generate_error(name)
         options.present? &&
           input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
         input

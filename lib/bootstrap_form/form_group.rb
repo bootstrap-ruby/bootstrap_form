@@ -33,14 +33,17 @@ module BootstrapForm
     end
 
     def form_group_content(label, help_text, options, &block)
+      label ||= ActiveSupport::SafeBuffer.new
       if group_layout_horizontal?(options[:layout])
-        concat(label) << tag.div(capture(&block) + help_text, class: form_group_control_class(options))
+        label + tag.div(capture(&block) + help_text, class: form_group_control_class(options))
       else
+        content = ActiveSupport::SafeBuffer.new
         # Floating labels need to be rendered after the field
-        concat(label) unless options[:floating]
-        concat(capture(&block))
-        concat(label) if options[:floating]
-        concat(help_text) if help_text
+        content << label unless options[:floating]
+        content << capture(&block)
+        content << label if options[:floating]
+        content << help_text if help_text
+        content
       end
     end
 

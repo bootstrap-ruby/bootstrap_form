@@ -393,8 +393,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     output = @builder.form_group :email do
       html = '<p class="form-control-plaintext">Bar</p>'.html_safe
       unless @user.errors[:email].empty?
-        html.concat(tag.div(@user.errors[:email].join(", "), class: "invalid-feedback",
-                                                             style: "display: block;"))
+        html << tag.div(@user.errors[:email].join(", "), class: "invalid-feedback",
+                                                         style: "display: block;")
       end
       html
     end
@@ -413,9 +413,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     output = bootstrap_form_for(@user) do |f|
       f.form_group :email do
-        f.radio_button(:misc, "primary school")
-         .concat(f.radio_button(:misc, "high school"))
-         .concat(f.radio_button(:misc, "university", error_message: true))
+        concat(f.radio_button(:misc, "primary school"))
+        concat(f.radio_button(:misc, "high school"))
+        concat(f.radio_button(:misc, "university", error_message: true))
       end
     end
 
@@ -528,7 +528,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       "Hallo"
     end
 
-    output += @horizontal_builder.text_field(:email)
+    output << @horizontal_builder.text_field(:email)
 
     expected = <<~HTML
       <div class="mb-3 row">
