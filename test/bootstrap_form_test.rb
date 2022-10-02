@@ -56,10 +56,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user) do |f|
-      f.email_field(:email, layout: :horizontal)
-       .concat(f.check_box(:terms, label: "I agree to the terms"))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :horizontal))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :horizontal))
+      concat(f.email_field(:email, layout: :horizontal))
+      concat(f.check_box(:terms, label: "I agree to the terms"))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :horizontal))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :horizontal))
     end
 
     assert_equivalent_xml expected, actual
@@ -102,10 +102,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user) do |f|
-      f.email_field(:email, layout: :inline)
-       .concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
+      concat(f.email_field(:email, layout: :inline))
+      concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
     end
 
     assert_equivalent_xml expected, actual
@@ -164,10 +164,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
-      f.email_field(:email)
-       .concat(f.check_box(:terms, label: "I agree to the terms"))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
+      concat(f.email_field(:email))
+      concat(f.check_box(:terms, label: "I agree to the terms"))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
     end
 
     assert_equivalent_xml expected, actual
@@ -215,10 +215,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
-      f.email_field(:email)
-       .concat(f.check_box(:terms, label: "I agree to the terms"))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
+      concat(f.email_field(:email))
+      concat(f.check_box(:terms, label: "I agree to the terms"))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]]))
     end
 
     assert_equivalent_xml expected, actual
@@ -260,10 +260,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
-      f.email_field(:email, layout: :default)
-       .concat(f.check_box(:terms, label: "I agree to the terms"))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :default))
+      concat(f.email_field(:email, layout: :default))
+      concat(f.check_box(:terms, label: "I agree to the terms"))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :default))
     end
 
     assert_equivalent_xml expected, actual
@@ -306,10 +306,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
-      f.email_field(:email, layout: :inline)
-       .concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
-       .concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
-       .concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
+      concat(f.email_field(:email, layout: :inline))
+      concat(f.check_box(:terms, label: "I agree to the terms", inline: true))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :inline))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :inline))
     end
 
     assert_equivalent_xml expected, actual

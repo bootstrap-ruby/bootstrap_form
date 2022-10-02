@@ -15,8 +15,8 @@ module BootstrapForm
 
           tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
-            html.concat(check_box_label(name, options, checked_value, &block)) unless options[:skip_label]
-            html.concat(generate_error(name)) if options[:error_message]
+            html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
+            html << generate_error(name) if options[:error_message]
             html
           end
         end
