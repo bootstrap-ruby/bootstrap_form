@@ -144,7 +144,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "append and prepend button" do
     prefix = '<div class="mb-3"><label class="form-label required" for="user_email">Email</label><div class="input-group">'
-    field = '<input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
+    field = <<~HTML
+      <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+    HTML
     button_src = link_to("Click", "#", class: "btn btn-secondary")
     button_prepend = button_src
     button_append = button_src
@@ -555,7 +557,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "rendering without wrapper" do
-    expected = '<input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />'
+    expected = <<~HTML
+      <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+    HTML
     assert_equivalent_xml expected, @builder.text_field(:email, wrapper: false)
   end
 
