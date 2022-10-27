@@ -9,12 +9,9 @@ module BootstrapForm
       included do
         def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
           options = options.symbolize_keys!
-          check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                             :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
-          check_box_options[:class] = check_box_classes(name, options)
 
           tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
-            html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
+            html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
             html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
             html << generate_error(name) if options[:error_message]
             html
@@ -25,6 +22,14 @@ module BootstrapForm
       end
 
       private
+
+      def check_box_options(name, options)
+        check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
+                                           :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
+        check_box_options[:class] = check_box_classes(name, options)
+        check_box_options[:aria] = { required: true } if options[:required]
+        check_box_options
+      end
 
       def check_box_label(name, options, checked_value, &block)
         label_name = if options[:multiple]
