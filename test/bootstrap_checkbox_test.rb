@@ -622,4 +622,15 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
                                                                wrapper_class: "custom-class")
   end
+
+  test "a required checkbox" do
+    expected = <<~HTML
+      <div class="form-check mb-3">
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+        <input aria-required="true" class="form-check-input" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1"/>
+        <label class="form-check-label required" for="user_terms">I agree to the terms</label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", required: true)
+  end
 end
