@@ -547,6 +547,28 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_xml expected, actual
   end
 
+  test "collection_check_boxes renders data attributes" do
+    collection = [
+        ['1', 'Foo', {'data-city': 'east'} ],
+        ['2', 'Bar', {'data-city': 'west' }],
+      ]
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <div class="form-check">
+          <input class="form-check-input" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_misc_1">Foo</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" data-city="west" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label class="form-check-label" for="user_misc_2">Bar</label>
+        </div>
+      </div>
+    HTML
+
+    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :first, :second, include_hidden: false)
+  end
+
   test "collection_check_boxes renders multiple check boxes with error correctly" do
     @user.errors.add(:misc, "error for test")
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
