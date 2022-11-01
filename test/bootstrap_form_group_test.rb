@@ -318,7 +318,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Custom Control</label>
+        <label class="form-label col-form-label col-sm-2" for="user_email">Custom Control</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" value="Bar">
         </div>

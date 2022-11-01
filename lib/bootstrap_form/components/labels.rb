@@ -25,13 +25,7 @@ module BootstrapForm
       def label_classes(name, options, custom_label_col, group_layout)
         classes = ["form-label", options[:class], label_layout_classes(custom_label_col, group_layout)]
 
-        case options.delete(:required)
-        when true
-          classes << "required"
-        when nil, :default
-          classes << "required" if required_attribute?(object, name)
-        end
-
+        classes << "required" if options.delete(:required)
         classes << "text-danger" if label_errors && error?(name)
         classes.flatten.compact
       end
