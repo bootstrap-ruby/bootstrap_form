@@ -29,7 +29,7 @@ module BootstrapForm
           input_options[:checked] = form_group_collection_input_checked?(checked, obj, input_value)
         end
 
-        # add things like 'data-' directives to the HTML
+        # add things like 'data-' attributes to the HTML
         obj.each do |inner_obj|
           input_options.merge!(inner_obj) if inner_obj.is_a?(Hash)
         end if obj.respond_to?(:each)
