@@ -741,6 +741,28 @@ Collection methods accept these options:
 * `:help`: Add a help span to the `form_group`
 * Other options will be forwarded to the `radio_button`/`check_box` method
 
+
+To add `data-` attributes to a collection of radio buttons, map your models to an array and add a hash:
+
+```erb
+<%# Use the :first and :second elements of the array to be the value and label repsectively %>
+<%- choices = @collection.map { |addr| [ addr.id, addr.street, { 'data-zip-code':  addr.zip_code } ] } -%>
+
+<%= form.collection_radio_buttons :misc, choices, :first, :second %>
+```
+
+This generates:
+```html
+<div class="form-check">
+  <input data-zip-code="47805" class="form-check-input" type="radio" value="1" name="user[misc]" id="user_misc_1">
+  <label class="form-check-label" for="user_misc_1">Foo</label>
+</div>
+<div class="form-check">
+  <input data-zip-code="89807" class="form-check-input" type="radio" value="2" name="user[misc]" id="user_misc_2">
+  <label class="form-check-label" for="user_misc_2">Bar</label>
+</div>
+```
+
 ## Range Controls
 
 You can create a range control like this:
