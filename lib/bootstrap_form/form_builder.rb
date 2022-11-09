@@ -1,5 +1,6 @@
 # require 'bootstrap_form/aliasing'
 
+# rubocop:disable Metrics/ClassLength
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors,
@@ -131,3 +132,4 @@ module BootstrapForm
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
