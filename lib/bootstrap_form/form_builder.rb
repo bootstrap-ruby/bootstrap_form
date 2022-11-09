@@ -5,6 +5,7 @@ module BootstrapForm
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors,
                 :label_errors, :acts_like_form_tag
 
+    include BootstrapForm::Helpers::Field
     include BootstrapForm::Helpers::Bootstrap
 
     include BootstrapForm::FormGroupBuilder
