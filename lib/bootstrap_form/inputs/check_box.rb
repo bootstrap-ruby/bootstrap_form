@@ -27,7 +27,7 @@ module BootstrapForm
         check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
                                            :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
         check_box_options[:class] = check_box_classes(name, options)
-        check_box_options[:aria] = { required: true } if options[:required]
+        check_box_options = required_field_options(options, name, check_box_options)
         check_box_options
       end
 
@@ -77,6 +77,17 @@ module BootstrapForm
         classes << options.dig(:wrapper, :class).presence
         classes << options[:wrapper_class].presence
         classes.flatten.compact
+      end
+
+      def checkbox_required(options, method)
+        if options[:skip_required]
+          warn "`:skip_required` is deprecated, use `:required: false` instead"
+          false
+        elsif options.key?(:required)
+          options[:required]
+        else
+          required_attribute?(object, method)
+        end
       end
     end
   end

@@ -28,6 +28,7 @@ module BootstrapForm
         radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,
                                               :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
+        radio_button_options = required_field_options(options, name, radio_button_options)
         radio_button_options
       end
 

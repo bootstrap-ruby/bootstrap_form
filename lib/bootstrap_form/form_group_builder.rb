@@ -28,8 +28,7 @@ module BootstrapForm
     def form_group_builder_options(options, method)
       options.symbolize_keys!
       options = convert_form_tag_options(method, options) if acts_like_form_tag
-      options[:required] = form_group_required(options, method)
-      options[:aria] = { required: true } if options[:required]
+      options = required_field_options(options, method, options)
       options
     end
 
