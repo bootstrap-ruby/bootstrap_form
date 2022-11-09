@@ -108,24 +108,7 @@ module BootstrapForm
         "form-control-plaintext"
       end
 
-      def required_field_options(options, method, new_options)
-        new_options[:required] = required_field?(options, method)
-        new_options[:aria] = { required: true } if new_options[:required]
-        new_options
-      end
-
       private
-
-      def required_field?(options, method)
-        if options[:skip_required]
-          warn "`:skip_required` is deprecated, use `:required: false` instead"
-          false
-        elsif options.key?(:required)
-          options[:required]
-        else
-          required_attribute?(object, method)
-        end
-      end
 
       def attach_input(options, key)
         tags = [*options[key]].map do |item|

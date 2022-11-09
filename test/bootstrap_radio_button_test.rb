@@ -460,6 +460,6 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:email, "0",label: "This is a radio button")
+    assert_equivalent_xml expected, @builder.radio_button(:email, "0", label: "This is a radio button")
   end
 end
