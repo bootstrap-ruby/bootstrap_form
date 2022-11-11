@@ -28,8 +28,7 @@ module BootstrapForm
     def form_group_builder_options(options, method)
       options.symbolize_keys!
       options = convert_form_tag_options(method, options) if acts_like_form_tag
-      options[:required] = form_group_required(options) if !options[:skip_label] && options.key?(:skip_required)
-      options
+      options.merge!(required_field_options(options, method))
     end
 
     def convert_form_tag_options(method, options={})
@@ -77,11 +76,15 @@ module BootstrapForm
       classes
     end
 
-    def form_group_required(options)
-      return unless options.key?(:skip_required)
-
-      warn "`:skip_required` is deprecated, use `:required: false` instead"
-      options[:skip_required] ? false : :default
+    def form_group_required(options, method)
+      if options[:skip_required]
+        warn "`:skip_required` is deprecated, use `:required: false` instead"
+        false
+      elsif options.key?(:required)
+        options[:required]
+      else
+        required_attribute?(object, method)
+      end
     end
 
     def form_group_css_options(method, html_options, options)

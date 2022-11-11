@@ -5,5 +5,6 @@ module BootstrapForm
     extend ActiveSupport::Autoload
 
     autoload :Bootstrap
+    autoload :Field
   end
 end

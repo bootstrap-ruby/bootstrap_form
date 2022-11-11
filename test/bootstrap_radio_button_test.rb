@@ -438,4 +438,28 @@ class BootstrapRadioButtonTest < ActionView::TestCase
                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
                                                             wrapper_class: "custom-class")
   end
+
+  test "a required radiobutton" do
+    expected = <<~HTML
+      <div class="form-check">
+        <input aria-required="true" class="form-check-input" id="user_misc_0" name="user[misc]" required="required" type="radio" value="0" />
+        <label class="form-check-label" for="user_misc_0">
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:misc, "0", label: "This is a radio button", required: true)
+  end
+
+  test "a required attribute as radiobutton" do
+    expected = <<~HTML
+      <div class="form-check">
+        <input aria-required="true" class="form-check-input" id="user_email_0" name="user[email]" required="required" type="radio" value="0" />
+        <label class="form-check-label" for="user_email_0">
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_xml expected, @builder.radio_button(:email, "0", label: "This is a radio button")
+  end
 end

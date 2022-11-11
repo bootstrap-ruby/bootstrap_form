@@ -209,7 +209,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label required" for="user_email">Email</label>
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email)
@@ -220,7 +220,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="mb-3 g-3">
         <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
     HTML
@@ -232,7 +232,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label required" for="custom_id">Email</label>
-        <input class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
+        <input aria-required="true" required="required" class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
     assert_equivalent_xml expected, @builder.text_field(:email, id: :custom_id)
@@ -422,7 +422,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "can have a floating label" do
     expected = <<~HTML
       <div class="mb-3 form-floating">
-        <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
+        <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
         <label class="form-label required" for="user_email">Email</label>
       </div>
     HTML

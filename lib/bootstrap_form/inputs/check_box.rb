@@ -9,12 +9,9 @@ module BootstrapForm
       included do
         def check_box_with_bootstrap(name, options={}, checked_value="1", unchecked_value="0", &block)
           options = options.symbolize_keys!
-          check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                             :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
-          check_box_options[:class] = check_box_classes(name, options)
 
           tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
-            html = check_box_without_bootstrap(name, check_box_options, checked_value, unchecked_value)
+            html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
             html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
             html << generate_error(name) if options[:error_message]
             html
@@ -25,6 +22,13 @@ module BootstrapForm
       end
 
       private
+
+      def check_box_options(name, options)
+        check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
+                                           :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
+        check_box_options[:class] = check_box_classes(name, options)
+        check_box_options.merge!(required_field_options(options, name))
+      end
 
       def check_box_label(name, options, checked_value, &block)
         label_name = if options[:multiple]
@@ -59,6 +63,7 @@ module BootstrapForm
       def check_box_label_class(options)
         classes = ["form-check-label"]
         classes << options[:label_class]
+        classes << "required" if options[:required]
         classes << hide_class if options[:hide_label]
         classes.flatten.compact
       end
@@ -71,6 +76,17 @@ module BootstrapForm
         classes << options.dig(:wrapper, :class).presence
         classes << options[:wrapper_class].presence
         classes.flatten.compact
+      end
+
+      def checkbox_required(options, method)
+        if options[:skip_required]
+          warn "`:skip_required` is deprecated, use `:required: false` instead"
+          false
+        elsif options.key?(:required)
+          options[:required]
+        else
+          required_attribute?(object, method)
+        end
       end
     end
   end
