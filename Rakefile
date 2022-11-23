@@ -17,12 +17,13 @@ end
 
 require 'bundler/gem_tasks'
 
-require 'rake/testtask'
+require "minitest/test_task"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
+Minitest::TestTask.create(:test) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.warning = false
+  t.test_globs = ["test/**/*_test.rb"]
 end
 
 # This automatically updates GitHub Releases whenever we `rake release` the gem
