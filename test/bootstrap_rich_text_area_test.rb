@@ -16,7 +16,7 @@ if ::Rails::VERSION::STRING > "6"
             <div class="mb-3">
               <label class="form-label" for="user_life_story">Life story</label>
               <input autocomplete="off" type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
-              <trix-editor class="trix-content form-control" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user"/>
+              <trix-editor class="trix-content form-control" extra="extra arg" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user"/>
             </div>
           HTML
         end
@@ -25,11 +25,11 @@ if ::Rails::VERSION::STRING > "6"
           <div class="mb-3">
             <label class="form-label" for="user_life_story">Life story</label>
             <input #{autocomplete_attr} type="hidden" name="user[life_story]" id="user_life_story_trix_input_user"/>
-            <trix-editor id="user_life_story" data-blob-url-template="#{data_blob_url_template}" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control" />
+            <trix-editor id="user_life_story" extra="extra arg" data-blob-url-template="#{data_blob_url_template}" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" input="user_life_story_trix_input_user" class="trix-content form-control" />
           </div>
         HTML
       end
-      assert_equivalent_xml expected, form_with_builder.rich_text_area(:life_story)
+      assert_equivalent_xml expected, form_with_builder.rich_text_area(:life_story, extra: "extra arg")
     end
 
     def data_blob_url_template

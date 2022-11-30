@@ -8,13 +8,13 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "radio_button is wrapped correctly" do
     expected = <<~HTML
       <div class="form-check">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <input class="form-check-input" extra="extra arg" id="user_misc_1" name="user[misc]" type="radio" value="1" />
         <label class="form-check-label" for="user_misc_1">
           This is a radio button
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button")
+    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", extra: "extra arg")
   end
 
   test "radio_button no label" do

@@ -6,13 +6,13 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   setup :setup_test_fixture
 
   test "static control" do
-    output = @horizontal_builder.static_control :email
+    output = @horizontal_builder.static_control :email, extra: "extra arg"
 
     expected = <<~HTML
       <div class="mb-3 row">
         <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
-          <input aria-required="true" required="required" class="form-control-plaintext" id="user_email" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
+          <input aria-required="true" required="required" class="form-control-plaintext" id="user_email" extra="extra arg" name="user[email]" readonly="readonly" type="text" value="steve@example.com"/>
         </div>
       </div>
     HTML
@@ -90,7 +90,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "custom control does't wrap given block in a p tag" do
-    output = @horizontal_builder.custom_control :email do
+    output = @horizontal_builder.custom_control :email, extra: "extra arg" do
       "this is a test"
     end
 
@@ -133,10 +133,13 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
 
   test "regular button uses proper css classes" do
     expected = <<~HTML
-      <button class="btn btn-secondary" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
+      <button class="btn btn-secondary" extra="extra arg" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
     HTML
     assert_equivalent_xml expected,
-                          @builder.button("<span>I'm HTML!</span> in a button!".html_safe)
+                          @builder.button(
+                            "<span>I'm HTML!</span> in a button!".html_safe,
+                            extra: "extra arg"
+                          )
   end
 
   test "regular button can have extra css classes" do
@@ -168,8 +171,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   end
 
   test "primary button uses proper css classes" do
-    expected = '<input class="btn btn-primary" name="commit" type="submit" value="Submit Form" />'
-    assert_equivalent_xml expected, @builder.primary("Submit Form")
+    expected = '<input class="btn btn-primary" extra="extra arg" name="commit" type="submit" value="Submit Form" />'
+    assert_equivalent_xml expected, @builder.primary("Submit Form", extra: "extra arg")
   end
 
   test "primary button can have extra css classes" do

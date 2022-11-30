@@ -59,7 +59,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]])
+    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], extra: "extra arg")
   end
 
   test "bootstrap_specific options are handled correctly" do
@@ -74,7 +74,14 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_xml expected,
-                          @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "My Status Label", help: "Help!")
+                          @builder.select(:status,
+                                          [
+                                            ["activated", 1],
+                                            ["blocked", 2]
+                                          ],
+                                          label: "My Status Label",
+                                          help: "Help!",
+                                          extra: "extra arg")
   end
 
   test "selects with options are wrapped correctly" do
@@ -95,7 +102,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_status">Status</label>
-        <select class="form-select my-select" id="user_status" name="user[status]">
+        <select class="form-select my-select" extra="extra arg" id="user_status" name="user[status]">
           <option value="">Please Select</option>
           <option value="1">activated</option>
           <option value="2">blocked</option>
@@ -104,7 +111,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     HTML
     assert_equivalent_xml expected,
                           @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
-                                          class: "my-select")
+                                          class: "my-select", extra: "extra arg")
   end
 
   test "select 'id' attribute is used to specify label 'for' attribute" do
@@ -176,7 +183,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name)
+    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name, extra: "extra arg")
   end
 
   test "collection_selects are wrapped correctly with wrapper" do
@@ -254,7 +261,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s)
+    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, extra: "extra arg")
   end
 
   test "grouped_collection_selects are wrapped correctly with wrapper" do
@@ -369,7 +376,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.date_select(:misc, wrapper_class: "none-margin")
+      assert_equivalent_xml expected, @builder.date_select(:misc, wrapper_class: "none-margin", extra: "extra arg")
     end
   end
 
@@ -497,7 +504,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.time_select(:misc)
+      assert_equivalent_xml expected, @builder.time_select(:misc, extra: "extra arg")
     end
   end
 
@@ -685,32 +692,35 @@ class BootstrapSelectsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
-            <select class="form-select my-datetime-select" id="user_misc_1i" name="user[misc(1i)]">
+            <select class="form-select my-datetime-select" extra="extra arg" id="user_misc_1i" name="user[misc(1i)]">
               #{blank_option}
               #{options_range(start: 2007, stop: 2017)}
             </select>
-            <select class="form-select my-datetime-select" id="user_misc_2i" name="user[misc(2i)]">
+            <select class="form-select my-datetime-select" extra="extra arg" id="user_misc_2i" name="user[misc(2i)]">
               #{blank_option}
               #{options_range(start: 1, stop: 12, months: true)}
             </select>
-            <select class="form-select my-datetime-select" id="user_misc_3i" name="user[misc(3i)]">
+            <select class="form-select my-datetime-select" extra="extra arg" id="user_misc_3i" name="user[misc(3i)]">
               #{blank_option}
               #{options_range(start: 1, stop: 31)}
             </select>
             &mdash;
-            <select class="form-select my-datetime-select" id="user_misc_4i" name="user[misc(4i)]">
+            <select class="form-select my-datetime-select" extra="extra arg" id="user_misc_4i" name="user[misc(4i)]">
               #{blank_option}
               #{options_range(start: '00', stop: '23')}
             </select>
             :
-            <select class="form-select my-datetime-select" id="user_misc_5i" name="user[misc(5i)]">
+            <select class="form-select my-datetime-select" extra="extra arg" id="user_misc_5i" name="user[misc(5i)]">
               #{blank_option}
               #{options_range(start: '00', stop: '59')}
             </select>
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.datetime_select(:misc, { include_blank: true }, class: "my-datetime-select")
+      assert_equivalent_xml expected, @builder.datetime_select(:misc,
+                                                               { include_blank: true },
+                                                               class: "my-datetime-select",
+                                                               extra: "extra arg")
     end
   end
 
