@@ -19,10 +19,10 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="date" />
+        <input class="form-control" extra="extra arg" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.date_field(:misc)
+    assert_equivalent_xml expected, @builder.date_field(:misc, extra: "extra arg")
   end
 
   test "date time fields are wrapped correctly" do
