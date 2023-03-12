@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_me
 
-  serialize :preferences
+  serialize :preferences, coder: JSON
 
   validates :email, presence: true, length: { minimum: 5 }
   validates :terms, acceptance: { accept: true }
