@@ -1,7 +1,7 @@
 require_relative "./test_helper"
 require "minitest/mock"
 
-if ::Rails::VERSION::STRING > "6"
+if Rails::VERSION::STRING > "6"
   class BootstrapRichTextAreaTest < ActionView::TestCase
     tests ActionText::TagHelper
     include BootstrapForm::ActionViewExtensions::FormHelper

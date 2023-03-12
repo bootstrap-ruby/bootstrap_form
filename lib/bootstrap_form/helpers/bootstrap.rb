@@ -99,7 +99,7 @@ module BootstrapForm
       end
 
       def input_group_content(content)
-        return content if /btn/.match?(content)
+        return content if content.include?("btn")
 
         tag.span(content, class: "input-group-text")
       end
