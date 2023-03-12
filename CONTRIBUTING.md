@@ -222,3 +222,21 @@ cd demo
 rails db:setup # create the databases from `schema.rb`
 rails db:migrate # add the new tables and create a new `schema.rb`
 ```
+
+### RuboCop
+
+When you push a branch, RuboCop checks may fail, but locally you can't reproduce the failure. This may be because you're using a different version of RuboCop locally. When you push, the RuboCop tests use the currently available version of RuboCop. If you've been working on the branch for a while, it's likely you have a `Gemfile.lock` that specifies an older version of RuboCop.
+
+The first thing to try is to update your `Gemfile.lock` locally:
+
+```bash
+bundle update
+```
+
+Or, if you really want to minimize your work:
+
+```bash
+bundle update --conservative rubocop
+```
+
+This should enable you to reproduce the RuboCop failures locally, and then you can fix them.
