@@ -188,7 +188,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
             <span class="input-group-text">$</div>
             <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
             <span class="input-group-text">.00</span>
-            <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+            <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</span>
           </div>
         </div>
       </form>
@@ -404,7 +404,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <p class="form-control-plaintext">Bar</p>
-        <div class="invalid-feedback" style="display: block;">can't be blank, is too short (minimum is 5 characters)</div>
+        <div class="invalid-feedback" style="display: block;">can’t be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
     assert_equivalent_xml expected, output
@@ -466,10 +466,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="field_with_errors">
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="email" />
         </div>
-        <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+        <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.email_field(:email, wrapper_class: "none-margin")
+    output = @builder.email_field(:email, wrapper_class: "none-margin")
+    assert_equivalent_xml expected, output
   end
 
   test "overrides the class of the wrapped form_group by a field with errors when bootstrap_form_for is used" do
@@ -486,7 +487,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="none-margin">
           <label class="form-label required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</div>
           <small class="form-text text-muted">This is required</small>
         </div>
       </form>

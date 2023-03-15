@@ -430,7 +430,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
-          <label class="form-label required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
+          <label class="form-label required text-danger" for="user_email">Email can’t be blank, is too short (minimum is 5 characters)</label>
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
         </div>
       </form>
@@ -446,9 +446,9 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
-          <label class="form-label required text-danger" for="user_email">Email can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <label class="form-label required text-danger" for="user_email">Email can’t be blank, is too short (minimum is 5 characters)</label>
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</span>
         </div>
       </form>
     HTML
@@ -465,9 +465,9 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
-          <label class="form-label required text-danger" for="user_email">Your e-mail address can&#39;t be blank, is too short (minimum is 5 characters)</label>
+          <label class="form-label required text-danger" for="user_email">Your e-mail address can’t be blank, is too short (minimum is 5 characters)</label>
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
@@ -484,7 +484,7 @@ class BootstrapFormTest < ActionView::TestCase
       <div class="alert alert-danger">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
-          <li>Email can&#39;t be blank</li>
+          <li>Email can’t be blank</li>
           <li>Email is too short (minimum is 5 characters)</li>
           <li>Terms must be accepted</li>
         </ul>
@@ -501,7 +501,7 @@ class BootstrapFormTest < ActionView::TestCase
       <div class="my-css-class">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
-          <li>Email can&#39;t be blank</li>
+          <li>Email can’t be blank</li>
           <li>Email is too short (minimum is 5 characters)</li>
           <li>Terms must be accepted</li>
         </ul>
@@ -524,7 +524,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
-            <li>Email can&#39;t be blank</li>
+            <li>Email can’t be blank</li>
             <li>Email is too short (minimum is 5 characters)</li>
             <li>Terms must be accepted</li>
           </ul>
@@ -565,7 +565,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
-            <li>Email can&#39;t be blank</li>
+            <li>Email can’t be blank</li>
             <li>Email is too short (minimum is 5 characters)</li>
             <li>Terms must be accepted</li>
           </ul>
@@ -581,7 +581,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <ul class="rails-bootstrap-forms-error-summary">
-        <li>Email can&#39;t be blank</li>
+        <li>Email can’t be blank</li>
         <li>Email is too short (minimum is 5 characters)</li>
         <li>Terms must be accepted</li>
       </ul>
@@ -601,7 +601,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="invalid-feedback">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>
+      <div class="invalid-feedback">Email can’t be blank, Email is too short (minimum is 5 characters)</div>
     HTML
     assert_equivalent_xml expected, @builder.errors_on(:email)
   end
@@ -701,7 +701,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
+          <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</div>
           <small class="form-text text-muted">This is required</small>
         </div>
       </form>
@@ -727,7 +727,7 @@ class BootstrapFormTest < ActionView::TestCase
           <div class="field_with_errors">
             <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
-          <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</span>
+          <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</span>
           <small class="form-text text-muted">This is required</small>
         </div>
       </form>
@@ -793,7 +793,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="invalid-feedback">can&#39;t be blank, is too short (minimum is 5 characters)</div>'
+    expected = '<div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</div>'
 
     assert_equivalent_xml expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
@@ -802,7 +802,7 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="custom-error-class">Email can&#39;t be blank, Email is too short (minimum is 5 characters)</div>'
+    expected = '<div class="custom-error-class">Email can’t be blank, Email is too short (minimum is 5 characters)</div>'
 
     assert_equivalent_xml expected, @builder.errors_on(:email, custom_class: "custom-error-class")
   end

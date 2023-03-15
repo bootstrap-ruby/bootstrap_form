@@ -56,6 +56,7 @@ class ActionView::TestCase
 
   # Expected and actual are wrapped in a root tag to ensure proper XML structure
   def assert_equivalent_xml(expected, actual)
+    expected = expected.tr("’", "'") if Rails::VERSION::STRING < "7.1"
     expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>") { |config| config.default_xml.noblanks }
     actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>") { |config| config.default_xml.noblanks }
     ignored_attributes  = %w[style data-disable-with]

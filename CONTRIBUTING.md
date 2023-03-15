@@ -46,11 +46,11 @@ You may find the [demo application](#the-demo-application) useful for developmen
 
 ### 6. Make a pull request
 
-- If you've never made a pull request (PR) before, read this: https://help.github.com/articles/about-pull-requests/.
+- If you've never made a pull request (PR) before, read [this](https://help.github.com/articles/about-pull-requests/).
 - If your PR fixes an issues, be sure to put "Fixes #nnn" in the description of the PR (where `nnn` is the issue number). Github will automatically close the issue when the PR is merged.
 - When the PR is submitted, check if Travis CI ran all the tests successfully, and didn't raise any issues.
 
-### 7. Done!
+### 7. Done
 
 Somebody will shortly review your pull request and if everything is good, it will be
 merged into the main branch. Eventually the gem will be published with your changes.
@@ -124,7 +124,6 @@ services:
 You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
 
 Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own.
-
 
 #### Simple Dockerfile
 
@@ -207,7 +206,7 @@ We are an entirely volunteer project. Sometimes it's hard for people to find the
 
 ---
 
-Thanks to all the great contributors over the years: https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors
+Thanks to all the [great contributors](https://github.com/bootstrap-ruby/bootstrap_form/graphs/contributors) over the years.
 
 ## Troubleshooting
 
@@ -222,3 +221,21 @@ cd demo
 rails db:setup # create the databases from `schema.rb`
 rails db:migrate # add the new tables and create a new `schema.rb`
 ```
+
+### RuboCop
+
+When you push a branch, RuboCop checks may fail, but locally you can't reproduce the failure. This may be because you're using a different version of RuboCop locally. When you push, the RuboCop tests use the currently available version of RuboCop. If you've been working on the branch for a while, it's likely you have a `Gemfile.lock` that specifies an older version of RuboCop.
+
+The first thing to try is to update your `Gemfile.lock` locally:
+
+```bash
+bundle update
+```
+
+Or, if you really want to minimize your work:
+
+```bash
+bundle update --conservative rubocop
+```
+
+This should enable you to reproduce the RuboCop failures locally, and then you can fix them.
