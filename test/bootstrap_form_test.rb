@@ -115,17 +115,13 @@ class BootstrapFormTest < ActionView::TestCase
     # TODO: Align baseline better.
   end
 
-  if ::Rails::VERSION::STRING >= "5.1"
-    # No need to test 5.2 separately for this case, since 5.2 does *not*
-    # generate a default ID for the form element.
-    test "default-style forms bootstrap_form_with Rails 5.1+" do
-      expected = <<~HTML
-        <form accept-charset="UTF-8" action="/users" method="post" #{'data-remote="true"' if ::Rails::VERSION::STRING < '6.1'}>
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        </form>
-      HTML
-      assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |_f| nil }
-    end
+  test "default-style forms bootstrap_form_with Rails 5.1+" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post" #{'data-remote="true"' if ::Rails::VERSION::STRING < '6.1'}>
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+      </form>
+    HTML
+    assert_equivalent_xml expected, bootstrap_form_with(model: @user) { |_f| nil }
   end
 
   test "inline-style forms" do
@@ -402,20 +398,13 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "bootstrap_form_tag allows an empty name for checkboxes" do
-    if ::Rails::VERSION::STRING >= "5.1"
-      id = "misc"
-      name = "misc"
-    else
-      id = "_misc"
-      name = "[misc]"
-    end
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check mb-3">
-          <input class="form-check-input" id="#{id}" name="#{name}" type="checkbox" value="1" />
-          <input #{autocomplete_attr} name="#{name}" type="hidden" value="0" />
-          <label class="form-check-label" for="#{id}"> Misc</label>
+          <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
+          <input #{autocomplete_attr} name="misc" type="hidden" value="0" />
+          <label class="form-check-label" for="misc"> Misc</label>
         </div>
       </form>
     HTML
