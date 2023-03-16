@@ -75,16 +75,14 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
   end
 
-  if ::Rails::VERSION::STRING > "5.1"
-    test "file field placeholder has appropriate `for` attribute when used in form_with" do
-      expected = <<~HTML
-        <div class="mb-3">
-          <label class="form-label" for="custom-id">Misc</label>
-          <input class="form-control" id="custom-id" name="user[misc]" type="file"/>
-        </div>
-      HTML
-      assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "custom-id")
-    end
+  test "file field placeholder has appropriate `for` attribute when used in form_with" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="custom-id">Misc</label>
+        <input class="form-control" id="custom-id" name="user[misc]" type="file"/>
+      </div>
+    HTML
+    assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "custom-id")
   end
 
   test "file fields are wrapped correctly with error" do
@@ -181,28 +179,14 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, @builder.text_area(:comments)
   end
 
-  if ::Rails::VERSION::STRING > "5.1" && ::Rails::VERSION::STRING < "5.2"
-    test "text areas are wrapped correctly form_with Rails 5.1" do
-      expected = <<~HTML
-        <div class="mb-3">
-          <label class="form-label" for="user_comments">Comments</label>
-          <textarea class="form-control" name="user[comments]">\nmy comment</textarea>
-        </div>
-      HTML
-      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
-    end
-  end
-
-  if ::Rails::VERSION::STRING > "5.2"
-    test "text areas are wrapped correctly form_with Rails 5.2+" do
-      expected = <<~HTML
-        <div class="mb-3">
-          <label class="form-label" for="user_comments">Comments</label>
-          <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
-        </div>
-      HTML
-      assert_equivalent_xml expected, form_with_builder.text_area(:comments)
-    end
+  test "text areas are wrapped correctly form_with Rails 5.2+" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_comments">Comments</label>
+        <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+      </div>
+    HTML
+    assert_equivalent_xml expected, form_with_builder.text_area(:comments)
   end
 
   test "text fields are wrapped correctly" do
@@ -415,24 +399,22 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_xml expected, output
   end
 
-  if ::Rails::VERSION::STRING >= "5.1"
-    test "fields correctly uses options from parent builder" do
-      @user.address = Address.new(street: "123 Main Street")
+  test "fields correctly uses options from parent builder" do
+    @user.address = Address.new(street: "123 Main Street")
 
-      bootstrap_form_with(model: @user,
-                          control_col: "control-style",
-                          inline_errors: false,
-                          label_col: "label-style",
-                          label_errors: true,
-                          layout: :inline) do |f|
-        f.fields :address do |af|
-          af.text_field(:street)
-          assert_equal "control-style", af.control_col
-          assert_equal false, af.inline_errors
-          assert_equal "label-style", af.label_col
-          assert_equal true, af.label_errors
-          assert_equal :inline, af.layout
-        end
+    bootstrap_form_with(model: @user,
+                        control_col: "control-style",
+                        inline_errors: false,
+                        label_col: "label-style",
+                        label_errors: true,
+                        layout: :inline) do |f|
+      f.fields :address do |af|
+        af.text_field(:street)
+        assert_equal "control-style", af.control_col
+        assert_equal false, af.inline_errors
+        assert_equal "label-style", af.label_col
+        assert_equal true, af.label_errors
+        assert_equal :inline, af.layout
       end
     end
   end
