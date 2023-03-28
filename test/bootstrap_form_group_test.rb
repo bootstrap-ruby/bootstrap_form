@@ -415,9 +415,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     output = bootstrap_form_for(@user) do |f|
       f.form_group :email do
-        concat(f.radio_button(:misc, "primary school"))
-        concat(f.radio_button(:misc, "high school"))
-        concat(f.radio_button(:misc, "university", error_message: true))
+        f.radio_button(:misc, "primary school") +
+        f.radio_button(:misc, "high school") +
+        f.radio_button(:misc, "university", error_message: true)
       end
     end
 
