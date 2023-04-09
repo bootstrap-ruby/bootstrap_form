@@ -59,27 +59,31 @@ class ActionView::TestCase
     expected = expected.tr("’", "'") if Rails::VERSION::STRING < "7.1"
     expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>") { |config| config.default_xml.noblanks }
     actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>") { |config| config.default_xml.noblanks }
-    ignored_attributes  = %w[style data-disable-with]
+
+    expected_xml = sort_attributes(expected_xml)
+    actual_xml = sort_attributes(actual_xml)
 
     equivalent = EquivalentXml.equivalent?(
-      expected_xml, actual_xml, ignore_attr_values: ignored_attributes
+      expected_xml, actual_xml, element_order: true
     ) do |a, b, result|
-      equivalent_xml?(a, b, result)
+      looser_result = equivalent_with_looser_criteria?(a, b, result)
+      break false unless looser_result
+      looser_result
     end
 
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
-        sort_attributes(expected_xml.root).to_xml(indent: 2),
-        sort_attributes(actual_xml.root).to_xml(indent: 2)
+        expected_xml.root.to_xml(indent: 2),
+        actual_xml.root.to_xml(indent: 2)
       ).to_s(:color)
     }
   end
 
   private
 
-  def equivalent_xml?(expected, real, result)
-    return result if result != false || !real.is_a?(Nokogiri::XML::Element)
+  def equivalent_with_looser_criteria?(expected, real, result)
+    return result if result
 
     if real.attr(:name) == "utf8"
       # Handle wrapped utf8 hidden field for Rails 4.2+
@@ -88,12 +92,14 @@ class ActionView::TestCase
 
     real.delete("data-disable-with")
 
-    if expected.attr(:type) == "datetime" && real.attr(:type) == "datetime-local"
-      expected.delete("type")
-      real.delete("type")
+    if expected.is_a?(Nokogiri::XML::Attr) &&
+      real.is_a?(Nokogiri::XML::Attr) &&
+      expected.value == "datetime" &&
+      real.value == "datetime-local"
+      return true
     end
 
-    EquivalentXml.equivalent?(expected, real)
+    EquivalentXml.equivalent?(expected, real, element_order: true)
   end
 
   def autocomplete_attr

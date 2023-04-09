@@ -402,8 +402,8 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check mb-3">
-          <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
           <input #{autocomplete_attr} name="misc" type="hidden" value="0" />
+          <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
           <label class="form-check-label" for="misc"> Misc</label>
         </div>
       </form>
