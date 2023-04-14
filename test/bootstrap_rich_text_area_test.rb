@@ -29,7 +29,7 @@ if Rails::VERSION::STRING > "6"
           </div>
         HTML
       end
-      assert_equivalent_xml expected, form_with_builder.rich_text_area(:life_story, extra: "extra arg")
+      assert_equivalent_html expected, form_with_builder.rich_text_area(:life_story, extra: "extra arg")
     end
 
     def data_blob_url_template

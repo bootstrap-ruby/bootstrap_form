@@ -12,7 +12,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.color_field(:misc)
+    assert_equivalent_html expected, @builder.color_field(:misc)
   end
 
   test "date fields are wrapped correctly" do
@@ -22,7 +22,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" extra="extra arg" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.date_field(:misc, extra: "extra arg")
+    assert_equivalent_html expected, @builder.date_field(:misc, extra: "extra arg")
   end
 
   test "date time fields are wrapped correctly" do
@@ -32,7 +32,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.datetime_field(:misc)
+    assert_equivalent_html expected, @builder.datetime_field(:misc)
   end
 
   test "date time local fields are wrapped correctly" do
@@ -42,7 +42,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.datetime_local_field(:misc)
+    assert_equivalent_html expected, @builder.datetime_local_field(:misc)
   end
 
   test "email fields are wrapped correctly" do
@@ -52,7 +52,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="email" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.email_field(:misc)
+    assert_equivalent_html expected, @builder.email_field(:misc)
   end
 
   test "file fields are wrapped correctly" do
@@ -62,7 +62,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="file"/>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.file_field(:misc)
+    assert_equivalent_html expected, @builder.file_field(:misc)
   end
 
   test "file field placeholder can be customized" do
@@ -72,7 +72,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" placeholder="Pick a file" type="file"/>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.file_field(:misc, placeholder: "Pick a file")
+    assert_equivalent_html expected, @builder.file_field(:misc, placeholder: "Pick a file")
   end
 
   test "file field placeholder has appropriate `for` attribute when used in form_with" do
@@ -82,7 +82,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="custom-id" name="user[misc]" type="file"/>
       </div>
     HTML
-    assert_equivalent_xml expected, form_with_builder.file_field(:misc, id: "custom-id")
+    assert_equivalent_html expected, form_with_builder.file_field(:misc, id: "custom-id")
   end
 
   test "file fields are wrapped correctly with error" do
@@ -97,14 +97,14 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
   end
 
   test "hidden fields are supported" do
     expected = <<~HTML
       <input #{autocomplete_attr} id="user_misc" name="user[misc]" type="hidden" />
     HTML
-    assert_equivalent_xml expected, @builder.hidden_field(:misc)
+    assert_equivalent_html expected, @builder.hidden_field(:misc)
   end
 
   test "month local fields are wrapped correctly" do
@@ -114,7 +114,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="month" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.month_field(:misc)
+    assert_equivalent_html expected, @builder.month_field(:misc)
   end
 
   test "number fields are wrapped correctly" do
@@ -124,7 +124,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="number" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.number_field(:misc)
+    assert_equivalent_html expected, @builder.number_field(:misc)
   end
 
   test "password fields are wrapped correctly" do
@@ -135,7 +135,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <small class="form-text text-muted">A good password should be at least six characters long</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.password_field(:password)
+    assert_equivalent_html expected, @builder.password_field(:password)
   end
 
   test "phone/telephone fields are wrapped correctly" do
@@ -145,8 +145,8 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="tel" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.phone_field(:misc)
-    assert_equivalent_xml expected, @builder.telephone_field(:misc)
+    assert_equivalent_html expected, @builder.phone_field(:misc)
+    assert_equivalent_html expected, @builder.telephone_field(:misc)
   end
 
   test "range fields are wrapped correctly" do
@@ -156,7 +156,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="range" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.range_field(:misc)
+    assert_equivalent_html expected, @builder.range_field(:misc)
   end
 
   test "search fields are wrapped correctly" do
@@ -166,7 +166,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.search_field(:misc)
+    assert_equivalent_html expected, @builder.search_field(:misc)
   end
 
   test "text areas are wrapped correctly" do
@@ -176,7 +176,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_area(:comments)
+    assert_equivalent_html expected, @builder.text_area(:comments)
   end
 
   test "text areas are wrapped correctly form_with Rails 5.2+" do
@@ -186,7 +186,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
       </div>
     HTML
-    assert_equivalent_xml expected, form_with_builder.text_area(:comments)
+    assert_equivalent_html expected, form_with_builder.text_area(:comments)
   end
 
   test "text fields are wrapped correctly" do
@@ -196,7 +196,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email)
+    assert_equivalent_html expected, @builder.text_field(:email)
   end
 
   test "text fields are wrapped correctly when horizontal and gutter classes are given" do
@@ -208,8 +208,8 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "mb-3 g-3")
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper: { class: "mb-3 g-3" })
+    assert_equivalent_html expected, @horizontal_builder.text_field(:email, wrapper_class: "mb-3 g-3")
+    assert_equivalent_html expected, @horizontal_builder.text_field(:email, wrapper: { class: "mb-3 g-3" })
   end
 
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified" do
@@ -221,7 +221,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @horizontal_builder.text_field(:email, wrapper_class: "bogus-1", wrapper: { class: "bogus-2" })
   end
 
@@ -234,7 +234,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, wrapper_class: "bogus-1")
+    assert_equivalent_html expected, @horizontal_builder.text_field(:email, wrapper_class: "bogus-1")
   end
 
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified (reverse order)" do
@@ -246,7 +246,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @horizontal_builder.text_field(:email, wrapper: { class: "bogus-2" }, wrapper_class: "bogus-1")
   end
 
@@ -257,7 +257,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, id: :custom_id)
+    assert_equivalent_html expected, @builder.text_field(:email, id: :custom_id)
   end
 
   test "time fields are wrapped correctly" do
@@ -267,7 +267,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="time" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.time_field(:misc)
+    assert_equivalent_html expected, @builder.time_field(:misc)
   end
 
   test "url fields are wrapped correctly" do
@@ -277,7 +277,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="url" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.url_field(:misc)
+    assert_equivalent_html expected, @builder.url_field(:misc)
   end
 
   test "check_box fields are wrapped correctly" do
@@ -288,7 +288,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <label class="form-check-label" for="user_misc">Misc</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:misc)
+    assert_equivalent_html expected, @builder.check_box(:misc)
   end
 
   test "switch-style check_box fields are wrapped correctly" do
@@ -299,7 +299,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <label class="form-check-label" for="user_misc">Misc</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:misc, switch: true)
+    assert_equivalent_html expected, @builder.check_box(:misc, switch: true)
   end
 
   test "week fields are wrapped correctly" do
@@ -309,7 +309,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="week" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.week_field(:misc)
+    assert_equivalent_html expected, @builder.week_field(:misc)
   end
 
   test "bootstrap_form_for helper works for associations" do
@@ -330,7 +330,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "bootstrap_form_for helper works for serialized hash attributes" do
@@ -351,7 +351,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "fields_for correctly passes horizontal style from parent builder" do
@@ -374,7 +374,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "fields_for correctly passes inline style from parent builder" do
@@ -396,7 +396,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "fields correctly uses options from parent builder" do
@@ -446,6 +446,6 @@ class BootstrapFieldsTest < ActionView::TestCase
         <label class="form-label required" for="user_email">Email</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, floating: true)
+    assert_equivalent_html expected, @builder.text_field(:email, floating: true)
   end
 end

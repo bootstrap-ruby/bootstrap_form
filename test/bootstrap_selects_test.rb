@@ -21,7 +21,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.time_zone_select(:misc)
+    assert_equivalent_html expected, @builder.time_zone_select(:misc)
   end
 
   test "time zone selects are wrapped correctly with wrapper" do
@@ -31,7 +31,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.time_zone_select(:misc, nil, wrapper: { class: "none-margin" })
+    assert_equivalent_html expected, @builder.time_zone_select(:misc, nil, wrapper: { class: "none-margin" })
   end
 
   test "time zone selects are wrapped correctly with error" do
@@ -46,7 +46,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.time_zone_select(:misc) }
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.time_zone_select(:misc) }
   end
 
   test "selects are wrapped correctly" do
@@ -59,7 +59,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], extra: "extra arg")
+    assert_equivalent_html expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], extra: "extra arg")
   end
 
   test "bootstrap_specific options are handled correctly" do
@@ -73,7 +73,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <small class="form-text text-muted">Help!</small>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.select(:status,
                                           [
                                             ["activated", 1],
@@ -95,7 +95,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prompt: "Please Select")
+    assert_equivalent_html expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prompt: "Please Select")
   end
 
   test "selects with both options and html_options are wrapped correctly" do
@@ -109,7 +109,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
                                           class: "my-select", extra: "extra arg")
   end
@@ -125,7 +125,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, id: "custom_id")
   end
 
@@ -143,7 +143,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prepend: "Before", append: "After")
+    assert_equivalent_html expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prepend: "Before", append: "After")
   end
 
   test "selects with block use block as content" do
@@ -160,7 +160,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       tag.option { "Option 1" } +
         tag.option { "Option 2" }
     end
-    assert_equivalent_xml expected, select
+    assert_equivalent_html expected, select
   end
 
   test "selects render labels properly" do
@@ -173,7 +173,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "User Status")
+    assert_equivalent_html expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], label: "User Status")
   end
 
   test "collection_selects are wrapped correctly" do
@@ -183,7 +183,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name, extra: "extra arg")
+    assert_equivalent_html expected, @builder.collection_select(:status, [], :id, :name, extra: "extra arg")
   end
 
   test "collection_selects are wrapped correctly with wrapper" do
@@ -193,7 +193,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name, wrapper: { class: "none-margin" })
+    assert_equivalent_html expected, @builder.collection_select(:status, [], :id, :name, wrapper: { class: "none-margin" })
   end
 
   test "collection_selects are wrapped correctly with error" do
@@ -208,7 +208,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.collection_select(:status, [], :id, :name) }
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.collection_select(:status, [], :id, :name) }
   end
 
   test "collection_selects with options are wrapped correctly" do
@@ -220,7 +220,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_select(:status, [], :id, :name, prompt: "Please Select")
+    assert_equivalent_html expected, @builder.collection_select(:status, [], :id, :name, prompt: "Please Select")
   end
 
   test "collection_selects with options and html_options are wrapped correctly" do
@@ -232,7 +232,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
   end
 
@@ -249,7 +249,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_select(:status, [], :id, :name,
                                                      { prepend: "Before", append: "After", prompt: "Please Select" })
   end
@@ -261,7 +261,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, extra: "extra arg")
+    assert_equivalent_html expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, extra: "extra arg")
   end
 
   test "grouped_collection_selects are wrapped correctly with wrapper" do
@@ -271,7 +271,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, wrapper_class: "none-margin")
   end
 
@@ -287,7 +287,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
   end
 
@@ -300,7 +300,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, prompt: "Please Select")
   end
 
@@ -313,7 +313,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" },
                                                              class: "my-select")
   end
@@ -331,7 +331,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s,
                                                              { prepend: "Before", append: "After", prompt: "Please Select" })
   end
@@ -354,7 +354,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.date_select(:misc)
+      assert_equivalent_html expected, @builder.date_select(:misc)
     end
   end
 
@@ -376,7 +376,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.date_select(:misc, wrapper_class: "none-margin", extra: "extra arg")
+      assert_equivalent_html expected, @builder.date_select(:misc, wrapper_class: "none-margin", extra: "extra arg")
     end
   end
 
@@ -403,7 +403,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.date_select(:misc) }
+      assert_equivalent_html expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.date_select(:misc) }
     end
   end
 
@@ -430,7 +430,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.date_select(:misc) }
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.date_select(:misc) }
     end
   end
 
@@ -456,7 +456,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       HTML
 
-      assert_equivalent_xml expected, @builder.date_select(:misc, include_blank: true)
+      assert_equivalent_html expected, @builder.date_select(:misc, include_blank: true)
     end
   end
 
@@ -481,7 +481,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.date_select(:misc, { include_blank: true }, class: "my-date-select")
+      assert_equivalent_html expected, @builder.date_select(:misc, { include_blank: true }, class: "my-date-select")
     end
   end
 
@@ -504,7 +504,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.time_select(:misc, extra: "extra arg")
+      assert_equivalent_html expected, @builder.time_select(:misc, extra: "extra arg")
     end
   end
 
@@ -532,7 +532,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.time_select(:misc) }
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.time_select(:misc) }
     end
   end
 
@@ -557,7 +557,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.time_select(:misc, include_blank: true)
+      assert_equivalent_html expected, @builder.time_select(:misc, include_blank: true)
     end
   end
 
@@ -582,7 +582,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.time_select(:misc, { include_blank: true }, class: "my-time-select")
+      assert_equivalent_html expected, @builder.time_select(:misc, { include_blank: true }, class: "my-time-select")
     end
   end
 
@@ -612,7 +612,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.datetime_select(:misc)
+      assert_equivalent_html expected, @builder.datetime_select(:misc)
     end
   end
 
@@ -647,7 +647,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </form>
       HTML
-      assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc) }
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc) }
     end
   end
 
@@ -682,7 +682,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.datetime_select(:misc, include_blank: true)
+      assert_equivalent_html expected, @builder.datetime_select(:misc, include_blank: true)
     end
   end
 
@@ -717,7 +717,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           </div>
         </div>
       HTML
-      assert_equivalent_xml expected, @builder.datetime_select(:misc,
+      assert_equivalent_html expected, @builder.datetime_select(:misc,
                                                                { include_blank: true },
                                                                class: "my-datetime-select",
                                                                extra: "extra arg")
@@ -734,7 +734,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         </select>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.select(:misc,
                                           [["Apple", 1], ["Grape", 2]],
                                           {
@@ -754,7 +754,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)
+    assert_equivalent_html expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)
   end
 
   def blank_option

@@ -15,7 +15,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", extra: "extra arg")
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", extra: "extra arg")
   end
 
   test "check_box empty label" do
@@ -27,7 +27,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     # &#8203; is a zero-width space.
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "&#8203;".html_safe)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "&#8203;".html_safe)
   end
 
   test "disabled check_box has proper wrapper classes" do
@@ -40,7 +40,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", disabled: true)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", disabled: true)
   end
 
   test "check_box label allows html" do
@@ -53,7 +53,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: 'I agree to the <a href="#">terms</a>'.html_safe)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: 'I agree to the <a href="#">terms</a>'.html_safe)
   end
 
   test "check_box accepts a block to define the label" do
@@ -66,7 +66,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms) { "I agree to the terms" }
+    assert_equivalent_html expected, @builder.check_box(:terms) { "I agree to the terms" }
   end
 
   test "check_box accepts a custom label class" do
@@ -79,7 +79,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label_class: "btn")
+    assert_equivalent_html expected, @builder.check_box(:terms, label_class: "btn")
   end
 
   test "check_box 'id' attribute is used to specify label 'for' attribute" do
@@ -92,7 +92,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, id: "custom_id")
+    assert_equivalent_html expected, @builder.check_box(:terms, id: "custom_id")
   end
 
   test "check_box responds to checked_value and unchecked_value arguments" do
@@ -105,7 +105,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, { label: "I agree to the terms" }, "yes", "no")
+    assert_equivalent_html expected, @builder.check_box(:terms, { label: "I agree to the terms" }, "yes", "no")
   end
 
   test "inline checkboxes" do
@@ -118,7 +118,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true)
   end
 
   test "inline checkboxes from form layout" do
@@ -137,7 +137,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.check_box(:terms, label: "I agree to the terms")
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "disabled inline check_box" do
@@ -150,7 +150,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
                                                                disabled: true)
   end
 
@@ -164,7 +164,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, inline: true, label_class: "btn")
+    assert_equivalent_html expected, @builder.check_box(:terms, inline: true, label_class: "btn")
   end
 
   test "collection_check_boxes renders the form_group correctly" do
@@ -181,7 +181,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     label: "This is a checkbox collection", help: "With a help!")
   end
 
@@ -206,7 +206,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street)
   end
 
   test "collection_check_boxes renders multiple checkboxes contains unicode characters in IDs correctly" do
@@ -231,7 +231,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :name)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :name)
   end
 
   test "collection_check_boxes renders inline checkboxes correctly" do
@@ -255,7 +255,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     inline: true)
   end
 
@@ -280,9 +280,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     checked: 1)
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     checked: collection.first)
   end
 
@@ -303,9 +303,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     checked: [1, 2])
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
                                                                     checked: collection)
   end
 
@@ -323,7 +323,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :street, :street)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :street, :street)
   end
 
   test "collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly" do
@@ -347,7 +347,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, proc { |a| a.street.reverse })
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, proc { |a| a.street.reverse })
   end
 
   test "collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly" do
@@ -370,7 +370,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
                                                                     :street)
   end
 
@@ -395,7 +395,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, ->(a) { a.street.reverse })
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, ->(a) { a.street.reverse })
   end
 
   test "collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly" do
@@ -419,7 +419,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
                                                                     :street)
   end
 
@@ -444,9 +444,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
                                                                     :street, checked: "address_1")
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
                                                                     :street, checked: collection.first)
   end
 
@@ -471,9 +471,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
                                                                     :street, checked: %w[address_1 address_2])
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
                                                                     :street, checked: collection)
   end
 
@@ -493,7 +493,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :id, :street, include_hidden: false)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street, include_hidden: false)
   end
 
   test "check_box skip label" do
@@ -503,7 +503,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <input class="form-check-input position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", skip_label: true)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", skip_label: true)
   end
 
   test "check_box hide label" do
@@ -514,7 +514,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-check-label visually-hidden" for="user_terms">I agree to the terms</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", hide_label: true)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", hide_label: true)
   end
 
   test "collection_check_boxes renders error after last check box" do
@@ -544,7 +544,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       f.collection_check_boxes(:misc, collection, :id, :street)
     end
 
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "collection_check_boxes renders multiple check boxes with error correctly" do
@@ -572,7 +572,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     actual = bootstrap_form_for(@user) do |f|
       f.collection_check_boxes(:misc, collection, :id, :street, checked: collection)
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "check_box renders error when asked" do
@@ -593,7 +593,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     actual = bootstrap_form_for(@user) do |f|
       f.check_box(:terms, label: "I agree to the terms", error_message: true)
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "check box with custom wrapper class" do
@@ -606,7 +606,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", wrapper_class: "custom-class")
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", wrapper_class: "custom-class")
   end
 
   test "inline check box with custom wrapper class" do
@@ -619,7 +619,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
                                                                wrapper_class: "custom-class")
   end
 
@@ -631,7 +631,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-check-label required" for="user_terms">I agree to the terms</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:terms, label: "I agree to the terms", required: true)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", required: true)
   end
 
   test "a required attribute as checkbox" do
@@ -642,6 +642,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-check-label" for="user_email">Email</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.check_box(:email, label: "Email")
+    assert_equivalent_html expected, @builder.check_box(:email, label: "Email")
   end
 end
