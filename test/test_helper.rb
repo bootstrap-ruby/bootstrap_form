@@ -54,17 +54,16 @@ class ActionView::TestCase
     end
   end
 
-  # Expected and actual are wrapped in a root tag to ensure proper XML structure
-  def assert_equivalent_xml(expected, actual)
+  def assert_equivalent_html(expected, actual)
     expected = expected.tr("’", "'") if Rails::VERSION::STRING < "7.1"
-    expected_xml        = Nokogiri::XML("<test-xml>\n#{expected}\n</test-xml>") { |config| config.default_xml.noblanks }
-    actual_xml          = Nokogiri::XML("<test-xml>\n#{actual}\n</test-xml>") { |config| config.default_xml.noblanks }
+    expected_html        = Nokogiri::HTML.fragment(expected) { |config| config.default_xml.noblanks }
+    actual_html          = Nokogiri::HTML.fragment(actual) { |config| config.default_xml.noblanks }
 
-    expected_xml = sort_attributes(expected_xml)
-    actual_xml = sort_attributes(actual_xml)
+    expected_html = sort_attributes(expected_html)
+    actual_html = sort_attributes(actual_html)
 
     equivalent = EquivalentXml.equivalent?(
-      expected_xml, actual_xml, element_order: true
+      expected_html, actual_html, element_order: true
     ) do |a, b, result|
       looser_result = equivalent_with_looser_criteria?(a, b, result)
       break false unless looser_result
@@ -74,8 +73,8 @@ class ActionView::TestCase
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
-        expected_xml.root.to_xml(indent: 2),
-        actual_xml.root.to_xml(indent: 2)
+        expected_html.to_html(indent: 2),
+        actual_html.to_html(indent: 2)
       ).to_s(:color)
     }
   end

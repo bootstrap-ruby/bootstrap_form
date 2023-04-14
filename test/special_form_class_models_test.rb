@@ -25,7 +25,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.date_field(:misc)
+    assert_equivalent_html expected, @builder.date_field(:misc)
   end
 
   test "Nil models are supported for form builder" do
@@ -45,7 +45,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.date_field(:misc)
+    assert_equivalent_html expected, @builder.date_field(:misc)
   end
 
   test "Objects without model names are supported for form builder" do
@@ -67,6 +67,6 @@ class SpecialFormClassModelsTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.date_field(:misc)
+    assert_equivalent_html expected, @builder.date_field(:misc)
   end
 end

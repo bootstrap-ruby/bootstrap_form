@@ -12,7 +12,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label: "Email Address")
+    assert_equivalent_html expected, @builder.text_field(:email, label: "Email Address")
   end
 
   test "changing the label text via the html_options label hash" do
@@ -22,7 +22,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label: { text: "Email Address" })
+    assert_equivalent_html expected, @builder.text_field(:email, label: { text: "Email Address" })
   end
 
   test "hiding a label" do
@@ -32,7 +32,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, hide_label: true)
+    assert_equivalent_html expected, @builder.text_field(:email, hide_label: true)
   end
 
   test "adding a custom label class via the label_class parameter" do
@@ -42,7 +42,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label_class: "btn")
+    assert_equivalent_html expected, @builder.text_field(:email, label_class: "btn")
   end
 
   test "adding a custom label class via the html_options label hash" do
@@ -52,7 +52,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label: { class: "btn" })
+    assert_equivalent_html expected, @builder.text_field(:email, label: { class: "btn" })
   end
 
   test "adding a custom label and changing the label text via the html_options label hash" do
@@ -62,7 +62,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label: { class: "btn", text: "Email Address" })
+    assert_equivalent_html expected, @builder.text_field(:email, label: { class: "btn", text: "Email Address" })
   end
 
   test "skipping a label" do
@@ -71,7 +71,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, skip_label: true)
+    assert_equivalent_html expected, @builder.text_field(:email, skip_label: true)
   end
 
   test "preventing a label from having the required class with :skip_required" do
@@ -82,7 +82,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       </div>
     HTML
     assert_output(nil, "`:skip_required` is deprecated, use `:required: false` instead\n") do
-      assert_equivalent_xml expected, @builder.text_field(:email, skip_required: true)
+      assert_equivalent_html expected, @builder.text_field(:email, skip_required: true)
     end
   end
 
@@ -93,7 +93,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, required: false)
+    assert_equivalent_html expected, @builder.text_field(:email, required: false)
   end
 
   test "forcing a label to have the required class" do
@@ -103,7 +103,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" class="form-control" id="user_comments" name="user[comments]" type="text" value="my comment" required="required" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:comments, required: true)
+    assert_equivalent_html expected, @builder.text_field(:comments, required: true)
   end
 
   test "label as placeholder" do
@@ -113,7 +113,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, label_as_placeholder: true)
+    assert_equivalent_html expected, @builder.text_field(:email, label_as_placeholder: true)
   end
 
   test "adding prepend text" do
@@ -126,7 +126,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, prepend: "@")
+    assert_equivalent_html expected, @builder.text_field(:email, prepend: "@")
   end
 
   test "adding append text" do
@@ -139,7 +139,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, append: ".00")
+    assert_equivalent_html expected, @builder.text_field(:email, append: ".00")
   end
 
   test "append and prepend button" do
@@ -155,10 +155,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
     before_button = prefix + button_prepend + field + suffix
     both_button = prefix + button_prepend + field + button_append + suffix
     multiple_button = prefix + button_prepend + button_prepend + field + button_append + button_append + suffix
-    assert_equivalent_xml after_button, @builder.text_field(:email, append: button_src)
-    assert_equivalent_xml before_button, @builder.text_field(:email, prepend: button_src)
-    assert_equivalent_xml both_button, @builder.text_field(:email, append: button_src, prepend: button_src)
-    assert_equivalent_xml multiple_button, @builder.text_field(:email, append: [button_src] * 2, prepend: [button_src] * 2)
+    assert_equivalent_html after_button, @builder.text_field(:email, append: button_src)
+    assert_equivalent_html before_button, @builder.text_field(:email, prepend: button_src)
+    assert_equivalent_html both_button, @builder.text_field(:email, append: button_src, prepend: button_src)
+    assert_equivalent_html multiple_button, @builder.text_field(:email, append: [button_src] * 2, prepend: [button_src] * 2)
   end
 
   test "adding both prepend and append text" do
@@ -166,13 +166,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="form-label required" for="user_email">Email</label>
         <div class="input-group">
-          <span class="input-group-text">$</div>
+          <span class="input-group-text">$</span>
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <span class="input-group-text">.00</span>
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, prepend: "$", append: ".00")
+    assert_equivalent_html expected, @builder.text_field(:email, prepend: "$", append: ".00")
   end
 
   test "adding both prepend and append text with validation error" do
@@ -185,7 +185,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <div class="input-group">
-            <span class="input-group-text">$</div>
+            <span class="input-group-text">$</span>
             <input aria-required="true" required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
             <span class="input-group-text">.00</span>
             <div class="invalid-feedback">can’t be blank, is too short (minimum is 5 characters)</span>
@@ -193,7 +193,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: "$", append: ".00" }
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: "$", append: ".00" }
   end
 
   test "help messages for default forms" do
@@ -204,7 +204,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <small class="form-text text-muted">This is required</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, help: "This is required")
+    assert_equivalent_html expected, @builder.text_field(:email, help: "This is required")
   end
 
   test "help messages for horizontal forms" do
@@ -217,7 +217,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @horizontal_builder.text_field(:email, help: "This is required")
+    assert_equivalent_html expected, @horizontal_builder.text_field(:email, help: "This is required")
   end
 
   test "help messages to look up I18n automatically" do
@@ -228,7 +228,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <small class="form-text text-muted">A good password should be at least six characters long</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:password)
+    assert_equivalent_html expected, @builder.text_field(:password)
   end
 
   test "help messages to look up I18n automatically using HTML key" do
@@ -249,7 +249,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <small class="form-text text-muted">A <strong>good</strong> password should be at least six characters long</small>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:password)
+    assert_equivalent_html expected, @builder.text_field(:password)
   end
 
   test "help messages to warn about deprecated I18n key" do
@@ -277,7 +277,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:password, help: false)
+    assert_equivalent_html expected, @builder.text_field(:password, help: false)
   end
 
   test "form_group creates a valid structure and allows arbitrary html to be added via a block" do
@@ -293,7 +293,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group adds a spacer when no label exists for a horizontal form" do
@@ -308,7 +308,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group renders the label correctly" do
@@ -324,7 +324,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group accepts class thorugh options hash" do
@@ -339,7 +339,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group accepts class thorugh options hash without needing a name" do
@@ -354,7 +354,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group horizontal lets caller override .row" do
@@ -369,7 +369,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
@@ -385,7 +385,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test 'upgrade doc for form_group renders the "error" class and message corrrectly when object is invalid' do
@@ -407,7 +407,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="invalid-feedback" style="display: block;">can’t be blank, is too short (minimum is 5 characters)</div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "upgrade doc for form_group renders check box corrrectly when object is invalid" do
@@ -441,7 +441,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "overrides the class of the wrapped form_group by a field" do
@@ -451,7 +451,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.search_field(:misc, wrapper_class: "none-margin")
+    assert_equivalent_html expected, @builder.search_field(:misc, wrapper_class: "none-margin")
   end
 
   test "overrides the class of the wrapped form_group by a field with errors" do
@@ -470,7 +470,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       </div>
     HTML
     output = @builder.email_field(:email, wrapper_class: "none-margin")
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "overrides the class of the wrapped form_group by a field with errors when bootstrap_form_for is used" do
@@ -492,7 +492,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "adds offset for form_group without label" do
@@ -507,7 +507,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "adds offset for form_group without label but specific label_col" do
@@ -522,7 +522,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   # TODO: What is this actually testing? Improve the test name
@@ -544,7 +544,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "adds data-attributes (or any other options) to wrapper" do
@@ -554,14 +554,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.search_field(:misc, wrapper: { data: { foo: "bar" } })
+    assert_equivalent_html expected, @builder.search_field(:misc, wrapper: { data: { foo: "bar" } })
   end
 
   test "rendering without wrapper" do
     expected = <<~HTML
       <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, wrapper: false)
+    assert_equivalent_html expected, @builder.text_field(:email, wrapper: false)
   end
 
   test "rendering without wrapper class" do
@@ -571,7 +571,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.search_field(:misc, wrapper: { class: false })
+    assert_equivalent_html expected, @builder.search_field(:misc, wrapper: { class: false })
   end
 
   test "passing options to a form control get passed through" do
@@ -581,7 +581,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <input aria-required="true" required="required" autofocus="autofocus" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.text_field(:email, autofocus: true)
+    assert_equivalent_html expected, @builder.text_field(:email, autofocus: true)
   end
 
   test "doesn't throw undefined method error when the content block returns nil" do
@@ -594,7 +594,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="form-label" for="user_nil">Foo</label>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "custom form group layout option" do
@@ -607,7 +607,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_xml expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, layout: :inline }
+    assert_equivalent_html expected, bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, layout: :inline }
   end
 
   test "non-default column span on form is reflected in form_group" do
@@ -625,7 +625,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test "non-default column span on form isn't mutated" do
@@ -635,7 +635,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     output = frozen_horizontal_builder.form_group { "test" }
 
     expected = '<div class="mb-3 row"><div class="col-sm-9 offset-sm-3">test</div></div>'
-    assert_equivalent_xml expected, output
+    assert_equivalent_html expected, output
   end
 
   test ":input_group_class should apply to input-group" do
@@ -648,7 +648,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.email_field(:email, append: @builder.primary("Subscribe"),
+    assert_equivalent_html expected, @builder.email_field(:email, append: @builder.primary("Subscribe"),
                                                                  input_group_class: "input-group-lg")
   end
 end

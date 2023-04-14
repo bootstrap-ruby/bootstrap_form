@@ -14,7 +14,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", extra: "extra arg")
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", extra: "extra arg")
   end
 
   test "radio_button no label" do
@@ -25,7 +25,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     # &#8203; is a zero-width space.
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "&#8203;".html_safe)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "&#8203;".html_safe)
   end
 
   test "radio_button with error is wrapped correctly" do
@@ -45,7 +45,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     actual = bootstrap_form_for(@user) do |f|
       f.radio_button(:misc, "1", label: "This is a radio button", error_message: true)
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "radio_button disabled label is set correctly" do
@@ -57,7 +57,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", disabled: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", disabled: true)
   end
 
   test "radio_button label class is set correctly" do
@@ -69,7 +69,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", label_class: "btn")
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", label_class: "btn")
   end
 
   test "radio_button 'id' attribute is used to specify label 'for' attribute" do
@@ -81,7 +81,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", id: "custom_id")
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", id: "custom_id")
   end
 
   test "radio_button inline label is set correctly" do
@@ -93,7 +93,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true)
   end
 
   test "radio_button inline label is set correctly from form level" do
@@ -111,7 +111,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     actual = bootstrap_form_for(@user, layout: :inline) do |f|
       f.radio_button(:misc, "1", label: "This is a radio button")
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "radio_button disabled inline label is set correctly" do
@@ -123,7 +123,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, disabled: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, disabled: true)
   end
 
   test "radio_button inline label class is set correctly" do
@@ -135,7 +135,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, label_class: "btn")
   end
 
@@ -154,7 +154,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_radio_buttons(:misc, collection, :id, :street,
                                                             label: "This is a radio button collection", help: "With a help!")
   end
@@ -175,7 +175,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, :street)
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, :id, :street)
   end
 
   test "collection_radio_buttons renders multiple radios with error correctly" do
@@ -202,7 +202,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     actual = bootstrap_form_for(@user) do |f|
       f.collection_radio_buttons(:misc, collection, :id, :street)
     end
-    assert_equivalent_xml expected, actual
+    assert_equivalent_html expected, actual
   end
 
   test "collection_radio_buttons renders inline radios correctly" do
@@ -221,7 +221,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, inline: true)
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, inline: true)
   end
 
   test "collection_radio_buttons renders with checked option correctly" do
@@ -240,7 +240,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, checked: 1)
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, :id, :street, checked: 1)
   end
 
   test "collection_radio_buttons renders label defined by Proc correctly" do
@@ -256,7 +256,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_radio_buttons(:misc, collection, :id, proc { |a| a.street.reverse },
                                                             label: "This is a radio button collection", help: "With a help!")
   end
@@ -274,7 +274,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_radio_buttons(:misc, collection, proc { |a| "address_#{a.id}" },
                                                             :street, label: "This is a radio button collection",
                                                                      help: "With a help!")
@@ -296,7 +296,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, proc { |a| a.street.reverse })
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, :id, proc { |a| a.street.reverse })
   end
 
   test "collection_radio_buttons renders multiple radios with value defined by Proc correctly" do
@@ -315,7 +315,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, proc { |a| "address_#{a.id}" }, :street)
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, proc { |a| "address_#{a.id}" }, :street)
   end
 
   test "collection_radio_buttons renders label defined by lambda correctly" do
@@ -331,7 +331,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_radio_buttons(:misc, collection, :id, ->(a) { a.street.reverse },
                                                             label: "This is a radio button collection", help: "With a help!")
   end
@@ -349,7 +349,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" },
                                                             :street, label: "This is a radio button collection",
                                                                      help: "With a help!")
@@ -371,7 +371,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, :id, ->(a) { a.street.reverse })
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, :id, ->(a) { a.street.reverse })
   end
 
   test "collection_radio_buttons renders multiple radios with value defined by lambda correctly" do
@@ -390,7 +390,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" }, :street)
+    assert_equivalent_html expected, @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" }, :street)
   end
 
   test "radio button skip label" do
@@ -399,7 +399,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", skip_label: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", skip_label: true)
   end
 
   test "radio button hide label" do
@@ -409,7 +409,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         <label class="form-check-label visually-hidden" for="user_misc_1">This is a radio button</label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "1", label: "This is a radio button", hide_label: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", hide_label: true)
   end
 
   test "radio button with custom wrapper class" do
@@ -421,7 +421,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper_class: "custom-class")
   end
 
@@ -434,7 +434,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected,
+    assert_equivalent_html expected,
                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
                                                             wrapper_class: "custom-class")
   end
@@ -448,7 +448,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:misc, "0", label: "This is a radio button", required: true)
+    assert_equivalent_html expected, @builder.radio_button(:misc, "0", label: "This is a radio button", required: true)
   end
 
   test "a required attribute as radiobutton" do
@@ -460,6 +460,6 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_xml expected, @builder.radio_button(:email, "0", label: "This is a radio button")
+    assert_equivalent_html expected, @builder.radio_button(:email, "0", label: "This is a radio button")
   end
 end
