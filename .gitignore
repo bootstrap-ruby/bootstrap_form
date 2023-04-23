@@ -16,7 +16,9 @@ gemfiles/*.lock
 /.ruby-version
 Vagrantfile
 .vagrant
-.yarnrc
+**/.yarn/**/cache
+**/.yarn/install-state.gz
+**/.yarn/unplugged
 
 # For the demo app.
 
@@ -25,7 +27,7 @@ demo/storage/*
 !demo/storage/.keep
 
 demo/public/assets
-.byebug_history
+**/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
 demo/config/master.key
