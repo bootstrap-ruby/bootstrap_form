@@ -4,3 +4,4 @@ eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 # 7.0.0 has an issue with Ruby 3.1.
 # And a test case has an issue with 7.0.1
 gem "rails", "~> 7.0.2"
+gem "sprockets-rails", require: "sprockets/railtie"
