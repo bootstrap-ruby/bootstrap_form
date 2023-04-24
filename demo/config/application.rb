@@ -11,7 +11,8 @@ require "bootstrap_form"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.respond_to?(:load_defaults) &&
+      config.load_defaults([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join("."))
 
     # config.respond_to?(:load_defaults) &&
     #   config.load_defaults([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join("."))

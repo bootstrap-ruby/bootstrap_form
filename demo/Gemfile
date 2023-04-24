@@ -37,7 +37,7 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-gem "bootstrap_form", "~> 5.0"
+gem "bootstrap_form", path: ".."
 
 # Needed for our demo app but not the gem itself
 gem "htmlbeautifier"
