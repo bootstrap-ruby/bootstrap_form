@@ -13,9 +13,9 @@ ENV PATH ./bin:$GEM_HOME/bin:$PATH
 RUN (echo 'docker'; echo 'docker') | passwd root
 
 # Yarn installs nodejs.
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt update -y -q && \
-    apt install -y -q yarn sqlite3
+# Rails wants a newer version of node that we get with the Debian distro.
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
+RUN corepack enable && corepack prepare yarn@stable --activate
+RUN apt install -y -q yarn sqlite3
 
 EXPOSE 3000

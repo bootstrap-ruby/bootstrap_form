@@ -2,20 +2,28 @@
   "name": "dummy",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.7",
     "@rails/actioncable": "^6.1.0",
     "@rails/actiontext": "^6.1.0",
     "@rails/activestorage": "^6.1.0",
     "@rails/ujs": "^6.1.0",
     "@rails/webpacker": "^5.0.0",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.4",
+    "esbuild": "^0.17.17",
+    "sass": "^1.62.0",
     "trix": "^1.0.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^5.80.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "^4.0.0"
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^5.0.0"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "build:css": "webpack --config webpack.config.js"
+    "build": "node_modules/.bin/esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "node_modules/.bin/sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "bogon": "echo $PATH"
   }
 }

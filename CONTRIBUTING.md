@@ -169,8 +169,7 @@ To run the demo app, set up the database and run the server:
 cd demo
 bundle
 rails db:setup
-yarn build --watch &
-rails s -b 0.0.0.0
+dev
 ```
 
 To run the demo app in the Docker container:
@@ -178,21 +177,32 @@ To run the demo app in the Docker container:
 ```bash
 docker run --volume "$PWD:/app" --user $UID:`grep ^$USERNAME /etc/passwd | cut -d: -f4` -p 3000:3000 -it bootstrap_form /bin/bash
 cd demo
-export BUNDLE_GEMFILE=../gemfiles/7.0.gemfile
+bundle
 rails db:setup
-yarn build --watch &
-rails s -b 0.0.0.0
+dev
 ```
 
-The app doesn't appear to find the source map, or perhaps it isn't being generated. In the Rails log you will see messages similar to:
-
-```bash
-ActionController::RoutingError (No route matches [GET] "/assets/application.js-c6c0edbd68f05cffd0e2495198bfbc4bf42be8a11b76eecbfade30a8036b6b87.map")
-```
-
-But this doesn't seem to affect how the app runs.
+You'll see errors in the browser console about duplicate ids. This is expected, since the demo app has many forms with the same fields in them. Something we can fix in the future, perhaps.
 
 To use other supported versions of Rails, you will need to create a `Gemfile` for the Rails version. Then, change the `export BUNDLE_GEMFILE...` line to your gem file. Finally, figure out how to include the assets.
+
+If you need to run the Rails server separately, for example, to debug the server, you _must_ run it like this:
+
+```sh
+bundle exec rails s -b 0.0.0.0
+```
+
+If you run just `rails` or even `bin/rails`, the `sprockets-rails` gem won't load and you'll either get error messages, or the assets  won't be available to the demo app. At the moment it's a mystery why. PRs to fix this are welcome.
+
+Please try to keep the checked-in `.ruby-version` set to the oldest supported version of Ruby. You're welcome and encouraged to try the demo app with other Ruby versions. Just don't check in the `.ruby-version` to GitHub.
+
+For the record, the demo app is set up as if the Rails app had been created with:
+
+```sh
+rails new --skip-hotwire -d sqlite --edge -j esbuild -c bootstrap .
+```
+
+This means it's using `esbuild` to pre-process the JavaScript and (S)CSS, and that it's using [`jsbunding-rails`](https://github.com/rails/jsbundling-rails) and [`cssbundling-rails`](https://github.com/rails/cssbundling-rails) to put the assets in `app/assets/builds`, before the Sprockets assets pipeline serves them in development, or pre-compiles them in production.
 
 ## Documentation Contributions
 

@@ -1,16 +1,21 @@
 require_relative "boot"
 
 require "rails/all"
+# require "sprockets/railtie"
 
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 require "bootstrap_form"
 
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-
     config.respond_to?(:load_defaults) &&
       config.load_defaults([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join("."))
+
+    # config.respond_to?(:load_defaults) &&
+    #   config.load_defaults([Rails::VERSION::MAJOR, Rails::VERSION::MINOR].join("."))
 
     config.secret_key_base = "ignore" if config.respond_to?(:secret_key_base)
 
