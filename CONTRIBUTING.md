@@ -138,7 +138,7 @@ This builds an image called `bootstrap_form`. You can change that to any tag you
 If you want to use a different Ruby version, or a smaller Linux distribution (although the distro may be missing tools you need):
 
 ```bash
-docker build --build-arg "RUBY_VERSION=2.7" --build-arg "DISTRO=slim-buster" --tag bootstrap_form .
+docker build --build-arg "RUBY_VERSION=3.0" --build-arg "DISTRO=slim-buster" --tag bootstrap_form .
 ```
 
 Then run the container you built with the shell, and create the bundle:
