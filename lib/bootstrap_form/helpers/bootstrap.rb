@@ -82,7 +82,7 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &block)
-        options = options.extract!(:prepend, :append, :input_group_class)
+        options = options.extract!(:prepend, :append, :input_group_class).compact
 
         input = capture(&block) || ActiveSupport::SafeBuffer.new
 
