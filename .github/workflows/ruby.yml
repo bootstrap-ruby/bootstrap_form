@@ -50,3 +50,15 @@ jobs:
           bundler-cache: true
       - name: Run tests
         run: bundle exec rake test
+  Demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: demo
+          bundler-cache: true
+      - name: Run tests
+        working-directory: demo
+        run: bundle exec rake test:all

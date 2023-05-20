@@ -1,11 +1,13 @@
 # Change Log
 
-## Apology
+You can find recent releases with docs in GitHub:
 
-The tooling to support our old way of doing the change log doesn't work anymore, and we don't have a better solution, so this change log has become unreliable since version 4.5.0. Please refer to the commit history if you need to debug changes.
+https://github.com/bootstrap-ruby/bootstrap_form/releases
 
+## Diffs
 
-- [Pending Release](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.1.0...HEAD)
+- [Pending Release](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.2.0...HEAD)
+- [5.2.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.1.0...v5.2.0)
 - [5.1.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.0.0...v5.1.0)
 - [5.0.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.5.0...v5.0.0)
 - [4.5.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v4.4.0...v4.5.0)
@@ -22,6 +24,10 @@ The tooling to support our old way of doing the change log doesn't work anymore,
 - [2.5.1](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.5.0...v2.5.1)
 - [2.5.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.4.0...v2.5.0)
 - [2.4.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v2.3.0...v2.4.0)
+
+## Older releases
+
+The tooling to support our old way of doing the change log doesn't work anymore, and we don't have a better solution, so this change log has become unreliable since version 4.5.0. Please refer to the commit history if you need to debug changes.
 
 ## [Pending Release][]
 

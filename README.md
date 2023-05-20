@@ -25,8 +25,8 @@ Some other nice things that `bootstrap_form` does for you are:
 
 `bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
 
-* Ruby 2.5+
-* Rails 5.2+
+* Ruby 3.0+
+* Rails 6.0+
 * Bootstrap 5.0+
 
 ## Installation
@@ -42,7 +42,7 @@ And follow the remaining instructions in the [official bootstrap installation gu
 Add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.1"
+gem "bootstrap_form", "~> 5.2"
 ```
 
 Then:
@@ -84,7 +84,7 @@ This generates the following HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -145,7 +145,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -278,7 +278,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label custom-class required" for="user_email">Email</label>
-  <input class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -294,7 +294,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label visually-hidden required" for="user_email">Email</label>
-  <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="text" value="steve@example.com">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -312,7 +312,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
-  <input class="custom-class" id="user_email" name="user[email]" type="text" value="steve@example.com">
+  <input aria-required="true" class="custom-class" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -438,7 +438,7 @@ This generates:
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
   <div class="input-group input-group-lg">
-    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
   </div>
 </div>
@@ -503,7 +503,7 @@ Generated HTML:
 
 ```html
 <div class="mb-3">
-  <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
 
@@ -771,7 +771,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
-  <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
+  <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -791,7 +791,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control-plaintext" id="user_email" name="user[email]" readonly type="text" value="steve@example.com">
+      <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
     </div>
   </div>
 </form>
@@ -1054,7 +1054,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
   <div class="col">
     <label class="form-label visually-hidden mr-sm-2 required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="col">
     <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
@@ -1116,7 +1116,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1163,7 +1163,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1220,7 +1220,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1260,7 +1260,7 @@ This generates:
   <div class="mb-3 row">
     <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3">
@@ -1301,7 +1301,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -1337,7 +1337,7 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 form-floating">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" type="email" value="steve@example.com">
+    <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
     <label class="form-label required" for="user_email">Email</label>
   </div>
   <div class="mb-3 form-floating">
@@ -1553,7 +1553,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_login">New Username</label>
-  <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
+  <input aria-required="true" class="form-control" id="user_login" name="user[login]" required="required" type="password">
 </div>
 <div class="mb-3">
   <label class="form-label" for="user_password">New Password</label>
