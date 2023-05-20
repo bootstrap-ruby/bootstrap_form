@@ -753,7 +753,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_excellence">Excellence</label>
-  <input class="form-control" id="user_excellence" name="user[excellence]" type="range">
+  <input class="form-range" id="user_excellence" name="user[excellence]" type="range">
 </div>
 ```
 
