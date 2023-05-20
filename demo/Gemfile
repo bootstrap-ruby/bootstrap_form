@@ -9,7 +9,7 @@ gem "cssbundling-rails"
 gem "htmlbeautifier"
 gem "jbuilder"
 gem "jsbundling-rails"
-gem "puma", "~> 5.0"
+gem "puma"
 gem "sprockets-rails", require: "sprockets/railtie"
 gem "sqlite3", "~> 1.4"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

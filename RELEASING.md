@@ -20,7 +20,7 @@ Follow these steps to release a new version of bootstrap_form to rubygems.org.
 2. **Ensure the demo tests are passing by running**
 
        cd demo
-       bundle install
+       bundle update
        bundle exec rake test:all
 
 3. Determine which would be the correct next version number according to [semver](http://semver.org/).

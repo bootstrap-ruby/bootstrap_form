@@ -649,6 +649,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected, @builder.email_field(:email, append: @builder.primary("Subscribe"),
-                                                                 input_group_class: "input-group-lg")
+                                                                  input_group_class: "input-group-lg")
   end
 end

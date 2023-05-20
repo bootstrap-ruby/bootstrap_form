@@ -151,7 +151,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
-                                                               disabled: true)
+                                                                disabled: true)
   end
 
   test "inline checkboxes with custom label class" do
@@ -182,7 +182,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    label: "This is a checkbox collection", help: "With a help!")
+                                                                     label: "This is a checkbox collection", help: "With a help!")
   end
 
   test "collection_check_boxes renders multiple checkboxes correctly" do
@@ -256,7 +256,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    inline: true)
+                                                                     inline: true)
   end
 
   test "collection_check_boxes renders with checked option correctly" do
@@ -281,9 +281,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    checked: 1)
+                                                                     checked: 1)
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    checked: collection.first)
+                                                                     checked: collection.first)
   end
 
   test "collection_check_boxes renders with multiple checked options correctly" do
@@ -304,9 +304,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    checked: [1, 2])
+                                                                     checked: [1, 2])
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                    checked: collection)
+                                                                     checked: collection)
   end
 
   test "collection_check_boxes sanitizes values when generating label `for`" do
@@ -371,7 +371,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
-                                                                    :street)
+                                                                     :street)
   end
 
   test "collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly" do
@@ -420,7 +420,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
-                                                                    :street)
+                                                                     :street)
   end
 
   test "collection_check_boxes renders with checked option correctly with Proc :value_method" do
@@ -445,9 +445,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
-                                                                    :street, checked: "address_1")
+                                                                     :street, checked: "address_1")
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, proc { |a| "address_#{a.id}" },
-                                                                    :street, checked: collection.first)
+                                                                     :street, checked: collection.first)
   end
 
   test "collection_check_boxes renders with multiple checked options correctly with lambda :value_method" do
@@ -472,9 +472,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
-                                                                    :street, checked: %w[address_1 address_2])
+                                                                     :street, checked: %w[address_1 address_2])
     assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, ->(a) { "address_#{a.id}" },
-                                                                    :street, checked: collection)
+                                                                     :street, checked: collection)
   end
 
   test "collection_check_boxes renders with include_hidden options correctly" do
@@ -620,7 +620,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", inline: true,
-                                                               wrapper_class: "custom-class")
+                                                                wrapper_class: "custom-class")
   end
 
   test "a required checkbox" do

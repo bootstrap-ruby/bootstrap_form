@@ -179,7 +179,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.text_area(:comments)
   end
 
-  test "text areas are wrapped correctly form_with Rails 5.2+" do
+  test "text areas are wrapped correctly using form_with" do
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_comments">Comments</label>
@@ -222,7 +222,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @horizontal_builder.text_field(:email, wrapper_class: "bogus-1", wrapper: { class: "bogus-2" })
+                           @horizontal_builder.text_field(:email, wrapper_class: "bogus-1", wrapper: { class: "bogus-2" })
   end
 
   test "text fields are wrapped correctly when horizontal and wrapper class specified" do
@@ -247,7 +247,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @horizontal_builder.text_field(:email, wrapper: { class: "bogus-2" }, wrapper_class: "bogus-1")
+                           @horizontal_builder.text_field(:email, wrapper: { class: "bogus-2" }, wrapper_class: "bogus-1")
   end
 
   test "field 'id' attribute is used to specify label 'for' attribute" do

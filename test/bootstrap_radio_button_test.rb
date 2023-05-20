@@ -123,7 +123,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
         </label>
       </div>
     HTML
-    assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, disabled: true)
+    assert_equivalent_html expected,
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, disabled: true)
   end
 
   test "radio_button inline label class is set correctly" do
@@ -136,7 +137,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, label_class: "btn")
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true, label_class: "btn")
   end
 
   test "collection_radio_buttons renders the form_group correctly" do
@@ -155,8 +156,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected,
-                          @builder.collection_radio_buttons(:misc, collection, :id, :street,
-                                                            label: "This is a radio button collection", help: "With a help!")
+                           @builder.collection_radio_buttons(:misc, collection, :id, :street,
+                                                             label: "This is a radio button collection", help: "With a help!")
   end
 
   test "collection_radio_buttons renders multiple radios correctly" do
@@ -257,8 +258,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected,
-                          @builder.collection_radio_buttons(:misc, collection, :id, proc { |a| a.street.reverse },
-                                                            label: "This is a radio button collection", help: "With a help!")
+                           @builder.collection_radio_buttons(:misc, collection, :id, proc { |a| a.street.reverse },
+                                                             label: "This is a radio button collection", help: "With a help!")
   end
 
   test "collection_radio_buttons renders value defined by Proc correctly" do
@@ -275,9 +276,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected,
-                          @builder.collection_radio_buttons(:misc, collection, proc { |a| "address_#{a.id}" },
-                                                            :street, label: "This is a radio button collection",
-                                                                     help: "With a help!")
+                           @builder.collection_radio_buttons(:misc, collection, proc { |a| "address_#{a.id}" },
+                                                             :street, label: "This is a radio button collection",
+                                                                      help: "With a help!")
   end
 
   test "collection_radio_buttons renders multiple radios with label defined by Proc correctly" do
@@ -332,8 +333,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected,
-                          @builder.collection_radio_buttons(:misc, collection, :id, ->(a) { a.street.reverse },
-                                                            label: "This is a radio button collection", help: "With a help!")
+                           @builder.collection_radio_buttons(:misc, collection, :id, ->(a) { a.street.reverse },
+                                                             label: "This is a radio button collection", help: "With a help!")
   end
 
   test "collection_radio_buttons renders value defined by lambda correctly" do
@@ -350,9 +351,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected,
-                          @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" },
-                                                            :street, label: "This is a radio button collection",
-                                                                     help: "With a help!")
+                           @builder.collection_radio_buttons(:misc, collection, ->(a) { "address_#{a.id}" },
+                                                             :street, label: "This is a radio button collection",
+                                                                      help: "With a help!")
   end
 
   test "collection_radio_buttons renders multiple radios with label defined by lambda correctly" do
@@ -422,7 +423,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper_class: "custom-class")
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper_class: "custom-class")
   end
 
   test "inline radio button with custom wrapper class" do
@@ -435,8 +436,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
-                                                            wrapper_class: "custom-class")
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", inline: true,
+                                                             wrapper_class: "custom-class")
   end
 
   test "a required radiobutton" do

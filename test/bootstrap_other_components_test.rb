@@ -136,10 +136,10 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <button class="btn btn-secondary" extra="extra arg" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
     HTML
     assert_equivalent_html expected,
-                          @builder.button(
-                            "<span>I'm HTML!</span> in a button!".html_safe,
-                            extra: "extra arg"
-                          )
+                           @builder.button(
+                             "<span>I'm HTML!</span> in a button!".html_safe,
+                             extra: "extra arg"
+                           )
   end
 
   test "regular button can have extra css classes" do
@@ -147,7 +147,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <button class="btn btn-secondary test-button" name="button" type="submit"><span>I'm HTML!</span> in a button!</button>
     HTML
     assert_equivalent_html expected,
-                          @builder.button("<span>I'm HTML!</span> in a button!".html_safe, extra_class: "test-button")
+                           @builder.button("<span>I'm HTML!</span> in a button!".html_safe, extra_class: "test-button")
   end
 
   test "submit button defaults to rails action name" do
@@ -183,8 +183,8 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "primary button can render as HTML button" do
     expected = %q(<button class="btn btn-primary" name="button" type="submit"><span>I'm HTML!</span> Submit Form</button>)
     assert_equivalent_html expected,
-                          @builder.primary("<span>I'm HTML!</span> Submit Form".html_safe,
-                                           render_as_button: true)
+                           @builder.primary("<span>I'm HTML!</span> Submit Form".html_safe,
+                                            render_as_button: true)
   end
 
   test "primary button with content block renders as HTML button" do

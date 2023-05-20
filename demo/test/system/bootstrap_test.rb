@@ -20,7 +20,7 @@ class BootstrapTest < ApplicationSystemTestCase
   HEADERS = ["Generated HTML", "This generates", "Which outputs", "will be rendered as"].join("|").freeze
   REGEXP =
     /(?:!\[[^\]]*\]\([^)]+\)\s*)?```erb\n(.*?)\n```\s*((?:#{HEADERS}).*?$)?\s*(```html\n(?:.*?)\n```\s*)?/mi
-    .freeze
+
   test "readme examples" do
     screenshot_group :readme
 

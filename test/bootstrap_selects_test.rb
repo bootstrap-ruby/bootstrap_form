@@ -74,14 +74,14 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.select(:status,
-                                          [
-                                            ["activated", 1],
-                                            ["blocked", 2]
-                                          ],
-                                          label: "My Status Label",
-                                          help: "Help!",
-                                          extra: "extra arg")
+                           @builder.select(:status,
+                                           [
+                                             ["activated", 1],
+                                             ["blocked", 2]
+                                           ],
+                                           label: "My Status Label",
+                                           help: "Help!",
+                                           extra: "extra arg")
   end
 
   test "selects with options are wrapped correctly" do
@@ -110,8 +110,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
-                                          class: "my-select", extra: "extra arg")
+                           @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
+                                           class: "my-select", extra: "extra arg")
   end
 
   test "select 'id' attribute is used to specify label 'for' attribute" do
@@ -126,7 +126,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" }, id: "custom_id")
+                           @builder.select(:status, [["activated", 1], ["blocked", 2]], { prompt: "Please Select" },
+                                           id: "custom_id")
   end
 
   test "selects with addons are wrapped correctly" do
@@ -143,7 +144,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       </div>
     HTML
-    assert_equivalent_html expected, @builder.select(:status, [["activated", 1], ["blocked", 2]], prepend: "Before", append: "After")
+    assert_equivalent_html expected,
+                           @builder.select(:status, [["activated", 1], ["blocked", 2]], prepend: "Before", append: "After")
   end
 
   test "selects with block use block as content" do
@@ -233,7 +235,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
+                           @builder.collection_select(:status, [], :id, :name, { prompt: "Please Select" }, class: "my-select")
   end
 
   test "collection_selects with addons are wrapped correctly" do
@@ -250,8 +252,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.collection_select(:status, [], :id, :name,
-                                                     { prepend: "Before", append: "After", prompt: "Please Select" })
+                           @builder.collection_select(:status, [], :id, :name,
+                                                      { prepend: "Before", append: "After", prompt: "Please Select" })
   end
 
   test "grouped_collection_selects are wrapped correctly" do
@@ -261,7 +263,8 @@ class BootstrapSelectsTest < ActionView::TestCase
         <select class="form-select" id="user_status" name="user[status]"></select>
       </div>
     HTML
-    assert_equivalent_html expected, @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, extra: "extra arg")
+    assert_equivalent_html expected,
+                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, extra: "extra arg")
   end
 
   test "grouped_collection_selects are wrapped correctly with wrapper" do
@@ -272,7 +275,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, wrapper_class: "none-margin")
+                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s,
+                                                              wrapper_class: "none-margin")
   end
 
   test "grouped_collection_selects are wrapped correctly with error" do
@@ -288,7 +292,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected,
-                          bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
+                           bootstrap_form_for(@user) { |f| f.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s) }
   end
 
   test "grouped_collection_selects with options are wrapped correctly" do
@@ -301,7 +305,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, prompt: "Please Select")
+                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, prompt: "Please Select")
   end
 
   test "grouped_collection_selects with options and html_options are wrapped correctly" do
@@ -314,8 +318,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" },
-                                                             class: "my-select")
+                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s, { prompt: "Please Select" },
+                                                              class: "my-select")
   end
 
   test "grouped_collection_selects with addons are wrapped correctly" do
@@ -332,8 +336,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s,
-                                                             { prepend: "Before", append: "After", prompt: "Please Select" })
+                           @builder.grouped_collection_select(:status, [], :last, :first, :to_s, :to_s,
+                                                              { prepend: "Before", append: "After", prompt: "Please Select" })
   end
 
   test "date selects are wrapped correctly" do
@@ -718,9 +722,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         </div>
       HTML
       assert_equivalent_html expected, @builder.datetime_select(:misc,
-                                                               { include_blank: true },
-                                                               class: "my-datetime-select",
-                                                               extra: "extra arg")
+                                                                { include_blank: true },
+                                                                class: "my-datetime-select",
+                                                                extra: "extra arg")
     end
   end
 
@@ -735,13 +739,13 @@ class BootstrapSelectsTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected,
-                          @builder.select(:misc,
-                                          [["Apple", 1], ["Grape", 2]],
-                                          {
-                                            label: "Choose your favorite fruit:",
-                                            wrapper: { class: "mb-3 has-warning", data: { foo: "bar" } }
-                                          },
-                                          class: "selectpicker")
+                           @builder.select(:misc,
+                                           [["Apple", 1], ["Grape", 2]],
+                                           {
+                                             label: "Choose your favorite fruit:",
+                                             wrapper: { class: "mb-3 has-warning", data: { foo: "bar" } }
+                                           },
+                                           class: "selectpicker")
   end
 
   test "can have a floating label" do

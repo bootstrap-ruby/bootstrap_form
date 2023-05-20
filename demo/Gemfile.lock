@@ -2,8 +2,8 @@ PATH
   remote: ..
   specs:
     bootstrap_form (5.2.0)
-      actionpack (>= 5.2)
-      activemodel (>= 5.2)
+      actionpack (>= 6.0)
+      activemodel (>= 6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -148,7 +148,7 @@ GEM
     nokogiri (1.15.1-x86_64-linux)
       racc (~> 1.4)
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (6.2.2)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.7)
@@ -182,7 +182,7 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.8.0)
-    reline (0.3.3)
+    reline (0.3.4)
       io-console (~> 0.5)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -236,7 +236,7 @@ DEPENDENCIES
   htmlbeautifier
   jbuilder
   jsbundling-rails
-  puma (~> 5.0)
+  puma
   rails (~> 7.0.0)
   selenium-webdriver
   sprockets-rails

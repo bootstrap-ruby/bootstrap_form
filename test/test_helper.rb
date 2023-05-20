@@ -67,6 +67,7 @@ class ActionView::TestCase
     ) do |a, b, result|
       looser_result = equivalent_with_looser_criteria?(a, b, result)
       break false unless looser_result
+
       looser_result
     end
 
@@ -92,9 +93,9 @@ class ActionView::TestCase
     real.delete("data-disable-with")
 
     if expected.is_a?(Nokogiri::XML::Attr) &&
-      real.is_a?(Nokogiri::XML::Attr) &&
-      expected.value == "datetime" &&
-      real.value == "datetime-local"
+       real.is_a?(Nokogiri::XML::Attr) &&
+       expected.value == "datetime" &&
+       real.value == "datetime-local"
       return true
     end
 
