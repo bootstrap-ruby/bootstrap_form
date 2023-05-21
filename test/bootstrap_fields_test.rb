@@ -153,7 +153,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="range" />
+        <input class="form-range" id="user_misc" name="user[misc]" type="range" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.range_field(:misc)
