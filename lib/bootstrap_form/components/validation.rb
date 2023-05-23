@@ -26,7 +26,7 @@ module BootstrapForm
         target = obj.instance_of?(Class) ? obj : obj.class
         return false unless target.respond_to? :validators_on
 
-        presence_validator?(target_validators(target, attribute)) ||
+        presence_validator?(target_unconditional_validators(target, attribute)) ||
           required_association?(target, attribute)
       end
 
@@ -35,12 +35,14 @@ module BootstrapForm
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == attribute.to_s
 
-          presence_validator?(target_validators(target, name))
+          presence_validator?(target_unconditional_validators(target, name))
         end
       end
 
-      def target_validators(target, attribute)
-        target.validators_on(attribute).map(&:class)
+      def target_unconditional_validators(target, attribute)
+        target.validators_on(attribute)
+              .reject { |validator| validator.options[:if].present? || validator.options[:unless].present? }
+              .map(&:class)
       end
 
       def presence_validator?(target_validators)

@@ -10,6 +10,10 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { minimum: 5 }
   validates :terms, acceptance: { accept: true }
 
+  # Conditional (always disabled) validators used in tests
+  validates :status, presence: true, if: -> { age > 42 }
+  validates :misc, presence: true, unless: -> { feet == 5 }
+
   has_one :address
   accepts_nested_attributes_for :address
 
