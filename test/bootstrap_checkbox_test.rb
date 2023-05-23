@@ -644,4 +644,26 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.check_box(:email, label: "Email")
   end
+
+  test "an attribute with required and if is not marked as required" do
+    expected = <<~HTML
+      <div class="form-check mb-3">
+        <input #{autocomplete_attr} name="user[status]" type="hidden" value="0"/>
+        <input class="form-check-input" id="user_status" name="user[status]" type="checkbox" value="1"/>
+        <label class="form-check-label" for="user_status">Status</label>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.check_box(:status, label: "Status")
+  end
+
+  test "an attribute with presence validator and unless is not marked as required" do
+    expected = <<~HTML
+      <div class="form-check mb-3">
+        <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
+        <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label class="form-check-label" for="user_misc">Misc</label>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.check_box(:misc)
+  end
 end
