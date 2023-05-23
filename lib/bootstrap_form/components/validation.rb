@@ -12,7 +12,7 @@ module BootstrapForm
       end
 
       def association_error?(name)
-        object.class.reflections.any? do |association_name, a|
+        object.class.try(:reflections)&.any? do |association_name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == name.to_s
 
@@ -31,7 +31,7 @@ module BootstrapForm
       end
 
       def required_association?(target, attribute)
-        target.reflections.find do |name, a|
+        target.try(:reflections)&.find do |name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == attribute.to_s
 
@@ -65,7 +65,7 @@ module BootstrapForm
 
       def get_error_messages(name)
         messages = object.errors[name]
-        object.class.reflections.each do |association_name, a|
+        object.class.try(:reflections)&.each do |association_name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == name.to_s
 
