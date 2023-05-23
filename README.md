@@ -125,8 +125,6 @@ This generates:
 
 ### bootstrap_form_with
 
-Note that `form_with` in Rails 5.1 does not add IDs to form elements and labels by default, which are both important to Bootstrap markup. This behaviour is corrected in Rails 5.2.
-
 To get started, just use the `bootstrap_form_with` helper in place of `form_with`. Here's an example:
 
 ![Example 2](demo/doc/screenshots/bootstrap/readme/02_example.png "Example 2")
@@ -200,7 +198,7 @@ date_field               password_field                            time_field
 date_select              phone_field                               time_select
 datetime_field           radio_button                              time_zone_select
 datetime_local_field     range_field                               url_field
-datetime_select          rich_text_area (Rails 6+)                 week_field
+datetime_select          rich_text_area                            week_field
 ```
 
 By default, the helpers generate a `label` tag, and an `input`, `select`, or `textarea` tag, by calling the Rails `label` helper, and then the Rails helper with the same name as the `bootstrap_form` helper.
@@ -945,8 +943,6 @@ will be rendered as
 (some unimportant HTML attributes have been removed for simplicity)
 
 ## Rich Text Areas AKA Trix Editor
-
-If you're using Rails 6, `bootstrap_form` supports the `rich_text_area` helper.
 
 ![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
 ```erb
