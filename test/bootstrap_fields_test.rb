@@ -391,7 +391,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="col">
-          <label class="form-label mr-sm-2" for="user_address_attributes_street">Street</label>
+          <label class="form-label me-sm-2" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
       </form>

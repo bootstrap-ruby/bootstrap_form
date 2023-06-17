@@ -602,7 +602,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 col-auto g-3">
-          <label class="form-label mr-sm-2 required" for="user_email">Email</label>
+          <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
