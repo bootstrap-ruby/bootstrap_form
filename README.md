@@ -1049,11 +1049,11 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
   <div class="col">
-    <label class="form-label visually-hidden mr-sm-2 required" for="user_email">Email</label>
+    <label class="form-label visually-hidden me-sm-2 required" for="user_email">Email</label>
     <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="col">
-    <label class="form-label visually-hidden mr-sm-2" for="user_password">Password</label>
+    <label class="form-label visually-hidden me-sm-2" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="form-check form-check-inline mb-3">
