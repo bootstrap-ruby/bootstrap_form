@@ -284,7 +284,7 @@ Or you can add the label as input placeholder instead (this automatically hides 
 
 ![Example 6](demo/doc/screenshots/bootstrap/readme/06_example.png "Example 6")
 ```erb
-<%= f.text_field :email, label_as_placeholder: true %>
+<%= f.text_field :email, value: '', label_as_placeholder: true %>
 ```
 
 This generates:
@@ -292,7 +292,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label visually-hidden required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="text" value="steve@example.com">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="text" value="">
 </div>
 ```
 
@@ -1130,7 +1130,6 @@ This generates:
       </div>
     </div>
   </div>
-  
   <div class="mb-3 row">
     <div class="col-sm-10 offset-sm-2">
       <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
