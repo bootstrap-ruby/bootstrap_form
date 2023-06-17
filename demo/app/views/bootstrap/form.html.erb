@@ -5,12 +5,12 @@
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.select :status, [['activated', 1], ['blocked', 2]], prompt: "Please Select" %>
-    <%= form.text_area :misc %>
+    <%= form.text_area :comments %>
     <%= form.check_box :terms, label: "Agree to Terms" %>
-    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
-    <%= form.collection_radio_buttons :misc, @collection, :id, :street %>
-    <%= form.file_field :misc %>
-    <%= form.datetime_select :misc, include_blank: true %>
+    <%= form.collection_check_boxes :checkboxes, @collection, :id, :street %>
+    <%= form.collection_radio_buttons :radio_buttons, @collection, :id, :street %>
+    <%= form.file_field :file %>
+    <%= form.datetime_select :created_at, include_blank: true %>
 
     <%= form.submit %>
   <% end %>
