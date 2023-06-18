@@ -6,6 +6,7 @@ module BootstrapForm
       private
 
       def inputs_collection(name, collection, value, text, options={})
+        options[:label] ||= { class: group_label_class(options[:layout]) }
         options[:inline] ||= layout_inline?(options[:layout])
 
         form_group_builder(name, options) do
@@ -19,6 +20,15 @@ module BootstrapForm
 
           inputs
         end
+      end
+
+      def group_label_class(field_layout)
+        if layout_horizontal?(field_layout)
+          group_label_class = "col-form-label #{label_col} pt-0"
+        elsif layout_inline?(field_layout)
+          group_label_class = "form-check form-check-inline ps-0"
+        end
+        group_label_class
       end
 
       # FIXME: Find a way to reduce the parameter list size

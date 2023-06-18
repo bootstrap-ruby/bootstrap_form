@@ -28,7 +28,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "hiding a label" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label visually-hidden required" for="user_email">Email</label>
+        <label class="visually-hidden required" for="user_email">Email</label>
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -38,7 +38,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label class via the label_class parameter" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label btn required" for="user_email">Email</label>
+        <label class="btn required" for="user_email">Email</label>
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -48,7 +48,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label class via the html_options label hash" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label btn required" for="user_email">Email</label>
+        <label class="btn required" for="user_email">Email</label>
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -58,7 +58,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "adding a custom label and changing the label text via the html_options label hash" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label btn required" for="user_email">Email Address</label>
+        <label class="btn required" for="user_email">Email Address</label>
         <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -109,7 +109,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "label as placeholder" do
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label visually-hidden required" for="user_email">Email</label>
+        <label class="visually-hidden required" for="user_email">Email</label>
         <input aria-required="true" required="required" class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
       </div>
     HTML
@@ -210,7 +210,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages for horizontal forms" do
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <small class="form-text text-muted">This is required</small>
@@ -287,7 +287,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="form-label col-form-label col-sm-2" for="user_nil">Foo</label>
+        <label class="col-form-label col-sm-2" for="user_nil">Foo</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -318,7 +318,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Custom Control</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Custom Control</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -373,13 +373,13 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "form_group overrides the label's 'class' and 'for' attributes if others are passed" do
-    output = @horizontal_builder.form_group nil, label: { text: "Custom Control", class: "foo", for: "bar" } do
+    output = @horizontal_builder.form_group nil, label: { text: "Custom Control", add_class: "foo", for: "bar" } do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="form-label foo col-form-label col-sm-2" for="bar">Custom Control</label>
+        <label class="foo col-form-label col-sm-2" for="bar">Custom Control</label>
         <div class="col-sm-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -538,7 +538,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <div class="col-sm-10 offset-sm-2">Hallo</div>
       </div>
       <div class="mb-3 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>

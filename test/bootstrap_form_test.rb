@@ -19,7 +19,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -30,7 +30,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
+          <label class="col-form-label col-sm-2 pt-0" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -43,7 +43,7 @@ class BootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
+          <label class="col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
             <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
@@ -80,7 +80,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-check-label" for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_misc">Misc</label>
+          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -132,13 +132,15 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline mb-3">
-          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        <div class="col">
+          <div class="form-check form-check-inline">
+            <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+            <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+            <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          </div>
         </div>
         <div class="col">
-          <label class="form-label me-sm-2" for="user_misc">Misc</label>
+          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -174,18 +176,22 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
-        <div class="form-check">
-          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        <div class="mb-3 row">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+            </div>
+          </div>
         </div>
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
+          <label class="col-form-label col-sm-2 pt-0" for="user_misc">Misc</label>
           <div class="col-sm-10">
             <div class="form-check">
               <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -198,7 +204,7 @@ class BootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2" for="user_status">Status</label>
+          <label class="col-form-label col-sm-2" for="user_status">Status</label>
           <div class="col-sm-10">
             <select class="form-select" id="user_status" name="user[status]">
               <option value="1">activated</option>
@@ -228,10 +234,14 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check">
-          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        <div class="mb-3 row">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+              <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+            </div>
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
@@ -274,13 +284,17 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline">
-          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+        <div class="mb-3 row">
+          <div class="col-sm-10 offset-sm-2">
+            <div class="form-check form-check-inline">
+              <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+            </div>
+          </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_misc">Misc</label>
+          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
           <div class="form-check form-check-inline">
             <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -317,7 +331,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -600,7 +614,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-1 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
           <div class="col-sm-10">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -648,7 +662,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-5">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
@@ -664,7 +678,7 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10 custom-class">
             <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>

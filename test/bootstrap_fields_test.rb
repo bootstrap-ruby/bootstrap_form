@@ -218,7 +218,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and gutter classes are given" do
     expected = <<~HTML
       <div class="mb-3 g-3">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -231,7 +231,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified" do
     expected = <<~HTML
       <div class="bogus-2 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -244,7 +244,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and wrapper class specified" do
     expected = <<~HTML
       <div class="bogus-1 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -256,7 +256,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified (reverse order)" do
     expected = <<~HTML
       <div class="bogus-2 row">
-        <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input aria-required="true" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -383,7 +383,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
-          <label class="form-label col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
+          <label class="col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
           <div class="col-sm-10">
             <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>

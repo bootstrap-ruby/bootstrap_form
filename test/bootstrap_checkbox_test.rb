@@ -125,12 +125,12 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
       #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-check form-check-inline mb-3">
-          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">
-            I agree to the terms
-          </label>
+        <div class="col">
+          <div class="form-check form-check-inline">
+            <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+            <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+            <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          </div>
         </div>
       </form>
     HTML
@@ -218,15 +218,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
-            Foo
-          </label>
+          <label class="form-check-label" for="user_misc_1">Foo</label>
         </div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
-          <label class="form-check-label" for="user_misc_二">
-            Bar
-          </label>
+          <label class="form-check-label" for="user_misc_二">Bar</label>
         </div>
       </div>
     HTML
