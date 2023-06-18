@@ -6,6 +6,8 @@ https://github.com/bootstrap-ruby/bootstrap_form/releases
 
 ## Diffs
 
+- [5.2.2](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.2.2...v5.2.3)
+  [Closed issues](https://github.com/bootstrap-ruby/bootstrap_form/issues?q=closed%3A2023-05-28T16%3A00..2023-06-18T07%3A00)
 - [5.2.2](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.2.1...v5.2.2)
   [Closed issues](https://github.com/bootstrap-ruby/bootstrap_form/issues?q=closed%3A2023-05-23T10%3A00..2023-05-28T16%3A00)
 - [5.2.1](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.2.0...v5.2.1)
