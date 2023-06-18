@@ -258,7 +258,7 @@ This generates:
 
 ```html
 <div class="mb-3">
-  <label class="form-label visually-hidden" for="user_comment">Comment</label>
+  <label class="visually-hidden" for="user_comment">Comment</label>
   <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
 </textarea>
 </div>
@@ -275,7 +275,7 @@ This generates:
 
 ```html
 <div class="mb-3">
-  <label class="form-label custom-class required" for="user_email">Email</label>
+  <label class="custom-class required" for="user_email">Email</label>
   <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
 ```
@@ -291,7 +291,7 @@ This generates:
 
 ```html
 <div class="mb-3">
-  <label class="form-label visually-hidden required" for="user_email">Email</label>
+  <label class="visually-hidden required" for="user_email">Email</label>
   <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="text" value="">
 </div>
 ```
@@ -787,7 +787,7 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
       <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
     </div>
@@ -1049,17 +1049,19 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
   <div class="col">
-    <label class="form-label visually-hidden me-sm-2 required" for="user_email">Email</label>
+    <label class="visually-hidden required" for="user_email">Email</label>
     <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="col">
-    <label class="form-label visually-hidden me-sm-2" for="user_password">Password</label>
+    <label class="visually-hidden" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check form-check-inline mb-3">
-    <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+  <div class="col">
+    <div class="form-check form-check-inline">
+      <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+      <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+      <label class="form-check-label" for="user_remember_me">Remember me</label>
+    </div>
   </div>
   <div class="col">
     <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
@@ -1088,17 +1090,15 @@ To use a horizontal-layout form with labels to the left of the control, use the
 `layout: :horizontal` option. You should specify both `label_col` and
 `control_col` css classes as well (they default to `col-sm-2` and `col-sm-10`).
 
-In the example below, the checkbox and submit button have been wrapped in a
-`form_group` to keep them properly aligned.
+In the example below, the submit button has been wrapped in a `form_group` to
+keep it properly aligned.
 
 ![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password %>
-  <%= f.form_group do %>
-    <%= f.check_box :remember_me %>
-  <% end %>
+  <%= f.check_box :remember_me %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>
@@ -1110,13 +1110,13 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
       <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_password">Password</label>
+    <label class="col-form-label col-sm-2" for="user_password">Password</label>
     <div class="col-sm-10">
       <input class="form-control" id="user_password" name="user[password]" type="password">
     </div>
@@ -1144,7 +1144,8 @@ The `label_col` and `control_col` css classes can also be changed per control:
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :age, control_col: "col-sm-3" %>
+  <%= f.text_field :age, label_col: "col-sm-3", control_col: "col-sm-3" %>
+  <%= f.check_box :terms, label_col: "", control_col: "col-sm-11" %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>
@@ -1156,15 +1157,24 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
       <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_age">Age</label>
+    <label class="col-form-label col-sm-3" for="user_age">Age</label>
     <div class="col-sm-3">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+        <input class="form-check-input" control_col="col-sm-11" id="user_terms" label_col="" name="user[terms]" type="checkbox" value="1">
+        <label class="form-check-label" for="user_terms">Terms</label>
+      </div>
     </div>
   </div>
   <div class="mb-3 row">
@@ -1213,13 +1223,13 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
       <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2" for="user_age">Age</label>
+    <label class="col-form-label col-sm-2" for="user_age">Age</label>
     <div class="col-sm-10 additional-control-col-class">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
@@ -1240,11 +1250,12 @@ The form-level `layout` can be overridden per field, unless the form-level layou
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :feet, layout: :default %>
-  <%= f.text_field :inches, layout: :default %>
-  <%= f.form_group do %>
-    <%= f.submit %>
-  <% end %>
+  <div class="row">
+    <div class="col"><%= f.text_field :feet, layout: :default %></div>
+    <div class="col"><%= f.text_field :inches, layout: :default %></div>
+  </div>
+  <%= f.check_box :terms, layout: :default %>
+  <%= f.submit %>
 <% end %>
 ```
 
@@ -1253,24 +1264,33 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="form-label col-form-label col-sm-2 required" for="user_email">Email</label>
+    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
       <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3">
-    <label class="form-label" for="user_feet">Feet</label>
-    <input class="form-control" id="user_feet" name="user[feet]" type="text" value="5">
-  </div>
-  <div class="mb-3">
-    <label class="form-label" for="user_inches">Inches</label>
-    <input class="form-control" id="user_inches" name="user[inches]" type="text" value="7">
-  </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <label class="form-label" for="user_feet">Feet</label>
+        <input class="form-control" id="user_feet" name="user[feet]" type="text" value="5">
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <label class="form-label" for="user_inches">Inches</label>
+        <input class="form-control" id="user_inches" name="user[inches]" type="text" value="7">
+      </div>
     </div>
   </div>
+  <div class="mb-3">
+    <div class="form-check">
+      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+      <input class="form-check-input" id="user_terms" layout="default" name="user[terms]" type="checkbox" value="1">
+      <label class="form-check-label" for="user_terms">Terms</label>
+    </div>
+  </div>
+  <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 </form>
 ```
 

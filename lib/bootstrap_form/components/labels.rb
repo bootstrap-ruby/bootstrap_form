@@ -23,7 +23,9 @@ module BootstrapForm
       end
 
       def label_classes(name, options, custom_label_col, group_layout)
-        classes = ["form-label", options[:class], label_layout_classes(custom_label_col, group_layout)]
+        classes = [options[:class] || label_layout_classes(custom_label_col, group_layout)]
+        add_class = options.delete(:add_class)
+        classes.prepend(add_class) if add_class
         classes << "required" if required_field_options(options, name)[:required]
         options.delete(:required)
         classes << "text-danger" if label_errors && error?(name)
@@ -34,7 +36,9 @@ module BootstrapForm
         if layout_horizontal?(group_layout)
           ["col-form-label", (custom_label_col || label_col)]
         elsif layout_inline?(group_layout)
-          ["me-sm-2"]
+          %w[form-label me-sm-2]
+        else
+          "form-label"
         end
       end
 

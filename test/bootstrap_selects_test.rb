@@ -390,7 +390,7 @@ class BootstrapSelectsTest < ActionView::TestCase
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
           <div class="mb-3 row">
-            <label class="form-label col-form-label col-sm-2" for="user_misc">Misc</label>
+            <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
             <div class="col-sm-10">
               <div class="rails-bootstrap-forms-date-select col-auto g-3">
                 <select class="form-select" id="user_misc_1i" name="user[misc(1i)]">
