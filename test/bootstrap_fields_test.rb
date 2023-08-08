@@ -1,4 +1,4 @@
-require_relative "./test_helper"
+require_relative "test_helper"
 
 class BootstrapFieldsTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper

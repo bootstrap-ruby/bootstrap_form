@@ -65,6 +65,7 @@ module BootstrapForm
         content_tag(help_tag, help_text, class: help_klass)
       end
 
+      # rubocop:disable Metrics/AbcSize
       def get_error_messages(name)
         object.class.try(:reflections)&.each do |association_name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
@@ -77,6 +78,7 @@ module BootstrapForm
 
         object.errors[name].join(", ")
       end
+      # rubocop:enable Metrics/AbcSize
     end
   end
 end
