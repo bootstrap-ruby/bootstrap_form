@@ -104,7 +104,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     @address.valid?
 
     expected = <<~HTML
-      <form accept-charset="UTF-8" action="/addresses" class="new_address"  id="new_address" method="post">
+      <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="address_user_id">User</label>
@@ -113,7 +113,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         </div>
       </form>
     HTML
-    assert_equivalent_html expected, bootstrap_form_for(@address) { |f| f.text_field(:user_id) }
+    assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id) }
   end
 
   test "hidden fields are supported" do
