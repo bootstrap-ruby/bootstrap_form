@@ -1,4 +1,4 @@
-require_relative "./test_helper"
+require_relative "test_helper"
 
 class BootstrapConfigurationTest < ActionView::TestCase
   test "has default form attributes" do

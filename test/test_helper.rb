@@ -12,6 +12,7 @@ Rails.backtrace_cleaner.remove_silencers!
 
 class ActionView::TestCase
   def setup_test_fixture
+    @address = Address.new(street: "Foo")
     @user = User.new(email: "steve@example.com", password: "secret", comments: "my comment")
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self,

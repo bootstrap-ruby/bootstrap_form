@@ -1,4 +1,4 @@
-require_relative "./test_helper"
+require_relative "test_helper"
 
 class BootstrapFieldsTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper
@@ -98,6 +98,22 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
+  end
+
+  test "errors are correctly displayed for belongs_to assoication fields" do
+    @address.valid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
+        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+        <div class="mb-3">
+          <label class="form-label required" for="address_user_id">User</label>
+          <input aria-required="true" class="form-control is-invalid" id="address_user_id" name="address[user_id]" required="required" type="text"/>
+          <div class="invalid-feedback">must exist</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id) }
   end
 
   test "hidden fields are supported" do
