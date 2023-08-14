@@ -25,5 +25,4 @@ end
 group :test do
   gem "capybara-screenshot-diff"
   gem "selenium-webdriver"
-  gem "webdrivers"
 end
