@@ -48,7 +48,7 @@ You may find the [demo application](#the-demo-application) useful for developmen
 
 - If you've never made a pull request (PR) before, read [this](https://help.github.com/articles/about-pull-requests/).
 - If your PR fixes an issues, be sure to put "Fixes #nnn" in the description of the PR (where `nnn` is the issue number). Github will automatically close the issue when the PR is merged.
-- When the PR is submitted, check if Travis CI ran all the tests successfully, and didn't raise any issues.
+- When the PR is submitted, check if GitHub Actions ran all the tests successfully, and didn't raise any issues.
 
 ### 7. Done
 

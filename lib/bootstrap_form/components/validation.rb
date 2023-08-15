@@ -26,29 +26,34 @@ module BootstrapForm
         target = obj.instance_of?(Class) ? obj : obj.class
         return false unless target.respond_to? :validators_on
 
-        presence_validator?(target_unconditional_validators(target, attribute)) ||
-          required_association?(target, attribute)
+        presence_validators?(target, obj, attribute) || required_association?(target, obj, attribute)
       end
 
-      def required_association?(target, attribute)
-        target.try(:reflections)&.find do |name, a|
+      def required_association?(target, object, attribute)
+        target.try(:reflections)&.any? do |name, a|
           next unless a.is_a?(ActiveRecord::Reflection::BelongsToReflection)
           next unless a.foreign_key == attribute.to_s
 
-          presence_validator?(target_unconditional_validators(target, name))
+          presence_validators?(target, object, name)
         end
       end
 
-      def target_unconditional_validators(target, attribute)
-        target.validators_on(attribute)
-              .reject { |validator| validator.options[:if].present? || validator.options[:unless].present? }
-              .map(&:class)
+      def presence_validators?(target, object, attribute)
+        target.validators_on(attribute).select { |v| presence_validator?(v.class) }.any? do |validator|
+          if_option = validator.options[:if]
+          unless_opt = validator.options[:unless]
+          (!if_option || call_with_self(object, if_option)) && (!unless_opt || !call_with_self(object, unless_opt))
+        end
       end
 
-      def presence_validator?(target_validators)
-        target_validators.include?(ActiveModel::Validations::PresenceValidator) ||
+      def call_with_self(object, proc)
+        object.instance_exec(*[(object if proc.arity >= 1)].compact, &proc)
+      end
+
+      def presence_validator?(validator_class)
+        validator_class == ActiveModel::Validations::PresenceValidator ||
           (defined?(ActiveRecord::Validations::PresenceValidator) &&
-            target_validators.include?(ActiveRecord::Validations::PresenceValidator))
+            validator_class == ActiveRecord::Validations::PresenceValidator)
       end
 
       def inline_error?(name)
