@@ -143,6 +143,16 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.number_field(:misc)
   end
 
+  test "number field can be disabled" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <input class="form-control" disabled id="user_misc" name="user[misc]" type="number" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.number_field(:misc, disabled: true)
+  end
+
   test "password fields are wrapped correctly" do
     expected = <<~HTML
       <div class="mb-3">
