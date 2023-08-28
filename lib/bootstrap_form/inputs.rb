@@ -28,6 +28,7 @@ module BootstrapForm
     autoload :RichTextArea
     autoload :SearchField
     autoload :Select
+    autoload :Submit
     autoload :TelephoneField
     autoload :TextArea
     autoload :TextField

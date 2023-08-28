@@ -36,6 +36,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::RichTextArea
     include BootstrapForm::Inputs::SearchField
     include BootstrapForm::Inputs::Select
+    include BootstrapForm::Inputs::Submit
     include BootstrapForm::Inputs::TelephoneField
     include BootstrapForm::Inputs::TextArea
     include BootstrapForm::Inputs::TextField

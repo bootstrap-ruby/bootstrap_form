@@ -268,7 +268,7 @@ To add custom classes to the field's label:
 
 ![Example 5](demo/doc/screenshots/bootstrap/readme/05_example.png "Example 5")
 ```erb
-<%= f.text_field :email, label_class: "custom-class" %>
+<%= f.email_field :email, label_class: "custom-class" %>
 ```
 
 This generates:
@@ -276,7 +276,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="custom-class required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
 
@@ -284,7 +284,7 @@ Or you can add the label as input placeholder instead (this automatically hides 
 
 ![Example 6](demo/doc/screenshots/bootstrap/readme/06_example.png "Example 6")
 ```erb
-<%= f.text_field :email, value: '', label_as_placeholder: true %>
+<%= f.email_field :email, value: '', label_as_placeholder: true %>
 ```
 
 This generates:
@@ -292,7 +292,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="visually-hidden required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="text" value="">
+  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="">
 </div>
 ```
 
@@ -842,7 +842,7 @@ The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
 Bootstrap automatically styles our controls as `block`s. This wrapper fixes
-this defining these selects as `inline-block` and a width of `auto`.
+this by defining these selects as `inline-block` and a width of `auto`.
 
 ## Submit Buttons
 
@@ -1643,6 +1643,98 @@ Generated HTML:
     <input class="form-control" id="address_zip_code" name="address[zip_code]" type="text">
   </div>
   <input class="btn btn-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
+</form>
+```
+
+## Disabled fields
+
+Fields can be disabled using the standard Rails form helper option.
+
+![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
+```erb
+<%= bootstrap_form_for @user do |f| %>
+  <div class="row g-3">
+    <div class="col-auto"><%= f.email_field :email, disabled: true %></div>
+    <div class="col-auto"><%= f.password_field :password, disabled: true %></div>
+    <div class="col-auto"><%= f.text_area :comments, disabled: true %></div>
+    <div class="col-auto"><%= f.text_field :status, disabled: true %></div>
+    <div class="col-auto"><%= f.number_field :misc, label: "Number", disabled: true %></div>
+    <div class="col-auto"><%= f.radio_button :preferences, 1, disabled: true %></div>
+    <div class="col-auto"><%= f.check_box :terms, disabled: true %></div>
+    <div class="col-auto"><%= f.select :type, [1,2,3], {}, disabled: true %></div>
+    <div class="col-auto"><%= f.datetime_field :created_at, disabled: true %></div>
+  </div>
+  <%= f.primary disabled: true %>
+<% end %>
+```
+
+Generated HTML:
+
+```html
+<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <div class="row g-3">
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label required" for="user_email">Email</label>
+        <input aria-required="true" class="form-control" disabled id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_password">Password</label>
+        <input class="form-control" disabled id="user_password" name="user[password]" type="password">
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_comments">Comments</label>
+        <textarea class="form-control" disabled id="user_comments" name="user[comments]">
+</textarea>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_status">Status</label>
+        <input class="form-control" disabled id="user_status" name="user[status]" type="text">
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Number</label>
+        <input class="form-control" disabled id="user_misc" name="user[misc]" type="number">
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="form-check disabled">
+        <input class="form-check-input" disabled id="user_preferences_1" name="user[preferences]" type="radio" value="1">
+        <label class="form-check-label" for="user_preferences_1">1</label>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="form-check mb-3">
+        <input autocomplete="off" disabled name="user[terms]" type="hidden" value="0">
+        <input class="form-check-input" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
+        <label class="form-check-label" for="user_terms">Terms</label>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_type">Type</label>
+        <select class="form-select" disabled id="user_type" name="user[type]">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="mb-3">
+        <label class="form-label" for="user_created_at">Created at</label>
+        <input class="form-control" disabled id="user_created_at" name="user[created_at]" type="datetime-local">
+      </div>
+    </div>
+  </div>
+  <input class="btn btn-primary" data-disable-with="Create User" disabled name="commit" type="submit" value="Create User">
 </form>
 ```
 

@@ -1,27 +1,6 @@
 module BootstrapForm
   module Helpers
     module Bootstrap
-      def button(value=nil, options={}, &block)
-        setup_css_class "btn btn-secondary", options
-        super
-      end
-
-      def submit(name=nil, options={})
-        setup_css_class "btn btn-secondary", options
-        layout == :inline ? form_group { super } : super
-      end
-
-      def primary(name=nil, options={}, &block)
-        setup_css_class "btn btn-primary", options
-
-        if options[:render_as_button] || block
-          options.except! :render_as_button
-          button(name, options, &block)
-        else
-          submit(name, options)
-        end
-      end
-
       def alert_message(title, options={})
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
@@ -115,15 +94,6 @@ module BootstrapForm
           input_group_content(item)
         end
         ActiveSupport::SafeBuffer.new(tags.join)
-      end
-
-      def setup_css_class(the_class, options={})
-        return if options.key? :class
-
-        if (extra_class = options.delete(:extra_class))
-          the_class = "#{the_class} #{extra_class}"
-        end
-        options[:class] = the_class
       end
     end
   end
