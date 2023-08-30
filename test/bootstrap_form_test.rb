@@ -226,7 +226,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_html expected, actual
   end
 
-  test "horizontal-style form fields layout default" do
+  test "horizontal-style form fields layout vertical" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
@@ -266,10 +266,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     actual = bootstrap_form_for(@user, layout: :horizontal) do |f|
-      concat(f.email_field(:email, layout: :default))
+      concat(f.email_field(:email, layout: :vertical))
       concat(f.check_box(:terms, label: "I agree to the terms"))
-      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :default))
-      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :default))
+      concat(f.collection_radio_buttons(:misc, collection, :id, :street, layout: :vertical))
+      concat(f.select(:status, [["activated", 1], ["blocked", 2]], layout: :vertical))
     end
 
     assert_equivalent_html expected, actual
@@ -340,6 +340,39 @@ class BootstrapFormTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected,
                            bootstrap_form_for(@user, layout: :horizontal, html: { class: "my-style" }) { |f| f.email_field :email }
+  end
+
+  class WarningFormBuilder < BootstrapForm::FormBuilder
+    cattr_accessor :instance
+    attr_reader :warnings
+
+    def self.new(...)
+      self.instance = super
+    end
+
+    def warn(message, ...)
+      @warnings ||= []
+      @warnings << message
+    end
+  end
+
+  test "old default layout gives warnings" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label required" for="user_email">Email</label>
+          <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected,
+                           bootstrap_form_for(@user, builder: WarningFormBuilder, layout: :default) { |f|
+                             f.email_field :email, layout: :default
+                           }
+    assert_equal [
+      "Layout `:default` is deprecated, use `:vertical` instead.",
+      "Layout `:default` is deprecated, use `:vertical` instead."
+    ], WarningFormBuilder.instance.warnings
   end
 
   test "given role attribute should not be covered by default role attribute" do

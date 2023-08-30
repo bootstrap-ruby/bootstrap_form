@@ -7,10 +7,6 @@ module BootstrapForm
 
       private
 
-      def layout_default?(field_layout=nil)
-        layout_in_effect(field_layout) == :default
-      end
-
       def layout_horizontal?(field_layout=nil)
         layout_in_effect(field_layout) == :horizontal
       end
@@ -27,7 +23,7 @@ module BootstrapForm
       # and those don't have a :horizontal layout
       def layout_in_effect(field_layout)
         field_layout = :inline if field_layout == true
-        field_layout = :default if field_layout == false
+        field_layout = :vertical if field_layout == false
         field_layout || layout
       end
 

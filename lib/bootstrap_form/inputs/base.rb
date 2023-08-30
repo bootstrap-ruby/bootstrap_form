@@ -8,6 +8,7 @@ module BootstrapForm
       class_methods do
         def bootstrap_field(field_name, control_class: nil)
           define_method "#{field_name}_with_bootstrap" do |name, options={ control_class: control_class }.compact|
+            warn_deprecated_layout_value(options)
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
@@ -34,6 +35,15 @@ module BootstrapForm
           alias_method "#{field_name}_without_bootstrap".to_sym, field_name
           alias_method field_name, "#{field_name}_with_bootstrap".to_sym
         end
+      end
+
+      private
+
+      def warn_deprecated_layout_value(options)
+        return unless options[:layout] == :default
+
+        warn "Layout `:default` is deprecated, use `:vertical` instead."
+        options[:layout] = :vertical
       end
     end
   end

@@ -35,8 +35,9 @@ module BootstrapForm
       end
 
       def check_box_options(name, options)
-        check_box_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                           :inline, :hide_label, :skip_label, :wrapper, :wrapper_class, :switch)
+        check_box_options = options.except(:class, :control_col, :error_message, :help, :hide_label,
+                                           :inline, :label, :label_class, :label_col, :layout, :skip_label,
+                                           :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
         check_box_options.merge!(required_field_options(options, name))
       end
