@@ -1,6 +1,5 @@
 # require 'bootstrap_form/aliasing'
 
-# rubocop:disable Metrics/ClassLength
 module BootstrapForm
   class FormBuilder < ActionView::Helpers::FormBuilder
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors,
@@ -49,16 +48,12 @@ module BootstrapForm
     delegate :content_tag, :capture, :concat, :tag, to: :@template
 
     def initialize(object_name, object, template, options)
+      warn_deprecated_layout_value(options)
       @layout = options[:layout] || default_layout
       @label_col = options[:label_col] || default_label_col
       @control_col = options[:control_col] || default_control_col
       @label_errors = options[:label_errors] || false
-
-      @inline_errors = if options[:inline_errors].nil?
-                         @label_errors != true
-                       else
-                         options[:inline_errors] != false
-                       end
+      @inline_errors = options[:inline_errors].nil? ? @label_errors != true : options[:inline_errors] != false
       @acts_like_form_tag = options[:acts_like_form_tag]
       add_default_form_attributes_and_form_inline options
       super
@@ -100,8 +95,8 @@ module BootstrapForm
     end
 
     def default_layout
-      # :default, :horizontal or :inline
-      :default
+      # :vertical, :horizontal or :inline
+      :vertical
     end
 
     def default_label_col
@@ -133,4 +128,3 @@ module BootstrapForm
     end
   end
 end
-# rubocop:enable Metrics/ClassLength
