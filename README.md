@@ -385,7 +385,8 @@ If you want to attach multiple items to the input, pass them as an array:
 
 ![Example 10](demo/doc/screenshots/bootstrap/readme/10_example.png "Example 10")
 ```erb
-<%= f.text_field :price, prepend: ['Net', '$'], append: ['.00', 'per day'] %>
+<% icon = capture do %><i class="bi bi-currency-dollar"></i><% end %>
+<%= f.text_field :price, prepend: ['Net', icon], append: ['.00', 'per day'] %>
 ```
 
 This generates:
@@ -395,7 +396,10 @@ This generates:
   <label class="form-label" for="user_price">Price</label>
   <div class="input-group">
     <span class="input-group-text">Net</span>
-    <span class="input-group-text">$</span>
+    <span class="input-group-text">
+      <i class="bi bi-currency-dollar">
+      </i>
+    </span>
     <input class="form-control" id="user_price" name="user[price]" type="text">
     <span class="input-group-text">.00</span>
     <span class="input-group-text">per day</span>
@@ -894,21 +898,21 @@ illustrative icons to them). For example, the following statements
 
 ![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
 ```erb
-<%= f.primary "Save changes <span class='fa fa-save'></span>".html_safe, render_as_button: true %>
+<%= f.primary "Save changes <span class='bi bi-save'></span>".html_safe, render_as_button: true %>
 
 <%= f.primary do
       concat 'Save changes '
-      concat content_tag(:span, nil, class: 'fa fa-save')
+      concat content_tag(:span, nil, class: 'bi bi-save')
     end %>
 ```
 
 This generates:
 
 ```html
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
+<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="fa fa-save">
+<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
 ```
@@ -916,7 +920,7 @@ This generates:
 are equivalent, and each of them both be rendered as:
 
 ```html
-<button name="button" type="submit" class="btn btn-primary">Save changes <span class="fa fa-save"></span></button>
+<button name="button" type="submit" class="btn btn-primary">Save changes <span class="bi bi-save"></span></button>
 ```
 
 If you wish to add additional CSS classes to your button, while keeping the
