@@ -77,7 +77,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
           <label class="form-label required" for="user_password">Password</label>
         </div>
         <div class="field_with_errors">
-          <input aria-required="true" class="form-control is-invalid" id="user_password" name="user[password]" required="required" type="text">
+          <input class="form-control is-invalid" id="user_password" name="user[password]" required="required" type="text">
         </div>
         <div class="invalid-feedback">can#{Rails::VERSION::MAJOR < 7 ? "'" : '’'}t be blank</div>
       </div>

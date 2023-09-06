@@ -623,7 +623,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-check mb-3">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-        <input aria-required="true" class="form-check-input" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1"/>
+        <input class="form-check-input" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1"/>
         <label class="form-check-label required" for="user_terms">I agree to the terms</label>
       </div>
     HTML
@@ -634,7 +634,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-check mb-3">
         <input #{autocomplete_attr} name="user[email]" type="hidden" value="0"/>
-        <input aria-required="true" class="form-check-input" id="user_email" name="user[email]" required="required" type="checkbox" value="1"/>
+        <input class="form-check-input" id="user_email" name="user[email]" required="required" type="checkbox" value="1"/>
         <label class="form-check-label" for="user_email">Email</label>
       </div>
     HTML

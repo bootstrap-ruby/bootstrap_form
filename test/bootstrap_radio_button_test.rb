@@ -443,7 +443,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "a required radiobutton" do
     expected = <<~HTML
       <div class="form-check">
-        <input aria-required="true" class="form-check-input" id="user_misc_0" name="user[misc]" required="required" type="radio" value="0" />
+        <input class="form-check-input" id="user_misc_0" name="user[misc]" required="required" type="radio" value="0" />
         <label class="form-check-label" for="user_misc_0">
           This is a radio button
         </label>
@@ -455,7 +455,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "a required attribute as radiobutton" do
     expected = <<~HTML
       <div class="form-check">
-        <input aria-required="true" class="form-check-input" id="user_email_0" name="user[email]" required="required" type="radio" value="0" />
+        <input class="form-check-input" id="user_email_0" name="user[email]" required="required" type="radio" value="0" />
         <label class="form-check-label" for="user_email_0">
           This is a radio button
         </label>
