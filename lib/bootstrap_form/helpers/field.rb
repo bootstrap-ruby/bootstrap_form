@@ -4,11 +4,7 @@ module BootstrapForm
       def required_field_options(options, method)
         required = required_field?(options, method)
         {}.tap do |option|
-          if required
-            option[:required] = true
-            option[:aria] ||= {}
-            option[:aria][:required] = true
-          end
+          option[:required] = true if required
         end
       end
 

@@ -84,7 +84,7 @@ This generates the following HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+    <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -143,7 +143,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+    <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
@@ -276,7 +276,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="custom-class required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+  <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
 
@@ -292,7 +292,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="visually-hidden required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="">
+  <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="">
 </div>
 ```
 
@@ -310,7 +310,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
-  <input aria-required="true" class="custom-class" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
+  <input class="custom-class" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -440,7 +440,7 @@ This generates:
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
   <div class="input-group input-group-lg">
-    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+    <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
   </div>
 </div>
@@ -505,7 +505,7 @@ Generated HTML:
 
 ```html
 <div class="mb-3">
-  <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+  <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
 
@@ -800,7 +800,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_email">Email</label>
-  <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
+  <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
 </div>
 ```
 
@@ -820,7 +820,7 @@ This generates:
   <div class="mb-3 row">
     <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input aria-required="true" class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
+      <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
     </div>
   </div>
 </form>
@@ -1081,7 +1081,7 @@ This generates:
 <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
   <div class="col">
     <label class="visually-hidden required" for="user_email">Email</label>
-    <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+    <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
   <div class="col">
     <label class="visually-hidden" for="user_password">Password</label>
@@ -1143,7 +1143,7 @@ This generates:
   <div class="mb-3 row">
     <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+      <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1190,7 +1190,7 @@ This generates:
   <div class="mb-3 row">
     <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+      <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1256,7 +1256,7 @@ This generates:
   <div class="mb-3 row">
     <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+      <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
@@ -1297,7 +1297,7 @@ This generates:
   <div class="mb-3 row">
     <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
     <div class="col-sm-10">
-      <input aria-required="true" class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+      <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="row">
@@ -1348,7 +1348,7 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 form-floating">
-    <input aria-required="true" class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
     <label class="form-label required" for="user_email">Email</label>
   </div>
   <div class="mb-3 form-floating">
@@ -1393,7 +1393,7 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input aria-required="true" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
+    <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback">is invalid</div>
   </div>
 </form>
@@ -1425,7 +1425,7 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required text-danger" for="user_email">Email is invalid</label>
-    <input aria-required="true" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
+    <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
   </div>
 </form>
 ```
@@ -1587,7 +1587,7 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label required" for="user_login">New Username</label>
-  <input aria-required="true" class="form-control" id="user_login" name="user[login]" required="required" type="password">
+  <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
 </div>
 <div class="mb-3">
   <label class="form-label" for="user_password">New Password</label>
@@ -1672,7 +1672,7 @@ Generated HTML:
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label required" for="user_email">Email</label>
-        <input aria-required="true" class="form-control" disabled id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+        <input class="form-control" disabled id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
       </div>
     </div>
     <div class="col-auto">
