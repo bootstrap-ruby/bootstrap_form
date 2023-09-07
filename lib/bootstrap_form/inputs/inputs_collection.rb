@@ -40,9 +40,7 @@ module BootstrapForm
         end
 
         # add things like 'data-' attributes to the HTML
-        obj.each do |inner_obj|
-          input_options.merge!(inner_obj) if inner_obj.is_a?(Hash)
-        end if obj.respond_to?(:each)
+        obj.each { |inner_obj| input_options.merge!(inner_obj) if inner_obj.is_a?(Hash) } if obj.respond_to?(:each)
 
         input_options[:error_message] = index == collection.size - 1
         input_options.except!(:class)

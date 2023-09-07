@@ -545,9 +545,9 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "collection_check_boxes renders data attributes" do
     collection = [
-        ['1', 'Foo', {'data-city': 'east'} ],
-        ['2', 'Bar', {'data-city': 'west' }],
-      ]
+      ["1", "Foo", { "data-city": "east" }],
+      ["2", "Bar", { "data-city": "west" }]
+    ]
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
@@ -562,7 +562,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_xml expected, @builder.collection_check_boxes(:misc, collection, :first, :second, include_hidden: false)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :first, :second, include_hidden: false)
   end
 
   test "collection_check_boxes renders multiple check boxes with error correctly" do
