@@ -1,4 +1,0 @@
-gems = "#{__dir__}/common.gemfile"
-eval File.read(gems), binding, gems # rubocop: disable Security/Eval
-
-gem "rails", "~> 6.0.0"

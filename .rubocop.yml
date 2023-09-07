@@ -6,7 +6,7 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   TargetRubyVersion: 3.0
-  TargetRailsVersion: 6.0
+  TargetRailsVersion: 6.1
   NewCops: enable
   Exclude:
     - bin/*
