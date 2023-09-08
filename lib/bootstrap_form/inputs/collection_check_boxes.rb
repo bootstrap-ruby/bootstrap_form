@@ -15,7 +15,7 @@ module BootstrapForm
           end
 
           if args.extract_options!.symbolize_keys!.delete(:include_hidden) { true }
-            html.prepend hidden_field(args.first, value: "", multiple: true)
+            html.prepend hidden_field(args.first, value: "", name: field_name(args[0], multiple: true))
           end
           html
         end
