@@ -718,7 +718,7 @@ This generates:
     <label class="form-check-label" for="user_skill_level_2">Farming</label>
   </div>
 </div>
-<input autocomplete="off" id="user_skills" multiple name="user[skills][]" type="hidden" value="">
+<input autocomplete="off" id="user_skills" name="user[skills][]" type="hidden" value="">
 <div class="mb-3">
   <label class="form-label" for="user_skills">Skills</label>
   <div class="form-check">
