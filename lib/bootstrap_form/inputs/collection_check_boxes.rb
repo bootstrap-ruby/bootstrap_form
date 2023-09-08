@@ -21,6 +21,14 @@ module BootstrapForm
         end
 
         bootstrap_alias :collection_check_boxes
+
+        if Rails::VERSION::MAJOR < 7
+          def field_name(method, *methods, multiple: false, index: @options[:index])
+            object_name = @options.fetch(:as) { @object_name }
+
+            @template.field_name(object_name, method, *methods, index: index, multiple: multiple)
+          end
+        end
       end
     end
   end
