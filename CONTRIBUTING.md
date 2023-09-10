@@ -79,7 +79,7 @@ This repository offers experimental support support for a couple of ways to deve
 - Using `docker-compose`. This way is less tested, and is an attempt to make the Docker container a more complete environment where you can conveniently develop and release the gem.
 - Using just a simple Dockerfile. This way works for simple testing, but doesn't make it easy to release the gem, among other things.
 
-Docker is _not_ requied to work on this gem.
+Docker is _not_ required to work on this gem.
 
 #### Using `docker-compose`
 

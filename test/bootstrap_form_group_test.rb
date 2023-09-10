@@ -327,7 +327,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test "form_group accepts class thorugh options hash" do
+  test "form_group accepts class through options hash" do
     output = @horizontal_builder.form_group :email, class: "mb-3 foo" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
@@ -342,7 +342,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test "form_group accepts class thorugh options hash without needing a name" do
+  test "form_group accepts class through options hash without needing a name" do
     output = @horizontal_builder.form_group class: "mb-3 foo" do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
@@ -388,7 +388,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test 'upgrade doc for form_group renders the "error" class and message corrrectly when object is invalid' do
+  test 'upgrade doc for form_group renders the "error" class and message correctly when object is invalid' do
     @user.email = nil
     assert @user.invalid?
 
@@ -410,7 +410,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test "upgrade doc for form_group renders check box corrrectly when object is invalid" do
+  test "upgrade doc for form_group renders check box correctly when object is invalid" do
     @user.errors.add(:misc, "Must select one.")
 
     output = bootstrap_form_for(@user) do |f|

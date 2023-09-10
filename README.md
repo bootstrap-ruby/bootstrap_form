@@ -746,7 +746,7 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 
 ![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
 ```erb
-<%# Use the :first and :second elements of the array to be the value and label repsectively %>
+<%# Use the :first and :second elements of the array to be the value and label respectively %>
 <%- choices = @collection.map { |addr| [ addr.id, addr.street, { 'data-zip-code':  addr.zip_code } ] } -%>
 
 <%= f.collection_radio_buttons :misc, choices, :first, :second %>

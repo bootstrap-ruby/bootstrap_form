@@ -100,7 +100,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
   end
 
-  test "errors are correctly displayed for belongs_to assoication fields" do
+  test "errors are correctly displayed for belongs_to association fields" do
     @address.valid?
 
     expected = <<~HTML
