@@ -19,7 +19,7 @@ Some other nice things that `bootstrap_form` does for you are:
 * Reduces errors, because you're doing less typing.
 * Makes it easier to see the logic of the form, because it's not mixed in with the Bootstrap mark-up.
 
-`bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](#bootstrap-form-with), [`bootstrap_form_for`](#bootstrap-form-for), or [`bootstrap_form_tag`](#bootstrap-form-tag) in a view file. You get a form builder that calls the [`bootstrap_form` helpers](#form-helpers) instead of the standard Rails helpers. You use that form builder in the view file to render one or more form fields.
+`bootstrap_form` works like the standard Rails form helpers, and this README assumes you know how they work. You start a form with one of [`bootstrap_form_with`](#bootstrap_form_with), [`bootstrap_form_for`](#bootstrap_form_for), or [`bootstrap_form_tag`](#bootstrap_form_tag) in a view file. You get a form builder that calls the [`bootstrap_form` helpers](#form-helpers) instead of the standard Rails helpers. You use that form builder in the view file to render one or more form fields.
 
 ## Requirements
 
