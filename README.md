@@ -164,9 +164,10 @@ in `form_with`.
 
 `form_with` has some important differences compared to `form_for` and `form_tag`, and these differences apply to `bootstrap_form_with`. A good summary of the differences can be found at: https://m.patrikonrails.com/rails-5-1s-form-with-vs-old-form-helpers-3a5f72a8c78a, or in the [Rails documentation](api.rubyonrails.org).
 
-### bootstrap_fields_for
+### bootstrap_fields_for and bootstrap_fields
 
-Adding fields for a different object without nesting can be achieved using the `bootstrap_fields_for` helper in the same way it is done in Rails.
+Adding fields for a different object without nesting can be achieved using the `bootstrap_fields_for` and
+`bootstrap_fields` helpers in the same way it is done in Rails.
 
 ![Example 3](demo/doc/screenshots/bootstrap/readme/03_example.png "Example 3")
 ```erb
@@ -174,6 +175,9 @@ Adding fields for a different object without nesting can be achieved using the `
   <%= f.email_field :email %>
   <%= bootstrap_fields_for :parent do |pf| %>
     <%= pf.email_field :email, label: 'Parent email' %>
+  <% end %>
+  <%= bootstrap_fields @user.address do |af| %>
+    <%= af.text_field :street_name %>
   <% end %>
   <%= f.primary "Save" %>
 <% end %>
@@ -190,6 +194,10 @@ Generated HTML:
   <div class="mb-3">
     <label class="form-label" for="parent_email">Parent email</label>
     <input class="form-control" id="parent_email" name="parent[email]" type="email">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="street_name">Street name</label>
+    <input class="form-control" id="street_name" name="street_name" type="text">
   </div>
   <input class="btn btn-primary" data-disable-with="Save" name="commit" type="submit" value="Save">
 </form>

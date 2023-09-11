@@ -44,6 +44,11 @@ module BootstrapForm
         fields_for(record_name, record_object, options, &block)
       end
 
+      def bootstrap_fields(scope=nil, model: nil, **options, &block)
+        options[:builder] = BootstrapForm::FormBuilder
+        fields(scope, model: model, **options, &block)
+      end
+
       private
 
       def with_bootstrap_form_field_error_proc
