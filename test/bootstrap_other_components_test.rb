@@ -89,7 +89,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test "custom control does't wrap given block in a p tag" do
+  test "custom control doesn't wrap given block in a p tag" do
     output = @horizontal_builder.custom_control :email, extra: "extra arg" do
       "this is a test"
     end
