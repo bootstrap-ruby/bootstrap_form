@@ -166,7 +166,7 @@ in `form_with`.
 
 ### bootstrap_fields_for
 
-Adding fields for a different object without nesting can be achieved using the `bootstrap_fields_for` helper in the same way it is done in rails.
+Adding fields for a different object without nesting can be achieved using the `bootstrap_fields_for` helper in the same way it is done in Rails.
 
 ![Example 3](demo/doc/screenshots/bootstrap/readme/03_example.png "Example 3")
 ```erb
