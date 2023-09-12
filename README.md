@@ -1423,6 +1423,9 @@ error will be displayed below the field. Here's an example:
 ```erb
 <%= bootstrap_form_for(@user_with_error) do |f| %>
   <%= f.email_field :email %>
+  <%= f.fields_for :address do |af| %>
+    <%= af.text_field :street %>
+  <% end %>
 <% end %>
 ```
 
@@ -1433,6 +1436,11 @@ Generated HTML:
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
+    <div class="invalid-feedback">is invalid</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="user_address_attributes_street">Street</label>
+    <input class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
     <div class="invalid-feedback">is invalid</div>
   </div>
 </form>
