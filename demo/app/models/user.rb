@@ -1,11 +1,7 @@
 class User < ApplicationRecord
   attr_accessor :remember_me
 
-  if Rails::VERSION::STRING >= "6.1"
-    serialize :preferences, coder: JSON
-  else
-    serialize :preferences, JSON
-  end
+  serialize :preferences, coder: JSON
 
   validates :email, presence: true, length: { minimum: 5 }
   validates :terms, acceptance: { accept: true }

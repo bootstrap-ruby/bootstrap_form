@@ -1,6 +1,17 @@
 // @import "actiontext";
 
 label.required:after {
-  content:" *";
+  content: " *";
   color: red;
+}
+
+.fragment {
+  @extend .border;
+  @extend .p-3;
+}
+
+form, .alert, .fragment {
+  > :last-child {
+    margin-bottom: 0 !important;
+  }
 }

@@ -6,7 +6,7 @@ class BootstrapController < ApplicationController
   def fragment
     @erb = params[:erb]
 
-    @erb.prepend '<div class="p-3 border">'
+    @erb.prepend '<div class="fragment">'
     @erb << "</div>"
     load_models
     render inline: @erb, layout: "application" # rubocop: disable Rails/RenderInline
@@ -20,9 +20,10 @@ class BootstrapController < ApplicationController
     @address_with_error.errors.add(:street)
     @collection = [@address, @address_with_error]
     @user = User.new email: "steve@example.com"
-    @user_with_error = User.new email: "steve.example.com", address: @address_with_error
+    @user_with_error = User.new email: "steve.example.com", address: @address_with_error, misc: 1, preferences: [1]
     @user_with_error.errors.add(:email)
     @user_with_error.errors.add(:misc)
+    @user_with_error.errors.add(:preferences)
     @users = [@user]
   end
 end

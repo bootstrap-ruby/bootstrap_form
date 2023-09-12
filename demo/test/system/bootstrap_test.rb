@@ -36,7 +36,7 @@ class BootstrapTest < ApplicationSystemTestCase
         ERB
 
         visit fragment_path erb: wrapped_erb
-        wrapper = find(".p-3")
+        wrapper = find(".fragment")
         i = @screenshot_counter
         screenshot :example, crop: bounds(wrapper)
         wrapper = wrapper.find("form") if wrapped_erb != erb

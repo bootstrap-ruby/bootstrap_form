@@ -1423,6 +1423,8 @@ error will be displayed below the field. Here's an example:
 ```erb
 <%= bootstrap_form_for(@user_with_error) do |f| %>
   <%= f.email_field :email %>
+  <%= f.collection_radio_buttons :misc, Skill.all, :id, :name %>
+  <%= f.collection_check_boxes :preferences, [[1, 'Good'], [2, 'Bad']], :first, :second %>
   <%= f.fields_for :address do |af| %>
     <%= af.text_field :street %>
   <% end %>
@@ -1437,6 +1439,31 @@ Generated HTML:
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback">is invalid</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="user_misc">Misc</label>
+    <div class="form-check">
+      <input checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
+      <label class="form-check-label" for="user_misc_1">Mind reading</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
+      <label class="form-check-label" for="user_misc_2">Farming</label>
+      <div class="invalid-feedback">is invalid</div>
+    </div>
+  </div>
+  <input autocomplete="off" id="user_preferences" name="user[preferences][]" type="hidden" value="">
+  <div class="mb-3">
+    <label class="form-label" for="user_preferences">Preferences</label>
+    <div class="form-check">
+      <input checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
+      <label class="form-check-label" for="user_preferences_1">Good</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
+      <label class="form-check-label" for="user_preferences_2">Bad</label>
+      <div class="invalid-feedback">is invalid</div>
+    </div>
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_address_attributes_street">Street</label>
@@ -1508,6 +1535,7 @@ Which outputs:
     <ul class="rails-bootstrap-forms-error-summary">
       <li>Email is invalid</li>
       <li>Misc is invalid</li>
+      <li>Preferences is invalid</li>
     </ul>
   </div>
 </form>
@@ -1546,6 +1574,7 @@ Which outputs:
   <ul class="rails-bootstrap-forms-error-summary">
     <li>Email is invalid</li>
     <li>Misc is invalid</li>
+    <li>Preferences is invalid</li>
   </ul>
 </form>
 ```
