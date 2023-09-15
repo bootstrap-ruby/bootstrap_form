@@ -686,7 +686,7 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-4 col-md-2",
+                           bootstrap_form_for(@user, layout: :horizontal, label_col: %w[col-sm-4 col-md-2],
                                                      control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
   end
 

@@ -1214,7 +1214,7 @@ The `label_col` and `control_col` css classes can also be changed per control:
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :age, label_col: "col-sm-3", control_col: "col-sm-3" %>
+  <%= f.text_field :age, label_col: %w[col-sm-3 text-bg-info], control_col: %w[col-sm-3 text-bg-success] %>
   <%= f.check_box :terms, label_col: "", control_col: "col-sm-11" %>
   <%= f.form_group do %>
     <%= f.submit %>
@@ -1233,8 +1233,8 @@ This generates:
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-3" for="user_age">Age</label>
-    <div class="col-sm-3">
+    <label class="col-form-label col-sm-3 text-bg-info" for="user_age">Age</label>
+    <div class="col-sm-3 text-bg-success">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>

@@ -104,7 +104,7 @@ module BootstrapForm
     end
 
     def offset_col(label_col)
-      label_col.gsub(/\bcol-(\w+)-(\d)\b/, 'offset-\1-\2')
+      [*label_col].flat_map { |s| s.split(/\s+/) }.grep(/^col-/).join(" ").gsub(/\bcol-(\w+)-(\d)\b/, 'offset-\1-\2')
     end
 
     def default_control_col
