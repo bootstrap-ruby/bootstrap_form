@@ -42,7 +42,7 @@ And follow the remaining instructions in the [official bootstrap installation gu
 Add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.2"
+gem "bootstrap_form", "~> 5.3"
 ```
 
 Then:
