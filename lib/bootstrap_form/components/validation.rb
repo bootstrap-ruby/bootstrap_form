@@ -47,6 +47,9 @@ module BootstrapForm
       end
 
       def call_with_self(object, proc)
+        if proc.is_a? Symbol
+          proc = object.method(proc)
+        end
         object.instance_exec(*[(object if proc.arity >= 1)].compact, &proc)
       end
 

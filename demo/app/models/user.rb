@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   serialize :preferences, coder: JSON
 
-  validates :email, presence: true, length: { minimum: 5 }
+  validates :email, presence: true, length: { minimum: 5 }, if: :always
   validates :terms, acceptance: { accept: true }
 
   # Conditional (always disabled) validators used in tests
@@ -14,6 +14,10 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :address
 
   has_rich_text(:life_story) if Rails::VERSION::STRING > "6"
+
+  def always
+    true
+  end
 
   def age
     42
