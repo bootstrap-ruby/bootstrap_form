@@ -1,6 +1,8 @@
 module BootstrapForm
   module Helpers
     module Bootstrap
+      include ActionView::Helpers::OutputSafetyHelper
+
       def alert_message(title, options={})
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
@@ -31,11 +33,12 @@ module BootstrapForm
         custom_class = options[:custom_class] || false
 
         tag.div class: custom_class || "invalid-feedback" do
-          if hide_attribute_name
-            object.errors[name].join(", ")
+          errors = if hide_attribute_name
+            object.errors[name]
           else
-            object.errors.full_messages_for(name).join(", ")
+            object.errors.full_messages_for(name)
           end
+          safe_join(errors, ", ")
         end
       end
 
@@ -93,7 +96,7 @@ module BootstrapForm
         tags = [*options[key]].map do |item|
           input_group_content(item)
         end
-        ActiveSupport::SafeBuffer.new(tags.join)
+        safe_join(tags)
       end
     end
   end

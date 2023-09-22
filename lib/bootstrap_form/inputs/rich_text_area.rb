@@ -10,7 +10,7 @@ module BootstrapForm
         def rich_text_area_with_bootstrap(name, options={})
           form_group_builder(name, options) do
             prepend_and_append_input(name, options) do
-              options[:class] = ["trix-content", options[:class]].compact.join(" ")
+              options[:class] = safe_join(["trix-content", options[:class]].compact, " ")
               rich_text_area_without_bootstrap(name, options)
             end
           end
