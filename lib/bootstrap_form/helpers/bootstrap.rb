@@ -34,10 +34,10 @@ module BootstrapForm
 
         tag.div class: custom_class || "invalid-feedback" do
           errors = if hide_attribute_name
-            object.errors[name]
-          else
-            object.errors.full_messages_for(name)
-          end
+                     object.errors[name]
+                   else
+                     object.errors.full_messages_for(name)
+                   end
           safe_join(errors, ", ")
         end
       end
