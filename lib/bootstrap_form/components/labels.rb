@@ -43,10 +43,11 @@ module BootstrapForm
       end
 
       def label_text(name, options)
+        label = options[:text] || object&.class&.try(:human_attribute_name, name)&.html_safe # rubocop:disable Rails/OutputSafety
         if label_errors && error?(name)
-          (options[:text] || object.class.human_attribute_name(name)).to_s + " #{get_error_messages(name)}"
+          (" ".html_safe + get_error_messages(name)).prepend(label)
         else
-          options[:text] || object&.class.try(:human_attribute_name, name)
+          label
         end
       end
     end

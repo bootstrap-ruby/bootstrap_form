@@ -45,6 +45,8 @@ module BootstrapForm
     include BootstrapForm::Inputs::UrlField
     include BootstrapForm::Inputs::WeekField
 
+    include ActionView::Helpers::OutputSafetyHelper
+
     delegate :content_tag, :capture, :concat, :tag, to: :@template
 
     def initialize(object_name, object, template, options)
@@ -66,8 +68,8 @@ module BootstrapForm
       return unless options[:layout] == :inline
 
       options[:html][:class] =
-        ([*options[:html][:class]&.split(/\s+/)] + %w[row row-cols-auto g-3 align-items-center])
-        .compact.uniq.join(" ")
+        safe_join(([*options[:html][:class]&.split(/\s+/)] + %w[row row-cols-auto g-3 align-items-center])
+        .compact.uniq, " ")
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
