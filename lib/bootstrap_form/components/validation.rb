@@ -83,7 +83,6 @@ module BootstrapForm
         end
 
         safe_join(object.errors[name], ", ")
-        # object.errors[name].join(", ")
       end
       # rubocop:enable Metrics/AbcSize
     end
