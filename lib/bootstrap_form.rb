@@ -1,9 +1,11 @@
-# NOTE: The rich_text_area and rich_text_area_tag helpers are defined in a file with a different
-# name and not in the usual autoload-reachable way.
+# NOTE: The rich_text_area and rich_text_area_tag helpers are defined in a file
+# with a different name and not in the usual autoload-reachable way.
 # The following line is definitely need to make `bootstrap_form` work.
-if Rails::VERSION::STRING > "6"
+begin
   require "#{Gem::Specification.find_by_name('actiontext').gem_dir}/app/helpers/action_text/tag_helper"
+rescue Gem::MissingSpecError
 end
+
 require "action_view"
 require "action_pack"
 require "bootstrap_form/action_view_extensions/form_helper"
