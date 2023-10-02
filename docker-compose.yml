@@ -5,8 +5,8 @@ services:
     build:
       context: .
       args:
-        NODE_MAJOR: "12"
-        YARN_VERSION: "1.22.4"
+        NODE_MAJOR: "18"
+        # YARN_VERSION: "1.22.4"
         RUBY_VERSION: ${RUBY_VERSION}
     image: bootstrap-form:latest-$RUBY_VERSION
     tmpfs:

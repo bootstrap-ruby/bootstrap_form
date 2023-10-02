@@ -1,0 +1,5 @@
+gems = "#{__dir__}/common.gemfile"
+eval File.read(gems), binding, gems # rubocop: disable Security/Eval
+
+gem "rails", "~> 7.1.0"
+gem "sprockets-rails", require: "sprockets/railtie"
