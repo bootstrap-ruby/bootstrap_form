@@ -56,7 +56,6 @@ class ActionView::TestCase
   end
 
   def assert_equivalent_html(expected, actual)
-    expected = expected.tr("’", "'") if Rails::VERSION::STRING < "7.1"
     expected_html        = Nokogiri::HTML.fragment(expected) { |config| config.default_xml.noblanks }
     actual_html          = Nokogiri::HTML.fragment(actual) { |config| config.default_xml.noblanks }
 
