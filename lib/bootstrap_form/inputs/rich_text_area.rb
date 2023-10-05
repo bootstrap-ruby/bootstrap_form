@@ -16,7 +16,9 @@ module BootstrapForm
           end
         end
 
-        bootstrap_alias :rich_text_area
+        if defined?(rich_text_area)
+          bootstrap_alias :rich_text_area
+        end
       end
     end
   end
