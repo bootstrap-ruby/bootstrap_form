@@ -5,7 +5,7 @@ require "rails/all"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-require "bootstrap_form"
+require "bootstrap_form" # FIXME: Why do we require this here?
 
 module Dummy
   class Application < Rails::Application
