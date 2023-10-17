@@ -79,7 +79,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
         <div class="field_with_errors">
           <input class="form-control is-invalid" id="user_password" name="user[password]" required="required" type="text">
         </div>
-        <div class="invalid-feedback">can#{Rails::VERSION::MAJOR < 7 ? "'" : '’'}t be blank</div>
+        <div class="invalid-feedback">can't be blank</div>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:password)
