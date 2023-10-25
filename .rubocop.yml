@@ -37,6 +37,9 @@ Layout/LineLength:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
+Lint/SuppressedException:
+  Enabled: false
+
 Metrics/AbcSize:
   Max: 18
   Exclude:
@@ -45,6 +48,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
+    - "lib/bootstrap_form/inputs/base.rb"
     - "demo/config/**/*"
     - "demo/test/**/*"
     - "test/**/*"
