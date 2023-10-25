@@ -31,6 +31,12 @@ module BootstrapForm
           bootstrap_alias field_name
         end
 
+        # Creates the methods *_without_bootstrap and *_with_bootstrap.
+        #
+        # If your application did not include the rails gem for one of the dsl
+        # methods, then a name error is raised and suppressed. This can happen
+        # if your application does not include the actiontext dependency due to
+        # `rich_text_area` not being defined.
         def bootstrap_alias(field_name)
           alias_method "#{field_name}_without_bootstrap".to_sym, field_name
           alias_method field_name, "#{field_name}_with_bootstrap".to_sym
