@@ -37,9 +37,6 @@ Layout/LineLength:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
-Lint/SuppressedException:
-  Enabled: false
-
 Metrics/AbcSize:
   Max: 18
   Exclude:
