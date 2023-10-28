@@ -40,7 +40,7 @@ module BootstrapForm
         def bootstrap_alias(field_name)
           alias_method "#{field_name}_without_bootstrap".to_sym, field_name
           alias_method field_name, "#{field_name}_with_bootstrap".to_sym
-        rescue NameError # rubocop:disable Lint/SupressedException
+        rescue NameError # rubocop:disable Lint/SuppressedException
         end
       end
 
