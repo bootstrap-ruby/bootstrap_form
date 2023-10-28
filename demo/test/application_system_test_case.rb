@@ -16,7 +16,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
               {}
             end
 
-  driven_by :selenium, using: :chrome, screen_size: [960, 720], options: options do |capabilities|
+  driven_by :selenium, using: :headless_chrome, screen_size: [960, 720], options: options do |capabilities|
     capabilities.add_argument "force-device-scale-factor=1"
     capabilities.add_argument "lang=#{ENV.fetch('LANG', 'en_CA')}"
   end
