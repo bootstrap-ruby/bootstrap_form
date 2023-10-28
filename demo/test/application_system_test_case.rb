@@ -16,15 +16,17 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
               {}
             end
 
-  driven_by :selenium, using: :headless_chrome, screen_size: [960, 720], options: options do |capabilities|
+  driven_by :selenium, using: :chrome, screen_size: [960, 720], options: options do |capabilities|
     capabilities.add_argument "force-device-scale-factor=1"
+    capabilities.add_argument "lang=#{ENV.fetch('LANG', 'en_CA')}"
+  end
+
+  if remote_selenium?
+    Capybara.server_host = "0.0.0.0"
+    Capybara.server_port = ENV.fetch("TEST_APP_PORT", 3001)
+    Capybara.app_host = "http://#{ENV.fetch('TEST_APP_HOST', 'shell')}:#{ENV.fetch('TEST_APP_PORT', Capybara.server_port)}"
   end
 
   Capybara::Screenshot.enabled = ENV["CI"].blank?
   Capybara.server = :puma, { Silent: true }
-
-  if remote_selenium?
-    Capybara.server_host = "0.0.0.0"
-    Capybara.app_host = "http://#{ENV.fetch('TEST_APP_HOST', 'web')}:#{ENV.fetch('TEST_APP_PORT', Capybara.server_port)}"
-  end
 end

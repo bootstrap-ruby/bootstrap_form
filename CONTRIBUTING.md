@@ -130,19 +130,20 @@ The above doesn't allow you to run the system tests. To keep the image small, it
 There is an experimental `docker-compose-system-test.yml` file, that runs the `bootstrap_forms` docker container along with an off-the-shelf Selenium container. To start this configuration:
 
 ```bash
-RUBY_VERSION=3.2 docker-compose -f docker-compose-system-test.yml up
+RUBY_VERSION=3.2 docker-compose -f docker-compose-system-test.yml -f docker-compose.override.yml up&
+RUBY_VERSION=3.2 docker-compose -f docker-compose-system-test.yml -f docker-compose.override.yml exec shell /bin/bash
 ```
 
 (Sometimes, on shutdown, the Rails server PID file isn't removed, and so the above will fail. `rm demo/tmp/pids/server.pid` will fix it.)
 
-This starts the containers to run the system tests. In another terminal, run `docker ps` to find the container ID of the `bootstrap-form` image, and then run `docker exec -it <container_id> /bin/bash` to get a shell. Once in the shell:
+Once in the shell:
 
 ```bash
 cd demo
 bundle exec rails test:system
 ```
 
-Note that this system test approach is highly experimental and has some rough edges. For example, on Linux at least, it creates files owned by `root` in your project directories. The docker compose file and/or steps to run system tests may change.
+Note that this system test approach is highly experimental and has some rough edges. The docker compose file and/or steps to run system tests may change. The tests currently fail, because the files with which they're being compared were generated on a Mac, but the Docker containers are running Linux.
 
 #### Simple Dockerfile
 
