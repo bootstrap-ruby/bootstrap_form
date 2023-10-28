@@ -23,7 +23,6 @@ services:
       - NODE_ENV=development
       - RAILS_ENV=${RAILS_ENV:-development}
       - BOOTSNAP_CACHE_DIR=/usr/local/bundle/_bootsnap
-      - WEBPACKER_DEV_SERVER_HOST=webpacker
       - WEB_CONCURRENCY=1
       - HISTFILE=/app/.bash_history
     ports:

@@ -1726,10 +1726,10 @@ Fields can be disabled using the standard Rails form helper option.
 ```erb
 <%= bootstrap_form_for @user do |f| %>
   <div class="row g-3">
-    <div class="col-auto"><%= f.email_field :email, disabled: true %></div>
-    <div class="col-auto"><%= f.password_field :password, disabled: true %></div>
-    <div class="col-auto"><%= f.text_area :comments, disabled: true %></div>
-    <div class="col-auto"><%= f.text_field :status, disabled: true %></div>
+    <div class="col-auto"><%= f.email_field :email, disabled: true, size: 18 %></div>
+    <div class="col-auto"><%= f.password_field :password, disabled: true, size: 18 %></div>
+    <div class="col-auto"><%= f.text_area :comments, disabled: true, rows: 2, cols: 18 %></div>
+    <div class="col-auto"><%= f.text_field :status, disabled: true, size: 18 %></div>
     <div class="col-auto"><%= f.number_field :misc, label: "Number", disabled: true %></div>
     <div class="col-auto"><%= f.radio_button :preferences, 1, disabled: true %></div>
     <div class="col-auto"><%= f.check_box :terms, disabled: true %></div>
@@ -1748,26 +1748,25 @@ Generated HTML:
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label required" for="user_email">Email</label>
-        <input class="form-control" disabled id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+        <input class="form-control" disabled id="user_email" name="user[email]" required="required" size="18" type="email" value="steve@example.com">
       </div>
     </div>
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label" for="user_password">Password</label>
-        <input class="form-control" disabled id="user_password" name="user[password]" type="password">
+        <input class="form-control" disabled id="user_password" name="user[password]" size="18" type="password">
       </div>
     </div>
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label" for="user_comments">Comments</label>
-        <textarea class="form-control" disabled id="user_comments" name="user[comments]">
-</textarea>
+        <textarea class="form-control" cols="18" disabled id="user_comments" name="user[comments]" rows="2"> </textarea>
       </div>
     </div>
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label" for="user_status">Status</label>
-        <input class="form-control" disabled id="user_status" name="user[status]" type="text">
+        <input class="form-control" disabled id="user_status" name="user[status]" size="18" type="text">
       </div>
     </div>
     <div class="col-auto">
