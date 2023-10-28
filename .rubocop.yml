@@ -45,6 +45,7 @@ Metrics/AbcSize:
 
 Metrics/BlockLength:
   Exclude:
+    - "lib/bootstrap_form/inputs/base.rb"
     - "demo/config/**/*"
     - "demo/test/**/*"
     - "test/**/*"
