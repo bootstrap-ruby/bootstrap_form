@@ -1,8 +1,14 @@
-.bundle/
+.npm/_update-notifier-last-checked
+.npm/_cacache/
+.npm/_logs/
+.npm/_npx
+
 .idea
 log/*.log
 pkg/
 demo/db/*.sqlite3
+demo/db/*.sqlite3-shm
+demo/db/*.sqlite3-wal
 demo/doc/screenshots/**/*.diff.png
 demo/log/*.log
 demo/tmp/

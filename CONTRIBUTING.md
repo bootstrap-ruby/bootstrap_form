@@ -123,7 +123,26 @@ services:
 
 You may have to change the `1000:1000` to the user and group IDs of your laptop. You may also have to change the `version` parameter to match the version of the `docker-compose.yml` file.
 
-Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own.
+Adapting the above `docker-compose.override.yml` for MacOS should be relatively straight-forward. Windows users, I'm afraid you're on your own. If you figure this out, a PR documenting how to do it would be most welcome.
+
+The above doesn't allow you to run the system tests. To keep the image small, it doesn't include Chrome or any other browser.
+
+There is an experimental `docker-compose-system-test.yml` file, that runs the `bootstrap_forms` docker container along with an off-the-shelf Selenium container. To start this configuration:
+
+```bash
+RUBY_VERSION=3.2 docker-compose -f docker-compose-system-test.yml up
+```
+
+(Sometimes, on shutdown, the Rails server PID file isn't removed, and so the above will fail. `rm demo/tmp/pids/server.pid` will fix it.)
+
+This starts the containers to run the system tests. In another terminal, run `docker ps` to find the container ID of the `bootstrap-form` image, and then run `docker exec -it <container_id> /bin/bash` to get a shell. Once in the shell:
+
+```bash
+cd demo
+bundle exec rails test:system
+```
+
+Note that this system test approach is highly experimental and has some rough edges. For example, on Linux at least, it creates files owned by `root` in your project directories. The docker compose file and/or steps to run system tests may change.
 
 #### Simple Dockerfile
 
