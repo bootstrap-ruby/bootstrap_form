@@ -1693,7 +1693,7 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/address" class="new_address" id="new_address_1" method="post">
   <div class="mb-3">
     <label class="form-label required" for="address_user_id">User</label>
-    <select class="form-select" id="address_user_id" name="address[user_id]">
+    <select class="form-select" id="address_user_id" name="address[user_id]" required="required">
       <option value="">Select a value</option>
       <option value="">steve@example.com</option>
     </select>
@@ -1760,7 +1760,8 @@ Generated HTML:
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label" for="user_comments">Comments</label>
-        <textarea class="form-control" cols="18" disabled id="user_comments" name="user[comments]" rows="2"> </textarea>
+        <textarea class="form-control" cols="18" disabled id="user_comments" name="user[comments]" rows="2">
+</textarea>
       </div>
     </div>
     <div class="col-auto">
