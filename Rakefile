@@ -28,26 +28,3 @@ desc 'Run RuboCop checks'
 RuboCop::RakeTask.new(:rubocop)
 
 task default: %i[test rubocop:autocorrect]
-
-namespace :test do
-  desc "Run tests for all supported Rails versions, with current Ruby version"
-  task :all do
-    original_directory = Dir.pwd
-    original_gemfile = ENV["BUNDLE_GEMFILE"]
-    gemfiles = Dir.glob("gemfiles/*.gemfile").reject { |f| File.basename(f) == "common.gemfile" }
-    gemfiles.each do |f|
-      ENV["BUNDLE_GEMFILE"] = f
-      system("bundle check") || system("bundle install")
-      system("bundle exec rake test")
-    end
-
-    Dir.chdir("demo")
-    ENV.delete("BUNDLE_GEMFILE")
-    system("bundle check") || system("bundle install")
-    system("bundle exec rake test:all")
-
-  ensure
-    original_gemfile.nil? ? ENV.delete("BUNDLE_GEMFILE") : ENV["BUNDLE_GEMFILE"] = original_gemfile
-    Dir.chdir(original_directory)
-  end
-end
