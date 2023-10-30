@@ -50,6 +50,26 @@ You may find the [demo application](#the-demo-application) useful for developmen
 - If your PR fixes an issues, be sure to put "Fixes #nnn" in the description of the PR (where `nnn` is the issue number). Github will automatically close the issue when the PR is merged.
 - When the PR is submitted, check if GitHub Actions ran all the tests successfully, and didn't raise any issues.
 
+When you create or update a pull request, GitHub automatically runs tests that generate the screenshots in the [`README.md`](/README.md). If any of the screenshots change, GitHub will add an additional commit with the updated screenshots.
+
+Normally, the screenshots should _not_ change. If the screenshots changed, please review them _carefully_. If something changed that shouldn't have:
+
+```bash
+git pull # to bring the additional commit to your local branch.
+git revert HEAD # to remove the changes.
+```
+
+Then fix the code and push your branch again. If the change was intended, a brief comment in the PR explaing why the change is expected would be very much appreciated. (The reason you should revert the commit with the screenshots is so that the next time you push, GitHub will compare against the original screenshots, not the ones changed by your previous push.)
+
+(You can run the tests that generate the screenshots locally, but unless your environment is very much like the GitHub CI environment -- Ubuntu running Chrome with default fonts -- all the screenshots will be reported as having changed. To generate the screenshots:
+
+```bash
+cd demo
+bundle exec rails test:all
+```
+
+The [Docker development environment](#using-docker-compose) appears to generate screenshots that are the same as what GitHub generates.)
+
 ### 7. Done
 
 Somebody will shortly review your pull request and if everything is good, it will be
