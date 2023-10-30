@@ -31,7 +31,7 @@ Some other nice things that `bootstrap_form` does for you are:
 
 ## Installation
 
-Install Bootstrap 5. There are many ways to do this, depending on the asset pipeline you're using in your Rails application. One way is to use the gem that works with Sprockets. To do so, in a brand new Rails 7.0 application created _without_ the `--webpacker` option, add the `bootstrap` gem to your `Gemfile`:
+Install Bootstrap 5. There are many ways to do this, depending on the asset pipeline you're using in your Rails application. One way is to use the gem that works with Sprockets. To do so, in a brand new Rails 7.0+ application created _without_ the `--webpacker` option, add the `bootstrap` gem to your `Gemfile`:
 
 ```ruby
 gem "bootstrap", "~> 5.0"
@@ -42,7 +42,7 @@ And follow the remaining instructions in the [official bootstrap installation gu
 Add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.3"
+gem "bootstrap_form", "~> 5.4"
 ```
 
 Then:
