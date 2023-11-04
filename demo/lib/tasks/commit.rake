@@ -6,7 +6,7 @@ desc <<~DESC
 DESC
 task :commit do # rubocop:disable Rails/RakeEnvironment
   msg = <<~MSG
-    Changed in CI
+    [skip ci] Changed in CI
     Please review the changes in the files in this commit
     carefully, as they were automatically generated during CI.
     Run `git pull` to bring the changes into your local branch.
