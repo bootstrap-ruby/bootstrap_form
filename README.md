@@ -1064,7 +1064,7 @@ will be rendered as:
       </div>
     </div>
   </trix-toolbar>
-  <trix-editor aria-label="Life story" class="trix-content form-control" contenteditable="" data-blob-url-template="http://shell:3001/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://shell:3001/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
+  <trix-editor aria-label="Life story" class="trix-content form-control" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
   </trix-editor>
 </div>
 ```
