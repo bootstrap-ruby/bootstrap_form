@@ -57,7 +57,7 @@ jobs:
         working-directory: demo
         run: bundle exec rake test:all
       - name: Commit changed screenshots and other files
-        if: success() || failure()
+        if: failure()
         working-directory: demo
         run: bundle exec rake commit
 
