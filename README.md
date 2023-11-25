@@ -1586,6 +1586,7 @@ If you want to display a custom inline error for a specific attribute not repres
 ![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
+  <input class="is-invalid" autocomplete="off" disabled type="hidden">
   <%= f.errors_on :email %>
 <% end %>
 ```
@@ -1594,15 +1595,19 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <input autocomplete="off" class="is-invalid" disabled type="hidden">
   <div class="invalid-feedback">Email is invalid</div>
 </form>
 ```
+
+Note that the `invalid-feedback` `div` is hidden unless there is a preceding element under the same parent that has class `is-invalid`. For the examples, we've artificially added a hidden input.
 
 You can hide the attribute name like this:
 
 ![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
+  <input class="is-invalid" autocomplete="off" disabled type="hidden">
   <%= f.errors_on :email, hide_attribute_name: true %>
 <% end %>
 ```
@@ -1611,6 +1616,7 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <input autocomplete="off" class="is-invalid" disabled type="hidden">
   <div class="invalid-feedback">is invalid</div>
 </form>
 ```
@@ -1620,6 +1626,7 @@ You can also use a custom class for the wrapping div, like this:
 ![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
+  <input class="is-invalid" autocomplete="off" disabled type="hidden">
   <%= f.errors_on :email, custom_class: 'custom-error' %>
 <% end %>
 ```
@@ -1628,9 +1635,12 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+  <input autocomplete="off" class="is-invalid" disabled type="hidden">
   <div class="custom-error">Email is invalid</div>
 </form>
 ```
+
+Note that adding the custom class removes the default `invalid-feedback` class. If you still want the default `invalid-feedback` formatting, add it to your `custom_class`es.
 
 ## Required Fields
 
