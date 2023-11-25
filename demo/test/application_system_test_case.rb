@@ -27,6 +27,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Capybara.app_host = "http://#{ENV.fetch('TEST_APP_HOST', 'shell')}:#{ENV.fetch('TEST_APP_PORT', Capybara.server_port)}"
   end
 
-  Capybara::Screenshot.enabled = ENV["CI"].blank?
+  Capybara::Screenshot.enabled = true
   Capybara.server = :puma, { Silent: true }
 end

@@ -50,6 +50,36 @@ You may find the [demo application](#the-demo-application) useful for developmen
 - If your PR fixes an issues, be sure to put "Fixes #nnn" in the description of the PR (where `nnn` is the issue number). Github will automatically close the issue when the PR is merged.
 - When the PR is submitted, check if GitHub Actions ran all the tests successfully, and didn't raise any issues.
 
+When you create or update a pull request, GitHub automatically runs tests that generate the screenshots in the [`README.md`](/README.md). If any of the screenshots change, GitHub will add an additional commit with the updated screenshots.
+
+Normally, the screenshots should _not_ change. If the screenshots changed, please review them _carefully_. Some clear reasons why you would want to keep the changed screenshots:
+
+- Your PR was fixing behaviour that was wrong in the screenshot.
+- You added new examples in the documentation, so there are new screenshots.
+- A change to the images used by GitHub in their actions changes the behaviour of Chrome, although if you think it's this you should probably prepare a separate PR that _only_ updates the screenshots, so it's clear what the change is and why we're making the change.
+
+Unless you have one of the above reasons, or you have a good explanation for why the screenshots have changed with your PR, you need to get rid of the changed screenshots (i.e. revert the last commit) and fix your PR so the screenshots don't change. (The reason you should revert the commit with the screenshots is so that the next time you push, GitHub will compare against the original screenshots, not the ones changed by your previous push.) Here's how to get rid of the changed screenshots:
+
+```bash
+git pull # to bring the additional commit to your local branch.
+git revert HEAD # to remove the changes.
+```
+
+Then fix the code and push your branch again.
+
+If the change was intended, a comment in the PR explaing why the change is expected would be very much appreciated. More than appreciated. It will avoid us having to ask you for an explanation.
+
+You can run the tests that generate the screenshots locally, but unless your environment is very much like the GitHub CI environment -- Ubuntu running Chrome with default fonts -- all the screenshots will be reported as having changed. To generate the screenshots:
+
+```bash
+cd demo
+bundle exec rails test:all
+```
+
+The [Docker development environment](#using-docker-compose) appears to generate screenshots that are the same as what GitHub generates.
+
+Finally, maintainers may sometimes push changes directly to `main` or use other workflows to update the code. If pushing to `main` generates a commit for screenshot changes, please consider reverting your change immediately by executing the above `pull` and `revert` and another `push`, for the sanity of users who are using the edge (`main` branch) version of the gem. At any rate, review the changes promptly and use your judgement.
+
 ### 7. Done
 
 Somebody will shortly review your pull request and if everything is good, it will be

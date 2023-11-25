@@ -54,6 +54,7 @@ vendor/bundle
 # or .local/share/pry/pry_history if you need to be more exact
 .local/
 .irb_history
+.rdbg_history
 .byebug_history
 # For Debian images with Bash
 .bash_history
