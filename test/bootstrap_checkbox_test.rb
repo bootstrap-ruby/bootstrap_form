@@ -473,19 +473,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
                                                                      :street, checked: collection)
   end
 
-  if Rails::VERSION::MAJOR < 7
-    def field_name(object_name, method_name, *method_names, multiple: false, index: nil)
-      names = method_names.map! { |name| "[#{name}]" }.join
-      if object_name.blank?
-        "#{method_name}#{names}#{multiple ? '[]' : ''}"
-      elsif index
-        "#{object_name}[#{index}][#{method_name}]#{names}#{multiple ? '[]' : ''}"
-      else
-        "#{object_name}[#{method_name}]#{names}#{multiple ? '[]' : ''}"
-      end
-    end
-  end
-
   test "collection_check_boxes renders with include_hidden options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
