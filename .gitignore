@@ -69,4 +69,8 @@ compose.override.yml
 docker-compose.override.yml
 
 .vscode-server/
+.dotnet/
 .gnupg/
+.ssh/
+.gitconfig
+
