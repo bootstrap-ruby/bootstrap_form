@@ -4,14 +4,21 @@
 .npm/_npx
 
 .idea
-log/*.log
-pkg/
+/doc/
+/log/*.log
+/pkg/
+/tmp/
+
 demo/db/*.sqlite3
 demo/db/*.sqlite3-shm
 demo/db/*.sqlite3-wal
 demo/doc/screenshots/**/*.diff.png
 demo/log/*.log
+demo/storage
 demo/tmp/
+
+test/dummy/
+
 *.gem
 .rbenv-gemsets
 *.swp
@@ -26,10 +33,6 @@ Vagrantfile
 **/.yarn/unplugged
 
 # For the demo app.
-
-# Ignore uploaded files in development.
-demo/storage/*
-!demo/storage/.keep
 
 demo/public/assets
 **/.byebug_history
@@ -47,7 +50,7 @@ demo/.yarn-integrity
 demo/vendor/bundle
 
 # For stuff that gets created if using the Dockerfile image
-.bundle/
+/.bundle/
 .cache/
 vendor/bundle
 
@@ -62,4 +65,12 @@ vendor/bundle
 .ash_history
 .sqlite_history
 
+compose.override.yml
 docker-compose.override.yml
+
+.vscode-server/
+.dotnet/
+.gnupg/
+.ssh/
+.gitconfig
+
