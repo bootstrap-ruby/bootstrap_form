@@ -55,7 +55,8 @@ module BootstrapForm
 
       def check_box_description(name, options, &block)
         content = block ? capture(&block) : options[:label]
-        content || object&.class&.human_attribute_name(name) || name.to_s.humanize
+        # Ugh. Next Rails after 7.1 passes `false` when there's no object.
+        content || (object && object.class.human_attribute_name(name)) || name.to_s.humanize # rubocop:disable Style/SafeNavigation
       end
 
       def check_box_value(name, value)

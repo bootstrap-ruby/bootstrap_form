@@ -34,7 +34,7 @@ module BootstrapForm
 
       def label_layout_classes(custom_label_col, group_layout)
         if layout_horizontal?(group_layout)
-          ["col-form-label", (custom_label_col || label_col)]
+          ["col-form-label", custom_label_col || label_col]
         elsif layout_inline?(group_layout)
           %w[form-label me-sm-2]
         else
