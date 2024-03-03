@@ -3,3 +3,4 @@ eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 gem "rails", "~> 7.0.2"
 gem "sprockets-rails", require: "sprockets/railtie"
+gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")

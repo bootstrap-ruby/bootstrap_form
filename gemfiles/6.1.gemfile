@@ -2,3 +2,4 @@ gems = "#{__dir__}/common.gemfile"
 eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 gem "rails", "~> 6.1.0"
+gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
