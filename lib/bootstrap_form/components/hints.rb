@@ -10,7 +10,7 @@ module BootstrapForm
       def generate_help(name, help_text)
         return if help_text == false
 
-        help_klass ||= "form-text text-muted"
+        help_klass ||= "form-text text-body-secondary"
         help_text ||= get_help_text_by_i18n_key(name)
         help_tag ||= :small
 

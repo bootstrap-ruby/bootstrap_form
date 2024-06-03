@@ -201,7 +201,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="form-label required" for="user_email">Email</label>
         <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-        <small class="form-text text-muted">This is required</small>
+        <small class="form-text text-body-secondary">This is required</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, help: "This is required")
@@ -213,7 +213,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
         <div class="col-sm-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text text-body-secondary">This is required</small>
         </div>
       </div>
     HTML
@@ -225,7 +225,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
-        <small class="form-text text-muted">A good password should be at least six characters long</small>
+        <small class="form-text text-body-secondary">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:password)
@@ -246,7 +246,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
-        <small class="form-text text-muted">A <strong>good</strong> password should be at least six characters long</small>
+        <small class="form-text text-body-secondary">A <strong>good</strong> password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:password)
@@ -488,7 +488,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text text-body-secondary">This is required</small>
         </div>
       </form>
     HTML
