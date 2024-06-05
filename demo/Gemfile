@@ -11,7 +11,7 @@ gem "jbuilder"
 gem "jsbundling-rails"
 gem "puma"
 gem "sprockets-rails", require: "sprockets/railtie"
-gem "sqlite3", "~> 1.4"
+gem "sqlite3"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
