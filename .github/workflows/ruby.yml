@@ -35,7 +35,7 @@ jobs:
         gemfile: [ '7.1', '7.0', '6.1', 'edge' ]
         exclude:
           - ruby-version: '3.0'
-          - gemfile: 'edge'
+            gemfile: 'edge'
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
