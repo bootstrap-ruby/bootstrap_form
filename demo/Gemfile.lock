@@ -275,7 +275,7 @@ DEPENDENCIES
   puma
   rails (~> 7.1.1)
   selenium-webdriver
-  sprockets-rails
+  sprockets-rails (< 3.5.0)
   sqlite3 (~> 1.4)
   tzinfo-data
   web-console
