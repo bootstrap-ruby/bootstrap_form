@@ -6,9 +6,10 @@ module BootstrapForm
       extend ActiveSupport::Concern
 
       class_methods do
-        def bootstrap_field(field_name, control_class: nil)
-          define_method :"#{field_name}_with_bootstrap" do |name, options={ control_class: control_class }.compact|
+        def bootstrap_field(field_name)
+          define_method :"#{field_name}_with_bootstrap" do |name, options={}|
             warn_deprecated_layout_value(options)
+            options = options.reverse_merge(control_class: "form-range") if field_name == :range_field
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
