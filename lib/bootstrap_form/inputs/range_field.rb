@@ -7,7 +7,7 @@ module BootstrapForm
       include Base
 
       included do
-        bootstrap_field :range_field, control_class: "form-range"
+        bootstrap_field :range_field
       end
     end
   end
