@@ -28,7 +28,7 @@ module BootstrapForm
         if layout == :inline && !options[:multiple]
           tag.div(class: "col") { content }
         elsif layout == :horizontal && !options[:multiple]
-          form_group(layout: layout_in_effect(options[:layout]), label_col: options[:label_col]) { content }
+          form_group(layout: layout_in_effect(options[:layout]), label_col: options[:label_col], help: options[:help]) { content }
         else
           content
         end
