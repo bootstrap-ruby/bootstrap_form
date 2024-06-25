@@ -158,7 +158,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
-        <small class="form-text text-muted">A good password should be at least six characters long</small>
+        <small class="form-text text-body-secondary">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.password_field(:password)
