@@ -1,7 +1,9 @@
 require "test_helper"
+require "capybara_screenshot_diff/minitest"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include Capybara::Screenshot::Diff
+  include CapybaraScreenshotDiff::DSL
 
   class << self
     def remote_selenium? = @remote_selenium ||= ENV["SELENIUM_HOST"].present? || ENV["SELENIUM_PORT"].present?
@@ -28,5 +30,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   Capybara::Screenshot.enabled = true
+  Capybara::Screenshot::Diff.driver = ENV.fetch("SCREENSHOT_DRIVER", "chunky_png").to_sym
+
   Capybara.server = :puma, { Silent: true }
 end

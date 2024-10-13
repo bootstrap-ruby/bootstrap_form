@@ -1,4 +1,5 @@
 require "application_system_test_case"
+require "capybara_screenshot_diff/minitest"
 
 class BootstrapTest < ApplicationSystemTestCase
   setup { screenshot_section :bootstrap }

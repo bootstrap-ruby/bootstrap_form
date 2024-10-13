@@ -13,6 +13,7 @@ demo/db/*.sqlite3
 demo/db/*.sqlite3-shm
 demo/db/*.sqlite3-wal
 demo/doc/screenshots/**/*.diff.png
+demo/doc/screenshots/**/*.base.png
 demo/log/*.log
 demo/storage
 demo/tmp/
