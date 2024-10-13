@@ -5,5 +5,5 @@ gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "drb" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "mutex_m" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "rails", "~> 7.2.0"
-gem "sqlite3"
 gem "sprockets-rails", require: "sprockets/railtie"
+gem "sqlite3"
