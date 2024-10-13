@@ -16,6 +16,8 @@ class BootstrapTest < ApplicationSystemTestCase
       sleep 0.5
       screenshot header.text.downcase.tr(" ", "_"), crop: bounds(example), color_distance_limit: 2
     end
+
+    self.assertions += 1 # To avoid a warning message.
   end
 
   HEADERS = ["Generated HTML", "This generates", "Which outputs", "will be rendered as"].join("|").freeze
