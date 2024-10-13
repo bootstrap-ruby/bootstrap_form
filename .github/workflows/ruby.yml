@@ -61,6 +61,7 @@ jobs:
         with:
           working-directory: demo
           bundler-cache: true
+          ruby-version: 3.3.2
       - name: Run tests
         working-directory: demo
         run: bundle exec rake test:all
