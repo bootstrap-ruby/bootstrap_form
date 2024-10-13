@@ -9,7 +9,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="color" value="#000000" />
+        <input class="form-control form-control-color" id="user_misc" name="user[misc]" type="color" value="#000000" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.color_field(:misc)
