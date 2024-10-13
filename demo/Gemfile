@@ -24,7 +24,6 @@ end
 
 group :test do
   gem "capybara-screenshot-diff"
+  gem "chunky_png", "~> 1.4"
   gem "selenium-webdriver"
 end
-
-gem "chunky_png", "~> 1.4"
