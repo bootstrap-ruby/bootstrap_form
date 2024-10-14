@@ -192,7 +192,7 @@ class BootstrapFieldsTest < ActionView::TestCase
         <input min="0" max="80" class="form-range" id="user_misc" name="user[misc]" type="range" />
       </div>
     HTML
-    assert_equivalent_html expected, @builder.range_field(:misc,  min: 0, max: 80)
+    assert_equivalent_html expected, @builder.range_field(:misc, min: 0, max: 80)
   end
 
   test "search fields are wrapped correctly" do

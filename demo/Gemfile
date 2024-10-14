@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "bootstrap_form", path: ".."
 
-gem "rails", "~> 7.1.1"
+gem "rails", "~> 7.2.1"
 
 gem "bootsnap", require: false
 gem "cssbundling-rails"
@@ -11,7 +11,7 @@ gem "jbuilder"
 gem "jsbundling-rails"
 gem "puma"
 gem "sprockets-rails", require: "sprockets/railtie"
-gem "sqlite3", "~> 1.4"
+gem "sqlite3"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
@@ -24,5 +24,6 @@ end
 
 group :test do
   gem "capybara-screenshot-diff"
+  gem "chunky_png", "~> 1.4"
   gem "selenium-webdriver"
 end
