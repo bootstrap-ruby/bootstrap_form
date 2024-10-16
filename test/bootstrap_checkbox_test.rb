@@ -177,7 +177,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">Foobar</label>
         </div>
-        <small class="form-text text-muted">With a help!</small>
+        <small class="form-text text-body-secondary">With a help!</small>
       </div>
     HTML
 
