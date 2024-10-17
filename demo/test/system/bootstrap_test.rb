@@ -83,5 +83,6 @@ class BootstrapTest < ApplicationSystemTestCase
   def bounds(node)
     client_rect = evaluate_script("arguments[0].getBoundingClientRect()", node.native)
     [client_rect["left"].floor, client_rect["top"].floor, client_rect["right"].ceil, client_rect["bottom"].ceil]
+      .tap { |array| puts "#{array}" }
   end
 end
