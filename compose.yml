@@ -21,7 +21,8 @@ services:
     command: /bin/bash
 
   selenium:
-    image: selenium/standalone-chrome:122.0
+    # Try removing headless=old option when upgrading the version.
+    image: selenium/standalone-chrome:129.0
     logging:
       driver: none
     stdin_open: true
