@@ -19,8 +19,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
             end
 
   driven_by :selenium, using: :headless_chrome, screen_size: [960, 720], options: options do |capabilities|
-    capabilities.add_argument "force-device-scale-factor=1"
-    capabilities.add_argument "lang=#{ENV.fetch('LANG', 'en_CA')}"
+    capabilities.add_argument("force-device-scale-factor=1")
+    capabilities.add_argument("lang=#{ENV.fetch('LANG', 'en_CA')}")
+    # Needed for Selenium 129. Presumably remove at some point.
+    capabilities.add_argument("--headless=old")
   end
 
   if remote_selenium?
