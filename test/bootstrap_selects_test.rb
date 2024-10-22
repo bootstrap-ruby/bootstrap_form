@@ -70,7 +70,7 @@ class BootstrapSelectsTest < ActionView::TestCase
           <option value="1">activated</option>
           <option value="2">blocked</option>
         </select>
-        <small class="form-text text-muted">Help!</small>
+        <small class="form-text text-body-secondary">Help!</small>
       </div>
     HTML
     assert_equivalent_html expected,
