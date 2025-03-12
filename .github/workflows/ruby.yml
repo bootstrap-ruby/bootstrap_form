@@ -33,7 +33,7 @@ jobs:
       fail-fast: false
       matrix:
         ruby-version: [ '3.4', '3.3', '3.2', 'ruby-head' ]
-        gemfile: [ '7.2', '7.1', 'edge' ]
+        gemfile: [ '8.0', '7.2', '7.1', 'edge' ]
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:

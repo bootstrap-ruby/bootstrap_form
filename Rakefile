@@ -32,7 +32,6 @@ task default: %i[test rubocop:autocorrect]
 namespace :test do
   desc "Run tests for all supported Rails versions, with current Ruby version"
   task :all do
-    original_directory = Dir.pwd
     original_gemfile = ENV["BUNDLE_GEMFILE"]
     gemfiles = Dir.glob("gemfiles/*.gemfile").reject { |f| File.basename(f) == "common.gemfile" }
     gemfiles.each do |f|
@@ -41,6 +40,7 @@ namespace :test do
       system("bundle exec rake test")
     end
 
+    original_directory = Dir.pwd
     Dir.chdir("demo")
     ENV.delete("BUNDLE_GEMFILE")
     system("bundle check") || system("bundle install")
@@ -48,6 +48,6 @@ namespace :test do
 
   ensure
     original_gemfile.nil? ? ENV.delete("BUNDLE_GEMFILE") : ENV["BUNDLE_GEMFILE"] = original_gemfile
-    Dir.chdir(original_directory)
+    Dir.chdir(original_directory) unless original_directory.nil?
   end
 end
