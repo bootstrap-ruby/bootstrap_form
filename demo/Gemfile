@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "bootstrap_form", path: ".."
 
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 8.0.0"
 
 gem "bootsnap", require: false
 gem "cssbundling-rails"
