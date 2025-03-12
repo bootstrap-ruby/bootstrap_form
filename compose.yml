@@ -21,8 +21,8 @@ services:
     command: /bin/bash
 
   selenium:
-    # Try removing headless=old option when upgrading the version.
-    image: selenium/standalone-chrome:129.0
+    image: selenium/standalone-chrome:133.0
+    shm_size: 2gb
     logging:
       driver: none
     stdin_open: true
@@ -32,3 +32,4 @@ services:
     ports:
       - '4444:4444'
       - '5900:5900'
+      - '7900:7900'
