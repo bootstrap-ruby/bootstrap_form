@@ -63,7 +63,7 @@ module BootstrapForm
         # label's `for` attribute needs to match checkbox tag's id,
         # IE sanitized value, IE
         # https://github.com/rails/rails/blob/5-0-stable/actionview/lib/action_view/helpers/tags/base.rb#L123-L125
-        "#{name}_#{value.to_s.gsub(/\s/, '_').gsub(/[^-[[:word:]]]/, '').mb_chars.downcase}"
+        "#{name}_#{value.to_s.gsub(/\s/, '_').gsub(/[^-[[:word:]]]/, '').downcase}"
       end
 
       def check_box_classes(name, options)
