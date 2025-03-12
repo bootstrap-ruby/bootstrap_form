@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= "test"
 require "diffy"
 require "nokogiri"
 require "equivalent-xml"
-require "logger" if Gem.loaded_specs["rails"].version < Gem::Version.new("7.1.0.rc1")
 
 require_relative "../demo/config/environment"
 require "rails/test_help"
