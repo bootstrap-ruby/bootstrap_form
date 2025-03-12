@@ -181,7 +181,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <div class="input-group">
@@ -423,7 +422,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_primary_school" name="user[misc]" type="radio" value="primary school"/>
@@ -483,7 +481,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="none-margin">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -600,7 +597,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "custom form group layout option" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 col-auto g-3">
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />

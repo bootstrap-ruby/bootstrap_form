@@ -103,6 +103,6 @@ class ActionView::TestCase
   end
 
   def autocomplete_attr
-    'autocomplete="off"' if ::Rails::VERSION::STRING >= "6.1"
+    'autocomplete="off"'
   end
 end
