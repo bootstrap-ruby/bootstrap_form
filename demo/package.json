@@ -3,9 +3,9 @@
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@rails/actioncable": "^7.2.0",
-    "@rails/actiontext": "^7.2.0",
-    "@rails/activestorage": "^7.2.0",
+    "@rails/actioncable": "^8.0.0",
+    "@rails/actiontext": "^8.0.0",
+    "@rails/activestorage": "^8.0.0",
     "@rails/ujs": "^7.1.0",
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
