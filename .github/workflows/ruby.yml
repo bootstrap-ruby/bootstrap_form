@@ -58,8 +58,8 @@ jobs:
       - name: Run tests
         working-directory: demo
         run: bundle exec rake test:all
-      - name: Commit changed screenshots and other files
-        if: failure()
-        working-directory: demo
-        run: bundle exec rake commit
+      # - name: Commit changed screenshots and other files
+      #   if: failure()
+      #   working-directory: demo
+      #   run: bundle exec rake commit
 
