@@ -29,7 +29,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="datetime" />
+        <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.datetime_field(:misc)
