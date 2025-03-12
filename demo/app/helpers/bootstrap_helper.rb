@@ -1,6 +1,6 @@
 module BootstrapHelper
-  def form_with_source(&block)
-    form_html = capture(&block)
+  def form_with_source(&)
+    form_html = capture(&)
 
     tag.div(class: "example") do
       concat(form_html)

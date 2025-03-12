@@ -33,20 +33,20 @@ module BootstrapForm
         end
       end
 
-      def bootstrap_form_tag(options={}, &block)
+      def bootstrap_form_tag(options={}, &)
         options[:acts_like_form_tag] = true
 
-        bootstrap_form_for("", options, &block)
+        bootstrap_form_for("", options, &)
       end
 
-      def bootstrap_fields_for(record_name, record_object=nil, options={}, &block)
+      def bootstrap_fields_for(record_name, record_object=nil, options={}, &)
         options[:builder] = BootstrapForm::FormBuilder
-        fields_for(record_name, record_object, options, &block)
+        fields_for(record_name, record_object, options, &)
       end
 
-      def bootstrap_fields(scope=nil, model: nil, **options, &block)
+      def bootstrap_fields(scope=nil, model: nil, **options, &)
         options[:builder] = BootstrapForm::FormBuilder
-        fields(scope, model: model, **options, &block)
+        fields(scope, model: model, **options, &)
       end
 
       private

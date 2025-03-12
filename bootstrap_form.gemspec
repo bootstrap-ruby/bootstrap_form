@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.bindir        = "exe"
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = ">= 3.0"
+  s.required_ruby_version = ">= 3.2"
 
   s.add_dependency("actionpack", BootstrapForm::REQUIRED_RAILS_VERSION)
   s.add_dependency("activemodel", BootstrapForm::REQUIRED_RAILS_VERSION)

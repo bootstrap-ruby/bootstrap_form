@@ -56,17 +56,17 @@ module BootstrapForm
         text_field_with_bootstrap(name, static_options)
       end
 
-      def custom_control(*args, &block)
+      def custom_control(*args, &)
         options = args.extract_options!
         name = args.first
 
-        form_group_builder(name, options, &block)
+        form_group_builder(name, options, &)
       end
 
-      def prepend_and_append_input(name, options, &block)
+      def prepend_and_append_input(name, options, &)
         options = options.extract!(:prepend, :append, :input_group_class).compact
 
-        input = capture(&block) || ActiveSupport::SafeBuffer.new
+        input = capture(&) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
         input << generate_error(name)
@@ -75,8 +75,8 @@ module BootstrapForm
         input
       end
 
-      def input_with_error(name, &block)
-        input = capture(&block)
+      def input_with_error(name, &)
+        input = capture(&)
         input << generate_error(name)
       end
 

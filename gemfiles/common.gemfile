@@ -19,7 +19,7 @@ end
 
 group :development, :test do
   gem "debug"
-  gem "pry-byebug"
+  gem "ostruct" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.5.0")
 end
 
 group :ci do

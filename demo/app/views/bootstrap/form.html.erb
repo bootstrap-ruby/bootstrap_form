@@ -48,7 +48,7 @@
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.check_box :terms, label: "Agree to Terms" %>
     <%= form.collection_check_boxes :misc, @collection, :id, :street %>
-    <%= form.rich_text_area(:life_story) if Rails::VERSION::STRING > "6" %>
+    <%= form.rich_text_area(:life_story) %>
     <%= form.submit %>
   <% end %>
 <% end %>

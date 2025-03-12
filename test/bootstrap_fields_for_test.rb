@@ -16,7 +16,6 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="address_street">Street</label>
           <input class="form-control" id="address_street" name="address[street]" type="text" value="123 Main Street" />
@@ -37,7 +36,6 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="preferences_favorite_color" name="preferences[favorite_color]" type="text" value="cerulean" />
@@ -58,7 +56,6 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="address_street">Street</label>
           <input class="form-control" id="address_street" name="address[street]" type="text" value="123 Main Street" />
@@ -79,7 +76,6 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="preferences_favorite_color" name="preferences[favorite_color]" type="text" value="cerulean" />

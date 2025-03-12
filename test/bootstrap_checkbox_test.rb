@@ -124,7 +124,6 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "inline checkboxes from form layout" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
-      #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="col">
           <div class="form-check form-check-inline">
             <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
@@ -519,8 +518,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+          <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
@@ -570,8 +568,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+          <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
@@ -597,8 +594,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     @user.errors.add(:terms, "You must accept the terms.")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-        <div class="form-check mb-3">
+          <div class="form-check mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="form-check-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">

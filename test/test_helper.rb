@@ -85,24 +85,12 @@ class ActionView::TestCase
   def equivalent_with_looser_criteria?(expected, real, result)
     return result if result
 
-    if real.attr(:name) == "utf8"
-      # Handle wrapped utf8 hidden field for Rails 4.2+
-      expected = expected.child
-    end
-
     real.delete("data-disable-with")
-
-    if expected.is_a?(Nokogiri::XML::Attr) &&
-       real.is_a?(Nokogiri::XML::Attr) &&
-       expected.value == "datetime" &&
-       real.value == "datetime-local"
-      return true
-    end
 
     EquivalentXml.equivalent?(expected, real, element_order: true)
   end
 
   def autocomplete_attr
-    'autocomplete="off"' if ::Rails::VERSION::STRING >= "6.1"
+    'autocomplete="off"'
   end
 end

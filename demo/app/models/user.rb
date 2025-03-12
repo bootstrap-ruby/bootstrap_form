@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_one :address
   accepts_nested_attributes_for :address
 
-  has_rich_text(:life_story) if Rails::VERSION::STRING > "6"
+  has_rich_text(:life_story)
 
   def always
     true

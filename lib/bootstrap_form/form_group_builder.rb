@@ -6,7 +6,7 @@ module BootstrapForm
 
     private
 
-    def form_group_builder(method, options, html_options=nil, &block)
+    def form_group_builder(method, options, html_options=nil, &)
       no_wrapper = options[:wrapper] == false
 
       options = form_group_builder_options(options, method)
@@ -21,7 +21,7 @@ module BootstrapForm
       if no_wrapper
         yield
       else
-        form_group(method, form_group_options, &block)
+        form_group(method, form_group_options, &)
       end
     end
 

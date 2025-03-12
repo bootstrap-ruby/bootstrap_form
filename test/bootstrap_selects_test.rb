@@ -38,7 +38,6 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <select class="form-select is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
@@ -202,7 +201,6 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-select is-invalid" id="user_status" name="user[status]"></select>
@@ -283,7 +281,6 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-select is-invalid" id="user_status" name="user[status]"></select>
@@ -388,8 +385,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="mb-3 row">
+            <div class="mb-3 row">
             <label class="col-form-label col-sm-2" for="user_misc">Misc</label>
             <div class="col-sm-10">
               <div class="rails-bootstrap-forms-date-select col-auto g-3">
@@ -416,8 +412,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="mb-3">
+            <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
               <select class="form-select is-invalid" id="user_misc_1i" name="user[misc(1i)]">
@@ -517,8 +512,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="mb-3">
+            <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
               <input #{autocomplete_attr} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
@@ -625,8 +619,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
-          <div class="mb-3">
+            <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
               <select class="form-select is-invalid" id="user_misc_1i" name="user[misc(1i)]">
@@ -762,10 +755,6 @@ class BootstrapSelectsTest < ActionView::TestCase
   end
 
   def blank_option
-    if ::Rails::VERSION::STRING < "6.1"
-      '<option value=""></option>'
-    else
-      '<option label=" " value=""></option>'
-    end
+    '<option label=" " value=""></option>'
   end
 end

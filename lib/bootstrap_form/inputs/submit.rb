@@ -1,7 +1,7 @@
 module BootstrapForm
   module Inputs
     module Submit
-      def button(value=nil, options={}, &block)
+      def button(value=nil, options={}, &)
         value = setup_css_class "btn btn-secondary", value, options
         super
       end

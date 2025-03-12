@@ -29,7 +29,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-control" id="user_misc" name="user[misc]" type="datetime" />
+        <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.datetime_field(:misc)
@@ -89,7 +89,6 @@ class BootstrapFieldsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <input class="form-control is-invalid" id="user_misc" name="user[misc]" type="file"/>
@@ -105,7 +104,6 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="address_user_id">User</label>
           <input class="form-control is-invalid" id="address_user_id" name="address[user_id]" required="required" type="text"/>
@@ -359,7 +357,6 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
@@ -380,7 +377,6 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="user_preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" />
@@ -401,7 +397,6 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
           <div class="col-sm-10">
@@ -425,7 +420,6 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="col">
           <label class="form-label me-sm-2" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />

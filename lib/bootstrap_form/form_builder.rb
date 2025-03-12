@@ -72,10 +72,10 @@ module BootstrapForm
         .compact.uniq, " ")
     end
 
-    def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &block)
+    def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &)
       fields_options = fields_for_options(record_object, fields_options)
       record_object = nil if record_object.is_a?(Hash) && record_object.extractable_options?
-      fields_for_without_bootstrap(record_name, record_object, fields_options, &block)
+      fields_for_without_bootstrap(record_name, record_object, fields_options, &)
     end
 
     bootstrap_alias :fields_for
@@ -92,7 +92,7 @@ module BootstrapForm
       %i[layout control_col inline_errors label_errors].each do |option|
         field_options[option] ||= options[option]
       end
-      field_options[:label_col] = field_options[:label_col].present? ? (field_options[:label_col]).to_s : options[:label_col]
+      field_options[:label_col] = field_options[:label_col].present? ? field_options[:label_col].to_s : options[:label_col]
       field_options
     end
 

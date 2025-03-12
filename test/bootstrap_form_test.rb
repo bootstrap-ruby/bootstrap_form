@@ -8,7 +8,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "default-style forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user) { |_f| nil }
@@ -17,7 +16,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "default-style form fields layout horizontal" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
@@ -69,7 +67,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "default-style form fields layout inline" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 col-auto g-3">
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
@@ -115,10 +112,9 @@ class BootstrapFormTest < ActionView::TestCase
     # TODO: Align baseline better.
   end
 
-  test "default-style forms bootstrap_form_with Rails 5.1+" do
+  test "default-style forms bootstrap_form_with Rails 7.1+" do
     expected = <<~HTML
-      <form accept-charset="UTF-8" action="/users" method="post" #{'data-remote="true"' if ::Rails::VERSION::STRING < '6.1'}>
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
+      <form accept-charset="UTF-8" action="/users" method="post">
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_with(model: @user) { |_f| nil }
@@ -127,7 +123,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "inline-style forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="col">
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
@@ -174,7 +169,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "horizontal-style forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
@@ -229,7 +223,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "horizontal-style form fields layout vertical" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
@@ -279,7 +272,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "horizontal-style form fields layout inline" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 col-auto g-3">
           <label class="form-label me-sm-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
@@ -329,7 +321,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "existing styles aren't clobbered when specifying a form style" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10">
@@ -378,7 +369,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "given role attribute should not be covered by default role attribute" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post" role="not-a-form">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user, html: { role: "not-a-form" }) { |_f| nil }
@@ -388,7 +378,6 @@ class BootstrapFormTest < ActionView::TestCase
     BootstrapForm.config.stubs(:default_form_attributes).returns({})
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user) { |_f| nil }
@@ -398,7 +387,6 @@ class BootstrapFormTest < ActionView::TestCase
     BootstrapForm.config.stubs(:default_form_attributes).returns(foo: "bar")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" foo="bar" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user) { |_f| nil }
@@ -407,7 +395,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag acts like a form tag" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
@@ -421,7 +408,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_for does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="ID">Email</label>
           <input required="required" class="form-control" id="ID" name="NAME" type="text" value="steve@example.com" />
@@ -434,7 +420,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
@@ -447,7 +432,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag allows an empty name for checkboxes" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="form-check mb-3">
           <input #{autocomplete_attr} name="misc" type="hidden" value="0" />
           <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
@@ -464,7 +448,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -480,7 +463,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required text-danger" for="user_email">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -499,7 +481,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required text-danger" for="user_email">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -556,7 +537,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
@@ -580,7 +560,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">Please fix the following errors:</div>
       </form>
     HTML
@@ -597,7 +576,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="alert alert-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
@@ -645,7 +623,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "custom label width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
           <div class="col-sm-10">
@@ -661,7 +638,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "offset for form group without label respects label width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <div class="col-md-10 offset-md-2">
             <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
@@ -677,7 +653,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "offset for form group without label respects multiple label widths for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
             <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
@@ -693,7 +668,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "custom input width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-5">
@@ -709,7 +683,6 @@ class BootstrapFormTest < ActionView::TestCase
   test "additional input col class" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3 row">
           <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
           <div class="col-sm-10 custom-class">
@@ -733,7 +706,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -755,7 +727,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <div class="field_with_errors">
             <label class="form-label required" for="user_email">Email</label>
@@ -781,7 +752,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
@@ -801,7 +771,6 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        #{'<input name="utf8" type="hidden" value="&#x2713;"/>' unless ::Rails::VERSION::STRING >= '6'}
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
