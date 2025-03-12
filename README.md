@@ -25,8 +25,8 @@ Some other nice things that `bootstrap_form` does for you are:
 
 `bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
 
-* Ruby 3.0+ (https://www.ruby-lang.org/en/downloads/branches/)
-* Rails 6.1+ (https://guides.rubyonrails.org/maintenance_policy.html)
+* Ruby 3.2+ (https://www.ruby-lang.org/en/downloads/branches/)
+* Rails 7.1+ (https://guides.rubyonrails.org/maintenance_policy.html)
 * Bootstrap 5.0+
 
 ## Installation

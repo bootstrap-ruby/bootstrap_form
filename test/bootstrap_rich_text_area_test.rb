@@ -36,13 +36,13 @@ if Rails::VERSION::STRING > "6"
       "http://test.host/rails/active_storage/blobs/#{'redirect/' if ::Rails::VERSION::STRING >= '6.1'}:signed_id/:filename"
     end
 
-    def with_stub_token(&block)
+    def with_stub_token(&)
       unless defined?(ActiveStorage::DirectUploadToken)
         yield
         return
       end
 
-      ActiveStorage::DirectUploadToken.stub(:generate_direct_upload_token, "token", &block)
+      ActiveStorage::DirectUploadToken.stub(:generate_direct_upload_token, "token", &)
     end
   end
 end

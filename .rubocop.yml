@@ -1,12 +1,12 @@
-require:
+plugins:
   - rubocop-performance
   - rubocop-rails
 
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 3.0
-  TargetRailsVersion: 6.1
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 7.1
   NewCops: enable
   Exclude:
     - bin/*

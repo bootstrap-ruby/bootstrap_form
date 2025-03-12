@@ -2,8 +2,8 @@ PATH
   remote: ..
   specs:
     bootstrap_form (5.4.0)
-      actionpack (>= 6.1)
-      activemodel (>= 6.1)
+      actionpack (>= 7.1)
+      activemodel (>= 7.1)
 
 GEM
   remote: https://rubygems.org/

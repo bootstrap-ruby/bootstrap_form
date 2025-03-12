@@ -42,7 +42,7 @@ module BootstrapForm
         check_box_options.merge!(required_field_options(options, name))
       end
 
-      def check_box_label(name, options, checked_value, &block)
+      def check_box_label(name, options, checked_value, &)
         label_name = if options[:multiple]
                        check_box_value(name, checked_value)
                      else
@@ -50,7 +50,7 @@ module BootstrapForm
                      end
         label_options = { class: check_box_label_class(options) }
         label_options[:for] = options[:id] if options[:id].present?
-        label(label_name, check_box_description(name, options, &block), label_options)
+        label(label_name, check_box_description(name, options, &), label_options)
       end
 
       def check_box_description(name, options, &block)
