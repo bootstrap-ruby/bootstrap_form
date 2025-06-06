@@ -10,12 +10,12 @@ class User < ApplicationRecord
   validates :status, presence: true, if: -> { age > 42 }
   validates :misc, presence: true, unless: -> { feet == 5 }
 
-  has_one :address
+  has_one :address, dependent: nil
   accepts_nested_attributes_for :address
 
   has_rich_text(:life_story)
 
-  def always
+  def always # rubocop:disable Naming/PredicateMethod
     true
   end
 
