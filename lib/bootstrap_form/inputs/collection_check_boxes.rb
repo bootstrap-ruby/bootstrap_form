@@ -34,11 +34,11 @@ module BootstrapForm
           def field_name_shim(object_name, method_name, *method_names, multiple: false, index: nil)
             names = method_names.map! { |name| "[#{name}]" }.join
             if object_name.blank?
-              "#{method_name}#{names}#{multiple ? '[]' : ''}"
+              "#{method_name}#{names}#{'[]' if multiple}"
             elsif index
-              "#{object_name}[#{index}][#{method_name}]#{names}#{multiple ? '[]' : ''}"
+              "#{object_name}[#{index}][#{method_name}]#{names}#{'[]' if multiple}"
             else
-              "#{object_name}[#{method_name}]#{names}#{multiple ? '[]' : ''}"
+              "#{object_name}[#{method_name}]#{names}#{'[]' if multiple}"
             end
           end
         end
