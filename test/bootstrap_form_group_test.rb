@@ -195,6 +195,32 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: "$", append: ".00" }
   end
 
+  test "file field with prepend text" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_avatar">Avatar</label>
+        <div class="input-group">
+          <span class="input-group-text">before</span>
+          <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.file_field(:avatar, prepend: "before")
+  end
+
+  test "file field with append text" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_avatar">Avatar</label>
+        <div class="input-group">
+          <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
+          <span class="input-group-text">after</span>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.file_field(:avatar, append: "after")
+  end
+
   test "help messages for default forms" do
     expected = <<~HTML
       <div class="mb-3">
