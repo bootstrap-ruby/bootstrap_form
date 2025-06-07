@@ -195,6 +195,51 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.text_field :email, prepend: "$", append: ".00" }
   end
 
+  test "file field with prepend text" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_avatar">Avatar</label>
+        <div class="input-group">
+          <span class="input-group-text">before</span>
+          <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.file_field(:avatar, prepend: "before")
+  end
+
+  test "file field with append text" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_avatar">Avatar</label>
+        <div class="input-group">
+          <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
+          <span class="input-group-text">after</span>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.file_field(:avatar, append: "after")
+  end
+
+  test "file field with append and prepend button" do
+    prefix = '<div class="mb-3"><label class="form-label" for="user_avatar">Avatar</label><div class="input-group">'
+    field = <<~HTML
+      <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
+    HTML
+    button_src = link_to("Click", "#", class: "btn btn-secondary")
+    button_prepend = button_src
+    button_append = button_src
+    suffix = "</div></div>"
+    after_button = prefix + field + button_append + suffix
+    before_button = prefix + button_prepend + field + suffix
+    both_button = prefix + button_prepend + field + button_append + suffix
+    multiple_button = prefix + button_prepend + button_prepend + field + button_append + button_append + suffix
+    assert_equivalent_html after_button, @builder.file_field(:avatar, append: button_src)
+    assert_equivalent_html before_button, @builder.file_field(:avatar, prepend: button_src)
+    assert_equivalent_html both_button, @builder.file_field(:avatar, append: button_src, prepend: button_src)
+    assert_equivalent_html multiple_button, @builder.file_field(:avatar, append: [button_src] * 2, prepend: [button_src] * 2)
+  end
+
   test "help messages for default forms" do
     expected = <<~HTML
       <div class="mb-3">
