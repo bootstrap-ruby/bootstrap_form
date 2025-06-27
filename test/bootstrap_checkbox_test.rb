@@ -680,4 +680,19 @@ class BootstrapCheckboxTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.check_box(:misc)
   end
+
+  if Rails::VERSION::MAJOR >= 8
+    test "checkbox alias works" do
+      expected = <<~HTML
+        <div class="form-check mb-3">
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" extra="extra arg" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">
+            I agree to the terms
+          </label>
+        </div>
+      HTML
+      assert_equivalent_html expected, @builder.checkbox(:terms, label: "I agree to the terms", extra: "extra arg")
+    end
+  end
 end

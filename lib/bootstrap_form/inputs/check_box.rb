@@ -20,6 +20,8 @@ module BootstrapForm
         end
 
         bootstrap_alias :check_box
+        alias_method :checkbox_with_bootstrap, :check_box_with_bootstrap if Rails::VERSION::MAJOR >= 8
+        bootstrap_alias :checkbox if Rails::VERSION::MAJOR >= 8
       end
 
       private
