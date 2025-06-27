@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   has_rich_text(:life_story)
 
-  def always # rubocop:disable Naming/PredicateMethod
+  def always
     true
   end
 
