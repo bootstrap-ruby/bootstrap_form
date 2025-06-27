@@ -548,11 +548,25 @@ It's just a short form of `wrapper: { class: 'mb-3 additional-class' }`.
 
 If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
+![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
+```erb
+<%= f.text_field :name, wrapper: { class: false } %>
+```
+
+This generates:
+
+```html
+<div>
+  <label class="form-label" for="user_name">Name</label>
+  <input class="form-control" id="user_name" name="user[name]" type="text">
+</div>
+```
+
 ### Suppressing the Form Group Altogether
 
 You may want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
 
-![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
+![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
 ```erb
 <%= f.form_group :user do %>
   <%= f.email_field :email, wrapper: false %>
@@ -573,7 +587,7 @@ Note that Bootstrap relies on the form group div to correctly format most fields
 
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
 
-![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
+![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
 ```erb
 <%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
 ```
@@ -596,7 +610,7 @@ Checkboxes and radios should be placed inside of a `form_group` to render
 properly. The following example ensures that the entire form group will display
 an error if an associated validations fails:
 
-![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
+![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" }, help: "Optional Help Text" do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", checked: true %>
@@ -639,7 +653,7 @@ This generates:
 
 You can also create a checkbox using a block:
 
-![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
+![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
 ```erb
 <%= f.form_group :terms, label: { text: "Optional Label" } do %>
   <%= f.check_box :terms do %>
@@ -665,7 +679,7 @@ This generates:
 
 To display checkboxes and radios inline, pass the `inline: true` option:
 
-![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
+![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" } do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", inline: true %>
@@ -696,7 +710,7 @@ This generates:
 
 Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
 
-![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
+![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
@@ -712,7 +726,7 @@ This generates:
 
 You can also add a style to the tag using the `wrapper` option:
 
-![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
+![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
 ```erb
 <%= f.check_box :skilled, inline: true, wrapper: {style: "color: green"} %>
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper: {class: 'w-auto', style: "color: red"} %>
@@ -736,7 +750,7 @@ This generates:
 
 To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 
-![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
+![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
 ```erb
 <%= f.check_box :remember_me, switch: true %>
 ```
@@ -756,7 +770,7 @@ This generates:
 `bootstrap_form` also provides helpers that automatically create the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
-![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
+![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
 ```erb
 <%= f.collection_radio_buttons :skill_level, Skill.all, :id, :name %>
 <%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
@@ -802,7 +816,7 @@ Collection methods accept these options:
 
 To add `data-` attributes to a collection of radio buttons, map your models to an array and add a hash:
 
-![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
+![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
 ```erb
 <%# Use the :first and :second elements of the array to be the value and label respectively %>
 <%- choices = @collection.map { |addr| [ addr.id, addr.street, { 'data-zip-code':  addr.zip_code } ] } -%>
@@ -830,7 +844,7 @@ This generates:
 
 You can create a range control like this:
 
-![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
+![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
 ```erb
 <%= f.range_field :excellence %>
 ```
@@ -848,7 +862,7 @@ This generates:
 
 You can create a static control like this:
 
-![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
+![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
 ```erb
 <%= f.static_control :email %>
 ```
@@ -864,7 +878,7 @@ This generates:
 
 Here's the output for a horizontal layout:
 
-![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
+![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.static_control :email %>
@@ -886,7 +900,7 @@ This generates:
 
 You can also create a static control that isn't based on a model attribute:
 
-![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
+![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
 ```erb
 <%= f.static_control :field_name, label: "Custom Static Control", value: "Content Here" %>
 ```
@@ -904,7 +918,7 @@ This generates:
 
 You can also create the static control the following way, if you don't need to get the value of the static control as a parameter when the form is submitted:
 
-![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
+![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
 ```erb
 <%= f.static_control label: "Custom Static Control", value: "Content Here", name: nil %>
 ```
@@ -938,7 +952,7 @@ this by defining these selects as `inline-block` and a width of `auto`.
 The `btn btn-secondary` CSS classes are automatically added to your submit
 buttons.
 
-![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
+![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
 ```erb
 <%= f.submit %>
 ```
@@ -952,7 +966,7 @@ This generates:
 You can also use the `primary` helper, which adds `btn btn-primary` to your
 submit button:
 
-![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
+![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
 ```erb
 <%= f.primary "Optional Label" %>
 ```
@@ -965,7 +979,7 @@ This generates:
 
 You can specify your own classes like this:
 
-![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
+![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
 ```erb
 <%= f.submit "Log In", class: "btn btn-success" %>
 ```
@@ -981,7 +995,7 @@ it will be rendered as an HTML button, instead of an input tag. This allows you
 to specify HTML content and styling for your buttons (such as adding
 illustrative icons to them). For example, the following statements
 
-![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
+![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
 ```erb
 <%= f.primary "Save changes <span class='bi bi-save'></span>".html_safe, render_as_button: true %>
 
@@ -1015,7 +1029,7 @@ Bootstrap classes), or for element targeting via CSS classes.
 Be aware, however, that using the `class` option will discard any extra classes
 you add. As an example, the following button declarations
 
-![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
+![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
 ```erb
 <%= f.primary "My Nice Button", extra_class: 'my-button' %>
 
@@ -1033,7 +1047,7 @@ will be rendered as
 
 ## Rich Text Areas AKA Trix Editor
 
-![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
+![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
 ```erb
 <%= f.rich_text_area(:life_story) %>
 ```
@@ -1101,7 +1115,7 @@ The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, a
 If you want to use the original Rails form helpers for a particular field,
 append `_without_bootstrap` to the helper:
 
-![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
+![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
 ```erb
 <%= f.text_field_without_bootstrap :email %>
 ```
@@ -1123,7 +1137,7 @@ To use an inline-layout form, use the `layout: :inline` option. To hide labels,
 use the `hide_label: true` option, which keeps your labels accessible to those
 using screen readers.
 
-![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
+![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
 ```erb
 <%= bootstrap_form_for(@user, layout: :inline) do |f| %>
   <%= f.email_field :email, hide_label: true %>
@@ -1160,7 +1174,7 @@ This generates:
 
 To skip label rendering at all, use `skip_label: true` option.
 
-![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
+![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
 ```erb
 <%= f.password_field :password, skip_label: true %>
 ```
@@ -1182,7 +1196,7 @@ To use a horizontal-layout form with labels to the left of the control, use the
 In the example below, the submit button has been wrapped in a `form_group` to
 keep it properly aligned.
 
-![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
+![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.email_field :email %>
@@ -1229,7 +1243,7 @@ This generates:
 
 The `label_col` and `control_col` css classes can also be changed per control:
 
-![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
+![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1296,7 +1310,7 @@ end
 
 Control col wrapper class can be modified with `add_control_col_class`. This option will preserve column definition:
 
-![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
+![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1335,7 +1349,7 @@ This generates:
 
 The form-level `layout` can be overridden per field, unless the form-level layout was `inline`:
 
-![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
+![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1390,7 +1404,7 @@ A form-level `layout: :inline` can't be overridden because of the way Bootstrap 
 The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
 and dropdowns. Here's an example:
 
-![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
+![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
   <%= f.email_field :email, floating: true %>
@@ -1438,7 +1452,7 @@ Rails normally wraps fields with validation errors in a `div.field_with_errors`,
 By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Here's an example:
 
-![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
+![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
 ```erb
 <%= bootstrap_form_for(@user_with_error) do |f| %>
   <%= f.email_field :email %>
@@ -1505,7 +1519,7 @@ You can turn off inline errors for the entire form like this:
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
 
-![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
+![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
 ```erb
 <%= bootstrap_form_for(@user_with_error, label_errors: true) do |f| %>
   <%= f.email_field :email %>
@@ -1538,7 +1552,7 @@ To display an error message with an error summary, you can use the
 `alert_message` helper. This won't output anything unless a model validation
 has failed.
 
-![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
+![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below." %>
@@ -1562,7 +1576,7 @@ Which outputs:
 
 You can turn off the error summary like this:
 
-![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
+![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below.", error_summary: false %>
@@ -1579,7 +1593,7 @@ This generates:
 
 To output a simple unordered list of errors, use the `error_summary` helper.
 
-![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
+![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.error_summary %>
@@ -1602,7 +1616,7 @@ Which outputs:
 
 If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
-![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
+![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1623,7 +1637,7 @@ Note that the `invalid-feedback` `div` is hidden unless there is a preceding ele
 
 You can hide the attribute name like this:
 
-![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
+![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1642,7 +1656,7 @@ Which outputs:
 
 You can also use a custom class for the wrapping div, like this:
 
-![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
+![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1681,7 +1695,7 @@ ActiveModel::Validations::PresenceValidator.
 
 In cases where this behaviour is undesirable, use the `required` option to force the class to be present or absent:
 
-![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
+![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
 ```erb
 <%= f.password_field :login, label: "New Username", required: true %>
 <%= f.password_field :password, label: "New Password", required: false %>
@@ -1704,7 +1718,7 @@ This generates:
 
 Adding a form control for a `belongs_to` field will automatically pick up the associated presence validator.
 
-![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
+![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
 ```erb
 <%= bootstrap_form_for(@address, url: '/address') do |f| %>
   <%= f.collection_select :user_id, @users, :id, :email, include_blank: "Select a value" %>
@@ -1751,7 +1765,7 @@ Generated HTML:
 
 Fields can be disabled using the standard Rails form helper option.
 
-![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
+![Example 56](demo/doc/screenshots/bootstrap/readme/56_example.png "Example 56")
 ```erb
 <%= bootstrap_form_for @user do |f| %>
   <div class="row g-3">
