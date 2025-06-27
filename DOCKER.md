@@ -12,12 +12,10 @@ Put your personal and OS-specific configuration in a `compose.override.yml` file
 The following instructions work for an Ubuntu host, and will probably work for other common Linux distributions. Add a `compose.override.yml` in the local directory, that looks like this:
 
 ```compose.override.yml
-version: '3.3'
-
 # https://blog.giovannidemizio.eu/2021/05/24/how-to-set-user-and-group-in-docker compose/
 
 services:
-  shell:
+  web:
     # You have to set the user and group for this process, because you're going to be
     # creating all kinds of files from inside the container, that need to persist
     # outside the container.
@@ -50,23 +48,45 @@ docker compose up -d
 You may need to install or update the gems:
 
 ```bash
-docker compose exec -it shell bundle install
+docker compose exec web bundle install
 ```
 
 To get a shell in the container:
 
 ```bash
-docker compose exec -it shell /bin/bash
+docker compose exec web /bin/bash
 ```
 
-Once in the shell:
+Once in the shell, run tests:
+
+```bash
+bundle exec rake test
+```
+
+Run the demo app and browse to it:
+
+```bash
+cd demo
+bin/dev
+```
+
+On the host, not the Docker container, get the port number(s) you can use in the browser to access the test app running in the Docker container:
+
+```bash
+docker compose port web 3001 | cut -d: -f 2 # Browser
+docker compose port web 7900 | cut -d: -f 2 # To watch the browser execute system tests.
+```
+
+Browse to `localhost:<port number from above>`.
+
+Run system tests:
 
 ```bash
 cd demo
 bundle exec rails test:system
 ```
 
-Note that this system test approach is highly experimental and has some rough edges. The docker compose file and/or steps to run system tests may change. The tests currently fail, because the files with which they're being compared were generated on a Mac, but the Docker containers are running Linux.
+Note that this system test approach is highly experimental and has some rough edges. The docker compose file and/or steps to run system tests may change.
 
 ## Troubleshooting Docker
 

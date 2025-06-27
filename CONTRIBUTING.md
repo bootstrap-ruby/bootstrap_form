@@ -76,7 +76,7 @@ cd demo
 bundle exec rails test:all # or test:system
 ```
 
-The [Docker development environment](#using-docker compose) appears to generate screenshots that are the same as what GitHub generates.
+The [Docker development environment](#developing-with-docker) appears to generate screenshots that are the same as what GitHub generates.
 
 Finally, maintainers may sometimes push changes directly to `main` or use other workflows to update the code. If pushing to `main` generates a commit for screenshot changes, please consider reverting your change immediately by executing the above `pull` and `revert` and another `push`, for the sanity of users who are using the edge (`main` branch) version of the gem. At any rate, review the changes promptly and use your judgement.
 
