@@ -31,15 +31,25 @@ Some other nice things that `bootstrap_form` does for you are:
 
 ## Installation
 
-Install Bootstrap 5. There are many ways to do this, depending on the asset pipeline you're using in your Rails application. One way is to use the gem that works with Sprockets. To do so, in a brand new Rails 7.0+ application created _without_ the `--webpacker` option, add the `bootstrap` gem to your `Gemfile`:
+This gem needs Bootstrap. The gem itself doesn't really care how Bootstrap is included in your application. There are many ways to install Bootstrap in a Rails application. Covering them all is beyond the scope of this README. However, here are some hints for a couple of common options.
 
-```ruby
-gem "bootstrap", "~> 5.0"
+If you're creating a new Rails app, create it with at least the following options:
+
+```bash
+rails new --javascript=esbuild --css=bootstrap <application-name>
 ```
 
-And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
+`esbuild` can be any of the options, _except_ the default `importmaps`.
 
-Add the `bootstrap_form` gem to your `Gemfile`:
+If you have an existing project, and it's processing CSS and JavaScript with some sort of front-end preprocessor, then install Bootstrap for your front-end preprocessor. That's probably something like this:
+
+```bash
+yarn add bootstrap popper.js
+```
+
+You can use this gem with other ways of installing Bootstrap, but how to do so is outside the scope of this README.
+
+Once Bootstrap is installed, add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
 gem "bootstrap_form", "~> 5.4"
@@ -49,27 +59,27 @@ Then:
 
 `bundle install`
 
-Depending on which CSS pre-processor you are using, adding the bootstrap form styles differs slightly.
-If you use Rails in the default mode without any pre-processor, you'll have to add the following line to your `application.css` file:
+`bootstrap_form` uses a very small number of its own CSS styles. Add the styles to your CSS bundle (usually your `application.scss` file). The way to do this depends on whether you're using Propshaft (the Rails 8 default), or Sprockets (pre-Rails 8). (Check your `Gemfile` to see whether you're using `sprockets-rails` or `propshaft`.)
 
-```css
-*= require rails_bootstrap_forms
-```
-
-If you followed the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails), you'll probably have switched to SCSS. In this case add the following line to your `application.scss`:
-
-
-If you're using Propshaft (for example, the Rails 8 default), do it like this:
+If you're using Propshaft, add the styles like this:
 
 ```scss
 @use "rails_bootstrap_forms";
 ```
 
-Else if you're using Sprockets (the Rails default before Rails 8), do it like this:
+If you're using Sprockets, add the styles like this:
 
 ```scss
 @import "rails_bootstrap_forms.css";
 ```
+
+If you're using Sprockets, you can also consider using the `bootstrap` gem to your `Gemfile`, as a way of installing Bootstrap itself. However, we haven't used this approach for a few years. Please report an issue if it doesn't work:
+
+```ruby
+gem "bootstrap", "~> 5.0"
+```
+
+And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
 
 ## Usage
 
