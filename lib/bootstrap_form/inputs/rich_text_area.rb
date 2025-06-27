@@ -17,6 +17,8 @@ module BootstrapForm
         end
 
         bootstrap_alias :rich_text_area
+        alias_method :rich_textarea, :rich_text_area if Rails::VERSION::MAJOR >= 8
+        bootstrap_alias :rich_textarea if Rails::VERSION::MAJOR >= 8
       end
     end
   end

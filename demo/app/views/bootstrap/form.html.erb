@@ -5,9 +5,9 @@
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.select :status, [['activated', 1], ['blocked', 2]], prompt: "Please Select" %>
-    <%= form.text_area :comments %>
-    <%= form.check_box :terms, label: "Agree to Terms" %>
-    <%= form.collection_check_boxes :checkboxes, @collection, :id, :street %>
+    <%= form.textarea :comments %>
+    <%= form.checkbox :terms, label: "Agree to Terms" %>
+    <%= form.collection_checkboxes :checkboxes, @collection, :id, :street %>
     <%= form.collection_radio_buttons :radio_buttons, @collection, :id, :street %>
     <%= form.file_field :file %>
     <%= form.datetime_select :created_at, include_blank: true %>
@@ -23,7 +23,7 @@
     <%= form.alert_message "This is an alert" %>
     <%= form.error_summary %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
-    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.collection_checkboxes :misc, @collection, :id, :street %>
     <%= form.submit %>
   <% end %>
 <% end %>
@@ -34,8 +34,8 @@
   <%= bootstrap_form_for @user, layout: :inline do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
-    <%= form.check_box :terms, label: "Agree to Terms" %>
-    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
+    <%= form.checkbox :terms, label: "Agree to Terms" %>
+    <%= form.collection_checkboxes :misc, @collection, :id, :street %>
     <%= form.submit %>
   <% end %>
 <% end %>
@@ -46,9 +46,9 @@
   <%= bootstrap_form_for @user, url: "/" do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
-    <%= form.check_box :terms, label: "Agree to Terms" %>
-    <%= form.collection_check_boxes :misc, @collection, :id, :street %>
-    <%= form.rich_text_area(:life_story) %>
+    <%= form.checkbox :terms, label: "Agree to Terms" %>
+    <%= form.collection_checkboxes :misc, @collection, :id, :street %>
+    <%= form.rich_textarea(:life_story) %>
     <%= form.submit %>
   <% end %>
 <% end %>
@@ -60,7 +60,7 @@
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else", floating: true %>
     <%= form.password_field :password, placeholder: "Password", floating: true %>
     <%= form.text_field :misc, floating: true %>
-    <%= form.text_area :comments, floating: true %>
+    <%= form.textarea :comments, floating: true %>
     <%= form.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
     <%= form.submit %>
   <% end %>

@@ -184,6 +184,26 @@ class BootstrapCheckboxTest < ActionView::TestCase
                                                                      label: "This is a checkbox collection", help: "With a help!")
   end
 
+  if Rails::VERSION::MAJOR >= 8
+    test "collection_checkboxes renders the form_group correctly" do
+      collection = [Address.new(id: 1, street: "Foobar")]
+      expected = <<~HTML
+        <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+        <div class="mb-3">
+          <label class="form-label" for="user_misc">This is a checkbox collection</label>
+          <div class="form-check">
+            <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <label class="form-check-label" for="user_misc_1">Foobar</label>
+          </div>
+          <small class="form-text text-muted">With a help!</small>
+        </div>
+      HTML
+
+      assert_equivalent_html expected, @builder.collection_checkboxes(:misc, collection, :id, :street,
+                                                                      label: "This is a checkbox collection", help: "With a help!")
+    end
+  end
+
   test "collection_check_boxes renders multiple checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
@@ -679,5 +699,20 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
     assert_equivalent_html expected, @builder.check_box(:misc)
+  end
+
+  if Rails::VERSION::MAJOR >= 8
+    test "checkbox alias works" do
+      expected = <<~HTML
+        <div class="form-check mb-3">
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input" extra="extra arg" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="user_terms">
+            I agree to the terms
+          </label>
+        </div>
+      HTML
+      assert_equivalent_html expected, @builder.checkbox(:terms, label: "I agree to the terms", extra: "extra arg")
+    end
   end
 end
