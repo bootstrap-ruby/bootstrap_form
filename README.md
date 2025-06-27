@@ -58,6 +58,15 @@ If you use Rails in the default mode without any pre-processor, you'll have to a
 
 If you followed the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails), you'll probably have switched to SCSS. In this case add the following line to your `application.scss`:
 
+
+If you're using Propshaft (for example, the Rails 8 default), do it like this:
+
+```scss
+@use "rails_bootstrap_forms";
+```
+
+Else if you're using Sprockets (the Rails default before Rails 8), do it like this:
+
 ```scss
 @import "rails_bootstrap_forms.css";
 ```
