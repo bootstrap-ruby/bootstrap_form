@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   serialize :preferences, coder: JSON
 
-  validates :email, presence: true, length: { minimum: 5 }, if: :always
+  validates :email, presence: true, length: { minimum: 5 }, if: :always?
   validates :terms, acceptance: { accept: true }
 
   # Conditional (always disabled) validators used in tests
@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   has_rich_text(:life_story)
 
-  def always
+  def always?
     true
   end
 
