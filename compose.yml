@@ -3,7 +3,7 @@
 # And:
 # https://medium.com/@retrorubies/chrome-as-a-service-for-rails-testing-b1a45e70fec1
 services:
-  shell:
+  web:
     image: lenchoreyes/jade:rails-app-${RUBY_VERSION:-3.3}-sqlite-${DISTRO:-bookworm}
     stdin_open: true
     tty: true
@@ -16,8 +16,8 @@ services:
       - TEST_APP_HOST=shell
       - TEST_APP_PORT=3001
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "3000"
+      - "3001"
     command: /bin/bash
 
   selenium:
@@ -30,6 +30,4 @@ services:
     environment:
       - LANG=en_CA.UTF-8
     ports:
-      - '4444:4444'
-      - '5900:5900'
-      - '7900:7900'
+      - "7900"
