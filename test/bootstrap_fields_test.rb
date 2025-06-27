@@ -245,6 +245,28 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.text_field(:email)
   end
 
+  test "text fields are wrapped correctly with wrapper_class and wrapper: { class: 'custom-class' }" do
+    expected = <<~HTML
+      <div class="custom-class">
+        <label class="form-label required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.text_field(:email, wrapper_class: "custom-class")
+    assert_equivalent_html expected, @builder.text_field(:email, wrapper: { class: "custom-class" })
+  end
+
+  test "text fields are wrapped correctly with wrapper_class false" do
+    expected = <<~HTML
+      <div>
+        <label class="form-label required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.text_field(:email, wrapper_class: false)
+    assert_equivalent_html expected, @builder.text_field(:email, wrapper: { class: false })
+  end
+
   test "text fields are wrapped correctly when horizontal and gutter classes are given" do
     expected = <<~HTML
       <div class="mb-3 g-3">
