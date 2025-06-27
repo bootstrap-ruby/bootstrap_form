@@ -39,9 +39,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
 
 Metrics/AbcSize:
   Max: 18
-  Exclude:
-    - "demo/test/**/*"
-    - "test/**/*"
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:

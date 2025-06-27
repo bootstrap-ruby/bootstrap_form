@@ -4,6 +4,6 @@ eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "drb" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "mutex_m" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 gem "propshaft"
+gem "rails", git: "https://github.com/rails/rails.git", branch: "main"
 gem "sqlite3"
