@@ -151,7 +151,7 @@ Please try to keep the checked-in `.ruby-version` set to the oldest supported ve
 For the record, the demo app is set up as if the Rails app had been created with:
 
 ```sh
-rails new --skip-hotwire -d sqlite --edge -j esbuild -c bootstrap .
+rails new -d sqlite --edge -j esbuild -c bootstrap .
 ```
 
 This means it's using `esbuild` to pre-process the JavaScript and (S)CSS, and that it's using [`jsbunding-rails`](https://github.com/rails/jsbundling-rails) and [`cssbundling-rails`](https://github.com/rails/cssbundling-rails) to put the assets in `app/assets/builds`, before the Sprockets assets pipeline serves them in development, or pre-compiles them in production.
