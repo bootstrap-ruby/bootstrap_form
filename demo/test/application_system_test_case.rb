@@ -28,7 +28,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   if remote_selenium?
     Capybara.server_host = "0.0.0.0"
     Capybara.server_port = ENV.fetch("TEST_APP_PORT", 3001)
-    Capybara.app_host = "http://#{ENV.fetch('TEST_APP_HOST', 'shell')}:#{ENV.fetch('TEST_APP_PORT', Capybara.server_port)}"
+    Capybara.app_host = "http://#{ENV.fetch('TEST_APP_HOST', 'web')}:#{ENV.fetch('TEST_APP_PORT', Capybara.server_port)}"
   end
 
   Capybara::Screenshot.enabled = true
