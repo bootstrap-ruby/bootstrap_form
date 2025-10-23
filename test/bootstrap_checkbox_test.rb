@@ -169,7 +169,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">This is a checkbox collection</label>
         <div class="form-check">
@@ -207,7 +207,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -232,7 +232,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     struct = Struct.new(:id, :name)
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -252,7 +252,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders inline checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
@@ -277,7 +277,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -304,7 +304,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -327,7 +327,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes sanitizes values when generating label `for`" do
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -344,7 +344,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -368,7 +368,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -392,7 +392,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -416,7 +416,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -441,7 +441,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly with Proc :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -468,7 +468,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly with lambda :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-check">
@@ -538,7 +538,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
@@ -588,7 +588,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">

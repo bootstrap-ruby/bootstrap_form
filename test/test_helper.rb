@@ -91,6 +91,11 @@ class ActionView::TestCase
   end
 
   def autocomplete_attr
+    Rails::VERSION::STRING >= "8.1" ? "" : 'autocomplete="off"'
+  end
+
+  # Once https://github.com/rails/rails/pull/55336 is merged this can be removed.
+  def autocomplete_attr_55336
     'autocomplete="off"'
   end
 end

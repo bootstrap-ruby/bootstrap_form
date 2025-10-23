@@ -490,9 +490,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
-            <input #{autocomplete_attr} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
-            <input #{autocomplete_attr} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
-            <input #{autocomplete_attr} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
+            <input #{autocomplete_attr_55336} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
+            <input #{autocomplete_attr_55336} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
+            <input #{autocomplete_attr_55336} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
             <select class="form-select" id="user_misc_4i" name="user[misc(4i)]">
               #{options_range(start: '00', stop: '23', selected: '12')}
             </select>
@@ -515,9 +515,9 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
-              <input #{autocomplete_attr} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
-              <input #{autocomplete_attr} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
-              <input #{autocomplete_attr} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
+              <input #{autocomplete_attr_55336} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
+              <input #{autocomplete_attr_55336} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
+              <input #{autocomplete_attr_55336} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
               <select class="form-select is-invalid" id="user_misc_4i" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
@@ -540,9 +540,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
-            <input #{autocomplete_attr} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
-            <input #{autocomplete_attr} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
-            <input #{autocomplete_attr} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-select" id="user_misc_4i" name="user[misc(4i)]">
               #{blank_option}
               #{options_range(start: '00', stop: '23')}
@@ -565,9 +565,9 @@ class BootstrapSelectsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
-            <input #{autocomplete_attr} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
-            <input #{autocomplete_attr} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
-            <input #{autocomplete_attr} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
+            <input #{autocomplete_attr_55336} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="1" />
             <select class="form-select my-time-select" id="user_misc_4i" name="user[misc(4i)]">
               #{blank_option}
               #{options_range(start: '00', stop: '23')}
