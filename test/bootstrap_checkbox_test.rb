@@ -188,7 +188,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     test "collection_checkboxes renders the form_group correctly" do
       collection = [Address.new(id: 1, street: "Foobar")]
       expected = <<~HTML
-        <input #{autocomplete_attr} id="user_misc" name="user[misc][]" type="hidden" value="" />
+        <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
         <div class="mb-3">
           <label class="form-label" for="user_misc">This is a checkbox collection</label>
           <div class="form-check">
