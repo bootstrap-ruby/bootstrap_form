@@ -110,7 +110,7 @@ This generates the following HTML:
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="form-check mb-3">
-    <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+    <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
@@ -170,7 +170,7 @@ This generates:
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
   <div class="form-check mb-3">
-    <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+    <input name="user[remember_me]" type="hidden" value="0">
     <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label class="form-check-label" for="user_remember_me">Remember me</label>
   </div>
@@ -630,7 +630,7 @@ This generates:
 </div>
 <div class="mb-3">
   <div class="form-check mb-3">
-    <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+    <input name="user[terms]" type="hidden" value="0">
     <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
   </div>
@@ -654,7 +654,7 @@ This generates:
 <div class="mb-3">
   <label class="form-label" for="user_terms">Optional Label</label>
   <div class="form-check mb-3">
-    <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+    <input name="user[terms]" type="hidden" value="0">
     <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label class="form-check-label" for="user_terms">
       You need to check this box to accept our terms of service and privacy policy
@@ -722,7 +722,7 @@ This generates:
 
 ```html
 <div class="form-check form-check-inline mb-3" style="color: green">
-  <input autocomplete="off" name="user[skilled]" type="hidden" value="0">
+  <input name="user[skilled]" type="hidden" value="0">
   <input class="form-check-input" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
   <label class="form-check-label" for="user_skilled">Skilled</label>
 </div>
@@ -745,7 +745,7 @@ This generates:
 
 ```html
 <div class="form-check mb-3 form-switch">
-  <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+  <input name="user[remember_me]" type="hidden" value="0">
   <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
   <label class="form-check-label" for="user_remember_me">Remember me</label>
 </div>
@@ -1043,7 +1043,7 @@ will be rendered as:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_life_story">Life story</label>
-  <input autocomplete="off" id="user_life_story_trix_input_user" name="user[life_story]" type="hidden">
+  <input id="user_life_story_trix_input_user" name="user[life_story]" type="hidden">
   <trix-toolbar id="trix-toolbar-1">
     <div class="trix-button-row">
       <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
@@ -1147,7 +1147,7 @@ This generates:
   </div>
   <div class="col">
     <div class="form-check form-check-inline">
-      <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+      <input name="user[remember_me]" type="hidden" value="0">
       <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
       <label class="form-check-label" for="user_remember_me">Remember me</label>
     </div>
@@ -1213,7 +1213,7 @@ This generates:
   <div class="mb-3 row">
     <div class="col-sm-10 offset-sm-2">
       <div class="form-check">
-        <input autocomplete="off" name="user[remember_me]" type="hidden" value="0">
+        <input name="user[remember_me]" type="hidden" value="0">
         <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
         <label class="form-check-label" for="user_remember_me">Remember me</label>
       </div>
@@ -1260,7 +1260,7 @@ This generates:
   <div class="mb-3 row">
     <div class="col-sm-10">
       <div class="form-check">
-        <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+        <input name="user[terms]" type="hidden" value="0">
         <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
         <label class="form-check-label" for="user_terms">Terms</label>
       </div>
@@ -1374,7 +1374,7 @@ This generates:
   </div>
   <div class="mb-3">
     <div class="form-check">
-      <input autocomplete="off" name="user[terms]" type="hidden" value="0">
+      <input name="user[terms]" type="hidden" value="0">
       <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
       <label class="form-check-label" for="user_terms">Terms</label>
     </div>
@@ -1813,7 +1813,7 @@ Generated HTML:
     </div>
     <div class="col-auto">
       <div class="form-check mb-3">
-        <input autocomplete="off" disabled name="user[terms]" type="hidden" value="0">
+        <input disabled name="user[terms]" type="hidden" value="0">
         <input class="form-check-input" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
         <label class="form-check-label" for="user_terms">Terms</label>
       </div>

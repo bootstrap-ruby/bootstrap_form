@@ -116,7 +116,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "hidden fields are supported" do
     expected = <<~HTML
-      <input #{autocomplete_attr} id="user_misc" name="user[misc]" type="hidden" />
+      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc]" type="hidden" />
     HTML
     assert_equivalent_html expected, @builder.hidden_field(:misc)
   end

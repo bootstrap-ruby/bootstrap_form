@@ -91,6 +91,19 @@ class ActionView::TestCase
   end
 
   def autocomplete_attr
+    Rails::VERSION::STRING >= "8.1" ? "" : 'autocomplete="off"'
+  end
+
+  # Once https://github.com/rails/rails/pull/55336 is in a released version this can be removed.
+  def autocomplete_attr_55336
+    return "" if Rails::VERSION::STRING > "8.1.0"
+
+    'autocomplete="off"'
+  end
+
+  # `time_select` doesn't seem to have changed. Some evidence that it's an oversight can be found,
+  # but not for sure.
+  def autocomplete_attr_time_selects
     'autocomplete="off"'
   end
 end

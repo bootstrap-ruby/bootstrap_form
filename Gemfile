@@ -7,5 +7,5 @@ gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "drb" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "mutex_m" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "rails", BootstrapForm::REQUIRED_RAILS_VERSION
-gem "sprockets-rails", require: "sprockets/railtie"
-gem "sqlite3", "~> 2.1"
+gem "propshaft"
+gem "sqlite3"
