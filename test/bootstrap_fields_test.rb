@@ -213,6 +213,18 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.text_area(:comments)
   end
 
+  if Rails::VERSION::MAJOR >= 8
+    test "text areas are aliased" do
+      expected = <<~HTML
+        <div class="mb-3">
+          <label class="form-label" for="user_comments">Comments</label>
+          <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
+        </div>
+      HTML
+      assert_equivalent_html expected, @builder.textarea(:comments)
+    end
+  end
+
   test "text areas are wrapped correctly using form_with" do
     expected = <<~HTML
       <div class="mb-3">

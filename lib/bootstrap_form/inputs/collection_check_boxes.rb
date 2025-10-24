@@ -7,7 +7,7 @@ module BootstrapForm
       include Base
       include InputsCollection
 
-      included do # rubocop:disable Metrics/BlockLength
+      included do
         def collection_check_boxes_with_bootstrap(*args)
           html = inputs_collection(*args) do |name, value, options|
             options[:multiple] = true
@@ -21,27 +21,8 @@ module BootstrapForm
         end
 
         bootstrap_alias :collection_check_boxes
-
-        if Rails::VERSION::MAJOR < 7
-          def field_name(method, *methods, multiple: false, index: @options[:index])
-            object_name = @options.fetch(:as) { @object_name }
-
-            field_name_shim(object_name, method, *methods, index: index, multiple: multiple)
-          end
-
-          private
-
-          def field_name_shim(object_name, method_name, *method_names, multiple: false, index: nil)
-            names = method_names.map! { |name| "[#{name}]" }.join
-            if object_name.blank?
-              "#{method_name}#{names}#{'[]' if multiple}"
-            elsif index
-              "#{object_name}[#{index}][#{method_name}]#{names}#{'[]' if multiple}"
-            else
-              "#{object_name}[#{method_name}]#{names}#{'[]' if multiple}"
-            end
-          end
-        end
+        alias_method :collection_checkboxes_with_bootstrap, :collection_check_boxes_with_bootstrap if Rails::VERSION::MAJOR >= 8
+        bootstrap_alias :collection_checkboxes if Rails::VERSION::MAJOR >= 8
       end
     end
   end
