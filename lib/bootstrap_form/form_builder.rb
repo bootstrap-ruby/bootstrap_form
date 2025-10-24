@@ -90,7 +90,7 @@ module BootstrapForm
       field_options = fields_options
       field_options = record_object if record_object.is_a?(Hash) && record_object.extractable_options?
       %i[layout control_col inline_errors label_errors].each do |option|
-        field_options[option] ||= options[option]
+        field_options[option] = field_options.key?(option) ? field_options[option] : options[option]
       end
       field_options[:label_col] = field_options[:label_col].present? ? field_options[:label_col].to_s : options[:label_col]
       field_options

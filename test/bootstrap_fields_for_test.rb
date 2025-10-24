@@ -25,6 +25,28 @@ class BootstrapFieldsForTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
+  test "bootstrap_fields_for helper works with boolean options" do
+    @user.address = Address.new
+    @user.valid?
+
+    output = bootstrap_form_for(@user, inline_errors: true) do |_f|
+      bootstrap_fields_for :address, @user.address, inline_errors: false do |af|
+        af.text_field(:city)
+      end
+    end
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label required" for="address_city">City</label>
+          <input class="form-control is-invalid" id="address_city" name="address[city]" type="text" required="required" />
+          <!-- No `<div class="invalid-feedback">can't be blank</div>` -->
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, output
+  end
+
   test "bootstrap_fields_for helper works for serialized hash attributes" do
     @user.preferences = { "favorite_color" => "cerulean" }
 
