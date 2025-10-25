@@ -32,7 +32,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::PhoneField
     include BootstrapForm::Inputs::RadioButton
     include BootstrapForm::Inputs::RangeField
-    include BootstrapForm::Inputs::RichTextArea
+    include BootstrapForm::Inputs::RichTextArea if ActionView::Helpers::FormBuilder.respond_to?(:rich_text_area)
     include BootstrapForm::Inputs::SearchField
     include BootstrapForm::Inputs::Select
     include BootstrapForm::Inputs::Submit
