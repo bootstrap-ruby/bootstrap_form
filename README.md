@@ -1732,8 +1732,8 @@ Generated HTML:
     <input class="form-control" id="address_street" name="address[street]" type="text" value="Foo">
   </div>
   <div class="mb-3">
-    <label class="form-label" for="address_city">City</label>
-    <input class="form-control" id="address_city" name="address[city]" type="text">
+    <label class="form-label required" for="address_city">City</label>
+    <input class="form-control" id="address_city" name="address[city]" required="required" type="text">
   </div>
   <div class="mb-3">
     <label class="form-label" for="address_state">State</label>
