@@ -423,6 +423,21 @@ class BootstrapRadioButtonTest < ActionView::TestCase
                            @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper_class: "custom-class")
   end
 
+  test "radio button with wrapper class false" do
+    expected = <<~HTML
+      <div class="form-check">
+        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="user_misc_1">
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected,
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper_class: false)
+    assert_equivalent_html expected,
+                           @builder.radio_button(:misc, "1", label: "This is a radio button", wrapper: { class: false })
+  end
+
   test "inline radio button with custom wrapper class" do
     expected = <<~HTML
       <div class="form-check form-check-inline custom-class">

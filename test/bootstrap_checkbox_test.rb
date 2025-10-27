@@ -643,6 +643,20 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", wrapper_class: "custom-class")
   end
 
+  test "check box with custom wrapper class false" do
+    expected = <<~HTML
+      <div class="form-check">
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="user_terms">
+          I agree to the terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", wrapper_class: false)
+    assert_equivalent_html expected, @builder.check_box(:terms, label: "I agree to the terms", wrapper: { class: false })
+  end
+
   test "inline check box with custom wrapper class" do
     expected = <<~HTML
       <div class="form-check form-check-inline mb-3 custom-class">
