@@ -1,9 +1,15 @@
 # require 'bootstrap_form/aliasing'
 
 module BootstrapForm
-  class FormBuilder < ActionView::Helpers::FormBuilder
+  class FormBuilder < ActionView::Helpers::FormBuilder # rubocop:disable Metrics/ClassLength
     attr_reader :layout, :label_col, :control_col, :has_error, :inline_errors,
                 :label_errors, :acts_like_form_tag
+
+    class << self
+      def redefine_rich_text_area?
+        ActionView::Helpers::FormBuilder.instance_methods.any? { _1 == :rich_text_area }
+      end
+    end
 
     include BootstrapForm::Helpers::Field
     include BootstrapForm::Helpers::Bootstrap
@@ -32,7 +38,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::PhoneField
     include BootstrapForm::Inputs::RadioButton
     include BootstrapForm::Inputs::RangeField
-    include BootstrapForm::Inputs::RichTextArea if Gem.loaded_specs["actiontext"]
+    include BootstrapForm::Inputs::RichTextArea if redefine_rich_text_area?
     include BootstrapForm::Inputs::SearchField
     include BootstrapForm::Inputs::Select
     include BootstrapForm::Inputs::Submit
