@@ -11,6 +11,7 @@
     <%= form.collection_radio_buttons :radio_buttons, @collection, :id, :street %>
     <%= form.file_field :file %>
     <%= form.datetime_select :created_at, include_blank: true %>
+    <%= form.datetime_field :updated_at, class: "w-auto" %>
 
     <%= form.submit %>
   <% end %>

@@ -29,5 +29,8 @@ services:
     tty: true
     environment:
       - LANG=en_CA.UTF-8
+      - LANGUAGE=en_CA.UTF-8
+      - LANG_WHERE=CA
+      - LANG_WHICH=en
     ports:
       - "7900"
