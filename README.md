@@ -26,7 +26,7 @@ Some other nice things that `bootstrap_form` does for you are:
 `bootstrap_form` supports at a minimum the currently supported versions of Ruby and Rails:
 
 * Ruby 3.2+ (https://www.ruby-lang.org/en/downloads/branches/)
-* Rails 7.1+ (https://guides.rubyonrails.org/maintenance_policy.html)
+* Rails 7.2+ (https://guides.rubyonrails.org/maintenance_policy.html)
 * Bootstrap 5.0+
 
 ## Installation
@@ -52,7 +52,7 @@ You can use this gem with other ways of installing Bootstrap, but how to do so i
 Once Bootstrap is installed, add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.4"
+gem "bootstrap_form", "~> 5.5"
 ```
 
 Then:
@@ -792,7 +792,7 @@ This generates:
     <label class="form-check-label" for="user_skill_level_2">Farming</label>
   </div>
 </div>
-<input autocomplete="off" id="user_skills" name="user[skills][]" type="hidden" value="">
+<input id="user_skills" name="user[skills][]" type="hidden" value="">
 <div class="mb-3">
   <label class="form-label" for="user_skills">Skills</label>
   <div class="form-check">
@@ -1505,7 +1505,7 @@ Generated HTML:
       <div class="invalid-feedback">is invalid</div>
     </div>
   </div>
-  <input autocomplete="off" id="user_preferences" name="user[preferences][]" type="hidden" value="">
+  <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
   <div class="mb-3">
     <label class="form-label" for="user_preferences">Preferences</label>
     <div class="form-check">
