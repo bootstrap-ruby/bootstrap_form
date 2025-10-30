@@ -6,6 +6,8 @@ https://github.com/bootstrap-ruby/bootstrap_form/releases
 
 ## Diffs
 
+- [5.5.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.4.0...v5.5.0)
+  [Closed issues](https://github.com/bootstrap-ruby/bootstrap_form/issues?q=closed%3A2023-10-30T00A00..2025-10-30T00)
 - [5.4.0](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.3.2...v5.4.0)
   [Closed issues](https://github.com/bootstrap-ruby/bootstrap_form/issues?q=closed%3A2023-09-15T21%3A00..2023-10-30T00)
 - [5.3.2](https://github.com/bootstrap-ruby/bootstrap_form/compare/v5.3.1...v5.3.2)
@@ -57,6 +59,7 @@ The tooling to support our old way of doing the change log doesn't work anymore,
 * [#573](https://github.com/bootstrap-ruby/bootstrap_form/issues/573): Add support for Bootstrap 5's floating labels
 
 * [#215](https://github.com/bootstrap-ruby/bootstrap_form/issues/215): Add `include_hidden` option to `check_box`
+
 ### Bugfixes
 
 * [#582](https://github.com/bootstrap-ruby/bootstrap_form/issues/582): Fix tests in bootstrap-5 branch, removes Rubocop offenses, and adds testing with Rails 6.1.
