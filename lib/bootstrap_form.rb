@@ -3,6 +3,7 @@
 require "action_view"
 require "action_pack"
 require "bootstrap_form/action_view_extensions/form_helper"
+require "bootstrap_form/configuration"
 
 module BootstrapForm
   extend ActiveSupport::Autoload
@@ -31,6 +32,10 @@ module BootstrapForm
 
     def configure
       yield config
+    end
+
+    def deprecator
+      @deprecator ||= ActiveSupport::Deprecation.new("a future release", "BootstrapForm")
     end
   end
 
