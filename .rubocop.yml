@@ -6,7 +6,7 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   TargetRubyVersion: 3.2
-  TargetRailsVersion: 7.1
+  TargetRailsVersion: 7.2
   NewCops: enable
   Exclude:
     - bin/*
@@ -25,7 +25,6 @@ AllCops:
     - gemfiles/vendor/bundle/**/*
     - vendor/bundle/**/*
     - Guardfile
-    - Rakefile
     - vendor/**/*
 
 Layout/LineLength:
@@ -72,6 +71,10 @@ Rails:
 Rails/ApplicationRecord:
   Exclude:
     - "demo/db/migrate/**"
+
+Rails/RakeEnvironment:
+  Exclude:
+    - "Rakefile"
 
 Rails/RefuteMethods:
   Enabled: false
