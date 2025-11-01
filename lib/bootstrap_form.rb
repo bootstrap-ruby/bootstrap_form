@@ -27,11 +27,12 @@ module BootstrapForm
     end
 
     def config
-      @config ||= BootstrapForm::Configuration.new
-    end
+      deprecator.warn(<<~MESSAGE.squish)
+        BootstrapForm.config will be removed in a future release.
+        Please use BootstrapForm.configuration instead.
+      MESSAGE
 
-    def configure
-      yield config
+      configuration
     end
 
     def deprecator

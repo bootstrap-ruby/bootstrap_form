@@ -8,8 +8,8 @@ module BootstrapForm
         @default_form_attributes = {}
       when Hash
         BootstrapForm.deprecator.warn(<<~MESSAGE.squish)
-          BootstrapForm::Configuation#default_form_attributes will be removed in a future release.
-          Please use Rails.application.config.bootstrap_form.default_form_attributes instead.
+          BootstrapForm::Configuration#default_form_attributes= will be removed in a future release.
+          Please use Rails.application.config.bootstrap_form.default_form_attributes= instead.
         MESSAGE
         @default_form_attributes = attributes
         Rails.application.config.bootstrap_form.default_form_attributes = attributes
@@ -19,9 +19,11 @@ module BootstrapForm
     end
 
     def default_form_attributes
-      return @default_form_attributes if defined? @default_form_attributes
-
-      {}
+      BootstrapForm.deprecator.warn(<<~MESSAGE.squish)
+        BootstrapForm::Configuration#default_form_attributes will be removed in a future release.
+        Please use Rails.application.config.bootstrap_form.default_form_attributes instead.
+      MESSAGE
+      Rails.application.config.bootstrap_form.default_form_attributes
     end
   end
 

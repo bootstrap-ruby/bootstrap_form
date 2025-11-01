@@ -13,7 +13,9 @@ class BootstrapConfigurationTest < ActionView::TestCase
   test "has default form attributes" do
     config = BootstrapForm::Configuration.new
 
-    assert_equal({}, config.default_form_attributes)
+    assert_deprecated(BootstrapForm.deprecator) do
+      assert_equal({}, config.default_form_attributes)
+    end
   end
 
   test "allows to set default_form_attributes with custom value" do
@@ -22,14 +24,18 @@ class BootstrapConfigurationTest < ActionView::TestCase
       config.default_form_attributes = { foo: "bar" }
     end
 
-    assert_equal({ foo: "bar" }, config.default_form_attributes)
+    assert_deprecated(BootstrapForm.deprecator) do
+      assert_equal({ foo: "bar" }, config.default_form_attributes)
+    end
   end
 
   test "allows to set default_form_attributes with nil" do
     config = BootstrapForm::Configuration.new
     config.default_form_attributes = nil
 
-    assert_equal({}, config.default_form_attributes)
+    assert_deprecated(BootstrapForm.deprecator) do
+      assert_equal({}, config.default_form_attributes)
+    end
   end
 
   test "does not allow to set default_form_attributes with unsupported value" do

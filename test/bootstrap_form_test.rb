@@ -377,7 +377,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "allows to set blank default form attributes via configuration" do
-    BootstrapForm.config.stubs(:default_form_attributes).returns({})
+    BootstrapForm.configuration.stubs(:default_form_attributes).returns({})
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
       </form>
@@ -386,7 +386,7 @@ class BootstrapFormTest < ActionView::TestCase
   end
 
   test "allows to set custom default form attributes via configuration" do
-    BootstrapForm.config.stubs(:default_form_attributes).returns(foo: "bar")
+    BootstrapForm.configuration.stubs(:default_form_attributes).returns(foo: "bar")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" foo="bar" id="new_user" method="post">
       </form>
