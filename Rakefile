@@ -4,8 +4,8 @@ begin
   require "minitest/test_task"
   require "rdoc/task"
   require "rubocop/rake_task"
-rescue LoadError
-  puts "You must run `bundle install` to run rake tasks"
+rescue LoadError => e
+  puts "You must run `bundle install` to run rake tasks (#{e.message})"
 end
 
 RDoc::Task.new(:rdoc) do |rdoc|
@@ -17,7 +17,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
 end
 
 Minitest::TestTask.create(:test) do |t|
-  t.warning = false
+  t.warning = true
   t.test_globs = ["test/**/*_test.rb"]
 end
 
@@ -33,15 +33,17 @@ namespace :test do
     gemfiles = Dir.glob("gemfiles/*.gemfile").reject { |f| File.basename(f) == "common.gemfile" }
     gemfiles.each do |f|
       ENV["BUNDLE_GEMFILE"] = f
+      system("bundle update --bundler")
       system("bundle check") || system("bundle install")
-      system("bundle exec rake test")
+      system("rake test")
     end
 
     original_directory = Dir.pwd
     Dir.chdir("demo")
     ENV.delete("BUNDLE_GEMFILE")
+    system("bundle update --bundler")
     system("bundle check") || system("bundle install")
-    system("bundle exec rake test:all")
+    system("rake test:all")
   ensure
     original_gemfile.nil? ? ENV.delete("BUNDLE_GEMFILE") : ENV["BUNDLE_GEMFILE"] = original_gemfile
     Dir.chdir(original_directory) unless original_directory.nil?

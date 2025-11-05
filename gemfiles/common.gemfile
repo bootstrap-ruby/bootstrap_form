@@ -20,6 +20,7 @@ end
 group :development, :test do
   gem "debug"
   gem "ostruct" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.5.0")
+  gem "warning"
 end
 
 group :ci do
