@@ -26,15 +26,6 @@ module BootstrapForm
       BootstrapForm::Inputs.eager_load!
     end
 
-    def config
-      deprecator.warn(<<~MESSAGE.squish)
-        BootstrapForm.config will be removed in a future release.
-        Please use BootstrapForm.configuration instead.
-      MESSAGE
-
-      configuration
-    end
-
     def deprecator
       @deprecator ||= ActiveSupport::Deprecation.new("a future release", "BootstrapForm")
     end

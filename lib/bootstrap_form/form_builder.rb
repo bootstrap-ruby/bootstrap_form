@@ -71,7 +71,7 @@ module BootstrapForm
 
     def add_default_form_attributes_and_form_inline(options)
       options[:html] ||= {}
-      options[:html].reverse_merge!(BootstrapForm.configuration.default_form_attributes)
+      options[:html].reverse_merge!(BootstrapForm.config.default_form_attributes)
 
       return unless options[:layout] == :inline
 
