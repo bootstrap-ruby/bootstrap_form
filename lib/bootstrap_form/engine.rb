@@ -7,12 +7,8 @@ module BootstrapForm
     config.eager_load_namespaces << BootstrapForm
     config.autoload_paths << File.expand_path("lib", __dir__)
 
-    config.bootstrap_form = ActiveSupport::OrderedOptions.new
-    config.bootstrap_form.default_form_attributes = {}
-
-    initializer "bootstrap_form.configure" do |app|
-      BootstrapForm.configuration = app.config.bootstrap_form
-    end
+    config.bootstrap_form = BootstrapForm.configuration
+    config.bootstrap_form.default_form_attributes ||= {}
 
     initializer "bootstrap_form.deprecator" do |app|
       app.deprecators[:bootstrap_form] = BootstrapForm.deprecator

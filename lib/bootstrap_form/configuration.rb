@@ -27,7 +27,7 @@ module BootstrapForm
     end
   end
 
-  mattr_accessor :configuration, default: nil
+  mattr_accessor :configuration, default: ActiveSupport::OrderedOptions.new
 
   class << self
     def configure
