@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BootstrapController < ApplicationController
   def form
     load_models

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "test_helper"
 
 class BootstrapFormGroupTest < ActionView::TestCase
@@ -671,8 +673,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "non-default column span on form isn't mutated" do
     frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal,
-                                                                                   label_col: "col-sm-3".freeze,
-                                                                                   control_col: "col-sm-9".freeze)
+                                                                                   label_col: "col-sm-3",
+                                                                                   control_col: "col-sm-9")
     output = frozen_horizontal_builder.form_group { "test" }
 
     expected = '<div class="mb-3 row"><div class="col-sm-9 offset-sm-3">test</div></div>'

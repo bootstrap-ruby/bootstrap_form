@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FauxUser
   attr_accessor :email, :password, :comments, :misc
 
