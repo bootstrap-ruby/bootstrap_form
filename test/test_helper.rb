@@ -9,10 +9,6 @@ mail_gem_path = Gem::Specification.find_by_name("mail").full_gem_path
 Warning.ignore(:not_reached, mail_gem_path)
 Warning.ignore(/warning: assigned but unused variable - testEof/, mail_gem_path)
 
-require "diffy"
-require "nokogiri"
-require "equivalent-xml"
-
 require_relative "../demo/config/environment"
 require "rails/test_help"
 require "mocha/minitest"
