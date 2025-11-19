@@ -26,7 +26,7 @@ jobs:
       #   run: |
       #     bundle exec danger
       - name: Rubocop
-        run: bundle exec rubocop --autocorrect
+        run: rubocop --autocorrect
   Test:
     runs-on: ubuntu-latest
     strategy:
@@ -44,7 +44,7 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rake test
+        run: rake test
   Demo:
     runs-on: ubuntu-latest
     steps:
@@ -57,7 +57,7 @@ jobs:
           ruby-version: 3.4.2
       - name: Run tests
         working-directory: demo
-        run: bundle exec rake test:all
+        run: rake test:all
       # - name: Commit changed screenshots and other files
       #   if: failure()
       #   working-directory: demo

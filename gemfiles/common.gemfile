@@ -5,21 +5,24 @@ gemspec path: File.dirname(__dir__)
 # To test with different Rails versions, use the files in `./gemfiles`
 
 group :development do
-  gem "htmlbeautifier"
   gem "puma"
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
 end
 
 group :test do
+  gem "capybara-screenshot-diff", require: false
+  gem "chunky_png", "~> 1.4"
   gem "diffy"
   gem "equivalent-xml"
   gem "mocha"
+  gem "selenium-webdriver"
 end
 
 group :development, :test do
   gem "debug"
+  gem "htmlbeautifier"
   gem "ostruct" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.5.0")
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
   gem "warning"
 end
 
