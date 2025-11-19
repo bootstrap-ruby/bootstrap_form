@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
 
-puts "BUNDLE_GEMFILE: #{ENV.fetch('BUNDLE_GEMFILE', nil)}" # rubocop/ignore Rails/Output
+puts "BUNDLE_GEMFILE: #{ENV.fetch('BUNDLE_GEMFILE', nil)}" # rubocop:disable Rails/Output
 
 require "warning"
 mail_gem_path = Gem::Specification.find_by_name("mail").full_gem_path
