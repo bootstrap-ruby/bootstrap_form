@@ -29,6 +29,7 @@ gemfiles/*.lock
 /.ruby-version
 Vagrantfile
 .vagrant
+.yarnrc
 **/.yarn/**/cache
 **/.yarn/install-state.gz
 **/.yarn/unplugged
