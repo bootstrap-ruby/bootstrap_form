@@ -55,6 +55,8 @@ jobs:
           working-directory: demo
           bundler-cache: true
           ruby-version: 3.4
+        env:
+          BUNDLE_GEMFILE: '../Gemfile'
       - name: Run tests
         working-directory: demo
         run: bundle exec rake test:all
