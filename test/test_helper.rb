@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV["RAILS_ENV"] ||= "test"
 
 puts "BUNDLE_GEMFILE: #{ENV.fetch('BUNDLE_GEMFILE', nil)}" # rubocop:disable Rails/Output

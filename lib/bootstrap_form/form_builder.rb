@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # require 'bootstrap_form/aliasing'
 
 module BootstrapForm

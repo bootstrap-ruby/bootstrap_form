@@ -25,6 +25,7 @@ AllCops:
     - gemfiles/vendor/bundle/**/*
     - vendor/bundle/**/*
     - Guardfile
+    - test/dummy/**/*
     - vendor/**/*
 
 Layout/LineLength:
@@ -97,9 +98,6 @@ Style/DoubleNegation:
 Style/EmptyMethod:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/NumericPredicate:
   Enabled: false
 
@@ -108,3 +106,18 @@ Style/StringLiterals:
 
 Style/TrivialAccessors:
   AllowPredicates: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always # or 'always' or 'never' depending on your preference
+  SafeAutoCorrect: true # Set to true for safe autocorrection, false if you need to review changes
+  Exclude:
+    - ./**/Gemfile*
+    - bootstrap_form.gemspec
+    - Dangerfile
+    - demo/config/**/*
+    - demo/config.ru
+    - demo/db/migrate/**/*
+    - gemfiles/*
+    - Rakefile
+    - Vagrantfile

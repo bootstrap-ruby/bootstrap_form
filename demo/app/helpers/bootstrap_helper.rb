@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BootstrapHelper
   def form_with_source(&)
     form_html = capture(&)
