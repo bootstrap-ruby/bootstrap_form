@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.9
+          ruby-version: 3.2
           bundler-cache: true
       # Disabled since it requires access not granted by GitHub Actions for PRs
       # - name: Danger
@@ -26,7 +26,9 @@ jobs:
       #   run: |
       #     bundle exec danger
       - name: Rubocop
-        run: rubocop --autocorrect
+        run: |
+          bundle install
+          rubocop --autocorrect
   Test:
     runs-on: ubuntu-latest
     strategy:
@@ -44,7 +46,9 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
       - name: Run tests
-        run: rake test
+        run: |
+          bundle install
+          rake test
   Demo:
     runs-on: ubuntu-latest
     steps:
@@ -54,10 +58,12 @@ jobs:
         with:
           working-directory: demo
           bundler-cache: true
-          ruby-version: 3.4.2
+          ruby-version: 3.4
       - name: Run tests
         working-directory: demo
-        run: rake test:all
+        run: |
+          bundle install
+          rake test:all
       # - name: Commit changed screenshots and other files
       #   if: failure()
       #   working-directory: demo
