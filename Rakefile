@@ -29,23 +29,20 @@ task default: %i[test rubocop:autocorrect]
 namespace :test do
   desc "Run tests for all supported Rails versions, with current Ruby version"
   task :all do
-    original_gemfile = ENV.fetch("BUNDLE_GEMFILE", nil)
-    gemfiles = Dir.glob("gemfiles/*.gemfile").reject { |f| File.basename(f) == "common.gemfile" }
-    gemfiles.each do |f|
-      ENV["BUNDLE_GEMFILE"] = f
-      system("bundle update --bundler")
-      system("bundle check") || system("bundle install")
-      system("rake test")
+    gemfiles.each do |gemfile|
+      system("BUNDLE_GEMFILE=#{gemfile} rake test")
     end
 
-    original_directory = Dir.pwd
     Dir.chdir("demo")
-    ENV.delete("BUNDLE_GEMFILE")
-    system("bundle update --bundler")
-    system("bundle check") || system("bundle install")
-    system("rake test:all")
-  ensure
-    original_gemfile.nil? ? ENV.delete("BUNDLE_GEMFILE") : ENV["BUNDLE_GEMFILE"] = original_gemfile
-    Dir.chdir(original_directory) unless original_directory.nil?
+    system("BUNDLE_GEMFILE= rake test:all")
   end
 end
+
+desc "Update gem .lock files e.g. for changed Ruby version"
+task :update_gemfile_locks do
+  gemfiles.append("Gemfile").each do |gemfile|
+    system("BUNDLE_GEMFILE=#{gemfile} bundle update --bundler")
+  end
+end
+
+def gemfiles = Dir.glob("gemfiles/*.gemfile").reject { |f| File.basename(f) == "common.gemfile" }
