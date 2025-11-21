@@ -2,7 +2,7 @@
 
 require_relative "test_helper"
 
-class BootstrapConfigurationTest < ActionView::TestCase
+class BootstrapConfigurationTest < ActiveSupport::TestCase
   teardown do
     # Unfortunately, it seems we have to manually reset each of the configuration options
     # that we change in our test cases.
