@@ -4,7 +4,14 @@ require "application_system_test_case"
 require "capybara_screenshot_diff/minitest"
 
 class BootstrapTest < ApplicationSystemTestCase
-  setup { screenshot_section :bootstrap }
+  setup do
+    screenshot_section :bootstrap
+    Rails.application.config.bootstrap_form.fieldset_around_collections = true
+  end
+
+  teardown do
+    Rails.application.config.bootstrap_form.fieldset_around_collections = false
+  end
 
   test "visiting the index" do
     screenshot_group :index

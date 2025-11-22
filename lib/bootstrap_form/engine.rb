@@ -9,6 +9,9 @@ module BootstrapForm
 
     config.bootstrap_form = BootstrapForm.config
     config.bootstrap_form.default_form_attributes ||= {}
+    if config.bootstrap_form.fieldset_around_collections.nil?
+      config.bootstrap_form.fieldset_around_collections = Rails.env.development?
+    end
 
     initializer "bootstrap_form.configure" do |app|
       BootstrapForm.config = app.config.bootstrap_form
