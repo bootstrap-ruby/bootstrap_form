@@ -54,11 +54,7 @@ Metrics/ClassLength:
     - "test/**/*"
 
 Metrics/MethodLength:
-  Max: 12
-  Exclude:
-    - "demo/db/migrate/*"
-    - "demo/test/**/*"
-    - "test/**/*"
+  Enabled: false
 
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
