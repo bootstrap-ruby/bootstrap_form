@@ -8,7 +8,7 @@ module BootstrapForm
       private
 
       def inputs_collection(name, collection, value, text, options={})
-        options[:label] ||= { class: group_label_class(options[:layout]) }
+        options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
 
         form_group_builder(name, options) do
@@ -23,6 +23,8 @@ module BootstrapForm
           inputs
         end
       end
+
+      def field_layout(options) = options[:layout] || (:inline if options[:inline] == true)
 
       def group_label_class(field_layout)
         if layout_horizontal?(field_layout)
