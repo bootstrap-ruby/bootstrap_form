@@ -120,7 +120,7 @@ This generates the following HTML:
 </form>
 ```
 
-Note: All examples in this README are generated with the configuration option `fieldset_around_collections` set to `true`. See the [Configuration](#configuration) section.
+Note: All examples in this README are generated with the configuration option `group_around_collections` set to `true`. See the [Configuration](#configuration) section.
 
 ### bootstrap_form_tag
 
@@ -235,7 +235,7 @@ The current configuration options are:
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `default_form_attributes` | {} | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
-| `fieldset_around_collections` | false | Historically, `bootstrap_form` generated a wrapper around `collection_checkboxes` and `collection_radio_buttons` using the same `form_group` as individual controls used. This markup caused accessibility problems. Setting `fieldset_around_collections = true` will generate collections of checkboxes and radio buttons wrapper in a `<fieldset>` with the text as a `<legend>` (https://www.w3.org/WAI/tutorials/forms/grouping/). This _will_ make visible changes to pages that use the collection methods.<br/><br/>The default for this option will be changed to `true` in a future version. |
+| `group_around_collections` | false | Historically, `bootstrap_form` generated a wrapper around `collection_checkboxes` and `collection_radio_buttons` using the same `form_group` as individual controls used. This markup caused accessibility problems. Setting `group_around_collections = true` will generate collections of checkboxes and radio buttons wrapper in a `<fieldset>` with the text as a `<legend>` (https://www.w3.org/WAI/tutorials/forms/grouping/). This _will_ make visible changes to pages that use the collection methods.<br/><br/>The default for this option will be changed to `true` in a future version. |
 
 Example:
 
@@ -784,8 +784,8 @@ This generates:
 This generates:
 
 ```html
-<fieldset class="mb-3">
-  <legend class="form-label">Skill level</legend>
+<div aria-labelledby="user_misc_label" class="mb-3" role="group">
+  <div class="form-label" id="user_misc_label">Skill level</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
     <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
@@ -794,10 +794,10 @@ This generates:
     <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
     <label class="form-check-label" for="user_skill_level_2">Farming</label>
   </div>
-</fieldset>
+</div>
 <input id="user_skills" name="user[skills][]" type="hidden" value="">
-<fieldset class="mb-3">
-  <legend class="form-label">Skills</legend>
+<div aria-labelledby="user_misc_label" class="mb-3" role="group">
+  <div class="form-label" id="user_misc_label">Skills</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
     <label class="form-check-label" for="user_skills_1">Mind reading</label>
@@ -806,7 +806,7 @@ This generates:
     <input class="form-check-input" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
     <label class="form-check-label" for="user_skills_2">Farming</label>
   </div>
-</fieldset>
+</div>
 ```
 
 NOTE: These helpers do not currently support a block, unlike their equivalent Rails helpers. See issue [#477](https://github.com/bootstrap-ruby/bootstrap_form/issues/477). If you need to use the block syntax, use `collection_check_boxes_without_bootstrap` or `collection_radio_buttons_without_bootstrap` for now.
@@ -832,8 +832,8 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 This generates:
 
 ```html
-<fieldset class="mb-3">
-  <legend class="form-label">Misc</legend>
+<div aria-labelledby="user_misc_label" class="mb-3" role="group">
+  <div class="form-label" id="user_misc_label">Misc</div>
   <div class="form-check">
     <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1">
     <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -842,7 +842,7 @@ This generates:
     <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2">
     <label class="form-check-label" for="user_misc_2">Bar</label>
   </div>
-</fieldset>
+</div>
 ```
 
 ## Range Controls
@@ -1496,8 +1496,8 @@ Generated HTML:
     <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback">is invalid</div>
   </div>
-  <fieldset class="mb-3">
-    <legend class="form-label">Misc</legend>
+  <div aria-labelledby="user_misc_label" class="mb-3" role="group">
+    <div class="form-label" id="user_misc_label">Misc</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
       <label class="form-check-label" for="user_misc_1">Mind reading</label>
@@ -1507,10 +1507,10 @@ Generated HTML:
       <label class="form-check-label" for="user_misc_2">Farming</label>
       <div class="invalid-feedback">is invalid</div>
     </div>
-  </fieldset>
+  </div>
   <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
-  <fieldset class="mb-3">
-    <legend class="form-label">Preferences</legend>
+  <div aria-labelledby="user_misc_label" class="mb-3" role="group">
+    <div class="form-label" id="user_misc_label">Preferences</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
       <label class="form-check-label" for="user_preferences_1">Good</label>
@@ -1520,7 +1520,7 @@ Generated HTML:
       <label class="form-check-label" for="user_preferences_2">Bad</label>
       <div class="invalid-feedback">is invalid</div>
     </div>
-  </fieldset>
+  </div>
   <div class="mb-3">
     <label class="form-label" for="user_address_attributes_street">Street</label>
     <input class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
