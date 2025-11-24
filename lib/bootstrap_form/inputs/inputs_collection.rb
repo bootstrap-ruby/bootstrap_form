@@ -28,9 +28,12 @@ module BootstrapForm
         end
       end
 
-      def field_layout(options) = options[:layout] || (:inline if options[:inline] == true)
+      def field_layout(options)
+        (:inline if options[:inline] == true) || options[:layout]
+      end
 
       def group_label_class(field_layout)
+        debugger
         if layout_horizontal?(field_layout)
           group_label_class = "col-form-label #{label_col} pt-0"
         elsif layout_inline?(field_layout)
@@ -62,8 +65,8 @@ module BootstrapForm
       end
 
       def fieldset_inputs_collection(name, collection, value, text, options={}, &)
-        options[:label] ||= { class: group_label_class(options[:inline]) }
-        options[:layout] ||= layout_inline?(options[:inline])
+        options[:label] ||= { class: group_label_class(field_layout(options)) }
+        options[:inline] ||= layout_inline?(options[:layout])
 
         fieldset_builder(name, options) do
           inputs = ActiveSupport::SafeBuffer.new
@@ -115,6 +118,7 @@ module BootstrapForm
       end
 
       def generate_legend(name, options)
+        debugger
         legend_class = group_label_class(field_layout(options)) || "form-label"
         id = options[:id] || default_id(name)
 
