@@ -33,7 +33,6 @@ module BootstrapForm
       end
 
       def group_label_class(field_layout)
-        debugger
         if layout_horizontal?(field_layout)
           group_label_class = "col-form-label #{label_col} pt-0"
         elsif layout_inline?(field_layout)
@@ -118,8 +117,7 @@ module BootstrapForm
       end
 
       def generate_legend(name, options)
-        debugger
-        legend_class = group_label_class(field_layout(options)) || "form-label"
+        legend_class = options.dig(:label, :class) || "form-label"
         id = options[:id] || default_id(name)
 
         tag.div(
