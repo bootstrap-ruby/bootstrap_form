@@ -105,7 +105,7 @@ module BootstrapForm
             :add_control_col_class, :append, :control_col, :floating, :help, :icon, :id,
             :input_group_class, :label, :label_col, :layout, :prepend
           ),
-          aria: { labelledby: :user_misc_label },
+          aria: { labelledby: options[:id] || default_id(name) },
           role: :group
         ) do
           legend = generate_legend(name, options)
@@ -116,12 +116,15 @@ module BootstrapForm
 
       def generate_legend(name, options)
         legend_class = group_label_class(field_layout(options)) || "form-label"
+        id = options[:id] || default_id(name)
 
         tag.div(
           **{ class: legend_class }.compact,
-          id: "user_misc_label" # FIXME: This can't be hard-coded, obviously.
+          id:
         ) { label_text(name, options.dig(:label, :text)) }
       end
+
+      def default_id(name) = raw("#{object_name}_#{name}") # rubocop:disable Rails/OutputSafety
     end
   end
 end

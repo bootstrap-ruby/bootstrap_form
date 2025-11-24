@@ -784,8 +784,8 @@ This generates:
 This generates:
 
 ```html
-<div aria-labelledby="user_misc_label" class="mb-3" role="group">
-  <div class="form-label" id="user_misc_label">Skill level</div>
+<div aria-labelledby="user_skill_level" class="mb-3" role="group">
+  <div class="form-label" id="user_skill_level">Skill level</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
     <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
@@ -796,8 +796,8 @@ This generates:
   </div>
 </div>
 <input id="user_skills" name="user[skills][]" type="hidden" value="">
-<div aria-labelledby="user_misc_label" class="mb-3" role="group">
-  <div class="form-label" id="user_misc_label">Skills</div>
+<div aria-labelledby="user_skills" class="mb-3" role="group">
+  <div class="form-label" id="user_skills">Skills</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
     <label class="form-check-label" for="user_skills_1">Mind reading</label>
@@ -832,8 +832,8 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 This generates:
 
 ```html
-<div aria-labelledby="user_misc_label" class="mb-3" role="group">
-  <div class="form-label" id="user_misc_label">Misc</div>
+<div aria-labelledby="user_misc" class="mb-3" role="group">
+  <div class="form-label" id="user_misc">Misc</div>
   <div class="form-check">
     <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1">
     <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -1496,8 +1496,8 @@ Generated HTML:
     <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback">is invalid</div>
   </div>
-  <div aria-labelledby="user_misc_label" class="mb-3" role="group">
-    <div class="form-label" id="user_misc_label">Misc</div>
+  <div aria-labelledby="user_misc" class="mb-3" role="group">
+    <div class="form-label" id="user_misc">Misc</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
       <label class="form-check-label" for="user_misc_1">Mind reading</label>
@@ -1509,8 +1509,8 @@ Generated HTML:
     </div>
   </div>
   <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
-  <div aria-labelledby="user_misc_label" class="mb-3" role="group">
-    <div class="form-label" id="user_misc_label">Preferences</div>
+  <div aria-labelledby="user_preferences" class="mb-3" role="group">
+    <div class="form-label" id="user_preferences">Preferences</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
       <label class="form-check-label" for="user_preferences_1">Good</label>

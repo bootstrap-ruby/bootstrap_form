@@ -17,8 +17,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">This is a radio button collection</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -37,8 +37,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -58,8 +58,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-          <div id="user_misc_label" class="form-label">Misc</div>
+        <div role="group" aria-labelledby="user_misc" class="mb-3">
+          <div id="user_misc" class="form-label">Misc</div>
           <div class="form-check">
             <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -82,8 +82,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders inline radios correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div class="form-check form-check-inline ps-0" id="user_misc_label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div class="form-check form-check-inline ps-0" id="user_misc">Misc</div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -101,8 +101,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foo</label>
@@ -120,8 +120,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders label defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">This is a radio button collection</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
@@ -138,8 +138,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders value defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">This is a radio button collection</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
@@ -157,8 +157,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios with label defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> ooF</label>
@@ -176,8 +176,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios with value defined by Proc correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foo</label>
@@ -195,8 +195,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders label defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">This is a radio button collection</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> rabooF</label>
@@ -213,8 +213,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders value defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">This is a radio button collection</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foobar</label>
@@ -232,8 +232,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios with label defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> ooF</label>
@@ -251,8 +251,8 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
   test "collection_radio_buttons renders multiple radios with value defined by lambda correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc_label" class="mb-3">
-        <div id="user_misc_label" class="form-label">Misc</div>
+      <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <div id="user_misc" class="form-label">Misc</div>
         <div class="form-check">
           <input class="form-check-input" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label class="form-check-label" for="user_misc_address_1"> Foo</label>
