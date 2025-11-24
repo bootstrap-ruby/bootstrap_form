@@ -271,7 +271,14 @@ end
 class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper
 
-  setup :setup_test_fixture
+  setup do
+    setup_test_fixture
+    Rails.application.config.bootstrap_form.group_around_collections = false
+  end
+
+  teardown do
+    Rails.application.config.bootstrap_form.group_around_collections = true
+  end
 
   test "collection_radio_buttons renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
