@@ -226,13 +226,13 @@ Generated HTML:
 
 ## Configuration
 
-`bootstrap_form` can be used out-of-the-box without any configuration. However, `bootstrap_form` does have an optional configuration file at `config/initializers/bootstrap_form.rb` for setting options that affect all generated forms in an application.
+`bootstrap_form` can be used out-of-the-box without any configuration. However, `bootstrap_form` does have an optional configuration file at `config/initializers/bootstrap_form.rb` for setting options that affect all generated forms in an application, or for enabling or disabling new functionality that might not be compatible with your application.
 
 The current configuration options are:
 
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `default_form_attributes` | | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
+| `default_form_attributes` | {} | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
 
 Example:
 
