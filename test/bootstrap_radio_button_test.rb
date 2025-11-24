@@ -209,7 +209,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1"> Foo</label>

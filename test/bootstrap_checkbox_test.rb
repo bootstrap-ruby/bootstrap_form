@@ -256,7 +256,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
       <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
         <div class="form-check form-check-inline">
           <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_misc_1">
@@ -272,8 +272,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
       </div>
     HTML
 
-    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street,
-                                                                     inline: true)
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street, inline: true)
   end
 
   test "collection_check_boxes renders with checked option correctly" do
