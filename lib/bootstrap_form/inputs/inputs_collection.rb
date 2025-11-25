@@ -8,9 +8,7 @@ module BootstrapForm
       private
 
       def inputs_collection(name, collection, value, text, options={}, &)
-        if BootstrapForm.config.group_around_collections
-          return fieldset_inputs_collection(name, collection, value, text, options, &)
-        end
+        return group_inputs_collection(name, collection, value, text, options, &) if BootstrapForm.config.group_around_collections
 
         options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
@@ -63,11 +61,11 @@ module BootstrapForm
           checked == obj || Array(checked).try(:include?, obj)
       end
 
-      def fieldset_inputs_collection(name, collection, value, text, options={}, &)
+      def group_inputs_collection(name, collection, value, text, options={}, &)
         options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
 
-        fieldset_builder(name, options) do
+        group_builder(name, options) do
           inputs = ActiveSupport::SafeBuffer.new
 
           collection.each_with_index do |obj, i|
@@ -80,7 +78,7 @@ module BootstrapForm
         end
       end
 
-      def fieldset_builder(method, options, html_options=nil, &)
+      def group_builder(method, options, html_options=nil, &)
         no_wrapper = options[:wrapper] == false
 
         options = form_group_builder_options(options, method)
@@ -110,18 +108,18 @@ module BootstrapForm
           aria: { labelledby: options[:id] || default_id(name) },
           role: :group
         ) do
-          legend = generate_legend(name, options)
+          group_label = generate_group_label(name, options)
           prepare_label_options(options[:id], name, options[:label], options[:label_col], options[:layout])
-          form_group_content(legend, generate_help(name, options[:help]), options, &)
+          form_group_content(group_label, generate_help(name, options[:help]), options, &)
         end
       end
 
-      def generate_legend(name, options)
-        legend_class = options.dig(:label, :class) || "form-label"
+      def generate_group_label(name, options)
+        group_label_class = options.dig(:label, :class) || "form-label"
         id = options[:id] || default_id(name)
 
         tag.div(
-          **{ class: legend_class }.compact,
+          **{ class: group_label_class }.compact,
           id:
         ) { label_text(name, options.dig(:label, :text)) }
       end
