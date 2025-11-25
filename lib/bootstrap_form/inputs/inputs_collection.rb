@@ -8,21 +8,13 @@ module BootstrapForm
       private
 
       def inputs_collection(name, collection, value, text, options={}, &)
-        return group_inputs_collection(name, collection, value, text, options, &) if BootstrapForm.config.group_around_collections
-
         options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
 
+        return group_inputs_collection(name, collection, value, text, options, &) if BootstrapForm.config.group_around_collections
+
         form_group_builder(name, options) do
-          inputs = ActiveSupport::SafeBuffer.new
-
-          collection.each_with_index do |obj, i|
-            input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
-            input_options = form_group_collection_input_options(options, text, obj, i, input_value, collection)
-            inputs << yield(name, input_value, input_options)
-          end
-
-          inputs
+          render_collection(name, collection, value, text, options, &)
         end
       end
 
@@ -62,38 +54,30 @@ module BootstrapForm
       end
 
       def group_inputs_collection(name, collection, value, text, options={}, &)
-        options[:label] ||= { class: group_label_class(field_layout(options)) }
-        options[:inline] ||= layout_inline?(options[:layout])
-
         group_builder(name, options) do
-          inputs = ActiveSupport::SafeBuffer.new
-
-          collection.each_with_index do |obj, i|
-            input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
-            input_options = form_group_collection_input_options(options, text, obj, i, input_value, collection)
-            inputs << yield(name, input_value, input_options)
-          end
-
-          inputs
+          render_collection(name, collection, value, text, options, &)
         end
       end
 
+      def render_collection(name, collection, value, text, options={}, &)
+        inputs = ActiveSupport::SafeBuffer.new
+
+        collection.each_with_index do |obj, i|
+          input_value = value.respond_to?(:call) ? value.call(obj) : obj.send(value)
+          input_options = form_group_collection_input_options(options, text, obj, i, input_value, collection)
+          inputs << yield(name, input_value, input_options)
+        end
+
+        inputs
+      end
+
       def group_builder(method, options, html_options=nil, &)
-        no_wrapper = options[:wrapper] == false
-
-        options = form_group_builder_options(options, method)
-
-        form_group_options = form_group_opts(options, form_group_css_options(method, html_options.try(:symbolize_keys!), options))
-
-        options.except!(
-          :help, :icon, :label_col, :control_col, :add_control_col_class, :layout, :skip_label, :label, :label_class,
-          :hide_label, :skip_required, :label_as_placeholder, :wrapper_class, :wrapper
-        )
-
-        if no_wrapper
-          yield
-        else
-          field_group(method, form_group_options, &)
+        form_group_builder_wrapper(method, options, html_options) do |form_group_options, no_wrapper|
+          if no_wrapper
+            yield
+          else
+            field_group(method, form_group_options, &)
+          end
         end
       end
 
@@ -108,18 +92,18 @@ module BootstrapForm
           aria: { labelledby: options[:id] || default_id(name) },
           role: :group
         ) do
-          group_label = generate_group_label(name, options)
+          group_label_div = generate_group_label_div(name, options)
           prepare_label_options(options[:id], name, options[:label], options[:label_col], options[:layout])
-          form_group_content(group_label, generate_help(name, options[:help]), options, &)
+          form_group_content(group_label_div, generate_help(name, options[:help]), options, &)
         end
       end
 
-      def generate_group_label(name, options)
-        group_label_class = options.dig(:label, :class) || "form-label"
+      def generate_group_label_div(name, options)
+        group_label_div_class = options.dig(:label, :class) || "form-label"
         id = options[:id] || default_id(name)
 
         tag.div(
-          **{ class: group_label_class }.compact,
+          **{ class: group_label_div_class }.compact,
           id:
         ) { label_text(name, options.dig(:label, :text)) }
       end
