@@ -6,9 +6,26 @@ We want everyone to feel welcome to contribute. We encourage respectful exchange
 
 There are a number of ways you can contribute to `bootstrap_form`:
 
-- Fix a bug or add a new feature
-- Add to the documentation
-- Review pull requests
+- Test pre-release versions of the gem, by using the `main` branch.
+- Fix a bug or add a new feature.
+- Add to the documentation.
+- Review pull requests.
+
+## Testing
+
+`bootstrap_form` has an extensive automated test suite. But there are a multitude of combinations of use cases for this gem. It's impossible to cover all the combinations.
+
+You can help us test by using the `main` branch from GitHub, rather than a released version of the gem. To do so, replace the `bootstrap_form` line in your `Gemfile` with:
+
+```
+gem "bootstrap_form", git: "https://bootstrap-ruby/bootstrap_form"
+```
+
+and run `bundle update`.
+
+If you run into problems, you can always switch back to the released version of `bootstrap_form` from your provider of gems. Please [raise an issue](https://github.com/bootstrap-ruby/bootstrap_form/issues/new/choose) if you think you found a problem.
+
+And a big thank-you for helping us test `bootstrap_form`.
 
 ## Code Contributions
 
