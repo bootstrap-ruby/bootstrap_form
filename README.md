@@ -120,6 +120,8 @@ This generates the following HTML:
 </form>
 ```
 
+Note: All examples in this README are generated with the configuration option `group_around_collections` set to `true`. See the [Configuration](#configuration) section.
+
 ### bootstrap_form_tag
 
 If your form is not backed by a model, use the `bootstrap_form_tag`. Usage of this helper is the same as `bootstrap_form_for`, except no model object is passed in as the first argument. Here's an example:
@@ -233,6 +235,7 @@ The current configuration options are:
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `default_form_attributes` | {} | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
+| `group_around_collections` | false | Historically, `bootstrap_form` generated a wrapper around `collection_checkboxes` and `collection_radio_buttons` using the same `form_group` as individual controls used. This markup caused accessibility problems. Setting `group_around_collections = true` will generate collections of checkboxes and radio buttons wrapper in a `<fieldset>` with the text as a `<legend>` (https://www.w3.org/WAI/tutorials/forms/grouping/). This _will_ make visible changes to pages that use the collection methods.<br/><br/>The default for this option will be changed to `true` in a future version. |
 
 Example:
 
@@ -781,8 +784,8 @@ This generates:
 This generates:
 
 ```html
-<div class="mb-3">
-  <label class="form-label" for="user_skill_level">Skill level</label>
+<div aria-labelledby="user_skill_level" class="mb-3" role="group">
+  <div class="form-label" id="user_skill_level">Skill level</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
     <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
@@ -793,8 +796,8 @@ This generates:
   </div>
 </div>
 <input id="user_skills" name="user[skills][]" type="hidden" value="">
-<div class="mb-3">
-  <label class="form-label" for="user_skills">Skills</label>
+<div aria-labelledby="user_skills" class="mb-3" role="group">
+  <div class="form-label" id="user_skills">Skills</div>
   <div class="form-check">
     <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
     <label class="form-check-label" for="user_skills_1">Mind reading</label>
@@ -829,8 +832,8 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 This generates:
 
 ```html
-<div class="mb-3">
-  <label class="form-label" for="user_misc">Misc</label>
+<div aria-labelledby="user_misc" class="mb-3" role="group">
+  <div class="form-label" id="user_misc">Misc</div>
   <div class="form-check">
     <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1">
     <label class="form-check-label" for="user_misc_1">Foo</label>
@@ -1417,7 +1420,7 @@ This generates:
 </form>
 ```
 
-A form-level `layout: :inline` can't be overridden because of the way Bootstrap 4 implements in-line layouts. One possible work-around is to leave the form-level layout as default, and specify the individual fields as `layout: :inline`, except for the fields(s) that should be other than in-line.
+A form-level `layout: :inline` can't be overridden because of the way Bootstrap implements in-line layouts. One possible work-around is to leave the form-level layout as default, and specify the individual fields as `layout: :inline`, except for the fields(s) that should be other than in-line.
 
 ### Floating Labels
 
@@ -1493,8 +1496,8 @@ Generated HTML:
     <input class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback">is invalid</div>
   </div>
-  <div class="mb-3">
-    <label class="form-label" for="user_misc">Misc</label>
+  <div aria-labelledby="user_misc" class="mb-3" role="group">
+    <div class="form-label" id="user_misc">Misc</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
       <label class="form-check-label" for="user_misc_1">Mind reading</label>
@@ -1506,8 +1509,8 @@ Generated HTML:
     </div>
   </div>
   <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
-  <div class="mb-3">
-    <label class="form-label" for="user_preferences">Preferences</label>
+  <div aria-labelledby="user_preferences" class="mb-3" role="group">
+    <div class="form-label" id="user_preferences">Preferences</div>
     <div class="form-check">
       <input checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
       <label class="form-check-label" for="user_preferences_1">Good</label>

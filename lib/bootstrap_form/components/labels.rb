@@ -10,16 +10,8 @@ module BootstrapForm
       def generate_label(id, name, options, custom_label_col, group_layout)
         return if options.blank?
 
-        # id is the caller's options[:id] at the only place this method is called.
-        # The options argument is a small subset of the options that might have
-        # been passed to generate_label's caller, and definitely doesn't include
-        # :id.
-        options[:for] = id if acts_like_form_tag
-
-        options[:class] = label_classes(name, options, custom_label_col, group_layout)
-        options.delete(:class) if options[:class].none?
-
-        label(name, label_text(name, options), options.except(:text))
+        prepare_label_options(id, name, options, custom_label_col, group_layout)
+        label(name, label_text(name, options[:text]), options.except(:text))
       end
 
       def label_classes(name, options, custom_label_col, group_layout)
@@ -42,13 +34,24 @@ module BootstrapForm
         end
       end
 
-      def label_text(name, options)
-        label = options[:text] || object&.class&.try(:human_attribute_name, name)&.html_safe # rubocop:disable Rails/OutputSafety, Style/SafeNavigationChainLength
+      def label_text(name, text)
+        label = text || object&.class&.try(:human_attribute_name, name)&.html_safe # rubocop:disable Rails/OutputSafety, Style/SafeNavigationChainLength
         if label_errors && error?(name)
           (" ".html_safe + get_error_messages(name)).prepend(label)
         else
           label
         end
+      end
+
+      def prepare_label_options(id, name, options, custom_label_col, group_layout)
+        # id is the caller's options[:id] at the only place this method is called.
+        # The options argument is a small subset of the options that might have
+        # been passed to generate_label's caller, and definitely doesn't include
+        # :id.
+        options[:for] = id if acts_like_form_tag
+
+        options[:class] = label_classes(name, options, custom_label_col, group_layout)
+        options.delete(:class) if options[:class].none?
       end
     end
   end
