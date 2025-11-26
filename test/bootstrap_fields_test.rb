@@ -93,8 +93,8 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
-          <input class="form-control is-invalid" id="user_misc" name="user[misc]" type="file"/>
-          <div class="invalid-feedback">error for test</div>
+          <input class="form-control is-invalid" id="user_misc" aria-labelledby="user_misc_feedback" name="user[misc]" type="file"/>
+          <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
         </div>
       </form>
     HTML
@@ -108,8 +108,8 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
         <div class="mb-3">
           <label class="form-label required" for="address_user_id">User</label>
-          <input class="form-control is-invalid" id="address_user_id" name="address[user_id]" required="required" type="text"/>
-          <div class="invalid-feedback">must exist</div>
+          <input class="form-control is-invalid" id="address_user_id" aria-labelledby="address_user_id_feedback" name="address[user_id]" required="required" type="text"/>
+          <div class="invalid-feedback" id="address_user_id_feedback">must exist</div>
         </div>
       </form>
     HTML

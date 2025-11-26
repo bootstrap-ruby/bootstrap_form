@@ -195,11 +195,11 @@ class BootstrapCheckboxTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <div class="form-check mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input is-invalid" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <input class="form-check-input is-invalid" id="user_terms" aria-labelledby="user_terms_feedback" name="user[terms]" type="checkbox" value="1" />
           <label class="form-check-label" for="user_terms">
             I agree to the terms
           </label>
-          <div class="invalid-feedback">You must accept the terms.</div>
+          <div class="invalid-feedback" id="user_terms_feedback">You must accept the terms.</div>
         </div>
       </form>
     HTML
