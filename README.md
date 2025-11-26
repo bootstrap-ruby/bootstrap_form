@@ -169,7 +169,7 @@ This generates:
   <div class="mb-3">
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
-    <small class="form-text text-muted">A good password should be at least six characters long</small>
+    <small class="form-text text-body-secondary">A good password should be at least six characters long</small>
   </div>
   <div class="form-check mb-3">
     <input name="user[remember_me]" type="hidden" value="0">
@@ -389,7 +389,7 @@ This generates:
 <div class="mb-3">
   <label class="form-label" for="user_password">Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
-  <small class="form-text text-muted">Must be at least 6 characters long</small>
+  <small class="form-text text-body-secondary">Must be at least 6 characters long</small>
 </div>
 ```
 
@@ -642,7 +642,7 @@ This generates:
     <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
     <label class="form-check-label" for="user_skill_level_2">Advanced</label>
   </div>
-  <small class="form-text text-muted">Optional Help Text</small>
+  <small class="form-text text-body-secondary">Optional Help Text</small>
 </div>
 <div class="mb-3">
   <div class="form-check mb-3">

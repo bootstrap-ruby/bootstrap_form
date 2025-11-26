@@ -110,7 +110,7 @@ This generates:
   <div class="form-group">
     <label for="user_password">Password</label>
     <input class="form-control" type="password" name="user[password]" />
-    <small class="form-text text-muted">A good password should be at least six characters long</small>
+    <small class="form-text text-body-secondary">A good password should be at least six characters long</small>
   </div>
   <div class="form-check">
     <input name="user[remember_me]" type="hidden" value="0">

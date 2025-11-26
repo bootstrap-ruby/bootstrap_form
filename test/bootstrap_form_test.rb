@@ -712,7 +712,7 @@ class BootstrapFormTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text text-body-secondary">This is required</small>
         </div>
       </form>
     HTML
@@ -737,7 +737,7 @@ class BootstrapFormTest < ActionView::TestCase
             <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text text-body-secondary">This is required</small>
         </div>
       </form>
     HTML
@@ -757,7 +757,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email" name="user[email]" type="text" />
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text text-body-secondary">This is required</small>
         </div>
       </form>
     HTML
@@ -776,7 +776,7 @@ class BootstrapFormTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+          <small class="form-text text-body-secondary">This is <strong>useful</strong> help</small>
         </div>
       </form>
     HTML
