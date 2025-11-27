@@ -233,7 +233,7 @@ The current configuration options are:
 | Option | Default value | Description |
 |---------------------------|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `default_form_attributes` | {} | `bootstrap_form` versions 3 and 4 added a role="form" attribute to all forms. The W3C validator will raise a **warning** on forms with a role="form" attribute. `bootstrap_form` version 5 drops this attribute by default. Set this option to `{ role: "form" }` to make forms non-compliant with W3C, but generate the `role="form"` attribute like `bootstrap_form` versions 3 and 4. |
-| `turbo_submits_with` | {} | Add custom content to a submit button while the request is processing. Try `c.turbo_submits_with = :spinner` to check out the build-in spinner or pass a custom html string. Caveat: Only works on `form.primary` or `form.button` as `form.submit` renders a `input` file which only accepts a string and not a html element. Settings this also overrides `render_as_button` on `form.primary` |
+| `turbo_submits_with` | {} | Add custom content to a submit button while the request is processing. Try `c.turbo_submits_with = :spinner` to use the built-in spinner, or pass a custom HTML string. Caveat: Only works on `form.primary` or `form.button` as `form.submit` renders a `input` field which only accepts a string and not an HTML element. Settings this also forces `render_as_button` on `form.primary` |
 
 Example:
 
