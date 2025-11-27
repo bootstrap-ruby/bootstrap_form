@@ -68,7 +68,7 @@ module BootstrapForm
         help_klass = "invalid-feedback"
         help_tag = :div
 
-        content_tag(help_tag, help_text, class: help_klass)
+        content_tag(help_tag, help_text, class: help_klass, id: field_id(name, :feedback))
       end
 
       def get_error_messages(name)

@@ -41,6 +41,7 @@ module BootstrapForm
                                            :inline, :label, :label_class, :label_col, :layout, :skip_label,
                                            :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
+        check_box_options[:aria] = { labelledby: field_id(name, :feedback) } if error?(name)
         check_box_options.merge!(required_field_options(options, name))
       end
 
