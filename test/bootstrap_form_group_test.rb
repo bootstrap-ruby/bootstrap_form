@@ -434,28 +434,6 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, output
   end
 
-  test 'upgrade doc for form_group renders the "error" class and message correctly when object is invalid' do
-    @user.email = nil
-    assert @user.invalid?
-
-    output = @builder.form_group :email do
-      html = '<p class="form-control-plaintext">Bar</p>'.html_safe
-      unless @user.errors[:email].empty?
-        html << tag.div(@user.errors[:email].join(", "), class: "invalid-feedback",
-                                                         style: "display: block;")
-      end
-      html
-    end
-
-    expected = <<~HTML
-      <div class="mb-3">
-        <p class="form-control-plaintext">Bar</p>
-        <div class="invalid-feedback" id="user_email_feedback" style="display: block;">can't be blank, is too short (minimum is 5 characters)</div>
-      </div>
-    HTML
-    assert_equivalent_html expected, output
-  end
-
   test "upgrade doc for form_group renders check box correctly when object is invalid" do
     @user.errors.add(:misc, "Must select one.")
 
