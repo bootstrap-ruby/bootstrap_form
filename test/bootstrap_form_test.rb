@@ -807,7 +807,9 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="invalid-feedback" id="user_email_feedback">can\'t be blank, is too short (minimum is 5 characters)</div>'
+    expected = <<~HTML
+      <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
+    HTML
 
     assert_equivalent_html expected, @builder.errors_on(:email, hide_attribute_name: true)
   end
@@ -816,7 +818,11 @@ class BootstrapFormTest < ActionView::TestCase
     @user.email = nil
     assert @user.invalid?
 
-    expected = '<div class="custom-error-class" id="user_email_feedback">Email can\'t be blank, Email is too short (minimum is 5 characters)</div>'
+    expected = <<~HTML
+      <div class="custom-error-class" id="user_email_feedback">
+        Email can't be blank, Email is too short (minimum is 5 characters)
+      </div>
+    HTML
 
     assert_equivalent_html expected, @builder.errors_on(:email, custom_class: "custom-error-class")
   end

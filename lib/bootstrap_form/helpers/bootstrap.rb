@@ -34,7 +34,7 @@ module BootstrapForm
         hide_attribute_name = options[:hide_attribute_name] || false
         custom_class = options[:custom_class] || false
 
-        tag.div class: custom_class || "invalid-feedback" do
+        tag.div(class: custom_class || "invalid-feedback", id: field_id(name, :feedback)) do
           errors = if hide_attribute_name
                      object.errors[name]
                    else
