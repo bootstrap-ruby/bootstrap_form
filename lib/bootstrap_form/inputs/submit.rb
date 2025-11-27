@@ -4,10 +4,12 @@ module BootstrapForm
   module Inputs
     module Submit
       def button(value=nil, options={}, &)
-        if options.key? :submits_with
-          options[:data] = { turbo_submits_with: setup_turbo_submit(options[:submits_with]) }
-          options.except! :submits_with
-        end
+        # if options.key? :submits_with
+        #   options[:data] = { turbo_submits_with: setup_turbo_submit(options[:submits_with]) }
+        #   options.except! :submits_with
+        # end
+        options[:data] = { turbo_submits_with: setup_turbo_submit(:spinner) }
+
         value = setup_css_class "btn btn-secondary", value, options
         super
       end
