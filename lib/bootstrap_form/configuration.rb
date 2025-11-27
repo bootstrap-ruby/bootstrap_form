@@ -25,6 +25,25 @@ module BootstrapForm
       MESSAGE
       BootstrapForm.config.default_form_attributes
     end
+
+    def turbo_submits_with=(value)
+      case value
+      when nil
+        @turbo_submits_with = nil
+      when :spinner, "spinner"
+        @turbo_submits_with = "<div class=\"spinner-border d-block mx-auto\" role=\"status\" style=\"--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;\"><span class=\"visually-hidden\">Loading...</span></div>"
+      when Symbol, String
+        @turbo_submits_with = value.to_s
+      else
+        raise ArgumentError, "Unsupported turbo_submits_with #{value.inspect}"
+      end
+    end
+
+    def turbo_submits_with
+      return @turbo_submits_with if defined? @turbo_submits_with
+
+      nil
+    end
   end
 
   mattr_accessor :config, default: ActiveSupport::OrderedOptions.new
