@@ -209,6 +209,26 @@ class BootstrapCheckboxTest < ActionView::TestCase
     assert_equivalent_html expected, actual
   end
 
+  test "check_box renders error when asked with specified id:" do
+    @user.errors.add(:terms, "You must accept the terms.")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+          <div class="form-check mb-3">
+          <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+          <input class="form-check-input is-invalid" id="custom-id" aria-labelledby="custom-id_feedback" name="user[terms]" type="checkbox" value="1" />
+          <label class="form-check-label" for="custom-id">
+            I agree to the terms
+          </label>
+          <div class="invalid-feedback" id="custom-id_feedback">You must accept the terms.</div>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.check_box(:terms, label: "I agree to the terms", error_message: true, id: "custom-id")
+    end
+    assert_equivalent_html expected, actual
+  end
+
   test "check box with custom wrapper class" do
     expected = <<~HTML
       <div class="form-check mb-3 custom-class">

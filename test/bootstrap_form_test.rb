@@ -466,6 +466,21 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true) { |f| f.text_field :email }
   end
 
+  test "errors display correctly and inline_errors are turned off by default when label_errors is true with specified id:" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
+          <input required="required" class="form-control is-invalid" id="custom-id"  aria-labelledby="custom-id_feedback" name="user[email]" type="text" />
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true) { |f| f.text_field :email, id: "custom-id" }
+  end
+
   test "errors display correctly and inline_errors can also be on when label_errors is true" do
     @user.email = nil
     assert @user.invalid?
@@ -480,6 +495,24 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+  end
+
+  test "errors display correctly and inline_errors can also be on when label_errors is true with specified id:" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
+          <input required="required" class="form-control is-invalid" id="custom-id"  aria-labelledby="custom-id_feedback" name="user[email]" type="text" />
+          <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</span>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f|
+      f.text_field :email, id: "custom-id"
+    }
   end
 
   test "label error messages use humanized attribute names" do
@@ -498,6 +531,28 @@ class BootstrapFormTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f| f.text_field :email }
+  ensure
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
+  end
+
+  test "label error messages use humanized attribute names with specified id:" do
+    I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: "Your e-mail address" } } })
+
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label required text-danger" for="custom-id"id="custom-id_feedback">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
+          <input required="required" class="form-control is-invalid" id="custom-id"  aria-labelledby="custom-id_feedback" name="user[email]" type="text" />
+          <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@user, label_errors: true, inline_errors: true) { |f|
+      f.text_field :email, id: "custom-id"
+    }
   ensure
     I18n.backend.store_translations(:en, activerecord: { attributes: { user: { email: nil } } })
   end

@@ -101,6 +101,20 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
   end
 
+  test "file fields are wrapped correctly with error with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label" for="custom-id">Misc</label>
+          <input class="form-control is-invalid" id="custom-id" aria-labelledby="custom-id_feedback" name="user[misc]" type="file"/>
+          <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc, id: "custom-id") }
+  end
+
   test "errors are correctly displayed for belongs_to association fields" do
     @address.valid?
 
@@ -114,6 +128,21 @@ class BootstrapFieldsTest < ActionView::TestCase
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id) }
+  end
+
+  test "errors are correctly displayed for belongs_to association fields with specified id:" do
+    @address.valid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
+        <div class="mb-3">
+          <label class="form-label required" for="custom-id">User</label>
+          <input class="form-control is-invalid" id="custom-id" aria-labelledby="custom-id_feedback" name="address[user_id]" required="required" type="text"/>
+          <div class="invalid-feedback" id="custom-id_feedback">must exist</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id, id: "custom-id") }
   end
 
   test "hidden fields are supported" do
