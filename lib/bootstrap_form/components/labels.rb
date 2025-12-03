@@ -52,7 +52,7 @@ module BootstrapForm
 
         options[:class] = label_classes(name, options, custom_label_col, group_layout)
         options.delete(:class) if options[:class].none?
-        options[:id] = field_id(name, :feedback) if error?(name) && label_errors
+        options[:id] = id.present? ? "#{id}_feedback" : field_id(name, :feedback) if error?(name) && label_errors
       end
     end
   end

@@ -61,14 +61,15 @@ module BootstrapForm
         error?(name) && inline_errors
       end
 
-      def generate_error(name)
+      def generate_error(name, id)
         return unless inline_error?(name)
 
         help_text = get_error_messages(name)
         help_klass = "invalid-feedback"
         help_tag = :div
+        id = id.present? ? "#{id}_feedback" : field_id(name, :feedback)
 
-        content_tag(help_tag, help_text, class: help_klass, id: field_id(name, :feedback))
+        content_tag(help_tag, help_text, class: help_klass, id:)
       end
 
       def get_error_messages(name)

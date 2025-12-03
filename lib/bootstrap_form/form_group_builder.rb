@@ -100,7 +100,8 @@ module BootstrapForm
       css_options[:class] = safe_join([control_classes, css_options[:class]].compact, " ")
       if error?(method)
         css_options[:class] << " is-invalid"
-        css_options[:aria] = { labelledby: field_id(method, :feedback) }
+        labelledby = options[:id].present? ? "#{options[:id]}_feedback" : field_id(method, :feedback)
+        css_options[:aria] = { labelledby: }
       end
       css_options[:placeholder] = form_group_placeholder(options, method) if options[:label_as_placeholder]
       css_options

@@ -23,7 +23,7 @@ module BootstrapForm
       html_class = control_specific_class(field_name)
       html_class = "#{html_class} col-auto g-3" if @layout == :horizontal && options[:skip_inline].blank?
       tag.div(class: html_class) do
-        input_with_error(name) do
+        input_with_error(name, options[:id]) do
           send(without_field_name, name, options, html_options)
         end
       end

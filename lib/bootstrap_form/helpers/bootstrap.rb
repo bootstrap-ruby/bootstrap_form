@@ -66,20 +66,21 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &)
+        id = options[:id]
         options = options.extract!(:prepend, :append, :input_group_class).compact
 
         input = capture(&) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
-        input << generate_error(name)
+        input << generate_error(name, id)
         options.present? &&
           input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
         input
       end
 
-      def input_with_error(name, &)
+      def input_with_error(name, id, &)
         input = capture(&)
-        input << generate_error(name)
+        input << generate_error(name, id)
       end
 
       def input_group_content(content)
