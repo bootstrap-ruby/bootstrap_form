@@ -7,6 +7,16 @@ module BootstrapForm
     private
 
     def form_group_builder(method, options, html_options=nil, &)
+      form_group_builder_wrapper(method, options, html_options) do |form_group_options, no_wrapper|
+        if no_wrapper
+          yield
+        else
+          form_group(method, form_group_options, &)
+        end
+      end
+    end
+
+    def form_group_builder_wrapper(method, options, html_options=nil)
       no_wrapper = options[:wrapper] == false
 
       options = form_group_builder_options(options, method)
@@ -18,11 +28,7 @@ module BootstrapForm
         :hide_label, :skip_required, :label_as_placeholder, :wrapper_class, :wrapper
       )
 
-      if no_wrapper
-        yield
-      else
-        form_group(method, form_group_options, &)
-      end
+      yield(form_group_options, no_wrapper)
     end
 
     def form_group_builder_options(options, method)
