@@ -79,8 +79,8 @@ class ActionView::TestCase
     assert equivalent, lambda {
       # using a lambda because diffing is expensive
       Diffy::Diff.new(
-        expected_html.to_html(indent: 2),
-        actual_html.to_html(indent: 2)
+        HtmlBeautifier.beautify(expected_html.to_html(indent: 2)),
+        HtmlBeautifier.beautify(actual_html.to_html(indent: 2))
       ).to_s(:color)
     }
   end
