@@ -36,7 +36,7 @@ module BootstrapForm
 
         tag.div(
           class: custom_class || "invalid-feedback",
-          id: options[:id].present? ? "#{options[:id]}_feedback" : field_id(name, :feedback)
+          id: aria_feedback_id(id: options[:id], name:)
         ) do
           errors = if hide_attribute_name
                      object.errors[name]
