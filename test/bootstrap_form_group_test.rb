@@ -187,7 +187,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
           <div class="input-group">
             <span class="input-group-text">$</span>
-            <input required="required" class="form-control is-invalid" id="user_email" aria-labelledby="user_email_feedback" name="user[email]" type="text" />
+            <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_feedback" name="user[email]" type="text" />
             <span class="input-group-text">.00</span>
             <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</span>
           </div>
@@ -449,15 +449,15 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_primary_school" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="primary school"/>
+            <input class="form-check-input is-invalid" id="user_misc_primary_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="primary school"/>
             <label class="form-check-label" for="user_misc_primary_school">Primary school</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_high_school" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="high school"/>
+            <input class="form-check-input is-invalid" id="user_misc_high_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="high school"/>
             <label class="form-check-label" for="user_misc_high_school">High school</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_university" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="university"/>
+            <input class="form-check-input is-invalid" id="user_misc_university" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="university"/>
             <label class="form-check-label" for="user_misc_university">University</label>
             <div class="invalid-feedback" id="user_misc_feedback">Must select one.</div>
           </div>
@@ -487,7 +487,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
           <label class="form-label required" for="user_email">Email</label>
         </div>
         <div class="field_with_errors">
-          <input required="required" class="form-control is-invalid" id="user_email" aria-labelledby="user_email_feedback" name="user[email]" type="email" />
+          <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_feedback" name="user[email]" type="email" />
         </div>
         <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
       </div>
@@ -508,7 +508,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="none-margin">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email" aria-labelledby="user_email_feedback" name="user[email]" type="text" />
+          <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
           <small class="form-text text-muted">This is required</small>
         </div>

@@ -79,7 +79,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
           <label class="form-label required" for="user_password">Password</label>
         </div>
         <div class="field_with_errors">
-          <input class="form-control is-invalid" id="user_password" aria-labelledby="user_password_feedback" name="user[password]" required="required" type="text">
+          <input class="form-control is-invalid" id="user_password" aria-describedby="user_password_feedback" name="user[password]" required="required" type="text">
         </div>
         <div class="invalid-feedback" id="user_password_feedback">can't be blank</div>
       </div>

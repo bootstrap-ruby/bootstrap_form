@@ -42,7 +42,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
-          <select class="form-select is-invalid" id="user_misc" aria-labelledby="user_misc_feedback" name="user[misc]">#{time_zone_options_for_select}</select>
+          <select class="form-select is-invalid" id="user_misc" aria-describedby="user_misc_feedback" name="user[misc]">#{time_zone_options_for_select}</select>
           <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
         </div>
       </form>
@@ -205,7 +205,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select is-invalid" id="user_status" aria-labelledby="user_status_feedback" name="user[status]"></select>
+          <select class="form-select is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
           <div class="invalid-feedback" id="user_status_feedback">error for test</div>
         </div>
       </form>
@@ -285,7 +285,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select is-invalid" id="user_status" aria-labelledby="user_status_feedback" name="user[status]"></select>
+          <select class="form-select is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
           <div class="invalid-feedback" id="user_status_feedback">error for test</div>
         </div>
       </form>
@@ -417,13 +417,13 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
-              <select class="form-select is-invalid" id="user_misc_1i" aria-labelledby="user_misc_feedback" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" aria-labelledby="user_misc_feedback" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" aria-labelledby="user_misc_feedback" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -443,13 +443,13 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
-              <select class="form-select is-invalid" id="user_misc_1i" aria-labelledby="user_misc_feedback" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" aria-labelledby="user_misc_feedback" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" aria-labelledby="user_misc_feedback" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -546,11 +546,11 @@ class BootstrapSelectsTest < ActionView::TestCase
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
               <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
               <input #{autocomplete_attr_time_selects} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
-              <select class="form-select is-invalid" id="user_misc_4i" aria-labelledby="user_misc_feedback" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" aria-labelledby="user_misc_feedback" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -573,11 +573,11 @@ class BootstrapSelectsTest < ActionView::TestCase
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
               <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
               <input #{autocomplete_attr_time_selects} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
-              <select class="form-select is-invalid" id="user_misc_4i" aria-labelledby="user_misc_feedback" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" aria-labelledby="user_misc_feedback" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -677,21 +677,21 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
-              <select class="form-select is-invalid" id="user_misc_1i" aria-labelledby="user_misc_feedback" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" aria-labelledby="user_misc_feedback" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" aria-labelledby="user_misc_feedback" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
               &mdash;
-              <select class="form-select is-invalid" id="user_misc_4i" aria-labelledby="user_misc_feedback" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" aria-labelledby="user_misc_feedback" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -711,21 +711,21 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
-              <select class="form-select is-invalid" id="user_misc_1i" aria-labelledby="user_misc_feedback" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" aria-labelledby="user_misc_feedback" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" aria-labelledby="user_misc_feedback" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
               &mdash;
-              <select class="form-select is-invalid" id="user_misc_4i" aria-labelledby="user_misc_feedback" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" aria-labelledby="user_misc_feedback" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
               <div class="invalid-feedback" id="user_misc_feedback">error for test</div>

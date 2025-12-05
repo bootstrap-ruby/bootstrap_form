@@ -1493,17 +1493,17 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required" for="user_email">Email</label>
-    <input aria-labelledby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
+    <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback" id="user_email_feedback">is invalid</div>
   </div>
   <div aria-labelledby="user_misc" class="mb-3" role="group">
     <div class="form-label" id="user_misc">Misc</div>
     <div class="form-check">
-      <input aria-labelledby="user_misc_feedback" checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
+      <input aria-describedby="user_misc_feedback" checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
       <label class="form-check-label" for="user_misc_1">Mind reading</label>
     </div>
     <div class="form-check">
-      <input aria-labelledby="user_misc_feedback" class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
+      <input aria-describedby="user_misc_feedback" class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
       <label class="form-check-label" for="user_misc_2">Farming</label>
       <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
     </div>
@@ -1512,18 +1512,18 @@ Generated HTML:
   <div aria-labelledby="user_preferences" class="mb-3" role="group">
     <div class="form-label" id="user_preferences">Preferences</div>
     <div class="form-check">
-      <input aria-labelledby="user_preferences_feedback" checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
+      <input aria-describedby="user_preferences_feedback" checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
       <label class="form-check-label" for="user_preferences_1">Good</label>
     </div>
     <div class="form-check">
-      <input aria-labelledby="user_preferences_feedback" class="form-check-input is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
+      <input aria-describedby="user_preferences_feedback" class="form-check-input is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
       <label class="form-check-label" for="user_preferences_2">Bad</label>
       <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
     </div>
   </div>
   <div class="mb-3">
     <label class="form-label" for="user_address_attributes_street">Street</label>
-    <input aria-labelledby="user_address_attributes_street_feedback" class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
+    <input aria-describedby="user_address_attributes_street_feedback" class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
     <div class="invalid-feedback" id="user_address_attributes_street_feedback">is invalid</div>
   </div>
 </form>
@@ -1555,7 +1555,7 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3">
     <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email is invalid</label>
-    <input aria-labelledby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
+    <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
   </div>
 </form>
 ```

@@ -61,11 +61,11 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
         <div role="group" aria-labelledby="user_misc" class="mb-3">
           <div id="user_misc" class="form-label">Misc</div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>
@@ -87,11 +87,11 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
         <div role="group" aria-labelledby="user_misc" class="mb-3">
           <div id="user_misc" class="form-label">Misc</div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>
@@ -353,11 +353,11 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>
@@ -379,11 +379,11 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>

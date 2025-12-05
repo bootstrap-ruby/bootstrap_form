@@ -28,7 +28,7 @@ module BootstrapForm
         radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,
                                               :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
-        radio_button_options[:aria] = { labelledby: aria_feedback_id(id: options[:id], name:) } if error?(name)
+        radio_button_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name:) } if error?(name)
         radio_button_options.merge!(required_field_options(options, name))
       end
 

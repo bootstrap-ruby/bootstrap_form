@@ -35,7 +35,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-check">
-          <input class="form-check-input is-invalid" id="user_misc_1" aria-labelledby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+          <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1">
             This is a radio button
           </label>
@@ -54,7 +54,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-check">
-          <input class="form-check-input is-invalid" id="custom-id" aria-labelledby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
+          <input class="form-check-input is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="custom-id">
             This is a radio button
           </label>
