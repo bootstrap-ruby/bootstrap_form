@@ -10,7 +10,7 @@ module BootstrapForm
         def time_zone_select_with_bootstrap(method, priority_zones=nil, options={}, html_options={})
           html_options = html_options.reverse_merge(control_class: "form-select")
           form_group_builder(method, options, html_options) do
-            input_with_error(method) do
+            input_with_error(method, options[:id]) do
               time_zone_select_without_bootstrap(method, priority_zones, options, html_options)
             end
           end

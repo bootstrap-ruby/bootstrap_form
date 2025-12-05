@@ -24,6 +24,9 @@ module BootstrapForm
 
         def bootstrap_select_group(field_name)
           define_method(:"#{field_name}_with_bootstrap") do |name, options={}, html_options={}|
+            # Specifying the id for a select doesn't work. The Rails helpers need to generate
+            # what they generate, and that includes the ids for each select option.
+            options.delete(:id)
             html_options = html_options.reverse_merge(control_class: "form-select")
             form_group_builder(name, options, html_options) do
               form_group_content_tag(name, field_name, "#{field_name}_without_bootstrap", options, html_options)

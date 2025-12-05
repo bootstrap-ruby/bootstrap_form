@@ -34,7 +34,10 @@ module BootstrapForm
         hide_attribute_name = options[:hide_attribute_name] || false
         custom_class = options[:custom_class] || false
 
-        tag.div class: custom_class || "invalid-feedback" do
+        tag.div(
+          class: custom_class || "invalid-feedback",
+          id: aria_feedback_id(id: options[:id], name:)
+        ) do
           errors = if hide_attribute_name
                      object.errors[name]
                    else
@@ -66,20 +69,21 @@ module BootstrapForm
       end
 
       def prepend_and_append_input(name, options, &)
+        id = options[:id]
         options = options.extract!(:prepend, :append, :input_group_class).compact
 
         input = capture(&) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
-        input << generate_error(name)
+        input << generate_error(name, id)
         options.present? &&
           input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
         input
       end
 
-      def input_with_error(name, &)
+      def input_with_error(name, id, &)
         input = capture(&)
-        input << generate_error(name)
+        input << generate_error(name, id)
       end
 
       def input_group_content(content)

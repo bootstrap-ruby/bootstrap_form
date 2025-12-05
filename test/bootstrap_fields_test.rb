@@ -93,12 +93,26 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
-          <input class="form-control is-invalid" id="user_misc" name="user[misc]" type="file"/>
-          <div class="invalid-feedback">error for test</div>
+          <input class="form-control is-invalid" id="user_misc" aria-describedby="user_misc_feedback" name="user[misc]" type="file"/>
+          <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc) }
+  end
+
+  test "file fields are wrapped correctly with error with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label" for="custom-id">Misc</label>
+          <input class="form-control is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="file"/>
+          <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.file_field(:misc, id: "custom-id") }
   end
 
   test "errors are correctly displayed for belongs_to association fields" do
@@ -108,12 +122,27 @@ class BootstrapFieldsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
         <div class="mb-3">
           <label class="form-label required" for="address_user_id">User</label>
-          <input class="form-control is-invalid" id="address_user_id" name="address[user_id]" required="required" type="text"/>
-          <div class="invalid-feedback">must exist</div>
+          <input class="form-control is-invalid" id="address_user_id" aria-describedby="address_user_id_feedback" name="address[user_id]" required="required" type="text"/>
+          <div class="invalid-feedback" id="address_user_id_feedback">must exist</div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id) }
+  end
+
+  test "errors are correctly displayed for belongs_to association fields with specified id:" do
+    @address.valid?
+
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
+        <div class="mb-3">
+          <label class="form-label required" for="custom-id">User</label>
+          <input class="form-control is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="address[user_id]" required="required" type="text"/>
+          <div class="invalid-feedback" id="custom-id_feedback">must exist</div>
+        </div>
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_for(@address, url: users_path) { |f| f.text_field(:user_id, id: "custom-id") }
   end
 
   test "hidden fields are supported" do

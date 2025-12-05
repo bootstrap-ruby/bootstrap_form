@@ -35,16 +35,35 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-check">
-          <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
           <label class="form-check-label" for="user_misc_1">
             This is a radio button
           </label>
-          <div class="invalid-feedback">error for test</div>
+          <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
         </div>
       </form>
     HTML
     actual = bootstrap_form_for(@user) do |f|
       f.radio_button(:misc, "1", label: "This is a radio button", error_message: true)
+    end
+    assert_equivalent_html expected, actual
+  end
+
+  test "radio_button with error is wrapped correctly with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="form-check">
+          <input class="form-check-input is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
+          <label class="form-check-label" for="custom-id">
+            This is a radio button
+          </label>
+          <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user) do |f|
+      f.radio_button(:misc, "1", label: "This is a radio button", error_message: true, id: "custom-id")
     end
     assert_equivalent_html expected, actual
   end

@@ -89,7 +89,7 @@ module BootstrapForm
             :add_control_col_class, :append, :control_col, :floating, :help, :icon, :id,
             :input_group_class, :label, :label_col, :layout, :prepend
           ),
-          aria: { labelledby: options[:id] || default_id(name) },
+          aria: { labelledby: group_label_div_id(id: options[:id], name:) },
           role: :group
         ) do
           group_label_div = generate_group_label_div(name, options)
@@ -100,15 +100,14 @@ module BootstrapForm
 
       def generate_group_label_div(name, options)
         group_label_div_class = options.dig(:label, :class) || "form-label"
-        id = options[:id] || default_id(name)
 
         tag.div(
           **{ class: group_label_div_class }.compact,
-          id:
+          id: group_label_div_id(id: options[:id], name:)
         ) { label_text(name, options.dig(:label, :text)) }
       end
 
-      def default_id(name) = raw("#{object_name}_#{name}") # rubocop:disable Rails/OutputSafety
+      def group_label_div_id(id:, name:) = id || field_id(name)
     end
   end
 end

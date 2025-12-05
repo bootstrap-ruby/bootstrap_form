@@ -13,7 +13,7 @@ module BootstrapForm
           content = tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
             html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
-            html << generate_error(name) if options[:error_message]
+            html << generate_error(name, options[:id]) if options[:error_message]
             html
           end
           wrapper(content, options)
@@ -41,6 +41,7 @@ module BootstrapForm
                                            :inline, :label, :label_class, :label_col, :layout, :skip_label,
                                            :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
+        check_box_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name:) } if error?(name)
         check_box_options.merge!(required_field_options(options, name))
       end
 
