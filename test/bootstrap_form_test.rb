@@ -1596,6 +1596,19 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.errors_on(:email, custom_class: "custom-error-class")
   end
 
+  test "errors_on with specified id:" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <div class="invalid-feedback" id="custom-id_feedback">
+        Email can't be blank, Email is too short (minimum is 5 characters)
+      </div>
+    HTML
+
+    assert_equivalent_html expected, @builder.errors_on(:email, id: "custom-id")
+  end
+
   test "horizontal-style forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
