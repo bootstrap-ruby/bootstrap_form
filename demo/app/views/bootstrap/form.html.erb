@@ -1,7 +1,7 @@
 <h3>Horizontal Form</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_with model: @user, layout: :horizontal, local: true do |form| %>
+  <%= bootstrap_form_with model: @user, layout: :horizontal, local: true, namespace: "horizontal" do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.select :status, [['activated', 1], ['blocked', 2]], prompt: "Please Select" %>
@@ -20,7 +20,7 @@
 <h3>With Validation Error</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user_with_error, layout: :horizontal do |form| %>
+  <%= bootstrap_form_for @user_with_error, layout: :horizontal, namespace: "validation_error" do |form| %>
     <%= form.alert_message "This is an alert" %>
     <%= form.error_summary %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
@@ -32,7 +32,7 @@
 <h3>Inline Form</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user, layout: :inline do |form| %>
+  <%= bootstrap_form_for @user, layout: :inline, namespace: "inline_form" do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.checkbox :terms, label: "Agree to Terms" %>
@@ -44,7 +44,7 @@
 <h3>Simple Action Text Example</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user, url: "/" do |form| %>
+  <%= bootstrap_form_for @user, url: "/", namespace: "action_text" do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else" %>
     <%= form.password_field :password, placeholder: "Password" %>
     <%= form.checkbox :terms, label: "Agree to Terms" %>
@@ -57,7 +57,7 @@
 <h3>Floating Labels</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user do |form| %>
+  <%= bootstrap_form_for @user, namespace: "floating_label" do |form| %>
     <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else", floating: true %>
     <%= form.password_field :password, placeholder: "Password", floating: true %>
     <%= form.text_field :misc, floating: true %>
