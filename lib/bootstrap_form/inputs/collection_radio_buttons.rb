@@ -9,6 +9,7 @@ module BootstrapForm
 
       included do
         def collection_radio_buttons_with_bootstrap(*args)
+          args[4]&.delete(:id)
           inputs_collection(*args) do |name, value, options|
             radio_button(name, value, options)
           end

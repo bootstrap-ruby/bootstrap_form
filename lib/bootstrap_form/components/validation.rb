@@ -61,14 +61,14 @@ module BootstrapForm
         error?(name) && inline_errors
       end
 
-      def generate_error(name)
+      def generate_error(name, id)
         return unless inline_error?(name)
 
         help_text = get_error_messages(name)
         help_klass = "invalid-feedback"
         help_tag = :div
 
-        content_tag(help_tag, help_text, class: help_klass)
+        content_tag(help_tag, help_text, class: help_klass, id: aria_feedback_id(id:, name:))
       end
 
       def get_error_messages(name)
@@ -84,6 +84,10 @@ module BootstrapForm
         safe_join(object.errors[name], ", ")
       end
       # rubocop:enable Metrics/AbcSize
+
+      def aria_feedback_id(name:, id: nil)
+        id.present? ? "#{id}_feedback" : field_id(name, :feedback)
+      end
     end
   end
 end

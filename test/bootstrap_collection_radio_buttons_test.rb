@@ -61,13 +61,13 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
         <div role="group" aria-labelledby="user_misc" class="mb-3">
           <div id="user_misc" class="form-label">Misc</div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback">error for test</div>
+            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>
         </div>
       </form>
@@ -75,6 +75,32 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
 
     actual = bootstrap_form_for(@user) do |f|
       f.collection_radio_buttons(:misc, collection, :id, :street)
+    end
+    assert_equivalent_html expected, actual
+  end
+
+  test "collection_radio_buttons renders multiple radios with error correctly with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div role="group" aria-labelledby="user_misc" class="mb-3">
+          <div id="user_misc" class="form-label">Misc</div>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          </div>
+        </div>
+      </form>
+    HTML
+
+    actual = bootstrap_form_for(@user) do |f|
+      f.collection_radio_buttons(:misc, collection, :id, :street, { id: "custom-id" })
     end
     assert_equivalent_html expected, actual
   end
@@ -327,13 +353,13 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label class="form-check-label" for="user_misc_1"> Foo</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
             <label class="form-check-label" for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback">error for test</div>
+            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
           </div>
         </div>
       </form>
@@ -341,6 +367,32 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
 
     actual = bootstrap_form_for(@user) do |f|
       f.collection_radio_buttons(:misc, collection, :id, :street)
+    end
+    assert_equivalent_html expected, actual
+  end
+
+  test "collection_radio_buttons renders multiple radios with error correctly with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="mb-3">
+          <label class="form-label" for="user_misc">Misc</label>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="2" />
+            <label class="form-check-label" for="user_misc_2"> Bar</label>
+            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          </div>
+        </div>
+      </form>
+    HTML
+
+    actual = bootstrap_form_for(@user) do |f|
+      f.collection_radio_buttons(:misc, collection, :id, :street, { id: "custom-id" })
     end
     assert_equivalent_html expected, actual
   end
