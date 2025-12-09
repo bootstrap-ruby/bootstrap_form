@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "namespaced_form_helper"
 
 class BootstrapFormTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper
+  include NamespacedFormHelper
 
   setup do
     setup_test_fixture
@@ -880,6 +882,184 @@ class BootstrapFormTest < ActionView::TestCase
     HTML
 
     assert_equivalent_html expected, @builder.errors_on(:email, custom_class: "custom-error-class")
+  end
+
+  test "namespaced form adds namespace to id and label" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label required" for="name_space_user_email">Email</label>
+        <input required="required" class="form-control" id="name_space_user_email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.text_field(:email)
+    assert_equivalent_html expected, namespaced_form_with.text_field(:email)
+  end
+
+  test "namespaced form adds namespace to id and label with specified id:" do
+    skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label required" for="name_space_custom_id">Email</label>
+        <input required="required" class="form-control" id="name_space_custom_id" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.text_field(:email, id: "custom_id")
+    assert_equivalent_html expected, namespaced_form_with.text_field(:email, id: "custom_id")
+  end
+
+  test "namespaced form adds namespace to id and label for checkboxes" do
+    expected = <<~HTML
+      <div class="form-check mb-3">
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" extra="extra arg" id="name_space_user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="name_space_user_terms">
+          I agree to the terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.check_box(:terms, label: "I agree to the terms", extra: "extra arg")
+    assert_equivalent_html expected, namespaced_form_with.check_box(:terms, label: "I agree to the terms", extra: "extra arg")
+  end
+
+  test "namespaced form adds namespace to id and label for checkboxes with specified id:" do
+    skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
+    expected = <<~HTML
+      <div class="form-check mb-3">
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
+        <input class="form-check-input" extra="extra arg" id="name_space_custom_id" name="user[terms]" type="checkbox" value="1" />
+        <label class="form-check-label" for="name_space_custom_id">
+          I agree to the terms
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.check_box(
+      :terms, label: "I agree to the terms", extra: "extra arg", id: "custom_id"
+    )
+    assert_equivalent_html expected, namespaced_form_with.check_box(
+      :terms, label: "I agree to the terms", extra: "extra arg", id: "custom_id"
+    )
+  end
+
+  test "namespaced form adds namespace to id and label for radio buttons" do
+    expected = <<~HTML
+      <div class="form-check">
+        <input class="form-check-input" extra="extra arg" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="name_space_user_misc_1">
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.radio_button(
+      :misc, "1", label: "This is a radio button", extra: "extra arg"
+    )
+    assert_equivalent_html expected, namespaced_form_with.radio_button(
+      :misc, "1", label: "This is a radio button", extra: "extra arg"
+    )
+  end
+
+  test "namespaced form adds namespace to id and label for radio buttons with specified id:" do
+    skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
+    expected = <<~HTML
+      <div class="form-check">
+        <input class="form-check-input" extra="extra arg" id="name_space_custom_id" name="user[misc]" type="radio" value="1" />
+        <label class="form-check-label" for="name_space_custom_id">
+          This is a radio button
+        </label>
+      </div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.radio_button(
+      :misc, "1", label: "This is a radio button", extra: "extra arg", id: "custom_id"
+    )
+    assert_equivalent_html expected, namespaced_form_with.radio_button(
+      :misc, "1", label: "This is a radio button", extra: "extra arg", id: "custom_id"
+    )
+  end
+
+  test "namespaced form adds namespace to id and label and group for collection_checkboxes" do
+    collection = [Address.new(id: 1, street: "Foobar")]
+    expected = <<~HTML
+      <input #{autocomplete_attr_55336} id="name_space_user_misc" name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
+        <div id="name_space_user_misc" class="form-label">This is a checkbox collection</div>
+        <div class="form-check">
+          <input class="form-check-input" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label class="form-check-label" for="name_space_user_misc_1">Foobar</label>
+        </div>
+        <small class="form-text text-muted">With a help!</small>
+      </div>
+    HTML
+
+    assert_equivalent_html expected, namespaced_form_for.collection_check_boxes(
+      :misc, collection, :id, :street, label: "This is a checkbox collection", help: "With a help!"
+    )
+    assert_equivalent_html expected, namespaced_form_with.collection_check_boxes(
+      :misc, collection, :id, :street, label: "This is a checkbox collection", help: "With a help!"
+    )
+  end
+
+  test "namespaced form adds namespace to id and label and group for collection_radio_buttons" do
+    collection = [Address.new(id: 1, street: "Foobar")]
+    expected = <<~HTML
+      <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
+        <div id="name_space_user_misc" class="form-label">This is a radio button collection</div>
+        <div class="form-check">
+          <input class="form-check-input" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label class="form-check-label" for="name_space_user_misc_1">
+            Foobar
+          </label>
+        </div>
+        <small class="form-text text-muted">With a help!</small>
+      </div>
+    HTML
+
+    assert_equivalent_html expected, namespaced_form_for.collection_radio_buttons(
+      :misc, collection, :id, :street, label: "This is a radio button collection", help: "With a help!"
+    )
+    assert_equivalent_html expected, namespaced_form_with.collection_radio_buttons(
+      :misc, collection, :id, :street, label: "This is a radio button collection", help: "With a help!"
+    )
+  end
+
+  test "namespaced form adds namespace to inline errors" do
+    @user.errors.add(:misc, "error for test")
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="name_space_user_misc">Misc</label>
+        <input class="form-control is-invalid" id="name_space_user_misc" aria-describedby="name_space_user_misc_feedback" name="user[misc]" type="file"/>
+        <div class="invalid-feedback" id="name_space_user_misc_feedback">error for test</div>
+      </div>
+    HTML
+    with_bootstrap_form_field_error_proc do
+      assert_equivalent_html(expected, namespaced_form_for.file_field(:misc))
+      assert_equivalent_html(expected, namespaced_form_with.file_field(:misc))
+    end
+  end
+
+  test "namespaced form adds namespace to label errors" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label required text-danger" for="name_space_user_email" id="name_space_user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
+        <input required="required" class="form-control is-invalid" id="name_space_user_email" aria-describedby="name_space_user_email_feedback" name="user[email]" type="text" />
+      </div>
+    HTML
+    with_bootstrap_form_field_error_proc do
+      assert_equivalent_html expected, namespaced_form_for(label_errors: true).text_field(:email)
+      assert_equivalent_html expected, namespaced_form_with(label_errors: true).text_field(:email)
+    end
+  end
+
+  test "namespaced form adds namespace to errors_on" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <div class="invalid-feedback" id="name_space_user_email_feedback">Email can't be blank, Email is too short (minimum is 5 characters)</div>
+    HTML
+    assert_equivalent_html expected, namespaced_form_for.errors_on(:email)
+    assert_equivalent_html expected, namespaced_form_with.errors_on(:email)
   end
 end
 

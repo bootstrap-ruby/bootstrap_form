@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "namespaced_form_helper"
 
 class BootstrapSelectsTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper
+  include NamespacedFormHelper
 
   setup :setup_test_fixture
 
@@ -842,6 +844,39 @@ class BootstrapSelectsTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)
   end
+
+  test "namespaced form adds namespace to id and label for selects" do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<~HTML
+        <div class="mb-3">
+          <label class="form-label" for="name_space_user_misc">Misc</label>
+          <div class="rails-bootstrap-forms-datetime-select">
+            <select class="form-select" id="name_space_user_misc_1i" name="user[misc(1i)]">
+              #{options_range(start: 2007, stop: 2017, selected: 2012)}
+            </select>
+            <select class="form-select" id="name_space_user_misc_2i" name="user[misc(2i)]">
+              #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+            </select>
+            <select class="form-select" id="name_space_user_misc_3i" name="user[misc(3i)]">
+              #{options_range(start: 1, stop: 31, selected: 3)}
+            </select>
+            &mdash;
+            <select class="form-select" id="name_space_user_misc_4i" name="user[misc(4i)]">
+              #{options_range(start: '00', stop: '23', selected: '12')}
+            </select>
+            :
+            <select class="form-select" id="name_space_user_misc_5i" name="user[misc(5i)]">
+              #{options_range(start: '00', stop: '59', selected: '00')}
+            </select>
+          </div>
+        </div>
+      HTML
+      assert_equivalent_html expected, namespaced_form_for.datetime_select(:misc)
+      assert_equivalent_html expected, namespaced_form_with.datetime_select(:misc)
+    end
+  end
+
+  private
 
   def blank_option
     '<option label=" " value=""></option>'
