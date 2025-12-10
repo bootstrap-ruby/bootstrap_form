@@ -4,10 +4,6 @@ module BootstrapForm
   module Inputs
     module Submit
       def button(value=nil, options={}, &)
-        if options.key? :submits_with
-          options[:data] = { turbo_submits_with: setup_turbo_submit(options[:submits_with]) }
-          options.except! :submits_with
-        end
         value = setup_css_class "btn btn-secondary", value, options
         super
       end
@@ -20,7 +16,7 @@ module BootstrapForm
       def primary(value=nil, options={}, &block)
         value = setup_css_class "btn btn-primary", value, options
 
-        if options[:render_as_button] || options[:submits_with] || block
+        if options[:render_as_button] || options[:data][:turbo_submits_with] || block
           options.except! :render_as_button
           button(value, options, &block)
         else
@@ -47,7 +43,7 @@ module BootstrapForm
       def setup_turbo_submit(submits_with)
         case submits_with
         when :spinner, "spinner"
-          <<~HTML.strip
+          raw(<<~HTML.strip)
             <div class="spinner-border d-block mx-auto" role="status" style="--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;"></div>
           HTML
         else
