@@ -154,10 +154,10 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
 
   test "regular button has turbo-submits-with deafault spinner" do
     expected = <<~HTML
-      <button class="btn btn-secondary" data-turbo-submits-with="<div class=&quot;spinner-border d-block mx-auto&quot; role=&quot;status&quot; style=&quot;--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;&quot;></div>" name="button" type="submit">Submit with Spinner</button>
+      <button class="btn btn-secondary" data-turbo-submits-with="<div class="spinner-border d-block mx-auto" role="status" style="--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;"></div>Submit with Spinner</button>
     HTML
     assert_equivalent_html expected,
-                           @builder.button("Submit with Spinner", submits_with: :spinner)
+                           @builder.button("Submit with Spinner", data: { turbo_submits_with: f.spinner })
   end
 
   test "regular button has turbo-submits-with custom HTML" do
@@ -165,7 +165,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
       <button class="btn btn-secondary" data-turbo-submits-with="<span>Loading...</span>" name="button" type="submit">Submit with Spinner</button>
     HTML
     assert_equivalent_html expected,
-                           @builder.button("Submit with Spinner", submits_with: "<span>Loading...</span>".html_safe)
+                           @builder.button("Submit with Spinner", data: { turbo_submits_with: "<span>Loading...</span>" })
   end
 
   test "submit button defaults to rails action name" do
