@@ -96,6 +96,14 @@ module BootstrapForm
         "form-control-plaintext"
       end
 
+      def spinner
+        tag.div(class: "text-center") do
+          tag.div(class: "spinner-border spinner-border-sm", role: "status") do
+            tag.span("Loading...", class: "visually-hidden")
+          end
+        end
+      end
+
       private
 
       def attach_input(options, key)
