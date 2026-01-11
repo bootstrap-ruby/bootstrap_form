@@ -7,6 +7,16 @@ module BootstrapForm
     private
 
     def form_group_builder(method, options, html_options=nil, &)
+      form_group_builder_wrapper(method, options, html_options) do |form_group_options, no_wrapper|
+        if no_wrapper
+          yield
+        else
+          form_group(method, form_group_options, &)
+        end
+      end
+    end
+
+    def form_group_builder_wrapper(method, options, html_options=nil)
       no_wrapper = options[:wrapper] == false
 
       options = form_group_builder_options(options, method)
@@ -18,11 +28,7 @@ module BootstrapForm
         :hide_label, :skip_required, :label_as_placeholder, :wrapper_class, :wrapper
       )
 
-      if no_wrapper
-        yield
-      else
-        form_group(method, form_group_options, &)
-      end
+      yield(form_group_options, no_wrapper)
     end
 
     def form_group_builder_options(options, method)
@@ -92,7 +98,10 @@ module BootstrapForm
       # Add control_class; allow it to be overridden by :control_class option
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = safe_join([control_classes, css_options[:class]].compact, " ")
-      css_options[:class] << " is-invalid" if error?(method)
+      if error?(method)
+        css_options[:class] << " is-invalid"
+        css_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name: method) }
+      end
       css_options[:placeholder] = form_group_placeholder(options, method) if options[:label_as_placeholder]
       css_options
     end

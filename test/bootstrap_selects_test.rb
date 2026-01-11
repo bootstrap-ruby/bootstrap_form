@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "namespaced_form_helper"
 
 class BootstrapSelectsTest < ActionView::TestCase
   include BootstrapForm::ActionViewExtensions::FormHelper
+  include NamespacedFormHelper
 
   setup :setup_test_fixture
 
@@ -42,8 +44,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
-          <select class="form-select is-invalid" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
-          <div class="invalid-feedback">error for test</div>
+          <select class="form-select is-invalid" id="user_misc" aria-describedby="user_misc_feedback" name="user[misc]">#{time_zone_options_for_select}</select>
+          <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
         </div>
       </form>
     HTML
@@ -205,8 +207,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select is-invalid" id="user_status" name="user[status]"></select>
-          <div class="invalid-feedback">error for test</div>
+          <select class="form-select is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
+          <div class="invalid-feedback" id="user_status_feedback">error for test</div>
         </div>
       </form>
     HTML
@@ -285,8 +287,8 @@ class BootstrapSelectsTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select is-invalid" id="user_status" name="user[status]"></select>
-          <div class="invalid-feedback">error for test</div>
+          <select class="form-select is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
+          <div class="invalid-feedback" id="user_status_feedback">error for test</div>
         </div>
       </form>
     HTML
@@ -417,21 +419,47 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
-              <select class="form-select is-invalid" id="user_misc_1i" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
-              <div class="invalid-feedback">error for test</div>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
             </div>
           </div>
         </form>
       HTML
       assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.date_select(:misc) }
+    end
+  end
+
+  test "date selects are wrapped correctly with error with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    travel_to(Time.utc(2012, 2, 3)) do
+      expected = <<~HTML
+        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+            <div class="mb-3">
+            <label class="form-label" for="user_misc">Misc</label>
+            <div class="rails-bootstrap-forms-date-select">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
+                #{options_range(start: 2007, stop: 2017, selected: 2012)}
+              </select>
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
+                #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+              </select>
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
+                #{options_range(start: 1, stop: 31, selected: 3)}
+              </select>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
+          </div>
+        </form>
+      HTML
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.date_select(:misc, id: "custom-id") }
     end
   end
 
@@ -520,19 +548,46 @@ class BootstrapSelectsTest < ActionView::TestCase
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
               <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
               <input #{autocomplete_attr_time_selects} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
-              <select class="form-select is-invalid" id="user_misc_4i" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
-              <div class="invalid-feedback">error for test</div>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
             </div>
           </div>
         </form>
       HTML
       assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.time_select(:misc) }
+    end
+  end
+
+  test "time selects are wrapped correctly with error with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<~HTML
+        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+            <div class="mb-3">
+            <label class="form-label" for="user_misc">Misc</label>
+            <div class="rails-bootstrap-forms-time-select">
+              <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
+              <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
+              <input #{autocomplete_attr_time_selects} id="user_misc_3i" name="user[misc(3i)]" type="hidden" value="3" />
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
+                #{options_range(start: '00', stop: '23', selected: '12')}
+              </select>
+              :
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
+                #{options_range(start: '00', stop: '59', selected: '00')}
+              </select>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
+          </div>
+        </form>
+      HTML
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.time_select(:misc, id: "custom-id") }
     end
   end
 
@@ -624,29 +679,63 @@ class BootstrapSelectsTest < ActionView::TestCase
             <div class="mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
-              <select class="form-select is-invalid" id="user_misc_1i" name="user[misc(1i)]">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_2i" name="user[misc(2i)]">
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
                 #{options_range(start: 1, stop: 12, selected: 2, months: true)}
               </select>
-              <select class="form-select is-invalid" id="user_misc_3i" name="user[misc(3i)]">
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
                 #{options_range(start: 1, stop: 31, selected: 3)}
               </select>
               &mdash;
-              <select class="form-select is-invalid" id="user_misc_4i" name="user[misc(4i)]">
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
                 #{options_range(start: '00', stop: '23', selected: '12')}
               </select>
               :
-              <select class="form-select is-invalid" id="user_misc_5i" name="user[misc(5i)]">
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
                 #{options_range(start: '00', stop: '59', selected: '00')}
               </select>
-              <div class="invalid-feedback">error for test</div>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
             </div>
           </div>
         </form>
       HTML
       assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc) }
+    end
+  end
+
+  test "datetime selects are wrapped correctly with error with specified id:" do
+    @user.errors.add(:misc, "error for test")
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<~HTML
+        <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+            <div class="mb-3">
+            <label class="form-label" for="user_misc">Misc</label>
+            <div class="rails-bootstrap-forms-datetime-select">
+              <select class="form-select is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
+                #{options_range(start: 2007, stop: 2017, selected: 2012)}
+              </select>
+              <select class="form-select is-invalid" id="user_misc_2i" aria-describedby="user_misc_feedback" name="user[misc(2i)]">
+                #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+              </select>
+              <select class="form-select is-invalid" id="user_misc_3i" aria-describedby="user_misc_feedback" name="user[misc(3i)]">
+                #{options_range(start: 1, stop: 31, selected: 3)}
+              </select>
+              &mdash;
+              <select class="form-select is-invalid" id="user_misc_4i" aria-describedby="user_misc_feedback" name="user[misc(4i)]">
+                #{options_range(start: '00', stop: '23', selected: '12')}
+              </select>
+              :
+              <select class="form-select is-invalid" id="user_misc_5i" aria-describedby="user_misc_feedback" name="user[misc(5i)]">
+                #{options_range(start: '00', stop: '59', selected: '00')}
+              </select>
+              <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
+          </div>
+        </form>
+      HTML
+      assert_equivalent_html expected, bootstrap_form_for(@user) { |f| f.datetime_select(:misc, id: "custom-id") }
     end
   end
 
@@ -755,6 +844,39 @@ class BootstrapSelectsTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)
   end
+
+  test "namespaced form adds namespace to id and label for selects" do
+    travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
+      expected = <<~HTML
+        <div class="mb-3">
+          <label class="form-label" for="name_space_user_misc">Misc</label>
+          <div class="rails-bootstrap-forms-datetime-select">
+            <select class="form-select" id="name_space_user_misc_1i" name="user[misc(1i)]">
+              #{options_range(start: 2007, stop: 2017, selected: 2012)}
+            </select>
+            <select class="form-select" id="name_space_user_misc_2i" name="user[misc(2i)]">
+              #{options_range(start: 1, stop: 12, selected: 2, months: true)}
+            </select>
+            <select class="form-select" id="name_space_user_misc_3i" name="user[misc(3i)]">
+              #{options_range(start: 1, stop: 31, selected: 3)}
+            </select>
+            &mdash;
+            <select class="form-select" id="name_space_user_misc_4i" name="user[misc(4i)]">
+              #{options_range(start: '00', stop: '23', selected: '12')}
+            </select>
+            :
+            <select class="form-select" id="name_space_user_misc_5i" name="user[misc(5i)]">
+              #{options_range(start: '00', stop: '59', selected: '00')}
+            </select>
+          </div>
+        </div>
+      HTML
+      assert_equivalent_html expected, namespaced_form_for.datetime_select(:misc)
+      assert_equivalent_html expected, namespaced_form_with.datetime_select(:misc)
+    end
+  end
+
+  private
 
   def blank_option
     '<option label=" " value=""></option>'
