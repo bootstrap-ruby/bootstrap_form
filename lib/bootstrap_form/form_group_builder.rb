@@ -107,7 +107,7 @@ module BootstrapForm
     end
 
     def form_group_placeholder(options, method)
-      form_group_label_text(options[:label]) || object.class.human_attribute_name(method)
+      form_group_label_text(options[:label]) || (object && object.class.human_attribute_name(method)) || method.to_s.humanize # rubocop:disable Style/SafeNavigation
     end
   end
 end

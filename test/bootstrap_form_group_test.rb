@@ -118,6 +118,16 @@ class BootstrapFormGroupTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.text_field(:email, label_as_placeholder: true)
   end
 
+  test "label as placeholder with form_with" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="visually-hidden required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" placeholder="Email" name="user[email]" type="text" value="steve@example.com" />
+      </div>
+    HTML
+    assert_equivalent_html expected, form_with_builder.text_field(:email, label_as_placeholder: true, required: true)
+  end
+
   test "adding prepend text" do
     expected = <<~HTML
       <div class="mb-3">
