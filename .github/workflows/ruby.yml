@@ -34,6 +34,9 @@ jobs:
       matrix:
         ruby-version: [ '3.4', '3.3', '3.2', 'ruby-head' ]
         gemfile: [ '8.1', '8.0', '7.2', 'edge' ]
+        exclude:
+          - ruby-version: 3.2
+          - gemfiles: 'edge'
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:

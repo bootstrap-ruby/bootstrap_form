@@ -9,6 +9,7 @@ group :test do
   gem "chunky_png", "~> 1.4"
   gem "diffy"
   gem "equivalent-xml"
+  gem "minitest-mock"
   gem "mocha"
   gem "selenium-webdriver"
 end
