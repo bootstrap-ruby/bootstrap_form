@@ -52,7 +52,7 @@ You can use this gem with other ways of installing Bootstrap, but how to do so i
 Once Bootstrap is installed, add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.5"
+gem "bootstrap_form", "~> 5.6"
 ```
 
 Then:
