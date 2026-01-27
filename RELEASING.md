@@ -28,6 +28,7 @@ In the `bootstrap_form` repository (not a fork):
 
 7. Update the installation instructions in `README.md` to use the new version.
 8. Commit the CHANGELOG and version changes in a single commit; the message should be "Preparing vX.Y.Z" where `X.Y.Z` is the version being released.
+8. If you did the above on a branch, merge it to `main`.
 9. Tag, push to GitHub, and publish to rubygems.org:
 
        bundle exec rake release
@@ -35,6 +36,7 @@ In the `bootstrap_form` repository (not a fork):
 10. Go to https://github.com/bootstrap-ruby/bootstrap_form/releases and create the new release and add release notes by clicking the "Generate release notes" button.
     Add the link of closed issues from CHANGELOG.
     Group the commits in sections:
+
     * ### New features
     * ### Bugfixes
     * ### Performance
