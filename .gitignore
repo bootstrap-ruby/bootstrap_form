@@ -52,10 +52,12 @@ demo/.yarn-integrity
 demo/vendor/bundle
 
 # For stuff that gets created if using the Dockerfile image
+# These are likely no longer needed.
 /.bundle/
 .cache/
 vendor/bundle
 
+# Neither are many of these, I think.
 # or .local/share/pry/pry_history if you need to be more exact
 .local/
 .irb_history
