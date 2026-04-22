@@ -1,5 +1,4 @@
 begin
-  require "bundler/setup"
   require "bundler/gem_tasks"
   require "minitest/test_task"
   require "rdoc/task"
@@ -29,12 +28,18 @@ task default: %i[test rubocop:autocorrect]
 namespace :test do
   desc "Run tests for all supported Rails versions, with current Ruby version"
   task :all do
+    # I _think_ we have to run `bundle exec rake...` here. But that doesn't mean we have
+    # to run `bundle exec rake...` when we're just running commands in the shell.
+    # I believe this is because `rake` will load some gems, and the tests, depending on
+    # the Rails version, may need to load conflicting versions of the gems.
+    # When you run a single test in the shell, it hasn't had the intermediate `rake` task
+    # to load gems, so the problem doesn't arise there.
     gemfiles.each do |gemfile|
-      system("BUNDLE_GEMFILE=#{gemfile} rake test")
+      system("BUNDLE_GEMFILE=#{gemfile} bundle exec rake test")
     end
 
     Dir.chdir("demo")
-    system("BUNDLE_GEMFILE= rake test:all")
+    system("bin/rails test:all")
   end
 end
 
