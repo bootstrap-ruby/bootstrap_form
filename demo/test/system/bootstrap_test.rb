@@ -37,6 +37,7 @@ class BootstrapTest < ApplicationSystemTestCase
     screenshot_group :readme
 
     readme = File.read(File.expand_path("../../../README.md", __dir__))
+    screenshot_index = 0
     augmented_readme = readme.gsub(REGEXP) do |_|
       erb = Regexp.last_match(1)
       header = Regexp.last_match(2)
@@ -49,7 +50,6 @@ class BootstrapTest < ApplicationSystemTestCase
 
         visit fragment_path erb: wrapped_erb
         wrapper = find(".fragment")
-        i = @screenshot_counter
         screenshot :example, crop: bounds(wrapper)
         wrapper = wrapper.find("form") if wrapped_erb != erb
         html = wrapper["innerHTML"].strip.gsub("><", ">\n<")
@@ -65,8 +65,9 @@ class BootstrapTest < ApplicationSystemTestCase
         end
         html = doc.to_html
         image = <<~MD
-          ![Example #{i}](demo/doc/screenshots/bootstrap/readme/#{format('%02i', i)}_example.png "Example #{i}")
+          ![Example #{screenshot_index}](demo/doc/screenshots/bootstrap/readme/#{format('%02i', screenshot_index)}_example.png "Example #{screenshot_index}")
         MD
+        screenshot_index += 1
         html = <<~MD
 
           #{header || 'Generated HTML:'}
