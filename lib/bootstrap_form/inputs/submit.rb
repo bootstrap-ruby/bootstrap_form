@@ -16,7 +16,7 @@ module BootstrapForm
       def primary(value=nil, options={}, &block)
         value = setup_css_class "btn btn-primary", value, options
 
-        if options[:render_as_button] || block
+        if options[:render_as_button] || options.dig(:data, :turbo_submits_with) || block
           options.except! :render_as_button
           button(value, options, &block)
         else
