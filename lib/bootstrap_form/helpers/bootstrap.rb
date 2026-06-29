@@ -9,7 +9,7 @@ module BootstrapForm
         css = options[:class] || "alert alert-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 
-        tag.div class: css do
+        tag.div class: css, tabindex: "-1" do
           if options[:error_summary] == false
             title
           else
