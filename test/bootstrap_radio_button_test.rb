@@ -9,9 +9,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button is wrapped correctly" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" extra="extra arg" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field">
+        <input class="radio" extra="extra arg" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -21,9 +21,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button no label" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">&#8203;</label>
+      <div class="form-field">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">&#8203;</label>
       </div>
     HTML
     # &#8203; is a zero-width space.
@@ -34,9 +34,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-check">
-          <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field">
+          <input class="radio is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
+          <label for="user_misc_1">
             This is a radio button
           </label>
           <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -53,9 +53,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-check">
-          <input class="form-check-input is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
-          <label class="form-check-label" for="custom-id">
+        <div class="form-field">
+          <input class="radio is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
+          <label for="custom-id">
             This is a radio button
           </label>
           <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
@@ -70,9 +70,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button disabled label is set correctly" do
     expected = <<~HTML
-      <div class="form-check disabled">
-        <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field disabled">
+        <input class="radio" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -82,9 +82,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button label class is set correctly" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label btn" for="user_misc_1">
+      <div class="form-field">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="btn" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -94,9 +94,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button 'id' attribute is used to specify label 'for' attribute" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="custom_id" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="custom_id">
+      <div class="form-field">
+        <input class="radio" id="custom_id" name="user[misc]" type="radio" value="1" />
+        <label for="custom_id">
           This is a radio button
         </label>
       </div>
@@ -106,9 +106,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label is set correctly" do
     expected = <<~HTML
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field d-inline-grid me-3">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -119,9 +119,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
   test "radio_button inline label is set correctly from form level" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field d-inline-grid me-3">
+          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label for="user_misc_1">
             This is a radio button
           </label>
         </div>
@@ -135,9 +135,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button disabled inline label is set correctly" do
     expected = <<~HTML
-      <div class="form-check form-check-inline disabled">
-        <input class="form-check-input" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field d-inline-grid me-3 disabled">
+        <input class="radio" disabled="disabled" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -148,9 +148,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio_button inline label class is set correctly" do
     expected = <<~HTML
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label btn" for="user_misc_1">
+      <div class="form-field d-inline-grid me-3">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="btn" for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -161,8 +161,8 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio button skip label" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+      <div class="form-field">
+        <input class="radio position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", skip_label: true)
@@ -170,9 +170,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio button hide label" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label visually-hidden" for="user_misc_1">This is a radio button</label>
+      <div class="form-field">
+        <input class="radio position-static" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label class="visually-hidden" for="user_misc_1">This is a radio button</label>
       </div>
     HTML
     assert_equivalent_html expected, @builder.radio_button(:misc, "1", label: "This is a radio button", hide_label: true)
@@ -180,9 +180,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio button with custom wrapper class" do
     expected = <<~HTML
-      <div class="form-check custom-class">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field custom-class">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -193,9 +193,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "radio button with wrapper class false" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -208,9 +208,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "inline radio button with custom wrapper class" do
     expected = <<~HTML
-      <div class="form-check form-check-inline custom-class">
-        <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="user_misc_1">
+      <div class="form-field d-inline-grid me-3 custom-class">
+        <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -222,9 +222,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "a required radiobutton" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="user_misc_0" name="user[misc]" required="required" type="radio" value="0" />
-        <label class="form-check-label" for="user_misc_0">
+      <div class="form-field">
+        <input class="radio" id="user_misc_0" name="user[misc]" required="required" type="radio" value="0" />
+        <label for="user_misc_0">
           This is a radio button
         </label>
       </div>
@@ -234,9 +234,9 @@ class BootstrapRadioButtonTest < ActionView::TestCase
 
   test "a required attribute as radiobutton" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" id="user_email_0" name="user[email]" required="required" type="radio" value="0" />
-        <label class="form-check-label" for="user_email_0">
+      <div class="form-field">
+        <input class="radio" id="user_email_0" name="user[email]" required="required" type="radio" value="0" />
+        <label for="user_email_0">
           This is a radio button
         </label>
       </div>

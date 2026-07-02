@@ -35,10 +35,9 @@ module BootstrapForm
         label + tag.div(capture(&) + help_text, class: form_group_control_class(options))
       else
         content = ActiveSupport::SafeBuffer.new
-        # Floating labels need to be rendered after the field
-        content << label unless options[:floating]
+        # Bootstrap 6 renders labels (including floating labels) before the field
+        content << label
         content << capture(&)
-        content << label if options[:floating]
         content << help_text if help_text
         content
       end

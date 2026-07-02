@@ -12,6 +12,7 @@ module BootstrapForm
 
           content = tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
+            html = tag.div(html, class: "switch") if options[:switch]
             html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
             html << generate_error(name, options[:id]) if options[:error_message]
             html
@@ -41,6 +42,7 @@ module BootstrapForm
                                            :inline, :label, :label_class, :label_col, :layout, :skip_label,
                                            :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
+        check_box_options[:role] = check_box_options[:switch] = "switch" if options[:switch]
         check_box_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name:) } if error?(name)
         check_box_options.merge!(required_field_options(options, name))
       end
@@ -70,28 +72,28 @@ module BootstrapForm
       end
 
       def check_box_classes(name, options)
-        classes = Array(options[:class]) << "form-check-input"
+        classes = Array(options[:class])
+        classes << "check" unless options[:switch]
         classes << "is-invalid" if error?(name)
         classes << "position-static" if options[:skip_label] || options[:hide_label]
-        classes.flatten.compact
+        classes.flatten.compact.presence
       end
 
       def check_box_label_class(options)
-        classes = ["form-check-label"]
+        classes = []
         classes << options[:label_class]
         classes << "required" if options[:required]
         classes << hide_class if options[:hide_label]
-        classes.flatten.compact
+        classes.flatten.compact.presence
       end
 
       def check_box_wrapper_class(options)
-        classes = ["form-check"]
-        classes << "form-check-inline" if layout_inline?(options[:inline])
+        classes = ["form-field"]
+        classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
         classes << "mb-3" unless options[:multiple] ||
                                  %i[horizontal inline].include?(layout) ||
                                  options[:wrapper_class] == false ||
                                  options.dig(:wrapper, :class) == false
-        classes << "form-switch" if options[:switch]
         classes << options.dig(:wrapper, :class).presence
         classes << options[:wrapper_class].presence
         classes.flatten.compact

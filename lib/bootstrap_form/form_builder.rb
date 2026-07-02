@@ -110,15 +110,17 @@ module BootstrapForm
     end
 
     def default_label_col
-      "col-sm-2"
+      "sm:col-2"
     end
 
     def offset_col(label_col)
-      [*label_col].flat_map { |s| s.split(/\s+/) }.grep(/^col-/).join(" ").gsub(/\bcol-(\w+)-(\d)\b/, 'offset-\1-\2')
+      [*label_col].flat_map { |s| s.split(/\s+/) }.grep(/^(\w+:)?col-\d/).join(" ")
+                  .gsub(/\b(\w+):col-(\d+)\b/, '\1:offset-\2')
+                  .gsub(/(?<![:-])\bcol-(\d+)\b/, 'offset-\1')
     end
 
     def default_control_col
-      "col-sm-10"
+      "sm:col-10"
     end
 
     def hide_class

@@ -39,22 +39,22 @@ module BootstrapForm
       end
 
       def radio_button_classes(name, options)
-        classes = Array(options[:class]) << "form-check-input"
+        classes = Array(options[:class]) << "radio"
         classes << "is-invalid" if error?(name)
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end
 
       def radio_button_label_class(options)
-        classes = ["form-check-label"]
+        classes = []
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
-        classes.flatten.compact
+        classes.flatten.compact.presence
       end
 
       def radio_button_wrapper_class(options)
-        classes = ["form-check"]
-        classes << "form-check-inline" if layout_inline?(options[:inline])
+        classes = ["form-field"]
+        classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
         classes << options.dig(:wrapper, :class).presence
         classes << options[:wrapper_class].presence

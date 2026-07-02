@@ -9,12 +9,14 @@ module BootstrapForm
         def bootstrap_field(field_name)
           define_method :"#{field_name}_with_bootstrap" do |name, options={}|
             warn_deprecated_layout_value(options)
-            options = options.reverse_merge(control_class: "form-range") if field_name == :range_field
+            options = options.reverse_merge(control_class: "form-range-input") if field_name == :range_field
             options = options.reverse_merge(control_class: "form-control form-control-color") if field_name == :color_field
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
-                send(:"#{field_name}_without_bootstrap", name, options.except(:floating))
+                field = send(:"#{field_name}_without_bootstrap", name, options.except(:floating))
+                field = tag.div(field, class: "form-range") if field_name == :range_field
+                field
               end
             end
           end
@@ -27,7 +29,7 @@ module BootstrapForm
             # Specifying the id for a select doesn't work. The Rails helpers need to generate
             # what they generate, and that includes the ids for each select option.
             options.delete(:id)
-            html_options = html_options.reverse_merge(control_class: "form-select")
+            html_options = html_options.reverse_merge(control_class: "form-control")
             form_group_builder(name, options, html_options) do
               form_group_content_tag(name, field_name, "#{field_name}_without_bootstrap", options, html_options)
             end

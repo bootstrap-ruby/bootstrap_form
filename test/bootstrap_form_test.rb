@@ -28,33 +28,33 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
-        <div class="form-check mb-3">
+        <div class="form-field mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label for="user_terms">I agree to the terms</label>
         </div>
         <div aria-labelledby="user_misc" class="mb-3 row" role="group">
-          <div class="col-form-label col-sm-2 pt-0" id="user_misc">Misc</div>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="col-form-label sm:col-2 pt-0" id="user_misc">Misc</div>
+          <div class="sm:col-10">
+            <div class="form-field">
+              <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label for="user_misc_1">Foo</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+            <div class="form-field">
+              <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
-          <div class="col-sm-10">
-            <select class="form-select" id="user_status" name="user[status]">
+          <label class="col-form-label sm:col-2" for="user_status">Status</label>
+          <div class="sm:col-10">
+            <select class="form-control" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -79,28 +79,28 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline mb-3">
+        <div class="form-field d-inline-grid me-3 mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label for="user_terms">I agree to the terms</label>
         </div>
         <div aria-labelledby="user_misc" class="mb-3 col-auto g-3" role="group">
-          <div class="form-check form-check-inline ps-0" id="user_misc">Misc</div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="d-inline-block me-3" id="user_misc">Misc</div>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -135,30 +135,30 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
         <div class="col">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="col">
-          <div class="form-check form-check-inline">
+          <div class="form-field d-inline-grid me-3">
             <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-            <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_terms">I agree to the terms</label>
+            <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+            <label for="user_terms">I agree to the terms</label>
           </div>
         </div>
         <div aria-labelledby="user_misc" class="col" role="group">
-          <div class="form-check form-check-inline ps-0" id="user_misc">Misc</div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="d-inline-block me-3" id="user_misc">Misc</div>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="col">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -181,37 +181,37 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div aria-labelledby="user_misc" class="mb-3 row" role="group">
-          <div class="col-form-label col-sm-2 pt-0" id="user_misc">Misc</div>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="col-form-label sm:col-2 pt-0" id="user_misc">Misc</div>
+          <div class="sm:col-10">
+            <div class="form-field">
+              <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label for="user_misc_1">Foo</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+            <div class="form-field">
+              <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
-          <div class="col-sm-10">
-            <select class="form-select" id="user_status" name="user[status]">
+          <label class="col-form-label sm:col-2" for="user_status">Status</label>
+          <div class="sm:col-10">
+            <select class="form-control" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -239,28 +239,28 @@ class BootstrapFormTest < ActionView::TestCase
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div aria-labelledby="user_misc" class="mb-3" role="group">
           <div class="form-label" id="user_misc">Misc</div>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="form-field">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -284,32 +284,32 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check form-check-inline">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field d-inline-grid me-3">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div aria-labelledby="user_misc" class="mb-3 col-auto g-3" role="group">
-          <div class="form-check form-check-inline ps-0" id="user_misc">Misc</div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="d-inline-block me-3" id="user_misc">Misc</div>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -333,8 +333,8 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
@@ -443,10 +443,10 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag allows an empty name for checkboxes" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="form-check mb-3">
+        <div class="form-field mb-3">
           <input #{autocomplete_attr} name="misc" type="hidden" value="0" />
-          <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
-          <label class="form-check-label" for="misc"> Misc</label>
+          <input class="check" id="misc" name="misc" type="checkbox" value="1" />
+          <label for="misc"> Misc</label>
         </div>
       </form>
     HTML
@@ -564,7 +564,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="alert alert-danger">
+      <div class="alert theme-danger">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
           <li>Email can't be blank</li>
@@ -620,7 +620,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">
+        <div class="alert theme-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
             <li>Email can't be blank</li>
@@ -643,7 +643,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">Please fix the following errors:</div>
+        <div class="alert theme-danger">Please fix the following errors:</div>
       </form>
     HTML
     assert_equivalent_html expected, output
@@ -659,7 +659,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">
+        <div class="alert theme-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
             <li>Email can't be blank</li>
@@ -707,68 +707,68 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-1 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "col-sm-1" }
+                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "sm:col-1" }
   end
 
   test "offset for form group without label respects label width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <div class="col-md-10 offset-md-2">
-            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          <div class="md:col-10 md:offset-2">
+            <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal, label_col: "col-md-2",
-                                                     control_col: "col-md-10") { |f| f.form_group { f.submit } }
+                           bootstrap_form_for(@user, layout: :horizontal, label_col: "md:col-2",
+                                                     control_col: "md:col-10") { |f| f.form_group { f.submit } }
   end
 
   test "offset for form group without label respects multiple label widths for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
-            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          <div class="sm:col-8 md:col-10 sm:offset-4 md:offset-2">
+            <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal, label_col: %w[col-sm-4 col-md-2],
-                                                     control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
+                           bootstrap_form_for(@user, layout: :horizontal, label_col: %w[sm:col-4 md:col-2],
+                                                     control_col: "sm:col-8 md:col-10") { |f| f.form_group { f.submit } }
   end
 
   test "custom input width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-5">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-5">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "col-sm-5" }
+                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "sm:col-5" }
   end
 
   test "additional input col class" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10 custom-class">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10 custom-class">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
@@ -926,10 +926,10 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "namespaced form adds namespace to id and label for checkboxes" do
     expected = <<~HTML
-      <div class="form-check mb-3">
+      <div class="form-field mb-3">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" extra="extra arg" id="name_space_user_terms" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-check-label" for="name_space_user_terms">
+        <input class="check" extra="extra arg" id="name_space_user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label for="name_space_user_terms">
           I agree to the terms
         </label>
       </div>
@@ -941,10 +941,10 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label for checkboxes with specified id:" do
     skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
     expected = <<~HTML
-      <div class="form-check mb-3">
+      <div class="form-field mb-3">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-        <input class="form-check-input" extra="extra arg" id="name_space_custom_id" name="user[terms]" type="checkbox" value="1" />
-        <label class="form-check-label" for="name_space_custom_id">
+        <input class="check" extra="extra arg" id="name_space_custom_id" name="user[terms]" type="checkbox" value="1" />
+        <label for="name_space_custom_id">
           I agree to the terms
         </label>
       </div>
@@ -959,9 +959,9 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "namespaced form adds namespace to id and label for radio buttons" do
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" extra="extra arg" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="name_space_user_misc_1">
+      <div class="form-field">
+        <input class="radio" extra="extra arg" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
+        <label for="name_space_user_misc_1">
           This is a radio button
         </label>
       </div>
@@ -977,9 +977,9 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label for radio buttons with specified id:" do
     skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
     expected = <<~HTML
-      <div class="form-check">
-        <input class="form-check-input" extra="extra arg" id="name_space_custom_id" name="user[misc]" type="radio" value="1" />
-        <label class="form-check-label" for="name_space_custom_id">
+      <div class="form-field">
+        <input class="radio" extra="extra arg" id="name_space_custom_id" name="user[misc]" type="radio" value="1" />
+        <label for="name_space_custom_id">
           This is a radio button
         </label>
       </div>
@@ -998,9 +998,9 @@ class BootstrapFormTest < ActionView::TestCase
       <input #{autocomplete_attr_55336} id="name_space_user_misc" name="user[misc][]" type="hidden" value="" />
       <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
         <div id="name_space_user_misc" class="form-label">This is a checkbox collection</div>
-        <div class="form-check">
-          <input class="form-check-input" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="name_space_user_misc_1">Foobar</label>
+        <div class="form-field">
+          <input class="check" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="name_space_user_misc_1">Foobar</label>
         </div>
         <small class="form-text text-muted">With a help!</small>
       </div>
@@ -1019,9 +1019,9 @@ class BootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
         <div id="name_space_user_misc" class="form-label">This is a radio button collection</div>
-        <div class="form-check">
-          <input class="form-check-input" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
-          <label class="form-check-label" for="name_space_user_misc_1">
+        <div class="form-field">
+          <input class="radio" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
+          <label for="name_space_user_misc_1">
             Foobar
           </label>
         </div>
@@ -1120,33 +1120,33 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
-        <div class="form-check mb-3">
+        <div class="form-field mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 pt-0" for="user_misc">Misc</label>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+          <label class="col-form-label sm:col-2 pt-0" for="user_misc">Misc</label>
+          <div class="sm:col-10">
+            <div class="form-field">
+              <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label for="user_misc_1">Foo</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+            <div class="form-field">
+              <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
-          <div class="col-sm-10">
-            <select class="form-select" id="user_status" name="user[status]">
+          <label class="col-form-label sm:col-2" for="user_status">Status</label>
+          <div class="sm:col-10">
+            <select class="form-control" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -1171,28 +1171,28 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
-        <div class="form-check form-check-inline mb-3">
+        <div class="form-field d-inline-grid me-3 mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-          <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_terms">I agree to the terms</label>
+          <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+          <label for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -1227,30 +1227,30 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
         <div class="col">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="col">
-          <div class="form-check form-check-inline">
+          <div class="form-field d-inline-grid me-3">
             <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-            <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_terms">I agree to the terms</label>
+            <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+            <label for="user_terms">I agree to the terms</label>
           </div>
         </div>
         <div class="col">
-          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="col">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -1368,10 +1368,10 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag allows an empty name for checkboxes" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="form-check mb-3">
+        <div class="form-field mb-3">
           <input #{autocomplete_attr} name="misc" type="hidden" value="0" />
-          <input class="form-check-input" id="misc" name="misc" type="checkbox" value="1" />
-          <label class="form-check-label" for="misc"> Misc</label>
+          <input class="check" id="misc" name="misc" type="checkbox" value="1" />
+          <label for="misc"> Misc</label>
         </div>
       </form>
     HTML
@@ -1489,7 +1489,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="alert alert-danger">
+      <div class="alert theme-danger">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
           <li>Email can't be blank</li>
@@ -1528,7 +1528,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">
+        <div class="alert theme-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
             <li>Email can't be blank</li>
@@ -1551,7 +1551,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">Please fix the following errors:</div>
+        <div class="alert theme-danger">Please fix the following errors:</div>
       </form>
     HTML
     assert_equivalent_html expected, output
@@ -1567,7 +1567,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="alert alert-danger">
+        <div class="alert theme-danger">
           <p>Please fix the following errors:</p>
           <ul class="rails-bootstrap-forms-error-summary">
             <li>Email can't be blank</li>
@@ -1615,68 +1615,68 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-1 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-1 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "col-sm-1" }
+                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, label_col: "sm:col-1" }
   end
 
   test "offset for form group without label respects label width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <div class="col-md-10 offset-md-2">
-            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          <div class="md:col-10 md:offset-2">
+            <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal, label_col: "col-md-2",
-                                                     control_col: "col-md-10") { |f| f.form_group { f.submit } }
+                           bootstrap_form_for(@user, layout: :horizontal, label_col: "md:col-2",
+                                                     control_col: "md:col-10") { |f| f.form_group { f.submit } }
   end
 
   test "offset for form group without label respects multiple label widths for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <div class="col-sm-8 col-md-10 offset-sm-4 offset-md-2">
-            <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+          <div class="sm:col-8 md:col-10 sm:offset-4 md:offset-2">
+            <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal, label_col: %w[col-sm-4 col-md-2],
-                                                     control_col: "col-sm-8 col-md-10") { |f| f.form_group { f.submit } }
+                           bootstrap_form_for(@user, layout: :horizontal, label_col: %w[sm:col-4 md:col-2],
+                                                     control_col: "sm:col-8 md:col-10") { |f| f.form_group { f.submit } }
   end
 
   test "custom input width for horizontal forms" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-5">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-5">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
       </form>
     HTML
     assert_equivalent_html expected,
-                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "col-sm-5" }
+                           bootstrap_form_for(@user, layout: :horizontal) { |f| f.email_field :email, control_col: "sm:col-5" }
   end
 
   test "additional input col class" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10 custom-class">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10 custom-class">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
@@ -1826,37 +1826,37 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 pt-0" for="user_misc">Misc</label>
-          <div class="col-sm-10">
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-              <label class="form-check-label" for="user_misc_1">Foo</label>
+          <label class="col-form-label sm:col-2 pt-0" for="user_misc">Misc</label>
+          <div class="sm:col-10">
+            <div class="form-field">
+              <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+              <label for="user_misc_1">Foo</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-              <label class="form-check-label" for="user_misc_2">Bar</label>
+            <div class="form-field">
+              <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+              <label for="user_misc_2">Bar</label>
             </div>
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2" for="user_status">Status</label>
-          <div class="col-sm-10">
-            <select class="form-select" id="user_status" name="user[status]">
+          <label class="col-form-label sm:col-2" for="user_status">Status</label>
+          <div class="sm:col-10">
+            <select class="form-control" id="user_status" name="user[status]">
               <option value="1">activated</option>
               <option value="2">blocked</option>
             </select>
@@ -1884,28 +1884,28 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_misc">Misc</label>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="form-field">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -1929,32 +1929,32 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
         <div class="mb-3 row">
-          <div class="col-sm-10 offset-sm-2">
-            <div class="form-check form-check-inline">
+          <div class="sm:col-10 sm:offset-2">
+            <div class="form-field d-inline-grid me-3">
               <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-              <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1" />
-              <label class="form-check-label" for="user_terms">I agree to the terms</label>
+              <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+              <label for="user_terms">I agree to the terms</label>
             </div>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field d-inline-grid me-3">
+            <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2" />
+            <label for="user_misc_2">Bar</label>
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2" for="user_status">Status</label>
-          <select class="form-select" id="user_status" name="user[status]">
+          <label class="form-label sm:me-2" for="user_status">Status</label>
+          <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
             <option value="2">blocked</option>
           </select>
@@ -1978,8 +1978,8 @@ class LegacyBootstrapFormTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="my-style" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+          <div class="sm:col-10">
             <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
           </div>
         </div>

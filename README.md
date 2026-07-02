@@ -3,7 +3,7 @@
 [![Ruby](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml/badge.svg)](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
+`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v6-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
 * [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself. _Note that this applies to Rails-generated validation messages._ HTML 5 client-side validation and Rails validation out of the box don't really work well together. One discussion of the challenges and some solutions is [here](https://www.jorgemanrubia.com/2019/02/16/form-validations-with-html5-and-modern-rails/)
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
@@ -27,7 +27,7 @@ Some other nice things that `bootstrap_form` does for you are:
 
 * Ruby 3.2+ (https://www.ruby-lang.org/en/downloads/branches/)
 * Rails 7.2+ (https://guides.rubyonrails.org/maintenance_policy.html)
-* Bootstrap 5.0+
+* Bootstrap 6.0+
 
 ## Installation
 
@@ -111,12 +111,12 @@ This generates the following HTML:
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check mb-3">
+  <div class="form-field mb-3">
     <input name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label for="user_remember_me">Remember me</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -142,7 +142,7 @@ This generates:
     <label class="form-label" for="email">Email</label>
     <input class="form-control" id="email" name="email" type="email" value="name@example.com">
   </div>
-  <input class="btn btn-secondary" data-disable-with="Save " name="commit" type="submit" value="Save ">
+  <input class="btn-solid theme-secondary" data-disable-with="Save " name="commit" type="submit" value="Save ">
 </form>
 ```
 
@@ -173,12 +173,12 @@ This generates:
     <input class="form-control" id="user_password" name="user[password]" type="password">
     <small class="form-text text-muted">A good password should be at least six characters long</small>
   </div>
-  <div class="form-check mb-3">
+  <div class="form-field mb-3">
     <input name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label for="user_remember_me">Remember me</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -222,7 +222,7 @@ Generated HTML:
     <label class="form-label" for="street_name">Street name</label>
     <input class="form-control" id="street_name" name="street_name" type="text">
   </div>
-  <input class="btn btn-primary" data-disable-with="Save" name="commit" type="submit" value="Save">
+  <input class="btn-solid theme-primary" data-disable-with="Save" name="commit" type="submit" value="Save">
 </form>
 ```
 
@@ -475,7 +475,7 @@ You can also prepend and append buttons. Note: The buttons must contain the
 
 ![Example 12](demo/doc/screenshots/bootstrap/readme/12_example.png "Example 12")
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn-solid theme-secondary") %>
 ```
 
 This generates:
@@ -485,7 +485,7 @@ This generates:
   <label class="form-label" for="user_search">Search</label>
   <div class="input-group">
     <input class="form-control" id="user_search" name="user[search]" type="text">
-    <a class="btn btn-secondary" href="#">Go</a>
+    <a class="btn-solid theme-secondary" href="#">Go</a>
   </div>
 </div>
 ```
@@ -504,7 +504,7 @@ This generates:
   <label class="form-label required" for="user_email">Email</label>
   <div class="input-group input-group-lg">
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
-    <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
+    <input class="btn-solid theme-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
   </div>
 </div>
 ```
@@ -602,7 +602,7 @@ This generates:
 ```html
 <div class="has-warning" data-foo="bar">
   <label class="form-label" for="user_product">Choose your favorite fruit:</label>
-  <select class="form-select selectpicker" id="user_product" name="user[product]">
+  <select class="form-control selectpicker" id="user_product" name="user[product]">
     <option value="1">Apple</option>
     <option value="2">Grape</option>
   </select>
@@ -633,25 +633,25 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_skill_level">Skill</label>
-  <div class="form-check">
-    <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-    <label class="form-check-label" for="user_skill_level_0">Novice</label>
+  <div class="form-field">
+    <input checked class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label for="user_skill_level_0">Novice</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Intermediate</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Advanced</label>
   </div>
   <small class="form-text text-muted">Optional Help Text</small>
 </div>
 <div class="mb-3">
-  <div class="form-check mb-3">
+  <div class="form-field mb-3">
     <input name="user[terms]" type="hidden" value="0">
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
+    <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label for="user_terms">I agree to the Terms of Service</label>
   </div>
 </div>
 ```
@@ -672,10 +672,10 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_terms">Optional Label</label>
-  <div class="form-check mb-3">
+  <div class="form-field mb-3">
     <input name="user[terms]" type="hidden" value="0">
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_terms">
+    <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label for="user_terms">
       You need to check this box to accept our terms of service and privacy policy
     </label>
   </div>
@@ -698,22 +698,22 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_skill_level">Skill</label>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-    <label class="form-check-label" for="user_skill_level_0">Novice</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label for="user_skill_level_0">Novice</label>
   </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Intermediate</label>
   </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Advanced</label>
   </div>
 </div>
 ```
 
-Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
+Check boxes and radio buttons are wrapped in a `div.form-field`. You can add classes to this `div` with the `:wrapper_class` option:
 
 ![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
 ```erb
@@ -723,9 +723,9 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 This generates:
 
 ```html
-<div class="form-check form-check-inline w-auto">
-  <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-  <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field d-inline-grid me-3 w-auto">
+  <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+  <label for="user_skill_level_0">Novice</label>
 </div>
 ```
 
@@ -740,20 +740,20 @@ You can also add a style to the tag using the `wrapper` option:
 This generates:
 
 ```html
-<div class="form-check form-check-inline mb-3" style="color: green">
+<div class="form-field d-inline-grid me-3 mb-3" style="color: green">
   <input name="user[skilled]" type="hidden" value="0">
-  <input class="form-check-input" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
-  <label class="form-check-label" for="user_skilled">Skilled</label>
+  <input class="check" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
+  <label for="user_skilled">Skilled</label>
 </div>
-<div class="form-check form-check-inline w-auto" style="color: red">
-  <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-  <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field d-inline-grid me-3 w-auto" style="color: red">
+  <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+  <label for="user_skill_level_0">Novice</label>
 </div>
 ```
 
 ### Switches
 
-To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
+To render checkboxes as switches, use `switch: true`:
 
 ![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
 ```erb
@@ -763,10 +763,12 @@ To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 This generates:
 
 ```html
-<div class="form-check mb-3 form-switch">
-  <input name="user[remember_me]" type="hidden" value="0">
-  <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-  <label class="form-check-label" for="user_remember_me">Remember me</label>
+<div class="form-field mb-3">
+  <div class="switch">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
 </div>
 ```
 
@@ -786,25 +788,25 @@ This generates:
 ```html
 <div aria-labelledby="user_skill_level" class="mb-3" role="group">
   <div class="form-label" id="user_skill_level">Skill level</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Mind reading</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Farming</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Farming</label>
   </div>
 </div>
 <input id="user_skills" name="user[skills][]" type="hidden" value="">
 <div aria-labelledby="user_skills" class="mb-3" role="group">
   <div class="form-label" id="user_skills">Skills</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_skills_1">Mind reading</label>
+  <div class="form-field">
+    <input class="check" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
+    <label for="user_skills_1">Mind reading</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
-    <label class="form-check-label" for="user_skills_2">Farming</label>
+  <div class="form-field">
+    <input class="check" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
+    <label for="user_skills_2">Farming</label>
   </div>
 </div>
 ```
@@ -834,13 +836,13 @@ This generates:
 ```html
 <div aria-labelledby="user_misc" class="mb-3" role="group">
   <div class="form-label" id="user_misc">Misc</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1">
-    <label class="form-check-label" for="user_misc_1">Foo</label>
+  <div class="form-field">
+    <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1">
+    <label for="user_misc_1">Foo</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2">
-    <label class="form-check-label" for="user_misc_2">Bar</label>
+  <div class="form-field">
+    <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2">
+    <label for="user_misc_2">Bar</label>
   </div>
 </div>
 ```
@@ -859,7 +861,9 @@ This generates:
 ```html
 <div class="mb-3">
   <label class="form-label" for="user_excellence">Excellence</label>
-  <input class="form-range" id="user_excellence" name="user[excellence]" type="range">
+  <div class="form-range">
+    <input class="form-range-input" id="user_excellence" name="user[excellence]" type="range">
+  </div>
 </div>
 ```
 
@@ -895,8 +899,8 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
     </div>
   </div>
@@ -972,7 +976,7 @@ this by defining these selects as `inline-block` and a width of `auto`.
 
 ## Submit Buttons
 
-The `btn btn-secondary` CSS classes are automatically added to your submit
+The `btn-solid theme-secondary` CSS classes are automatically added to your submit
 buttons.
 
 ![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
@@ -983,10 +987,10 @@ buttons.
 This generates:
 
 ```html
-<input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+<input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 ```
 
-You can also use the `primary` helper, which adds `btn btn-primary` to your
+You can also use the `primary` helper, which adds `btn-solid theme-primary` to your
 submit button:
 
 ![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
@@ -997,20 +1001,20 @@ submit button:
 This generates:
 
 ```html
-<input class="btn btn-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
+<input class="btn-solid theme-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
 ```
 
 You can specify your own classes like this:
 
 ![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
 ```erb
-<%= f.submit "Log In", class: "btn btn-success" %>
+<%= f.submit "Log In", class: "btn-solid theme-success" %>
 ```
 
 This generates:
 
 ```html
-<input class="btn btn-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+<input class="btn-solid theme-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 ```
 
 If the `primary` helper receives a `render_as_button: true` option or a block,
@@ -1031,10 +1035,10 @@ illustrative icons to them). For example, the following statements
 This generates:
 
 ```html
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
+<button class="btn-solid theme-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
+<button class="btn-solid theme-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
 ```
@@ -1042,7 +1046,7 @@ This generates:
 are equivalent, and each of them both be rendered as:
 
 ```html
-<button name="button" type="submit" class="btn btn-primary">Save changes <span class="bi bi-save"></span></button>
+<button name="button" type="submit" class="btn-solid theme-primary">Save changes <span class="bi bi-save"></span></button>
 ```
 
 If you wish to add additional CSS classes to your button, while keeping the
@@ -1062,7 +1066,7 @@ you add. As an example, the following button declarations
 will be rendered as
 
 ```html
-<input class="btn btn-primary my-button" data-disable-with="My Nice Button" name="commit" type="submit" value="My Nice Button">
+<input class="btn-solid theme-primary my-button" data-disable-with="My Nice Button" name="commit" type="submit" value="My Nice Button">
 <input class="my-button" data-disable-with="My Button" name="commit" type="submit" value="My Button">
 ```
 
@@ -1183,14 +1187,14 @@ This generates:
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="col">
-    <div class="form-check form-check-inline">
+    <div class="form-field d-inline-grid me-3">
       <input name="user[remember_me]" type="hidden" value="0">
-      <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_remember_me">Remember me</label>
+      <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+      <label for="user_remember_me">Remember me</label>
     </div>
   </div>
   <div class="col">
-    <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+    <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
   </div>
 </form>
 ```
@@ -1214,14 +1218,14 @@ This generates:
 
 To use a horizontal-layout form with labels to the left of the control, use the
 `layout: :horizontal` option. You should specify both `label_col` and
-`control_col` css classes as well (they default to `col-sm-2` and `col-sm-10`).
+`control_col` css classes as well (they default to `sm:col-2` and `sm:col-10`).
 
 In the example below, the submit button has been wrapped in a `form_group` to
 keep it properly aligned.
 
 ![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
 ```erb
-<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10") do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me %>
@@ -1236,29 +1240,29 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2" for="user_password">Password</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2" for="user_password">Password</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_password" name="user[password]" type="password">
     </div>
   </div>
   <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <div class="form-check">
+    <div class="sm:col-10 sm:offset-2">
+      <div class="form-field">
         <input name="user[remember_me]" type="hidden" value="0">
-        <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_remember_me">Remember me</label>
+        <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+        <label for="user_remember_me">Remember me</label>
       </div>
     </div>
   </div>
   <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1270,8 +1274,8 @@ The `label_col` and `control_col` css classes can also be changed per control:
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :age, label_col: %w[col-sm-3 text-bg-info], control_col: %w[col-sm-3 text-bg-success] %>
-  <%= f.check_box :terms, label_col: "", control_col: "col-sm-11" %>
+  <%= f.text_field :age, label_col: %w[sm:col-3 text-bg-info], control_col: %w[sm:col-3 text-bg-success] %>
+  <%= f.check_box :terms, label_col: "", control_col: "sm:col-11" %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>
@@ -1283,29 +1287,29 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-3 text-bg-info" for="user_age">Age</label>
-    <div class="col-sm-3 text-bg-success">
+    <label class="col-form-label sm:col-3 text-bg-info" for="user_age">Age</label>
+    <div class="sm:col-3 text-bg-success">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
   <div class="mb-3 row">
-    <div class="col-sm-10">
-      <div class="form-check">
+    <div class="sm:col-10">
+      <div class="form-field">
         <input name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">Terms</label>
+        <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+        <label for="user_terms">Terms</label>
       </div>
     </div>
   </div>
   <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1318,10 +1322,10 @@ or default value can be changed in initializer:
 module BootstrapForm
   class FormBuilder
     def default_label_col
-      'col-sm-4'
+      'sm:col-4'
     end
     def default_control_col
-      'col-sm-8'
+      'sm:col-8'
     end
     def default_layout
       # :vertical, :horizontal or :inline
@@ -1349,20 +1353,20 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2" for="user_age">Age</label>
-    <div class="col-sm-10 additional-control-col-class">
+    <label class="col-form-label sm:col-2" for="user_age">Age</label>
+    <div class="sm:col-10 additional-control-col-class">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
   <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1390,8 +1394,8 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
@@ -1410,13 +1414,13 @@ This generates:
     </div>
   </div>
   <div class="mb-3">
-    <div class="form-check">
+    <div class="form-field">
       <input name="user[terms]" type="hidden" value="0">
-      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_terms">Terms</label>
+      <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+      <label for="user_terms">Terms</label>
     </div>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 </form>
 ```
 
@@ -1424,7 +1428,7 @@ A form-level `layout: :inline` can't be overridden because of the way Bootstrap 
 
 ### Floating Labels
 
-The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
+The `floating` option can be used to enable Bootstrap's floating labels. This option is supported on text fields
 and dropdowns. Here's an example:
 
 ![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
@@ -1443,26 +1447,26 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="mb-3 form-floating">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
     <label class="form-label required" for="user_email">Email</label>
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
   </div>
   <div class="mb-3 form-floating">
-    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
     <label class="form-label" for="user_password">Password</label>
-  </div>
-  <div class="mb-3 form-floating">
     <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
-    <label class="form-label" for="user_password">Password</label>
   </div>
   <div class="mb-3 form-floating">
-    <select class="form-select" id="user_status" name="user[status]">
+    <label class="form-label" for="user_password">Password</label>
+    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+  </div>
+  <div class="mb-3 form-floating">
+    <label class="form-label" for="user_status">Status</label>
+    <select class="form-control" id="user_status" name="user[status]">
       <option value="">Select a value</option>
       <option value="1">Active</option>
       <option value="2">Inactive</option>
     </select>
-    <label class="form-label" for="user_status">Status</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -1498,26 +1502,26 @@ Generated HTML:
   </div>
   <div aria-labelledby="user_misc" class="mb-3" role="group">
     <div class="form-label" id="user_misc">Misc</div>
-    <div class="form-check">
-      <input aria-describedby="user_misc_feedback" checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
-      <label class="form-check-label" for="user_misc_1">Mind reading</label>
+    <div class="form-field">
+      <input aria-describedby="user_misc_feedback" checked class="radio is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
+      <label for="user_misc_1">Mind reading</label>
     </div>
-    <div class="form-check">
-      <input aria-describedby="user_misc_feedback" class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
-      <label class="form-check-label" for="user_misc_2">Farming</label>
+    <div class="form-field">
+      <input aria-describedby="user_misc_feedback" class="radio is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
+      <label for="user_misc_2">Farming</label>
       <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
     </div>
   </div>
   <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
   <div aria-labelledby="user_preferences" class="mb-3" role="group">
     <div class="form-label" id="user_preferences">Preferences</div>
-    <div class="form-check">
-      <input aria-describedby="user_preferences_feedback" checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_preferences_1">Good</label>
+    <div class="form-field">
+      <input aria-describedby="user_preferences_feedback" checked class="check is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
+      <label for="user_preferences_1">Good</label>
     </div>
-    <div class="form-check">
-      <input aria-describedby="user_preferences_feedback" class="form-check-input is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
-      <label class="form-check-label" for="user_preferences_2">Bad</label>
+    <div class="form-field">
+      <input aria-describedby="user_preferences_feedback" class="check is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
+      <label for="user_preferences_2">Bad</label>
       <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
     </div>
   </div>
@@ -1586,7 +1590,7 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger" tabindex="-1" role="note">
+  <div class="alert theme-danger" tabindex="-1" role="note">
     <p>Please fix the errors below.</p>
     <ul class="rails-bootstrap-forms-error-summary">
       <li>Email is invalid</li>
@@ -1610,7 +1614,7 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger">Please fix the errors below.</div>
+  <div class="alert theme-danger">Please fix the errors below.</div>
 </form>
 ```
 
@@ -1759,7 +1763,7 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/address" class="new_address" id="new_address_1" method="post">
   <div class="mb-3">
     <label class="form-label required" for="address_user_id">User</label>
-    <select class="form-select" id="address_user_id" name="address[user_id]" required="required">
+    <select class="form-control" id="address_user_id" name="address[user_id]" required="required">
       <option value="">Select a value</option>
       <option value="">steve@example.com</option>
     </select>
@@ -1780,7 +1784,7 @@ Generated HTML:
     <label class="form-label" for="address_zip_code">Zip code</label>
     <input class="form-control" id="address_zip_code" name="address[zip_code]" type="text">
   </div>
-  <input class="btn btn-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
+  <input class="btn-solid theme-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
 </form>
 ```
 
@@ -1843,22 +1847,22 @@ Generated HTML:
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-check disabled">
-        <input class="form-check-input" disabled id="user_preferences_1" name="user[preferences]" type="radio" value="1">
-        <label class="form-check-label" for="user_preferences_1">1</label>
+      <div class="form-field disabled">
+        <input class="radio" disabled id="user_preferences_1" name="user[preferences]" type="radio" value="1">
+        <label for="user_preferences_1">1</label>
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-check mb-3">
+      <div class="form-field mb-3">
         <input disabled name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">Terms</label>
+        <input class="check" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
+        <label for="user_terms">Terms</label>
       </div>
     </div>
     <div class="col-auto">
       <div class="mb-3">
         <label class="form-label" for="user_type">Type</label>
-        <select class="form-select" disabled id="user_type" name="user[type]">
+        <select class="form-control" disabled id="user_type" name="user[type]">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -1872,7 +1876,7 @@ Generated HTML:
       </div>
     </div>
   </div>
-  <input class="btn btn-primary" data-disable-with="Create User" disabled name="commit" type="submit" value="Create User">
+  <input class="btn-solid theme-primary" data-disable-with="Create User" disabled name="commit" type="submit" value="Create User">
 </form>
 ```
 

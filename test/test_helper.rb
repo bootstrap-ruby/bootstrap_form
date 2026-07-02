@@ -22,8 +22,8 @@ class ActionView::TestCase
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self,
                                                          layout: :horizontal,
-                                                         label_col: "col-sm-2",
-                                                         control_col: "col-sm-10")
+                                                         label_col: "sm:col-2",
+                                                         control_col: "sm:col-10")
 
     I18n.backend.store_translations(:en,
                                     activerecord: {

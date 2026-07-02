@@ -208,7 +208,9 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input class="form-range" id="user_misc" name="user[misc]" type="range" />
+        <div class="form-range">
+          <input class="form-range-input" id="user_misc" name="user[misc]" type="range" />
+        </div>
       </div>
     HTML
     assert_equivalent_html expected, @builder.range_field(:misc)
@@ -218,7 +220,9 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <input min="0" max="80" class="form-range" id="user_misc" name="user[misc]" type="range" />
+        <div class="form-range">
+          <input min="0" max="80" class="form-range-input" id="user_misc" name="user[misc]" type="range" />
+        </div>
       </div>
     HTML
     assert_equivalent_html expected, @builder.range_field(:misc, min: 0, max: 80)
@@ -301,8 +305,8 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and gutter classes are given" do
     expected = <<~HTML
       <div class="mb-3 g-3">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -314,8 +318,8 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified" do
     expected = <<~HTML
       <div class="bogus-2 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -327,8 +331,8 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and wrapper class specified" do
     expected = <<~HTML
       <div class="bogus-1 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -339,8 +343,8 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "text fields are wrapped correctly when horizontal and multiple wrapper classes specified (reverse order)" do
     expected = <<~HTML
       <div class="bogus-2 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -381,10 +385,10 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "check_box fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="form-check mb-3">
+      <div class="form-field mb-3">
         <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
-        <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
-        <label class="form-check-label" for="user_misc">Misc</label>
+        <input class="check" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
+        <label for="user_misc">Misc</label>
       </div>
     HTML
     assert_equivalent_html expected, @builder.check_box(:misc)
@@ -392,10 +396,12 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "switch-style check_box fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="form-check mb-3 form-switch">
-        <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
-        <input class="form-check-input" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
-        <label class="form-check-label" for="user_misc">Misc</label>
+      <div class="form-field mb-3">
+        <div class="switch">
+          <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
+          <input id="user_misc" name="user[misc]" role="switch" switch="switch" type="checkbox" value="1"/>
+        </div>
+        <label for="user_misc">Misc</label>
       </div>
     HTML
     assert_equivalent_html expected, @builder.check_box(:misc, switch: true)
@@ -454,7 +460,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "fields_for correctly passes horizontal style from parent builder" do
     @user.address = Address.new(street: "123 Main Street")
 
-    output = bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f|
+    output = bootstrap_form_for(@user, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10") do |f|
       f.fields_for :address do |af|
         af.text_field(:street)
       end
@@ -463,8 +469,8 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 row">
-          <label class="col-form-label col-sm-2" for="user_address_attributes_street">Street</label>
-          <div class="col-sm-10">
+          <label class="col-form-label sm:col-2" for="user_address_attributes_street">Street</label>
+          <div class="sm:col-10">
             <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
           </div>
         </div>
@@ -486,7 +492,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user row row-cols-auto g-3 align-items-center" id="new_user" method="post">
         <div class="col">
-          <label class="form-label me-sm-2" for="user_address_attributes_street">Street</label>
+          <label class="form-label sm:me-2" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
       </form>
@@ -537,8 +543,8 @@ class BootstrapFieldsTest < ActionView::TestCase
   test "can have a floating label" do
     expected = <<~HTML
       <div class="mb-3 form-floating">
-        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
         <label class="form-label required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, floating: true)

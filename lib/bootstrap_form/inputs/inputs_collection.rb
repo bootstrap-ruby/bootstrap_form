@@ -26,7 +26,7 @@ module BootstrapForm
         if layout_horizontal?(field_layout)
           group_label_class = "col-form-label #{label_col} pt-0"
         elsif layout_inline?(field_layout)
-          group_label_class = "form-check form-check-inline ps-0"
+          group_label_class = "d-inline-block me-3"
         end
         group_label_class
       end

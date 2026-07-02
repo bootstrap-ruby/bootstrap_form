@@ -6,7 +6,7 @@ module BootstrapForm
       include ActionView::Helpers::OutputSafetyHelper
 
       def alert_message(title, options={})
-        css = options[:class] || "alert alert-danger"
+        css = options[:class] || "alert theme-danger"
         return unless object.respond_to?(:errors) && object.errors.full_messages.any?
 
         tag.div class: css, **options.except(:class, :error_summary) do

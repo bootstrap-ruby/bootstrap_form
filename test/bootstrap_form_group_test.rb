@@ -159,7 +159,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     field = <<~HTML
       <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
     HTML
-    button_src = link_to("Click", "#", class: "btn btn-secondary")
+    button_src = link_to("Click", "#", class: "btn-solid theme-secondary")
     button_prepend = button_src
     button_append = button_src
     suffix = "</div></div>"
@@ -238,7 +238,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     field = <<~HTML
       <input class="form-control" id="user_avatar" name="user[avatar]" type="file" />
     HTML
-    button_src = link_to("Click", "#", class: "btn btn-secondary")
+    button_src = link_to("Click", "#", class: "btn-solid theme-secondary")
     button_prepend = button_src
     button_append = button_src
     suffix = "</div></div>"
@@ -266,8 +266,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
   test "help messages for horizontal forms" do
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
           <small class="form-text text-muted">This is required</small>
         </div>
@@ -343,8 +343,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label col-sm-2" for="user_nil">Foo</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2" for="user_nil">Foo</label>
+        <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -359,7 +359,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <div class="col-sm-10 offset-sm-2">
+        <div class="sm:col-10 sm:offset-2">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -374,8 +374,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Custom Control</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Custom Control</label>
+        <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -390,7 +390,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 foo row">
-        <div class="col-sm-10 offset-sm-2">
+        <div class="sm:col-10 sm:offset-2">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -405,7 +405,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 foo row">
-        <div class="col-sm-10 offset-sm-2">
+        <div class="sm:col-10 sm:offset-2">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -420,7 +420,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 g-3">
-        <div class="col-sm-10 offset-sm-2">
+        <div class="sm:col-10 sm:offset-2">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -435,8 +435,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="foo col-form-label col-sm-2" for="bar">Custom Control</label>
-        <div class="col-sm-10">
+        <label class="foo col-form-label sm:col-2" for="bar">Custom Control</label>
+        <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -458,17 +458,17 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3">
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_primary_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="primary school"/>
-            <label class="form-check-label" for="user_misc_primary_school">Primary school</label>
+          <div class="form-field">
+            <input class="radio is-invalid" id="user_misc_primary_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="primary school"/>
+            <label for="user_misc_primary_school">Primary school</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_high_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="high school"/>
-            <label class="form-check-label" for="user_misc_high_school">High school</label>
+          <div class="form-field">
+            <input class="radio is-invalid" id="user_misc_high_school" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="high school"/>
+            <label for="user_misc_high_school">High school</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_university" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="university"/>
-            <label class="form-check-label" for="user_misc_university">University</label>
+          <div class="form-field">
+            <input class="radio is-invalid" id="user_misc_university" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="university"/>
+            <label for="user_misc_university">University</label>
             <div class="invalid-feedback" id="user_misc_feedback">Must select one.</div>
           </div>
         </div>
@@ -534,8 +534,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <div class="col-sm-10 offset-sm-2">
-          <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+        <div class="sm:col-10 sm:offset-2">
+          <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
         </div>
       </div>
     HTML
@@ -543,14 +543,14 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "adds offset for form_group without label but specific label_col" do
-    output = @horizontal_builder.form_group label_col: "col-sm-5", control_col: "col-sm-8" do
+    output = @horizontal_builder.form_group label_col: "sm:col-5", control_col: "sm:col-8" do
       @horizontal_builder.submit
     end
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <div class="col-sm-8 offset-sm-5">
-          <input class="btn btn-secondary" name="commit" type="submit" value="Create User" />
+        <div class="sm:col-8 sm:offset-5">
+          <input class="btn-solid theme-secondary" name="commit" type="submit" value="Create User" />
         </div>
       </div>
     HTML
@@ -567,11 +567,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <div class="col-sm-10 offset-sm-2">Hallo</div>
+        <div class="sm:col-10 sm:offset-2">Hallo</div>
       </div>
       <div class="mb-3 row">
-        <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-        <div class="col-sm-10">
+        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <div class="sm:col-10">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
       </div>
@@ -633,7 +633,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="mb-3 col-auto g-3">
-          <label class="form-label me-sm-2 required" for="user_email">Email</label>
+          <label class="form-label sm:me-2 required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
       </form>
@@ -643,15 +643,15 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "non-default column span on form is reflected in form_group" do
     non_default_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal,
-                                                                                        label_col: "col-sm-3",
-                                                                                        control_col: "col-sm-9")
+                                                                                        label_col: "sm:col-3",
+                                                                                        control_col: "sm:col-9")
     output = non_default_horizontal_builder.form_group do
       '<input class="form-control-plaintext" value="Bar">'.html_safe
     end
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <div class="col-sm-9 offset-sm-3">
+        <div class="sm:col-9 sm:offset-3">
           <input class="form-control-plaintext" value="Bar">
         </div>
       </div>
@@ -661,11 +661,11 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
   test "non-default column span on form isn't mutated" do
     frozen_horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal,
-                                                                                   label_col: "col-sm-3",
-                                                                                   control_col: "col-sm-9")
+                                                                                   label_col: "sm:col-3",
+                                                                                   control_col: "sm:col-9")
     output = frozen_horizontal_builder.form_group { "test" }
 
-    expected = '<div class="mb-3 row"><div class="col-sm-9 offset-sm-3">test</div></div>'
+    expected = '<div class="mb-3 row"><div class="sm:col-9 sm:offset-3">test</div></div>'
     assert_equivalent_html expected, output
   end
 
@@ -675,7 +675,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
         <label class="form-label required" for="user_email">Email</label>
         <div class="input-group input-group-lg">
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
-          <input class="btn btn-primary" name="commit" type="submit" value="Subscribe" />
+          <input class="btn-solid theme-primary" name="commit" type="submit" value="Subscribe" />
         </div>
       </div>
     HTML
