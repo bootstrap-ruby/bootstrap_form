@@ -1008,6 +1008,23 @@ This generates:
 </div>
 ```
 
+To pre-select dates, pass an array in the `selected_dates` option. It's rendered as a JSON array in the `data-bs-selected-dates` attribute, and `Date` values are converted to ISO 8601 strings:
+
+```erb
+<%= f.datepicker_field :misc, datepicker: { selected_dates: [Date.new(2026, 7, 2), "2026-07-04"] } %>
+```
+
+This generates:
+
+```html
+<div class="mb-3">
+  <label class="form-label" for="user_misc">Misc</label>
+  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
+         data-bs-selected-dates="[&quot;2026-07-02&quot;,&quot;2026-07-04&quot;]"
+         id="user_misc" name="user[misc]" type="text">
+</div>
+```
+
 Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` is set by default, as the Bootstrap documentation recommends; pass your own `autocomplete` option to override it.
 
 The multiple selects that the date and time helpers (`date_select`,
