@@ -968,6 +968,48 @@ This generates:
 
 For backwards compatibility, there are also helpers for `date_select`, `time_select`, and `datetime_select`.
 
+### Datepickers
+
+Bootstrap 6 ships its own [datepicker component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/datepicker/), based on a text field activated with `data-bs-toggle="datepicker"`. Use the `datepicker_field` helper to generate one:
+
+```erb
+<%= f.datepicker_field :joined_at %>
+```
+
+This generates:
+
+```html
+<div class="mb-3">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker" id="user_joined_at" name="user[joined_at]" type="text">
+</div>
+```
+
+Pass datepicker configuration in the `datepicker` option. Each key is rendered as a `data-bs-*` attribute, so all of Bootstrap's documented datepicker options are available. `Date` (and other `iso8601`-capable) values are converted to `YYYY-MM-DD`, and arrays are converted to JSON:
+
+```erb
+<%= f.datepicker_field :vacation,
+      datepicker: {
+        selection_mode: "multiple-ranged",
+        date_min: Date.current,
+        date_max: Date.current + 1.year,
+        display_months_count: 2
+      } %>
+```
+
+This generates:
+
+```html
+<div class="mb-3">
+  <label class="form-label" for="user_vacation">Vacation</label>
+  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
+         data-bs-selection-mode="multiple-ranged" data-bs-date-min="2026-07-02" data-bs-date-max="2027-07-02"
+         data-bs-display-months-count="2" id="user_vacation" name="user[vacation]" type="text">
+</div>
+```
+
+Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` is set by default, as the Bootstrap documentation recommends; pass your own `autocomplete` option to override it.
+
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because

@@ -76,6 +76,12 @@ Bootstrap 6 changes responsive class syntax from suffix to prefix: `.col-sm-2` b
 
 `alert_message` now defaults to `class="alert theme-danger"` instead of `class="alert alert-danger"`, following Bootstrap 6's composed theme classes. Pass `class: "alert alert-danger"` explicitly if you need the old mark-up.
 
+## New Features
+
+### Datepicker Helper
+
+Bootstrap 6 introduces a datepicker component. The new `datepicker_field` helper generates a text field with `data-bs-toggle="datepicker"` and renders the `:datepicker` option hash as `data-bs-*` configuration attributes. See the README for details.
+
 ## Unchanged
 
 The following classes are unchanged in Bootstrap 6 and continue to be generated as before: `form-label`, `form-text`, `form-control` (and its `-sm`/`-lg`/`-color`/`-plaintext` variants), `form-floating`, `input-group`, `input-group-text`, `col-form-label`, `is-invalid`/`is-valid`, `invalid-feedback`/`valid-feedback`, and `visually-hidden`.

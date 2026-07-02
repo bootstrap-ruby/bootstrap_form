@@ -27,6 +27,48 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.date_field(:misc, extra: "extra arg")
   end
 
+  test "datepicker fields are wrapped correctly" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <input autocomplete="off" class="form-control" data-bs-toggle="datepicker" id="user_misc" name="user[misc]" type="text" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.datepicker_field(:misc)
+  end
+
+  test "datepicker fields render datepicker options as data attributes" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
+               data-bs-selection-mode="multiple-ranged" data-bs-date-min="2026-01-01" data-bs-date-max="2026-12-31"
+               data-bs-display-months-count="2" id="user_misc" name="user[misc]" type="text" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.datepicker_field(
+      :misc,
+      datepicker: {
+        selection_mode: "multiple-ranged",
+        date_min: Date.new(2026, 1, 1),
+        date_max: "2026-12-31",
+        display_months_count: 2
+      }
+    )
+  end
+
+  test "datepicker fields allow overriding autocomplete and merging data attributes" do
+    expected = <<~HTML
+      <div class="mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <input autocomplete="bday" class="form-control" data-bs-toggle="datepicker"
+               data-other="kept" id="user_misc" name="user[misc]" type="text" />
+      </div>
+    HTML
+    assert_equivalent_html expected,
+                           @builder.datepicker_field(:misc, autocomplete: "bday", data: { other: "kept" })
+  end
+
   test "date time fields are wrapped correctly" do
     expected = <<~HTML
       <div class="mb-3">

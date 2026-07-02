@@ -12,6 +12,7 @@ module BootstrapForm
     autoload :CollectionSelect
     autoload :ColorField
     autoload :DateField
+    autoload :DatepickerField
     autoload :DateSelect
     autoload :DatetimeField
     autoload :DatetimeLocalField
