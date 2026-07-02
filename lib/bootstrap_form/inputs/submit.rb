@@ -4,6 +4,9 @@ module BootstrapForm
   module Inputs
     module Submit
       def button(value=nil, options={}, &)
+        if BootstrapForm.config.turbo_submits_with
+          options.merge! data: { turbo_submits_with: BootstrapForm.config.turbo_submits_with }
+        end
         value = setup_css_class "btn btn-secondary", value, options
         super
       end
@@ -16,7 +19,7 @@ module BootstrapForm
       def primary(value=nil, options={}, &block)
         value = setup_css_class "btn btn-primary", value, options
 
-        if options[:render_as_button] || block
+        if options[:render_as_button] || block || BootstrapForm.config.turbo_submits_with
           options.except! :render_as_button
           button(value, options, &block)
         else
