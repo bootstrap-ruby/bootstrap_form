@@ -18,7 +18,7 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="address_street">Street</label>
           <input class="form-control" id="address_street" name="address[street]" type="text" value="123 Main Street" />
         </div>
@@ -39,7 +39,7 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="address_city">City</label>
           <input class="form-control is-invalid" id="address_city" aria-describedby="address_city_feedback" name="address[city]" type="text" required="required" />
           <!-- No `<div class="invalid-feedback">can't be blank</div>` -->
@@ -60,7 +60,7 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="preferences_favorite_color" name="preferences[favorite_color]" type="text" value="cerulean" />
         </div>
@@ -80,7 +80,7 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="address_street">Street</label>
           <input class="form-control" id="address_street" name="address[street]" type="text" value="123 Main Street" />
         </div>
@@ -100,7 +100,7 @@ class BootstrapFieldsForTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="preferences_favorite_color" name="preferences[favorite_color]" type="text" value="cerulean" />
         </div>

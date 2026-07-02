@@ -20,7 +20,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
                                       password: "A good password should be at least six characters long"
                                     } } })
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -37,7 +37,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
                                       password: "A good password should be at least six characters long"
                                     } } })
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -55,7 +55,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
                                     } } })
 
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -74,7 +74,7 @@ class SpecialFormClassModelsTest < ActionView::TestCase
                                     } } })
 
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <div class="field_with_errors">
           <label class="form-label required" for="user_password">Password</label>
         </div>

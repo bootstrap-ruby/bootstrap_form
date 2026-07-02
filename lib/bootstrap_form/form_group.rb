@@ -50,8 +50,8 @@ module BootstrapForm
       classes.flatten.compact
     end
 
-    def form_group_classes(options)
-      classes = options[:class] == false ? [] : (options[:class] || form_group_default_class).split
+    def form_group_classes(options, default_class: form_group_default_class(options))
+      classes = options[:class] == false ? [] : (options[:class] || default_class).split
       classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
       classes << "col-auto g-3" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
@@ -59,8 +59,20 @@ module BootstrapForm
       classes.presence
     end
 
-    def form_group_default_class
-      (layout == :inline ? "col" : "mb-3")
+    # Bootstrap 6 wraps controls with their label, help text and validation
+    # feedback in a `form-field` grid. Horizontal and inline groups place the
+    # label next to the control instead of above it, and floating labels use
+    # `form-floating`, so none of those gets the `form-field` grid.
+    def form_group_default_class(options)
+      return "col" if layout == :inline
+
+      if get_group_layout(options[:layout]) == :inline ||
+         group_layout_horizontal?(options[:layout]) ||
+         options[:floating]
+        "mb-3"
+      else
+        "form-field mb-3"
+      end
     end
 
     def horizontal_group_with_gutters?(layout, classes)

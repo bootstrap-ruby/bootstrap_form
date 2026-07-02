@@ -20,7 +20,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "time zone selects are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
       </div>
@@ -42,7 +42,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <select class="form-control is-invalid" id="user_misc" aria-describedby="user_misc_feedback" name="user[misc]">#{time_zone_options_for_select}</select>
           <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -54,7 +54,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
@@ -67,13 +67,13 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "bootstrap_specific options are handled correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">My Status Label</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
           <option value="2">blocked</option>
         </select>
-        <small class="form-text text-muted">Help!</small>
+        <small class="form-text">Help!</small>
       </div>
     HTML
     assert_equivalent_html expected,
@@ -89,7 +89,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects with options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -103,7 +103,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects with both options and html_options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control my-select" extra="extra arg" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -119,7 +119,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "select 'id' attribute is used to specify label 'for' attribute" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="custom_id">Status</label>
         <select class="form-control" id="custom_id" name="user[status]">
           <option value="">Please Select</option>
@@ -135,7 +135,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects with addons are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <div class="input-group">
           <span class="input-group-text">Before</span>
@@ -153,7 +153,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects with block use block as content" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" name="user[status]" id="user_status">
           <option>Option 1</option>
@@ -170,7 +170,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "selects render labels properly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">User Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
@@ -183,7 +183,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "collection_selects are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]"></select>
       </div>
@@ -205,7 +205,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-control is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
           <div class="invalid-feedback" id="user_status_feedback">error for test</div>
@@ -217,7 +217,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "collection_selects with options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -229,7 +229,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "collection_selects with options and html_options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control my-select" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -242,7 +242,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "collection_selects with addons are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <div class="input-group">
           <span class="input-group-text">Before</span>
@@ -260,7 +260,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "grouped_collection_selects are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]"></select>
       </div>
@@ -285,7 +285,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     @user.errors.add(:status, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-control is-invalid" id="user_status" aria-describedby="user_status_feedback" name="user[status]"></select>
           <div class="invalid-feedback" id="user_status_feedback">error for test</div>
@@ -298,7 +298,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "grouped_collection_selects with options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -311,7 +311,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "grouped_collection_selects with options and html_options are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control my-select" id="user_status" name="user[status]">
           <option value="">Please Select</option>
@@ -325,7 +325,7 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "grouped_collection_selects with addons are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_status">Status</label>
         <div class="input-group">
           <span class="input-group-text">Before</span>
@@ -344,7 +344,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "date selects are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
@@ -416,7 +416,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
@@ -442,7 +442,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
@@ -466,7 +466,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "date selects with options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
@@ -492,7 +492,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "date selects with options and html_options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control my-date-select" id="user_misc_1i" name="user[misc(1i)]">
@@ -517,7 +517,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "time selects are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
@@ -542,7 +542,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
@@ -569,7 +569,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
@@ -594,7 +594,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "time selects with options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
@@ -619,7 +619,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "time selects with options and html_options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
@@ -644,7 +644,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "datetime selects are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
@@ -676,7 +676,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
@@ -710,7 +710,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-            <div class="mb-3">
+            <div class="form-field mb-3">
             <label class="form-label" for="user_misc">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
@@ -742,7 +742,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "datetime selects with options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
@@ -777,7 +777,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "datetime selects with options and html_options are wrapped correctly" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control my-datetime-select" extra="extra arg" id="user_misc_1i" name="user[misc(1i)]">
@@ -848,7 +848,7 @@ class BootstrapSelectsTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label for selects" do
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="name_space_user_misc">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="name_space_user_misc_1i" name="user[misc(1i)]">

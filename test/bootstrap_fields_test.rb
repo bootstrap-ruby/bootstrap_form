@@ -9,7 +9,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "color fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control form-control-color" id="user_misc" name="user[misc]" type="color" value="#000000" />
       </div>
@@ -19,7 +19,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "date fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" extra="extra arg" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -29,7 +29,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "datepicker fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input autocomplete="off" class="form-control" data-bs-toggle="datepicker" id="user_misc" name="user[misc]" type="text" />
       </div>
@@ -39,7 +39,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "datepicker fields render datepicker options as data attributes" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
                data-bs-selection-mode="multiple-ranged" data-bs-date-min="2026-01-01" data-bs-date-max="2026-12-31"
@@ -59,7 +59,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "datepicker fields allow overriding autocomplete and merging data attributes" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input autocomplete="bday" class="form-control" data-bs-toggle="datepicker"
                data-other="kept" id="user_misc" name="user[misc]" type="text" />
@@ -71,7 +71,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "date time fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
       </div>
@@ -81,7 +81,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "date time local fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="datetime-local" />
       </div>
@@ -91,7 +91,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "email fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="email" />
       </div>
@@ -101,7 +101,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "file fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="file"/>
       </div>
@@ -111,7 +111,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "file field placeholder can be customized" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" placeholder="Pick a file" type="file"/>
       </div>
@@ -121,7 +121,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "file field placeholder has appropriate `for` attribute when used in form_with" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="custom-id">Misc</label>
         <input class="form-control" id="custom-id" name="user[misc]" type="file"/>
       </div>
@@ -133,7 +133,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <input class="form-control is-invalid" id="user_misc" aria-describedby="user_misc_feedback" name="user[misc]" type="file"/>
           <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
@@ -147,7 +147,7 @@ class BootstrapFieldsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" enctype="multipart/form-data" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="custom-id">Misc</label>
           <input class="form-control is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="file"/>
           <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
@@ -162,7 +162,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="address_user_id">User</label>
           <input class="form-control is-invalid" id="address_user_id" aria-describedby="address_user_id_feedback" name="address[user_id]" required="required" type="text"/>
           <div class="invalid-feedback" id="address_user_id_feedback">must exist</div>
@@ -177,7 +177,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_address"  id="new_address" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="custom-id">User</label>
           <input class="form-control is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="address[user_id]" required="required" type="text"/>
           <div class="invalid-feedback" id="custom-id_feedback">must exist</div>
@@ -196,7 +196,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "month local fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="month" />
       </div>
@@ -206,7 +206,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "number fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="number" />
       </div>
@@ -216,7 +216,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "number field can be disabled" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" disabled id="user_misc" name="user[misc]" type="number" />
       </div>
@@ -226,10 +226,10 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "password fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
-        <small class="form-text text-muted">A good password should be at least six characters long</small>
+        <small class="form-text">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.password_field(:password)
@@ -237,7 +237,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "phone/telephone fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="tel" />
       </div>
@@ -248,7 +248,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "range fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-range">
           <input class="form-range-input" id="user_misc" name="user[misc]" type="range" />
@@ -260,7 +260,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "range fields are wrapped correctly with exta attributes" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="form-range">
           <input min="0" max="80" class="form-range-input" id="user_misc" name="user[misc]" type="range" />
@@ -272,7 +272,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "search fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="search" />
       </div>
@@ -282,7 +282,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "text areas are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_comments">Comments</label>
         <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
       </div>
@@ -293,7 +293,7 @@ class BootstrapFieldsTest < ActionView::TestCase
   if Rails::VERSION::MAJOR >= 8
     test "text areas are aliased" do
       expected = <<~HTML
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_comments">Comments</label>
           <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
         </div>
@@ -304,7 +304,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "text areas are wrapped correctly using form_with" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_comments">Comments</label>
         <textarea class="form-control" id="user_comments" name="user[comments]">\nmy comment</textarea>
       </div>
@@ -314,7 +314,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "text fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label required" for="user_email">Email</label>
         <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
@@ -397,7 +397,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "field 'id' attribute is used to specify label 'for' attribute" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label required" for="custom_id">Email</label>
         <input required="required" class="form-control" id="custom_id" name="user[email]" type="text" value="steve@example.com" />
       </div>
@@ -407,7 +407,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "time fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="time" />
       </div>
@@ -417,7 +417,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "url fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="url" />
       </div>
@@ -451,7 +451,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "week fields are wrapped correctly" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="week" />
       </div>
@@ -470,7 +470,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_address_attributes_street">Street</label>
           <input class="form-control" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="123 Main Street" />
         </div>
@@ -490,7 +490,7 @@ class BootstrapFieldsTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_preferences_favorite_color">Favorite color</label>
           <input class="form-control" id="user_preferences_favorite_color" name="user[preferences][favorite_color]" type="text" value="cerulean" />
         </div>

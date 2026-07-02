@@ -8,6 +8,19 @@ Upgrading `bootstrap_form` to version 6 means you must upgrade your whole applic
 
 ## Changes to Generated Mark-up
 
+### Form Group Wrappers
+
+Bootstrap 6 introduces the [`form-field` wrapper](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/field/), a CSS-grid container that lays out a control together with its label, help text, and validation feedback. `bootstrap_form` now uses it as the default form group wrapper:
+
+- Vertical form groups are wrapped in `class="form-field mb-3"` (was `class="mb-3"`).
+- Collections rendered with `group_around_collections = true` are wrapped in `class="form-group mb-3"`, Bootstrap 6's wrapper for multiple `form-field`s under a shared label.
+- Horizontal groups (`mb-3 row`), inline groups, and floating label groups (`mb-3 form-floating`) are unchanged, because they use Bootstrap's grid or the `form-floating` component for layout instead.
+- A custom `wrapper_class`/`wrapper: { class: ... }` still *replaces* the default classes. Include `form-field` in your custom class if you want to keep Bootstrap 6's field layout.
+
+### Help Text
+
+Help text is now rendered as `<small class="form-text">` without the `text-muted` class. Bootstrap 6 removes `text-muted` (its replacement is `fg-secondary`), and `form-text` styles itself.
+
 ### Selects
 
 Bootstrap 6 styles `<select>` elements with `.form-control` instead of `.form-select`. All select helpers (`select`, `collection_select`, `grouped_collection_select`, `time_zone_select`, and the date/time select helpers) now generate `class="form-control"`.
@@ -84,4 +97,4 @@ Bootstrap 6 introduces a datepicker component. The new `datepicker_field` helper
 
 ## Unchanged
 
-The following classes are unchanged in Bootstrap 6 and continue to be generated as before: `form-label`, `form-text`, `form-control` (and its `-sm`/`-lg`/`-color`/`-plaintext` variants), `form-floating`, `input-group`, `input-group-text`, `col-form-label`, `is-invalid`/`is-valid`, `invalid-feedback`/`valid-feedback`, and `visually-hidden`.
+The following classes are unchanged in Bootstrap 6 and continue to be generated as before: `form-label`, `form-text` (now without `text-muted`), `form-control` (and its `-sm`/`-lg`/`-color`/`-plaintext` variants), `form-floating`, `input-group`, `input-group-text`, `col-form-label`, `is-invalid`/`is-valid`, `invalid-feedback`/`valid-feedback`, and `visually-hidden`.

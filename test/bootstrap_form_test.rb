@@ -234,7 +234,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "horizontal-style form fields layout vertical" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
@@ -247,7 +247,7 @@ class BootstrapFormTest < ActionView::TestCase
             </div>
           </div>
         </div>
-        <div aria-labelledby="user_misc" class="mb-3" role="group">
+        <div aria-labelledby="user_misc" class="form-group mb-3" role="group">
           <div class="form-label" id="user_misc">Misc</div>
           <div class="form-field">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -258,7 +258,7 @@ class BootstrapFormTest < ActionView::TestCase
             <label for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
@@ -361,7 +361,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "old default layout gives warnings" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
         </div>
@@ -406,7 +406,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag acts like a form tag" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
         </div>
@@ -419,7 +419,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_for does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="ID">Email</label>
           <input required="required" class="form-control" id="ID" name="NAME" type="text" value="steve@example.com" />
         </div>
@@ -431,7 +431,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
         </div>
@@ -459,7 +459,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
         </div>
@@ -474,7 +474,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
         </div>
@@ -489,7 +489,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</span>
@@ -505,7 +505,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</span>
@@ -525,7 +525,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email"id="user_email_feedback">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
@@ -545,7 +545,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id"id="custom-id_feedback">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</div>
@@ -789,11 +789,11 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -810,7 +810,7 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <div class="field_with_errors">
             <label class="form-label required" for="user_email">Email</label>
           </div>
@@ -818,7 +818,7 @@ class BootstrapFormTest < ActionView::TestCase
             <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -835,10 +835,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -854,10 +854,10 @@ class BootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+          <small class="form-text">This is <strong>useful</strong> help</small>
         </div>
       </form>
     HTML
@@ -869,7 +869,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="other_model_email">Email</label>
         <input class="form-control" id="other_model_email" name="other_model[email]" type="text" />
       </div>
@@ -903,7 +903,7 @@ class BootstrapFormTest < ActionView::TestCase
 
   test "namespaced form adds namespace to id and label" do
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label required" for="name_space_user_email">Email</label>
         <input required="required" class="form-control" id="name_space_user_email" name="user[email]" type="text" value="steve@example.com" />
       </div>
@@ -915,7 +915,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label with specified id:" do
     skip "Ignore Rails 7 bug" if Rails::VERSION::STRING < "8.0.0"
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label required" for="name_space_custom_id">Email</label>
         <input required="required" class="form-control" id="name_space_custom_id" name="user[email]" type="text" value="steve@example.com" />
       </div>
@@ -996,13 +996,13 @@ class BootstrapFormTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <input #{autocomplete_attr_55336} id="name_space_user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
+      <div role="group" aria-labelledby="name_space_user_misc" class="form-group mb-3">
         <div id="name_space_user_misc" class="form-label">This is a checkbox collection</div>
         <div class="form-field">
           <input class="check" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="name_space_user_misc_1">Foobar</label>
         </div>
-        <small class="form-text text-muted">With a help!</small>
+        <small class="form-text">With a help!</small>
       </div>
     HTML
 
@@ -1017,7 +1017,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label and group for collection_radio_buttons" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="name_space_user_misc" class="mb-3">
+      <div role="group" aria-labelledby="name_space_user_misc" class="form-group mb-3">
         <div id="name_space_user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
           <input class="radio" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -1025,7 +1025,7 @@ class BootstrapFormTest < ActionView::TestCase
             Foobar
           </label>
         </div>
-        <small class="form-text text-muted">With a help!</small>
+        <small class="form-text">With a help!</small>
       </div>
     HTML
 
@@ -1040,7 +1040,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to inline errors" do
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="name_space_user_misc">Misc</label>
         <input class="form-control is-invalid" id="name_space_user_misc" aria-describedby="name_space_user_misc_feedback" name="user[misc]" type="file"/>
         <div class="invalid-feedback" id="name_space_user_misc_feedback">error for test</div>
@@ -1057,7 +1057,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label required text-danger" for="name_space_user_email" id="name_space_user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
         <input required="required" class="form-control is-invalid" id="name_space_user_email" aria-describedby="name_space_user_email_feedback" name="user[email]" type="text" />
       </div>
@@ -1286,7 +1286,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "old default layout gives warnings" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
         </div>
@@ -1331,7 +1331,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag acts like a form tag" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="email">Your Email</label>
           <input class="form-control" id="email" name="email" type="text" />
         </div>
@@ -1344,7 +1344,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_for does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="ID">Email</label>
           <input required="required" class="form-control" id="ID" name="NAME" type="text" value="steve@example.com" />
         </div>
@@ -1356,7 +1356,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "bootstrap_form_tag does not clobber custom options" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="ID">Email</label>
           <input class="form-control" id="ID" name="NAME" type="text" />
         </div>
@@ -1384,7 +1384,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
         </div>
@@ -1399,7 +1399,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
         </div>
@@ -1414,7 +1414,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</span>
@@ -1430,7 +1430,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id" id="custom-id_feedback">Email can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</span>
@@ -1450,7 +1450,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="user_email"id="user_email_feedback">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
@@ -1470,7 +1470,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required text-danger" for="custom-id"id="custom-id_feedback">Your e-mail address can't be blank, is too short (minimum is 5 characters)</label>
           <input required="required" class="form-control is-invalid" id="custom-id"  aria-describedby="custom-id_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="custom-id_feedback">can't be blank, is too short (minimum is 5 characters)</div>
@@ -1697,11 +1697,11 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -1718,7 +1718,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <div class="field_with_errors">
             <label class="form-label required" for="user_email">Email</label>
           </div>
@@ -1726,7 +1726,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
             <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -1743,10 +1743,10 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
-          <small class="form-text text-muted">This is required</small>
+          <small class="form-text">This is required</small>
         </div>
       </form>
     HTML
@@ -1762,10 +1762,10 @@ class LegacyBootstrapFormTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text text-muted">This is <strong>useful</strong> help</small>
+          <small class="form-text">This is <strong>useful</strong> help</small>
         </div>
       </form>
     HTML
@@ -1777,7 +1777,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "allows the form object to be nil" do
     builder = BootstrapForm::FormBuilder.new :other_model, nil, self, {}
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-3">
         <label class="form-label" for="other_model_email">Email</label>
         <input class="form-control" id="other_model_email" name="other_model[email]" type="text" />
       </div>
@@ -1879,7 +1879,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
   test "horizontal-style form fields layout vertical" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="email" value="steve@example.com" />
         </div>
@@ -1892,7 +1892,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
             </div>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="form-field">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -1903,7 +1903,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
             <label for="user_misc_2">Bar</label>
           </div>
         </div>
-        <div class="mb-3">
+        <div class="form-field mb-3">
           <label class="form-label" for="user_status">Status</label>
           <select class="form-control" id="user_status" name="user[status]">
             <option value="1">activated</option>
