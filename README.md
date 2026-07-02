@@ -609,6 +609,47 @@ This generates:
 </div>
 ```
 
+## Comboboxes
+
+Bootstrap 6 introduces a native [combobox component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/combobox/): a select-like control with optional search and multiple selection. It replaces third-party select plugins (such as `use-bootstrap-select` or `bootstrap-select`) with plain Bootstrap. Use the `combobox` helper to generate one:
+
+```erb
+<%= f.combobox :status, [["activated", 1], ["blocked", 2]], placeholder: "Select a status…" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_status">Status</label>
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle"
+          data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox"
+          id="user_status" type="button">
+    <span class="combobox-value combobox-placeholder">Select a status…</span>
+    <svg class="combobox-caret"><!-- caret --></svg>
+  </button>
+  <div class="menu">
+    <button class="menu-item" data-bs-value="1" type="button">activated</button>
+    <button class="menu-item" data-bs-value="2" type="button">blocked</button>
+  </div>
+</div>
+```
+
+Bootstrap's JavaScript creates a hidden `<input name="user[status]">` for form submission, so the value arrives in your controller params like a regular select.
+
+The current value of the attribute (or the `selected` option, which takes precedence) is marked with `aria-selected` and shown in the toggle. Pass `multiple: true` for multi-select and `search: true` for a search input that filters the options (pass a string instead of `true` to customize the search placeholder):
+
+```erb
+<%= f.combobox :skills, Skill.all.map { |s| [s.name, s.id] },
+      multiple: true, search: true, placeholder: "Select skills…" %>
+```
+
+Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or a flat array of strings (used as both text and value).
+
+**Caveat:** with `multiple: true`, Bootstrap submits the selected values as a single comma-separated string (e.g. `"1,3"`), not as a Rails-style array parameter. Split it in your controller: `params[:user][:skills].split(",")`.
+
+**A note on chips:** Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/) for tag-style input. As of 6.0.0-alpha1 chips have no form-submission integration (values must be read via its JavaScript API), and the combobox displays multiple selections as a count rather than chips, so `bootstrap_form` doesn't generate chip mark-up yet.
+
 ## Checkboxes and Radios
 
 Checkboxes and radios should be placed inside of a `form_group` to render

@@ -95,6 +95,10 @@ Bootstrap 6 changes responsive class syntax from suffix to prefix: `.col-sm-2` b
 
 Bootstrap 6 introduces a datepicker component. The new `datepicker_field` helper generates a text field with `data-bs-toggle="datepicker"` and renders the `:datepicker` option hash as `data-bs-*` configuration attributes. See the README for details.
 
+### Combobox Helper
+
+Bootstrap 6 introduces a combobox component — a select-like control with optional search and multiple selection that replaces third-party plugins such as `use-bootstrap-select`. The new `combobox` helper generates the full mark-up (toggle button, menu items, pre-selected state) from a choices collection. See the README for details.
+
 ## Unchanged
 
 The following classes are unchanged in Bootstrap 6 and continue to be generated as before: `form-label`, `form-text` (now without `text-muted`), `form-control` (and its `-sm`/`-lg`/`-color`/`-plaintext` variants), `form-floating`, `input-group`, `input-group-text`, `col-form-label`, `is-invalid`/`is-valid`, `invalid-feedback`/`valid-feedback`, and `visually-hidden`.

@@ -26,6 +26,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::CollectionRadioButtons
     include BootstrapForm::Inputs::CollectionSelect
     include BootstrapForm::Inputs::ColorField
+    include BootstrapForm::Inputs::Combobox
     include BootstrapForm::Inputs::DateField
     include BootstrapForm::Inputs::DatepickerField
     include BootstrapForm::Inputs::DateSelect

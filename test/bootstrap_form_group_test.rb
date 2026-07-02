@@ -155,7 +155,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
   end
 
   test "append and prepend button" do
-    prefix = '<div class="form-field mb-3"><label class="form-label required" for="user_email">Email</label><div class="input-group">'
+    prefix = '<div class="form-field mb-3"><label class="form-label required" for="user_email">Email</label>' \
+             '<div class="input-group">'
     field = <<~HTML
       <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
     HTML

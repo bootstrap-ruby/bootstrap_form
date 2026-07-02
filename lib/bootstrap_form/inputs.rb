@@ -11,6 +11,7 @@ module BootstrapForm
     autoload :CollectionRadioButtons
     autoload :CollectionSelect
     autoload :ColorField
+    autoload :Combobox
     autoload :DateField
     autoload :DatepickerField
     autoload :DateSelect
