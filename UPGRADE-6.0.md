@@ -85,6 +85,17 @@ Bootstrap 6 changes responsive class syntax from suffix to prefix: `.col-sm-2` b
 - If you pass custom `label_col`/`control_col` values, use the new syntax; the automatic offset calculation for label-less groups understands only the new syntax (e.g. `sm:col-2` → `sm:offset-2`).
 - Inline layout labels get `class="form-label sm:me-2"` (was `form-label me-sm-2`).
 
+### Validation Feedback Placement
+
+Bootstrap 6 changes where validation feedback lives:
+
+- For checkboxes, radios, and switches, the label and the `invalid-feedback` element (and any help text) are now nested in a `form-field-content` wrapper next to the control, keeping them aligned in the `form-field` grid.
+- For fields with `prepend`/`append` add-ons, the `invalid-feedback` element is now rendered *outside* the `input-group`, as a sibling within the `form-field` wrapper (it was inside the input group in v5).
+
+### Input Group Buttons
+
+Bootstrap 6 requires the `input-group-btn` class on buttons inside input groups. `bootstrap_form` passes your `prepend`/`append` content through as-is, so add the class to buttons you pass in, e.g. `link_to("Go", "#", class: "btn-solid theme-secondary input-group-btn")`.
+
 ### Alerts
 
 `alert_message` now defaults to `class="alert theme-danger"` instead of `class="alert alert-danger"`, following Bootstrap 6's composed theme classes. Pass `class: "alert alert-danger"` explicitly if you need the old mark-up.
@@ -98,6 +109,22 @@ Bootstrap 6 introduces a datepicker component. The new `datepicker_field` helper
 ### Combobox Helper
 
 Bootstrap 6 introduces a combobox component — a select-like control with optional search and multiple selection that replaces third-party plugins such as `use-bootstrap-select`. The new `combobox` helper generates the full mark-up (toggle button, menu items, pre-selected state) from a choices collection. See the README for details.
+
+### Adorned Fields
+
+The new `adorn` option on text-style field helpers generates Bootstrap 6's `form-adorn` mark-up: an icon or text decoration inside the field's border, with the input rendered as a `form-ghost`. See the README for details.
+
+### OTP Input Helper
+
+The new `otp_field` helper generates Bootstrap 6's OTP input: a single text input inside a `.otp[data-bs-otp]` container, rendered as digit slots by Bootstrap's JavaScript. The `:otp` option hash is rendered as `data-bs-*` configuration attributes.
+
+### Password Strength Meters
+
+The new `strength` option on `password_field` renders Bootstrap 6's password strength meter (segmented or bar variant, with optional text feedback and minimum length) after the input.
+
+### Client-Side Validation
+
+Pass `validate: true` (or `validate: "valid"` for success styling) to the form helpers to emit Bootstrap 6's `data-bs-validate` attribute and `novalidate` on the `<form>`.
 
 ## Unchanged
 

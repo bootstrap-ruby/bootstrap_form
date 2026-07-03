@@ -13,8 +13,7 @@ module BootstrapForm
           wrapper_attributes[:class] = radio_button_wrapper_class(options)
           tag.div(**wrapper_attributes) do
             html = radio_button_without_bootstrap(name, value, radio_button_options(name, options))
-            html << radio_button_label(name, value, options) unless options[:skip_label]
-            html << generate_error(name, options[:id]) if options[:error_message]
+            html << radio_button_content(name, value, options)
             html
           end
         end
@@ -23,6 +22,19 @@ module BootstrapForm
       end
 
       private
+
+      # Bootstrap 6 nests the label together with help text and validation
+      # feedback in a `form-field-content` wrapper next to the control.
+      def radio_button_content(name, value, options)
+        label = (radio_button_label(name, value, options) unless options[:skip_label])
+        help = generate_help(name, options[:help])
+        error = (generate_error(name, options[:id]) if options[:error_message])
+        if help || error
+          tag.div(safe_join([label, help, error].compact), class: "form-field-content")
+        else
+          label || ActiveSupport::SafeBuffer.new
+        end
+      end
 
       def radio_button_options(name, options)
         radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,

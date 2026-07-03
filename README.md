@@ -470,12 +470,13 @@ This generates:
 </div>
 ```
 
-You can also prepend and append buttons. Note: The buttons must contain the
-`btn` class to generate the correct markup.
+You can also prepend and append buttons. Note: The buttons must contain a
+`btn` class to generate the correct markup, and Bootstrap 6 requires the
+`input-group-btn` class on buttons inside input groups.
 
 ![Example 12](demo/doc/screenshots/bootstrap/readme/12_example.png "Example 12")
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn-solid theme-secondary") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn-solid theme-secondary input-group-btn") %>
 ```
 
 This generates:
@@ -485,9 +486,36 @@ This generates:
   <label class="form-label" for="user_search">Search</label>
   <div class="input-group">
     <input class="form-control" id="user_search" name="user[search]" type="text">
-    <a class="btn-solid theme-secondary" href="#">Go</a>
+    <a class="btn-solid theme-secondary input-group-btn" href="#">Go</a>
   </div>
 </div>
+```
+
+### Adorned Fields
+
+For a lighter-weight decoration than an input group, Bootstrap 6 offers [form-adorn](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/): an icon or text rendered inside the field's border. Use the `adorn` option:
+
+```erb
+<%= f.text_field :price, adorn: "$" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_price">Price</label>
+  <div class="form-control form-adorn">
+    <span class="form-adorn-text">$</span>
+    <input class="form-ghost" id="user_price" name="user[price]" type="text">
+  </div>
+</div>
+```
+
+Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
+
+```erb
+<%= f.search_field :query, adorn: { icon: search_icon_svg } %>
+<%= f.text_field :username, adorn: { text: "@example.com", end: true, class: "form-control-lg form-adorn-lg" } %>
 ```
 
 To add a class to the input group wrapper, use the `:input_group_class` option.
@@ -1074,6 +1102,65 @@ The multiple selects that the date and time helpers (`date_select`,
 Bootstrap automatically styles our controls as `block`s. This wrapper fixes
 this by defining these selects as `inline-block` and a width of `auto`.
 
+## OTP Inputs
+
+Bootstrap 6 ships an [OTP input](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/) for one-time codes: a single real text input that Bootstrap's JavaScript renders as separate digit slots. Use the `otp_field` helper:
+
+```erb
+<%= f.otp_field :verification_code %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_verification_code">Verification code</label>
+  <div class="otp" data-bs-otp="">
+    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" maxlength="6" name="user[verification_code]" type="text">
+  </div>
+</div>
+```
+
+The number of slots comes from `maxlength` (default 6). Configuration goes in the `otp` option and is rendered as `data-bs-*` attributes on the container — arrays are converted to JSON, and `class:` adds container classes such as `otp-connected`, `otp-sm`, or `otp-lg`:
+
+```erb
+<%= f.otp_field :verification_code, maxlength: 8,
+      otp: { type: :numeric, groups: [4, 4], separator: "-", class: "otp-connected" } %>
+```
+
+When the attribute has a validation error, `is-invalid` is applied to the `.otp` container (as Bootstrap expects) as well as the input, and the usual `invalid-feedback` follows.
+
+## Password Strength Meters
+
+Bootstrap 6's [password strength](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/password-strength/) component evaluates a password as the user types. Pass the `strength` option to `password_field` to render a meter after the input:
+
+```erb
+<%= f.password_field :password, strength: true %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength" data-bs-strength="">
+    <div class="strength-segment"></div>
+    <div class="strength-segment"></div>
+    <div class="strength-segment"></div>
+    <div class="strength-segment"></div>
+  </div>
+</div>
+```
+
+Pass a hash for the progress-bar variant, a minimum length, and a dynamic text message:
+
+```erb
+<%= f.password_field :password, strength: { variant: :bar, min_length: 12, text: true } %>
+```
+
+which renders `<div class="strength-bar" data-bs-strength data-bs-min-length="12"></div>` followed by `<span class="strength-text"></span>`.
+
 ## Submit Buttons
 
 The `btn-solid theme-secondary` CSS classes are automatically added to your submit
@@ -1574,6 +1661,18 @@ This generates:
 
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.
 
+### Client-Side Validation
+
+Bootstrap 6 styles browser-validated fields via the `data-bs-validate` attribute on the form. Pass `validate: true` to the form helper to enable it (this also sets `novalidate`, as the Bootstrap documentation recommends, to suppress the browser's default messages):
+
+```erb
+<%= bootstrap_form_for(@user, validate: true) do |f| %>
+  ...
+<% end %>
+```
+
+Pass `validate: "valid"` to also show success styling on valid fields (`data-bs-validate="valid"`).
+
 ### Inline Errors
 
 By default, fields that have validation errors will be outlined in red and the
@@ -1608,8 +1707,10 @@ Generated HTML:
     </div>
     <div class="form-field">
       <input aria-describedby="user_misc_feedback" class="radio is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
-      <label for="user_misc_2">Farming</label>
-      <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+      <div class="form-field-content">
+        <label for="user_misc_2">Farming</label>
+        <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+      </div>
     </div>
   </div>
   <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
@@ -1621,8 +1722,10 @@ Generated HTML:
     </div>
     <div class="form-field">
       <input aria-describedby="user_preferences_feedback" class="check is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
-      <label for="user_preferences_2">Bad</label>
-      <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
+      <div class="form-field-content">
+        <label for="user_preferences_2">Bad</label>
+        <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
+      </div>
     </div>
   </div>
   <div class="form-field mb-3">

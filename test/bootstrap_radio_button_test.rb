@@ -36,10 +36,12 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field">
           <input class="radio is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
-          <label for="user_misc_1">
-            This is a radio button
-          </label>
-          <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          <div class="form-field-content">
+            <label for="user_misc_1">
+              This is a radio button
+            </label>
+            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          </div>
         </div>
       </form>
     HTML
@@ -55,10 +57,12 @@ class BootstrapRadioButtonTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field">
           <input class="radio is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
-          <label for="custom-id">
-            This is a radio button
-          </label>
-          <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+          <div class="form-field-content">
+            <label for="custom-id">
+              This is a radio button
+            </label>
+            <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+          </div>
         </div>
       </form>
     HTML

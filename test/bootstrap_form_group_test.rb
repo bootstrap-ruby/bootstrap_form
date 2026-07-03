@@ -200,8 +200,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
             <span class="input-group-text">$</span>
             <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_feedback" name="user[email]" type="text" />
             <span class="input-group-text">.00</span>
-            <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</span>
           </div>
+          <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
         </div>
       </form>
     HTML
@@ -469,8 +469,10 @@ class BootstrapFormGroupTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input class="radio is-invalid" id="user_misc_university" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="university"/>
+            <div class="form-field-content">
             <label for="user_misc_university">University</label>
             <div class="invalid-feedback" id="user_misc_feedback">Must select one.</div>
+            </div>
           </div>
         </div>
       </form>

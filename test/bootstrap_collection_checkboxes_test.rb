@@ -373,8 +373,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -402,8 +404,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -452,8 +456,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -479,8 +485,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -864,8 +872,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -893,8 +903,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -943,8 +955,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -970,8 +984,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
           </div>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>

@@ -13,8 +13,7 @@ module BootstrapForm
           content = tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
             html = tag.div(html, class: "switch") if options[:switch]
-            html << check_box_label(name, options, checked_value, &block) unless options[:skip_label]
-            html << generate_error(name, options[:id]) if options[:error_message]
+            html << check_box_content(name, options, checked_value, &block)
             html
           end
           wrapper(content, options)
@@ -34,6 +33,19 @@ module BootstrapForm
           form_group(layout: layout_in_effect(options[:layout]), label_col: options[:label_col]) { content }
         else
           content
+        end
+      end
+
+      # Bootstrap 6 nests the label together with help text and validation
+      # feedback in a `form-field-content` wrapper next to the control.
+      def check_box_content(name, options, checked_value, &)
+        label = (check_box_label(name, options, checked_value, &) unless options[:skip_label])
+        help = generate_help(name, options[:help])
+        error = (generate_error(name, options[:id]) if options[:error_message])
+        if help || error
+          tag.div(safe_join([label, help, error].compact), class: "form-field-content")
+        else
+          label || ActiveSupport::SafeBuffer.new
         end
       end
 

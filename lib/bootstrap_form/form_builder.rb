@@ -38,6 +38,7 @@ module BootstrapForm
     include BootstrapForm::Inputs::GroupedCollectionSelect
     include BootstrapForm::Inputs::MonthField
     include BootstrapForm::Inputs::NumberField
+    include BootstrapForm::Inputs::OtpField
     include BootstrapForm::Inputs::PasswordField
     include BootstrapForm::Inputs::PhoneField
     include BootstrapForm::Inputs::RadioButton
@@ -74,12 +75,23 @@ module BootstrapForm
     def add_default_form_attributes_and_form_inline(options)
       options[:html] ||= {}
       options[:html].reverse_merge!(BootstrapForm.config.default_form_attributes)
+      add_validate_attributes(options)
 
       return unless options[:layout] == :inline
 
       options[:html][:class] =
         safe_join(([*options[:html][:class]&.split(/\s+/)] + %w[row row-cols-auto g-3 align-items-center])
         .compact.uniq, " ")
+    end
+
+    # Bootstrap 6 client-side validation: `validate: true` adds
+    # `data-bs-validate` and `novalidate` to the form; `validate: "valid"`
+    # also enables success styling on valid fields.
+    def add_validate_attributes(options)
+      return unless (validate = options[:validate])
+
+      options[:html][:novalidate] = true unless options[:html].key?(:novalidate)
+      options[:html][:data] = { bs_validate: validate == true ? "" : validate }.merge(options[:html][:data].to_h)
     end
 
     def fields_for_with_bootstrap(record_name, record_object=nil, fields_options={}, &)

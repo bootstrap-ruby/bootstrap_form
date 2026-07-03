@@ -196,10 +196,12 @@ class BootstrapCheckboxTest < ActionView::TestCase
           <div class="form-field mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="check is-invalid" id="user_terms" aria-describedby="user_terms_feedback" name="user[terms]" type="checkbox" value="1" />
-          <label for="user_terms">
-            I agree to the terms
-          </label>
-          <div class="invalid-feedback" id="user_terms_feedback">You must accept the terms.</div>
+          <div class="form-field-content">
+            <label for="user_terms">
+              I agree to the terms
+            </label>
+            <div class="invalid-feedback" id="user_terms_feedback">You must accept the terms.</div>
+          </div>
         </div>
       </form>
     HTML
@@ -216,10 +218,12 @@ class BootstrapCheckboxTest < ActionView::TestCase
           <div class="form-field mb-3">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="check is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[terms]" type="checkbox" value="1" />
-          <label for="custom-id">
-            I agree to the terms
-          </label>
-          <div class="invalid-feedback" id="custom-id_feedback">You must accept the terms.</div>
+          <div class="form-field-content">
+            <label for="custom-id">
+              I agree to the terms
+            </label>
+            <div class="invalid-feedback" id="custom-id_feedback">You must accept the terms.</div>
+          </div>
         </div>
       </form>
     HTML

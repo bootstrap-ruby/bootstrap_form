@@ -75,9 +75,11 @@ module BootstrapForm
         input = capture(&) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
-        input << generate_error(name, id)
+        # Bootstrap 6 places validation feedback outside the input group,
+        # as a sibling within the form-field wrapper.
         options.present? &&
           input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
+        input << generate_error(name, id)
         input
       end
 
@@ -94,6 +96,32 @@ module BootstrapForm
 
       def static_class
         "form-control-plaintext"
+      end
+
+      # Bootstrap 6 form-adorn: decorate an input with an icon or text inside
+      # a `form-control form-adorn` wrapper; the input itself is a form-ghost.
+      def adorn_wrapper(field, adorn)
+        adorn = { text: adorn } unless adorn.is_a?(Hash)
+        content = if adorn[:icon]
+                    tag.div(adorn[:icon], class: "form-adorn-icon")
+                  else
+                    tag.span(adorn[:text], class: "form-adorn-text")
+                  end
+        classes = ["form-control", "form-adorn", ("form-adorn-end" if adorn[:end]), adorn[:class]].compact
+        tag.div(content + field, class: classes)
+      end
+
+      # Bootstrap 6 password strength meter, rendered after a password field.
+      def strength_meter(strength)
+        strength = { variant: strength } unless strength.is_a?(Hash)
+        data = { bs_strength: "" }
+        data[:bs_min_length] = strength[:min_length] if strength[:min_length]
+        meter = if strength[:variant].to_s == "bar"
+                  tag.div(class: "strength-bar", data: data)
+                else
+                  tag.div(safe_join(Array.new(4) { tag.div(class: "strength-segment") }), class: "strength", data: data)
+                end
+        strength[:text] ? meter + tag.span(class: "strength-text") : meter
       end
 
       private

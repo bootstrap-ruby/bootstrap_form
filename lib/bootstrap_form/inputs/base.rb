@@ -9,14 +9,13 @@ module BootstrapForm
         def bootstrap_field(field_name)
           define_method :"#{field_name}_with_bootstrap" do |name, options={}|
             warn_deprecated_layout_value(options)
-            options = options.reverse_merge(control_class: "form-range-input") if field_name == :range_field
-            options = options.reverse_merge(control_class: "form-control form-control-color") if field_name == :color_field
+            options = field_default_options(field_name, options)
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
-                field = send(:"#{field_name}_without_bootstrap", name, options.except(:floating))
-                field = tag.div(field, class: "form-range") if field_name == :range_field
-                field
+                decorate_field(field_name, options) do
+                  send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :strength))
+                end
               end
             end
           end
@@ -52,6 +51,24 @@ module BootstrapForm
       end
 
       private
+
+      def field_default_options(field_name, options)
+        case field_name
+        when :range_field then options.reverse_merge(control_class: "form-range-input")
+        when :color_field then options.reverse_merge(control_class: "form-control form-control-color")
+        else options[:adorn] ? options.reverse_merge(control_class: "form-ghost") : options
+        end
+      end
+
+      # Bootstrap 6 decorations around the bare field: the form-range wrapper,
+      # form-adorn wrappers, and the password strength meter.
+      def decorate_field(field_name, options)
+        field = yield
+        field = tag.div(field, class: "form-range") if field_name == :range_field
+        field = adorn_wrapper(field, options[:adorn]) if options[:adorn]
+        field << strength_meter(options[:strength]) if options[:strength]
+        field
+      end
 
       def warn_deprecated_layout_value(options)
         return unless options[:layout] == :default
