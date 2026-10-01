@@ -8,7 +8,7 @@ module BootstrapForm
 
       included do
         # Disabling Metrics/ParameterLists because the upstream Rails method has the same parameters
-        # rubocop:disable Metrics/ParameterLists
+        # rubocop:disable-next Metrics/ParameterLists
         def grouped_collection_select_with_bootstrap(method, collection, group_method,
                                                      group_label_method, option_key_method,
                                                      option_value_method, options={}, html_options={})
@@ -21,7 +21,6 @@ module BootstrapForm
             end
           end
         end
-        # rubocop:enable Metrics/ParameterLists
 
         bootstrap_alias :grouped_collection_select
       end
