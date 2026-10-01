@@ -1061,6 +1061,22 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_html expected, namespaced_form_for.errors_on(:email)
     assert_equivalent_html expected, namespaced_form_with.errors_on(:email)
   end
+
+  test "bootstrap_form_with uses class: argument not in html arguments" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post" class="custom-class">
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_with(model: @user, class: "custom-class") { |_f| nil }
+  end
+
+  test "bootstrap_form_with uses id: argument not in html arguments" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post" id="custom-id">
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_with(scope: :user, url: "/users", id: "custom-id") { |_f| nil }
+  end
 end
 
 class LegacyBootstrapFormTest < ActionView::TestCase
