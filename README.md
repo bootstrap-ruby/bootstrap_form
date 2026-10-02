@@ -1573,12 +1573,12 @@ By default, turning on `:label_errors` will also turn off
 
 To display an error message with an error summary, you can use the
 `alert_message` helper. This won't output anything unless a model validation
-has failed.
+has failed, and additional options will be passed on as attributes to the root `div`:
 
 ![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
-  <%= f.alert_message "Please fix the errors below." %>
+  <%= f.alert_message "Please fix the errors below.", tabindex: -1, role: "note" %>
 <% end %>
 ```
 
@@ -1586,7 +1586,7 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger">
+  <div class="alert alert-danger" tabindex="-1" role="note">
     <p>Please fix the errors below.</p>
     <ul class="rails-bootstrap-forms-error-summary">
       <li>Email is invalid</li>
@@ -1611,29 +1611,6 @@ This generates:
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="alert alert-danger">Please fix the errors below.</div>
-</form>
-```
-
-Additional options will be passed on as attributes to the root `div`:
-
-```erb
-<%= bootstrap_form_for @user_with_error do |f| %>
-  <%= f.alert_message "Please fix the errors below.", tabindex: -1, role: "note" %>
-<% end %>
-```
-
-This generates:
-
-```html
-<form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger" tabindex="-1" role="note">
-    <p>Please fix the errors below.</p>
-    <ul class="rails-bootstrap-forms-error-summary">
-      <li>Email is invalid</li>
-      <li>Misc is invalid</li>
-      <li>Preferences is invalid</li>
-    </ul>
-  </div>
 </form>
 ```
 
