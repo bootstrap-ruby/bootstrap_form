@@ -1749,6 +1749,26 @@ This generates:
 </form>
 ```
 
+Floating labels also work inside input groups. Bootstrap nests the `form-floating` wrapper inside the `input-group`, with any validation feedback after the group, and `bootstrap_form` does the same when you combine `floating: true` with `prepend` or `append`:
+
+```erb
+<%= f.text_field :username, floating: true, prepend: "@" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <div class="input-group">
+    <span class="input-group-text">@</span>
+    <div class="form-floating">
+      <label class="form-label" for="user_username">Username</label>
+      <input class="form-control" id="user_username" name="user[username]" placeholder="Username" type="text">
+    </div>
+  </div>
+</div>
+```
+
 ## Validation and Errors
 
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.

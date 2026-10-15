@@ -314,6 +314,8 @@
     <%= form.time_field :created_at, id: "floating_time", label: "Time", floating: true %>
     <%= form.email_field :email, id: "floating_disabled", label: "Disabled input", floating: true, disabled: true %>
     <%= form.static_control :email, id: "floating_plaintext", label: "Readonly plaintext", floating: true %>
+    <%= form.text_field :misc, id: "floating_input_group", label: "Username", placeholder: "Username", floating: true, prepend: "@" %>
+    <%= form.text_field :misc, id: "floating_input_group_append", label: "Recipient", placeholder: "Recipient", floating: true, append: "@example.com", help: "The feedback and help text stay outside the input group." %>
     <%= form.email_field :email, id: "floating_always", label: "Always floating", placeholder: "name@example.com", value: "", floating: true, wrapper_class: "mb-3 form-floating-always" %>
     <div class="row g-2">
       <div class="md:col">

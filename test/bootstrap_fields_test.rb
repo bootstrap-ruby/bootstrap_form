@@ -661,4 +661,39 @@ class BootstrapFieldsTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, floating: true)
   end
+
+  test "floating label inside an input group" do
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <div class="input-group">
+          <span class="input-group-text">@</span>
+          <div class="form-floating">
+            <label class="form-label" for="user_misc">Username</label>
+            <input class="form-control" id="user_misc" name="user[misc]" placeholder="Misc" type="text" />
+          </div>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.text_field(:misc, floating: true, prepend: "@", label: "Username")
+  end
+
+  test "floating label inside an input group with an error" do
+    @user.errors.add(:misc, "is invalid")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="form-field mb-3">
+          <div class="input-group">
+            <div class="form-floating is-invalid">
+              <label class="form-label" for="user_misc">Misc</label>
+              <input aria-describedby="user_misc_feedback" class="form-control is-invalid" id="user_misc" name="user[misc]" placeholder="Misc" type="text" />
+            </div>
+            <span class="input-group-text">@example.com</span>
+          </div>
+          <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user) { |f| f.text_field(:misc, floating: true, append: "@example.com") }
+    assert_equivalent_html expected, actual
+  end
 end

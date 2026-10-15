@@ -10,6 +10,8 @@ module BootstrapForm
           define_method :"#{field_name}_with_bootstrap" do |name, options={}|
             warn_deprecated_layout_value(options)
             options = field_default_options(field_name, options)
+            return floating_input_group_field(field_name, name, options) if floating_input_group?(options)
+
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
@@ -57,6 +59,26 @@ module BootstrapForm
         when :range_field then options.reverse_merge(control_class: "form-range-input")
         when :color_field then options.reverse_merge(control_class: "form-control form-control-color")
         else options[:adorn] ? options.reverse_merge(control_class: "form-ghost") : options
+        end
+      end
+
+      def floating_input_group?(options)
+        options[:floating] && (options[:prepend] || options[:append])
+      end
+
+      # Bootstrap 6 nests `form-floating` inside the `input-group`, with the
+      # validation feedback outside the group as a sibling in the form field.
+      def floating_input_group_field(field_name, name, options)
+        options.merge!(required_field_options(options, name))
+        floating_label = generate_label(options[:id], name, form_group_label(options, { id: options[:id] }), nil, nil)
+        options[:placeholder] ||= name
+        options[:skip_label] = true
+        options[:floating] = false
+        form_group_builder(name, options) do
+          prepend_and_append_input(name, options) do
+            field = send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :range, :strength))
+            tag.div(floating_label + field, class: ["form-floating", ("is-invalid" if error?(name))].compact)
+          end
         end
       end
 
