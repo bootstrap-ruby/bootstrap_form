@@ -32,7 +32,7 @@ module BootstrapForm
       end
 
       # FIXME: Find a way to reduce the parameter list size
-      # rubocop:disable Metrics/ParameterLists
+      # rubocop:disable-next Metrics/ParameterLists
       def form_group_collection_input_options(options, text, obj, index, input_value, collection)
         input_options = options.merge(label: text.respond_to?(:call) ? text.call(obj) : obj.send(text))
         if (checked = input_options[:checked])
@@ -46,7 +46,6 @@ module BootstrapForm
         input_options.except!(:class)
         input_options
       end
-      # rubocop:enable Metrics/ParameterLists
 
       def form_group_collection_input_checked?(checked, obj, input_value)
         checked == input_value || Array(checked).try(:include?, input_value) ||

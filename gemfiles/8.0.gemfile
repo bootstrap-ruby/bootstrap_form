@@ -8,3 +8,4 @@ gem "mutex_m" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "propshaft"
 gem "rails", "~> 8.0.1"
 gem "sqlite3"
+gem "json", "~> 2.21"

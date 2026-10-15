@@ -32,11 +32,10 @@ module BootstrapForm
   end
 
   mattr_accessor :field_error_proc
-  # rubocop:disable Style/ClassVars
+  # rubocop:disable-next Style/ClassVars
   @@field_error_proc = proc do |html_tag, _instance_tag|
     html_tag
   end
-  # rubocop:enable Style/ClassVars
 end
 
 require "bootstrap_form/engine" if defined?(Rails)

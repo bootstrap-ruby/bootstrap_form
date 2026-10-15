@@ -593,6 +593,23 @@ class BootstrapFormTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.alert_message("Please fix the following errors:", class: "my-css-class")
   end
 
+  test "alert_message passes extra options through as HTML attributes" do
+    @user.email = nil
+    assert @user.invalid?
+
+    expected = <<~HTML
+      <div class="alert alert-danger" tabindex="-1" role="note">
+        <p>Please fix the following errors:</p>
+        <ul class="rails-bootstrap-forms-error-summary">
+          <li>Email can't be blank</li>
+          <li>Email is too short (minimum is 5 characters)</li>
+          <li>Terms must be accepted</li>
+        </ul>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.alert_message("Please fix the following errors:", tabindex: "-1", role: "note")
+  end
+
   test "alert_message contains the error summary when inline_errors are turned off" do
     @user.email = nil
     assert @user.invalid?
@@ -1060,6 +1077,22 @@ class BootstrapFormTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, namespaced_form_for.errors_on(:email)
     assert_equivalent_html expected, namespaced_form_with.errors_on(:email)
+  end
+
+  test "bootstrap_form_with uses class: argument not in html arguments" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post" class="custom-class">
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_with(model: @user, class: "custom-class") { |_f| nil }
+  end
+
+  test "bootstrap_form_with uses id: argument not in html arguments" do
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" method="post" id="custom-id">
+      </form>
+    HTML
+    assert_equivalent_html expected, bootstrap_form_with(scope: :user, url: "/users", id: "custom-id") { |_f| nil }
   end
 end
 
