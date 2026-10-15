@@ -2,13 +2,13 @@
   "name": "demo",
   "private": true,
   "dependencies": {
-    "@floating-ui/dom": "^1.7.6",
-    "@rails/actiontext": "^8.1.0",
+    "@floating-ui/dom": "^1.8.0",
+    "@rails/actiontext": "^8.1.400",
     "bootstrap": "6.0.0-alpha.1",
-    "bootstrap-icons": "^1.11.1",
-    "esbuild": "^0.19.4",
+    "bootstrap-icons": "^1.13.2",
+    "esbuild": "^0.28.2",
     "sass": "^1.105.1",
-    "trix": "^2.0.7",
+    "trix": "^2.1.19",
     "vanilla-calendar-pro": "^3.4.0"
   },
   "version": "0.1.0",
