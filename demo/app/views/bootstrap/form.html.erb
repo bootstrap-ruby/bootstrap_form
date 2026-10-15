@@ -234,6 +234,13 @@
     <%= form.checkbox :remember_me, id: "switch_disabled", label: "Disabled switch", switch: true, disabled: true %>
     <%= form.checkbox :remember_me, id: "switch_disabled_checked", label: "Disabled checked switch", switch: true, disabled: true, checked: true %>
     <%= form.checkbox :remember_me, id: "switch_description", label: "Switch with description", switch: true, help: "Supporting description for the above label." %>
+    <% %w[primary accent success danger warning info inverse secondary].each do |theme| %>
+      <%= form.checkbox :remember_me, id: "switch_#{theme}", label: "Example #{theme} switch", switch: "theme-#{theme}", checked: true %>
+    <% end %>
+    <%= form.checkbox :remember_me, id: "switch_sm", label: "Small switch", switch: "switch-sm" %>
+    <%= form.checkbox :remember_me, id: "switch_md", label: "Default switch", switch: true %>
+    <%= form.checkbox :remember_me, id: "switch_lg", label: "Large switch", switch: "switch-lg" %>
+    <%= form.checkbox :remember_me, id: "switch_custom_width", label: "Custom width switch", switch: { style: "--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;" } %>
   <% end %>
 <% end %>
 

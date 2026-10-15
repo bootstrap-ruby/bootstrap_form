@@ -449,6 +449,28 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.check_box(:misc, switch: true)
   end
 
+  test "check_box switch with classes and attributes on the wrapper" do
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <div class="switch theme-success switch-lg">
+          <input name="user[misc]" type="hidden" value="0" />
+          <input id="user_misc" name="user[misc]" role="switch" switch="switch" type="checkbox" value="1" />
+        </div>
+        <label for="user_misc">Misc</label>
+      </div>
+      <div class="form-field mb-3">
+        <div class="switch theme-danger" style="--bs-switch-width: 3rem">
+          <input name="user[misc]" type="hidden" value="0" />
+          <input id="user_misc" name="user[misc]" role="switch" switch="switch" type="checkbox" value="1" />
+        </div>
+        <label for="user_misc">Misc</label>
+      </div>
+    HTML
+    actual = @builder.check_box(:misc, switch: "theme-success switch-lg") +
+             @builder.check_box(:misc, switch: { class: "theme-danger", style: "--bs-switch-width: 3rem" })
+    assert_equivalent_html expected, actual
+  end
+
   test "week fields are wrapped correctly" do
     expected = <<~HTML
       <div class="form-field mb-3">

@@ -2,7 +2,7 @@
 
 module BootstrapForm
   module Inputs
-    module CheckBox
+    module CheckBox # rubocop:disable Metrics/ModuleLength
       extend ActiveSupport::Concern
       include Base
 
@@ -12,7 +12,7 @@ module BootstrapForm
 
           content = tag.div(class: check_box_wrapper_class(options), **options[:wrapper].to_h.except(:class)) do
             html = check_box_without_bootstrap(name, check_box_options(name, options), checked_value, unchecked_value)
-            html = tag.div(html, class: "switch") if options[:switch]
+            html = switch_wrapper(html, options[:switch]) if options[:switch]
             html << check_box_content(name, options, checked_value, &block)
             html
           end
@@ -34,6 +34,14 @@ module BootstrapForm
         else
           content
         end
+      end
+
+      # Bootstrap 6 renders switches inside a `switch` wrapper, which also
+      # carries theme and size classes: `switch: "theme-primary switch-lg"`,
+      # or `switch: { class: "...", style: "..." }` for other attributes.
+      def switch_wrapper(html, switch)
+        attributes = switch.is_a?(Hash) ? switch.symbolize_keys : { class: (switch if switch.is_a?(String)) }
+        tag.div(html, **attributes, class: ["switch", attributes[:class]].compact)
       end
 
       # Bootstrap 6 nests the label together with help text and validation

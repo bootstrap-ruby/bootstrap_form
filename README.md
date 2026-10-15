@@ -870,6 +870,13 @@ This generates:
 </div>
 ```
 
+Theme colors, sizes and other switch styling belong on the `switch` wrapper rather than the input, so pass them in the `switch` option: a string adds classes, and a hash sets any attributes:
+
+```erb
+<%= f.check_box :remember_me, switch: "theme-success switch-lg" %>
+<%= f.check_box :remember_me, switch: { style: "--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;" } %>
+```
+
 ### Collections
 
 `bootstrap_form` also provides helpers that automatically create the
