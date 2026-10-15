@@ -1,3 +1,17 @@
+<%# Sections follow the pages of the Bootstrap 6 forms documentation:
+    https://getbootstrap.com/docs/6.0/forms/overview/ %>
+
+<h3>Basic Form</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", namespace: "basic" do |form| %>
+    <%= form.email_field :email, label: "Email address", help: "We'll never share your email with anyone else." %>
+    <%= form.password_field :password %>
+    <%= form.checkbox :terms, label: "Check me out" %>
+    <%= form.primary "Submit" %>
+  <% end %>
+<% end %>
+
 <h3>Horizontal Form</h3>
 
 <%= form_with_source do %>
@@ -54,15 +68,472 @@
   <% end %>
 <% end %>
 
+<h3>Form Field</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "field_form" } do |form| %>
+    <%= form.select :status, [["United States", 1], ["Canada", 2], ["United Kingdom", 3]], { label: "Country", prompt: "Choose one…" }, { id: "field_country" } %>
+    <%= form.textarea :comments, id: "field_message", label: "Message", rows: 3, help: "Be sure to include relevant details." %>
+    <%= form.checkbox :remember_me, id: "field_remember_me", label: "Remember me" %>
+    <%= form.form_group :status, label: { text: "Shipping method" }, help: "Choose your preferred shipping speed." do %>
+      <%= form.radio_button :status, "standard", id: "field_shipping_standard", label: "Standard" %>
+      <%= form.radio_button :status, "express", id: "field_shipping_express", label: "Express" %>
+    <% end %>
+    <%= form.form_group :type, label: { text: "Select a plan" }, class: "form-group mb-3" do %>
+      <div class="vstack gap-1">
+        <%= form.radio_button :type, "basic", id: "field_plan_basic", label: "Basic", help: "$9/month — For individuals.", wrapper_class: "form-field-card", checked: true %>
+        <%= form.radio_button :type, "pro", id: "field_plan_pro", label: "Pro", help: "$29/month — For teams.", wrapper_class: "form-field-card" %>
+      </div>
+    <% end %>
+    <%= form.checkbox :terms, id: "field_notifications", switch: true, label: "Enable notifications" %>
+    <%= form.combobox :misc, [["Option one", 1], ["Option two", 2], ["Option three", 3]], id: "field_combobox", placeholder: "Select an item…", label: "Combobox", help: "Choose an item from the menu above." %>
+    <%= form.form_group :preferences, label: { text: "Terms and conditions" } do %>
+      <%= form.checkbox :preferences, id: "field_agree", label: "I agree to the terms", help: "Please read before agreeing." %>
+    <% end %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>Form Controls</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "form_controls_form" } do |form| %>
+    <%= form.email_field :email, id: "control_email", label: "Email address", help: "We'll never share your email with anyone else.", placeholder: "name@example.com" %>
+    <%= form.textarea :comments, id: "control_textarea", label: "Example textarea", rows: 4 %>
+    <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { label: "Select", prompt: "Choose one…" }, { id: "control_select" } %>
+    <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { label: "Multiple select" }, { id: "control_select_multiple", multiple: true } %>
+    <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { label: "Select with size" }, { id: "control_select_size", size: 3 } %>
+
+    <%= form.text_field :misc, id: "control_sm", label: "Small input", class: "form-control-sm", placeholder: ".form-control-sm" %>
+    <%= form.text_field :misc, id: "control_default", label: "Default input", placeholder: "Default input" %>
+    <%= form.text_field :misc, id: "control_lg", label: "Large input", class: "form-control-lg", placeholder: ".form-control-lg" %>
+    <%= form.select :status, [["Small select", 1]], { label: "Small select" }, { id: "control_select_sm", class: "form-control-sm" } %>
+    <%= form.select :status, [["Large select", 1]], { label: "Large select" }, { id: "control_select_lg", class: "form-control-lg" } %>
+
+    <%= form.text_field :misc, id: "control_disabled", label: "Disabled input", disabled: true, placeholder: "Disabled input" %>
+    <%= form.text_field :misc, id: "control_disabled_readonly", label: "Disabled readonly input", disabled: true, readonly: true, value: "Disabled readonly input" %>
+    <%= form.select :status, [["Disabled select", 1]], { label: "Disabled select" }, { id: "control_select_disabled", disabled: true } %>
+    <%= form.textarea :comments, id: "control_textarea_disabled", label: "Disabled textarea", rows: 3, disabled: true %>
+    <%= form.text_field :misc, id: "control_readonly", label: "Readonly input", readonly: true, value: "Readonly input here..." %>
+    <%= form.static_control :email, id: "control_plaintext", label: "Readonly plain text" %>
+
+    <%= form.datetime_local_field :created_at, id: "control_datetime_local", label: "Date and time", value: "2026-02-24T13:00", class: "w-auto" %>
+    <%= form.datetime_local_field :created_at, id: "control_datetime_seconds", label: "Date and time with seconds", value: "2026-02-24T13:00:30", step: 1, class: "w-auto" %>
+    <%= form.date_field :created_at, id: "control_date", label: "Date", value: "2026-02-24", class: "w-auto" %>
+    <%= form.time_field :created_at, id: "control_time", label: "Time", value: "13:00", class: "w-auto" %>
+    <%= form.month_field :created_at, id: "control_month", label: "Month", value: "2026-02", class: "w-auto" %>
+    <%= form.week_field :created_at, id: "control_week", label: "Week", value: "2026-W09", class: "w-auto" %>
+
+    <%= form.color_field :misc, id: "control_color", label: "Color picker", value: "#631aff", title: "Choose your color" %>
+    <%= form.color_field :misc, id: "control_color_lg", label: "Large color picker", value: "#631aff", class: "form-control-lg" %>
+    <%= form.color_field :misc, id: "control_color_sm", label: "Small color picker", value: "#631aff", class: "form-control-sm" %>
+
+    <%= form.text_field :misc, id: "control_datalist", label: "Datalist example", list: "control_datalist_options", placeholder: "Type to search..." %>
+    <%= form.text_field :misc, id: "control_datalist_caret", label: "Datalist with caret", list: "control_datalist_options", class: "form-control-caret", placeholder: "Type to search..." %>
+    <datalist id="control_datalist_options">
+      <option value="San Francisco"></option>
+      <option value="New York"></option>
+      <option value="Seattle"></option>
+      <option value="Los Angeles"></option>
+      <option value="Chicago"></option>
+    </datalist>
+
+    <%= form.file_field :file, id: "control_file", label: "Default file input example" %>
+    <%= form.file_field :file, id: "control_file_multiple", label: "Multiple files input example", multiple: true %>
+    <%= form.file_field :file, id: "control_file_disabled", label: "Disabled file input example", disabled: true %>
+    <%= form.file_field :file, id: "control_file_sm", label: "Small file input example", class: "form-control-sm" %>
+    <%= form.file_field :file, id: "control_file_lg", label: "Large file input example", class: "form-control-lg" %>
+  <% end %>
+<% end %>
+
+<h3>Disabled Form</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", namespace: "disabled_form" do |form| %>
+    <fieldset disabled>
+      <legend>Disabled fieldset example</legend>
+      <%= form.text_field :misc, label: "Disabled input", placeholder: "Disabled input" %>
+      <%= form.select :status, [["Disabled select", 1]], label: "Disabled select menu", prompt: "Disabled select" %>
+      <%= form.checkbox :terms, label: "Can't check this" %>
+      <%= form.primary "Submit" %>
+    </fieldset>
+  <% end %>
+<% end %>
+
+<h3>Checkboxes</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "checkboxes_form" } do |form| %>
+    <%= form.checkbox :terms, id: "check_default", label: "Default checkbox" %>
+    <%= form.checkbox :terms, id: "check_checked", label: "Checked checkbox", checked: true %>
+    <%= form.checkbox :terms, id: "check_indeterminate", label: "Indeterminate checkbox", data: { indeterminate: true } %>
+    <%= form.checkbox :terms, id: "check_description", label: "Example new checkbox", help: "Supporting description for the above label." %>
+
+    <% %w[primary accent success danger warning info inverse secondary].each do |theme| %>
+      <%= form.checkbox :terms, { id: "check_#{theme}", label: "Example #{theme} checkbox", class: "theme-#{theme}", checked: true }, theme, "" %>
+    <% end %>
+
+    <%= form.checkbox :terms, id: "check_disabled", label: "Disabled checkbox", disabled: true %>
+    <%= form.checkbox :terms, id: "check_disabled_checked", label: "Disabled checked checkbox", disabled: true, checked: true %>
+
+    <%= form.checkbox :terms, id: "check_sm", label: "Small checkbox", class: "check-sm", checked: true %>
+    <%= form.checkbox :terms, id: "check_md", label: "Default checkbox", checked: true %>
+    <%= form.checkbox :terms, id: "check_lg", label: "Large checkbox", class: "check-lg", checked: true %>
+
+    <%= form.checkbox :terms, id: "check_inline_1", label: "Inline checkbox 1", inline: true %>
+    <%= form.checkbox :terms, id: "check_inline_2", label: "Inline checkbox 2", inline: true %>
+    <%= form.checkbox :terms, id: "check_inline_3", label: "Inline disabled checkbox", inline: true, disabled: true %>
+  <% end %>
+<% end %>
+<script>
+  document.querySelectorAll("[data-indeterminate]").forEach((el) => { el.indeterminate = true })
+</script>
+
+<h3>Radios</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "radios_form" } do |form| %>
+    <%= form.form_group :status, label: { text: "Radios" } do %>
+      <%= form.radio_button :status, "first", id: "radio_first", label: "First example radio" %>
+      <%= form.radio_button :status, "second", id: "radio_second", label: "Second example radio", checked: true %>
+    <% end %>
+
+    <%= form.radio_button :type, "description", id: "radio_description", label: "Example new radio", label_class: "fw-medium", help: "Supporting description for the above label." %>
+
+    <%= form.form_group :misc, label: { text: "Theme colors" } do %>
+      <% %w[primary accent success danger warning info inverse secondary].each do |theme| %>
+        <%= form.radio_button :misc, theme, id: "radio_#{theme}", name: "radio_theme_#{theme}", label: "Example #{theme} radio", class: "theme-#{theme}", checked: true %>
+      <% end %>
+    <% end %>
+
+    <%= form.form_group :misc, label: { text: "Disabled" } do %>
+      <%= form.radio_button :misc, "disabled", id: "radio_disabled", name: "radio_disabled", label: "Disabled radio", disabled: true %>
+      <%= form.radio_button :misc, "disabled_checked", id: "radio_disabled_checked", name: "radio_disabled_checked", label: "Disabled checked radio", disabled: true, checked: true %>
+    <% end %>
+
+    <%= form.form_group :misc, label: { text: "Sizes" } do %>
+      <%= form.radio_button :misc, "sm", id: "radio_sm", name: "radio_sm", label: "Small radio", class: "radio-sm", checked: true %>
+      <%= form.radio_button :misc, "md", id: "radio_md", name: "radio_md", label: "Default radio", checked: true %>
+      <%= form.radio_button :misc, "lg", id: "radio_lg", name: "radio_lg", label: "Large radio", class: "radio-lg", checked: true %>
+    <% end %>
+
+    <%= form.form_group :misc, label: { text: "Inline" } do %>
+      <%= form.radio_button :misc, "inline1", id: "radio_inline_1", name: "radio_inline", label: "Inline radio 1", inline: true %>
+      <%= form.radio_button :misc, "inline2", id: "radio_inline_2", name: "radio_inline", label: "Inline radio 2", inline: true %>
+      <%= form.radio_button :misc, "inline3", id: "radio_inline_3", name: "radio_inline", label: "Inline disabled radio", inline: true, disabled: true %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h3>Switches</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "switches_form" } do |form| %>
+    <%= form.checkbox :remember_me, id: "switch_default", label: "Default switch", switch: true %>
+    <%= form.checkbox :remember_me, id: "switch_checked", label: "Checked switch", switch: true, checked: true %>
+    <%= form.checkbox :remember_me, id: "switch_disabled", label: "Disabled switch", switch: true, disabled: true %>
+    <%= form.checkbox :remember_me, id: "switch_disabled_checked", label: "Disabled checked switch", switch: true, disabled: true, checked: true %>
+    <%= form.checkbox :remember_me, id: "switch_description", label: "Switch with description", switch: true, help: "Supporting description for the above label." %>
+  <% end %>
+<% end %>
+
+<h3>Range</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "range_form" } do |form| %>
+    <%= form.range_field :misc, id: "range_default", label: "Example range" %>
+    <%= form.range_field :misc, id: "range_disabled", label: "Disabled range", disabled: true %>
+    <%= form.range_field :misc, id: "range_min_max", label: "Min and max", min: 0, max: 5 %>
+    <%= form.range_field :misc, id: "range_steps", label: "Steps", min: 0, max: 5, step: 0.5 %>
+    <%= form.range_field :misc, id: "range_ticks", label: "Tick marks", min: 0, max: 100, step: 25, value: 50, list: "range_ticks_list", help: "Ticks are rendered from the linked datalist." %>
+    <datalist id="range_ticks_list">
+      <option value="0" label="Cold"></option>
+      <option value="25"></option>
+      <option value="50" label="Mild"></option>
+      <option value="75"></option>
+      <option value="100" label="Hot"></option>
+    </datalist>
+  <% end %>
+<% end %>
+
+<h3>Input Groups</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "input_groups_form" } do |form| %>
+    <%= form.text_field :misc, id: "input_group_prepend", label: "Username", prepend: "@", placeholder: "Username" %>
+    <%= form.text_field :misc, id: "input_group_append", label: "Recipient", append: "@example.com", placeholder: "Recipient's username" %>
+    <%= form.text_field :misc, id: "input_group_vanity", label: "Your vanity URL", prepend: "https://example.com/", placeholder: "username", help: "Choose a unique URL for your profile." %>
+    <%= form.text_field :misc, id: "input_group_amount", label: "Amount", prepend: "$", append: ".00", placeholder: "Amount (to the nearest dollar)" %>
+    <%= form.text_field :misc, id: "input_group_multiple", label: "Multiple addons", prepend: ["$", "0.00"] %>
+    <%= form.text_field :misc, id: "input_group_button", label: "Button addon", append: button_tag("Button", type: "button", class: "btn-outline theme-secondary input-group-btn") %>
+    <%= form.text_field :misc, id: "input_group_buttons", label: "Multiple button addons", prepend: [button_tag("Button", type: "button", class: "btn-outline theme-secondary input-group-btn"), button_tag("Button", type: "button", class: "btn-outline theme-secondary input-group-btn")] %>
+    <% menu = capture do %>
+      <button class="btn-outline theme-secondary input-group-btn" type="button" data-bs-toggle="menu" aria-expanded="false">Menu</button>
+      <div class="menu">
+        <a class="menu-item" href="#">Action</a>
+        <a class="menu-item" href="#">Another action</a>
+        <hr class="menu-divider">
+        <a class="menu-item" href="#">Separated link</a>
+      </div>
+    <% end %>
+    <%= form.text_field :misc, id: "input_group_menu", label: "Button with menu", prepend: menu %>
+    <%= form.textarea :comments, id: "input_group_textarea", label: "With textarea", prepend: "With textarea" %>
+    <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { label: "Select", prepend: "Options", prompt: "Choose..." }, { id: "input_group_select" } %>
+    <%= form.file_field :file, id: "input_group_file", label: "File", prepend: "Upload" %>
+    <%= form.text_field :misc, id: "input_group_checkbox", label: "Checkbox addon", prepend: tag.input(type: "checkbox", class: "check", aria: { label: "Checkbox for following text input" }) %>
+    <%= form.text_field :misc, id: "input_group_radio", label: "Radio addon", prepend: tag.input(type: "radio", class: "radio", aria: { label: "Radio button for following text input" }) %>
+    <%= form.text_field :misc, id: "input_group_sm", label: "Small input group", prepend: "Small", input_group_class: "input-group-sm" %>
+    <%= form.text_field :misc, id: "input_group_md", label: "Default input group", prepend: "Default" %>
+    <%= form.text_field :misc, id: "input_group_lg", label: "Large input group", prepend: "Large", input_group_class: "input-group-lg" %>
+  <% end %>
+<% end %>
+
 <h3>Floating Labels</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user, namespace: "floating_label" do |form| %>
-    <%= form.email_field :email, placeholder: "Enter Email", label: "Email address", help: "We'll never share your email with anyone else", floating: true %>
-    <%= form.password_field :password, placeholder: "Password", floating: true %>
-    <%= form.text_field :misc, floating: true %>
-    <%= form.textarea :comments, floating: true %>
-    <%= form.select :status, [["Active", 1], ["Inactive", 2]], include_blank: "Select a value", floating: true %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "floating_labels_form" } do |form| %>
+    <%= form.email_field :email, id: "floating_email", placeholder: "name@example.com", label: "Email address", help: "We'll never share your email with anyone else", floating: true %>
+    <%= form.password_field :password, id: "floating_password", placeholder: "Password", floating: true %>
+    <%= form.email_field :email, id: "floating_invalid", label: "Invalid input", floating: true, class: "is-invalid" %>
+    <%= form.textarea :comments, id: "floating_textarea", floating: true %>
+    <%= form.textarea :comments, id: "floating_textarea_height", label: "Comments (custom height)", floating: true, wrapper: { style: "--bs-form-floating-height: 100px" } %>
+    <%= form.select :status, [["Active", 1], ["Inactive", 2]], { include_blank: "Open this select menu", label: "Works with selects", floating: true }, { id: "floating_select" } %>
+    <%= form.date_field :created_at, id: "floating_date", label: "Date", floating: true %>
+    <%= form.time_field :created_at, id: "floating_time", label: "Time", floating: true %>
+    <%= form.email_field :email, id: "floating_disabled", label: "Disabled input", floating: true, disabled: true %>
+    <%= form.static_control :email, id: "floating_plaintext", label: "Readonly plaintext", floating: true %>
+    <%= form.email_field :email, id: "floating_always", label: "Always floating", placeholder: "name@example.com", value: "", floating: true, wrapper_class: "mb-3 form-floating-always" %>
+    <div class="row g-2">
+      <div class="md:col">
+        <%= form.email_field :email, id: "floating_grid_email", label: "Email address", floating: true %>
+      </div>
+      <div class="md:col">
+        <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { include_blank: "Open this select menu", label: "Works with selects", floating: true }, { id: "floating_grid_select" } %>
+      </div>
+    </div>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+
+<h3>Form Adorn</h3>
+
+<%= form_with_source do %>
+  <% search_icon = tag.i(class: "bi bi-search") %>
+  <% envelope_icon = tag.i(class: "bi bi-envelope") %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "form_adorn_form" } do |form| %>
+    <%= form.search_field :misc, id: "adorn_search", label: "Search", placeholder: "Search...", adorn: { icon: search_icon }, help: "Search across all pages and posts." %>
+    <%= form.email_field :email, id: "adorn_email", label: "Email address", placeholder: "you@example.com", value: "", adorn: { icon: envelope_icon, end: true } %>
+    <%= form.text_field :misc, id: "adorn_currency_start", label: "Currency (start)", placeholder: "0.00", adorn: "$" %>
+    <%= form.text_field :misc, id: "adorn_currency_end", label: "Currency (end)", placeholder: "Amount", adorn: { text: "USD", end: true } %>
+    <%= form.text_field :misc, id: "adorn_protocol", label: "Website", placeholder: "example.com", adorn: "https://" %>
+    <%= form.text_field :misc, id: "adorn_domain", label: "Username", placeholder: "username", adorn: { text: "@example.com", end: true } %>
+    <%= form.text_field :misc, id: "adorn_sm", label: "Small input", placeholder: "Small input", adorn: { icon: search_icon, class: "form-control-sm" } %>
+    <%= form.text_field :misc, id: "adorn_md", label: "Default input", placeholder: "Default input", adorn: { icon: search_icon } %>
+    <%= form.text_field :misc, id: "adorn_lg", label: "Large input", placeholder: "Large input", adorn: { icon: search_icon, class: "form-control-lg" } %>
+  <% end %>
+<% end %>
+
+<h3>Chips</h3>
+
+<%= form_with_source do %>
+  <p class="form-text mb-3">
+    <code>bootstrap_form</code> has no chips helper yet: Bootstrap 6.0.0-alpha.1 chips have no form-submission
+    integration. This example is plain Bootstrap mark-up.
+  </p>
+  <div class="form-field mb-3">
+    <label class="form-label" for="chips_skills">Skills</label>
+    <div class="chip-input theme-primary" data-bs-chips>
+      <span class="chip">JavaScript</span>
+      <span class="chip">TypeScript</span>
+      <input type="text" class="form-ghost" id="chips_skills" placeholder="Add more…">
+    </div>
+    <div class="form-text">Press Enter or comma to add a skill.</div>
+  </div>
+  <div class="hstack gap-2 flex-wrap">
+    <span class="chip">Default</span>
+    <span class="chip theme-primary">Primary</span>
+    <span class="chip theme-success">Success</span>
+    <span class="chip theme-danger">Danger</span>
+    <span class="chip theme-primary active">Active</span>
+  </div>
+<% end %>
+
+<h3>Combobox</h3>
+
+<%= form_with_source do %>
+  <% countries = [["United States", "us"], ["Canada", "ca"], ["United Kingdom", "uk"], ["Germany", "de"], ["France", "fr"]] %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "combobox_form" } do |form| %>
+    <%= form.combobox :misc, [["Option one", 1], ["Option two", 2], ["Option three", 3]], id: "combobox_basic", label: "Basic combobox" %>
+    <%= form.combobox :misc, countries, id: "combobox_placeholder", label: "With placeholder", placeholder: "Select a country…" %>
+    <%= form.combobox :misc, countries, id: "combobox_selected", label: "Pre-selected value", selected: "ca" %>
+    <%= form.combobox :misc, countries, id: "combobox_search", label: "Searchable", placeholder: "Select a country…", search: true %>
+    <%= form.combobox :misc, countries, id: "combobox_multiple", label: "Multiple select", placeholder: "Select countries…", multiple: true, selected: %w[us ca] %>
+    <%= form.combobox :misc, countries, id: "combobox_multiple_search", label: "Multiple with search", placeholder: "Select countries…", multiple: true, search: "Search countries…" %>
+    <%= form.combobox :misc, countries, { id: "combobox_sm", label: "Small", placeholder: "Small" }, { class: "form-control-sm" } %>
+    <%= form.combobox :misc, countries, { id: "combobox_lg", label: "Large", placeholder: "Large" }, { class: "form-control-lg" } %>
+  <% end %>
+<% end %>
+
+<h3>Datepicker</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "datepicker_form" } do |form| %>
+    <%= form.datepicker_field :created_at, id: "datepicker_basic", label: "Datepicker field", placeholder: "Choose date…", class: "w-12", help: "Pick a single date." %>
+    <%= form.datepicker_field :created_at, id: "datepicker_icon", label: "With icon", placeholder: "Choose date…", adorn: { icon: tag.i(class: "bi bi-calendar-week"), class: "w-12" } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_min_max", label: "Min and max dates", placeholder: "Select a date in 2026", class: "w-12", datepicker: { date_min: Date.new(2026, 1, 1), date_max: Date.new(2026, 12, 31) } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_multiple", label: "Multiple dates", placeholder: "Select dates…", datepicker: { selection_mode: "multiple" } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_range", label: "Date range", datepicker: { selection_mode: "multiple-ranged", selected_dates: [Date.new(2026, 6, 10), Date.new(2026, 6, 18)] } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_two_months", label: "Multi-month date range", datepicker: { selection_mode: "multiple-ranged", display_months_count: 2, selected_dates: [Date.new(2026, 6, 25), Date.new(2026, 7, 8)] } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_weekday", label: "Week starts on Sunday", class: "w-12", datepicker: { first_weekday: 0 } %>
+    <div class="d-flex gap-3 mb-3">
+      <%= form.datepicker_field :created_at, id: "datepicker_left", label: "Left", datepicker: { placement: "left" } %>
+      <%= form.datepicker_field :created_at, id: "datepicker_center", label: "Center", datepicker: { placement: "center" } %>
+      <%= form.datepicker_field :created_at, id: "datepicker_right", label: "Right", datepicker: { placement: "right" } %>
+    </div>
+  <% end %>
+<% end %>
+
+<h3>OTP Input</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "otp_input_form" } do |form| %>
+    <%= form.otp_field :misc, id: "otp_basic", label: "Verification code", help: "Enter the 6-digit code sent to your phone." %>
+    <%= form.otp_field :misc, id: "otp_connected", label: "Connected inputs", otp: { class: "otp-connected" } %>
+    <%= form.otp_field :misc, id: "otp_pin", label: "Four-digit PIN", maxlength: 4, otp: { class: "otp-connected" } %>
+    <%= form.otp_field :misc, id: "otp_groups", label: "With separator", otp: { groups: [3, 3] } %>
+    <%= form.otp_field :misc, id: "otp_sm", label: "Small", otp: { class: "otp-sm" } %>
+    <%= form.otp_field :misc, id: "otp_lg", label: "Large", otp: { class: "otp-lg" } %>
+    <%= form.otp_field :misc, id: "otp_alphanumeric", label: "Alphanumeric", otp: { type: "alphanumeric", class: "otp-connected" } %>
+    <%= form.otp_field :misc, id: "otp_masked", label: "Masked", otp: { mask: true, class: "otp-connected" } %>
+    <%= form.otp_field :misc, id: "otp_disabled", label: "Disabled", disabled: true, otp: { class: "otp-connected" } %>
+  <% end %>
+<% end %>
+
+<h3>Password Strength</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "password_strength_form" } do |form| %>
+    <%= form.password_field :password, id: "strength_segmented", label: "Segmented meter", placeholder: "Enter password", strength: true %>
+    <%= form.password_field :password, id: "strength_text", label: "With text feedback", placeholder: "Enter password", strength: { text: true } %>
+    <%= form.password_field :password, id: "strength_bar", label: "Progress bar", placeholder: "Enter password", strength: { variant: :bar } %>
+    <%= form.password_field :password, id: "strength_min_length", label: "Minimum length of 12", placeholder: "Enter password", strength: { min_length: 12, text: true } %>
+  <% end %>
+<% end %>
+
+<h3>Layout</h3>
+
+<%= form_with_source do %>
+  <% states = [["Choose...", ""], ["California", "CA"], ["New York", "NY"]] %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "layout_form", class: "row g-3" } do |form| %>
+    <div class="md:col-6">
+      <%= form.email_field :email, id: "layout_email", label: "Email", wrapper_class: "form-field" %>
+    </div>
+    <div class="md:col-6">
+      <%= form.password_field :password, id: "layout_password", label: "Password", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-12">
+      <%= form.text_field :misc, id: "layout_address", label: "Address", placeholder: "1234 Main St", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-12">
+      <%= form.text_field :misc, id: "layout_address2", label: "Address 2", placeholder: "Apartment, studio, or floor", wrapper_class: "form-field" %>
+    </div>
+    <div class="md:col-6">
+      <%= form.text_field :misc, id: "layout_city", label: "City", wrapper_class: "form-field" %>
+    </div>
+    <div class="md:col-4">
+      <%= form.select :status, states, { label: "State", wrapper_class: "form-field" }, { id: "layout_state" } %>
+    </div>
+    <div class="md:col-2">
+      <%= form.text_field :misc, id: "layout_zip", label: "Zip", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-12">
+      <%= form.checkbox :terms, id: "layout_check", label: "Check me out", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-12">
+      <%= form.primary "Sign in" %>
+    </div>
+  <% end %>
+<% end %>
+
+<h3>Horizontal Label Sizing</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", layout: :horizontal, html: { id: "horizontal_label_sizing_form" } do |form| %>
+    <%= form.email_field :email, id: "label_sizing_sm", label: "Email", label_col: "sm:col-2 col-form-label-sm", class: "form-control-sm", placeholder: "col-form-label-sm" %>
+    <%= form.email_field :email, id: "label_sizing_md", label: "Email", placeholder: "col-form-label" %>
+    <%= form.email_field :email, id: "label_sizing_lg", label: "Email", label_col: "sm:col-2 col-form-label-lg", class: "form-control-lg", placeholder: "col-form-label-lg" %>
+  <% end %>
+<% end %>
+
+<h3>Column Sizing</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "column_sizing_form", class: "row g-3" } do |form| %>
+    <div class="sm:col-7">
+      <%= form.text_field :misc, id: "column_sizing_city", hide_label: true, label: "City", placeholder: "City", wrapper_class: "form-field" %>
+    </div>
+    <div class="sm:col">
+      <%= form.text_field :misc, id: "column_sizing_state", hide_label: true, label: "State", placeholder: "State", wrapper_class: "form-field" %>
+    </div>
+    <div class="sm:col">
+      <%= form.text_field :misc, id: "column_sizing_zip", hide_label: true, label: "Zip", placeholder: "Zip", wrapper_class: "form-field" %>
+    </div>
+  <% end %>
+<% end %>
+
+<h3>Auto Sizing</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "auto_sizing_form", class: "row gy-2 gx-3 align-items-center" } do |form| %>
+    <div class="col-auto">
+      <%= form.text_field :misc, id: "auto_sizing_name", hide_label: true, label: "Name", placeholder: "Jane Doe", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-auto">
+      <%= form.text_field :misc, id: "auto_sizing_username", hide_label: true, label: "Username", placeholder: "Username", prepend: "@", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-auto">
+      <%= form.select :status, [["One", 1], ["Two", 2], ["Three", 3]], { hide_label: true, label: "Preference", prompt: "Choose...", wrapper_class: "form-field" }, { id: "auto_sizing_select" } %>
+    </div>
+    <div class="col-auto">
+      <%= form.checkbox :terms, id: "auto_sizing_check", label: "Remember me", wrapper_class: "form-field" %>
+    </div>
+    <div class="col-auto">
+      <%= form.primary "Submit" %>
+    </div>
+  <% end %>
+<% end %>
+
+<h3>Client-side Validation</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", validate: true, html: { id: "client_side_validation_form", class: "vstack gap-3" } do |form| %>
+    <%= form.text_field :misc, id: "client_validation_name", label: "Name", value: "Mark Otto", required: true, wrapper_class: "form-field" %>
+    <%= form.email_field :email, id: "client_validation_email", label: "Email address", value: "", required: true, wrapper_class: "form-field" %>
+    <%= form.text_field :misc, id: "client_validation_username", label: "Username", prepend: "@", required: true, wrapper_class: "form-field" %>
+    <%= form.select :status, [["California", "CA"], ["New York", "NY"]], { label: "State", prompt: "Choose...", required: true, wrapper_class: "form-field" }, { id: "client_validation_state" } %>
+    <%= form.checkbox :terms, id: "client_validation_terms", label: "Agree to terms and conditions", required: true, wrapper_class: "form-field" %>
+    <%= form.checkbox :remember_me, id: "client_validation_switch", label: "Subscribe to the newsletter", switch: true, required: true, wrapper_class: "form-field" %>
+    <%= form.primary "Submit form", class: "btn-solid theme-primary align-self-start" %>
+  <% end %>
+<% end %>
+
+<h3>Server-side Validation States</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user_with_error, url: "/", html: { id: "server_side_validation_states_form" } do |form| %>
+    <%= form.text_field :email, id: "server_validation_text", label: "Text input" %>
+    <%= form.select :misc, @collection.map { |a| [a.street, a.id] }, { label: "Select" }, { id: "server_validation_select" } %>
+    <%= form.checkbox :preferences, id: "server_validation_check", label: "Checkbox" %>
+    <%= form.collection_radio_buttons :misc, @collection, :id, :street, id: "server_validation_radios", label: "Radios" %>
+    <%= form.checkbox :preferences, id: "server_validation_switch", label: "Switch", switch: true %>
+    <%= form.range_field :misc, id: "server_validation_range", label: "Range" %>
+    <%= form.text_field :email, id: "server_validation_floating", label: "Floating label", floating: true %>
+    <%= form.text_field :email, id: "server_validation_adorn", label: "Adorned input", adorn: { icon: tag.i(class: "bi bi-envelope") } %>
+    <%= form.text_field :email, id: "server_validation_input_group", label: "Input group", prepend: "@" %>
+    <%= form.file_field :misc, id: "server_validation_file", label: "File input" %>
+    <%= form.otp_field :misc, id: "server_validation_otp", label: "OTP input", value: "123", otp: { class: "otp-connected" } %>
+    <%= form.combobox :misc, @collection.map { |a| [a.street, a.id] }, id: "server_validation_combobox", label: "Combobox" %>
+    <%= form.datepicker_field :misc, id: "server_validation_datepicker", label: "Datepicker", value: "" %>
     <%= form.submit %>
   <% end %>
 <% end %>
