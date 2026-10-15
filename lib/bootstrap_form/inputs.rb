@@ -7,6 +7,7 @@ module BootstrapForm
     autoload :Base
     autoload :InputsCollection
     autoload :CheckBox
+    autoload :ChipInput
     autoload :CollectionCheckBoxes
     autoload :CollectionRadioButtons
     autoload :CollectionSelect

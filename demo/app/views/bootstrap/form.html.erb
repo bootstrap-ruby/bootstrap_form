@@ -336,26 +336,17 @@
 <h3>Chips</h3>
 
 <%= form_with_source do %>
-  <p class="form-text mb-3">
-    <code>bootstrap_form</code> has no chips helper yet: Bootstrap 6.0.0-alpha.1 chips have no form-submission
-    integration. This example is plain Bootstrap mark-up.
+  <%= bootstrap_form_for @user, url: "/", html: { id: "chips_form" } do |form| %>
+    <%= form.chip_input :preferences, id: "chips_skills", label: "Skills", values: %w[JavaScript TypeScript], placeholder: "Add more…", help: "Press Enter or comma to add a skill." %>
+    <%= form.chip_input :preferences, id: "chips_themed", label: "Themed chip input", values: %w[Approved Verified], placeholder: "Add status…", chips: { class: "theme-primary" } %>
+    <%= form.chip_input :preferences, id: "chips_empty", label: "Empty state", placeholder: "Type and press Enter", chips: { class: "theme-primary", max_chips: 3 } %>
+    <%= form.chip_input :preferences, id: "chips_not_dismissible", label: "Not dismissible", values: %w[Fixed Tags], chips: { dismissible: false, class: "theme-success" } %>
+    <%= form.chip_input :preferences, id: "chips_disabled", label: "Disabled", values: ["Read only"], placeholder: "Disabled…", disabled: true, chips: { class: "theme-primary" } %>
+  <% end %>
+  <p class="form-text mt-3">
+    Bootstrap 6.0.0-alpha.1 chips have no form-submission integration: read the values with the
+    <code>getValues()</code> JavaScript API, or copy them into a hidden field on <code>change.bs.chips</code>.
   </p>
-  <div class="form-field mb-3">
-    <label class="form-label" for="chips_skills">Skills</label>
-    <div class="chip-input theme-primary" data-bs-chips>
-      <span class="chip">JavaScript</span>
-      <span class="chip">TypeScript</span>
-      <input type="text" class="form-ghost" id="chips_skills" placeholder="Add more…">
-    </div>
-    <div class="form-text">Press Enter or comma to add a skill.</div>
-  </div>
-  <div class="hstack gap-2 flex-wrap">
-    <span class="chip">Default</span>
-    <span class="chip theme-primary">Primary</span>
-    <span class="chip theme-success">Success</span>
-    <span class="chip theme-danger">Danger</span>
-    <span class="chip theme-primary active">Active</span>
-  </div>
 <% end %>
 
 <h3>Combobox</h3>

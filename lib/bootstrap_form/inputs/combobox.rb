@@ -45,10 +45,6 @@ module BootstrapForm
         )
       end
 
-      def namespaced_id(id)
-        [@options[:namespace], id].compact.join("_")
-      end
-
       def combobox_choices(choices)
         Array(choices).map do |choice|
           choice.is_a?(Array) ? [choice.first.to_s, choice.last] : [choice.to_s, choice]

@@ -70,6 +70,12 @@ module BootstrapForm
         field
       end
 
+      # Rails prefixes the form namespace onto ids it generates; helpers that
+      # render an element themselves need to do the same.
+      def namespaced_id(id)
+        [@options[:namespace], id].compact.join("_")
+      end
+
       def warn_deprecated_layout_value(options)
         return unless options[:layout] == :default
 

@@ -678,7 +678,34 @@ Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or 
 
 **Caveat:** with `multiple: true`, Bootstrap submits the selected values as a single comma-separated string (e.g. `"1,3"`), not as a Rails-style array parameter. Split it in your controller: `params[:user][:skills].split(",")`.
 
-**A note on chips:** Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/) for tag-style input. As of 6.0.0-alpha1 chips have no form-submission integration (values must be read via its JavaScript API), and the combobox displays multiple selections as a count rather than chips, so `bootstrap_form` doesn't generate chip mark-up yet.
+## Chip Inputs
+
+Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/) for tag-style input. Use the `chip_input` helper to render one; the attribute's current value (an array, or a string split on the separator) is rendered as dismissible chips, followed by the `form-ghost` text input that adds more:
+
+```erb
+<%= f.chip_input :skills, placeholder: "Add a skill…" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_skills">Skills</label>
+  <div class="chip-input" data-bs-chips="">
+    <span class="chip" data-bs-chip-value="Ruby">Ruby<button aria-label="Remove" class="chip-dismiss" type="button"><!-- dismiss icon --></button></span>
+    <input class="form-ghost" id="user_skills" placeholder="Add a skill…" type="text">
+  </div>
+</div>
+```
+
+Configuration goes in the `chips` option and is rendered as `data-bs-*` attributes on the container; `class:` adds container classes such as a theme, and `values:` overrides the attribute value:
+
+```erb
+<%= f.chip_input :skills, values: %w[Ruby Rails],
+      chips: { class: "theme-primary", separator: ";", max_chips: 5, dismissible: false } %>
+```
+
+**Caveat:** as of Bootstrap 6.0.0-alpha.1 chips have no form-submission integration. Read the values with the component's `getValues()` JavaScript API, or listen for its `change.bs.chips` event and copy the values into a hidden field.
 
 ## Checkboxes and Radios
 

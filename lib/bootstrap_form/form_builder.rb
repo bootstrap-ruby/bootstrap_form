@@ -22,6 +22,7 @@ module BootstrapForm
 
     include BootstrapForm::Inputs::Base
     include BootstrapForm::Inputs::CheckBox
+    include BootstrapForm::Inputs::ChipInput
     include BootstrapForm::Inputs::CollectionCheckBoxes
     include BootstrapForm::Inputs::CollectionRadioButtons
     include BootstrapForm::Inputs::CollectionSelect
