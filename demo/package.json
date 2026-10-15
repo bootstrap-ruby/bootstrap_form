@@ -2,13 +2,14 @@
   "name": "demo",
   "private": true,
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
+    "@floating-ui/dom": "^1.7.6",
     "@rails/actiontext": "^8.1.0",
-    "bootstrap": "^5.3.2",
+    "bootstrap": "6.0.0-alpha.1",
     "bootstrap-icons": "^1.11.1",
     "esbuild": "^0.19.4",
-    "sass": "1.77.6",
-    "trix": "^2.0.7"
+    "sass": "^1.105.1",
+    "trix": "^2.0.7",
+    "vanilla-calendar-pro": "^3.4.0"
   },
   "version": "0.1.0",
   "scripts": {
