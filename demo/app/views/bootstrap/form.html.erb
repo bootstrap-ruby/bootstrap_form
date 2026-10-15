@@ -393,6 +393,10 @@
     <%= form.datepicker_field :created_at, id: "datepicker_range", label: "Date range", datepicker: { selection_mode: "multiple-ranged", selected_dates: [Date.new(2026, 6, 10), Date.new(2026, 6, 18)] } %>
     <%= form.datepicker_field :created_at, id: "datepicker_two_months", label: "Multi-month date range", datepicker: { selection_mode: "multiple-ranged", display_months_count: 2, selected_dates: [Date.new(2026, 6, 25), Date.new(2026, 7, 8)] } %>
     <%= form.datepicker_field :created_at, id: "datepicker_weekday", label: "Week starts on Sunday", class: "w-12", datepicker: { first_weekday: 0 } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_button", label: "Button trigger", button: { text: "Select date", icon: tag.i(class: "bi bi-calendar-week me-1") } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_button_range", label: "Button trigger with range", button: "Select dates", datepicker: { selection_mode: "multiple-ranged" } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_inline", label: "Inline", inline: true, value: Date.new(2026, 6, 10) %>
+    <%= form.datepicker_field :created_at, id: "datepicker_inline_range", label: "Inline range, two months", inline: true, datepicker: { selection_mode: "multiple-ranged", display_months_count: 2 } %>
     <div class="d-flex gap-3 mb-3">
       <%= form.datepicker_field :created_at, id: "datepicker_left", label: "Left", datepicker: { placement: "left" } %>
       <%= form.datepicker_field :created_at, id: "datepicker_center", label: "Center", datepicker: { placement: "center" } %>

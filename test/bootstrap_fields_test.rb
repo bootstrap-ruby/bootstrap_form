@@ -37,6 +37,34 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.datepicker_field(:misc)
   end
 
+  test "inline datepicker with a bound hidden input" do
+    @user.misc = Date.new(2026, 6, 10)
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <div data-bs-display-months-count="2" data-bs-inline="true" data-bs-selected-dates="[&quot;2026-06-10&quot;]" data-bs-toggle="datepicker">
+          <input id="user_misc" name="user[misc]" type="hidden" value="2026-06-10" />
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.datepicker_field(:misc, inline: true, datepicker: { display_months_count: 2 })
+  end
+
+  test "datepicker button trigger" do
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <button class="btn-outline theme-secondary" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker" id="user_misc" type="button">
+          <i class="bi bi-calendar"></i>
+          <span data-bs-datepicker-display="">Pick dates</span>
+        </button>
+      </div>
+    HTML
+    actual = @builder.datepicker_field(:misc, button: { text: "Pick dates", icon: '<i class="bi bi-calendar"></i>'.html_safe },
+                                              datepicker: { selection_mode: "multiple-ranged" })
+    assert_equivalent_html expected, actual
+  end
+
   test "datepicker fields render datepicker options as data attributes" do
     expected = <<~HTML
       <div class="form-field mb-3">

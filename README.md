@@ -1159,6 +1159,29 @@ This generates:
 
 Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` is set by default, as the Bootstrap documentation recommends; pass your own `autocomplete` option to override it.
 
+Pass `inline: true` for an always-visible calendar. It renders a `div` with a hidden input that Bootstrap keeps in sync, so the selected date(s) are submitted with the form; the attribute's current value is pre-selected:
+
+```erb
+<%= f.datepicker_field :joined_at, inline: true, datepicker: { selection_mode: "multiple-ranged" } %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <div data-bs-inline="true" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
+    <input id="user_joined_at" name="user[joined_at]" type="hidden">
+  </div>
+</div>
+```
+
+Pass `button: "Select date"` to render a button trigger instead of a text field (a hash `button: { text:, icon: }` adds HTML before the text, and `class:` replaces the default `btn-outline theme-secondary`). Bootstrap updates the button's text with the selection but submits no value, so use its `change.bs.datepicker` event or the `display_element` option if you need the date elsewhere:
+
+```erb
+<%= f.datepicker_field :joined_at, button: { text: "Select date", icon: calendar_icon } %>
+```
+
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
