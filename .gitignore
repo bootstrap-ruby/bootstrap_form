@@ -41,8 +41,6 @@ demo/public/assets
 
 # Ignore master key for decrypting credentials and more.
 demo/config/master.key
-demo/public/packs
-demo/public/packs-test
 demo/app/assets/builds/*
 !demo/app/assets/builds/.keep
 demo/node_modules
