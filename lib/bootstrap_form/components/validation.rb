@@ -61,14 +61,20 @@ module BootstrapForm
         error?(name) && inline_errors
       end
 
-      def generate_error(name, id)
+      def generate_error(name, id, feedback_id: nil)
         return unless inline_error?(name)
 
         help_text = get_error_messages(name)
         help_klass = "invalid-feedback"
         help_tag = :div
 
-        content_tag(help_tag, help_text, class: help_klass, id: aria_feedback_id(id:, name:))
+        content_tag(help_tag, help_text, class: help_klass, id: feedback_id || aria_feedback_id(id:, name:))
+      end
+
+      # The feedback id can be set explicitly, e.g. by a collection whose
+      # inputs share one feedback element named after the group's id.
+      def feedback_id(options, name)
+        options[:feedback_id] || aria_feedback_id(id: options[:id], name:)
       end
 
       def get_error_messages(name)

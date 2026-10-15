@@ -41,7 +41,7 @@ module BootstrapForm
       def check_box_content(name, options, checked_value, &)
         label = (check_box_label(name, options, checked_value, &) unless options[:skip_label])
         help = generate_help(name, options[:help])
-        error = (generate_error(name, options[:id]) if options[:error_message])
+        error = (generate_error(name, options[:id], feedback_id: options[:feedback_id]) if options[:error_message])
         if help || error
           tag.div(safe_join([label, help, error].compact), class: "form-field-content")
         else
@@ -50,12 +50,12 @@ module BootstrapForm
       end
 
       def check_box_options(name, options)
-        check_box_options = options.except(:class, :control_col, :error_message, :help, :hide_label,
+        check_box_options = options.except(:class, :control_col, :error_message, :feedback_id, :help, :hide_label,
                                            :inline, :label, :label_class, :label_col, :layout, :skip_label,
                                            :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
         check_box_options[:role] = check_box_options[:switch] = "switch" if options[:switch]
-        check_box_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name:) } if error?(name)
+        check_box_options[:aria] = { describedby: feedback_id(options, name) } if error?(name)
         check_box_options.merge!(required_field_options(options, name))
       end
 

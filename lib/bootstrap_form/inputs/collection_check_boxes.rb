@@ -9,7 +9,6 @@ module BootstrapForm
 
       included do
         def collection_check_boxes_with_bootstrap(*args)
-          args[4]&.delete(:id)
           html = inputs_collection(*args) do |name, value, options|
             options[:multiple] = true
             check_box(name, options, value, nil)

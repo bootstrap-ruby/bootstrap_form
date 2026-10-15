@@ -10,6 +10,8 @@ module BootstrapForm
       def inputs_collection(name, collection, value, text, options={}, &)
         options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
+        # The id names the group (its label and feedback), not each input.
+        options[:feedback_id] = aria_feedback_id(id: options[:id], name:) if options[:id]
 
         return group_inputs_collection(name, collection, value, text, options, &) if BootstrapForm.config.group_around_collections
 
@@ -43,7 +45,7 @@ module BootstrapForm
         obj.each { |inner_obj| input_options.merge!(inner_obj) if inner_obj.is_a?(Hash) } if obj.respond_to?(:each)
 
         input_options[:error_message] = index == collection.size - 1
-        input_options.except!(:class)
+        input_options.except!(:class, :id)
         input_options
       end
 

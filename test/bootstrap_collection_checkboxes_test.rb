@@ -32,6 +32,22 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
                                                                      label: "This is a checkbox collection", help: "With a help!")
   end
 
+  test "collection_check_boxes uses a specified id for the group" do
+    collection = [Address.new(id: 1, street: "Foobar")]
+    expected = <<~HTML
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="custom-id" class="form-group mb-3">
+        <div id="custom-id" class="form-label">Misc</div>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foobar</label>
+        </div>
+      </div>
+    HTML
+
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street, id: "custom-id")
+  end
+
   if Rails::VERSION::MAJOR >= 8
     test "collection_checkboxes renders the form_group correctly" do
       collection = [Address.new(id: 1, street: "Foobar")]
@@ -396,17 +412,17 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
-          <div id="user_misc" class="form-label">Misc</div>
+        <div role="group" aria-labelledby="custom-id" class="form-group mb-3">
+          <div id="custom-id" class="form-label">Misc</div>
           <div class="form-field">
-            <input class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foo</label>
           </div>
           <div class="form-field">
-            <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
             <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            <div class="invalid-feedback" id="custom-id_feedback">a box must be checked</div>
             </div>
           </div>
         </div>
@@ -477,17 +493,17 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
-          <div id="user_misc" class="form-label">Misc</div>
+        <div role="group" aria-labelledby="custom-id" class="form-group mb-3">
+          <div id="custom-id" class="form-label">Misc</div>
           <div class="form-field">
-            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1"> Foo</label>
           </div>
           <div class="form-field">
-            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
             <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
             </div>
           </div>
         </div>
@@ -896,16 +912,16 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label" for="custom-id">Misc</label>
           <div class="form-field">
-            <input class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foo</label>
           </div>
           <div class="form-field">
-            <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
             <div class="form-field-content">
             <label for="user_misc_2">Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            <div class="invalid-feedback" id="custom-id_feedback">a box must be checked</div>
             </div>
           </div>
         </div>
@@ -977,16 +993,16 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label" for="custom-id">Misc</label>
           <div class="form-field">
-            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1"> Foo</label>
           </div>
           <div class="form-field">
-            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
             <div class="form-field-content">
             <label for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
             </div>
           </div>
         </div>

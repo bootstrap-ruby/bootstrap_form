@@ -887,6 +887,7 @@ Collection methods accept these options:
 * `:label`: Customize the `form_group`'s label
 * `:hide_label`: Pass true to hide the `form_group`'s label
 * `:help`: Add a help span to the `form_group`
+* `:id`: Set the id of the group's label (and of the error feedback element), for example to keep ids unique when the same attribute appears twice on a page
 * Other options will be forwarded to the `radio_button`/`check_box` method
 
 
