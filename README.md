@@ -973,6 +973,23 @@ This generates:
 </div>
 ```
 
+Theme colors and the value bubble live on the `form-range` wrapper, so pass them in the `range` option: a string adds classes, and a hash can also enable Bootstrap's value bubble with `bubble: true`. Tick marks work as in plain HTML, through the input's `list` attribute and a `<datalist>`:
+
+```erb
+<%= f.range_field :excellence, range: { bubble: true, class: "theme-success" }, min: 0, max: 100, step: 25, list: "excellence_ticks" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_excellence">Excellence</label>
+  <div class="form-range theme-success" data-bs-bubble="">
+    <input class="form-range-input" id="user_excellence" list="excellence_ticks" max="100" min="0" name="user[excellence]" step="25" type="range">
+  </div>
+</div>
+```
+
 ## Static Controls
 
 You can create a static control like this:

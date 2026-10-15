@@ -14,7 +14,7 @@ module BootstrapForm
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
                 decorate_field(field_name, options) do
-                  send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :strength))
+                  send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :range, :strength))
                 end
               end
             end
@@ -64,10 +64,19 @@ module BootstrapForm
       # form-adorn wrappers, and the password strength meter.
       def decorate_field(field_name, options)
         field = yield
-        field = tag.div(field, class: "form-range") if field_name == :range_field
+        field = range_wrapper(field, options[:range]) if field_name == :range_field
         field = adorn_wrapper(field, options[:adorn]) if options[:adorn]
         field << strength_meter(options[:strength]) if options[:strength]
         field
+      end
+
+      # Bootstrap 6 wraps range inputs in a `form-range` div that carries the
+      # theme classes and the `data-bs-bubble` value bubble. `range: "theme-primary"`
+      # adds classes; `range: { bubble: true, class: "..." }` also enables the bubble.
+      def range_wrapper(field, range)
+        range = { class: range } unless range.is_a?(Hash)
+        data = { bs_bubble: "" } if range[:bubble]
+        tag.div(field, class: ["form-range", range[:class]].compact, data:, **range.except(:bubble, :class))
       end
 
       # Rails prefixes the form namespace onto ids it generates; helpers that

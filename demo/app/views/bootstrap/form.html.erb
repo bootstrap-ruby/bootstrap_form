@@ -249,7 +249,12 @@
 <%= form_with_source do %>
   <%= bootstrap_form_for @user, url: "/", html: { id: "range_form" } do |form| %>
     <%= form.range_field :misc, id: "range_default", label: "Example range" %>
+    <% %w[primary accent success danger warning info inverse secondary].each do |theme| %>
+      <%= form.range_field :misc, id: "range_#{theme}", label: "Example #{theme} range", range: "theme-#{theme}", value: 40 + 5 * theme.length %>
+    <% end %>
     <%= form.range_field :misc, id: "range_disabled", label: "Disabled range", disabled: true %>
+    <%= form.range_field :misc, id: "range_bubble", label: "Brightness (value bubble)", min: 0, max: 100, value: 60, range: { bubble: true } %>
+    <%= form.range_field :misc, id: "range_field", label: "Volume", range: { bubble: true }, help: "Adjust the volume level." %>
     <%= form.range_field :misc, id: "range_min_max", label: "Min and max", min: 0, max: 5 %>
     <%= form.range_field :misc, id: "range_steps", label: "Steps", min: 0, max: 5, step: 0.5 %>
     <%= form.range_field :misc, id: "range_ticks", label: "Tick marks", min: 0, max: 100, step: 25, value: 50, list: "range_ticks_list", help: "Ticks are rendered from the linked datalist." %>

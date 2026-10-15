@@ -270,6 +270,26 @@ class BootstrapFieldsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.range_field(:misc, min: 0, max: 80)
   end
 
+  test "range_field with wrapper classes and a value bubble" do
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <div class="form-range theme-success" data-bs-bubble="">
+          <input class="form-range-input" id="user_misc" list="ticks" name="user[misc]" type="range" />
+        </div>
+      </div>
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_misc">Misc</label>
+        <div class="form-range theme-danger">
+          <input class="form-range-input" id="user_misc" name="user[misc]" type="range" />
+        </div>
+      </div>
+    HTML
+    actual = @builder.range_field(:misc, range: { bubble: true, class: "theme-success" }, list: "ticks") +
+             @builder.range_field(:misc, range: "theme-danger")
+    assert_equivalent_html expected, actual
+  end
+
   test "search fields are wrapped correctly" do
     expected = <<~HTML
       <div class="form-field mb-3">
