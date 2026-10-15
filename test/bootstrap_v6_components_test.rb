@@ -161,4 +161,28 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     assert_equivalent_html expected,
                            @builder.check_box(:terms, label: "I agree to the terms", help: "Read them carefully.")
   end
+
+  test "password_field with a static strength level" do
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_password">Password</label>
+        <input class="form-control" id="user_password" name="user[password]" type="password" />
+        <div class="strength" data-bs-strength="good">
+          <div class="strength-segment active"></div>
+          <div class="strength-segment active"></div>
+          <div class="strength-segment active"></div>
+          <div class="strength-segment"></div>
+        </div>
+        <span class="strength-text">Good password</span>
+      </div>
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_password">Password</label>
+        <input class="form-control" id="user_password" name="user[password]" type="password" />
+        <div class="strength-bar" data-bs-strength="weak"></div>
+      </div>
+    HTML
+    actual = @builder.password_field(:password, help: false, strength: { level: :good, text: "Good password" }) +
+             @builder.password_field(:password, help: false, strength: { variant: :bar, level: :weak })
+    assert_equivalent_html expected, actual
+  end
 end

@@ -1247,6 +1247,12 @@ Pass a hash for the progress-bar variant, a minimum length, and a dynamic text m
 
 which renders `<div class="strength-bar" data-bs-strength data-bs-min-length="12"></div>` followed by `<span class="strength-text"></span>`.
 
+To render a meter at a fixed level without JavaScript, for example from a server-side check, pass `level:` (`weak`, `fair`, `good` or `strong`). The level goes in `data-bs-strength`, the matching number of segments get the `active` class, and `text:` can be a string to show alongside it:
+
+```erb
+<%= f.password_field :password, strength: { level: :good, text: "Good password" } %>
+```
+
 ## Submit Buttons
 
 The `btn-solid theme-secondary` CSS classes are automatically added to your submit

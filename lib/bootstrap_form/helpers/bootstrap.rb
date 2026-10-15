@@ -2,7 +2,7 @@
 
 module BootstrapForm
   module Helpers
-    module Bootstrap
+    module Bootstrap # rubocop:disable Metrics/ModuleLength
       include ActionView::Helpers::OutputSafetyHelper
 
       def alert_message(title, options={})
@@ -111,17 +111,33 @@ module BootstrapForm
         tag.div(content + field, class: classes)
       end
 
+      STRENGTH_LEVELS = %w[weak fair good strong].freeze
+
       # Bootstrap 6 password strength meter, rendered after a password field.
+      # With `level:` (weak, fair, good or strong) the meter is static,
+      # server-rendered mark-up that needs no JavaScript.
       def strength_meter(strength)
         strength = { variant: strength } unless strength.is_a?(Hash)
-        data = { bs_strength: "" }
+        level = strength[:level]&.to_s
+        data = { bs_strength: level || "" }
         data[:bs_min_length] = strength[:min_length] if strength[:min_length]
         meter = if strength[:variant].to_s == "bar"
                   tag.div(class: "strength-bar", data: data)
                 else
-                  tag.div(safe_join(Array.new(4) { tag.div(class: "strength-segment") }), class: "strength", data: data)
+                  tag.div(strength_segments(level), class: "strength", data: data)
                 end
-        strength[:text] ? meter + tag.span(class: "strength-text") : meter
+        meter + strength_text(strength[:text])
+      end
+
+      def strength_segments(level)
+        active = level ? STRENGTH_LEVELS.index(level).to_i + 1 : 0
+        safe_join(Array.new(4) { |i| tag.div(class: ["strength-segment", ("active" if i < active)].compact) })
+      end
+
+      def strength_text(text)
+        return ActiveSupport::SafeBuffer.new unless text
+
+        tag.span((text if text.is_a?(String)), class: "strength-text")
       end
 
       private

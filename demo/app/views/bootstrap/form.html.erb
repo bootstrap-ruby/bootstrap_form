@@ -429,6 +429,10 @@
     <%= form.password_field :password, id: "strength_text", label: "With text feedback", placeholder: "Enter password", strength: { text: true } %>
     <%= form.password_field :password, id: "strength_bar", label: "Progress bar", placeholder: "Enter password", strength: { variant: :bar } %>
     <%= form.password_field :password, id: "strength_min_length", label: "Minimum length of 12", placeholder: "Enter password", strength: { min_length: 12, text: true } %>
+    <% %w[weak fair good strong].each do |level| %>
+      <%= form.password_field :password, id: "strength_static_#{level}", label: "Static #{level}", value: "secret", strength: { level: level, text: level.capitalize } %>
+    <% end %>
+    <%= form.password_field :password, id: "strength_static_bar", label: "Static bar (strong)", value: "secret", strength: { variant: :bar, level: :strong } %>
   <% end %>
 <% end %>
 
