@@ -16,7 +16,9 @@ module BootstrapForm
           end
 
           if args.extract_options!.symbolize_keys!.delete(:include_hidden) { true }
-            html.prepend hidden_field(args.first, value: "", name: field_name(args[0], multiple: true))
+            # Like Rails, give the hidden field no id so it can't clash with the
+            # group's label id, which also derives from the field id.
+            html.prepend @template.hidden_field_tag(field_name(args[0], multiple: true), "", id: nil)
           end
           html
         end

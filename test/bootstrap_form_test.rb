@@ -995,7 +995,7 @@ class BootstrapFormTest < ActionView::TestCase
   test "namespaced form adds namespace to id and label and group for collection_checkboxes" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="name_space_user_misc" name="user[misc][]" type="hidden" value="" />
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div role="group" aria-labelledby="name_space_user_misc" class="form-group mb-3">
         <div id="name_space_user_misc" class="form-label">This is a checkbox collection</div>
         <div class="form-field">

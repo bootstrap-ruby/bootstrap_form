@@ -866,7 +866,7 @@ This generates:
     <label for="user_skill_level_2">Farming</label>
   </div>
 </div>
-<input id="user_skills" name="user[skills][]" type="hidden" value="">
+<input name="user[skills][]" type="hidden" value="">
 <div aria-labelledby="user_skills" class="form-group mb-3" role="group">
   <div class="form-label" id="user_skills">Skills</div>
   <div class="form-field">
@@ -1713,7 +1713,7 @@ Generated HTML:
       </div>
     </div>
   </div>
-  <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
+  <input name="user[preferences][]" type="hidden" value="">
   <div aria-labelledby="user_preferences" class="form-group mb-3" role="group">
     <div class="form-label" id="user_preferences">Preferences</div>
     <div class="form-field">
