@@ -228,8 +228,8 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
-        <input class="form-control" id="user_password" name="user[password]" type="password" />
-        <small class="form-text">A good password should be at least six characters long</small>
+        <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password" />
+        <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.password_field(:password)

@@ -391,10 +391,12 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_password">Password</label>
-  <input class="form-control" id="user_password" name="user[password]" type="password">
-  <small class="form-text">Must be at least 6 characters long</small>
+  <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
+  <small class="form-text" id="user_password_help">Must be at least 6 characters long</small>
 </div>
 ```
+
+The help text gets an id, and the control references it with `aria-describedby` (together with the id of any validation feedback), as the Bootstrap documentation recommends for assistive technology.
 
 This gem is also aware of help messages in locale translation files (i18n):
 

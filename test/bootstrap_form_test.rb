@@ -791,9 +791,9 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
+          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text">This is required</small>
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -815,10 +815,10 @@ class BootstrapFormTest < ActionView::TestCase
             <label class="form-label required" for="user_email">Email</label>
           </div>
           <div class="field_with_errors">
-            <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
+            <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text">This is required</small>
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -837,8 +837,8 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
-          <small class="form-text">This is required</small>
+          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -856,8 +856,8 @@ class BootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text">This is <strong>useful</strong> help</small>
+          <input aria-describedby="user_email_help" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text" id="user_email_help">This is <strong>useful</strong> help</small>
         </div>
       </form>
     HTML
@@ -999,10 +999,10 @@ class BootstrapFormTest < ActionView::TestCase
       <div role="group" aria-labelledby="name_space_user_misc" class="form-group mb-3">
         <div id="name_space_user_misc" class="form-label">This is a checkbox collection</div>
         <div class="form-field">
-          <input class="check" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <input aria-describedby="name_space_user_misc_help" class="check" id="name_space_user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="name_space_user_misc_1">Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="name_space_user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -1020,12 +1020,12 @@ class BootstrapFormTest < ActionView::TestCase
       <div role="group" aria-labelledby="name_space_user_misc" class="form-group mb-3">
         <div id="name_space_user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="name_space_user_misc_help" class="radio" id="name_space_user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="name_space_user_misc_1">
             Foobar
           </label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="name_space_user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -1699,9 +1699,9 @@ class LegacyBootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
+          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text">This is required</small>
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -1723,10 +1723,10 @@ class LegacyBootstrapFormTest < ActionView::TestCase
             <label class="form-label required" for="user_email">Email</label>
           </div>
           <div class="field_with_errors">
-            <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
+            <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
           </div>
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text">This is required</small>
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -1745,8 +1745,8 @@ class LegacyBootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_feedback" name="user[email]" type="text" />
-          <small class="form-text">This is required</small>
+          <input required="required" class="form-control is-invalid" id="user_email"  aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML
@@ -1764,8 +1764,8 @@ class LegacyBootstrapFormTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text">This is <strong>useful</strong> help</small>
+          <input aria-describedby="user_email_help" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text" id="user_email_help">This is <strong>useful</strong> help</small>
         </div>
       </form>
     HTML

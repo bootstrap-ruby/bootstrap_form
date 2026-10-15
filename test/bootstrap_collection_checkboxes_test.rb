@@ -21,10 +21,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a checkbox collection</div>
         <div class="form-field">
-          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -56,10 +56,10 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
         <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
           <div id="user_misc" class="form-label">This is a checkbox collection</div>
           <div class="form-field">
-            <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foobar</label>
           </div>
-          <small class="form-text">With a help!</small>
+          <small class="form-text" id="user_misc_help">With a help!</small>
         </div>
       HTML
 
@@ -536,10 +536,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a checkbox collection</label>
         <div class="form-field">
-          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -555,10 +555,10 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
         <div class="form-field mb-3">
           <label class="form-label" for="user_misc">This is a checkbox collection</label>
           <div class="form-field">
-            <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foobar</label>
           </div>
-          <small class="form-text">With a help!</small>
+          <small class="form-text" id="user_misc_help">With a help!</small>
         </div>
       HTML
 

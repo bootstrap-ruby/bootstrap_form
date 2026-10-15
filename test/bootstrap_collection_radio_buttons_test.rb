@@ -20,12 +20,12 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1">
             Foobar
           </label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -153,10 +153,10 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -171,10 +171,10 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -228,10 +228,10 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -246,10 +246,10 @@ class BootstrapCollectionRadioButtonsTest < ActionView::TestCase
       <div role="group" aria-labelledby="user_misc" class="form-group mb-3">
         <div id="user_misc" class="form-label">This is a radio button collection</div>
         <div class="form-field">
-          <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -316,12 +316,12 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1">
             Foobar
           </label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -449,10 +449,10 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -467,10 +467,10 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-field">
-          <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -524,10 +524,10 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-field">
-          <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -542,10 +542,10 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">This is a radio button collection</label>
         <div class="form-field">
-          <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
+          <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
         </div>
-        <small class="form-text">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 

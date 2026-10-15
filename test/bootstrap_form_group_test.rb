@@ -257,8 +257,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label required" for="user_email">Email</label>
-        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-        <small class="form-text">This is required</small>
+        <input aria-describedby="user_email_help" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+        <small class="form-text" id="user_email_help">This is required</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, help: "This is required")
@@ -269,8 +269,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <div class="mb-3 row">
         <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
         <div class="sm:col-10">
-          <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
-          <small class="form-text">This is required</small>
+          <input aria-describedby="user_email_help" required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </div>
     HTML
@@ -281,8 +281,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
-        <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
-        <small class="form-text">A good password should be at least six characters long</small>
+        <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
+        <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:password)
@@ -302,8 +302,8 @@ class BootstrapFormGroupTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
-        <input class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
-        <small class="form-text">A <strong>good</strong> password should be at least six characters long</small>
+        <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="text" value="secret" />
+        <small class="form-text" id="user_password_help">A <strong>good</strong> password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:password)
@@ -521,9 +521,9 @@ class BootstrapFormGroupTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="none-margin">
           <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_feedback" name="user[email]" type="text" />
+          <input required="required" class="form-control is-invalid" id="user_email" aria-describedby="user_email_help user_email_feedback" name="user[email]" type="text" />
           <div class="invalid-feedback" id="user_email_feedback">can't be blank, is too short (minimum is 5 characters)</div>
-          <small class="form-text">This is required</small>
+          <small class="form-text" id="user_email_help">This is required</small>
         </div>
       </form>
     HTML

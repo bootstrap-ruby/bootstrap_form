@@ -95,7 +95,7 @@ module BootstrapForm
         ) do
           group_label_div = generate_group_label_div(name, options)
           prepare_label_options(options[:id], name, options[:label], options[:label_col], options[:layout])
-          form_group_content(group_label_div, generate_help(name, options[:help]), options, &)
+          form_group_content(group_label_div, generate_help(name, options[:help], id: options[:id]), options, &)
         end
       end
 

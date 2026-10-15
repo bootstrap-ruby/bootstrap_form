@@ -40,7 +40,7 @@ module BootstrapForm
       # feedback in a `form-field-content` wrapper next to the control.
       def check_box_content(name, options, checked_value, &)
         label = (check_box_label(name, options, checked_value, &) unless options[:skip_label])
-        help = generate_help(name, options[:help])
+        help = generate_help(name, options[:help], id: options[:id])
         error = (generate_error(name, options[:id], feedback_id: options[:feedback_id]) if options[:error_message])
         if help || error
           tag.div(safe_join([label, help, error].compact), class: "form-field-content")
@@ -55,7 +55,9 @@ module BootstrapForm
                                            :switch, :wrapper, :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
         check_box_options[:role] = check_box_options[:switch] = "switch" if options[:switch]
-        check_box_options[:aria] = { describedby: feedback_id(options, name) } if error?(name)
+        if (describedby = aria_describedby(name, options))
+          check_box_options[:aria] = check_box_options[:aria].to_h.merge(describedby:)
+        end
         check_box_options.merge!(required_field_options(options, name))
       end
 

@@ -53,14 +53,14 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
-        <input class="form-control" id="user_password" name="user[password]" type="password" />
+        <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password" />
         <div class="strength" data-bs-strength="">
           <div class="strength-segment"></div>
           <div class="strength-segment"></div>
           <div class="strength-segment"></div>
           <div class="strength-segment"></div>
         </div>
-        <small class="form-text">A good password should be at least six characters long</small>
+        <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.password_field(:password, strength: true)
@@ -151,10 +151,10 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
-        <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <input aria-describedby="user_terms_help" class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <div class="form-field-content">
           <label for="user_terms">I agree to the terms</label>
-          <small class="form-text">Read them carefully.</small>
+          <small class="form-text" id="user_terms_help">Read them carefully.</small>
         </div>
       </div>
     HTML

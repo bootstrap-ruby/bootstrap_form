@@ -98,9 +98,9 @@ module BootstrapForm
       # Add control_class; allow it to be overridden by :control_class option
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = safe_join([control_classes, css_options[:class]].compact, " ")
-      if error?(method)
-        css_options[:class] << " is-invalid"
-        css_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name: method) }
+      css_options[:class] << " is-invalid" if error?(method)
+      if (describedby = aria_describedby(method, options))
+        css_options[:aria] = css_options[:aria].to_h.merge(describedby:)
       end
       css_options[:placeholder] = form_group_placeholder(options, method) if options[:label_as_placeholder]
       css_options

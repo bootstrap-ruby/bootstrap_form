@@ -145,7 +145,7 @@ class BootstrapComboboxTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="user_misc" type="button">
+        <button aria-describedby="user_misc_help" aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="user_misc" type="button">
           <span class="combobox-value combobox-placeholder"></span>
           #{CARET}
         </button>
@@ -153,7 +153,7 @@ class BootstrapComboboxTest < ActionView::TestCase
           <button class="menu-item" data-bs-value="Foo" type="button">Foo</button>
           <button class="menu-item" data-bs-value="Bar" type="button">Bar</button>
         </div>
-        <small class="form-text">Pick one</small>
+        <small class="form-text" id="user_misc_help">Pick one</small>
       </div>
     HTML
     assert_equivalent_html expected, @builder.combobox(:misc, %w[Foo Bar], help: "Pick one")

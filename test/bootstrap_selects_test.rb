@@ -69,11 +69,11 @@ class BootstrapSelectsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_status">My Status Label</label>
-        <select class="form-control" id="user_status" name="user[status]">
+        <select aria-describedby="user_status_help" class="form-control" id="user_status" name="user[status]">
           <option value="1">activated</option>
           <option value="2">blocked</option>
         </select>
-        <small class="form-text">Help!</small>
+        <small class="form-text" id="user_status_help">Help!</small>
       </div>
     HTML
     assert_equivalent_html expected,

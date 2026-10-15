@@ -27,7 +27,7 @@ module BootstrapForm
       # feedback in a `form-field-content` wrapper next to the control.
       def radio_button_content(name, value, options)
         label = (radio_button_label(name, value, options) unless options[:skip_label])
-        help = generate_help(name, options[:help])
+        help = generate_help(name, options[:help], id: options[:id])
         error = (generate_error(name, options[:id], feedback_id: options[:feedback_id]) if options[:error_message])
         if help || error
           tag.div(safe_join([label, help, error].compact), class: "form-field-content")
@@ -40,7 +40,9 @@ module BootstrapForm
         radio_button_options = options.except(:class, :label, :label_class, :error_message, :feedback_id, :help,
                                               :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
-        radio_button_options[:aria] = { describedby: feedback_id(options, name) } if error?(name)
+        if (describedby = aria_describedby(name, options))
+          radio_button_options[:aria] = radio_button_options[:aria].to_h.merge(describedby:)
+        end
         radio_button_options.merge!(required_field_options(options, name))
       end
 

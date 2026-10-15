@@ -13,7 +13,7 @@ module BootstrapForm
       tag.div(**options.except(:add_control_col_class, :append, :control_col, :floating, :help, :icon, :id,
                                :input_group_class, :label, :label_col, :layout, :prepend)) do
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout])
-        form_group_content(label, generate_help(name, options[:help]), options, &block)
+        form_group_content(label, generate_help(name, options[:help], id: options[:id]), options, &block)
       end
     end
 
