@@ -158,4 +158,38 @@ class BootstrapComboboxTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.combobox(:misc, %w[Foo Bar], help: "Pick one")
   end
+
+  test "combobox with groups, icons, descriptions, disabled items and a disabled toggle" do
+    icon = '<i class="bi bi-star"></i>'.html_safe
+    choices = {
+      "Frontend" => [["React", "react", { icon: icon, description: "UI library" }], ["Vue", "vue", { disabled: true }]],
+      "Backend" => { "Rails" => "rails" }
+    }
+    expected = <<~HTML
+      <div class="form-field mb-3">
+        <label class="form-label" for="user_status">Status</label>
+        <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-boundary="viewport" data-bs-name="user[status]" data-bs-offset="[0,4]" data-bs-placement="top-start" data-bs-search-normalize="true" data-bs-toggle="combobox" disabled="disabled" id="user_status" type="button">
+          <span class="combobox-value">Rails</span>
+          #{CARET}
+        </button>
+        <div class="menu">
+          <div class="menu-header">Frontend</div>
+          <button class="menu-item" data-bs-value="react" type="button">
+            <span aria-hidden="true" class="menu-item-icon"><i class="bi bi-star"></i></span>
+            <span class="menu-item-content"><span>React</span><small class="menu-item-description">UI library</small></span>
+            #{CHECK}
+          </button>
+          <button class="menu-item" data-bs-value="vue" disabled="disabled" type="button">Vue#{CHECK}</button>
+          <div class="menu-header">Backend</div>
+          <button aria-selected="true" class="menu-item selected" data-bs-value="rails" type="button">Rails#{CHECK}</button>
+        </div>
+      </div>
+    HTML
+    actual = @builder.combobox(:status, choices,
+                               { selected: "rails", check: true,
+                                 combobox: { placement: "top-start", offset: [0, 4], boundary: "viewport",
+                                             search_normalize: true } },
+                               { disabled: true })
+    assert_equivalent_html expected, actual
+  end
 end

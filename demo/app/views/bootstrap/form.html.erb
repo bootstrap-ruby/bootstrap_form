@@ -374,6 +374,11 @@
     <%= form.combobox :misc, countries, id: "combobox_multiple_search", label: "Multiple with search", placeholder: "Select countries…", multiple: true, search: "Search countries…" %>
     <%= form.combobox :misc, countries, { id: "combobox_sm", label: "Small", placeholder: "Small" }, { class: "form-control-sm" } %>
     <%= form.combobox :misc, countries, { id: "combobox_lg", label: "Large", placeholder: "Large" }, { class: "form-control-lg" } %>
+    <%= form.combobox :misc, countries, { id: "combobox_disabled", label: "Disabled toggle", placeholder: "Can't open this" }, { disabled: true } %>
+    <%= form.combobox :misc, [["Option one", 1], ["Option two (disabled)", 2, { disabled: true }], ["Option three", 3]], id: "combobox_disabled_item", label: "Disabled item", placeholder: "Select an item…" %>
+    <%= form.combobox :misc, { "Frontend" => %w[React Vue Svelte], "Backend" => %w[Rails Django Laravel] }, id: "combobox_groups", label: "Groups", placeholder: "Select a framework…" %>
+    <%= form.combobox :misc, [["Low", "low", { icon: tag.i(class: "bi bi-arrow-down"), description: "Can wait until next sprint" }], ["Medium", "medium", { icon: tag.i(class: "bi bi-dash"), description: "Address this week" }], ["High", "high", { icon: tag.i(class: "bi bi-arrow-up"), description: "Needs attention now" }]], id: "combobox_custom", label: "Custom content with check icons", placeholder: "Select a priority…", check: true, selected: "medium" %>
+    <%= form.combobox :misc, countries, id: "combobox_placement", label: "Placement, offset and accent-insensitive search", placeholder: "Opens above", search: true, combobox: { placement: "top-start", offset: [0, 8], search_normalize: true } %>
   <% end %>
 <% end %>
 

@@ -674,7 +674,16 @@ The current value of the attribute (or the `selected` option, which takes preced
       multiple: true, search: true, placeholder: "Select skills…" %>
 ```
 
-Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or a flat array of strings (used as both text and value).
+Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or a flat array of strings (used as both text and value). A hash whose values are lists of choices renders each key as a `menu-header` above its group. A `[text, value]` pair can carry a trailing hash of item options: `icon:` (HTML rendered in a `menu-item-icon`), `description:` (secondary text in a `menu-item-description`) and `disabled: true`. Pass `check: true` to add Bootstrap's check icon to the items of a single-select combobox (multi-select items always have it), and the fourth, `html_options` argument sets attributes on the toggle button, e.g. `disabled: true` or `class: "form-control-lg"`:
+
+```erb
+<%= f.combobox :priority,
+      { "Levels" => [["Low", 1, { description: "Can wait" }], ["High", 3, { icon: flag_icon, disabled: true }]] },
+      { check: true, combobox: { placement: "top-start", offset: [0, 4], search_normalize: true } },
+      { disabled: true } %>
+```
+
+The `combobox` option takes Bootstrap's remaining JavaScript options (`placement`, `offset`, `boundary`, `search_normalize`) and renders them as `data-bs-*` attributes; arrays are converted to JSON.
 
 **Caveat:** with `multiple: true`, Bootstrap submits the selected values as a single comma-separated string (e.g. `"1,3"`), not as a Rails-style array parameter. Split it in your controller: `params[:user][:skills].split(",")`.
 
