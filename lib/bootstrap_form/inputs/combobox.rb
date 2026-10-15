@@ -18,7 +18,11 @@ module BootstrapForm
         def combobox(name, choices=nil, options={}, html_options={})
           options = options.symbolize_keys
           html_options = html_options.symbolize_keys
-          html_options[:id] ||= options.delete(:id) || field_id(name)
+          # The label and feedback ids go through Rails, which prefixes any form
+          # namespace itself, so keep the id unprefixed here and prefix it only
+          # on the toggle button that this helper renders directly.
+          html_options[:id] ||= options.delete(:id) || field_id(name, namespace: nil)
+          options[:id] = html_options[:id]
           html_options = html_options.reverse_merge(control_class: "form-control combobox-toggle")
           choices = combobox_choices(choices)
 
@@ -41,6 +45,10 @@ module BootstrapForm
         )
       end
 
+      def namespaced_id(id)
+        [@options[:namespace], id].compact.join("_")
+      end
+
       def combobox_choices(choices)
         Array(choices).map do |choice|
           choice.is_a?(Array) ? [choice.first.to_s, choice.last] : [choice.to_s, choice]
@@ -56,7 +64,7 @@ module BootstrapForm
         tag.button(
           type: "button",
           class: html_options[:class],
-          id: html_options[:id],
+          id: namespaced_id(html_options[:id]),
           data: combobox_toggle_data(name, options).merge(html_options[:data].to_h),
           aria: { haspopup: "listbox", expanded: "false" }.merge(html_options[:aria].to_h)
         ) do

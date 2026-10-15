@@ -29,6 +29,39 @@ class BootstrapComboboxTest < ActionView::TestCase
                                              placeholder: "Select a status…")
   end
 
+  test "combobox ids match their label and feedback in a namespaced form" do
+    @user.errors.add(:status, "is invalid")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="ns_new_user" method="post">
+        <div class="form-field mb-3">
+          <label class="form-label" for="ns_user_status">Status</label>
+          <button aria-describedby="user_status_feedback" aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle is-invalid" data-bs-name="user[status]" data-bs-toggle="combobox" id="ns_user_status" type="button">
+            <span class="combobox-value combobox-placeholder"></span>
+            #{CARET}
+          </button>
+          <div class="menu">
+            <button class="menu-item" data-bs-value="1" type="button">activated</button>
+          </div>
+          <div class="invalid-feedback" id="user_status_feedback">is invalid</div>
+        </div>
+        <div class="form-field mb-3">
+          <label class="form-label" for="ns_custom">Misc</label>
+          <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="ns_custom" type="button">
+            <span class="combobox-value combobox-placeholder"></span>
+            #{CARET}
+          </button>
+          <div class="menu">
+            <button class="menu-item" data-bs-value="1" type="button">one</button>
+          </div>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user, namespace: "ns") do |f|
+      f.combobox(:status, [["activated", 1]]) + f.combobox(:misc, [["one", 1]], id: "custom")
+    end
+    assert_equivalent_html expected, actual
+  end
+
   test "combobox marks the selected choice and shows its label" do
     expected = <<~HTML
       <div class="form-field mb-3">
