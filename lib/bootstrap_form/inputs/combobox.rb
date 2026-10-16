@@ -73,7 +73,7 @@ module BootstrapForm
       end
 
       def combobox_selected_values(name, options)
-        selected = options.key?(:selected) ? options[:selected] : object&.send(name)
+        selected = options.key?(:selected) ? options[:selected] : object.try(name)
         Array(selected).map(&:to_s)
       end
 

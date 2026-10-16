@@ -170,8 +170,8 @@ This generates:
   </div>
   <div class="form-field mb-3">
     <label class="form-label" for="user_password">Password</label>
-    <input class="form-control" id="user_password" name="user[password]" type="password">
-    <small class="form-text">A good password should be at least six characters long</small>
+    <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
+    <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
   </div>
   <div class="form-field mb-3">
     <input name="user[remember_me]" type="hidden" value="0">
@@ -497,6 +497,7 @@ This generates:
 
 For a lighter-weight decoration than an input group, Bootstrap 6 offers [form-adorn](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/): an icon or text rendered inside the field's border. Use the `adorn` option:
 
+![Example 13](demo/doc/screenshots/bootstrap/readme/13_example.png "Example 13")
 ```erb
 <%= f.text_field :price, adorn: "$" %>
 ```
@@ -509,20 +510,43 @@ This generates:
   <label class="form-control form-adorn">
     <span aria-hidden="true" class="form-adorn-text">$</span>
     <input class="form-ghost" id="user_price" name="user[price]" type="text">
-  </div>
+  </label>
 </div>
 ```
 
 As in the Bootstrap documentation the wrapper is a `label`, so clicking the adornment focuses the input, and the adornment is `aria-hidden` because the field already has a label. Validation states are applied to the wrapper as well as the input. Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
 
+![Example 14](demo/doc/screenshots/bootstrap/readme/14_example.png "Example 14")
 ```erb
 <%= f.search_field :query, adorn: { icon: '<i class="bi bi-search"></i>'.html_safe } %>
 <%= f.text_field :username, adorn: { text: "@example.com", end: true, class: "form-control-lg form-adorn-lg" } %>
 ```
 
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_query">Query</label>
+  <label class="form-control form-adorn">
+    <div aria-hidden="true" class="form-adorn-icon">
+      <i class="bi bi-search">
+      </i>
+    </div>
+    <input class="form-ghost" id="user_query" name="user[query]" type="search">
+  </label>
+</div>
+<div class="form-field mb-3">
+  <label class="form-label" for="user_username">Username</label>
+  <label class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
+    <span aria-hidden="true" class="form-adorn-text">@example.com</span>
+    <input class="form-ghost" id="user_username" name="user[username]" type="text">
+  </label>
+</div>
+```
+
 To add a class to the input group wrapper, use the `:input_group_class` option.
 
-![Example 13](demo/doc/screenshots/bootstrap/readme/13_example.png "Example 13")
+![Example 15](demo/doc/screenshots/bootstrap/readme/15_example.png "Example 15")
 ```erb
 <%= f.email_field :email, append: f.primary('Subscribe'), input_group_class: 'input-group-lg' %>
 ```
@@ -545,7 +569,7 @@ Bootstrap mark-up dictates that most input field types have the label and input 
 
 If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'form-field mb-3 additional-class', data: { foo: 'bar' } }` option. Note that a custom class _replaces_ the default, so include `form-field` yourself if you want to keep Bootstrap's field layout.
 
-![Example 14](demo/doc/screenshots/bootstrap/readme/14_example.png "Example 14")
+![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
 ```erb
 <%= f.text_field :name, wrapper: { class: 'form-field mb-3 has-warning', data: { foo: 'bar' } } %>
 ```
@@ -561,7 +585,7 @@ This generates:
 
 Which produces the following output:
 
-![Example 15](demo/doc/screenshots/bootstrap/readme/15_example.png "Example 15")
+![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
 ```erb
 <div class="form-field mb-3 has-warning" data-foo="bar">
   <label class="form-label form-control-label" for="user_name">Id</label>
@@ -583,7 +607,7 @@ It's just a short form of `wrapper: { class: 'form-field mb-3 additional-class' 
 
 If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
-![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
+![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
 ```erb
 <%= f.text_field :name, wrapper: { class: false } %>
 ```
@@ -601,7 +625,7 @@ This generates:
 
 You may want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
 
-![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
+![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
 ```erb
 <%= f.form_group :user do %>
   <%= f.email_field :email, wrapper: false %>
@@ -622,7 +646,7 @@ Note that Bootstrap relies on the form group div to correctly format most fields
 
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
 
-![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
+![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
 ```erb
 <%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
 ```
@@ -643,6 +667,7 @@ This generates:
 
 Bootstrap 6 introduces a native [combobox component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/combobox/): a select-like control with optional search and multiple selection. It replaces third-party select plugins (such as `use-bootstrap-select` or `bootstrap-select`) with plain Bootstrap. Use the `combobox` helper to generate one:
 
+![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
 ```erb
 <%= f.combobox :status, [["activated", 1], ["blocked", 2]], placeholder: "Select a status…" %>
 ```
@@ -652,11 +677,13 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_status">Status</label>
-  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle"
-          data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox"
-          id="user_status" type="button">
+  <input name="user[status]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox" id="user_status" type="button">
     <span class="combobox-value combobox-placeholder">Select a status…</span>
-    <svg class="combobox-caret"><!-- caret --></svg>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
   </button>
   <div class="menu">
     <button class="menu-item" data-bs-value="1" type="button">activated</button>
@@ -669,18 +696,91 @@ Bootstrap's JavaScript creates a hidden `<input name="user[status]">` for form s
 
 The current value of the attribute (or the `selected` option, which takes precedence) is marked with `aria-selected` and shown in the toggle. Pass `multiple: true` for multi-select and `search: true` for a search input that filters the options (pass a string instead of `true` to customize the search placeholder):
 
+![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
 ```erb
 <%= f.combobox :skills, Skill.all.map { |s| [s.name, s.id] },
       multiple: true, search: true, placeholder: "Select skills…" %>
 ```
 
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_skills">Skills</label>
+  <input name="user[skills]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-multiple="true" data-bs-name="user[skills]" data-bs-placeholder="Select skills…" data-bs-search="true" data-bs-toggle="combobox" id="user_skills" type="button">
+    <span class="combobox-value combobox-placeholder">Select skills…</span>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
+  </button>
+  <div class="menu">
+    <div class="combobox-search">
+      <input aria-label="Search…" autocomplete="off" class="form-control combobox-search-input" placeholder="Search…" type="text">
+    </div>
+    <button class="menu-item" data-bs-value="1" type="button">Mind reading<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <button class="menu-item" data-bs-value="2" type="button">Farming<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <div class="combobox-no-results d-none">No results found</div>
+  </div>
+</div>
+```
+
 Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or a flat array of strings (used as both text and value). A hash whose values are lists of choices renders each key as a `menu-header` above its group. A `[text, value]` pair can carry a trailing hash of item options: `icon:` (HTML rendered in a `menu-item-icon`), `description:` (secondary text in a `menu-item-description`) and `disabled: true`. Pass `check: true` to add Bootstrap's check icon to the items of a single-select combobox (multi-select items always have it), and the fourth, `html_options` argument sets attributes on the toggle button, e.g. `disabled: true` or `class: "form-control-lg"`:
 
+![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
 ```erb
 <%= f.combobox :priority,
-      { "Levels" => [["Low", 1, { description: "Can wait" }], ["High", 3, { icon: flag_icon, disabled: true }]] },
+      { "Levels" => [["Low", 1, { description: "Can wait" }], ["High", 3, { icon: '<i class="bi bi-flag"></i>'.html_safe, disabled: true }]] },
       { check: true, combobox: { placement: "top-start", offset: [0, 4], search_normalize: true } },
       { disabled: true } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_priority">Priority</label>
+  <input name="user[priority]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[priority]" data-bs-offset="[0,4]" data-bs-placement="top-start" data-bs-search-normalize="true" data-bs-toggle="combobox" disabled id="user_priority" type="button">
+    <span class="combobox-value combobox-placeholder">
+    </span>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
+  </button>
+  <div class="menu">
+    <div class="menu-header">Levels</div>
+    <button class="menu-item" data-bs-value="1" type="button">
+      <span class="menu-item-content">
+        <span>Low</span>
+        <small class="menu-item-description">Can wait</small>
+      </span>
+      <svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <button class="menu-item" data-bs-value="3" disabled type="button">
+      <span aria-hidden="true" class="menu-item-icon">
+        <i class="bi bi-flag">
+        </i>
+      </span>High<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+  </div>
+</div>
 ```
 
 The `combobox` option takes Bootstrap's remaining JavaScript options (`placement`, `offset`, `boundary`, `search_normalize`) and renders them as `data-bs-*` attributes; arrays are converted to JSON.
@@ -691,6 +791,7 @@ The `combobox` option takes Bootstrap's remaining JavaScript options (`placement
 
 Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/) for tag-style input. Use the `chip_input` helper to render one; the attribute's current value (an array, or a string split on the separator) is rendered as dismissible chips, followed by the `form-ghost` text input that adds more:
 
+![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
 ```erb
 <%= f.chip_input :skills, placeholder: "Add a skill…" %>
 ```
@@ -701,7 +802,6 @@ This generates:
 <div class="form-field mb-3">
   <label class="form-label" for="user_skills">Skills</label>
   <div class="chip-input" data-bs-chips="">
-    <span class="chip" data-bs-chip-value="Ruby">Ruby<button aria-label="Remove" class="chip-dismiss" type="button"><!-- dismiss icon --></button></span>
     <input class="form-ghost" id="user_skills" placeholder="Add a skill…" type="text">
   </div>
 </div>
@@ -709,9 +809,23 @@ This generates:
 
 Configuration goes in the `chips` option and is rendered as `data-bs-*` attributes on the container; `class:` adds container classes such as a theme, and `values:` overrides the attribute value:
 
+![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
 ```erb
 <%= f.chip_input :skills, values: %w[Ruby Rails],
       chips: { class: "theme-primary", separator: ";", max_chips: 5, dismissible: false } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_skills">Skills</label>
+  <div class="chip-input theme-primary" data-bs-chips="" data-bs-dismissible="false" data-bs-max-chips="5" data-bs-separator=";">
+    <span class="chip" data-bs-chip-value="Ruby" tabindex="0">Ruby</span>
+    <span class="chip" data-bs-chip-value="Rails" tabindex="0">Rails</span>
+    <input class="form-ghost" id="user_skills" type="text">
+  </div>
+</div>
 ```
 
 **Caveat:** as of Bootstrap 6.0.0-alpha.1 chips have no form-submission integration. Read the values with the component's `getValues()` JavaScript API, or listen for its `change.bs.chips` event and copy the values into a hidden field.
@@ -722,7 +836,7 @@ Checkboxes and radios should be placed inside of a `form_group` to render
 properly. The following example ensures that the entire form group will display
 an error if an associated validations fails:
 
-![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
+![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" }, help: "Optional Help Text" do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", checked: true %>
@@ -752,7 +866,7 @@ This generates:
     <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
     <label for="user_skill_level_2">Advanced</label>
   </div>
-  <small class="form-text">Optional Help Text</small>
+  <small class="form-text" id="user_skill_level_help">Optional Help Text</small>
 </div>
 <div class="form-field mb-3">
   <div class="form-field mb-3">
@@ -765,7 +879,7 @@ This generates:
 
 You can also create a checkbox using a block:
 
-![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
+![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
 ```erb
 <%= f.form_group :terms, label: { text: "Optional Label" } do %>
   <%= f.check_box :terms do %>
@@ -791,7 +905,7 @@ This generates:
 
 To display checkboxes and radios inline, pass the `inline: true` option:
 
-![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
+![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" } do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", inline: true %>
@@ -822,6 +936,7 @@ This generates:
 
 Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), which highlights the whole field when its control is checked. Combined with `help`, that gives the "group cards" from the Bootstrap documentation:
 
+![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
 ```erb
 <%= f.form_group :plan, label: { text: "Select a plan" }, class: "form-group mb-3" do %>
   <div class="vstack gap-1">
@@ -831,9 +946,33 @@ Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), wh
 <% end %>
 ```
 
+Generated HTML:
+
+```html
+<div class="form-group mb-3">
+  <label class="form-label">Select a plan</label>
+  <div class="vstack gap-1">
+    <div class="form-field form-field-card">
+      <input aria-describedby="user_plan_help" checked class="radio" id="user_plan_basic" name="user[plan]" type="radio" value="basic">
+      <div class="form-field-content">
+        <label for="user_plan_basic">Basic</label>
+        <small class="form-text" id="user_plan_help">$9/month — For individuals.</small>
+      </div>
+    </div>
+    <div class="form-field form-field-card">
+      <input aria-describedby="user_plan_help" class="radio" id="user_plan_pro" name="user[plan]" type="radio" value="pro">
+      <div class="form-field-content">
+        <label for="user_plan_pro">Pro</label>
+        <small class="form-text" id="user_plan_help">$29/month — For teams.</small>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
 Check boxes and radio buttons are wrapped in a `div.form-field`. You can add classes to this `div` with the `:wrapper_class` option:
 
-![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
+![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
@@ -849,7 +988,7 @@ This generates:
 
 You can also add a style to the tag using the `wrapper` option:
 
-![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
+![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
 ```erb
 <%= f.check_box :skilled, inline: true, wrapper: {style: "color: green"} %>
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper: {class: 'w-auto', style: "color: red"} %>
@@ -873,7 +1012,7 @@ This generates:
 
 To render checkboxes as switches, use `switch: true`:
 
-![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
+![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
 ```erb
 <%= f.check_box :remember_me, switch: true %>
 ```
@@ -892,9 +1031,29 @@ This generates:
 
 Theme colors, sizes and other switch styling belong on the `switch` wrapper rather than the input, so pass them in the `switch` option: a string adds classes, and a hash sets any attributes:
 
+![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
 ```erb
 <%= f.check_box :remember_me, switch: "theme-success switch-lg" %>
 <%= f.check_box :remember_me, switch: { style: "--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <div class="switch theme-success switch-lg">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
+</div>
+<div class="form-field mb-3">
+  <div class="switch" style="--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
+</div>
 ```
 
 ### Collections
@@ -902,7 +1061,7 @@ Theme colors, sizes and other switch styling belong on the `switch` wrapper rath
 `bootstrap_form` also provides helpers that automatically create the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
-![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
+![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
 ```erb
 <%= f.collection_radio_buttons :skill_level, Skill.all, :id, :name %>
 <%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
@@ -949,7 +1108,7 @@ Collection methods accept these options:
 
 To add `data-` attributes to a collection of radio buttons, map your models to an array and add a hash:
 
-![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
+![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
 ```erb
 <%# Use the :first and :second elements of the array to be the value and label respectively %>
 <%- choices = @collection.map { |addr| [ addr.id, addr.street, { 'data-zip-code':  addr.zip_code } ] } -%>
@@ -977,7 +1136,7 @@ This generates:
 
 You can create a range control like this:
 
-![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
+![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
 ```erb
 <%= f.range_field :excellence %>
 ```
@@ -987,7 +1146,7 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_excellence">Excellence</label>
-  <div class="form-range">
+  <div class="form-range" style="--bs-range-fill: 0.5;">
     <input class="form-range-input" id="user_excellence" name="user[excellence]" type="range">
   </div>
 </div>
@@ -995,6 +1154,7 @@ This generates:
 
 Theme colors and the value bubble live on the `form-range` wrapper, so pass them in the `range` option: a string adds classes, and a hash can also enable Bootstrap's value bubble with `bubble: true`. Tick marks work as in plain HTML, through the input's `list` attribute and a `<datalist>`:
 
+![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
 ```erb
 <%= f.range_field :excellence, range: { bubble: true, class: "theme-success" }, min: 0, max: 100, step: 25, list: "excellence_ticks" %>
 ```
@@ -1004,8 +1164,13 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_excellence">Excellence</label>
-  <div class="form-range theme-success" data-bs-bubble="">
+  <div class="form-range theme-success" data-bs-bubble="" style="--bs-range-fill: 0.5;">
     <input class="form-range-input" id="user_excellence" list="excellence_ticks" max="100" min="0" name="user[excellence]" step="25" type="range">
+    <output aria-hidden="true" class="form-range-bubble tooltip bs-tooltip-top show">
+      <div class="tooltip-arrow">
+      </div>
+      <div class="tooltip-inner">50</div>
+    </output>
   </div>
 </div>
 ```
@@ -1014,7 +1179,7 @@ This generates:
 
 You can create a static control like this:
 
-![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
+![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
 ```erb
 <%= f.static_control :email %>
 ```
@@ -1030,7 +1195,7 @@ This generates:
 
 Here's the output for a horizontal layout:
 
-![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
+![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.static_control :email %>
@@ -1052,7 +1217,7 @@ This generates:
 
 You can also create a static control that isn't based on a model attribute:
 
-![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
+![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
 ```erb
 <%= f.static_control :field_name, label: "Custom Static Control", value: "Content Here" %>
 ```
@@ -1070,7 +1235,7 @@ This generates:
 
 You can also create the static control the following way, if you don't need to get the value of the static control as a parameter when the form is submitted:
 
-![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
+![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
 ```erb
 <%= f.static_control label: "Custom Static Control", value: "Content Here", name: nil %>
 ```
@@ -1095,7 +1260,7 @@ Passing a block to `static_control` no longer has any effect.
 
 You can create a date picker, time picker, or date-time picker with `date_field`, `time_field`, or `datetime_field`, like this:
 
-![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
+![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
 ```erb
 <%= f.date_field :joined_at, class: "w-auto" %>
 ```
@@ -1115,6 +1280,7 @@ For backwards compatibility, there are also helpers for `date_select`, `time_sel
 
 Bootstrap 6 ships its own [datepicker component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/datepicker/), based on a text field activated with `data-bs-toggle="datepicker"`. Use the `datepicker_field` helper to generate one:
 
+![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
 ```erb
 <%= f.datepicker_field :joined_at %>
 ```
@@ -1130,6 +1296,7 @@ This generates:
 
 Pass datepicker configuration in the `datepicker` option. Each key is rendered as a `data-bs-*` attribute, so all of Bootstrap's documented datepicker options are available. `Date` (and other `iso8601`-capable) values are converted to `YYYY-MM-DD`, and arrays are converted to JSON:
 
+![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
 ```erb
 <%= f.datepicker_field :vacation,
       datepicker: {
@@ -1145,14 +1312,13 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_vacation">Vacation</label>
-  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
-         data-bs-selection-mode="multiple-ranged" data-bs-date-min="2026-07-02" data-bs-date-max="2027-07-02"
-         data-bs-display-months-count="2" id="user_vacation" name="user[vacation]" type="text">
+  <input autocomplete="off" class="form-control" data-bs-date-max="2027-10-16" data-bs-date-min="2026-10-16" data-bs-display-months-count="2" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker" id="user_vacation" name="user[vacation]" type="text">
 </div>
 ```
 
 To pre-select dates, pass an array in the `selected_dates` option. It's rendered as a JSON array in the `data-bs-selected-dates` attribute, and `Date` values are converted to ISO 8601 strings:
 
+![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
 ```erb
 <%= f.datepicker_field :misc, datepicker: { selected_dates: [Date.new(2026, 7, 2), "2026-07-04"] } %>
 ```
@@ -1162,9 +1328,7 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_misc">Misc</label>
-  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker"
-         data-bs-selected-dates="[&quot;2026-07-02&quot;,&quot;2026-07-04&quot;]"
-         id="user_misc" name="user[misc]" type="text">
+  <input aria-haspopup="dialog" autocomplete="off" class="form-control" data-bs-selected-dates='["2026-07-02","2026-07-04"]' data-bs-toggle="datepicker" id="user_misc" name="user[misc]" type="text">
 </div>
 ```
 
@@ -1172,6 +1336,7 @@ Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` i
 
 Pass `inline: true` for an always-visible calendar. It renders a `div` with a hidden input that Bootstrap keeps in sync, so the selected date(s) are submitted with the form; the attribute's current value is pre-selected. The calendar itself is mounted on a child element (via `data-bs-position-element`) so that rendering it leaves the hidden input in place:
 
+![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
 ```erb
 <%= f.datepicker_field :joined_at, inline: true, datepicker: { selection_mode: "multiple-ranged" } %>
 ```
@@ -1183,15 +1348,167 @@ This generates:
   <label class="form-label" for="user_joined_at">Joined at</label>
   <div data-bs-inline="true" data-bs-position-element="#user_joined_at_calendar" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
     <input id="user_joined_at" name="user[joined_at]" type="hidden">
-    <div id="user_joined_at_calendar"></div>
+    <div aria-label="Calendar" class="vc" data-vc="calendar" data-vc-theme="dark" data-vc-type="default" id="user_joined_at_calendar" role="group" tabindex="-1">  
+      <div aria-label="Calendar Navigation" class="vc-header" data-vc="header" role="group">    <button aria-label="Previous month" class="vc-arrow vc-arrow_prev" data-vc-arrow="prev" type="button">
+        </button>    
+        <div aria-atomic="true" aria-live="polite" class="vc-header__content" data-vc-header="content">      <button aria-label="Select month, current selected month: October" class="vc-month" data-vc="month" data-vc-month="9" type="button">October</button>      <button aria-label="Select year, current selected year: 2026" class="vc-year" data-vc="year" data-vc-year="2026" type="button">2026</button>    </div>
+    <button aria-label="Next month" class="vc-arrow vc-arrow_next" data-vc-arrow="next" type="button">
+        </button>  </div>
+  
+      <div class="vc-wrapper" data-vc="wrapper">        
+        <div aria-multiselectable="true" class="vc-content" data-vc="content" role="grid">      
+          <div aria-label="Days of the week" class="vc-week" data-vc="week" role="row">
+            <b aria-label="Monday" class="vc-week__day" data-vc-week-day="1" role="columnheader">Mon</b>
+            <b aria-label="Tuesday" class="vc-week__day" data-vc-week-day="2" role="columnheader">Tue</b>
+            <b aria-label="Wednesday" class="vc-week__day" data-vc-week-day="3" role="columnheader">Wed</b>
+            <b aria-label="Thursday" class="vc-week__day" data-vc-week-day="4" role="columnheader">Thu</b>
+            <b aria-label="Friday" class="vc-week__day" data-vc-week-day="5" role="columnheader">Fri</b>
+            <b aria-label="Saturday" class="vc-week__day" data-vc-week-day="6" data-vc-week-day-off="" role="columnheader">Sat</b>
+            <b aria-label="Sunday" class="vc-week__day" data-vc-week-day="0" data-vc-week-day-off="" role="columnheader">Sun</b>
+          </div>
+      
+          <div aria-label="Dates in the current month" class="vc-dates" data-vc="dates" role="rowgroup">
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-09-28" data-vc-date-month="prev" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="September 28, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">28</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-09-29" data-vc-date-month="prev" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="September 29, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">29</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-09-30" data-vc-date-month="prev" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="September 30, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">30</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-01" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 1, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">1</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-02" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 2, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">2</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-03" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 3, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">3</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-04" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 4, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">4</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-05" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 5, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">5</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-06" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 6, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">6</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-07" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 7, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">7</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-08" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 8, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">8</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-09" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 9, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">9</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-10" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 10, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">10</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-11" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 11, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">11</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-12" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 12, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">12</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-13" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 13, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">13</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-14" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 14, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">14</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-15" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 15, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">15</button>
+              </div>
+              <div aria-current="date" class="vc-date" data-vc-date="2026-10-16" data-vc-date-month="current" data-vc-date-today="" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 16, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="0" type="button">16</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-17" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 17, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">17</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-18" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 18, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">18</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-19" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 19, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">19</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-20" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 20, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">20</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-21" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 21, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">21</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-22" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 22, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">22</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-23" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 23, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">23</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-24" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 24, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">24</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-25" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 25, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">25</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-26" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 26, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">26</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-27" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 27, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">27</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-28" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 28, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">28</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-29" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 29, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">29</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-30" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 30, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">30</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-31" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 31, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">31</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-11-01" data-vc-date-month="next" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="November 1, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">1</button>
+              </div>
+            </div>
+          </div>
+          </div>
+  </div>
+    </div>
   </div>
 </div>
 ```
 
 Pass `button: "Select date"` to render a button trigger instead of a text field (a hash `button: { text:, icon: }` adds HTML before the text, and `class:` replaces the default `btn-outline theme-secondary`). Bootstrap updates the button's text with the selection but submits no value, so use its `change.bs.datepicker` event or the `display_element` option if you need the date elsewhere:
 
+![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
 ```erb
-<%= f.datepicker_field :joined_at, button: { text: "Select date", icon: calendar_icon } %>
+<%= f.datepicker_field :joined_at, button: { text: "Select date", icon: '<i class="bi bi-calendar-week"></i>'.html_safe } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <button class="btn-outline theme-secondary" data-bs-toggle="datepicker" id="user_joined_at" type="button">
+    <i class="bi bi-calendar-week">
+    </i>
+    <span data-bs-datepicker-display="">Select date</span>
+  </button>
+</div>
 ```
 
 The multiple selects that the date and time helpers (`date_select`,
@@ -1204,6 +1521,7 @@ this by defining these selects as `inline-block` and a width of `auto`.
 
 Bootstrap 6 ships an [OTP input](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/) for one-time codes: a single real text input that Bootstrap's JavaScript renders as separate digit slots. Use the `otp_field` helper:
 
+![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
 ```erb
 <%= f.otp_field :verification_code %>
 ```
@@ -1213,17 +1531,62 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_verification_code">Verification code</label>
-  <div class="otp" data-bs-otp="">
-    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" maxlength="6" name="user[verification_code]" type="text">
+  <div class="otp otp-rendered" data-bs-otp="">
+    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="6" name="user[verification_code]" pattern="[0-9]*" type="text">
+    <div aria-hidden="true" class="otp-slots">
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+    </div>
   </div>
 </div>
 ```
 
 The number of slots comes from `maxlength` (default 6). Configuration goes in the `otp` option and is rendered as `data-bs-*` attributes on the container — arrays are converted to JSON, and `class:` adds container classes such as `otp-connected`, `otp-sm`, or `otp-lg`:
 
+![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
 ```erb
 <%= f.otp_field :verification_code, maxlength: 8,
       otp: { type: :numeric, groups: [4, 4], separator: "-", class: "otp-connected" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_verification_code">Verification code</label>
+  <div class="otp otp-connected otp-rendered" data-bs-groups="[4,4]" data-bs-otp="" data-bs-separator="-" data-bs-type="numeric">
+    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="8" name="user[verification_code]" pattern="[0-9]*" type="text">
+    <div aria-hidden="true" class="otp-slots">
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-separator">-</div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+    </div>
+  </div>
+</div>
 ```
 
 When the attribute has a validation error, `is-invalid` is applied to the `.otp` container (as Bootstrap expects) as well as the input, and the usual `invalid-feedback` follows.
@@ -1232,6 +1595,7 @@ When the attribute has a validation error, `is-invalid` is applied to the `.otp`
 
 Bootstrap 6's [password strength](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/password-strength/) component evaluates a password as the user types. Pass the `strength` option to `password_field` to render a meter after the input:
 
+![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
 ```erb
 <%= f.password_field :password, strength: true %>
 ```
@@ -1243,26 +1607,65 @@ This generates:
   <label class="form-label" for="user_password">Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
   <div class="strength" data-bs-strength="">
-    <div class="strength-segment"></div>
-    <div class="strength-segment"></div>
-    <div class="strength-segment"></div>
-    <div class="strength-segment"></div>
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
   </div>
 </div>
 ```
 
 Pass a hash for the progress-bar variant, a minimum length, and a dynamic text message:
 
+![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
 ```erb
 <%= f.password_field :password, strength: { variant: :bar, min_length: 12, text: true } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength-bar" data-bs-min-length="12" data-bs-strength="">
+  </div>
+  <span class="strength-text">
+  </span>
+</div>
 ```
 
 which renders `<div class="strength-bar" data-bs-strength data-bs-min-length="12"></div>` followed by `<span class="strength-text"></span>`.
 
 To render a meter at a fixed level without JavaScript, for example from a server-side check, pass `level:` (`weak`, `fair`, `good` or `strong`). The level goes in `data-bs-strength`, the matching number of segments get the `active` class, and `text:` can be a string to show alongside it. The static meter opts out of Bootstrap's JavaScript (which would otherwise evaluate the password field next to it) by pointing `data-bs-input` at a selector that matches nothing:
 
+![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
 ```erb
 <%= f.password_field :password, strength: { level: :good, text: "Good password" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength" data-bs-input=":not(*)" data-bs-strength="good">
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment">
+    </div>
+  </div>
+  <span class="strength-text">Good password</span>
+</div>
 ```
 
 ## Submit Buttons
@@ -1270,7 +1673,7 @@ To render a meter at a fixed level without JavaScript, for example from a server
 The `btn-solid theme-secondary` CSS classes are automatically added to your submit
 buttons.
 
-![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
+![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
 ```erb
 <%= f.submit %>
 ```
@@ -1284,7 +1687,7 @@ This generates:
 You can also use the `primary` helper, which adds `btn-solid theme-primary` to your
 submit button:
 
-![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
+![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
 ```erb
 <%= f.primary "Optional Label" %>
 ```
@@ -1297,7 +1700,7 @@ This generates:
 
 You can specify your own classes like this:
 
-![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
+![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
 ```erb
 <%= f.submit "Log In", class: "btn-solid theme-success" %>
 ```
@@ -1313,7 +1716,7 @@ it will be rendered as an HTML button, instead of an input tag. This allows you
 to specify HTML content and styling for your buttons (such as adding
 illustrative icons to them). For example, the following statements
 
-![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
+![Example 56](demo/doc/screenshots/bootstrap/readme/56_example.png "Example 56")
 ```erb
 <%= f.primary "Save changes <span class='bi bi-save'></span>".html_safe, render_as_button: true %>
 
@@ -1347,7 +1750,7 @@ Bootstrap classes), or for element targeting via CSS classes.
 Be aware, however, that using the `class` option will discard any extra classes
 you add. As an example, the following button declarations
 
-![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
+![Example 57](demo/doc/screenshots/bootstrap/readme/57_example.png "Example 57")
 ```erb
 <%= f.primary "My Nice Button", extra_class: 'my-button' %>
 
@@ -1365,7 +1768,7 @@ will be rendered as
 
 ## Rich Text Areas AKA Trix Editor
 
-![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
+![Example 58](demo/doc/screenshots/bootstrap/readme/58_example.png "Example 58")
 ```erb
 <%= f.rich_text_area(:life_story) %>
 ```
@@ -1406,7 +1809,7 @@ will be rendered as:
     <div class="trix-dialogs" data-trix-dialogs="">
       <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
         <div class="trix-dialog__link-fields">
-          <input aria-label="URL" class="trix-input trix-input--dialog" data-trix-input="" disabled name="href" placeholder="Enter a URL…" required="" type="url">
+          <input aria-label="URL" class="trix-input trix-input--dialog" data-trix-input="" data-trix-validate-href="" disabled name="href" placeholder="Enter a URL…" required="" type="url">
           <div class="trix-button-group">
             <input class="trix-button trix-button--dialog" data-trix-method="setAttribute" type="button" value="Link">
             <input class="trix-button trix-button--dialog" data-trix-method="removeAttribute" type="button" value="Unlink">
@@ -1415,7 +1818,7 @@ will be rendered as:
       </div>
     </div>
   </trix-toolbar>
-  <trix-editor aria-label="Life story" class="trix-content form-control" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
+  <trix-editor class="trix-content form-control" connected="" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
   </trix-editor>
 </div>
 ```
@@ -1433,7 +1836,7 @@ The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, a
 If you want to use the original Rails form helpers for a particular field,
 append `_without_bootstrap` to the helper:
 
-![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
+![Example 59](demo/doc/screenshots/bootstrap/readme/59_example.png "Example 59")
 ```erb
 <%= f.text_field_without_bootstrap :email %>
 ```
@@ -1455,7 +1858,7 @@ To use an inline-layout form, use the `layout: :inline` option. To hide labels,
 use the `hide_label: true` option, which keeps your labels accessible to those
 using screen readers.
 
-![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
+![Example 60](demo/doc/screenshots/bootstrap/readme/60_example.png "Example 60")
 ```erb
 <%= bootstrap_form_for(@user, layout: :inline) do |f| %>
   <%= f.email_field :email, hide_label: true %>
@@ -1492,7 +1895,7 @@ This generates:
 
 To skip label rendering at all, use `skip_label: true` option.
 
-![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
+![Example 61](demo/doc/screenshots/bootstrap/readme/61_example.png "Example 61")
 ```erb
 <%= f.password_field :password, skip_label: true %>
 ```
@@ -1514,7 +1917,7 @@ To use a horizontal-layout form with labels to the left of the control, use the
 In the example below, the submit button has been wrapped in a `form_group` to
 keep it properly aligned.
 
-![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
+![Example 62](demo/doc/screenshots/bootstrap/readme/62_example.png "Example 62")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10") do |f| %>
   <%= f.email_field :email %>
@@ -1561,7 +1964,7 @@ This generates:
 
 The `label_col` and `control_col` css classes can also be changed per control:
 
-![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
+![Example 63](demo/doc/screenshots/bootstrap/readme/63_example.png "Example 63")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1628,7 +2031,7 @@ end
 
 Control col wrapper class can be modified with `add_control_col_class`. This option will preserve column definition:
 
-![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
+![Example 64](demo/doc/screenshots/bootstrap/readme/64_example.png "Example 64")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1667,7 +2070,7 @@ This generates:
 
 The form-level `layout` can be overridden per field, unless the form-level layout was `inline`:
 
-![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
+![Example 65](demo/doc/screenshots/bootstrap/readme/65_example.png "Example 65")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1722,7 +2125,7 @@ A form-level `layout: :inline` can't be overridden because of the way Bootstrap 
 The `floating` option can be used to enable Bootstrap's floating labels. This option is supported on text fields
 and dropdowns. Here's an example:
 
-![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
+![Example 66](demo/doc/screenshots/bootstrap/readme/66_example.png "Example 66")
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
   <%= f.email_field :email, floating: true %>
@@ -1762,7 +2165,7 @@ This generates:
         <option value="">Select a value</option>
         <option value="1">Active</option>
         <option value="2">Inactive</option>
-        </select>
+      </select>
     </div>
   </div>
   <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
@@ -1771,6 +2174,7 @@ This generates:
 
 Floating labels also work inside input groups. Bootstrap nests the `form-floating` wrapper inside the `input-group`, with any validation feedback after the group, and `bootstrap_form` does the same when you combine `floating: true` with `prepend` or `append`:
 
+![Example 67](demo/doc/screenshots/bootstrap/readme/67_example.png "Example 67")
 ```erb
 <%= f.text_field :username, floating: true, prepend: "@" %>
 ```
@@ -1807,6 +2211,7 @@ Pass `validate: "valid"` to also show success styling on valid fields (`data-bs-
 
 Browser validation needs messages to show, so every helper accepts `invalid_feedback:` and `valid_feedback:` for static `invalid-feedback` and `valid-feedback` elements after the control (a model error replaces the static invalid message). `tooltip: true` renders them as Bootstrap's tooltip-style feedback instead, and `valid: true` applies the `is-valid` success state, for example after a server-side check:
 
+![Example 68](demo/doc/screenshots/bootstrap/readme/68_example.png "Example 68")
 ```erb
 <%= f.email_field :email, required: true, invalid_feedback: "Please enter a valid email address.", valid_feedback: "Looks good!" %>
 <%= f.check_box :terms, required: true, invalid_feedback: "You must agree before submitting." %>
@@ -1826,7 +2231,7 @@ This generates:
   <input name="user[terms]" type="hidden" value="0">
   <input class="check" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1">
   <div class="form-field-content">
-    <label for="user_terms">Terms</label>
+    <label class="required" for="user_terms">Terms</label>
     <div class="invalid-feedback">You must agree before submitting.</div>
   </div>
 </div>
@@ -1842,7 +2247,7 @@ This generates:
 By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Here's an example:
 
-![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
+![Example 69](demo/doc/screenshots/bootstrap/readme/69_example.png "Example 69")
 ```erb
 <%= bootstrap_form_for(@user_with_error) do |f| %>
   <%= f.email_field :email %>
@@ -1913,7 +2318,7 @@ You can turn off inline errors for the entire form like this:
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
 
-![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
+![Example 70](demo/doc/screenshots/bootstrap/readme/70_example.png "Example 70")
 ```erb
 <%= bootstrap_form_for(@user_with_error, label_errors: true) do |f| %>
   <%= f.email_field :email %>
@@ -1946,7 +2351,7 @@ To display an error message with an error summary, you can use the
 `alert_message` helper. This won't output anything unless a model validation
 has failed, and additional options will be passed on as attributes to the root `div`:
 
-![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
+![Example 71](demo/doc/screenshots/bootstrap/readme/71_example.png "Example 71")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below.", tabindex: -1, role: "note" %>
@@ -1957,7 +2362,7 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert theme-danger" tabindex="-1" role="note">
+  <div class="alert theme-danger" role="note" tabindex="-1">
     <p>Please fix the errors below.</p>
     <ul class="rails-bootstrap-forms-error-summary">
       <li>Email is invalid</li>
@@ -1970,7 +2375,7 @@ Which outputs:
 
 You can turn off the error summary like this:
 
-![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
+![Example 72](demo/doc/screenshots/bootstrap/readme/72_example.png "Example 72")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below.", error_summary: false %>
@@ -1987,7 +2392,7 @@ This generates:
 
 To output a simple unordered list of errors, use the `error_summary` helper.
 
-![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
+![Example 73](demo/doc/screenshots/bootstrap/readme/73_example.png "Example 73")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.error_summary %>
@@ -2010,7 +2415,7 @@ Which outputs:
 
 If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
-![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
+![Example 74](demo/doc/screenshots/bootstrap/readme/74_example.png "Example 74")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -2031,7 +2436,7 @@ Note that the `invalid-feedback` `div` is hidden unless there is a preceding ele
 
 You can hide the attribute name like this:
 
-![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
+![Example 75](demo/doc/screenshots/bootstrap/readme/75_example.png "Example 75")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -2050,7 +2455,7 @@ Which outputs:
 
 You can also use a custom class for the wrapping div, like this:
 
-![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
+![Example 76](demo/doc/screenshots/bootstrap/readme/76_example.png "Example 76")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -2089,7 +2494,7 @@ ActiveModel::Validations::PresenceValidator.
 
 In cases where this behaviour is undesirable, use the `required` option to force the class to be present or absent:
 
-![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
+![Example 77](demo/doc/screenshots/bootstrap/readme/77_example.png "Example 77")
 ```erb
 <%= f.password_field :login, label: "New Username", required: true %>
 <%= f.password_field :password, label: "New Password", required: false %>
@@ -2112,7 +2517,7 @@ This generates:
 
 Adding a form control for a `belongs_to` field will automatically pick up the associated presence validator.
 
-![Example 56](demo/doc/screenshots/bootstrap/readme/56_example.png "Example 56")
+![Example 78](demo/doc/screenshots/bootstrap/readme/78_example.png "Example 78")
 ```erb
 <%= bootstrap_form_for(@address, url: '/address') do |f| %>
   <%= f.collection_select :user_id, @users, :id, :email, include_blank: "Select a value" %>
@@ -2159,7 +2564,7 @@ Generated HTML:
 
 Fields can be disabled using the standard Rails form helper option.
 
-![Example 57](demo/doc/screenshots/bootstrap/readme/57_example.png "Example 57")
+![Example 79](demo/doc/screenshots/bootstrap/readme/79_example.png "Example 79")
 ```erb
 <%= bootstrap_form_for @user do |f| %>
   <div class="row g-3">
