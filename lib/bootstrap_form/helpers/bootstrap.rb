@@ -70,9 +70,14 @@ module BootstrapForm
 
       def prepend_and_append_input(name, options, &)
         feedback = generate_feedback(name, options)
+        floating = options[:floating]
+        options[:placeholder] ||= name if floating
+        floating_label = options[:floating_label]
+        valid = options[:valid]
         options = options.extract!(:prepend, :append, :input_group_class).compact
 
         input = capture(&) || ActiveSupport::SafeBuffer.new
+        input = floating_wrapper(name, floating_label, input, valid:) if floating
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
         # Bootstrap 6 places validation feedback outside the input group,
@@ -81,6 +86,14 @@ module BootstrapForm
           input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
         input << feedback if feedback
         input
+      end
+
+      # Bootstrap 6 floating labels: the label and control sit alone in a
+      # `form-floating` wrapper (inside the input group, if any), while help
+      # text and validation feedback stay outside it in the form field.
+      def floating_wrapper(name, label, input, valid:)
+        classes = ["form-floating", ("is-invalid" if error?(name)), ("is-valid" if valid)].compact
+        tag.div(label + input, class: classes)
       end
 
       def input_with_error(name, options, &)

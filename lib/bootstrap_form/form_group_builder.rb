@@ -21,7 +21,13 @@ module BootstrapForm
 
       options = form_group_builder_options(options, method)
 
-      form_group_options = form_group_opts(options, form_group_css_options(method, html_options.try(:symbolize_keys!), options))
+      css_options = form_group_css_options(method, html_options.try(:symbolize_keys!), options)
+      form_group_options = form_group_opts(options, css_options)
+      # A floating label is rendered next to its control instead of by the
+      # group, so generate it before the label options are stripped below.
+      if options[:floating]
+        options[:floating_label] = generate_label(options[:id], method, form_group_label(options, css_options), nil, nil)
+      end
 
       options.except!(
         :help, :icon, :label_col, :control_col, :add_control_col_class, :layout, :skip_label, :label, :label_class,
@@ -56,7 +62,8 @@ module BootstrapForm
       }
 
       form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
-      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label]
+      # A floating label is rendered next to its control instead of by the group.
+      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label] || options[:floating]
       form_group_options
     end
 

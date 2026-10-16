@@ -1737,25 +1737,33 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 form-floating">
-    <label class="form-label required" for="user_email">Email</label>
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
+  <div class="form-field mb-3">
+    <div class="form-floating">
+      <label class="form-label required" for="user_email">Email</label>
+      <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <label class="form-label" for="user_password">Password</label>
-    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+  <div class="form-field mb-3">
+    <div class="form-floating">
+      <label class="form-label" for="user_password">Password</label>
+      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <label class="form-label" for="user_password">Password</label>
-    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+  <div class="form-field mb-3">
+    <div class="form-floating">
+      <label class="form-label" for="user_password">Password</label>
+      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <label class="form-label" for="user_status">Status</label>
-    <select class="form-control" id="user_status" name="user[status]">
-      <option value="">Select a value</option>
-      <option value="1">Active</option>
-      <option value="2">Inactive</option>
-    </select>
+  <div class="form-field mb-3">
+    <div class="form-floating">
+      <label class="form-label" for="user_status">Status</label>
+      <select class="form-control" id="user_status" name="user[status]">
+        <option value="">Select a value</option>
+        <option value="1">Active</option>
+        <option value="2">Inactive</option>
+        </select>
+    </div>
   </div>
   <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>

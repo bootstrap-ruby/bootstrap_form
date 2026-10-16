@@ -834,12 +834,14 @@ class BootstrapSelectsTest < ActionView::TestCase
 
   test "can have a floating label" do
     expected = <<~HTML
-      <div class="mb-3 form-floating">
-        <label class="form-label" for="user_misc">Misc</label>
-        <select class="form-control" id="user_misc" name="user[misc]">
-          <option value="1">Apple</option>
-          <option value="2">Grape</option>
-        </select>
+      <div class="form-field mb-3">
+        <div class="form-floating">
+          <label class="form-label" for="user_misc">Misc</label>
+          <select class="form-control" id="user_misc" name="user[misc]">
+            <option value="1">Apple</option>
+            <option value="2">Grape</option>
+          </select>
+        </div>
       </div>
     HTML
     assert_equivalent_html expected, @builder.select(:misc, [["Apple", 1], ["Grape", 2]], floating: true)

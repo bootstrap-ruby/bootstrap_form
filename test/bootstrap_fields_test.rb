@@ -655,9 +655,11 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "can have a floating label" do
     expected = <<~HTML
-      <div class="mb-3 form-floating">
-        <label class="form-label required" for="user_email">Email</label>
-        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
+      <div class="form-field mb-3">
+        <div class="form-floating">
+          <label class="form-label required" for="user_email">Email</label>
+          <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
+        </div>
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, floating: true)
