@@ -7,11 +7,12 @@ label.required:after {
 }
 
 .fragment {
-  @extend .border;
-  @extend .p-3;
+  @extend .border, .p-3;
 }
 
-form, .alert, .fragment {
+form,
+.alert,
+.fragment {
   > :last-child {
     margin-bottom: 0 !important;
   }
