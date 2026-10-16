@@ -49,6 +49,24 @@
     ></script>
 
     <script type="text/javascript">
+      // Bootstrap's client-side validation starter: block submission of
+      // invalid forms and keep aria-invalid in sync.
+      document.querySelectorAll('form[data-bs-validate]').forEach((form) => {
+        form.addEventListener('submit', (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.querySelectorAll('input, select, textarea').forEach((field) => {
+            if (field.willValidate) field.setAttribute('aria-invalid', String(!field.validity.valid));
+          });
+        });
+        form.addEventListener('input', (event) => {
+          const field = event.target;
+          if (field.willValidate) field.setAttribute('aria-invalid', String(!field.validity.valid));
+        });
+      });
+
       const buttons = document.querySelectorAll('button.toggle');
       const buttonsArray = Array.prototype.slice.call(buttons);
       buttonsArray.forEach(function(elem) {
