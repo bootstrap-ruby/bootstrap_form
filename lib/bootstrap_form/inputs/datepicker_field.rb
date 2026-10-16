@@ -41,16 +41,19 @@ module BootstrapForm
         end
       end
 
+      # The calendar is mounted on a child element (`position_element`) so
+      # that rendering it doesn't wipe the hidden input Bootstrap binds to.
       def inline_datepicker(name, datepicker_options, options)
         value = options.key?(:value) ? options[:value] : object&.try(name)
         datepicker_options[:selected_dates] ||= Array(value) if value.present?
-        data = datepicker_data(datepicker_options.merge(inline: true)).merge(options[:data].to_h)
+        options[:id] ||= field_id(name, namespace: nil)
+        mount_id = "#{namespaced_id(options[:id])}_calendar"
+        data = datepicker_data(datepicker_options.merge(inline: true, position_element: "##{mount_id}"))
         options = options.reverse_merge(control_class: nil)
         form_group_builder(name, options) do
-          calendar = tag.div(class: options[:class].presence, data:) do
-            hidden_options = { value: value.respond_to?(:iso8601) ? value.iso8601 : value }
-            hidden_options[:id] = options[:id] if options[:id]
-            hidden_field(name, hidden_options)
+          calendar = tag.div(class: options[:class].presence, data: data.merge(options[:data].to_h)) do
+            hidden_field(name, id: options[:id], value: value.respond_to?(:iso8601) ? value.iso8601 : value) +
+              tag.div(id: mount_id)
           end
           safe_join([calendar, generate_feedback(name, options)].compact)
         end

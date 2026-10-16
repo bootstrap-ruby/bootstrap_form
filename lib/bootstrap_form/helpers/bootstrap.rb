@@ -120,11 +120,14 @@ module BootstrapForm
 
       # Bootstrap 6 password strength meter, rendered after a password field.
       # With `level:` (weak, fair, good or strong) the meter is static,
-      # server-rendered mark-up that needs no JavaScript.
+      # server-rendered mark-up. Bootstrap's JavaScript would still bind the
+      # neighbouring password field and overwrite the level, so a static
+      # meter points `data-bs-input` at a selector that matches nothing.
       def strength_meter(strength)
         strength = { variant: strength } unless strength.is_a?(Hash)
         level = strength[:level]&.to_s
         data = { bs_strength: level || "" }
+        data[:bs_input] = ":not(*)" if level
         data[:bs_min_length] = strength[:min_length] if strength[:min_length]
         meter = if strength[:variant].to_s == "bar"
                   tag.div(class: "strength-bar", data: data)

@@ -516,7 +516,7 @@ This generates:
 As in the Bootstrap documentation the wrapper is a `label`, so clicking the adornment focuses the input, and the adornment is `aria-hidden` because the field already has a label. Validation states are applied to the wrapper as well as the input. Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
 
 ```erb
-<%= f.search_field :query, adorn: { icon: search_icon_svg } %>
+<%= f.search_field :query, adorn: { icon: '<i class="bi bi-search"></i>'.html_safe } %>
 <%= f.text_field :username, adorn: { text: "@example.com", end: true, class: "form-control-lg form-adorn-lg" } %>
 ```
 
@@ -1170,7 +1170,7 @@ This generates:
 
 Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` is set by default, as the Bootstrap documentation recommends; pass your own `autocomplete` option to override it.
 
-Pass `inline: true` for an always-visible calendar. It renders a `div` with a hidden input that Bootstrap keeps in sync, so the selected date(s) are submitted with the form; the attribute's current value is pre-selected:
+Pass `inline: true` for an always-visible calendar. It renders a `div` with a hidden input that Bootstrap keeps in sync, so the selected date(s) are submitted with the form; the attribute's current value is pre-selected. The calendar itself is mounted on a child element (via `data-bs-position-element`) so that rendering it leaves the hidden input in place:
 
 ```erb
 <%= f.datepicker_field :joined_at, inline: true, datepicker: { selection_mode: "multiple-ranged" } %>
@@ -1181,8 +1181,9 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_joined_at">Joined at</label>
-  <div data-bs-inline="true" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
+  <div data-bs-inline="true" data-bs-position-element="#user_joined_at_calendar" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
     <input id="user_joined_at" name="user[joined_at]" type="hidden">
+    <div id="user_joined_at_calendar"></div>
   </div>
 </div>
 ```
@@ -1258,7 +1259,7 @@ Pass a hash for the progress-bar variant, a minimum length, and a dynamic text m
 
 which renders `<div class="strength-bar" data-bs-strength data-bs-min-length="12"></div>` followed by `<span class="strength-text"></span>`.
 
-To render a meter at a fixed level without JavaScript, for example from a server-side check, pass `level:` (`weak`, `fair`, `good` or `strong`). The level goes in `data-bs-strength`, the matching number of segments get the `active` class, and `text:` can be a string to show alongside it:
+To render a meter at a fixed level without JavaScript, for example from a server-side check, pass `level:` (`weak`, `fair`, `good` or `strong`). The level goes in `data-bs-strength`, the matching number of segments get the `active` class, and `text:` can be a string to show alongside it. The static meter opts out of Bootstrap's JavaScript (which would otherwise evaluate the password field next to it) by pointing `data-bs-input` at a selector that matches nothing:
 
 ```erb
 <%= f.password_field :password, strength: { level: :good, text: "Good password" } %>

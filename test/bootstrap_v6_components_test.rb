@@ -167,7 +167,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
-        <div class="strength" data-bs-strength="good">
+        <div class="strength" data-bs-input=":not(*)" data-bs-strength="good">
           <div class="strength-segment active"></div>
           <div class="strength-segment active"></div>
           <div class="strength-segment active"></div>
@@ -178,7 +178,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
-        <div class="strength-bar" data-bs-strength="weak"></div>
+        <div class="strength-bar" data-bs-input=":not(*)" data-bs-strength="weak"></div>
       </div>
     HTML
     actual = @builder.password_field(:password, help: false, strength: { level: :good, text: "Good password" }) +
