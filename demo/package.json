@@ -7,7 +7,7 @@
     "bootstrap": "6.0.0-alpha.1",
     "bootstrap-icons": "^1.13.2",
     "esbuild": "^0.28.2",
-    "sass": "^1.105.1",
+    "sass": "^1.105.2",
     "trix": "^2.1.19",
     "vanilla-calendar-pro": "^3.4.0"
   },
