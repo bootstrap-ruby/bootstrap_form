@@ -57,9 +57,9 @@ class BootstrapComponentsTest < ApplicationSystemTestCase
     container = input.ancestor(".chip-input")
     input.send_keys("Ruby", :enter)
 
-    assert_equal %w[JavaScript TypeScript Ruby], container.all(".chip").map { |chip| chip[:"data-bs-chip-value"] }
+    assert_equal(%w[JavaScript TypeScript Ruby], container.all(".chip").pluck(:"data-bs-chip-value"))
     container.find(".chip", text: "Ruby").find(".chip-dismiss").click
-    assert_equal %w[JavaScript TypeScript], container.all(".chip").map { |chip| chip[:"data-bs-chip-value"] }
+    assert_equal(%w[JavaScript TypeScript], container.all(".chip").pluck(:"data-bs-chip-value"))
   end
 
   test "OTP input renders slots and keeps one real value" do
@@ -118,7 +118,7 @@ class BootstrapComponentsTest < ApplicationSystemTestCase
   test "range ticks and value bubble are rendered" do
     ticks = find("#range_ticks").ancestor(".form-range")
     assert_equal 5, ticks.all(".form-range-tick", visible: :all).count
-    assert_equal %w[Cold Mild Hot], ticks.all(".form-range-tick-label", visible: :all).map { |l| l.text(:all) }
+    assert_equal(%w[Cold Mild Hot], ticks.all(".form-range-tick-label", visible: :all).map { |l| l.text(:all) })
 
     bubble = find("#range_bubble").ancestor(".form-range")
     assert bubble.has_selector?(".form-range-bubble", visible: :all)

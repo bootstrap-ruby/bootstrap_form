@@ -253,8 +253,8 @@
       <%= form.range_field :misc, id: "range_#{theme}", label: "Example #{theme} range", range: "theme-#{theme}", value: 40 + 5 * theme.length %>
     <% end %>
     <%= form.range_field :misc, id: "range_disabled", label: "Disabled range", disabled: true %>
-    <%= form.range_field :misc, id: "range_bubble", label: "Brightness (value bubble)", min: 0, max: 100, value: 60, range: { bubble: true } %>
-    <%= form.range_field :misc, id: "range_field", label: "Volume", range: { bubble: true }, help: "Adjust the volume level." %>
+    <%= form.range_field :misc, id: "range_bubble", label: "Brightness (value bubble)", min: 0, max: 100, value: 60, range: { bubble: true, class: "mt-4" } %>
+    <%= form.range_field :misc, id: "range_field", label: "Volume", range: { bubble: true, class: "mt-4" }, help: "Adjust the volume level." %>
     <%= form.range_field :misc, id: "range_min_max", label: "Min and max", min: 0, max: 5 %>
     <%= form.range_field :misc, id: "range_steps", label: "Steps", min: 0, max: 5, step: 0.5 %>
     <%= form.range_field :misc, id: "range_ticks", label: "Tick marks", min: 0, max: 100, step: 25, value: 50, list: "range_ticks_list", help: "Ticks are rendered from the linked datalist." %>
@@ -395,8 +395,8 @@
     <%= form.datepicker_field :created_at, id: "datepicker_range", label: "Date range", datepicker: { selection_mode: "multiple-ranged", selected_dates: [Date.new(2026, 6, 10), Date.new(2026, 6, 18)] } %>
     <%= form.datepicker_field :created_at, id: "datepicker_two_months", label: "Multi-month date range", datepicker: { selection_mode: "multiple-ranged", display_months_count: 2, selected_dates: [Date.new(2026, 6, 25), Date.new(2026, 7, 8)] } %>
     <%= form.datepicker_field :created_at, id: "datepicker_weekday", label: "Week starts on Sunday", class: "w-12", datepicker: { first_weekday: 0 } %>
-    <%= form.datepicker_field :created_at, id: "datepicker_button", label: "Button trigger", button: { text: "Select date", icon: tag.i(class: "bi bi-calendar-week me-1") } %>
-    <%= form.datepicker_field :created_at, id: "datepicker_button_range", label: "Button trigger with range", button: "Select dates", datepicker: { selection_mode: "multiple-ranged" } %>
+    <%= form.datepicker_field :created_at, id: "datepicker_button", label: "Button trigger", button: { text: "Select date", icon: tag.i(class: "bi bi-calendar-week me-1") }, class: "btn-outline theme-secondary justify-self-start" %>
+    <%= form.datepicker_field :created_at, id: "datepicker_button_range", label: "Button trigger with range", button: "Select dates", class: "btn-outline theme-secondary justify-self-start", datepicker: { selection_mode: "multiple-ranged" } %>
     <%= form.datepicker_field :created_at, id: "datepicker_inline", label: "Inline", inline: true, value: Date.new(2026, 6, 10) %>
     <%= form.datepicker_field :created_at, id: "datepicker_inline_range", label: "Inline range, two months", inline: true, datepicker: { selection_mode: "multiple-ranged", display_months_count: 2 } %>
     <div class="d-flex gap-3 mb-3">
