@@ -39,20 +39,22 @@ If you're creating a new Rails app, create it with at least the following option
 rails new --javascript=esbuild --css=bootstrap <application-name>
 ```
 
-`esbuild` can be any of the options, _except_ the default `importmaps`.
-
-If you have an existing project, and it's processing CSS and JavaScript with some sort of front-end preprocessor, then install Bootstrap for your front-end preprocessor. That's probably something like this:
+`esbuild` can be any of the options, _except_ the default `importmaps`. The `--css=bootstrap` option installs Bootstrap 5, so switch the `bootstrap` package to the Bootstrap 6 pre-release and add its peer dependencies:
 
 ```bash
-yarn add bootstrap popper.js
+yarn add bootstrap@next @floating-ui/dom vanilla-calendar-pro
 ```
+
+If you have an existing project, and it's processing CSS and JavaScript with some sort of front-end preprocessor, then install Bootstrap for your front-end preprocessor with the same `yarn add` command.
+
+If you compile Bootstrap's Sass yourself, run the compiled CSS through PostCSS with [`postcss-prefix-custom-properties`](https://github.com/twbs/postcss-prefix-custom-properties) and `{ prefix: "bs-" }`. Bootstrap 6 writes its CSS variables without the `bs-` prefix in Sass and adds it at build time, and its JavaScript expects the prefixed names. Without this step, JavaScript-driven components such as the range slider's fill and value bubble silently stop working. The [demo app](demo/postcss.config.js) shows the setup.
 
 You can use this gem with other ways of installing Bootstrap, but how to do so is outside the scope of this README.
 
 Once Bootstrap is installed, add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.6"
+gem "bootstrap_form", ">= 6.0.0.alpha1"
 ```
 
 Then:
@@ -75,13 +77,7 @@ If you're using Sprockets, add the styles to your CSS bundle like this:
 @import "rails_bootstrap_forms.css";
 ```
 
-If you're using Sprockets, you can also consider using the `bootstrap` gem to your `Gemfile`, as a way of installing Bootstrap itself. However, we haven't used this approach for a few years. Please report an issue if it doesn't work:
-
-```ruby
-gem "bootstrap", "~> 5.0"
-```
-
-And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
+The [`bootstrap` gem](https://github.com/twbs/bootstrap-rubygem) packages Bootstrap 5 and doesn't offer Bootstrap 6 yet, so it can't be used to install Bootstrap for this version of `bootstrap_form`.
 
 ## Usage
 
