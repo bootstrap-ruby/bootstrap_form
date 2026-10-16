@@ -32,10 +32,11 @@ module BootstrapForm
       def otp_container(name, otp_options, options)
         classes = ["otp", otp_options.delete(:class)].compact
         classes << "is-invalid" if error?(name)
+        classes << "is-valid" if options[:valid]
         container = tag.div(class: classes, data: otp_data(otp_options)) do
-          text_field_without_bootstrap(name, options)
+          text_field_without_bootstrap(name, options.except(*Base::FIELD_OPTIONS))
         end
-        safe_join([container, generate_error(name, options[:id])].compact)
+        safe_join([container, generate_feedback(name, options)].compact)
       end
 
       def otp_data(otp_options)

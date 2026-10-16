@@ -11,7 +11,7 @@ module BootstrapForm
           options = options.reverse_merge(control_class: "form-control")
           form_group_builder(name, options) do
             prepend_and_append_input(name, options) do
-              file_field_without_bootstrap(name, options)
+              file_field_without_bootstrap(name, options.except(*Base::FIELD_OPTIONS))
             end
           end
         end

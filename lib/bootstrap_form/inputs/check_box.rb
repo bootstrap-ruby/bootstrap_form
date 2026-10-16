@@ -49,7 +49,7 @@ module BootstrapForm
       def check_box_content(name, options, checked_value, &)
         label = (check_box_label(name, options, checked_value, &) unless options[:skip_label])
         help = generate_help(name, options[:help], id: options[:id])
-        error = (generate_error(name, options[:id], feedback_id: options[:feedback_id]) if options[:error_message])
+        error = generate_feedback(name, options, error: options[:error_message])
         if help || error
           tag.div(safe_join([label, help, error].compact), class: "form-field-content")
         else
@@ -58,9 +58,10 @@ module BootstrapForm
       end
 
       def check_box_options(name, options)
-        check_box_options = options.except(:class, :control_col, :error_message, :feedback_id, :help, :hide_label,
-                                           :inline, :label, :label_class, :label_col, :layout, :skip_label,
-                                           :switch, :wrapper, :wrapper_class)
+        check_box_options = options.except(*Components::Validation::FEEDBACK_OPTIONS, :class, :control_col,
+                                           :error_message, :feedback_id, :help, :hide_label, :inline, :label,
+                                           :label_class, :label_col, :layout, :skip_label, :switch, :wrapper,
+                                           :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
         check_box_options[:role] = check_box_options[:switch] = "switch" if options[:switch]
         if (describedby = aria_describedby(name, options))
@@ -97,6 +98,7 @@ module BootstrapForm
         classes = Array(options[:class])
         classes << "check" unless options[:switch]
         classes << "is-invalid" if error?(name)
+        classes << "is-valid" if options[:valid]
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact.presence
       end

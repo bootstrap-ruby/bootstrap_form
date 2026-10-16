@@ -524,14 +524,39 @@
 <h3>Client-side Validation</h3>
 
 <%= form_with_source do %>
-  <%= bootstrap_form_for @user, url: "/", validate: true, html: { id: "client_side_validation_form", class: "vstack gap-3" } do |form| %>
-    <%= form.text_field :misc, id: "client_validation_name", label: "Name", value: "Mark Otto", required: true, wrapper_class: "form-field" %>
-    <%= form.email_field :email, id: "client_validation_email", label: "Email address", value: "", required: true, wrapper_class: "form-field" %>
-    <%= form.text_field :misc, id: "client_validation_username", label: "Username", prepend: "@", required: true, wrapper_class: "form-field" %>
-    <%= form.select :status, [["California", "CA"], ["New York", "NY"]], { label: "State", prompt: "Choose...", required: true, wrapper_class: "form-field" }, { id: "client_validation_state" } %>
-    <%= form.checkbox :terms, id: "client_validation_terms", label: "Agree to terms and conditions", required: true, wrapper_class: "form-field" %>
-    <%= form.checkbox :remember_me, id: "client_validation_switch", label: "Subscribe to the newsletter", switch: true, required: true, wrapper_class: "form-field" %>
+  <%= bootstrap_form_for @user, url: "/", validate: "valid", html: { id: "client_side_validation_form", class: "vstack gap-3" } do |form| %>
+    <%= form.text_field :misc, id: "client_validation_name", label: "Name", value: "Mark Otto", required: true, wrapper_class: "form-field", invalid_feedback: "Full name is required", valid_feedback: "Looks good!" %>
+    <%= form.email_field :email, id: "client_validation_email", label: "Email address", value: "", required: true, wrapper_class: "form-field", invalid_feedback: "Please enter a valid email address.", valid_feedback: "Looks good!" %>
+    <%= form.text_field :misc, id: "client_validation_username", label: "Username", prepend: "@", required: true, wrapper_class: "form-field", invalid_feedback: "Please choose a username." %>
+    <%= form.select :status, [["California", "CA"], ["New York", "NY"]], { label: "State", prompt: "Choose...", wrapper_class: "form-field", invalid_feedback: "Please select a valid state." }, { id: "client_validation_state", required: true } %>
+    <%= form.checkbox :terms, id: "client_validation_terms", label: "Agree to terms and conditions", required: true, wrapper_class: "form-field", invalid_feedback: "You must agree before submitting." %>
+    <%= form.checkbox :remember_me, id: "client_validation_switch", label: "Subscribe to the newsletter", switch: true, required: true, wrapper_class: "form-field", invalid_feedback: "Please subscribe." %>
     <%= form.primary "Submit form", class: "btn-solid theme-primary align-self-start" %>
+  <% end %>
+<% end %>
+
+<h3>Validation Tooltips</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", validate: true, html: { id: "validation_tooltips_form", class: "vstack gap-5" } do |form| %>
+    <%= form.text_field :misc, id: "tooltip_name", label: "Name", value: "Mark Otto", required: true, wrapper_class: "form-field", invalid_feedback: "Full name is required", tooltip: true %>
+    <%= form.email_field :email, id: "tooltip_email", label: "Email address", value: "", required: true, wrapper_class: "form-field", invalid_feedback: "Please enter a valid email address.", tooltip: true %>
+    <%= form.text_field :misc, id: "tooltip_city", label: "City", required: true, wrapper_class: "form-field", invalid_feedback: "Please provide a valid city.", tooltip: true %>
+    <%= form.primary "Submit form", class: "btn-solid theme-primary align-self-start" %>
+  <% end %>
+<% end %>
+
+<h3>Server-side Valid State</h3>
+
+<%= form_with_source do %>
+  <%= bootstrap_form_for @user, url: "/", html: { id: "server_valid_form" } do |form| %>
+    <%= form.text_field :misc, id: "valid_name", label: "Name", value: "Mark Otto", valid: true, valid_feedback: "Looks great!" %>
+    <%= form.text_field :misc, id: "valid_username", label: "Username", prepend: "@", value: "mdo", valid: true, valid_feedback: "Username is available." %>
+    <%= form.select :status, [["California", "CA"]], { label: "State", valid: true, valid_feedback: "Looks good!" }, { id: "valid_state" } %>
+    <%= form.checkbox :terms, id: "valid_terms", label: "Agree to terms and conditions", checked: true, valid: true, valid_feedback: "Thanks for agreeing." %>
+    <%= form.checkbox :remember_me, id: "valid_switch", label: "Subscribed", switch: true, checked: true, valid: true %>
+    <%= form.otp_field :misc, id: "valid_otp", label: "Verification code", value: "123456", valid: true, valid_feedback: "Code accepted.", otp: { class: "otp-connected" } %>
+    <%= form.submit %>
   <% end %>
 <% end %>
 

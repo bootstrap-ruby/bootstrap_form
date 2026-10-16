@@ -99,6 +99,7 @@ module BootstrapForm
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = safe_join([control_classes, css_options[:class]].compact, " ")
       css_options[:class] << " is-invalid" if error?(method)
+      css_options[:class] << " is-valid" if options[:valid]
       if (describedby = aria_describedby(method, options))
         css_options[:aria] = css_options[:aria].to_h.merge(describedby:)
       end

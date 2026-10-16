@@ -1785,6 +1785,38 @@ Bootstrap 6 styles browser-validated fields via the `data-bs-validate` attribute
 
 Pass `validate: "valid"` to also show success styling on valid fields (`data-bs-validate="valid"`).
 
+Browser validation needs messages to show, so every helper accepts `invalid_feedback:` and `valid_feedback:` for static `invalid-feedback` and `valid-feedback` elements after the control (a model error replaces the static invalid message). `tooltip: true` renders them as Bootstrap's tooltip-style feedback instead, and `valid: true` applies the `is-valid` success state, for example after a server-side check:
+
+```erb
+<%= f.email_field :email, required: true, invalid_feedback: "Please enter a valid email address.", valid_feedback: "Looks good!" %>
+<%= f.check_box :terms, required: true, invalid_feedback: "You must agree before submitting." %>
+<%= f.text_field :username, valid: true, valid_feedback: "Username is available.", tooltip: true %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-3">
+  <label class="form-label required" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+  <div class="invalid-feedback">Please enter a valid email address.</div>
+  <div class="valid-feedback">Looks good!</div>
+</div>
+<div class="form-field mb-3">
+  <input name="user[terms]" type="hidden" value="0">
+  <input class="check" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1">
+  <div class="form-field-content">
+    <label for="user_terms">Terms</label>
+    <div class="invalid-feedback">You must agree before submitting.</div>
+  </div>
+</div>
+<div class="form-field mb-3">
+  <label class="form-label" for="user_username">Username</label>
+  <input class="form-control is-valid" id="user_username" name="user[username]" type="text">
+  <div class="tooltip valid-tooltip">Username is available.</div>
+</div>
+```
+
 ### Inline Errors
 
 By default, fields that have validation errors will be outlined in red and the

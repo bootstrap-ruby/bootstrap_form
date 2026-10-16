@@ -47,11 +47,12 @@ module BootstrapForm
         data = datepicker_data(datepicker_options.merge(inline: true)).merge(options[:data].to_h)
         options = options.reverse_merge(control_class: nil)
         form_group_builder(name, options) do
-          tag.div(class: options[:class].presence, data:) do
+          calendar = tag.div(class: options[:class].presence, data:) do
             hidden_options = { value: value.respond_to?(:iso8601) ? value.iso8601 : value }
             hidden_options[:id] = options[:id] if options[:id]
             hidden_field(name, hidden_options)
           end
+          safe_join([calendar, generate_feedback(name, options)].compact)
         end
       end
 
@@ -61,11 +62,12 @@ module BootstrapForm
         options = options.reverse_merge(control_class: "btn-outline theme-secondary")
         data = datepicker_data(datepicker_options).merge(options[:data].to_h)
         form_group_builder(name, options) do
-          tag.button(type: "button", id: namespaced_id(options[:id]), class: options[:class], data:,
-                     disabled: options[:disabled]) do
+          trigger = tag.button(type: "button", id: namespaced_id(options[:id]), class: options[:class], data:,
+                               disabled: options[:disabled]) do
             text = button[:text].is_a?(String) ? button[:text] : "Select date"
             safe_join([button[:icon], tag.span(text, data: { bs_datepicker_display: "" })].compact)
           end
+          safe_join([trigger, generate_feedback(name, options)].compact)
         end
       end
     end

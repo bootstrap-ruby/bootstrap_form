@@ -11,7 +11,7 @@ module BootstrapForm
           form_group_builder(name, options) do
             prepend_and_append_input(name, options) do
               options[:class] = safe_join(["trix-content", options[:class]].compact, " ")
-              rich_text_area_without_bootstrap(name, options)
+              rich_text_area_without_bootstrap(name, options.except(*Base::FIELD_OPTIONS))
             end
           end
         end

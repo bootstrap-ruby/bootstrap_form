@@ -49,7 +49,7 @@ module BootstrapForm
           [
             combobox_toggle(name, groups, selected_values, options, html_options),
             combobox_menu(groups, selected_values, options),
-            generate_error(name, html_options[:id])
+            generate_feedback(name, options)
           ].compact
         )
       end

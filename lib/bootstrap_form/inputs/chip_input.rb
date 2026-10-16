@@ -44,7 +44,7 @@ module BootstrapForm
         container = tag.div(class: classes, data: chip_data(chips_options)) do
           safe_join(values.map { |value| chip(value, dismissible:) } + [chip_ghost_input(options)])
         end
-        safe_join([container, generate_error(name, options[:id])].compact)
+        safe_join([container, generate_feedback(name, options)].compact)
       end
 
       def chip(value, dismissible:)

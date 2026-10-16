@@ -28,7 +28,7 @@ module BootstrapForm
       def radio_button_content(name, value, options)
         label = (radio_button_label(name, value, options) unless options[:skip_label])
         help = generate_help(name, options[:help], id: options[:id])
-        error = (generate_error(name, options[:id], feedback_id: options[:feedback_id]) if options[:error_message])
+        error = generate_feedback(name, options, error: options[:error_message])
         if help || error
           tag.div(safe_join([label, help, error].compact), class: "form-field-content")
         else
@@ -37,8 +37,9 @@ module BootstrapForm
       end
 
       def radio_button_options(name, options)
-        radio_button_options = options.except(:class, :label, :label_class, :error_message, :feedback_id, :help,
-                                              :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
+        radio_button_options = options.except(*Components::Validation::FEEDBACK_OPTIONS, :class, :label,
+                                              :label_class, :error_message, :feedback_id, :help, :inline,
+                                              :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
         if (describedby = aria_describedby(name, options))
           radio_button_options[:aria] = radio_button_options[:aria].to_h.merge(describedby:)
@@ -55,6 +56,7 @@ module BootstrapForm
       def radio_button_classes(name, options)
         classes = Array(options[:class]) << "radio"
         classes << "is-invalid" if error?(name)
+        classes << "is-valid" if options[:valid]
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end

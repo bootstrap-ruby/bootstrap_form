@@ -5,6 +5,9 @@ module BootstrapForm
     module Base
       extend ActiveSupport::Concern
 
+      # Options consumed by bootstrap_form that must not reach the Rails helper.
+      FIELD_OPTIONS = (%i[floating adorn range strength] + Components::Validation::FEEDBACK_OPTIONS).freeze
+
       class_methods do
         def bootstrap_field(field_name)
           define_method :"#{field_name}_with_bootstrap" do |name, options={}|
@@ -16,7 +19,7 @@ module BootstrapForm
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
                 decorate_field(field_name, options) do
-                  send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :range, :strength))
+                  send(:"#{field_name}_without_bootstrap", name, options.except(*FIELD_OPTIONS))
                 end
               end
             end
@@ -76,8 +79,9 @@ module BootstrapForm
         options[:floating] = false
         form_group_builder(name, options) do
           prepend_and_append_input(name, options) do
-            field = send(:"#{field_name}_without_bootstrap", name, options.except(:floating, :adorn, :range, :strength))
-            tag.div(floating_label + field, class: ["form-floating", ("is-invalid" if error?(name))].compact)
+            field = send(:"#{field_name}_without_bootstrap", name, options.except(*FIELD_OPTIONS))
+            classes = ["form-floating", ("is-invalid" if error?(name)), ("is-valid" if options[:valid])]
+            tag.div(floating_label + field, class: classes.compact)
           end
         end
       end
