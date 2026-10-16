@@ -506,14 +506,14 @@ This generates:
 ```html
 <div class="form-field mb-3">
   <label class="form-label" for="user_price">Price</label>
-  <div class="form-control form-adorn">
-    <span class="form-adorn-text">$</span>
+  <label class="form-control form-adorn">
+    <span aria-hidden="true" class="form-adorn-text">$</span>
     <input class="form-ghost" id="user_price" name="user[price]" type="text">
   </div>
 </div>
 ```
 
-Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
+As in the Bootstrap documentation the wrapper is a `label`, so clicking the adornment focuses the input, and the adornment is `aria-hidden` because the field already has a label. Validation states are applied to the wrapper as well as the input. Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
 
 ```erb
 <%= f.search_field :query, adorn: { icon: search_icon_svg } %>

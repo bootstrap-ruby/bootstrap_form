@@ -101,15 +101,19 @@ module BootstrapForm
 
       # Bootstrap 6 form-adorn: decorate an input with an icon or text inside
       # a `form-control form-adorn` wrapper; the input itself is a form-ghost.
-      def adorn_wrapper(field, adorn)
+      # As in the docs the wrapper is a label, so clicking the adornment
+      # focuses the input, and the adornment is hidden from assistive
+      # technology because the field already has a label.
+      def adorn_wrapper(field, adorn, name:, options:)
         adorn = { text: adorn } unless adorn.is_a?(Hash)
         content = if adorn[:icon]
-                    tag.div(adorn[:icon], class: "form-adorn-icon")
+                    tag.div(adorn[:icon], class: "form-adorn-icon", aria: { hidden: true })
                   else
-                    tag.span(adorn[:text], class: "form-adorn-text")
+                    tag.span(adorn[:text], class: "form-adorn-text", aria: { hidden: true })
                   end
-        classes = ["form-control", "form-adorn", ("form-adorn-end" if adorn[:end]), adorn[:class]].compact
-        tag.div(content + field, class: classes)
+        classes = ["form-control", "form-adorn", ("form-adorn-end" if adorn[:end]), adorn[:class],
+                   ("is-invalid" if error?(name)), ("is-valid" if options[:valid])].compact
+        tag.label(content + field, class: classes)
       end
 
       STRENGTH_LEVELS = %w[weak fair good strong].freeze

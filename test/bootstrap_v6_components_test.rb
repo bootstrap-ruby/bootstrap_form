@@ -11,8 +11,8 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-control form-adorn">
-          <span class="form-adorn-text">$</span>
+        <label class="form-control form-adorn">
+          <span aria-hidden="true" class="form-adorn-text">$</span>
           <input class="form-ghost" id="user_misc" name="user[misc]" type="text" />
         </div>
       </div>
@@ -24,8 +24,8 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
-          <span class="form-adorn-text">@example.com</span>
+        <label class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
+          <span aria-hidden="true" class="form-adorn-text">@example.com</span>
           <input class="form-ghost" id="user_misc" name="user[misc]" type="text" />
         </div>
       </div>
@@ -40,8 +40,8 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-control form-adorn">
-          <div class="form-adorn-icon">#{icon}</div>
+        <label class="form-control form-adorn">
+          <div aria-hidden="true" class="form-adorn-icon">#{icon}</div>
           <input class="form-ghost" id="user_misc" name="user[misc]" type="search" />
         </div>
       </div>
@@ -183,6 +183,24 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     HTML
     actual = @builder.password_field(:password, help: false, strength: { level: :good, text: "Good password" }) +
              @builder.password_field(:password, help: false, strength: { variant: :bar, level: :weak })
+    assert_equivalent_html expected, actual
+  end
+
+  test "adorned field with an error marks the wrapper invalid" do
+    @user.errors.add(:misc, "is invalid")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="form-field mb-3">
+          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-control form-adorn is-invalid">
+            <span aria-hidden="true" class="form-adorn-text">$</span>
+            <input aria-describedby="user_misc_feedback" class="form-ghost is-invalid" id="user_misc" name="user[misc]" type="text" />
+          </label>
+          <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user) { |f| f.text_field(:misc, adorn: "$") }
     assert_equivalent_html expected, actual
   end
 end

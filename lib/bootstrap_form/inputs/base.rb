@@ -18,7 +18,7 @@ module BootstrapForm
             form_group_builder(name, options) do
               prepend_and_append_input(name, options) do
                 options[:placeholder] ||= name if options[:floating]
-                decorate_field(field_name, options) do
+                decorate_field(field_name, name, options) do
                   send(:"#{field_name}_without_bootstrap", name, options.except(*FIELD_OPTIONS))
                 end
               end
@@ -88,10 +88,10 @@ module BootstrapForm
 
       # Bootstrap 6 decorations around the bare field: the form-range wrapper,
       # form-adorn wrappers, and the password strength meter.
-      def decorate_field(field_name, options)
+      def decorate_field(field_name, name, options)
         field = yield
         field = range_wrapper(field, options[:range]) if field_name == :range_field
-        field = adorn_wrapper(field, options[:adorn]) if options[:adorn]
+        field = adorn_wrapper(field, options[:adorn], name:, options:) if options[:adorn]
         field << strength_meter(options[:strength]) if options[:strength]
         field
       end
