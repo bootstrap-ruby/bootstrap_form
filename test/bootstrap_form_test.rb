@@ -598,7 +598,7 @@ class BootstrapFormTest < ActionView::TestCase
     assert @user.invalid?
 
     expected = <<~HTML
-      <div class="alert alert-danger" tabindex="-1" role="note">
+      <div class="alert theme-danger" tabindex="-1" role="note">
         <p>Please fix the following errors:</p>
         <ul class="rails-bootstrap-forms-error-summary">
           <li>Email can't be blank</li>
