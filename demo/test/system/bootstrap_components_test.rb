@@ -81,6 +81,10 @@ class BootstrapComponentsTest < ApplicationSystemTestCase
     JS
     find("#popup_calendar [data-vc-date='#{day}']").find("button, [data-vc-date-btn]", match: :first).click
     assert find("#datepicker_basic").value.present?
+    # The popup stays open after a pick. Closing it with a click elsewhere
+    # refocuses and scrolls to its input, which would swallow the next click.
+    find("body").send_keys(:escape)
+    assert_no_selector("#popup_calendar")
 
     calendar = find("#datepicker_inline", visible: false).ancestor("[data-bs-inline]")
     assert_equal "2026-06-10", find("#datepicker_inline", visible: false).value

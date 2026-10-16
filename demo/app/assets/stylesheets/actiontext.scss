@@ -1,15 +1,9 @@
-//
-// Provides a drop-in pointer for the default Trix stylesheet that will format the toolbar and
-// the trix-editor content (whether displayed or under editing). Feel free to incorporate this
-// inclusion directly in any other asset bundle and remove this file.
-//
-//= require trix/dist/trix
-// When using `application.scss`, this has to be `import`, not `require`.
-@import "trix/dist/trix";
+// Trix's default stylesheet formats the toolbar and the editor content.
+@use "trix/dist/trix";
 
-// We need to override trix.css’s image gallery styles to accommodate the
-// <action-text-attachment> element we wrap around attachments. Otherwise,
-// images in galleries will be squished by the max-width: 33%; rule.
+// Override trix.css's image gallery styles to accommodate the
+// <action-text-attachment> element Action Text wraps around attachments.
+// Otherwise images in galleries are squished by the max-width: 33% rule.
 .trix-content {
   .attachment-gallery {
     > action-text-attachment,
