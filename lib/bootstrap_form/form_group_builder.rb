@@ -72,7 +72,13 @@ module BootstrapForm
         text: form_group_label_text(options[:label]),
         class: form_group_label_class(options),
         required: options[:required]
-      }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
+      }.merge(css_options[:id].present? ? { for: label_for_id(css_options[:id]) } : {})
+    end
+
+    # Rails 8 applies the form namespace to an explicit label `for`, matching
+    # the id it gives the control; earlier versions leave it untouched.
+    def label_for_id(id)
+      ActionView::VERSION::MAJOR >= 8 ? id : namespaced_id(id)
     end
 
     def form_group_label_text(label)

@@ -43,7 +43,7 @@ class BootstrapFieldsTest < ActionView::TestCase
       <div class="form-field mb-3">
         <label class="form-label" for="user_misc">Misc</label>
         <div data-bs-display-months-count="2" data-bs-inline="true" data-bs-position-element="#user_misc_calendar" data-bs-selected-dates="[&quot;2026-06-10&quot;]" data-bs-toggle="datepicker">
-          <input id="user_misc" name="user[misc]" type="hidden" value="2026-06-10" />
+          <input #{autocomplete_attr} id="user_misc" name="user[misc]" type="hidden" value="2026-06-10" />
           <div id="user_misc_calendar"></div>
         </div>
       </div>
@@ -502,14 +502,14 @@ class BootstrapFieldsTest < ActionView::TestCase
     expected = <<~HTML
       <div class="form-field mb-3">
         <div class="switch theme-success switch-lg">
-          <input name="user[misc]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0" />
           <input id="user_misc" name="user[misc]" role="switch" switch="switch" type="checkbox" value="1" />
         </div>
         <label for="user_misc">Misc</label>
       </div>
       <div class="form-field mb-3">
         <div class="switch theme-danger" style="--bs-switch-width: 3rem">
-          <input name="user[misc]" type="hidden" value="0" />
+          <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0" />
           <input id="user_misc" name="user[misc]" role="switch" switch="switch" type="checkbox" value="1" />
         </div>
         <label for="user_misc">Misc</label>

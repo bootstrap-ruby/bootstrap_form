@@ -49,7 +49,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
   test "check_box, select and otp_field with static feedback" do
     expected = <<~HTML
       <div class="form-field mb-3">
-        <input name="user[terms]" type="hidden" value="0" />
+        <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check is-valid" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1" />
         <div class="form-field-content">
           <label class="required" for="user_terms">Terms</label>
