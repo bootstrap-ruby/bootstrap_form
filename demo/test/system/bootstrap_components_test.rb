@@ -126,6 +126,16 @@ class BootstrapComponentsTest < ApplicationSystemTestCase
 
     bubble = find("#range_bubble").ancestor(".form-range")
     assert bubble.has_selector?(".form-range-bubble", visible: :all)
+
+    # The bubble follows the thumb through the `--bs-range-fill` property
+    # Bootstrap's JS writes; it only moves when the compiled CSS carries the
+    # `bs-` prefix, so this also guards the PostCSS step in the CSS build.
+    bubble_left = ->{ evaluate_script("document.querySelector('#range_bubble ~ .form-range-bubble').getBoundingClientRect().left") }
+    at_60 = bubble_left.call
+    execute_script("const r = document.getElementById('range_bubble'); r.value = 10; r.dispatchEvent(new Event('input', { bubbles: true }))")
+    assert_equal "0.1", bubble["style"][/--bs-range-fill:\s*([\d.]+)/, 1]
+    assert_equal "10", bubble.find(".form-range-bubble .tooltip-inner", visible: :all).text(:all)
+    assert_operator bubble_left.call, :<, at_60 - 50
   end
 
   test "switches, cards and indeterminate checkbox" do
