@@ -38,7 +38,7 @@ module BootstrapForm
 
       def radio_button_options(name, options)
         radio_button_options = options.except(*Components::Validation::FEEDBACK_OPTIONS, :class, :label,
-                                              :label_class, :error_message, :feedback_id, :help, :inline,
+                                              :card, :label_class, :error_message, :feedback_id, :help, :inline,
                                               :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
         if (describedby = aria_describedby(name, options))
@@ -70,6 +70,7 @@ module BootstrapForm
 
       def radio_button_wrapper_class(options)
         classes = ["form-field"]
+        classes << "form-field-card" if options[:card]
         classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
         classes << options.dig(:wrapper, :class).presence

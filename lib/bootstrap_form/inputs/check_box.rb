@@ -59,7 +59,7 @@ module BootstrapForm
 
       def check_box_options(name, options)
         check_box_options = options.except(*Components::Validation::FEEDBACK_OPTIONS, :class, :control_col,
-                                           :error_message, :feedback_id, :help, :hide_label, :inline, :label,
+                                           :card, :error_message, :feedback_id, :help, :hide_label, :inline, :label,
                                            :label_class, :label_col, :layout, :skip_label, :switch, :wrapper,
                                            :wrapper_class)
         check_box_options[:class] = check_box_classes(name, options)
@@ -113,6 +113,7 @@ module BootstrapForm
 
       def check_box_wrapper_class(options)
         classes = ["form-field"]
+        classes << "form-field-card" if options[:card]
         classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
         classes << "mb-3" unless options[:multiple] ||
                                  %i[horizontal inline].include?(layout) ||

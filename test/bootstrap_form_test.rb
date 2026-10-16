@@ -1131,7 +1131,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           <label for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label sm:col-2 pt-0" for="user_misc">Misc</label>
+          <label class="col-form-label sm:col-2 pt-0">Misc</label>
           <div class="sm:col-10">
             <div class="form-field">
               <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -1180,7 +1180,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           <label for="user_terms">I agree to the terms</label>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <label class="d-inline-block me-3">Misc</label>
           <div class="form-field d-inline-grid me-3">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1">Foo</label>
@@ -1238,7 +1238,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="col">
-          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <label class="d-inline-block me-3">Misc</label>
           <div class="form-field d-inline-grid me-3">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1">Foo</label>
@@ -1841,7 +1841,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="mb-3 row">
-          <label class="col-form-label sm:col-2 pt-0" for="user_misc">Misc</label>
+          <label class="col-form-label sm:col-2 pt-0">Misc</label>
           <div class="sm:col-10">
             <div class="form-field">
               <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
@@ -1893,7 +1893,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1">Foo</label>
@@ -1942,7 +1942,7 @@ class LegacyBootstrapFormTest < ActionView::TestCase
           </div>
         </div>
         <div class="mb-3 col-auto g-3">
-          <label class="d-inline-block me-3" for="user_misc">Misc</label>
+          <label class="d-inline-block me-3">Misc</label>
           <div class="form-field d-inline-grid me-3">
             <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1">Foo</label>

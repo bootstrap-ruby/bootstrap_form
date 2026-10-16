@@ -81,8 +81,8 @@
     <% end %>
     <%= form.form_group :type, label: { text: "Select a plan" }, class: "form-group mb-3" do %>
       <div class="vstack gap-1">
-        <%= form.radio_button :type, "basic", id: "field_plan_basic", label: "Basic", help: "$9/month — For individuals.", wrapper_class: "form-field-card", checked: true %>
-        <%= form.radio_button :type, "pro", id: "field_plan_pro", label: "Pro", help: "$29/month — For teams.", wrapper_class: "form-field-card" %>
+        <%= form.radio_button :type, "basic", id: "field_plan_basic", label: "Basic", help: "$9/month — For individuals.", card: true, checked: true %>
+        <%= form.radio_button :type, "pro", id: "field_plan_pro", label: "Pro", help: "$29/month — For teams.", card: true %>
       </div>
     <% end %>
     <%= form.checkbox :terms, id: "field_notifications", switch: true, label: "Enable notifications" %>

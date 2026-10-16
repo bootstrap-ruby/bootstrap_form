@@ -12,12 +12,23 @@ module BootstrapForm
 
       tag.div(**options.except(:add_control_col_class, :append, :control_col, :floating, :help, :icon, :id,
                                :input_group_class, :label, :label_col, :layout, :prepend)) do
+        content = capture(&block) || ActiveSupport::SafeBuffer.new
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout])
-        form_group_content(label, generate_help(name, options[:help], id: options[:id]), options, &block)
+        label = detach_dangling_label(label, content)
+        form_group_content(label, generate_help(name, options[:help], id: options[:id]), options) { content }
       end
     end
 
     private
+
+    # A group label (e.g. above a set of radios) gets a `for` attribute from
+    # Rails that matches no control. Drop it so the label isn't associated
+    # with a non-existent element, as in the Bootstrap docs' grouped fields.
+    def detach_dangling_label(label, content)
+      return label unless label && (for_id = label[/ for="([^"]*)"/, 1]) && content.exclude?(" id=\"#{for_id}\"")
+
+      label.sub(/ for="[^"]*"/, "").html_safe # rubocop:disable Rails/OutputSafety
+    end
 
     def form_group_content_tag(name, field_name, without_field_name, options, html_options)
       html_class = control_specific_class(field_name)

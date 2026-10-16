@@ -739,7 +739,7 @@ This generates:
 
 ```html
 <div class="form-field mb-3">
-  <label class="form-label" for="user_skill_level">Skill</label>
+  <label class="form-label">Skill</label>
   <div class="form-field">
     <input checked class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
     <label for="user_skill_level_0">Novice</label>
@@ -804,7 +804,7 @@ This generates:
 
 ```html
 <div class="form-field mb-3">
-  <label class="form-label" for="user_skill_level">Skill</label>
+  <label class="form-label">Skill</label>
   <div class="form-field d-inline-grid me-3">
     <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
     <label for="user_skill_level_0">Novice</label>
@@ -818,6 +818,17 @@ This generates:
     <label for="user_skill_level_2">Advanced</label>
   </div>
 </div>
+```
+
+Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), which highlights the whole field when its control is checked. Combined with `help`, that gives the "group cards" from the Bootstrap documentation:
+
+```erb
+<%= f.form_group :plan, label: { text: "Select a plan" }, class: "form-group mb-3" do %>
+  <div class="vstack gap-1">
+    <%= f.radio_button :plan, "basic", label: "Basic", help: "$9/month — For individuals.", card: true, checked: true %>
+    <%= f.radio_button :plan, "pro", label: "Pro", help: "$29/month — For teams.", card: true %>
+  </div>
+<% end %>
 ```
 
 Check boxes and radio buttons are wrapped in a `div.form-field`. You can add classes to this `div` with the `:wrapper_class` option:

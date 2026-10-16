@@ -314,7 +314,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a radio button collection</label>
+        <label class="form-label">This is a radio button collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1">
@@ -334,7 +334,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> Foo</label>
@@ -355,7 +355,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input class="radio is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1"> Foo</label>
@@ -383,7 +383,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
         <div class="form-field mb-3">
-          <label class="form-label" for="custom-id">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input class="radio is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc]" type="radio" value="1" />
             <label for="user_misc_1"> Foo</label>
@@ -409,7 +409,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="d-inline-block me-3" for="user_misc">Misc</label>
+        <label class="d-inline-block me-3">Misc</label>
         <div class="form-field d-inline-grid me-3">
           <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> Foo</label>
@@ -428,7 +428,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" checked="checked" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> Foo</label>
@@ -447,7 +447,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a radio button collection</label>
+        <label class="form-label">This is a radio button collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
@@ -465,7 +465,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a radio button collection</label>
+        <label class="form-label">This is a radio button collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
@@ -484,7 +484,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> ooF</label>
@@ -503,7 +503,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foo</label>
@@ -522,7 +522,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a radio button collection</label>
+        <label class="form-label">This is a radio button collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> rabooF</label>
@@ -540,7 +540,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a radio button collection</label>
+        <label class="form-label">This is a radio button collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foobar</label>
@@ -559,7 +559,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
           <label for="user_misc_1"> ooF</label>
@@ -578,7 +578,7 @@ class BootstrapCLegacyollectionRadioButtonsTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="radio" id="user_misc_address_1" name="user[misc]" type="radio" value="address_1" />
           <label for="user_misc_address_1"> Foo</label>

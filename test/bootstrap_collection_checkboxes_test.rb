@@ -534,7 +534,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">This is a checkbox collection</label>
+        <label class="form-label">This is a checkbox collection</label>
         <div class="form-field">
           <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foobar</label>
@@ -553,7 +553,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       expected = <<~HTML
         <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">This is a checkbox collection</label>
+          <label class="form-label">This is a checkbox collection</label>
           <div class="form-field">
             <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foobar</label>
@@ -572,7 +572,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">
@@ -597,7 +597,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foo</label>
@@ -617,7 +617,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="d-inline-block me-3" for="user_misc">Misc</label>
+        <label class="d-inline-block me-3">Misc</label>
         <div class="form-field d-inline-grid me-3">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">
@@ -641,7 +641,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">
@@ -668,7 +668,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1"> Foo</label>
@@ -691,7 +691,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
           <label for="user_misc_foo_st">
@@ -708,7 +708,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">
@@ -732,7 +732,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label for="user_misc_address_1">
@@ -756,7 +756,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">
@@ -780,7 +780,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label for="user_misc_address_1">
@@ -805,7 +805,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label for="user_misc_address_1">
@@ -832,7 +832,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     expected = <<~HTML
       <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
           <label for="user_misc_address_1">
@@ -858,7 +858,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foo</label>
@@ -881,7 +881,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foo</label>
@@ -912,7 +912,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="custom-id">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1">Foo</label>
@@ -942,7 +942,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     ]
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
+        <label class="form-label">Misc</label>
         <div class="form-field">
           <input class="check" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
           <label for="user_misc_1">Foo</label>
@@ -964,7 +964,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1"> Foo</label>
@@ -993,7 +993,7 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
           <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
         <div class="form-field mb-3">
-          <label class="form-label" for="custom-id">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="form-field">
             <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
             <label for="user_misc_1"> Foo</label>

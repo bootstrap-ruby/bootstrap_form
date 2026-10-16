@@ -98,7 +98,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+        <label class="col-form-label sm:col-2 required">Email</label>
         <div class="sm:col-10">this is a test</div>
       </div>
     HTML
@@ -112,7 +112,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label sm:col-2" for="user_">My Label</label>
+        <label class="col-form-label sm:col-2">My Label</label>
         <div class="sm:col-10">this is a test</div>
       </div>
     HTML
@@ -126,7 +126,7 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label sm:col-2" for="user_">Custom Label</label>
+        <label class="col-form-label sm:col-2">Custom Label</label>
         <div class="sm:col-10">Custom Control</div>
       </div>
     HTML

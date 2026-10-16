@@ -344,7 +344,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label sm:col-2" for="user_nil">Foo</label>
+        <label class="col-form-label sm:col-2">Foo</label>
         <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -375,7 +375,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="col-form-label sm:col-2 required" for="user_email">Custom Control</label>
+        <label class="col-form-label sm:col-2 required">Custom Control</label>
         <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -436,7 +436,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="mb-3 row">
-        <label class="foo col-form-label sm:col-2" for="bar">Custom Control</label>
+        <label class="foo col-form-label sm:col-2">Custom Control</label>
         <div class="sm:col-10">
           <input class="form-control-plaintext" value="Bar">
         </div>
@@ -626,7 +626,7 @@ class BootstrapFormGroupTest < ActionView::TestCase
 
     expected = <<~HTML
       <div class="form-field mb-3">
-        <label class="form-label" for="user_nil">Foo</label>
+        <label class="form-label">Foo</label>
       </div>
     HTML
     assert_equivalent_html expected, output

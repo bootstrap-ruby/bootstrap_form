@@ -345,7 +345,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -367,7 +367,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <div class="none-margin">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -390,7 +390,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="mb-3 row">
-            <label class="col-form-label sm:col-2" for="user_misc">Misc</label>
+            <label class="col-form-label sm:col-2">Misc</label>
             <div class="sm:col-10">
               <div class="rails-bootstrap-forms-date-select col-auto g-3">
                 <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
@@ -417,7 +417,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -443,7 +443,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-date-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -467,7 +467,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{blank_option}
@@ -493,7 +493,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-date-select">
             <select class="form-control my-date-select" id="user_misc_1i" name="user[misc(1i)]">
               #{blank_option}
@@ -518,7 +518,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
             <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
@@ -543,7 +543,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
               <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
@@ -570,7 +570,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-time-select">
               <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="2012" />
               <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="2" />
@@ -595,7 +595,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
             <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
@@ -620,7 +620,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-time-select">
             <input #{autocomplete_attr_time_selects} id="user_misc_1i" name="user[misc(1i)]" type="hidden" value="1" />
             <input #{autocomplete_attr_time_selects} id="user_misc_2i" name="user[misc(2i)]" type="hidden" value="1" />
@@ -645,7 +645,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -677,7 +677,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -711,7 +711,7 @@ class BootstrapSelectsTest < ActionView::TestCase
       expected = <<~HTML
         <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
             <div class="form-field mb-3">
-            <label class="form-label" for="user_misc">Misc</label>
+            <label class="form-label">Misc</label>
             <div class="rails-bootstrap-forms-datetime-select">
               <select class="form-control is-invalid" id="user_misc_1i" aria-describedby="user_misc_feedback" name="user[misc(1i)]">
                 #{options_range(start: 2007, stop: 2017, selected: 2012)}
@@ -743,7 +743,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="user_misc_1i" name="user[misc(1i)]">
               #{blank_option}
@@ -778,7 +778,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control my-datetime-select" extra="extra arg" id="user_misc_1i" name="user[misc(1i)]">
               #{blank_option}
@@ -849,7 +849,7 @@ class BootstrapSelectsTest < ActionView::TestCase
     travel_to(Time.utc(2012, 2, 3, 12, 0, 0)) do
       expected = <<~HTML
         <div class="form-field mb-3">
-          <label class="form-label" for="name_space_user_misc">Misc</label>
+          <label class="form-label">Misc</label>
           <div class="rails-bootstrap-forms-datetime-select">
             <select class="form-control" id="name_space_user_misc_1i" name="user[misc(1i)]">
               #{options_range(start: 2007, stop: 2017, selected: 2012)}

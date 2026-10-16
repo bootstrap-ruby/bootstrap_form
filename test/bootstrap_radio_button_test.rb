@@ -247,4 +247,24 @@ class BootstrapRadioButtonTest < ActionView::TestCase
     HTML
     assert_equivalent_html expected, @builder.radio_button(:email, "0", label: "This is a radio button")
   end
+
+  test "radio_button and check_box with card: true" do
+    expected = <<~HTML
+      <div class="form-field form-field-card">
+        <input aria-describedby="user_misc_help" class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1" />
+        <div class="form-field-content">
+          <label for="user_misc_1">Basic</label>
+          <small class="form-text" id="user_misc_help">$9/month</small>
+        </div>
+      </div>
+      <div class="form-field form-field-card mb-3">
+        <input name="user[terms]" type="hidden" value="0" />
+        <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
+        <label for="user_terms">Terms</label>
+      </div>
+    HTML
+    actual = @builder.radio_button(:misc, "1", label: "Basic", help: "$9/month", card: true) +
+             @builder.check_box(:terms, card: true)
+    assert_equivalent_html expected, actual
+  end
 end
