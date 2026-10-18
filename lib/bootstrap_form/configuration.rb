@@ -31,7 +31,9 @@ module BootstrapForm
       when nil
         @turbo_submits_with = nil
       when :spinner, "spinner"
-        @turbo_submits_with = "<div class=\"spinner-border d-block mx-auto\" role=\"status\" style=\"--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;\"><span class=\"visually-hidden\">Loading...</span></div>"
+        @turbo_submits_with = '<div class="spinner-border d-block mx-auto" role="status" ' \
+                              'style="--bs-spinner-width: 1lh; --bs-spinner-height: 1lh;">' \
+                              '<span class="visually-hidden">Loading...</span></div>'
       when Symbol, String
         @turbo_submits_with = value.to_s
       else
