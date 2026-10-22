@@ -655,14 +655,38 @@ class BootstrapFieldsTest < ActionView::TestCase
 
   test "can have a floating label" do
     expected = <<~HTML
-      <div class="form-field mb-5">
-        <div class="form-floating">
-          <label class="form-label required" for="user_email">Email</label>
-          <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
-        </div>
+      <div class="form-floating mb-5">
+        <label class="form-label required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
       </div>
     HTML
     assert_equivalent_html expected, @builder.text_field(:email, floating: true)
+  end
+
+  test "floating label with help text and an error" do
+    @user.errors.add(:misc, "is invalid")
+    expected = <<~HTML
+      <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
+        <div class="form-floating mb-5">
+          <label class="form-label" for="user_misc">Misc</label>
+          <input aria-describedby="user_misc_help user_misc_feedback" class="form-control is-invalid" id="user_misc" name="user[misc]" placeholder="Misc" type="text" />
+          <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+          <small class="form-text" id="user_misc_help">Help!</small>
+        </div>
+      </form>
+    HTML
+    actual = bootstrap_form_for(@user) { |f| f.text_field(:misc, floating: true, help: "Help!") }
+    assert_equivalent_html expected, actual
+  end
+
+  test "floating label with a custom wrapper class keeps the form-floating wrapper" do
+    expected = <<~HTML
+      <div class="form-floating-always form-floating">
+        <label class="form-label required" for="user_email">Email</label>
+        <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" placeholder="Email" />
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.text_field(:email, floating: true, wrapper_class: "form-floating-always")
   end
 
   test "floating label inside an input group" do

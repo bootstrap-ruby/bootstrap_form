@@ -50,7 +50,7 @@ The tooling to support our old way of doing the change log doesn't work anymore,
 
 ### Breaking changes
 
-* Target Bootstrap 6: generate the Bootstrap 6 form markup (`form-field` wrappers, `check`/`radio`/`switch` classes, `form-range` wrappers, floating labels and adornments) and add helpers for the new combobox, datepicker, chips, OTP and password strength components. Requires Bootstrap 6 CSS and JavaScript - [@pardeyke](https://github.com/pardeyke).
+* Target Bootstrap 6: generate the Bootstrap 6 form markup (`form-field` wrappers, `check`/`radio`/`switch` classes, `form-range` wrappers, floating labels rendered as a `form-floating` form group, and adornments) and add helpers for the new combobox, datepicker, chips, OTP and password strength components. Requires Bootstrap 6 CSS and JavaScript - [@pardeyke](https://github.com/pardeyke).
 * [#618](https://github.com/bootstrap-ruby/bootstrap_form/pull/618): Allow overriding the wrapper class - [@donv](https://github.com/donv).
 * Your contribution here!
 

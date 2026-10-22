@@ -22,12 +22,10 @@ module BootstrapForm
       options = form_group_builder_options(options, method)
 
       css_options = form_group_css_options(method, html_options.try(:symbolize_keys!), options)
+      # A floating label not rendered by the group (see #floating_group?) goes next to its control.
+      floating_label = form_group_label(options, css_options) if options[:floating] && !floating_group?(options)
+      options[:floating_label] = generate_label(options[:id], method, floating_label, nil, nil) if floating_label
       form_group_options = form_group_opts(options, css_options)
-      # A floating label is rendered next to its control instead of by the
-      # group, so generate it before the label options are stripped below.
-      if options[:floating]
-        options[:floating_label] = generate_label(options[:id], method, form_group_label(options, css_options), nil, nil)
-      end
 
       options.except!(
         :help, :icon, :label_col, :control_col, :add_control_col_class, :layout, :skip_label, :label, :label_class,
@@ -58,13 +56,20 @@ module BootstrapForm
         label_col: options[:label_col], control_col: options[:control_col],
         add_control_col_class: options[:add_control_col_class],
         layout: get_group_layout(options[:layout]), class: options[:wrapper_class],
-        floating: options[:floating]
+        floating: floating_group?(options)
       }
 
       form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
-      # A floating label is rendered next to its control instead of by the group.
-      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label] || options[:floating]
+      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label] || options[:floating_label]
       form_group_options
+    end
+
+    # Bootstrap 6 floating labels: the form group itself is the `form-floating` wrapper, unless the
+    # control sits in an input group, a horizontal/inline group, or no group: then it gets its own.
+    def floating_group?(options)
+      options[:floating] && options[:wrapper] != false && layout != :inline &&
+        options[:prepend].blank? && options[:append].blank? &&
+        %i[horizontal inline].exclude?(get_group_layout(options[:layout]))
     end
 
     def form_group_label(options, css_options)

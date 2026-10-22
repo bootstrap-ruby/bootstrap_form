@@ -2119,7 +2119,8 @@ A form-level `layout: :inline` can't be overridden because of the way Bootstrap 
 ### Floating Labels
 
 The `floating` option can be used to enable Bootstrap's floating labels. This option is supported on text fields
-and dropdowns. Here's an example:
+and dropdowns. The form group itself becomes the `form-floating` wrapper, with any help text and validation
+feedback inside it after the control. Here's an example:
 
 ![Example 66](demo/doc/screenshots/bootstrap/readme/66_example.png "Example 66")
 ```erb
@@ -2136,39 +2137,31 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-field mb-5">
-    <div class="form-floating">
-      <label class="form-label required" for="user_email">Email</label>
-      <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
-    </div>
+  <div class="form-floating mb-5">
+    <label class="form-label required" for="user_email">Email</label>
+    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="form-field mb-5">
-    <div class="form-floating">
-      <label class="form-label" for="user_password">Password</label>
-      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
-    </div>
+  <div class="form-floating mb-5">
+    <label class="form-label" for="user_password">Password</label>
+    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
   </div>
-  <div class="form-field mb-5">
-    <div class="form-floating">
-      <label class="form-label" for="user_password">Password</label>
-      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
-    </div>
+  <div class="form-floating mb-5">
+    <label class="form-label" for="user_password">Password</label>
+    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
   </div>
-  <div class="form-field mb-5">
-    <div class="form-floating">
-      <label class="form-label" for="user_status">Status</label>
-      <select class="form-control" id="user_status" name="user[status]">
-        <option value="">Select a value</option>
-        <option value="1">Active</option>
-        <option value="2">Inactive</option>
-      </select>
-    </div>
+  <div class="form-floating mb-5">
+    <label class="form-label" for="user_status">Status</label>
+    <select class="form-control" id="user_status" name="user[status]">
+      <option value="">Select a value</option>
+      <option value="1">Active</option>
+      <option value="2">Inactive</option>
+    </select>
   </div>
   <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
-Floating labels also work inside input groups. Bootstrap nests the `form-floating` wrapper inside the `input-group`, with any validation feedback after the group, and `bootstrap_form` does the same when you combine `floating: true` with `prepend` or `append`:
+Floating labels also work inside input groups. Bootstrap nests a `form-floating` wrapper inside the `input-group`, with any validation feedback after the group in a `form-field` wrapper, and `bootstrap_form` does the same when you combine `floating: true` with `prepend` or `append`:
 
 ![Example 67](demo/doc/screenshots/bootstrap/readme/67_example.png "Example 67")
 ```erb
