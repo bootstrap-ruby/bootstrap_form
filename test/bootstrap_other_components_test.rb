@@ -152,6 +152,22 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
                            @builder.button("<span>I'm HTML!</span> in a button!".html_safe, extra_class: "test-button")
   end
 
+  test "regular button has turbo-submits-with default spinner" do
+    expected = <<~HTML
+      <button class="btn btn-secondary" data-turbo-submits-with='&lt;div class="text-center"&gt;&lt;div class="spinner-border spinner-border-sm" role="status"&gt;&lt;span class="visually-hidden"&gt;Loading...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;' name="button" type="submit">Submit with Spinner</button>
+    HTML
+    assert_equivalent_html expected,
+                           @builder.button("Submit with Spinner", data: { turbo_submits_with: @builder.spinner })
+  end
+
+  test "regular button has turbo-submits-with custom HTML" do
+    expected = <<~HTML
+      <button class="btn btn-secondary" data-turbo-submits-with="<span>Loading...</span>" name="button" type="submit">Submit with Spinner</button>
+    HTML
+    assert_equivalent_html expected,
+                           @builder.button("Submit with Spinner", data: { turbo_submits_with: "<span>Loading...</span>" })
+  end
+
   test "submit button defaults to rails action name" do
     expected = '<input class="btn btn-secondary" name="commit" type="submit" value="Create User" />'
     assert_equivalent_html expected, @builder.submit
@@ -180,6 +196,21 @@ class BootstrapOtherComponentsTest < ActionView::TestCase
   test "primary button can have extra css classes" do
     expected = '<input class="btn btn-primary test-button" name="commit" type="submit" value="Submit Form" />'
     assert_equivalent_html expected, @builder.primary("Submit Form", extra_class: "test-button")
+  end
+
+  test "primary button with plain-text turbo-submits-with still renders a submit input" do
+    expected = <<~HTML
+      <input class="btn btn-primary" data-turbo-submits-with="Saving..." name="commit" type="submit" value="Submit Form" />
+    HTML
+    assert_equivalent_html expected, @builder.primary("Submit Form", data: { turbo_submits_with: "Saving..." })
+  end
+
+  test "primary button with render_as_button and turbo-submits-with spinner renders a button" do
+    expected = <<~HTML
+      <button class="btn btn-primary" data-turbo-submits-with='&lt;div class="text-center"&gt;&lt;div class="spinner-border spinner-border-sm" role="status"&gt;&lt;span class="visually-hidden"&gt;Loading...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;' name="button" type="submit">Submit Form</button>
+    HTML
+    assert_equivalent_html expected,
+                           @builder.primary("Submit Form", render_as_button: true, data: { turbo_submits_with: @builder.spinner })
   end
 
   test "primary button can render as HTML button" do

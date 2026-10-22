@@ -1068,6 +1068,32 @@ will be rendered as
 
 (some unimportant HTML attributes have been removed for simplicity)
 
+### Turbo submits with
+There is a turbo attribute [(data-turbo-submits-with)](https://turbo.hotwired.dev/reference/attributes) that replaces the content of a submit button while the request is processing. Turbo supports it on both `<button>` and `<input type="submit">` elements, but an `<input>` can only show plain text, so HTML content such as a spinner needs a `<button>`. Use `f.button`, or `f.primary` with `render_as_button: true`, when the replacement content is HTML.
+
+Plain text works with the normal submit input:
+```erb
+<%= f.primary "Save", data: { turbo_submits_with: "Saving..." } %>
+```
+
+```html
+<input class="btn btn-primary" data-turbo-submits-with="Saving..." name="commit" type="submit" value="Save">
+```
+
+You can have `bootstrap_form` put up a default bootstrap spinner while the request is processing with `f.spinner`, or provide your own HTML:
+```erb
+<%= f.button "Save", data: { turbo_submits_with: f.spinner } %>
+
+<%= f.primary "Save", render_as_button: true, data: { turbo_submits_with: f.spinner } %>
+
+<%= f.button "Save", data: { turbo_submits_with: "<span>Loading...</span>" } %>
+```
+
+```html
+<button class="btn btn-secondary" data-turbo-submits-with="<span>Loading...</span>" name="button" type="submit">Save</button>
+```
+
+
 ## Rich Text Areas AKA Trix Editor
 
 ![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
