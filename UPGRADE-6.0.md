@@ -12,9 +12,10 @@ Upgrading `bootstrap_form` to version 6 means you must upgrade your whole applic
 
 Bootstrap 6 introduces the [`form-field` wrapper](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/field/), a CSS-grid container that lays out a control together with its label, help text, and validation feedback. `bootstrap_form` now uses it as the default form group wrapper:
 
-- Vertical form groups are wrapped in `class="form-field mb-3"` (was `class="mb-3"`).
-- Collections rendered with `group_around_collections = true` are wrapped in `class="form-group mb-3"`, Bootstrap 6's wrapper for multiple `form-field`s under a shared label.
-- Horizontal groups (`mb-3 row`), inline groups, and floating label groups (`mb-3 form-floating`) are unchanged, because they use Bootstrap's grid or the `form-floating` component for layout instead.
+- The default bottom margin is now `mb-5` (was `mb-3`) on every form group wrapper, because Bootstrap 6 adapts its spacing scale. If you pass your own `wrapper_class`, update any `mb-3` you copied from the v5 defaults.
+- Vertical form groups are wrapped in `class="form-field mb-5"` (was `class="mb-3"`).
+- Collections rendered with `group_around_collections = true` are wrapped in `class="form-group mb-5"`, Bootstrap 6's wrapper for multiple `form-field`s under a shared label.
+- Horizontal groups (`mb-5 row`), inline groups, and floating label groups (`mb-5 form-floating`) keep their v5 structure apart from the new margin, because they use Bootstrap's grid or the `form-floating` component for layout instead.
 - A custom `wrapper_class`/`wrapper: { class: ... }` still *replaces* the default classes. Include `form-field` in your custom class if you want to keep Bootstrap 6's field layout.
 
 ### Help Text
@@ -40,7 +41,7 @@ Bootstrap 6 replaces the `.form-check` component with the `.form-field` wrapper 
 Bootstrap 6 gives switches their own structure. `check_box ..., switch: true` now generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <div class="switch">
     <input name="user[remember_me]" type="hidden" value="0">
     <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">

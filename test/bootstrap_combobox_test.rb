@@ -12,7 +12,7 @@ class BootstrapComboboxTest < ActionView::TestCase
 
   test "combobox is wrapped correctly" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox" id="user_status" type="button">
           <span class="combobox-value combobox-placeholder">Select a status…</span>
@@ -33,7 +33,7 @@ class BootstrapComboboxTest < ActionView::TestCase
     @user.errors.add(:status, "is invalid")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="ns_new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="ns_user_status">Status</label>
           <button aria-describedby="user_status_feedback" aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle is-invalid" data-bs-name="user[status]" data-bs-toggle="combobox" id="ns_user_status" type="button">
             <span class="combobox-value combobox-placeholder"></span>
@@ -44,7 +44,7 @@ class BootstrapComboboxTest < ActionView::TestCase
           </div>
           <div class="invalid-feedback" id="user_status_feedback">is invalid</div>
         </div>
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="ns_custom">Misc</label>
           <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="ns_custom" type="button">
             <span class="combobox-value combobox-placeholder"></span>
@@ -64,7 +64,7 @@ class BootstrapComboboxTest < ActionView::TestCase
 
   test "combobox marks the selected choice and shows its label" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[status]" data-bs-toggle="combobox" id="user_status" type="button">
           <span class="combobox-value">blocked</span>
@@ -81,7 +81,7 @@ class BootstrapComboboxTest < ActionView::TestCase
 
   test "combobox with multiple and search" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-multiple="true" data-bs-name="user[misc]" data-bs-search="true" data-bs-toggle="combobox" id="user_misc" type="button">
           <span class="combobox-value">2 selected</span>
@@ -106,7 +106,7 @@ class BootstrapComboboxTest < ActionView::TestCase
   test "combobox uses the object value for selection" do
     @user.misc = 2
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="user_misc" type="button">
           <span class="combobox-value">Bar</span>
@@ -125,7 +125,7 @@ class BootstrapComboboxTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="user_misc">Misc</label>
           <button aria-describedby="user_misc_feedback" aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle is-invalid" data-bs-name="user[misc]" data-bs-toggle="combobox" id="user_misc" type="button">
             <span class="combobox-value combobox-placeholder"></span>
@@ -143,7 +143,7 @@ class BootstrapComboboxTest < ActionView::TestCase
 
   test "combobox with flat choices and help text" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <button aria-describedby="user_misc_help" aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[misc]" data-bs-toggle="combobox" id="user_misc" type="button">
           <span class="combobox-value combobox-placeholder"></span>
@@ -166,7 +166,7 @@ class BootstrapComboboxTest < ActionView::TestCase
       "Backend" => { "Rails" => "rails" }
     }
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-boundary="viewport" data-bs-name="user[status]" data-bs-offset="[0,4]" data-bs-placement="top-start" data-bs-search-normalize="true" data-bs-toggle="combobox" disabled="disabled" id="user_status" type="button">
           <span class="combobox-value">Rails</span>

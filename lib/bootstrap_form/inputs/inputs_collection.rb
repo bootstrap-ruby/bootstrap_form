@@ -117,9 +117,9 @@ module BootstrapForm
         return "col" if layout == :inline
 
         if get_group_layout(options[:layout]) == :inline || group_layout_horizontal?(options[:layout])
-          "mb-3"
+          "mb-5"
         else
-          "form-group mb-3"
+          "form-group mb-5"
         end
       end
     end

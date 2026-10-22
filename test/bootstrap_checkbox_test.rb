@@ -9,7 +9,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box is wrapped correctly" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" extra="extra arg" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -22,7 +22,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box empty label" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">&#8203;</label>
@@ -34,7 +34,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "disabled check_box has proper wrapper classes" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label for="user_terms">
@@ -47,7 +47,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box label allows html" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -60,7 +60,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box accepts a block to define the label" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -73,7 +73,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box accepts a custom label class" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="btn" for="user_terms">
@@ -86,7 +86,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box 'id' attribute is used to specify label 'for' attribute" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="custom_id" name="user[terms]" type="checkbox" value="1" />
         <label for="custom_id">
@@ -99,7 +99,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box responds to checked_value and unchecked_value arguments" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="no" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="yes" />
         <label for="user_terms">
@@ -112,7 +112,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes" do
     expected = <<~HTML
-      <div class="form-field d-inline-grid me-3 mb-3">
+      <div class="form-field d-inline-grid me-3 mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -143,7 +143,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "disabled inline check_box" do
     expected = <<~HTML
-      <div class="form-field d-inline-grid me-3 mb-3">
+      <div class="form-field d-inline-grid me-3 mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" disabled="disabled" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" disabled="disabled" />
         <label for="user_terms">
@@ -157,7 +157,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline checkboxes with custom label class" do
     expected = <<~HTML
-      <div class="form-field d-inline-grid me-3 mb-3">
+      <div class="form-field d-inline-grid me-3 mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="btn" for="user_terms">
@@ -170,7 +170,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box skip label" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
       </div>
@@ -180,7 +180,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check_box hide label" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check position-static" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label class="visually-hidden" for="user_terms">I agree to the terms</label>
@@ -193,7 +193,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     @user.errors.add(:terms, "You must accept the terms.")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <div class="form-field mb-3">
+          <div class="form-field mb-5">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="check is-invalid" id="user_terms" aria-describedby="user_terms_feedback" name="user[terms]" type="checkbox" value="1" />
           <div class="form-field-content">
@@ -215,7 +215,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
     @user.errors.add(:terms, "You must accept the terms.")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <div class="form-field mb-3">
+          <div class="form-field mb-5">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="check is-invalid" id="custom-id" aria-describedby="custom-id_feedback" name="user[terms]" type="checkbox" value="1" />
           <div class="form-field-content">
@@ -235,7 +235,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "check box with custom wrapper class" do
     expected = <<~HTML
-      <div class="form-field mb-3 custom-class">
+      <div class="form-field mb-5 custom-class">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -262,7 +262,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "inline check box with custom wrapper class" do
     expected = <<~HTML
-      <div class="form-field d-inline-grid me-3 mb-3 custom-class">
+      <div class="form-field d-inline-grid me-3 mb-5 custom-class">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">
@@ -276,7 +276,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "a required checkbox" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1"/>
         <label class="required" for="user_terms">I agree to the terms</label>
@@ -287,7 +287,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "a required attribute as checkbox" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[email]" type="hidden" value="0"/>
         <input class="check" id="user_email" name="user[email]" required="required" type="checkbox" value="1"/>
         <label for="user_email">Email</label>
@@ -298,7 +298,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "an attribute with required and if is not marked as required" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[status]" type="hidden" value="0"/>
         <input class="check" id="user_status" name="user[status]" type="checkbox" value="1"/>
         <label for="user_status">Status</label>
@@ -309,7 +309,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
 
   test "an attribute with presence validator and unless is not marked as required" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[misc]" type="hidden" value="0"/>
         <input class="check" id="user_misc" name="user[misc]" type="checkbox" value="1"/>
         <label for="user_misc">Misc</label>
@@ -321,7 +321,7 @@ class BootstrapCheckboxTest < ActionView::TestCase
   if Rails::VERSION::MAJOR >= 8
     test "checkbox alias works" do
       expected = <<~HTML
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
           <input class="check" extra="extra arg" id="user_terms" name="user[terms]" type="checkbox" value="1" />
           <label for="user_terms">

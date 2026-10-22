@@ -257,7 +257,7 @@ class BootstrapRadioButtonTest < ActionView::TestCase
           <small class="form-text" id="user_misc_help">$9/month</small>
         </div>
       </div>
-      <div class="form-field form-field-card mb-3">
+      <div class="form-field form-field-card mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <label for="user_terms">Terms</label>

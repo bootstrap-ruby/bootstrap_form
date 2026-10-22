@@ -115,7 +115,7 @@ module BootstrapForm
         classes = ["form-field"]
         classes << "form-field-card" if options[:card]
         classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
-        classes << "mb-3" unless options[:multiple] ||
+        classes << "mb-5" unless options[:multiple] ||
                                  %i[horizontal inline].include?(layout) ||
                                  options[:wrapper_class] == false ||
                                  options.dig(:wrapper, :class) == false

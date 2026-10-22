@@ -99,15 +99,15 @@ This generates the following HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label for="user_remember_me">Remember me</label>
@@ -134,7 +134,7 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/subscribe" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="email">Email</label>
     <input class="form-control" id="email" name="email" type="email" value="name@example.com">
   </div>
@@ -160,16 +160,16 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_password">Password</label>
     <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
     <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <input name="user[remember_me]" type="hidden" value="0">
     <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
     <label for="user_remember_me">Remember me</label>
@@ -206,15 +206,15 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="parent_email">Parent email</label>
     <input class="form-control" id="parent_email" name="parent[email]" type="email">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="street_name">Street name</label>
     <input class="form-control" id="street_name" name="street_name" type="text">
   </div>
@@ -299,7 +299,7 @@ Use the `label` option if you want to specify the field's label text:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password_confirmation">Confirm Password</label>
   <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
 </div>
@@ -316,7 +316,7 @@ class, which keeps your labels accessible to those using screen readers.
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="visually-hidden" for="user_comment">Comment</label>
   <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
 </textarea>
@@ -333,7 +333,7 @@ To add custom classes to the field's label:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="custom-class required" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
@@ -349,7 +349,7 @@ Or you can add the label as input placeholder instead (this automatically hides 
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="visually-hidden required" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="">
 </div>
@@ -367,7 +367,7 @@ To specify the class of the generated input tag, use the `control_class` option:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <input class="custom-class" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
@@ -385,7 +385,7 @@ To add help text, use the `help` option:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">Password</label>
   <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
   <small class="form-text" id="user_password_help">Must be at least 6 characters long</small>
@@ -432,7 +432,7 @@ You can pass `prepend` and/or `append` options to input fields:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_price">Price</label>
   <div class="input-group">
     <span class="input-group-text">$</span>
@@ -453,7 +453,7 @@ If you want to attach multiple items to the input, pass them as an array:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_price">Price</label>
   <div class="input-group">
     <span class="input-group-text">Net</span>
@@ -480,7 +480,7 @@ You can also prepend and append buttons. Note: The buttons must contain a
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_search">Search</label>
   <div class="input-group">
     <input class="form-control" id="user_search" name="user[search]" type="text">
@@ -501,7 +501,7 @@ For a lighter-weight decoration than an input group, Bootstrap 6 offers [form-ad
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_price">Price</label>
   <label class="form-control form-adorn">
     <span aria-hidden="true" class="form-adorn-text">$</span>
@@ -521,7 +521,7 @@ As in the Bootstrap documentation the wrapper is a `label`, so clicking the ador
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_query">Query</label>
   <label class="form-control form-adorn">
     <div aria-hidden="true" class="form-adorn-icon">
@@ -531,7 +531,7 @@ Generated HTML:
     <input class="form-ghost" id="user_query" name="user[query]" type="search">
   </label>
 </div>
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_username">Username</label>
   <label class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
     <span aria-hidden="true" class="form-adorn-text">@example.com</span>
@@ -550,7 +550,7 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <div class="input-group input-group-lg">
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
@@ -561,19 +561,19 @@ This generates:
 
 ### Additional Form Group Attributes
 
-Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.form-field.mb-3`. The [`form-field` class](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/field/) provides the layout for the control and its label, help text, and validation feedback.
+Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.form-field.mb-5`. The [`form-field` class](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/field/) provides the layout for the control and its label, help text, and validation feedback.
 
-If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'form-field mb-3 additional-class', data: { foo: 'bar' } }` option. Note that a custom class _replaces_ the default, so include `form-field` yourself if you want to keep Bootstrap's field layout.
+If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'form-field mb-5 additional-class', data: { foo: 'bar' } }` option. Note that a custom class _replaces_ the default, so include `form-field` yourself if you want to keep Bootstrap's field layout.
 
 ![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
 ```erb
-<%= f.text_field :name, wrapper: { class: 'form-field mb-3 has-warning', data: { foo: 'bar' } } %>
+<%= f.text_field :name, wrapper: { class: 'form-field mb-5 has-warning', data: { foo: 'bar' } } %>
 ```
 
 This generates:
 
 ```html
-<div class="form-field mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label" for="user_name">Name</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
@@ -583,7 +583,7 @@ Which produces the following output:
 
 ![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
 ```erb
-<div class="form-field mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
@@ -592,14 +592,14 @@ Which produces the following output:
 This generates:
 
 ```html
-<div class="form-field mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
 
-If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'form-field mb-3 additional-class'`.
-It's just a short form of `wrapper: { class: 'form-field mb-3 additional-class' }`.
+If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'form-field mb-5 additional-class'`.
+It's just a short form of `wrapper: { class: 'form-field mb-5 additional-class' }`.
 
 If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
@@ -631,7 +631,7 @@ You may want to define your own form group div around a field. To do so, add the
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
@@ -671,7 +671,7 @@ Bootstrap 6 introduces a native [combobox component](https://v6-dev--twbs-bootst
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_status">Status</label>
   <input name="user[status]" type="hidden" value="">
   <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox" id="user_status" type="button">
@@ -701,7 +701,7 @@ The current value of the attribute (or the `selected` option, which takes preced
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_skills">Skills</label>
   <input name="user[skills]" type="hidden" value="">
   <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-multiple="true" data-bs-name="user[skills]" data-bs-placeholder="Select skills…" data-bs-search="true" data-bs-toggle="combobox" id="user_skills" type="button">
@@ -743,7 +743,7 @@ Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or 
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_priority">Priority</label>
   <input name="user[priority]" type="hidden" value="">
   <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[priority]" data-bs-offset="[0,4]" data-bs-placement="top-start" data-bs-search-normalize="true" data-bs-toggle="combobox" disabled id="user_priority" type="button">
@@ -795,7 +795,7 @@ Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlif
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_skills">Skills</label>
   <div class="chip-input" data-bs-chips="">
     <input class="form-ghost" id="user_skills" placeholder="Add a skill…" type="text">
@@ -814,7 +814,7 @@ Configuration goes in the `chips` option and is rendered as `data-bs-*` attribut
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_skills">Skills</label>
   <div class="chip-input theme-primary" data-bs-chips="" data-bs-dismissible="false" data-bs-max-chips="5" data-bs-separator=";">
     <span class="chip" data-bs-chip-value="Ruby" tabindex="0">Ruby</span>
@@ -848,7 +848,7 @@ an error if an associated validations fails:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label">Skill</label>
   <div class="form-field">
     <input checked class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
@@ -864,8 +864,8 @@ This generates:
   </div>
   <small class="form-text" id="user_skill_level_help">Optional Help Text</small>
 </div>
-<div class="form-field mb-3">
-  <div class="form-field mb-3">
+<div class="form-field mb-5">
+  <div class="form-field mb-5">
     <input name="user[terms]" type="hidden" value="0">
     <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label for="user_terms">I agree to the Terms of Service</label>
@@ -887,9 +887,9 @@ You can also create a checkbox using a block:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_terms">Optional Label</label>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <input name="user[terms]" type="hidden" value="0">
     <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
     <label for="user_terms">
@@ -913,7 +913,7 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label">Skill</label>
   <div class="form-field d-inline-grid me-3">
     <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
@@ -934,7 +934,7 @@ Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), wh
 
 ![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
 ```erb
-<%= f.form_group :plan, label: { text: "Select a plan" }, class: "form-group mb-3" do %>
+<%= f.form_group :plan, label: { text: "Select a plan" }, class: "form-group mb-5" do %>
   <div class="vstack gap-1">
     <%= f.radio_button :plan, "basic", label: "Basic", help: "$9/month — For individuals.", card: true, checked: true %>
     <%= f.radio_button :plan, "pro", label: "Pro", help: "$29/month — For teams.", card: true %>
@@ -945,7 +945,7 @@ Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), wh
 Generated HTML:
 
 ```html
-<div class="form-group mb-3">
+<div class="form-group mb-5">
   <label class="form-label">Select a plan</label>
   <div class="vstack gap-1">
     <div class="form-field form-field-card">
@@ -993,7 +993,7 @@ You can also add a style to the tag using the `wrapper` option:
 This generates:
 
 ```html
-<div class="form-field d-inline-grid me-3 mb-3" style="color: green">
+<div class="form-field d-inline-grid me-3 mb-5" style="color: green">
   <input name="user[skilled]" type="hidden" value="0">
   <input class="check" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
   <label for="user_skilled">Skilled</label>
@@ -1016,7 +1016,7 @@ To render checkboxes as switches, use `switch: true`:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <div class="switch">
     <input name="user[remember_me]" type="hidden" value="0">
     <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
@@ -1036,14 +1036,14 @@ Theme colors, sizes and other switch styling belong on the `switch` wrapper rath
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <div class="switch theme-success switch-lg">
     <input name="user[remember_me]" type="hidden" value="0">
     <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
   </div>
   <label for="user_remember_me">Remember me</label>
 </div>
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <div class="switch" style="--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;">
     <input name="user[remember_me]" type="hidden" value="0">
     <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
@@ -1066,7 +1066,7 @@ Generated HTML:
 This generates:
 
 ```html
-<div aria-labelledby="user_skill_level" class="form-group mb-3" role="group">
+<div aria-labelledby="user_skill_level" class="form-group mb-5" role="group">
   <div class="form-label" id="user_skill_level">Skill level</div>
   <div class="form-field">
     <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
@@ -1078,7 +1078,7 @@ This generates:
   </div>
 </div>
 <input name="user[skills][]" type="hidden" value="">
-<div aria-labelledby="user_skills" class="form-group mb-3" role="group">
+<div aria-labelledby="user_skills" class="form-group mb-5" role="group">
   <div class="form-label" id="user_skills">Skills</div>
   <div class="form-field">
     <input class="check" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
@@ -1115,7 +1115,7 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 This generates:
 
 ```html
-<div aria-labelledby="user_misc" class="form-group mb-3" role="group">
+<div aria-labelledby="user_misc" class="form-group mb-5" role="group">
   <div class="form-label" id="user_misc">Misc</div>
   <div class="form-field">
     <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1">
@@ -1140,7 +1140,7 @@ You can create a range control like this:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_excellence">Excellence</label>
   <div class="form-range" style="--bs-range-fill: 0.5;">
     <input class="form-range-input" id="user_excellence" name="user[excellence]" type="range">
@@ -1158,7 +1158,7 @@ Theme colors and the value bubble live on the `form-range` wrapper, so pass them
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_excellence">Excellence</label>
   <div class="form-range theme-success" data-bs-bubble="" style="--bs-range-fill: 0.5;">
     <input class="form-range-input" id="user_excellence" list="excellence_ticks" max="100" min="0" name="user[excellence]" step="25" type="range">
@@ -1183,7 +1183,7 @@ You can create a static control like this:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
 </div>
@@ -1202,7 +1202,7 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
     <div class="sm:col-10">
       <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
@@ -1221,7 +1221,7 @@ You can also create a static control that isn't based on a model attribute:
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_field_name">Custom Static Control</label>
   <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
 </div>
@@ -1239,7 +1239,7 @@ You can also create the static control the following way, if you don't need to g
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_">Custom Static Control</label>
   <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
 </div>
@@ -1264,7 +1264,7 @@ You can create a date picker, time picker, or date-time picker with `date_field`
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_joined_at">Joined at</label>
   <input class="form-control w-auto" id="user_joined_at" name="user[joined_at]" type="date">
 </div>
@@ -1284,7 +1284,7 @@ Bootstrap 6 ships its own [datepicker component](https://v6-dev--twbs-bootstrap.
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_joined_at">Joined at</label>
   <input autocomplete="off" class="form-control" data-bs-toggle="datepicker" id="user_joined_at" name="user[joined_at]" type="text">
 </div>
@@ -1306,7 +1306,7 @@ Pass datepicker configuration in the `datepicker` option. Each key is rendered a
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_vacation">Vacation</label>
   <input autocomplete="off" class="form-control" data-bs-date-max="2027-10-16" data-bs-date-min="2026-10-16" data-bs-display-months-count="2" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker" id="user_vacation" name="user[vacation]" type="text">
 </div>
@@ -1322,7 +1322,7 @@ To pre-select dates, pass an array in the `selected_dates` option. It's rendered
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_misc">Misc</label>
   <input aria-haspopup="dialog" autocomplete="off" class="form-control" data-bs-selected-dates='["2026-07-02","2026-07-04"]' data-bs-toggle="datepicker" id="user_misc" name="user[misc]" type="text">
 </div>
@@ -1340,7 +1340,7 @@ Pass `inline: true` for an always-visible calendar. It renders a `div` with a hi
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_joined_at">Joined at</label>
   <div data-bs-inline="true" data-bs-position-element="#user_joined_at_calendar" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
     <input id="user_joined_at" name="user[joined_at]" type="hidden">
@@ -1497,7 +1497,7 @@ Pass `button: "Select date"` to render a button trigger instead of a text field 
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_joined_at">Joined at</label>
   <button class="btn-outline theme-secondary" data-bs-toggle="datepicker" id="user_joined_at" type="button">
     <i class="bi bi-calendar-week">
@@ -1525,7 +1525,7 @@ Bootstrap 6 ships an [OTP input](https://v6-dev--twbs-bootstrap.netlify.app/docs
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_verification_code">Verification code</label>
   <div class="otp otp-rendered" data-bs-otp="">
     <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="6" name="user[verification_code]" pattern="[0-9]*" type="text">
@@ -1558,7 +1558,7 @@ The number of slots comes from `maxlength` (default 6). Configuration goes in th
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_verification_code">Verification code</label>
   <div class="otp otp-connected otp-rendered" data-bs-groups="[4,4]" data-bs-otp="" data-bs-separator="-" data-bs-type="numeric">
     <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="8" name="user[verification_code]" pattern="[0-9]*" type="text">
@@ -1599,7 +1599,7 @@ Bootstrap 6's [password strength](https://v6-dev--twbs-bootstrap.netlify.app/doc
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
   <div class="strength" data-bs-strength="">
@@ -1625,7 +1625,7 @@ Pass a hash for the progress-bar variant, a minimum length, and a dynamic text m
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
   <div class="strength-bar" data-bs-min-length="12" data-bs-strength="">
@@ -1647,7 +1647,7 @@ To render a meter at a fixed level without JavaScript, for example from a server
 Generated HTML:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
   <div class="strength" data-bs-input=":not(*)" data-bs-strength="good">
@@ -1772,7 +1772,7 @@ will be rendered as
 will be rendered as:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_life_story">Life story</label>
   <input id="user_life_story_trix_input_user" name="user[life_story]" type="hidden">
   <trix-toolbar id="trix-toolbar-1">
@@ -1899,7 +1899,7 @@ To skip label rendering at all, use `skip_label: true` option.
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
 ```
@@ -1929,19 +1929,19 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
     <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2" for="user_password">Password</label>
     <div class="sm:col-10">
       <input class="form-control" id="user_password" name="user[password]" type="password">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <div class="sm:col-10 sm:offset-2">
       <div class="form-field">
         <input name="user[remember_me]" type="hidden" value="0">
@@ -1950,7 +1950,7 @@ This generates:
       </div>
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <div class="sm:col-10 sm:offset-2">
       <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
@@ -1976,19 +1976,19 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
     <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-3 text-bg-info" for="user_age">Age</label>
     <div class="sm:col-3 text-bg-success">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <div class="sm:col-10">
       <div class="form-field">
         <input name="user[terms]" type="hidden" value="0">
@@ -1997,7 +1997,7 @@ This generates:
       </div>
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <div class="sm:col-10 sm:offset-2">
       <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
@@ -2042,19 +2042,19 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
     <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2" for="user_age">Age</label>
     <div class="sm:col-10 additional-control-col-class">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <div class="sm:col-10 sm:offset-2">
       <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
@@ -2083,7 +2083,7 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
+  <div class="mb-5 row">
     <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
     <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
@@ -2091,19 +2091,19 @@ This generates:
   </div>
   <div class="row">
     <div class="col">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_feet">Feet</label>
         <input class="form-control" id="user_feet" name="user[feet]" type="text" value="5">
       </div>
     </div>
     <div class="col">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_inches">Inches</label>
         <input class="form-control" id="user_inches" name="user[inches]" type="text" value="7">
       </div>
     </div>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <div class="form-field">
       <input name="user[terms]" type="hidden" value="0">
       <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
@@ -2136,25 +2136,25 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <div class="form-floating">
       <label class="form-label required" for="user_email">Email</label>
       <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <div class="form-floating">
       <label class="form-label" for="user_password">Password</label>
       <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
     </div>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <div class="form-floating">
       <label class="form-label" for="user_password">Password</label>
       <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
     </div>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <div class="form-floating">
       <label class="form-label" for="user_status">Status</label>
       <select class="form-control" id="user_status" name="user[status]">
@@ -2178,7 +2178,7 @@ Floating labels also work inside input groups. Bootstrap nests the `form-floatin
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <div class="input-group">
     <span class="input-group-text">@</span>
     <div class="form-floating">
@@ -2217,13 +2217,13 @@ Browser validation needs messages to show, so every helper accepts `invalid_feed
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   <div class="invalid-feedback">Please enter a valid email address.</div>
   <div class="valid-feedback">Looks good!</div>
 </div>
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <input name="user[terms]" type="hidden" value="0">
   <input class="check" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1">
   <div class="form-field-content">
@@ -2231,7 +2231,7 @@ This generates:
     <div class="invalid-feedback">You must agree before submitting.</div>
   </div>
 </div>
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_username">Username</label>
   <input class="form-control is-valid" id="user_username" name="user[username]" type="text">
   <div class="tooltip valid-tooltip">Username is available.</div>
@@ -2259,12 +2259,12 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback" id="user_email_feedback">is invalid</div>
   </div>
-  <div aria-labelledby="user_misc" class="form-group mb-3" role="group">
+  <div aria-labelledby="user_misc" class="form-group mb-5" role="group">
     <div class="form-label" id="user_misc">Misc</div>
     <div class="form-field">
       <input aria-describedby="user_misc_feedback" checked class="radio is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
@@ -2279,7 +2279,7 @@ Generated HTML:
     </div>
   </div>
   <input name="user[preferences][]" type="hidden" value="">
-  <div aria-labelledby="user_preferences" class="form-group mb-3" role="group">
+  <div aria-labelledby="user_preferences" class="form-group mb-5" role="group">
     <div class="form-label" id="user_preferences">Preferences</div>
     <div class="form-field">
       <input aria-describedby="user_preferences_feedback" checked class="check is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
@@ -2293,7 +2293,7 @@ Generated HTML:
       </div>
     </div>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_address_attributes_street">Street</label>
     <input aria-describedby="user_address_attributes_street_feedback" class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
     <div class="invalid-feedback" id="user_address_attributes_street_feedback">is invalid</div>
@@ -2325,7 +2325,7 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email is invalid</label>
     <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
   </div>
@@ -2499,11 +2499,11 @@ In cases where this behaviour is undesirable, use the `required` option to force
 This generates:
 
 ```html
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_login">New Username</label>
   <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
 </div>
-<div class="form-field mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">New Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
@@ -2529,26 +2529,26 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/address" class="new_address" id="new_address_1" method="post">
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="address_user_id">User</label>
     <select class="form-control" id="address_user_id" name="address[user_id]" required="required">
       <option value="">Select a value</option>
       <option value="">steve@example.com</option>
     </select>
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_street">Street</label>
     <input class="form-control" id="address_street" name="address[street]" type="text" value="Foo">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="address_city">City</label>
     <input class="form-control" id="address_city" name="address[city]" required="required" type="text">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_state">State</label>
     <input class="form-control" id="address_state" name="address[state]" type="text">
   </div>
-  <div class="form-field mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_zip_code">Zip code</label>
     <input class="form-control" id="address_zip_code" name="address[zip_code]" type="text">
   </div>
@@ -2584,32 +2584,32 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="row g-3">
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label required" for="user_email">Email</label>
         <input class="form-control" disabled id="user_email" name="user[email]" required="required" size="18" type="email" value="steve@example.com">
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" disabled id="user_password" name="user[password]" size="18" type="password">
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_comments">Comments</label>
         <textarea class="form-control" cols="18" disabled id="user_comments" name="user[comments]" rows="2">
 </textarea>
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <input class="form-control" disabled id="user_status" name="user[status]" size="18" type="text">
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Number</label>
         <input class="form-control" disabled id="user_misc" name="user[misc]" type="number">
       </div>
@@ -2621,14 +2621,14 @@ Generated HTML:
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input disabled name="user[terms]" type="hidden" value="0">
         <input class="check" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
         <label for="user_terms">Terms</label>
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_type">Type</label>
         <select class="form-control" disabled id="user_type" name="user[type]">
           <option value="1">1</option>
@@ -2638,7 +2638,7 @@ Generated HTML:
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_created_at">Created at</label>
         <input class="form-control" disabled id="user_created_at" name="user[created_at]" type="datetime-local">
       </div>

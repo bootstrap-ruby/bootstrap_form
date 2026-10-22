@@ -9,7 +9,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "adorned field with text" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <label class="form-control form-adorn">
           <span aria-hidden="true" class="form-adorn-text">$</span>
@@ -22,7 +22,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "adorned field with trailing text and custom classes" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <label class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
           <span aria-hidden="true" class="form-adorn-text">@example.com</span>
@@ -38,7 +38,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
   test "adorned field with icon" do
     icon = '<svg class="bi" width="16" height="16"><use href="#search"/></svg>'.html_safe
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <label class="form-control form-adorn">
           <div aria-hidden="true" class="form-adorn-icon">#{icon}</div>
@@ -51,7 +51,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "password field with strength meter" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password" />
         <div class="strength" data-bs-strength="">
@@ -68,7 +68,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "password field with strength bar, text and min length" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
         <div class="strength-bar" data-bs-strength="" data-bs-min-length="12"></div>
@@ -82,7 +82,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "otp field is wrapped correctly" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="otp" data-bs-otp="">
           <input autocomplete="one-time-code" class="otp-input" id="user_misc" maxlength="6" name="user[misc]" type="text" />
@@ -94,7 +94,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "otp field renders otp options as data attributes" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="otp otp-connected" data-bs-otp="" data-bs-type="numeric" data-bs-groups="[3,3]" data-bs-separator="-">
           <input autocomplete="one-time-code" class="otp-input" id="user_misc" maxlength="8" name="user[misc]" type="text" />
@@ -111,7 +111,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     @user.errors.add(:misc, "error for test")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="user_misc">Misc</label>
           <div class="otp is-invalid" data-bs-otp="">
             <input autocomplete="one-time-code" class="otp-input is-invalid" id="user_misc" aria-describedby="user_misc_feedback" maxlength="6" name="user[misc]" type="text" />
@@ -126,7 +126,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
   test "form validate option adds data-bs-validate and novalidate" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" data-bs-validate="" id="new_user" method="post" novalidate="novalidate">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -138,7 +138,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
   test "form validate option accepts valid for success styling" do
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" data-bs-validate="valid" id="new_user" method="post" novalidate="novalidate">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label required" for="user_email">Email</label>
           <input required="required" class="form-control" id="user_email" name="user[email]" type="text" value="steve@example.com" />
         </div>
@@ -149,7 +149,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "check_box with help renders form-field-content" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input aria-describedby="user_terms_help" class="check" id="user_terms" name="user[terms]" type="checkbox" value="1" />
         <div class="form-field-content">
@@ -164,7 +164,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
 
   test "password_field with a static strength level" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
         <div class="strength" data-bs-input=":not(*)" data-bs-strength="good">
@@ -175,7 +175,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
         </div>
         <span class="strength-text">Good password</span>
       </div>
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" id="user_password" name="user[password]" type="password" />
         <div class="strength-bar" data-bs-input=":not(*)" data-bs-strength="weak"></div>
@@ -190,7 +190,7 @@ class BootstrapV6ComponentsTest < ActionView::TestCase
     @user.errors.add(:misc, "is invalid")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="user_misc">Misc</label>
           <label class="form-control form-adorn is-invalid">
             <span aria-hidden="true" class="form-adorn-text">$</span>

@@ -12,7 +12,7 @@ class BootstrapChipInputTest < ActionView::TestCase
   test "chip_input renders existing values as dismissible chips" do
     @user.preferences = %w[JavaScript TypeScript]
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_preferences">Preferences</label>
         <div class="chip-input" data-bs-chips="">
           <span class="chip" data-bs-chip-value="JavaScript">JavaScript<button aria-label="Remove" class="chip-dismiss" type="button">#{DISMISS}</button></span>
@@ -26,7 +26,7 @@ class BootstrapChipInputTest < ActionView::TestCase
 
   test "chip_input with options, explicit values and a comma-separated string" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Skills</label>
         <div class="chip-input theme-primary" data-bs-chips="" data-bs-separator=";" data-bs-max-chips="5" data-bs-dismissible="false">
           <span class="chip" data-bs-chip-value="Ruby">Ruby</span>
@@ -45,7 +45,7 @@ class BootstrapChipInputTest < ActionView::TestCase
     @user.errors.add(:misc, "is invalid")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="ns_new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="ns_user_misc">Misc</label>
           <div class="chip-input" data-bs-chips="">
             <input aria-describedby="user_misc_feedback" class="form-ghost is-invalid" id="ns_user_misc" type="text">

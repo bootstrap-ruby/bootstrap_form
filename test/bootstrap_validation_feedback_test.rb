@@ -9,7 +9,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
 
   test "text_field with static invalid and valid feedback" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label required" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" required="required" type="text" />
         <div class="invalid-feedback">Please fill this in.</div>
@@ -22,7 +22,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
 
   test "feedback as tooltips and the valid state" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control is-valid" id="user_misc" name="user[misc]" type="text" />
         <div class="tooltip valid-tooltip">Looks good!</div>
@@ -35,7 +35,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
     @user.errors.add(:misc, "is invalid")
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-        <div class="form-field mb-3">
+        <div class="form-field mb-5">
           <label class="form-label" for="user_misc">Misc</label>
           <input aria-describedby="user_misc_feedback" class="form-control is-invalid" id="user_misc" name="user[misc]" type="text" />
           <div class="tooltip invalid-tooltip" id="user_misc_feedback">is invalid</div>
@@ -48,7 +48,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
 
   test "check_box, select and otp_field with static feedback" do
     expected = <<~HTML
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <input #{autocomplete_attr} name="user[terms]" type="hidden" value="0" />
         <input class="check is-valid" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1" />
         <div class="form-field-content">
@@ -56,7 +56,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
           <div class="invalid-feedback">You must agree before submitting.</div>
         </div>
       </div>
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <select class="form-control" id="user_status" name="user[status]" required="required">
           <option value="">Choose...</option>
@@ -64,7 +64,7 @@ class BootstrapValidationFeedbackTest < ActionView::TestCase
         </select>
         <div class="invalid-feedback">Please select a status.</div>
       </div>
-      <div class="form-field mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <div class="otp is-valid" data-bs-otp="">
           <input autocomplete="one-time-code" class="otp-input is-valid" id="user_misc" maxlength="6" name="user[misc]" type="text" />
