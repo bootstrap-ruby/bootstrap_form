@@ -3,9 +3,9 @@ eval File.read(gems), binding, gems # rubocop: disable Security/Eval
 
 gem "bigdecimal" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "drb" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+gem "json", "~> 2.21"
 gem "minitest", "~> 5.0"
 gem "mutex_m" if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
 gem "propshaft"
 gem "rails", "~> 8.0.1"
 gem "sqlite3"
-gem "json", "~> 2.21"

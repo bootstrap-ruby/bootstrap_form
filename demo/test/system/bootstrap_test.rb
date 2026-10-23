@@ -21,6 +21,9 @@ class BootstrapTest < ApplicationSystemTestCase
 
     all("h3").each do |header|
       example = header.first(:xpath, "./following-sibling::div")
+      # Grow the window to fit the example, so the crop stays inside the screenshot.
+      height = evaluate_script("arguments[0].getBoundingClientRect().height", example.native).ceil
+      current_window.resize_to(960, [900, height + 300].max)
       scroll_to example
       sleep 0.5
       screenshot header.text.downcase.tr(" ", "_"), crop: bounds(example), color_distance_limit: 2

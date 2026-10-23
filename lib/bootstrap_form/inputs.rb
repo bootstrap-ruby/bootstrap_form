@@ -7,11 +7,14 @@ module BootstrapForm
     autoload :Base
     autoload :InputsCollection
     autoload :CheckBox
+    autoload :ChipInput
     autoload :CollectionCheckBoxes
     autoload :CollectionRadioButtons
     autoload :CollectionSelect
     autoload :ColorField
+    autoload :Combobox
     autoload :DateField
+    autoload :DatepickerField
     autoload :DateSelect
     autoload :DatetimeField
     autoload :DatetimeLocalField
@@ -21,6 +24,7 @@ module BootstrapForm
     autoload :GroupedCollectionSelect
     autoload :MonthField
     autoload :NumberField
+    autoload :OtpField
     autoload :PasswordField
     autoload :PhoneField
     autoload :RadioButton

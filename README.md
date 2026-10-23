@@ -3,7 +3,7 @@
 [![Ruby](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml/badge.svg)](https://github.com/bootstrap-ruby/bootstrap_form/actions/workflows/ruby.yml)
 [![Gem Version](https://badge.fury.io/rb/bootstrap_form.svg)](https://rubygems.org/gems/bootstrap_form)
 
-`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v5-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
+`bootstrap_form` is a Rails form builder that makes it super easy to integrate Bootstrap v6-style forms into your Rails application. It provides form helpers that augment the Rails form helpers. `bootstrap_forms`'s form helpers generate the form field and its label and all the Bootstrap mark-up required for proper Bootstrap display. `bootstrap_form` also provides:
 
 * [Validation error messages](#validation-and-errors) below the field they correspond to, by default. You can also put the error messages after the label, or turn off `bootstrap_form`'s validation error handling and do it yourself. _Note that this applies to Rails-generated validation messages._ HTML 5 client-side validation and Rails validation out of the box don't really work well together. One discussion of the challenges and some solutions is [here](https://www.jorgemanrubia.com/2019/02/16/form-validations-with-html5-and-modern-rails/)
 * Automatic [mark-up for the `required` attribute](#required-fields) on required fields.
@@ -27,7 +27,7 @@ Some other nice things that `bootstrap_form` does for you are:
 
 * Ruby 3.2+ (https://www.ruby-lang.org/en/downloads/branches/)
 * Rails 7.2+ (https://guides.rubyonrails.org/maintenance_policy.html)
-* Bootstrap 5.0+
+* Bootstrap 6.0+
 
 ## Installation
 
@@ -39,20 +39,22 @@ If you're creating a new Rails app, create it with at least the following option
 rails new --javascript=esbuild --css=bootstrap <application-name>
 ```
 
-`esbuild` can be any of the options, _except_ the default `importmaps`.
-
-If you have an existing project, and it's processing CSS and JavaScript with some sort of front-end preprocessor, then install Bootstrap for your front-end preprocessor. That's probably something like this:
+`esbuild` can be any of the options, _except_ the default `importmaps`. The `--css=bootstrap` option installs Bootstrap 5, so switch the `bootstrap` package to the Bootstrap 6 pre-release and add its peer dependencies:
 
 ```bash
-yarn add bootstrap popper.js
+yarn add bootstrap@next @floating-ui/dom vanilla-calendar-pro
 ```
+
+If you have an existing project, and it's processing CSS and JavaScript with some sort of front-end preprocessor, then install Bootstrap for your front-end preprocessor with the same `yarn add` command.
+
+If you compile Bootstrap's Sass yourself, run the compiled CSS through PostCSS with [`postcss-prefix-custom-properties`](https://github.com/twbs/postcss-prefix-custom-properties) and `{ prefix: "bs-" }`. Bootstrap 6 writes its CSS variables without the `bs-` prefix in Sass and adds it at build time, and its JavaScript expects the prefixed names. Without this step, JavaScript-driven components such as the range slider's fill and value bubble silently stop working. The [demo app](demo/postcss.config.js) shows the setup.
 
 You can use this gem with other ways of installing Bootstrap, but how to do so is outside the scope of this README.
 
 Once Bootstrap is installed, add the `bootstrap_form` gem to your `Gemfile`:
 
 ```ruby
-gem "bootstrap_form", "~> 5.6"
+gem "bootstrap_form", ">= 6.0.0.alpha1"
 ```
 
 Then:
@@ -75,13 +77,7 @@ If you're using Sprockets, add the styles to your CSS bundle like this:
 @import "rails_bootstrap_forms.css";
 ```
 
-If you're using Sprockets, you can also consider using the `bootstrap` gem to your `Gemfile`, as a way of installing Bootstrap itself. However, we haven't used this approach for a few years. Please report an issue if it doesn't work:
-
-```ruby
-gem "bootstrap", "~> 5.0"
-```
-
-And follow the remaining instructions in the [official bootstrap installation guide](https://github.com/twbs/bootstrap-rubygem#a-ruby-on-rails) for setting up `application.scss` and `application.js`.
+The [`bootstrap` gem](https://github.com/twbs/bootstrap-rubygem) packages Bootstrap 5 and doesn't offer Bootstrap 6 yet, so it can't be used to install Bootstrap for this version of `bootstrap_form`.
 
 ## Usage
 
@@ -103,20 +99,20 @@ This generates the following HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_password">Password</label>
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
-  <div class="form-check mb-3">
+  <div class="form-field mb-5">
     <input name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label for="user_remember_me">Remember me</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -138,11 +134,11 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/subscribe" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="email">Email</label>
     <input class="form-control" id="email" name="email" type="email" value="name@example.com">
   </div>
-  <input class="btn btn-secondary" data-disable-with="Save " name="commit" type="submit" value="Save ">
+  <input class="btn-solid theme-secondary" data-disable-with="Save " name="commit" type="submit" value="Save ">
 </form>
 ```
 
@@ -164,21 +160,21 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_password">Password</label>
-    <input class="form-control" id="user_password" name="user[password]" type="password">
-    <small class="form-text text-muted">A good password should be at least six characters long</small>
+    <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
+    <small class="form-text" id="user_password_help">A good password should be at least six characters long</small>
   </div>
-  <div class="form-check mb-3">
+  <div class="form-field mb-5">
     <input name="user[remember_me]" type="hidden" value="0">
-    <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_remember_me">Remember me</label>
+    <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+    <label for="user_remember_me">Remember me</label>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
 ```
 
@@ -210,19 +206,19 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="parent_email">Parent email</label>
     <input class="form-control" id="parent_email" name="parent[email]" type="email">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="street_name">Street name</label>
     <input class="form-control" id="street_name" name="street_name" type="text">
   </div>
-  <input class="btn btn-primary" data-disable-with="Save" name="commit" type="submit" value="Save">
+  <input class="btn-solid theme-primary" data-disable-with="Save" name="commit" type="submit" value="Save">
 </form>
 ```
 
@@ -303,7 +299,7 @@ Use the `label` option if you want to specify the field's label text:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password_confirmation">Confirm Password</label>
   <input class="form-control" id="user_password_confirmation" name="user[password_confirmation]" type="password">
 </div>
@@ -320,7 +316,7 @@ class, which keeps your labels accessible to those using screen readers.
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="visually-hidden" for="user_comment">Comment</label>
   <textarea class="form-control" id="user_comment" name="user[comment]" placeholder="Leave a comment...">
 </textarea>
@@ -337,7 +333,7 @@ To add custom classes to the field's label:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="custom-class required" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
@@ -353,7 +349,7 @@ Or you can add the label as input placeholder instead (this automatically hides 
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="visually-hidden required" for="user_email">Email</label>
   <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="">
 </div>
@@ -371,7 +367,7 @@ To specify the class of the generated input tag, use the `control_class` option:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <input class="custom-class" id="user_email" name="user[email]" required="required" type="text" value="steve@example.com">
 </div>
@@ -389,12 +385,14 @@ To add help text, use the `help` option:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">Password</label>
-  <input class="form-control" id="user_password" name="user[password]" type="password">
-  <small class="form-text text-muted">Must be at least 6 characters long</small>
+  <input aria-describedby="user_password_help" class="form-control" id="user_password" name="user[password]" type="password">
+  <small class="form-text" id="user_password_help">Must be at least 6 characters long</small>
 </div>
 ```
+
+The help text gets an id, and the control references it with `aria-describedby` (together with the id of any validation feedback), as the Bootstrap documentation recommends for assistive technology.
 
 This gem is also aware of help messages in locale translation files (i18n):
 
@@ -434,7 +432,7 @@ You can pass `prepend` and/or `append` options to input fields:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_price">Price</label>
   <div class="input-group">
     <span class="input-group-text">$</span>
@@ -455,7 +453,7 @@ If you want to attach multiple items to the input, pass them as an array:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_price">Price</label>
   <div class="input-group">
     <span class="input-group-text">Net</span>
@@ -470,29 +468,81 @@ This generates:
 </div>
 ```
 
-You can also prepend and append buttons. Note: The buttons must contain the
-`btn` class to generate the correct markup.
+You can also prepend and append buttons. Note: The buttons must contain a
+`btn` class to generate the correct markup, and Bootstrap 6 requires the
+`input-group-btn` class on buttons inside input groups.
 
 ![Example 12](demo/doc/screenshots/bootstrap/readme/12_example.png "Example 12")
 ```erb
-<%= f.text_field :search, append: link_to("Go", "#", class: "btn btn-secondary") %>
+<%= f.text_field :search, append: link_to("Go", "#", class: "btn-solid theme-secondary input-group-btn") %>
 ```
 
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_search">Search</label>
   <div class="input-group">
     <input class="form-control" id="user_search" name="user[search]" type="text">
-    <a class="btn btn-secondary" href="#">Go</a>
+    <a class="btn-solid theme-secondary input-group-btn" href="#">Go</a>
   </div>
+</div>
+```
+
+### Adorned Fields
+
+For a lighter-weight decoration than an input group, Bootstrap 6 offers [form-adorn](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/): an icon or text rendered inside the field's border. Use the `adorn` option:
+
+![Example 13](demo/doc/screenshots/bootstrap/readme/13_example.png "Example 13")
+```erb
+<%= f.text_field :price, adorn: "$" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_price">Price</label>
+  <label class="form-control form-adorn">
+    <span aria-hidden="true" class="form-adorn-text">$</span>
+    <input class="form-ghost" id="user_price" name="user[price]" type="text">
+  </label>
+</div>
+```
+
+As in the Bootstrap documentation the wrapper is a `label`, so clicking the adornment focuses the input, and the adornment is `aria-hidden` because the field already has a label. Validation states are applied to the wrapper as well as the input. Pass a hash for more control: `icon:` renders HTML (e.g. an SVG) in a `form-adorn-icon` container instead of text, `end: true` places the adornment on the trailing side, and `class:` adds classes (e.g. sizing) to the wrapper:
+
+![Example 14](demo/doc/screenshots/bootstrap/readme/14_example.png "Example 14")
+```erb
+<%= f.search_field :query, adorn: { icon: '<i class="bi bi-search"></i>'.html_safe } %>
+<%= f.text_field :username, adorn: { text: "@example.com", end: true, class: "form-control-lg form-adorn-lg" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_query">Query</label>
+  <label class="form-control form-adorn">
+    <div aria-hidden="true" class="form-adorn-icon">
+      <i class="bi bi-search">
+      </i>
+    </div>
+    <input class="form-ghost" id="user_query" name="user[query]" type="search">
+  </label>
+</div>
+<div class="form-field mb-5">
+  <label class="form-label" for="user_username">Username</label>
+  <label class="form-control form-adorn form-adorn-end form-control-lg form-adorn-lg">
+    <span aria-hidden="true" class="form-adorn-text">@example.com</span>
+    <input class="form-ghost" id="user_username" name="user[username]" type="text">
+  </label>
 </div>
 ```
 
 To add a class to the input group wrapper, use the `:input_group_class` option.
 
-![Example 13](demo/doc/screenshots/bootstrap/readme/13_example.png "Example 13")
+![Example 15](demo/doc/screenshots/bootstrap/readme/15_example.png "Example 15")
 ```erb
 <%= f.email_field :email, append: f.primary('Subscribe'), input_group_class: 'input-group-lg' %>
 ```
@@ -500,30 +550,30 @@ To add a class to the input group wrapper, use the `:input_group_class` option.
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <div class="input-group input-group-lg">
     <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
-    <input class="btn btn-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
+    <input class="btn-solid theme-primary" data-disable-with="Subscribe" name="commit" type="submit" value="Subscribe">
   </div>
 </div>
 ```
 
 ### Additional Form Group Attributes
 
-Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.mb-3`.
+Bootstrap mark-up dictates that most input field types have the label and input wrapped in a `div.form-field.mb-5`. The [`form-field` class](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/field/) provides the layout for the control and its label, help text, and validation feedback.
 
-If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'mb-3 additional-class', data: { foo: 'bar' } }` option.
+If you want to change the CSS class or any other attribute to the form group div, you can use the `wrapper: { class: 'form-field mb-5 additional-class', data: { foo: 'bar' } }` option. Note that a custom class _replaces_ the default, so include `form-field` yourself if you want to keep Bootstrap's field layout.
 
-![Example 14](demo/doc/screenshots/bootstrap/readme/14_example.png "Example 14")
+![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
 ```erb
-<%= f.text_field :name, wrapper: { class: 'mb-3 has-warning', data: { foo: 'bar' } } %>
+<%= f.text_field :name, wrapper: { class: 'form-field mb-5 has-warning', data: { foo: 'bar' } } %>
 ```
 
 This generates:
 
 ```html
-<div class="mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label" for="user_name">Name</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
@@ -531,9 +581,9 @@ This generates:
 
 Which produces the following output:
 
-![Example 15](demo/doc/screenshots/bootstrap/readme/15_example.png "Example 15")
+![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
 ```erb
-<div class="mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
@@ -542,18 +592,18 @@ Which produces the following output:
 This generates:
 
 ```html
-<div class="mb-3 has-warning" data-foo="bar">
+<div class="form-field mb-5 has-warning" data-foo="bar">
   <label class="form-label form-control-label" for="user_name">Id</label>
   <input class="form-control" id="user_name" name="user[name]" type="text">
 </div>
 ```
 
-If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'mb-3 additional-class'`.
-It's just a short form of `wrapper: { class: 'mb-3 additional-class' }`.
+If you only want to set the class on the form group div, you can use the `wrapper_class` option: `wrapper_class: 'form-field mb-5 additional-class'`.
+It's just a short form of `wrapper: { class: 'form-field mb-5 additional-class' }`.
 
 If you don't want any class on the form group div, you can set it to `false`: `wrapper_class: false`.
 
-![Example 16](demo/doc/screenshots/bootstrap/readme/16_example.png "Example 16")
+![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
 ```erb
 <%= f.text_field :name, wrapper: { class: false } %>
 ```
@@ -571,7 +621,7 @@ This generates:
 
 You may want to define your own form group div around a field. To do so, add the option `wrapper: false` to the input field. For example:
 
-![Example 17](demo/doc/screenshots/bootstrap/readme/17_example.png "Example 17")
+![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
 ```erb
 <%= f.form_group :user do %>
   <%= f.email_field :email, wrapper: false %>
@@ -581,7 +631,7 @@ You may want to define your own form group div around a field. To do so, add the
 Generated HTML:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
 </div>
 ```
@@ -592,7 +642,7 @@ Note that Bootstrap relies on the form group div to correctly format most fields
 
 Our select helper accepts the same arguments as the [default Rails helper](http://api.rubyonrails.org/classes/ActionView/Helpers/FormOptionsHelper.html#method-i-select). Here's an example of how you pass both options and html_options hashes:
 
-![Example 18](demo/doc/screenshots/bootstrap/readme/18_example.png "Example 18")
+![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
 ```erb
 <%= f.select :product, [["Apple", 1], ["Grape", 2]], { label: "Choose your favorite fruit:", wrapper: { class: 'has-warning', data: { foo: 'bar' } } }, { class: "selectpicker" } %>
 ```
@@ -602,12 +652,179 @@ This generates:
 ```html
 <div class="has-warning" data-foo="bar">
   <label class="form-label" for="user_product">Choose your favorite fruit:</label>
-  <select class="form-select selectpicker" id="user_product" name="user[product]">
+  <select class="form-control selectpicker" id="user_product" name="user[product]">
     <option value="1">Apple</option>
     <option value="2">Grape</option>
   </select>
 </div>
 ```
+
+## Comboboxes
+
+Bootstrap 6 introduces a native [combobox component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/combobox/): a select-like control with optional search and multiple selection. It replaces third-party select plugins (such as `use-bootstrap-select` or `bootstrap-select`) with plain Bootstrap. Use the `combobox` helper to generate one:
+
+![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
+```erb
+<%= f.combobox :status, [["activated", 1], ["blocked", 2]], placeholder: "Select a status…" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_status">Status</label>
+  <input name="user[status]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[status]" data-bs-placeholder="Select a status…" data-bs-toggle="combobox" id="user_status" type="button">
+    <span class="combobox-value combobox-placeholder">Select a status…</span>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
+  </button>
+  <div class="menu">
+    <button class="menu-item" data-bs-value="1" type="button">activated</button>
+    <button class="menu-item" data-bs-value="2" type="button">blocked</button>
+  </div>
+</div>
+```
+
+Bootstrap's JavaScript creates a hidden `<input name="user[status]">` for form submission, so the value arrives in your controller params like a regular select.
+
+The current value of the attribute (or the `selected` option, which takes precedence) is marked with `aria-selected` and shown in the toggle. Pass `multiple: true` for multi-select and `search: true` for a search input that filters the options (pass a string instead of `true` to customize the search placeholder):
+
+![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
+```erb
+<%= f.combobox :skills, Skill.all.map { |s| [s.name, s.id] },
+      multiple: true, search: true, placeholder: "Select skills…" %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_skills">Skills</label>
+  <input name="user[skills]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-multiple="true" data-bs-name="user[skills]" data-bs-placeholder="Select skills…" data-bs-search="true" data-bs-toggle="combobox" id="user_skills" type="button">
+    <span class="combobox-value combobox-placeholder">Select skills…</span>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
+  </button>
+  <div class="menu">
+    <div class="combobox-search">
+      <input aria-label="Search…" autocomplete="off" class="form-control combobox-search-input" placeholder="Search…" type="text">
+    </div>
+    <button class="menu-item" data-bs-value="1" type="button">Mind reading<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <button class="menu-item" data-bs-value="2" type="button">Farming<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <div class="combobox-no-results d-none">No results found</div>
+  </div>
+</div>
+```
+
+Choices can be an array of `[text, value]` pairs, a hash of `text => value`, or a flat array of strings (used as both text and value). A hash whose values are lists of choices renders each key as a `menu-header` above its group. A `[text, value]` pair can carry a trailing hash of item options: `icon:` (HTML rendered in a `menu-item-icon`), `description:` (secondary text in a `menu-item-description`) and `disabled: true`. Pass `check: true` to add Bootstrap's check icon to the items of a single-select combobox (multi-select items always have it), and the fourth, `html_options` argument sets attributes on the toggle button, e.g. `disabled: true` or `class: "form-control-lg"`:
+
+![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
+```erb
+<%= f.combobox :priority,
+      { "Levels" => [["Low", 1, { description: "Can wait" }], ["High", 3, { icon: '<i class="bi bi-flag"></i>'.html_safe, disabled: true }]] },
+      { check: true, combobox: { placement: "top-start", offset: [0, 4], search_normalize: true } },
+      { disabled: true } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_priority">Priority</label>
+  <input name="user[priority]" type="hidden" value="">
+  <button aria-expanded="false" aria-haspopup="listbox" class="form-control combobox-toggle" data-bs-name="user[priority]" data-bs-offset="[0,4]" data-bs-placement="top-start" data-bs-search-normalize="true" data-bs-toggle="combobox" disabled id="user_priority" type="button">
+    <span class="combobox-value combobox-placeholder">
+    </span>
+    <svg class="combobox-caret" fill="none" height="16" viewbox="0 0 10 16" width="10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor">
+      </path>
+    </svg>
+  </button>
+  <div class="menu">
+    <div class="menu-header">Levels</div>
+    <button class="menu-item" data-bs-value="1" type="button">
+      <span class="menu-item-content">
+        <span>Low</span>
+        <small class="menu-item-description">Can wait</small>
+      </span>
+      <svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+    <button class="menu-item" data-bs-value="3" disabled type="button">
+      <span aria-hidden="true" class="menu-item-icon">
+        <i class="bi bi-flag">
+        </i>
+      </span>High<svg class="menu-item-check" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+        <path d="m2 7 4 5 8-8">
+        </path>
+      </svg>
+    </button>
+  </div>
+</div>
+```
+
+The `combobox` option takes Bootstrap's remaining JavaScript options (`placement`, `offset`, `boundary`, `search_normalize`) and renders them as `data-bs-*` attributes; arrays are converted to JSON.
+
+**Caveat:** with `multiple: true`, Bootstrap submits the selected values as a single comma-separated string (e.g. `"1,3"`), not as a Rails-style array parameter. Split it in your controller: `params[:user][:skills].split(",")`.
+
+## Chip Inputs
+
+Bootstrap 6 also ships a [chips component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/) for tag-style input. Use the `chip_input` helper to render one; the attribute's current value (an array, or a string split on the separator) is rendered as dismissible chips, followed by the `form-ghost` text input that adds more:
+
+![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
+```erb
+<%= f.chip_input :skills, placeholder: "Add a skill…" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_skills">Skills</label>
+  <div class="chip-input" data-bs-chips="">
+    <input class="form-ghost" id="user_skills" placeholder="Add a skill…" type="text">
+  </div>
+</div>
+```
+
+Configuration goes in the `chips` option and is rendered as `data-bs-*` attributes on the container; `class:` adds container classes such as a theme, and `values:` overrides the attribute value:
+
+![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
+```erb
+<%= f.chip_input :skills, values: %w[Ruby Rails],
+      chips: { class: "theme-primary", separator: ";", max_chips: 5, dismissible: false } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_skills">Skills</label>
+  <div class="chip-input theme-primary" data-bs-chips="" data-bs-dismissible="false" data-bs-max-chips="5" data-bs-separator=";">
+    <span class="chip" data-bs-chip-value="Ruby" tabindex="0">Ruby</span>
+    <span class="chip" data-bs-chip-value="Rails" tabindex="0">Rails</span>
+    <input class="form-ghost" id="user_skills" type="text">
+  </div>
+</div>
+```
+
+**Caveat:** as of Bootstrap 6.0.0-alpha.1 chips have no form-submission integration. Read the values with the component's `getValues()` JavaScript API, or listen for its `change.bs.chips` event and copy the values into a hidden field.
 
 ## Checkboxes and Radios
 
@@ -615,7 +832,7 @@ Checkboxes and radios should be placed inside of a `form_group` to render
 properly. The following example ensures that the entire form group will display
 an error if an associated validations fails:
 
-![Example 19](demo/doc/screenshots/bootstrap/readme/19_example.png "Example 19")
+![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" }, help: "Optional Help Text" do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", checked: true %>
@@ -631,34 +848,34 @@ an error if an associated validations fails:
 This generates:
 
 ```html
-<div class="mb-3">
-  <label class="form-label" for="user_skill_level">Skill</label>
-  <div class="form-check">
-    <input checked class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-    <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field mb-5">
+  <label class="form-label">Skill</label>
+  <div class="form-field">
+    <input checked class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label for="user_skill_level_0">Novice</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Intermediate</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Advanced</label>
   </div>
-  <small class="form-text text-muted">Optional Help Text</small>
+  <small class="form-text" id="user_skill_level_help">Optional Help Text</small>
 </div>
-<div class="mb-3">
-  <div class="form-check mb-3">
+<div class="form-field mb-5">
+  <div class="form-field mb-5">
     <input name="user[terms]" type="hidden" value="0">
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_terms">I agree to the Terms of Service</label>
+    <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label for="user_terms">I agree to the Terms of Service</label>
   </div>
 </div>
 ```
 
 You can also create a checkbox using a block:
 
-![Example 20](demo/doc/screenshots/bootstrap/readme/20_example.png "Example 20")
+![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
 ```erb
 <%= f.form_group :terms, label: { text: "Optional Label" } do %>
   <%= f.check_box :terms do %>
@@ -670,12 +887,12 @@ You can also create a checkbox using a block:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_terms">Optional Label</label>
-  <div class="form-check mb-3">
+  <div class="form-field mb-5">
     <input name="user[terms]" type="hidden" value="0">
-    <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_terms">
+    <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+    <label for="user_terms">
       You need to check this box to accept our terms of service and privacy policy
     </label>
   </div>
@@ -684,7 +901,7 @@ This generates:
 
 To display checkboxes and radios inline, pass the `inline: true` option:
 
-![Example 21](demo/doc/screenshots/bootstrap/readme/21_example.png "Example 21")
+![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
 ```erb
 <%= f.form_group :skill_level, label: { text: "Skill" } do %>
   <%= f.radio_button :skill_level, 0, label: "Novice", inline: true %>
@@ -696,26 +913,62 @@ To display checkboxes and radios inline, pass the `inline: true` option:
 This generates:
 
 ```html
-<div class="mb-3">
-  <label class="form-label" for="user_skill_level">Skill</label>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-    <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field mb-5">
+  <label class="form-label">Skill</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+    <label for="user_skill_level_0">Novice</label>
   </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Intermediate</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Intermediate</label>
   </div>
-  <div class="form-check form-check-inline">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Advanced</label>
+  <div class="form-field d-inline-grid me-3">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Advanced</label>
   </div>
 </div>
 ```
 
-Check boxes and radio buttons are wrapped in a `div.form-check`. You can add classes to this `div` with the `:wrapper_class` option:
+Pass `card: true` to render Bootstrap's card-style field (`form-field-card`), which highlights the whole field when its control is checked. Combined with `help`, that gives the "group cards" from the Bootstrap documentation:
 
-![Example 22](demo/doc/screenshots/bootstrap/readme/22_example.png "Example 22")
+![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
+```erb
+<%= f.form_group :plan, label: { text: "Select a plan" }, class: "form-group mb-5" do %>
+  <div class="vstack gap-1">
+    <%= f.radio_button :plan, "basic", label: "Basic", help: "$9/month — For individuals.", card: true, checked: true %>
+    <%= f.radio_button :plan, "pro", label: "Pro", help: "$29/month — For teams.", card: true %>
+  </div>
+<% end %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-group mb-5">
+  <label class="form-label">Select a plan</label>
+  <div class="vstack gap-1">
+    <div class="form-field form-field-card">
+      <input aria-describedby="user_plan_help" checked class="radio" id="user_plan_basic" name="user[plan]" type="radio" value="basic">
+      <div class="form-field-content">
+        <label for="user_plan_basic">Basic</label>
+        <small class="form-text" id="user_plan_help">$9/month — For individuals.</small>
+      </div>
+    </div>
+    <div class="form-field form-field-card">
+      <input aria-describedby="user_plan_help" class="radio" id="user_plan_pro" name="user[plan]" type="radio" value="pro">
+      <div class="form-field-content">
+        <label for="user_plan_pro">Pro</label>
+        <small class="form-text" id="user_plan_help">$29/month — For teams.</small>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+Check boxes and radio buttons are wrapped in a `div.form-field`. You can add classes to this `div` with the `:wrapper_class` option:
+
+![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
 ```erb
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper_class: "w-auto" %>
 ```
@@ -723,15 +976,15 @@ Check boxes and radio buttons are wrapped in a `div.form-check`. You can add cla
 This generates:
 
 ```html
-<div class="form-check form-check-inline w-auto">
-  <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-  <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field d-inline-grid me-3 w-auto">
+  <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+  <label for="user_skill_level_0">Novice</label>
 </div>
 ```
 
 You can also add a style to the tag using the `wrapper` option:
 
-![Example 23](demo/doc/screenshots/bootstrap/readme/23_example.png "Example 23")
+![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
 ```erb
 <%= f.check_box :skilled, inline: true, wrapper: {style: "color: green"} %>
 <%= f.radio_button :skill_level, 0, label: "Novice", inline: true, wrapper: {class: 'w-auto', style: "color: red"} %>
@@ -740,22 +993,22 @@ You can also add a style to the tag using the `wrapper` option:
 This generates:
 
 ```html
-<div class="form-check form-check-inline mb-3" style="color: green">
+<div class="form-field d-inline-grid me-3 mb-5" style="color: green">
   <input name="user[skilled]" type="hidden" value="0">
-  <input class="form-check-input" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
-  <label class="form-check-label" for="user_skilled">Skilled</label>
+  <input class="check" id="user_skilled" name="user[skilled]" type="checkbox" value="1">
+  <label for="user_skilled">Skilled</label>
 </div>
-<div class="form-check form-check-inline w-auto" style="color: red">
-  <input class="form-check-input" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
-  <label class="form-check-label" for="user_skill_level_0">Novice</label>
+<div class="form-field d-inline-grid me-3 w-auto" style="color: red">
+  <input class="radio" id="user_skill_level_0" name="user[skill_level]" type="radio" value="0">
+  <label for="user_skill_level_0">Novice</label>
 </div>
 ```
 
 ### Switches
 
-To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
+To render checkboxes as switches, use `switch: true`:
 
-![Example 24](demo/doc/screenshots/bootstrap/readme/24_example.png "Example 24")
+![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
 ```erb
 <%= f.check_box :remember_me, switch: true %>
 ```
@@ -763,10 +1016,39 @@ To render checkboxes as switches with Bootstrap 4.2+, use `switch: true`:
 This generates:
 
 ```html
-<div class="form-check mb-3 form-switch">
-  <input name="user[remember_me]" type="hidden" value="0">
-  <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-  <label class="form-check-label" for="user_remember_me">Remember me</label>
+<div class="form-field mb-5">
+  <div class="switch">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
+</div>
+```
+
+Theme colors, sizes and other switch styling belong on the `switch` wrapper rather than the input, so pass them in the `switch` option: a string adds classes, and a hash sets any attributes:
+
+![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
+```erb
+<%= f.check_box :remember_me, switch: "theme-success switch-lg" %>
+<%= f.check_box :remember_me, switch: { style: "--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <div class="switch theme-success switch-lg">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
+</div>
+<div class="form-field mb-5">
+  <div class="switch" style="--bs-switch-width: 2.75rem; --bs-switch-indicator-width: 1.5rem;">
+    <input name="user[remember_me]" type="hidden" value="0">
+    <input id="user_remember_me" name="user[remember_me]" role="switch" switch="switch" type="checkbox" value="1">
+  </div>
+  <label for="user_remember_me">Remember me</label>
 </div>
 ```
 
@@ -775,7 +1057,7 @@ This generates:
 `bootstrap_form` also provides helpers that automatically create the
 `form_group` and the `radio_button`s or `check_box`es for you:
 
-![Example 25](demo/doc/screenshots/bootstrap/readme/25_example.png "Example 25")
+![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
 ```erb
 <%= f.collection_radio_buttons :skill_level, Skill.all, :id, :name %>
 <%= f.collection_check_boxes :skills, Skill.all, :id, :name %>
@@ -784,27 +1066,27 @@ This generates:
 This generates:
 
 ```html
-<div aria-labelledby="user_skill_level" class="mb-3" role="group">
+<div aria-labelledby="user_skill_level" class="form-group mb-5" role="group">
   <div class="form-label" id="user_skill_level">Skill level</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
-    <label class="form-check-label" for="user_skill_level_1">Mind reading</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_1" name="user[skill_level]" type="radio" value="1">
+    <label for="user_skill_level_1">Mind reading</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
-    <label class="form-check-label" for="user_skill_level_2">Farming</label>
+  <div class="form-field">
+    <input class="radio" id="user_skill_level_2" name="user[skill_level]" type="radio" value="2">
+    <label for="user_skill_level_2">Farming</label>
   </div>
 </div>
-<input id="user_skills" name="user[skills][]" type="hidden" value="">
-<div aria-labelledby="user_skills" class="mb-3" role="group">
+<input name="user[skills][]" type="hidden" value="">
+<div aria-labelledby="user_skills" class="form-group mb-5" role="group">
   <div class="form-label" id="user_skills">Skills</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
-    <label class="form-check-label" for="user_skills_1">Mind reading</label>
+  <div class="form-field">
+    <input class="check" id="user_skills_1" name="user[skills][]" type="checkbox" value="1">
+    <label for="user_skills_1">Mind reading</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
-    <label class="form-check-label" for="user_skills_2">Farming</label>
+  <div class="form-field">
+    <input class="check" id="user_skills_2" name="user[skills][]" type="checkbox" value="2">
+    <label for="user_skills_2">Farming</label>
   </div>
 </div>
 ```
@@ -816,12 +1098,13 @@ Collection methods accept these options:
 * `:label`: Customize the `form_group`'s label
 * `:hide_label`: Pass true to hide the `form_group`'s label
 * `:help`: Add a help span to the `form_group`
+* `:id`: Set the id of the group's label (and of the error feedback element), for example to keep ids unique when the same attribute appears twice on a page
 * Other options will be forwarded to the `radio_button`/`check_box` method
 
 
 To add `data-` attributes to a collection of radio buttons, map your models to an array and add a hash:
 
-![Example 26](demo/doc/screenshots/bootstrap/readme/26_example.png "Example 26")
+![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
 ```erb
 <%# Use the :first and :second elements of the array to be the value and label respectively %>
 <%- choices = @collection.map { |addr| [ addr.id, addr.street, { 'data-zip-code':  addr.zip_code } ] } -%>
@@ -832,15 +1115,15 @@ To add `data-` attributes to a collection of radio buttons, map your models to a
 This generates:
 
 ```html
-<div aria-labelledby="user_misc" class="mb-3" role="group">
+<div aria-labelledby="user_misc" class="form-group mb-5" role="group">
   <div class="form-label" id="user_misc">Misc</div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_misc_1" name="user[misc]" type="radio" value="1">
-    <label class="form-check-label" for="user_misc_1">Foo</label>
+  <div class="form-field">
+    <input class="radio" id="user_misc_1" name="user[misc]" type="radio" value="1">
+    <label for="user_misc_1">Foo</label>
   </div>
-  <div class="form-check">
-    <input class="form-check-input" id="user_misc_2" name="user[misc]" type="radio" value="2">
-    <label class="form-check-label" for="user_misc_2">Bar</label>
+  <div class="form-field">
+    <input class="radio" id="user_misc_2" name="user[misc]" type="radio" value="2">
+    <label for="user_misc_2">Bar</label>
   </div>
 </div>
 ```
@@ -849,7 +1132,7 @@ This generates:
 
 You can create a range control like this:
 
-![Example 27](demo/doc/screenshots/bootstrap/readme/27_example.png "Example 27")
+![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
 ```erb
 <%= f.range_field :excellence %>
 ```
@@ -857,9 +1140,34 @@ You can create a range control like this:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_excellence">Excellence</label>
-  <input class="form-range" id="user_excellence" name="user[excellence]" type="range">
+  <div class="form-range" style="--bs-range-fill: 0.5;">
+    <input class="form-range-input" id="user_excellence" name="user[excellence]" type="range">
+  </div>
+</div>
+```
+
+Theme colors and the value bubble live on the `form-range` wrapper, so pass them in the `range` option: a string adds classes, and a hash can also enable Bootstrap's value bubble with `bubble: true`. Tick marks work as in plain HTML, through the input's `list` attribute and a `<datalist>`:
+
+![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
+```erb
+<%= f.range_field :excellence, range: { bubble: true, class: "theme-success" }, min: 0, max: 100, step: 25, list: "excellence_ticks" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_excellence">Excellence</label>
+  <div class="form-range theme-success" data-bs-bubble="" style="--bs-range-fill: 0.5;">
+    <input class="form-range-input" id="user_excellence" list="excellence_ticks" max="100" min="0" name="user[excellence]" step="25" type="range">
+    <output aria-hidden="true" class="form-range-bubble tooltip bs-tooltip-top show">
+      <div class="tooltip-arrow">
+      </div>
+      <div class="tooltip-inner">50</div>
+    </output>
+  </div>
 </div>
 ```
 
@@ -867,7 +1175,7 @@ This generates:
 
 You can create a static control like this:
 
-![Example 28](demo/doc/screenshots/bootstrap/readme/28_example.png "Example 28")
+![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
 ```erb
 <%= f.static_control :email %>
 ```
@@ -875,7 +1183,7 @@ You can create a static control like this:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_email">Email</label>
   <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
 </div>
@@ -883,7 +1191,7 @@ This generates:
 
 Here's the output for a horizontal layout:
 
-![Example 29](demo/doc/screenshots/bootstrap/readme/29_example.png "Example 29")
+![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.static_control :email %>
@@ -894,9 +1202,9 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control-plaintext" id="user_email" name="user[email]" readonly required="required" type="text" value="steve@example.com">
     </div>
   </div>
@@ -905,7 +1213,7 @@ This generates:
 
 You can also create a static control that isn't based on a model attribute:
 
-![Example 30](demo/doc/screenshots/bootstrap/readme/30_example.png "Example 30")
+![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
 ```erb
 <%= f.static_control :field_name, label: "Custom Static Control", value: "Content Here" %>
 ```
@@ -913,7 +1221,7 @@ You can also create a static control that isn't based on a model attribute:
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_field_name">Custom Static Control</label>
   <input class="form-control-plaintext" id="user_field_name" name="user[field_name]" readonly type="text" value="Content Here">
 </div>
@@ -923,7 +1231,7 @@ This generates:
 
 You can also create the static control the following way, if you don't need to get the value of the static control as a parameter when the form is submitted:
 
-![Example 31](demo/doc/screenshots/bootstrap/readme/31_example.png "Example 31")
+![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
 ```erb
 <%= f.static_control label: "Custom Static Control", value: "Content Here", name: nil %>
 ```
@@ -931,7 +1239,7 @@ You can also create the static control the following way, if you don't need to g
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_">Custom Static Control</label>
   <input class="form-control-plaintext" id="user_" readonly type="text" value="Content Here">
 </div>
@@ -948,7 +1256,7 @@ Passing a block to `static_control` no longer has any effect.
 
 You can create a date picker, time picker, or date-time picker with `date_field`, `time_field`, or `datetime_field`, like this:
 
-![Example 32](demo/doc/screenshots/bootstrap/readme/32_example.png "Example 32")
+![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
 ```erb
 <%= f.date_field :joined_at, class: "w-auto" %>
 ```
@@ -956,7 +1264,7 @@ You can create a date picker, time picker, or date-time picker with `date_field`
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_joined_at">Joined at</label>
   <input class="form-control w-auto" id="user_joined_at" name="user[joined_at]" type="date">
 </div>
@@ -964,18 +1272,404 @@ This generates:
 
 For backwards compatibility, there are also helpers for `date_select`, `time_select`, and `datetime_select`.
 
+### Datepickers
+
+Bootstrap 6 ships its own [datepicker component](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/datepicker/), based on a text field activated with `data-bs-toggle="datepicker"`. Use the `datepicker_field` helper to generate one:
+
+![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
+```erb
+<%= f.datepicker_field :joined_at %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <input autocomplete="off" class="form-control" data-bs-toggle="datepicker" id="user_joined_at" name="user[joined_at]" type="text">
+</div>
+```
+
+Pass datepicker configuration in the `datepicker` option. Each key is rendered as a `data-bs-*` attribute, so all of Bootstrap's documented datepicker options are available. `Date` (and other `iso8601`-capable) values are converted to `YYYY-MM-DD`, and arrays are converted to JSON:
+
+![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
+```erb
+<%= f.datepicker_field :vacation,
+      datepicker: {
+        selection_mode: "multiple-ranged",
+        date_min: Date.current,
+        date_max: Date.current + 1.year,
+        display_months_count: 2
+      } %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_vacation">Vacation</label>
+  <input autocomplete="off" class="form-control" data-bs-date-max="2027-10-16" data-bs-date-min="2026-10-16" data-bs-display-months-count="2" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker" id="user_vacation" name="user[vacation]" type="text">
+</div>
+```
+
+To pre-select dates, pass an array in the `selected_dates` option. It's rendered as a JSON array in the `data-bs-selected-dates` attribute, and `Date` values are converted to ISO 8601 strings:
+
+![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
+```erb
+<%= f.datepicker_field :misc, datepicker: { selected_dates: [Date.new(2026, 7, 2), "2026-07-04"] } %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_misc">Misc</label>
+  <input aria-haspopup="dialog" autocomplete="off" class="form-control" data-bs-selected-dates='["2026-07-02","2026-07-04"]' data-bs-toggle="datepicker" id="user_misc" name="user[misc]" type="text">
+</div>
+```
+
+Note that the datepicker requires Bootstrap's JavaScript. `autocomplete="off"` is set by default, as the Bootstrap documentation recommends; pass your own `autocomplete` option to override it.
+
+Pass `inline: true` for an always-visible calendar. It renders a `div` with a hidden input that Bootstrap keeps in sync, so the selected date(s) are submitted with the form; the attribute's current value is pre-selected. The calendar itself is mounted on a child element (via `data-bs-position-element`) so that rendering it leaves the hidden input in place:
+
+![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
+```erb
+<%= f.datepicker_field :joined_at, inline: true, datepicker: { selection_mode: "multiple-ranged" } %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <div data-bs-inline="true" data-bs-position-element="#user_joined_at_calendar" data-bs-selection-mode="multiple-ranged" data-bs-toggle="datepicker">
+    <input id="user_joined_at" name="user[joined_at]" type="hidden">
+    <div aria-label="Calendar" class="vc" data-vc="calendar" data-vc-theme="dark" data-vc-type="default" id="user_joined_at_calendar" role="group" tabindex="-1">  
+      <div aria-label="Calendar Navigation" class="vc-header" data-vc="header" role="group">    <button aria-label="Previous month" class="vc-arrow vc-arrow_prev" data-vc-arrow="prev" type="button">
+        </button>    
+        <div aria-atomic="true" aria-live="polite" class="vc-header__content" data-vc-header="content">      <button aria-label="Select month, current selected month: October" class="vc-month" data-vc="month" data-vc-month="9" type="button">October</button>      <button aria-label="Select year, current selected year: 2026" class="vc-year" data-vc="year" data-vc-year="2026" type="button">2026</button>    </div>
+    <button aria-label="Next month" class="vc-arrow vc-arrow_next" data-vc-arrow="next" type="button">
+        </button>  </div>
+  
+      <div class="vc-wrapper" data-vc="wrapper">        
+        <div aria-multiselectable="true" class="vc-content" data-vc="content" role="grid">      
+          <div aria-label="Days of the week" class="vc-week" data-vc="week" role="row">
+            <b aria-label="Monday" class="vc-week__day" data-vc-week-day="1" role="columnheader">Mon</b>
+            <b aria-label="Tuesday" class="vc-week__day" data-vc-week-day="2" role="columnheader">Tue</b>
+            <b aria-label="Wednesday" class="vc-week__day" data-vc-week-day="3" role="columnheader">Wed</b>
+            <b aria-label="Thursday" class="vc-week__day" data-vc-week-day="4" role="columnheader">Thu</b>
+            <b aria-label="Friday" class="vc-week__day" data-vc-week-day="5" role="columnheader">Fri</b>
+            <b aria-label="Saturday" class="vc-week__day" data-vc-week-day="6" data-vc-week-day-off="" role="columnheader">Sat</b>
+            <b aria-label="Sunday" class="vc-week__day" data-vc-week-day="0" data-vc-week-day-off="" role="columnheader">Sun</b>
+          </div>
+      
+          <div aria-label="Dates in the current month" class="vc-dates" data-vc="dates" role="rowgroup">
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-09-28" data-vc-date-month="prev" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="September 28, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">28</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-09-29" data-vc-date-month="prev" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="September 29, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">29</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-09-30" data-vc-date-month="prev" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="September 30, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">30</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-01" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 1, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">1</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-02" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 2, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">2</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-03" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 3, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">3</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-04" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 4, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">4</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-05" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 5, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">5</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-06" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 6, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">6</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-07" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 7, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">7</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-08" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 8, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">8</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-09" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 9, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">9</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-10" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 10, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">10</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-11" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 11, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">11</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-12" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 12, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">12</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-13" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 13, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">13</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-14" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 14, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">14</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-15" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 15, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">15</button>
+              </div>
+              <div aria-current="date" class="vc-date" data-vc-date="2026-10-16" data-vc-date-month="current" data-vc-date-today="" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 16, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="0" type="button">16</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-17" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 17, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">17</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-18" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 18, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">18</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-19" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 19, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">19</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-20" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 20, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">20</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-21" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 21, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">21</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-22" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 22, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">22</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-23" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 23, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">23</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-24" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 24, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">24</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-25" data-vc-date-month="current" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 25, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">25</button>
+              </div>
+            </div>
+            <div class="vc-dates__row" data-vc-dates="row" role="row">
+              <div class="vc-date" data-vc-date="2026-10-26" data-vc-date-month="current" data-vc-date-week-day="1" role="gridcell">
+                <button aria-label="October 26, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">26</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-27" data-vc-date-month="current" data-vc-date-week-day="2" role="gridcell">
+                <button aria-label="October 27, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">27</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-28" data-vc-date-month="current" data-vc-date-week-day="3" role="gridcell">
+                <button aria-label="October 28, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">28</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-29" data-vc-date-month="current" data-vc-date-week-day="4" role="gridcell">
+                <button aria-label="October 29, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">29</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-30" data-vc-date-month="current" data-vc-date-week-day="5" role="gridcell">
+                <button aria-label="October 30, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">30</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-10-31" data-vc-date-month="current" data-vc-date-week-day="6" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="October 31, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">31</button>
+              </div>
+              <div class="vc-date" data-vc-date="2026-11-01" data-vc-date-month="next" data-vc-date-week-day="0" data-vc-date-weekend="" role="gridcell">
+                <button aria-label="November 1, 2026" class="vc-date__btn" data-vc-date-btn="" tabindex="-1" type="button">1</button>
+              </div>
+            </div>
+          </div>
+          </div>
+  </div>
+    </div>
+  </div>
+</div>
+```
+
+Pass `button: "Select date"` to render a button trigger instead of a text field (a hash `button: { text:, icon: }` adds HTML before the text, and `class:` replaces the default `btn-outline theme-secondary`). Bootstrap updates the button's text with the selection but submits no value, so use its `change.bs.datepicker` event or the `display_element` option if you need the date elsewhere:
+
+![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
+```erb
+<%= f.datepicker_field :joined_at, button: { text: "Select date", icon: '<i class="bi bi-calendar-week"></i>'.html_safe } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_joined_at">Joined at</label>
+  <button class="btn-outline theme-secondary" data-bs-toggle="datepicker" id="user_joined_at" type="button">
+    <i class="bi bi-calendar-week">
+    </i>
+    <span data-bs-datepicker-display="">Select date</span>
+  </button>
+</div>
+```
+
 The multiple selects that the date and time helpers (`date_select`,
 `time_select`, `datetime_select`) generate are wrapped inside a
 `div.rails-bootstrap-forms-[date|time|datetime]-select` tag. This is because
 Bootstrap automatically styles our controls as `block`s. This wrapper fixes
 this by defining these selects as `inline-block` and a width of `auto`.
 
+## OTP Inputs
+
+Bootstrap 6 ships an [OTP input](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/) for one-time codes: a single real text input that Bootstrap's JavaScript renders as separate digit slots. Use the `otp_field` helper:
+
+![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
+```erb
+<%= f.otp_field :verification_code %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_verification_code">Verification code</label>
+  <div class="otp otp-rendered" data-bs-otp="">
+    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="6" name="user[verification_code]" pattern="[0-9]*" type="text">
+    <div aria-hidden="true" class="otp-slots">
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+The number of slots comes from `maxlength` (default 6). Configuration goes in the `otp` option and is rendered as `data-bs-*` attributes on the container — arrays are converted to JSON, and `class:` adds container classes such as `otp-connected`, `otp-sm`, or `otp-lg`:
+
+![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
+```erb
+<%= f.otp_field :verification_code, maxlength: 8,
+      otp: { type: :numeric, groups: [4, 4], separator: "-", class: "otp-connected" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_verification_code">Verification code</label>
+  <div class="otp otp-connected otp-rendered" data-bs-groups="[4,4]" data-bs-otp="" data-bs-separator="-" data-bs-type="numeric">
+    <input autocomplete="one-time-code" class="otp-input" id="user_verification_code" inputmode="numeric" maxlength="8" name="user[verification_code]" pattern="[0-9]*" type="text">
+    <div aria-hidden="true" class="otp-slots">
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-separator">-</div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+      <div class="otp-slot">
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+When the attribute has a validation error, `is-invalid` is applied to the `.otp` container (as Bootstrap expects) as well as the input, and the usual `invalid-feedback` follows.
+
+## Password Strength Meters
+
+Bootstrap 6's [password strength](https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/password-strength/) component evaluates a password as the user types. Pass the `strength` option to `password_field` to render a meter after the input:
+
+![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
+```erb
+<%= f.password_field :password, strength: true %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength" data-bs-strength="">
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
+    <div class="strength-segment">
+    </div>
+  </div>
+</div>
+```
+
+Pass a hash for the progress-bar variant, a minimum length, and a dynamic text message:
+
+![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
+```erb
+<%= f.password_field :password, strength: { variant: :bar, min_length: 12, text: true } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength-bar" data-bs-min-length="12" data-bs-strength="">
+  </div>
+  <span class="strength-text">
+  </span>
+</div>
+```
+
+which renders `<div class="strength-bar" data-bs-strength data-bs-min-length="12"></div>` followed by `<span class="strength-text"></span>`.
+
+To render a meter at a fixed level without JavaScript, for example from a server-side check, pass `level:` (`weak`, `fair`, `good` or `strong`). The level goes in `data-bs-strength`, the matching number of segments get the `active` class, and `text:` can be a string to show alongside it. The static meter opts out of Bootstrap's JavaScript (which would otherwise evaluate the password field next to it) by pointing `data-bs-input` at a selector that matches nothing:
+
+![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
+```erb
+<%= f.password_field :password, strength: { level: :good, text: "Good password" } %>
+```
+
+Generated HTML:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label" for="user_password">Password</label>
+  <input class="form-control" id="user_password" name="user[password]" type="password">
+  <div class="strength" data-bs-input=":not(*)" data-bs-strength="good">
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment active">
+    </div>
+    <div class="strength-segment">
+    </div>
+  </div>
+  <span class="strength-text">Good password</span>
+</div>
+```
+
 ## Submit Buttons
 
-The `btn btn-secondary` CSS classes are automatically added to your submit
+The `btn-solid theme-secondary` CSS classes are automatically added to your submit
 buttons.
 
-![Example 33](demo/doc/screenshots/bootstrap/readme/33_example.png "Example 33")
+![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
 ```erb
 <%= f.submit %>
 ```
@@ -983,13 +1677,13 @@ buttons.
 This generates:
 
 ```html
-<input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+<input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 ```
 
-You can also use the `primary` helper, which adds `btn btn-primary` to your
+You can also use the `primary` helper, which adds `btn-solid theme-primary` to your
 submit button:
 
-![Example 34](demo/doc/screenshots/bootstrap/readme/34_example.png "Example 34")
+![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
 ```erb
 <%= f.primary "Optional Label" %>
 ```
@@ -997,20 +1691,20 @@ submit button:
 This generates:
 
 ```html
-<input class="btn btn-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
+<input class="btn-solid theme-primary" data-disable-with="Optional Label" name="commit" type="submit" value="Optional Label">
 ```
 
 You can specify your own classes like this:
 
-![Example 35](demo/doc/screenshots/bootstrap/readme/35_example.png "Example 35")
+![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
 ```erb
-<%= f.submit "Log In", class: "btn btn-success" %>
+<%= f.submit "Log In", class: "btn-solid theme-success" %>
 ```
 
 This generates:
 
 ```html
-<input class="btn btn-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+<input class="btn-solid theme-success" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 ```
 
 If the `primary` helper receives a `render_as_button: true` option or a block,
@@ -1018,7 +1712,7 @@ it will be rendered as an HTML button, instead of an input tag. This allows you
 to specify HTML content and styling for your buttons (such as adding
 illustrative icons to them). For example, the following statements
 
-![Example 36](demo/doc/screenshots/bootstrap/readme/36_example.png "Example 36")
+![Example 56](demo/doc/screenshots/bootstrap/readme/56_example.png "Example 56")
 ```erb
 <%= f.primary "Save changes <span class='bi bi-save'></span>".html_safe, render_as_button: true %>
 
@@ -1031,10 +1725,10 @@ illustrative icons to them). For example, the following statements
 This generates:
 
 ```html
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
+<button class="btn-solid theme-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
-<button class="btn btn-primary" name="button" type="submit">Save changes <span class="bi bi-save">
+<button class="btn-solid theme-primary" name="button" type="submit">Save changes <span class="bi bi-save">
   </span>
 </button>
 ```
@@ -1042,7 +1736,7 @@ This generates:
 are equivalent, and each of them both be rendered as:
 
 ```html
-<button name="button" type="submit" class="btn btn-primary">Save changes <span class="bi bi-save"></span></button>
+<button name="button" type="submit" class="btn-solid theme-primary">Save changes <span class="bi bi-save"></span></button>
 ```
 
 If you wish to add additional CSS classes to your button, while keeping the
@@ -1052,7 +1746,7 @@ Bootstrap classes), or for element targeting via CSS classes.
 Be aware, however, that using the `class` option will discard any extra classes
 you add. As an example, the following button declarations
 
-![Example 37](demo/doc/screenshots/bootstrap/readme/37_example.png "Example 37")
+![Example 57](demo/doc/screenshots/bootstrap/readme/57_example.png "Example 57")
 ```erb
 <%= f.primary "My Nice Button", extra_class: 'my-button' %>
 
@@ -1062,7 +1756,7 @@ you add. As an example, the following button declarations
 will be rendered as
 
 ```html
-<input class="btn btn-primary my-button" data-disable-with="My Nice Button" name="commit" type="submit" value="My Nice Button">
+<input class="btn-solid theme-primary my-button" data-disable-with="My Nice Button" name="commit" type="submit" value="My Nice Button">
 <input class="my-button" data-disable-with="My Button" name="commit" type="submit" value="My Button">
 ```
 
@@ -1070,7 +1764,7 @@ will be rendered as
 
 ## Rich Text Areas AKA Trix Editor
 
-![Example 38](demo/doc/screenshots/bootstrap/readme/38_example.png "Example 38")
+![Example 58](demo/doc/screenshots/bootstrap/readme/58_example.png "Example 58")
 ```erb
 <%= f.rich_text_area(:life_story) %>
 ```
@@ -1078,7 +1772,7 @@ will be rendered as
 will be rendered as:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_life_story">Life story</label>
   <input id="user_life_story_trix_input_user" name="user[life_story]" type="hidden">
   <trix-toolbar id="trix-toolbar-1">
@@ -1111,7 +1805,7 @@ will be rendered as:
     <div class="trix-dialogs" data-trix-dialogs="">
       <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
         <div class="trix-dialog__link-fields">
-          <input aria-label="URL" class="trix-input trix-input--dialog" data-trix-input="" disabled name="href" placeholder="Enter a URL…" required="" type="url">
+          <input aria-label="URL" class="trix-input trix-input--dialog" data-trix-input="" data-trix-validate-href="" disabled name="href" placeholder="Enter a URL…" required="" type="url">
           <div class="trix-button-group">
             <input class="trix-button trix-button--dialog" data-trix-method="setAttribute" type="button" value="Link">
             <input class="trix-button trix-button--dialog" data-trix-method="removeAttribute" type="button" value="Unlink">
@@ -1120,7 +1814,7 @@ will be rendered as:
       </div>
     </div>
   </trix-toolbar>
-  <trix-editor aria-label="Life story" class="trix-content form-control" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
+  <trix-editor class="trix-content form-control" connected="" contenteditable="" data-blob-url-template="http://test.host/rails/active_storage/blobs/redirect/:signed_id/:filename" data-direct-upload-url="http://test.host/rails/active_storage/direct_uploads" id="user_life_story" input="user_life_story_trix_input_user" role="textbox" toolbar="trix-toolbar-1" trix-id="1">
   </trix-editor>
 </div>
 ```
@@ -1138,7 +1832,7 @@ The `hidden_field` helper in `bootstrap_form` calls the Rails helper directly, a
 If you want to use the original Rails form helpers for a particular field,
 append `_without_bootstrap` to the helper:
 
-![Example 39](demo/doc/screenshots/bootstrap/readme/39_example.png "Example 39")
+![Example 59](demo/doc/screenshots/bootstrap/readme/59_example.png "Example 59")
 ```erb
 <%= f.text_field_without_bootstrap :email %>
 ```
@@ -1160,7 +1854,7 @@ To use an inline-layout form, use the `layout: :inline` option. To hide labels,
 use the `hide_label: true` option, which keeps your labels accessible to those
 using screen readers.
 
-![Example 40](demo/doc/screenshots/bootstrap/readme/40_example.png "Example 40")
+![Example 60](demo/doc/screenshots/bootstrap/readme/60_example.png "Example 60")
 ```erb
 <%= bootstrap_form_for(@user, layout: :inline) do |f| %>
   <%= f.email_field :email, hide_label: true %>
@@ -1183,21 +1877,21 @@ This generates:
     <input class="form-control" id="user_password" name="user[password]" type="password">
   </div>
   <div class="col">
-    <div class="form-check form-check-inline">
+    <div class="form-field d-inline-grid me-3">
       <input name="user[remember_me]" type="hidden" value="0">
-      <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_remember_me">Remember me</label>
+      <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+      <label for="user_remember_me">Remember me</label>
     </div>
   </div>
   <div class="col">
-    <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+    <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
   </div>
 </form>
 ```
 
 To skip label rendering at all, use `skip_label: true` option.
 
-![Example 41](demo/doc/screenshots/bootstrap/readme/41_example.png "Example 41")
+![Example 61](demo/doc/screenshots/bootstrap/readme/61_example.png "Example 61")
 ```erb
 <%= f.password_field :password, skip_label: true %>
 ```
@@ -1205,7 +1899,7 @@ To skip label rendering at all, use `skip_label: true` option.
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
 ```
@@ -1214,14 +1908,14 @@ This generates:
 
 To use a horizontal-layout form with labels to the left of the control, use the
 `layout: :horizontal` option. You should specify both `label_col` and
-`control_col` css classes as well (they default to `col-sm-2` and `col-sm-10`).
+`control_col` css classes as well (they default to `sm:col-2` and `sm:col-10`).
 
 In the example below, the submit button has been wrapped in a `form_group` to
 keep it properly aligned.
 
-![Example 42](demo/doc/screenshots/bootstrap/readme/42_example.png "Example 42")
+![Example 62](demo/doc/screenshots/bootstrap/readme/62_example.png "Example 62")
 ```erb
-<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= bootstrap_form_for(@user, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10") do |f| %>
   <%= f.email_field :email %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me %>
@@ -1235,30 +1929,30 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2" for="user_password">Password</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2" for="user_password">Password</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_password" name="user[password]" type="password">
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <div class="form-check">
+  <div class="mb-5 row">
+    <div class="sm:col-10 sm:offset-2">
+      <div class="form-field">
         <input name="user[remember_me]" type="hidden" value="0">
-        <input class="form-check-input" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_remember_me">Remember me</label>
+        <input class="check" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+        <label for="user_remember_me">Remember me</label>
       </div>
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <div class="mb-5 row">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1266,12 +1960,12 @@ This generates:
 
 The `label_col` and `control_col` css classes can also be changed per control:
 
-![Example 43](demo/doc/screenshots/bootstrap/readme/43_example.png "Example 43")
+![Example 63](demo/doc/screenshots/bootstrap/readme/63_example.png "Example 63")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
-  <%= f.text_field :age, label_col: %w[col-sm-3 text-bg-info], control_col: %w[col-sm-3 text-bg-success] %>
-  <%= f.check_box :terms, label_col: "", control_col: "col-sm-11" %>
+  <%= f.text_field :age, label_col: %w[sm:col-3 text-bg-info], control_col: %w[sm:col-3 text-bg-success] %>
+  <%= f.check_box :terms, label_col: "", control_col: "sm:col-11" %>
   <%= f.form_group do %>
     <%= f.submit %>
   <% end %>
@@ -1282,30 +1976,30 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-3 text-bg-info" for="user_age">Age</label>
-    <div class="col-sm-3 text-bg-success">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-3 text-bg-info" for="user_age">Age</label>
+    <div class="sm:col-3 text-bg-success">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10">
-      <div class="form-check">
+  <div class="mb-5 row">
+    <div class="sm:col-10">
+      <div class="form-field">
         <input name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">Terms</label>
+        <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+        <label for="user_terms">Terms</label>
       </div>
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <div class="mb-5 row">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1318,10 +2012,10 @@ or default value can be changed in initializer:
 module BootstrapForm
   class FormBuilder
     def default_label_col
-      'col-sm-4'
+      'sm:col-4'
     end
     def default_control_col
-      'col-sm-8'
+      'sm:col-8'
     end
     def default_layout
       # :vertical, :horizontal or :inline
@@ -1333,7 +2027,7 @@ end
 
 Control col wrapper class can be modified with `add_control_col_class`. This option will preserve column definition:
 
-![Example 44](demo/doc/screenshots/bootstrap/readme/44_example.png "Example 44")
+![Example 64](demo/doc/screenshots/bootstrap/readme/64_example.png "Example 64")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1348,21 +2042,21 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2" for="user_age">Age</label>
-    <div class="col-sm-10 additional-control-col-class">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2" for="user_age">Age</label>
+    <div class="sm:col-10 additional-control-col-class">
       <input class="form-control" id="user_age" name="user[age]" type="text" value="42">
     </div>
   </div>
-  <div class="mb-3 row">
-    <div class="col-sm-10 offset-sm-2">
-      <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <div class="mb-5 row">
+    <div class="sm:col-10 sm:offset-2">
+      <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
     </div>
   </div>
 </form>
@@ -1372,7 +2066,7 @@ This generates:
 
 The form-level `layout` can be overridden per field, unless the form-level layout was `inline`:
 
-![Example 45](demo/doc/screenshots/bootstrap/readme/45_example.png "Example 45")
+![Example 65](demo/doc/screenshots/bootstrap/readme/65_example.png "Example 65")
 ```erb
 <%= bootstrap_form_for(@user, layout: :horizontal) do |f| %>
   <%= f.email_field :email %>
@@ -1389,34 +2083,34 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 row">
-    <label class="col-form-label col-sm-2 required" for="user_email">Email</label>
-    <div class="col-sm-10">
+  <div class="mb-5 row">
+    <label class="col-form-label sm:col-2 required" for="user_email">Email</label>
+    <div class="sm:col-10">
       <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_feet">Feet</label>
         <input class="form-control" id="user_feet" name="user[feet]" type="text" value="5">
       </div>
     </div>
     <div class="col">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_inches">Inches</label>
         <input class="form-control" id="user_inches" name="user[inches]" type="text" value="7">
       </div>
     </div>
   </div>
-  <div class="mb-3">
-    <div class="form-check">
+  <div class="form-field mb-5">
+    <div class="form-field">
       <input name="user[terms]" type="hidden" value="0">
-      <input class="form-check-input" id="user_terms" name="user[terms]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_terms">Terms</label>
+      <input class="check" id="user_terms" name="user[terms]" type="checkbox" value="1">
+      <label for="user_terms">Terms</label>
     </div>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
+  <input class="btn-solid theme-secondary" data-disable-with="Create User" name="commit" type="submit" value="Create User">
 </form>
 ```
 
@@ -1424,10 +2118,10 @@ A form-level `layout: :inline` can't be overridden because of the way Bootstrap 
 
 ### Floating Labels
 
-The `floating` option can be used to enable Bootstrap 5's floating labels. This option is supported on text fields
+The `floating` option can be used to enable Bootstrap's floating labels. This option is supported on text fields
 and dropdowns. Here's an example:
 
-![Example 46](demo/doc/screenshots/bootstrap/readme/46_example.png "Example 46")
+![Example 66](demo/doc/screenshots/bootstrap/readme/66_example.png "Example 66")
 ```erb
 <%= bootstrap_form_for(@user) do |f| %>
   <%= f.email_field :email, floating: true %>
@@ -1442,40 +2136,114 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3 form-floating">
-    <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
-    <label class="form-label required" for="user_email">Email</label>
+  <div class="form-field mb-5">
+    <div class="form-floating">
+      <label class="form-label required" for="user_email">Email</label>
+      <input class="form-control" id="user_email" name="user[email]" placeholder="Email" required="required" type="email" value="steve@example.com">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
-    <label class="form-label" for="user_password">Password</label>
+  <div class="form-field mb-5">
+    <div class="form-floating">
+      <label class="form-label" for="user_password">Password</label>
+      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
-    <label class="form-label" for="user_password">Password</label>
+  <div class="form-field mb-5">
+    <div class="form-floating">
+      <label class="form-label" for="user_password">Password</label>
+      <input class="form-control" id="user_password" name="user[password]" placeholder="Password" type="password">
+    </div>
   </div>
-  <div class="mb-3 form-floating">
-    <select class="form-select" id="user_status" name="user[status]">
-      <option value="">Select a value</option>
-      <option value="1">Active</option>
-      <option value="2">Inactive</option>
-    </select>
-    <label class="form-label" for="user_status">Status</label>
+  <div class="form-field mb-5">
+    <div class="form-floating">
+      <label class="form-label" for="user_status">Status</label>
+      <select class="form-control" id="user_status" name="user[status]">
+        <option value="">Select a value</option>
+        <option value="1">Active</option>
+        <option value="2">Inactive</option>
+      </select>
+    </div>
   </div>
-  <input class="btn btn-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
+  <input class="btn-solid theme-secondary" data-disable-with="Log In" name="commit" type="submit" value="Log In">
 </form>
+```
+
+Floating labels also work inside input groups. Bootstrap nests the `form-floating` wrapper inside the `input-group`, with any validation feedback after the group, and `bootstrap_form` does the same when you combine `floating: true` with `prepend` or `append`:
+
+![Example 67](demo/doc/screenshots/bootstrap/readme/67_example.png "Example 67")
+```erb
+<%= f.text_field :username, floating: true, prepend: "@" %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <div class="input-group">
+    <span class="input-group-text">@</span>
+    <div class="form-floating">
+      <label class="form-label" for="user_username">Username</label>
+      <input class="form-control" id="user_username" name="user[username]" placeholder="Username" type="text">
+    </div>
+  </div>
+</div>
 ```
 
 ## Validation and Errors
 
 Rails normally wraps fields with validation errors in a `div.field_with_errors`, but this behaviour isn't consistent with Bootstrap 4 styling. By default, `bootstrap_form` generations in-line errors which appear below the field. But it can also generate errors on the label, or not display any errors, leaving it up to you.
 
+### Client-Side Validation
+
+Bootstrap 6 styles browser-validated fields via the `data-bs-validate` attribute on the form. Pass `validate: true` to the form helper to enable it (this also sets `novalidate`, as the Bootstrap documentation recommends, to suppress the browser's default messages):
+
+```erb
+<%= bootstrap_form_for(@user, validate: true) do |f| %>
+  ...
+<% end %>
+```
+
+Pass `validate: "valid"` to also show success styling on valid fields (`data-bs-validate="valid"`).
+
+Browser validation needs messages to show, so every helper accepts `invalid_feedback:` and `valid_feedback:` for static `invalid-feedback` and `valid-feedback` elements after the control (a model error replaces the static invalid message). `tooltip: true` renders them as Bootstrap's tooltip-style feedback instead, and `valid: true` applies the `is-valid` success state, for example after a server-side check:
+
+![Example 68](demo/doc/screenshots/bootstrap/readme/68_example.png "Example 68")
+```erb
+<%= f.email_field :email, required: true, invalid_feedback: "Please enter a valid email address.", valid_feedback: "Looks good!" %>
+<%= f.check_box :terms, required: true, invalid_feedback: "You must agree before submitting." %>
+<%= f.text_field :username, valid: true, valid_feedback: "Username is available.", tooltip: true %>
+```
+
+This generates:
+
+```html
+<div class="form-field mb-5">
+  <label class="form-label required" for="user_email">Email</label>
+  <input class="form-control" id="user_email" name="user[email]" required="required" type="email" value="steve@example.com">
+  <div class="invalid-feedback">Please enter a valid email address.</div>
+  <div class="valid-feedback">Looks good!</div>
+</div>
+<div class="form-field mb-5">
+  <input name="user[terms]" type="hidden" value="0">
+  <input class="check" id="user_terms" name="user[terms]" required="required" type="checkbox" value="1">
+  <div class="form-field-content">
+    <label class="required" for="user_terms">Terms</label>
+    <div class="invalid-feedback">You must agree before submitting.</div>
+  </div>
+</div>
+<div class="form-field mb-5">
+  <label class="form-label" for="user_username">Username</label>
+  <input class="form-control is-valid" id="user_username" name="user[username]" type="text">
+  <div class="tooltip valid-tooltip">Username is available.</div>
+</div>
+```
+
 ### Inline Errors
 
 By default, fields that have validation errors will be outlined in red and the
 error will be displayed below the field. Here's an example:
 
-![Example 47](demo/doc/screenshots/bootstrap/readme/47_example.png "Example 47")
+![Example 69](demo/doc/screenshots/bootstrap/readme/69_example.png "Example 69")
 ```erb
 <%= bootstrap_form_for(@user_with_error) do |f| %>
   <%= f.email_field :email %>
@@ -1491,37 +2259,41 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="user_email">Email</label>
     <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
     <div class="invalid-feedback" id="user_email_feedback">is invalid</div>
   </div>
-  <div aria-labelledby="user_misc" class="mb-3" role="group">
+  <div aria-labelledby="user_misc" class="form-group mb-5" role="group">
     <div class="form-label" id="user_misc">Misc</div>
-    <div class="form-check">
-      <input aria-describedby="user_misc_feedback" checked class="form-check-input is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
-      <label class="form-check-label" for="user_misc_1">Mind reading</label>
+    <div class="form-field">
+      <input aria-describedby="user_misc_feedback" checked class="radio is-invalid" id="user_misc_1" name="user[misc]" type="radio" value="1">
+      <label for="user_misc_1">Mind reading</label>
     </div>
-    <div class="form-check">
-      <input aria-describedby="user_misc_feedback" class="form-check-input is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
-      <label class="form-check-label" for="user_misc_2">Farming</label>
-      <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+    <div class="form-field">
+      <input aria-describedby="user_misc_feedback" class="radio is-invalid" id="user_misc_2" name="user[misc]" type="radio" value="2">
+      <div class="form-field-content">
+        <label for="user_misc_2">Farming</label>
+        <div class="invalid-feedback" id="user_misc_feedback">is invalid</div>
+      </div>
     </div>
   </div>
-  <input id="user_preferences" name="user[preferences][]" type="hidden" value="">
-  <div aria-labelledby="user_preferences" class="mb-3" role="group">
+  <input name="user[preferences][]" type="hidden" value="">
+  <div aria-labelledby="user_preferences" class="form-group mb-5" role="group">
     <div class="form-label" id="user_preferences">Preferences</div>
-    <div class="form-check">
-      <input aria-describedby="user_preferences_feedback" checked class="form-check-input is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
-      <label class="form-check-label" for="user_preferences_1">Good</label>
+    <div class="form-field">
+      <input aria-describedby="user_preferences_feedback" checked class="check is-invalid" id="user_preferences_1" name="user[preferences][]" type="checkbox" value="1">
+      <label for="user_preferences_1">Good</label>
     </div>
-    <div class="form-check">
-      <input aria-describedby="user_preferences_feedback" class="form-check-input is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
-      <label class="form-check-label" for="user_preferences_2">Bad</label>
-      <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
+    <div class="form-field">
+      <input aria-describedby="user_preferences_feedback" class="check is-invalid" id="user_preferences_2" name="user[preferences][]" type="checkbox" value="2">
+      <div class="form-field-content">
+        <label for="user_preferences_2">Bad</label>
+        <div class="invalid-feedback" id="user_preferences_feedback">is invalid</div>
+      </div>
     </div>
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="user_address_attributes_street">Street</label>
     <input aria-describedby="user_address_attributes_street_feedback" class="form-control is-invalid" id="user_address_attributes_street" name="user[address_attributes][street]" type="text" value="Bar">
     <div class="invalid-feedback" id="user_address_attributes_street_feedback">is invalid</div>
@@ -1542,7 +2314,7 @@ You can turn off inline errors for the entire form like this:
 You can also display validation errors in the field's label; just turn
 on the `:label_errors` option. Here's an example:
 
-![Example 48](demo/doc/screenshots/bootstrap/readme/48_example.png "Example 48")
+![Example 70](demo/doc/screenshots/bootstrap/readme/70_example.png "Example 70")
 ```erb
 <%= bootstrap_form_for(@user_with_error, label_errors: true) do |f| %>
   <%= f.email_field :email %>
@@ -1553,7 +2325,7 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required text-danger" for="user_email" id="user_email_feedback">Email is invalid</label>
     <input aria-describedby="user_email_feedback" class="form-control is-invalid" id="user_email" name="user[email]" required="required" type="email" value="steve.example.com">
   </div>
@@ -1575,7 +2347,7 @@ To display an error message with an error summary, you can use the
 `alert_message` helper. This won't output anything unless a model validation
 has failed, and additional options will be passed on as attributes to the root `div`:
 
-![Example 49](demo/doc/screenshots/bootstrap/readme/49_example.png "Example 49")
+![Example 71](demo/doc/screenshots/bootstrap/readme/71_example.png "Example 71")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below.", tabindex: -1, role: "note" %>
@@ -1586,7 +2358,7 @@ Which outputs:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger" tabindex="-1" role="note">
+  <div class="alert theme-danger" role="note" tabindex="-1">
     <p>Please fix the errors below.</p>
     <ul class="rails-bootstrap-forms-error-summary">
       <li>Email is invalid</li>
@@ -1599,7 +2371,7 @@ Which outputs:
 
 You can turn off the error summary like this:
 
-![Example 50](demo/doc/screenshots/bootstrap/readme/50_example.png "Example 50")
+![Example 72](demo/doc/screenshots/bootstrap/readme/72_example.png "Example 72")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.alert_message "Please fix the errors below.", error_summary: false %>
@@ -1610,13 +2382,13 @@ This generates:
 
 ```html
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-  <div class="alert alert-danger">Please fix the errors below.</div>
+  <div class="alert theme-danger">Please fix the errors below.</div>
 </form>
 ```
 
 To output a simple unordered list of errors, use the `error_summary` helper.
 
-![Example 51](demo/doc/screenshots/bootstrap/readme/51_example.png "Example 51")
+![Example 73](demo/doc/screenshots/bootstrap/readme/73_example.png "Example 73")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <%= f.error_summary %>
@@ -1639,7 +2411,7 @@ Which outputs:
 
 If you want to display a custom inline error for a specific attribute not represented by a form field, use the `errors_on` helper.
 
-![Example 52](demo/doc/screenshots/bootstrap/readme/52_example.png "Example 52")
+![Example 74](demo/doc/screenshots/bootstrap/readme/74_example.png "Example 74")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1660,7 +2432,7 @@ Note that the `invalid-feedback` `div` is hidden unless there is a preceding ele
 
 You can hide the attribute name like this:
 
-![Example 53](demo/doc/screenshots/bootstrap/readme/53_example.png "Example 53")
+![Example 75](demo/doc/screenshots/bootstrap/readme/75_example.png "Example 75")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1679,7 +2451,7 @@ Which outputs:
 
 You can also use a custom class for the wrapping div, like this:
 
-![Example 54](demo/doc/screenshots/bootstrap/readme/54_example.png "Example 54")
+![Example 76](demo/doc/screenshots/bootstrap/readme/76_example.png "Example 76")
 ```erb
 <%= bootstrap_form_for @user_with_error do |f| %>
   <input class="is-invalid" autocomplete="off" disabled type="hidden">
@@ -1718,7 +2490,7 @@ ActiveModel::Validations::PresenceValidator.
 
 In cases where this behaviour is undesirable, use the `required` option to force the class to be present or absent:
 
-![Example 55](demo/doc/screenshots/bootstrap/readme/55_example.png "Example 55")
+![Example 77](demo/doc/screenshots/bootstrap/readme/77_example.png "Example 77")
 ```erb
 <%= f.password_field :login, label: "New Username", required: true %>
 <%= f.password_field :password, label: "New Password", required: false %>
@@ -1727,11 +2499,11 @@ In cases where this behaviour is undesirable, use the `required` option to force
 This generates:
 
 ```html
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label required" for="user_login">New Username</label>
   <input class="form-control" id="user_login" name="user[login]" required="required" type="password">
 </div>
-<div class="mb-3">
+<div class="form-field mb-5">
   <label class="form-label" for="user_password">New Password</label>
   <input class="form-control" id="user_password" name="user[password]" type="password">
 </div>
@@ -1741,7 +2513,7 @@ This generates:
 
 Adding a form control for a `belongs_to` field will automatically pick up the associated presence validator.
 
-![Example 56](demo/doc/screenshots/bootstrap/readme/56_example.png "Example 56")
+![Example 78](demo/doc/screenshots/bootstrap/readme/78_example.png "Example 78")
 ```erb
 <%= bootstrap_form_for(@address, url: '/address') do |f| %>
   <%= f.collection_select :user_id, @users, :id, :email, include_blank: "Select a value" %>
@@ -1757,30 +2529,30 @@ Generated HTML:
 
 ```html
 <form accept-charset="UTF-8" action="/address" class="new_address" id="new_address_1" method="post">
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="address_user_id">User</label>
-    <select class="form-select" id="address_user_id" name="address[user_id]" required="required">
+    <select class="form-control" id="address_user_id" name="address[user_id]" required="required">
       <option value="">Select a value</option>
       <option value="">steve@example.com</option>
     </select>
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_street">Street</label>
     <input class="form-control" id="address_street" name="address[street]" type="text" value="Foo">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label required" for="address_city">City</label>
     <input class="form-control" id="address_city" name="address[city]" required="required" type="text">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_state">State</label>
     <input class="form-control" id="address_state" name="address[state]" type="text">
   </div>
-  <div class="mb-3">
+  <div class="form-field mb-5">
     <label class="form-label" for="address_zip_code">Zip code</label>
     <input class="form-control" id="address_zip_code" name="address[zip_code]" type="text">
   </div>
-  <input class="btn btn-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
+  <input class="btn-solid theme-secondary" data-disable-with="Save" name="commit" type="submit" value="Save">
 </form>
 ```
 
@@ -1788,7 +2560,7 @@ Generated HTML:
 
 Fields can be disabled using the standard Rails form helper option.
 
-![Example 57](demo/doc/screenshots/bootstrap/readme/57_example.png "Example 57")
+![Example 79](demo/doc/screenshots/bootstrap/readme/79_example.png "Example 79")
 ```erb
 <%= bootstrap_form_for @user do |f| %>
   <div class="row g-3">
@@ -1812,53 +2584,53 @@ Generated HTML:
 <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
   <div class="row g-3">
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label required" for="user_email">Email</label>
         <input class="form-control" disabled id="user_email" name="user[email]" required="required" size="18" type="email" value="steve@example.com">
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_password">Password</label>
         <input class="form-control" disabled id="user_password" name="user[password]" size="18" type="password">
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_comments">Comments</label>
         <textarea class="form-control" cols="18" disabled id="user_comments" name="user[comments]" rows="2">
 </textarea>
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_status">Status</label>
         <input class="form-control" disabled id="user_status" name="user[status]" size="18" type="text">
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Number</label>
         <input class="form-control" disabled id="user_misc" name="user[misc]" type="number">
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-check disabled">
-        <input class="form-check-input" disabled id="user_preferences_1" name="user[preferences]" type="radio" value="1">
-        <label class="form-check-label" for="user_preferences_1">1</label>
+      <div class="form-field disabled">
+        <input class="radio" disabled id="user_preferences_1" name="user[preferences]" type="radio" value="1">
+        <label for="user_preferences_1">1</label>
       </div>
     </div>
     <div class="col-auto">
-      <div class="form-check mb-3">
+      <div class="form-field mb-5">
         <input disabled name="user[terms]" type="hidden" value="0">
-        <input class="form-check-input" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
-        <label class="form-check-label" for="user_terms">Terms</label>
+        <input class="check" disabled id="user_terms" name="user[terms]" type="checkbox" value="1">
+        <label for="user_terms">Terms</label>
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_type">Type</label>
-        <select class="form-select" disabled id="user_type" name="user[type]">
+        <select class="form-control" disabled id="user_type" name="user[type]">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -1866,13 +2638,13 @@ Generated HTML:
       </div>
     </div>
     <div class="col-auto">
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_created_at">Created at</label>
         <input class="form-control" disabled id="user_created_at" name="user[created_at]" type="datetime-local">
       </div>
     </div>
   </div>
-  <input class="btn btn-primary" data-disable-with="Create User" disabled name="commit" type="submit" value="Create User">
+  <input class="btn-solid theme-primary" data-disable-with="Create User" disabled name="commit" type="submit" value="Create User">
 </form>
 ```
 

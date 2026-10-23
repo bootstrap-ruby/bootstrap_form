@@ -15,12 +15,12 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     @user = user_klass.new(email: "steve@example.com", password: "secret", comments: "my comment")
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder =
-      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10")
+      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10")
     I18n.backend.store_translations(:en, activerecord: { help: { user: {
                                       password: "A good password should be at least six characters long"
                                     } } })
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -32,12 +32,12 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     @user = nil
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder =
-      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10")
+      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10")
     I18n.backend.store_translations(:en, activerecord: { help: { user: {
                                       password: "A good password should be at least six characters long"
                                     } } })
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -49,13 +49,13 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     @user = FauxUser.new(email: "steve@example.com", password: "secret", comments: "my comment")
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
     @horizontal_builder =
-      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10")
+      BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "sm:col-2", control_col: "sm:col-10")
     I18n.backend.store_translations(:en, activerecord: { help: { faux_user: {
                                       password: "A good password should be at least six characters long"
                                     } } })
 
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <label class="form-label" for="user_misc">Misc</label>
         <input class="form-control" id="user_misc" name="user[misc]" type="date" />
       </div>
@@ -67,14 +67,14 @@ class SpecialFormClassModelsTest < ActionView::TestCase
     @user = ModelUser.new(email: "steve@example.com", comments: "my comment")
     assert_equal false, @user.valid?
     @builder = BootstrapForm::FormBuilder.new(:user, @user, self, {})
-    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "col-sm-2",
-                                                                             control_col: "col-sm-10")
+    @horizontal_builder = BootstrapForm::FormBuilder.new(:user, @user, self, layout: :horizontal, label_col: "sm:col-2",
+                                                                             control_col: "sm:col-10")
     I18n.backend.store_translations(:en, activerecord: { help: { faux_user: {
                                       password: "A good password should be at least six characters long"
                                     } } })
 
     expected = <<~HTML
-      <div class="mb-3">
+      <div class="form-field mb-5">
         <div class="field_with_errors">
           <label class="form-label required" for="user_password">Password</label>
         </div>

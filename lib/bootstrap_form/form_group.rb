@@ -12,18 +12,29 @@ module BootstrapForm
 
       tag.div(**options.except(:add_control_col_class, :append, :control_col, :floating, :help, :icon, :id,
                                :input_group_class, :label, :label_col, :layout, :prepend)) do
+        content = capture(&block) || ActiveSupport::SafeBuffer.new
         label = generate_label(options[:id], name, options[:label], options[:label_col], options[:layout])
-        form_group_content(label, generate_help(name, options[:help]), options, &block)
+        label = detach_dangling_label(label, content)
+        form_group_content(label, generate_help(name, options[:help], id: options[:id]), options) { content }
       end
     end
 
     private
 
+    # A group label (e.g. above a set of radios) gets a `for` attribute from
+    # Rails that matches no control. Drop it so the label isn't associated
+    # with a non-existent element, as in the Bootstrap docs' grouped fields.
+    def detach_dangling_label(label, content)
+      return label unless label && (for_id = label[/ for="([^"]*)"/, 1]) && content.exclude?(" id=\"#{for_id}\"")
+
+      label.sub(/ for="[^"]*"/, "").html_safe # rubocop:disable Rails/OutputSafety
+    end
+
     def form_group_content_tag(name, field_name, without_field_name, options, html_options)
       html_class = control_specific_class(field_name)
       html_class = "#{html_class} col-auto g-3" if @layout == :horizontal && options[:skip_inline].blank?
       tag.div(class: html_class) do
-        input_with_error(name, options[:id]) do
+        input_with_error(name, options) do
           send(without_field_name, name, options, html_options)
         end
       end
@@ -35,10 +46,9 @@ module BootstrapForm
         label + tag.div(capture(&) + help_text, class: form_group_control_class(options))
       else
         content = ActiveSupport::SafeBuffer.new
-        # Floating labels need to be rendered after the field
-        content << label unless options[:floating]
+        # Bootstrap 6 renders labels (including floating labels) before the field
+        content << label
         content << capture(&)
-        content << label if options[:floating]
         content << help_text if help_text
         content
       end
@@ -51,17 +61,26 @@ module BootstrapForm
       classes.flatten.compact
     end
 
-    def form_group_classes(options)
-      classes = options[:class] == false ? [] : (options[:class] || form_group_default_class).split
+    def form_group_classes(options, default_class: form_group_default_class(options))
+      classes = options[:class] == false ? [] : (options[:class] || default_class).split
       classes << "row" if horizontal_group_with_gutters?(options[:layout], classes)
       classes << "col-auto g-3" if field_inline_override?(options[:layout])
       classes << feedback_class if options[:icon]
-      classes << "form-floating" if options[:floating]
       classes.presence
     end
 
-    def form_group_default_class
-      (layout == :inline ? "col" : "mb-3")
+    # Bootstrap 6 wraps controls with their label, help text and validation
+    # feedback in a `form-field` grid. Horizontal and inline groups place the
+    # label next to the control instead of above it, so they don't get the
+    # `form-field` grid.
+    def form_group_default_class(options)
+      return "col" if layout == :inline
+
+      if get_group_layout(options[:layout]) == :inline || group_layout_horizontal?(options[:layout])
+        "mb-5"
+      else
+        "form-field mb-5"
+      end
     end
 
     def horizontal_group_with_gutters?(layout, classes)

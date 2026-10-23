@@ -21,7 +21,13 @@ module BootstrapForm
 
       options = form_group_builder_options(options, method)
 
-      form_group_options = form_group_opts(options, form_group_css_options(method, html_options.try(:symbolize_keys!), options))
+      css_options = form_group_css_options(method, html_options.try(:symbolize_keys!), options)
+      form_group_options = form_group_opts(options, css_options)
+      # A floating label is rendered next to its control instead of by the
+      # group, so generate it before the label options are stripped below.
+      if options[:floating]
+        options[:floating_label] = generate_label(options[:id], method, form_group_label(options, css_options), nil, nil)
+      end
 
       options.except!(
         :help, :icon, :label_col, :control_col, :add_control_col_class, :layout, :skip_label, :label, :label_class,
@@ -56,7 +62,8 @@ module BootstrapForm
       }
 
       form_group_options.merge!(wrapper_options) if wrapper_options.is_a?(Hash)
-      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label]
+      # A floating label is rendered next to its control instead of by the group.
+      form_group_options[:label] = form_group_label(options, css_options) unless options[:skip_label] || options[:floating]
       form_group_options
     end
 
@@ -65,7 +72,13 @@ module BootstrapForm
         text: form_group_label_text(options[:label]),
         class: form_group_label_class(options),
         required: options[:required]
-      }.merge(css_options[:id].present? ? { for: css_options[:id] } : {})
+      }.merge(css_options[:id].present? ? { for: label_for_id(css_options[:id]) } : {})
+    end
+
+    # Rails 8 applies the form namespace to an explicit label `for`, matching
+    # the id it gives the control; earlier versions leave it untouched.
+    def label_for_id(id)
+      ActionView::VERSION::MAJOR >= 8 ? id : namespaced_id(id)
     end
 
     def form_group_label_text(label)
@@ -98,9 +111,10 @@ module BootstrapForm
       # Add control_class; allow it to be overridden by :control_class option
       control_classes = css_options.delete(:control_class) { control_class }
       css_options[:class] = safe_join([control_classes, css_options[:class]].compact, " ")
-      if error?(method)
-        css_options[:class] << " is-invalid"
-        css_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name: method) }
+      css_options[:class] << " is-invalid" if error?(method)
+      css_options[:class] << " is-valid" if options[:valid]
+      if (describedby = aria_describedby(method, options))
+        css_options[:aria] = css_options[:aria].to_h.merge(describedby:)
       end
       css_options[:placeholder] = form_group_placeholder(options, method) if options[:label_as_placeholder]
       css_options

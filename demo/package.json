@@ -2,21 +2,30 @@
   "name": "demo",
   "private": true,
   "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "@rails/actioncable": "^8.1.0",
-    "@rails/actiontext": "^8.1.0",
-    "@rails/activestorage": "^8.1.0",
-    "bootstrap": "^5.3.2",
-    "bootstrap-icons": "^1.11.1",
-    "esbuild": "^0.19.4",
-    "sass": "1.77.6",
-    "trix": "^2.0.7",
-    "turbolinks": "^5.2.0"
+    "@floating-ui/dom": "^1.8.0",
+    "@rails/actiontext": "^8.1.400",
+    "autoprefixer": "^10.6.1",
+    "bootstrap": "6.0.0-alpha.1",
+    "bootstrap-icons": "^1.13.2",
+    "esbuild": "^0.28.2",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.30",
+    "postcss-cli": "^12.0.0",
+    "postcss-prefix-custom-properties": "^0.1.0",
+    "sass": "^1.105.2",
+    "trix": "^2.1.19",
+    "vanilla-calendar-pro": "^3.4.0"
   },
   "version": "0.1.0",
   "scripts": {
     "build": "node_modules/.bin/esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
-    "build:css": "node_modules/.bin/sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build:css:compile": "node_modules/.bin/sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules --load-path=../app/assets/stylesheets",
+    "build:css:prefix": "node_modules/.bin/postcss ./app/assets/builds/application.css --output=./app/assets/builds/application.css",
+    "build:css": "yarn build:css:compile && yarn build:css:prefix",
+    "watch:css": "node_modules/.bin/nodemon --watch ./app/assets/stylesheets/ --ext scss,css --exec \"yarn build:css\""
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "browserslist": [
+    "defaults"
+  ]
 }

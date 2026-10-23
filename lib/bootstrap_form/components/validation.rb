@@ -5,6 +5,9 @@ module BootstrapForm
     module Validation
       extend ActiveSupport::Concern
 
+      # Options that control validation feedback without being HTML attributes.
+      FEEDBACK_OPTIONS = %i[invalid_feedback valid_feedback tooltip valid].freeze
+
       private
 
       def error?(name)
@@ -61,14 +64,36 @@ module BootstrapForm
         error?(name) && inline_errors
       end
 
-      def generate_error(name, id)
+      def generate_error(name, id, feedback_id: nil, tooltip: false)
         return unless inline_error?(name)
 
-        help_text = get_error_messages(name)
-        help_klass = "invalid-feedback"
-        help_tag = :div
+        content_tag(:div, get_error_messages(name), class: validation_feedback_class("invalid", tooltip:),
+                                                    id: feedback_id || aria_feedback_id(id:, name:))
+      end
 
-        content_tag(help_tag, help_text, class: help_klass, id: aria_feedback_id(id:, name:))
+      # The model's error feedback, or else the static `invalid_feedback`
+      # message for browser validation, followed by any `valid_feedback`.
+      # `tooltip: true` renders both as Bootstrap's tooltip-style feedback.
+      def generate_feedback(name, options, error: true)
+        tooltip = options[:tooltip]
+        invalid = (generate_error(name, options[:id], feedback_id: options[:feedback_id], tooltip:) if error)
+        invalid ||= static_feedback(options[:invalid_feedback], "invalid", tooltip:)
+        valid = static_feedback(options[:valid_feedback], "valid", tooltip:)
+        safe_join([invalid, valid].compact).presence
+      end
+
+      def static_feedback(text, state, tooltip:)
+        tag.div(text, class: validation_feedback_class(state, tooltip:)) if text
+      end
+
+      def validation_feedback_class(state, tooltip:)
+        tooltip ? "tooltip #{state}-tooltip" : "#{state}-feedback"
+      end
+
+      # The feedback id can be set explicitly, e.g. by a collection whose
+      # inputs share one feedback element named after the group's id.
+      def feedback_id(options, name)
+        options[:feedback_id] || aria_feedback_id(id: options[:id], name:)
       end
 
       def get_error_messages(name)

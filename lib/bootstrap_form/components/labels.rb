@@ -28,7 +28,7 @@ module BootstrapForm
         if layout_horizontal?(group_layout)
           ["col-form-label", custom_label_col || label_col]
         elsif layout_inline?(group_layout)
-          %w[form-label me-sm-2]
+          %w[form-label sm:me-2]
         else
           "form-label"
         end

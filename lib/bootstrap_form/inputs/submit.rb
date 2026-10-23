@@ -4,17 +4,17 @@ module BootstrapForm
   module Inputs
     module Submit
       def button(value=nil, options={}, &)
-        value = setup_css_class "btn btn-secondary", value, options
+        value = setup_css_class "btn-solid theme-secondary", value, options
         super
       end
 
       def submit(value=nil, options={})
-        value = setup_css_class "btn btn-secondary", value, options
+        value = setup_css_class "btn-solid theme-secondary", value, options
         layout == :inline ? form_group { super } : super
       end
 
       def primary(value=nil, options={}, &block)
-        value = setup_css_class "btn btn-primary", value, options
+        value = setup_css_class "btn-solid theme-primary", value, options
 
         if options[:render_as_button] || block
           options.except! :render_as_button

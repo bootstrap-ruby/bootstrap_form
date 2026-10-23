@@ -1,4 +1,4 @@
-# DEMO APP (Rails 7.0)
+# DEMO APP (Rails 8.1)
 
 ### Usage
 

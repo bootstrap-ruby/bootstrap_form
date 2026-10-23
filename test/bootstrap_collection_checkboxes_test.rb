@@ -17,14 +17,14 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">This is a checkbox collection</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foobar</label>
+        <div class="form-field">
+          <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foobar</label>
         </div>
-        <small class="form-text text-muted">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -32,18 +32,34 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
                                                                      label: "This is a checkbox collection", help: "With a help!")
   end
 
+  test "collection_check_boxes uses a specified id for the group" do
+    collection = [Address.new(id: 1, street: "Foobar")]
+    expected = <<~HTML
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="custom-id" class="form-group mb-5">
+        <div id="custom-id" class="form-label">Misc</div>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foobar</label>
+        </div>
+      </div>
+    HTML
+
+    assert_equivalent_html expected, @builder.collection_check_boxes(:misc, collection, :id, :street, id: "custom-id")
+  end
+
   if Rails::VERSION::MAJOR >= 8
     test "collection_checkboxes renders the form_group correctly" do
       collection = [Address.new(id: 1, street: "Foobar")]
       expected = <<~HTML
-        <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="mb-3">
+        <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
           <div id="user_misc" class="form-label">This is a checkbox collection</div>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foobar</label>
+          <div class="form-field">
+            <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foobar</label>
           </div>
-          <small class="form-text text-muted">With a help!</small>
+          <small class="form-text" id="user_misc_help">With a help!</small>
         </div>
       HTML
 
@@ -55,18 +71,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -80,16 +96,16 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
     struct = Struct.new(:id, :name)
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
-          <label class="form-check-label" for="user_misc_二">Bar</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
+          <label for="user_misc_二">Bar</label>
         </div>
       </div>
     HTML
@@ -100,18 +116,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders inline checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
-        <div id="user_misc" class="form-check form-check-inline ps-0">Misc</div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
+        <div id="user_misc" class="d-inline-block me-3">Misc</div>
+        <div class="form-field d-inline-grid me-3">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field d-inline-grid me-3">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -124,18 +140,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -151,16 +167,16 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1"> Foo</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1"> Foo</label>
         </div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2"> Bar</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -174,12 +190,12 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes sanitizes values when generating label `for`" do
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
-          <label class="form-check-label" for="user_misc_foo_st">
+        <div class="form-field">
+          <input class="check" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
+          <label for="user_misc_foo_st">
             Foo St
           </label>
         </div>
@@ -191,18 +207,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             ooF
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             raB
           </label>
         </div>
@@ -215,18 +231,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -239,18 +255,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             ooF
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             raB
           </label>
         </div>
@@ -263,18 +279,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -288,18 +304,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly with Proc :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -315,18 +331,18 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly with lambda :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -342,15 +358,15 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with include_hidden options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">Bar</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">Bar</label>
         </div>
       </div>
     HTML
@@ -364,17 +380,19 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="mb-3">
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
           <div id="user_misc" class="form-label">Misc</div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -393,17 +411,19 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="mb-3">
-          <div id="user_misc" class="form-label">Misc</div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div role="group" aria-labelledby="custom-id" class="form-group mb-5">
+          <div id="custom-id" class="form-label">Misc</div>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2">Bar</label>
+            <div class="invalid-feedback" id="custom-id_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -422,15 +442,15 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
       ["2", "Bar", { "data-city": "west" }]
     ]
     expected = <<~HTML
-      <div role="group" aria-labelledby="user_misc" class="mb-3">
+      <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
         <div id="user_misc" class="form-label">Misc</div>
-        <div class="form-check">
-          <input class="form-check-input" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+        <div class="form-field">
+          <input class="check" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" data-city="west" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">Bar</label>
+        <div class="form-field">
+          <input class="check" data-city="west" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">Bar</label>
         </div>
       </div>
     HTML
@@ -443,17 +463,19 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="mb-3">
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div role="group" aria-labelledby="user_misc" class="form-group mb-5">
           <div id="user_misc" class="form-label">Misc</div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1"> Foo</label>
           </div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -470,17 +492,19 @@ class BootstrapCollectionCheckboxesTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div role="group" aria-labelledby="user_misc" class="mb-3">
-          <div id="user_misc" class="form-label">Misc</div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div role="group" aria-labelledby="custom-id" class="form-group mb-5">
+          <div id="custom-id" class="form-label">Misc</div>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1"> Foo</label>
           </div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2"> Bar</label>
+            <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -508,14 +532,14 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders the form_group correctly" do
     collection = [Address.new(id: 1, street: "Foobar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">This is a checkbox collection</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foobar</label>
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">This is a checkbox collection</label>
+        <div class="form-field">
+          <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foobar</label>
         </div>
-        <small class="form-text text-muted">With a help!</small>
+        <small class="form-text" id="user_misc_help">With a help!</small>
       </div>
     HTML
 
@@ -527,14 +551,14 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     test "collection_checkboxes renders the form_group correctly" do
       collection = [Address.new(id: 1, street: "Foobar")]
       expected = <<~HTML
-        <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div class="mb-3">
-          <label class="form-label" for="user_misc">This is a checkbox collection</label>
-          <div class="form-check">
-            <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foobar</label>
+        <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div class="form-field mb-5">
+          <label class="form-label">This is a checkbox collection</label>
+          <div class="form-field">
+            <input aria-describedby="user_misc_help" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foobar</label>
           </div>
-          <small class="form-text text-muted">With a help!</small>
+          <small class="form-text" id="user_misc_help">With a help!</small>
         </div>
       HTML
 
@@ -546,18 +570,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -571,16 +595,16 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     struct = Struct.new(:id, :name)
     collection = [struct.new(1, "Foo"), struct.new("二", "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
-          <label class="form-check-label" for="user_misc_二">Bar</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_二" name="user[misc][]" type="checkbox" value="二" />
+          <label for="user_misc_二">Bar</label>
         </div>
       </div>
     HTML
@@ -591,18 +615,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders inline checkboxes correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-check form-check-inline ps-0" for="user_misc">Misc</label>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="d-inline-block me-3">Misc</label>
+        <div class="form-field d-inline-grid me-3">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field d-inline-grid me-3">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -615,18 +639,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             Bar
           </label>
         </div>
@@ -642,16 +666,16 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1"> Foo</label>
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1"> Foo</label>
         </div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2"> Bar</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2"> Bar</label>
         </div>
       </div>
     HTML
@@ -665,12 +689,12 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes sanitizes values when generating label `for`" do
     collection = [Address.new(id: 1, street: "Foo St")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
-          <label class="form-check-label" for="user_misc_foo_st">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_foo_st" name="user[misc][]" type="checkbox" value="Foo St" />
+          <label for="user_misc_foo_st">
             Foo St
           </label>
         </div>
@@ -682,18 +706,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by Proc :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             ooF
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             raB
           </label>
         </div>
@@ -706,18 +730,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by Proc :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -730,18 +754,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with labels defined by lambda :text_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">
             ooF
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">
             raB
           </label>
         </div>
@@ -754,18 +778,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders multiple checkboxes with values defined by lambda :value_method correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -779,18 +803,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with checked option correctly with Proc :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -806,18 +830,18 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with multiple checked options correctly with lambda :value_method" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
-          <label class="form-check-label" for="user_misc_address_1">
+      <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_1" name="user[misc][]" type="checkbox" value="address_1" />
+          <label for="user_misc_address_1">
             Foo
           </label>
         </div>
-        <div class="form-check">
-          <input checked="checked" class="form-check-input" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
-          <label class="form-check-label" for="user_misc_address_2">
+        <div class="form-field">
+          <input checked="checked" class="check" id="user_misc_address_2" name="user[misc][]" type="checkbox" value="address_2" />
+          <label for="user_misc_address_2">
             Bar
           </label>
         </div>
@@ -833,15 +857,15 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
   test "collection_check_boxes renders with include_hidden options correctly" do
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">Bar</label>
+        <div class="form-field">
+          <input class="check" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">Bar</label>
         </div>
       </div>
     HTML
@@ -855,17 +879,19 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div class="mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div class="form-field mb-5">
+          <label class="form-label">Misc</label>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2">Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -884,17 +910,19 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
 
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div class="mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1">Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div class="form-field mb-5">
+          <label class="form-label">Misc</label>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1">Foo</label>
           </div>
-          <div class="form-check">
-            <input class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2">Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">a box must be checked</div>
+          <div class="form-field">
+            <input class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2">Bar</label>
+            <div class="invalid-feedback" id="custom-id_feedback">a box must be checked</div>
+            </div>
           </div>
         </div>
       </form>
@@ -913,15 +941,15 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
       ["2", "Bar", { "data-city": "west" }]
     ]
     expected = <<~HTML
-      <div class="mb-3">
-        <label class="form-label" for="user_misc">Misc</label>
-        <div class="form-check">
-          <input class="form-check-input" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
-          <label class="form-check-label" for="user_misc_1">Foo</label>
+      <div class="form-field mb-5">
+        <label class="form-label">Misc</label>
+        <div class="form-field">
+          <input class="check" data-city="east" id="user_misc_1" name="user[misc][]" type="checkbox" value="1" />
+          <label for="user_misc_1">Foo</label>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" data-city="west" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
-          <label class="form-check-label" for="user_misc_2">Bar</label>
+        <div class="form-field">
+          <input class="check" data-city="west" id="user_misc_2" name="user[misc][]" type="checkbox" value="2" />
+          <label for="user_misc_2">Bar</label>
         </div>
       </div>
     HTML
@@ -934,17 +962,19 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div class="mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div class="form-field mb-5">
+          <label class="form-label">Misc</label>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1"> Foo</label>
           </div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2"> Bar</label>
             <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>
@@ -961,17 +991,19 @@ class BootstrapLegacyCollectionCheckboxesTest < ActionView::TestCase
     collection = [Address.new(id: 1, street: "Foo"), Address.new(id: 2, street: "Bar")]
     expected = <<~HTML
       <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">
-          <input #{autocomplete_attr_55336} id="user_misc" name="user[misc][]" type="hidden" value="" />
-        <div class="mb-3">
-          <label class="form-label" for="user_misc">Misc</label>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_1" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="1" />
-            <label class="form-check-label" for="user_misc_1"> Foo</label>
+          <input #{autocomplete_attr_55336} name="user[misc][]" type="hidden" value="" />
+        <div class="form-field mb-5">
+          <label class="form-label">Misc</label>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_1" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="1" />
+            <label for="user_misc_1"> Foo</label>
           </div>
-          <div class="form-check">
-            <input checked="checked" class="form-check-input is-invalid" id="user_misc_2" aria-describedby="user_misc_feedback" name="user[misc][]" type="checkbox" value="2" />
-            <label class="form-check-label" for="user_misc_2"> Bar</label>
-            <div class="invalid-feedback" id="user_misc_feedback">error for test</div>
+          <div class="form-field">
+            <input checked="checked" class="check is-invalid" id="user_misc_2" aria-describedby="custom-id_feedback" name="user[misc][]" type="checkbox" value="2" />
+            <div class="form-field-content">
+            <label for="user_misc_2"> Bar</label>
+            <div class="invalid-feedback" id="custom-id_feedback">error for test</div>
+            </div>
           </div>
         </div>
       </form>

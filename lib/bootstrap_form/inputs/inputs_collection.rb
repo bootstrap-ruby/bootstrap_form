@@ -10,6 +10,8 @@ module BootstrapForm
       def inputs_collection(name, collection, value, text, options={}, &)
         options[:label] ||= { class: group_label_class(field_layout(options)) }
         options[:inline] ||= layout_inline?(options[:layout])
+        # The id names the group (its label and feedback), not each input.
+        options[:feedback_id] = aria_feedback_id(id: options[:id], name:) if options[:id]
 
         return group_inputs_collection(name, collection, value, text, options, &) if BootstrapForm.config.group_around_collections
 
@@ -26,7 +28,7 @@ module BootstrapForm
         if layout_horizontal?(field_layout)
           group_label_class = "col-form-label #{label_col} pt-0"
         elsif layout_inline?(field_layout)
-          group_label_class = "form-check form-check-inline ps-0"
+          group_label_class = "d-inline-block me-3"
         end
         group_label_class
       end
@@ -43,7 +45,7 @@ module BootstrapForm
         obj.each { |inner_obj| input_options.merge!(inner_obj) if inner_obj.is_a?(Hash) } if obj.respond_to?(:each)
 
         input_options[:error_message] = index == collection.size - 1
-        input_options.except!(:class)
+        input_options.except!(:class, :id)
         input_options
       end
 
@@ -81,7 +83,7 @@ module BootstrapForm
       end
 
       def field_group(name, options, &)
-        options[:class] = form_group_classes(options)
+        options[:class] = form_group_classes(options, default_class: field_group_default_class(options))
 
         tag.div(
           **options.except(
@@ -93,7 +95,7 @@ module BootstrapForm
         ) do
           group_label_div = generate_group_label_div(name, options)
           prepare_label_options(options[:id], name, options[:label], options[:label_col], options[:layout])
-          form_group_content(group_label_div, generate_help(name, options[:help]), options, &)
+          form_group_content(group_label_div, generate_help(name, options[:help], id: options[:id]), options, &)
         end
       end
 
@@ -107,6 +109,19 @@ module BootstrapForm
       end
 
       def group_label_div_id(id:, name:) = id || field_id(name)
+
+      # Bootstrap 6 wraps a collection of `form-field` checks or radios with a
+      # shared label in a `form-group` instead of a `form-field`. Horizontal
+      # and inline collections lay out with grid/utility classes instead.
+      def field_group_default_class(options)
+        return "col" if layout == :inline
+
+        if get_group_layout(options[:layout]) == :inline || group_layout_horizontal?(options[:layout])
+          "mb-5"
+        else
+          "form-group mb-5"
+        end
+      end
     end
   end
 end

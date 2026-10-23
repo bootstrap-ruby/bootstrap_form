@@ -7,14 +7,29 @@ module BootstrapForm
 
       private
 
-      def generate_help(name, help_text)
+      # Help text gets an id so the control can reference it with
+      # aria-describedby, as the Bootstrap documentation recommends.
+      def generate_help(name, help_text, id: nil)
+        text = help_text_for(name, help_text)
+        content_tag(:small, text, class: "form-text", id: aria_help_id(id:, name:)) if text.present?
+      end
+
+      def help_text_for(name, help_text)
         return if help_text == false
 
-        help_klass ||= "form-text text-muted"
-        help_text ||= get_help_text_by_i18n_key(name)
-        help_tag ||= :small
+        help_text || get_help_text_by_i18n_key(name)
+      end
 
-        content_tag(help_tag, help_text, class: help_klass) if help_text.present?
+      def aria_help_id(name:, id: nil)
+        id.present? ? "#{id}_help" : field_id(name, :help)
+      end
+
+      # The ids of the help text and error feedback that describe a control.
+      def aria_describedby(name, options)
+        ids = []
+        ids << aria_help_id(id: options[:id], name:) if help_text_for(name, options[:help]).present?
+        ids << feedback_id(options, name) if error?(name)
+        ids.join(" ").presence
       end
 
       def get_help_text_by_i18n_key(name)

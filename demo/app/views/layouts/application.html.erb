@@ -1,29 +1,20 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <title>Hello, world!</title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.css"
+    >
 
     <style type="text/css">
-      .example {
-        padding: 1.5em;
-        border: .2rem solid #f7f7f9;
-        margin-bottom: 3em;
-      }
-      .toggle {
-        margin-top: 1.5em;
-      }
-      .code {
-        margin-top: 1rem;
-      }
       .CodeMirror {
         border: 1px solid #eee;
         height: auto;
-      }
-      .rails-bootstrap-forms-datetime-select select {
-        display: inline-block;
-        width: auto;
       }
     </style>
 
@@ -41,11 +32,37 @@
     </div>
 
     <!-- Optional JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/xml/xml.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/codemirror.min.js"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/htmlmixed/htmlmixed.min.js"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.33.0/mode/xml/xml.min.js"
+    ></script>
 
     <script type="text/javascript">
+      // Bootstrap's client-side validation starter: block submission of
+      // invalid forms and keep aria-invalid in sync.
+      document.querySelectorAll('form[data-bs-validate]').forEach((form) => {
+        form.addEventListener('submit', (event) => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.querySelectorAll('input, select, textarea').forEach((field) => {
+            if (field.willValidate) field.setAttribute('aria-invalid', String(!field.validity.valid));
+          });
+        });
+        form.addEventListener('input', (event) => {
+          const field = event.target;
+          if (field.willValidate) field.setAttribute('aria-invalid', String(!field.validity.valid));
+        });
+      });
+
       const buttons = document.querySelectorAll('button.toggle');
       const buttonsArray = Array.prototype.slice.call(buttons);
       buttonsArray.forEach(function(elem) {

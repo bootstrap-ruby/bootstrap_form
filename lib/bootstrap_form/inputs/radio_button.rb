@@ -13,8 +13,7 @@ module BootstrapForm
           wrapper_attributes[:class] = radio_button_wrapper_class(options)
           tag.div(**wrapper_attributes) do
             html = radio_button_without_bootstrap(name, value, radio_button_options(name, options))
-            html << radio_button_label(name, value, options) unless options[:skip_label]
-            html << generate_error(name, options[:id]) if options[:error_message]
+            html << radio_button_content(name, value, options)
             html
           end
         end
@@ -24,11 +23,27 @@ module BootstrapForm
 
       private
 
+      # Bootstrap 6 nests the label together with help text and validation
+      # feedback in a `form-field-content` wrapper next to the control.
+      def radio_button_content(name, value, options)
+        label = (radio_button_label(name, value, options) unless options[:skip_label])
+        help = generate_help(name, options[:help], id: options[:id])
+        error = generate_feedback(name, options, error: options[:error_message])
+        if help || error
+          tag.div(safe_join([label, help, error].compact), class: "form-field-content")
+        else
+          label || ActiveSupport::SafeBuffer.new
+        end
+      end
+
       def radio_button_options(name, options)
-        radio_button_options = options.except(:class, :label, :label_class, :error_message, :help,
-                                              :inline, :hide_label, :skip_label, :wrapper, :wrapper_class)
+        radio_button_options = options.except(*Components::Validation::FEEDBACK_OPTIONS, :class, :label,
+                                              :card, :label_class, :error_message, :feedback_id, :help, :inline,
+                                              :hide_label, :skip_label, :wrapper, :wrapper_class)
         radio_button_options[:class] = radio_button_classes(name, options)
-        radio_button_options[:aria] = { describedby: aria_feedback_id(id: options[:id], name:) } if error?(name)
+        if (describedby = aria_describedby(name, options))
+          radio_button_options[:aria] = radio_button_options[:aria].to_h.merge(describedby:)
+        end
         radio_button_options.merge!(required_field_options(options, name))
       end
 
@@ -39,22 +54,24 @@ module BootstrapForm
       end
 
       def radio_button_classes(name, options)
-        classes = Array(options[:class]) << "form-check-input"
+        classes = Array(options[:class]) << "radio"
         classes << "is-invalid" if error?(name)
+        classes << "is-valid" if options[:valid]
         classes << "position-static" if options[:skip_label] || options[:hide_label]
         classes.flatten.compact
       end
 
       def radio_button_label_class(options)
-        classes = ["form-check-label"]
+        classes = []
         classes << options[:label_class]
         classes << hide_class if options[:hide_label]
-        classes.flatten.compact
+        classes.flatten.compact.presence
       end
 
       def radio_button_wrapper_class(options)
-        classes = ["form-check"]
-        classes << "form-check-inline" if layout_inline?(options[:inline])
+        classes = ["form-field"]
+        classes << "form-field-card" if options[:card]
+        classes << "d-inline-grid me-3" if layout_inline?(options[:inline])
         classes << "disabled" if options[:disabled]
         classes << options.dig(:wrapper, :class).presence
         classes << options[:wrapper_class].presence
