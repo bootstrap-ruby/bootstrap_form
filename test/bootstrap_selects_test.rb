@@ -28,6 +28,18 @@ class BootstrapSelectsTest < ActionView::TestCase
     assert_equivalent_html expected, @builder.time_zone_select(:misc)
   end
 
+  test "time zone selects can have a floating label" do
+    expected = <<~HTML
+      <div class="form-field mb-5">
+        <div class="form-floating">
+          <label class="form-label" for="user_misc">Misc</label>
+          <select class="form-control" id="user_misc" name="user[misc]">#{time_zone_options_for_select}</select>
+        </div>
+      </div>
+    HTML
+    assert_equivalent_html expected, @builder.time_zone_select(:misc, nil, floating: true)
+  end
+
   test "time zone selects are wrapped correctly with wrapper" do
     expected = <<~HTML
       <div class="none-margin">
