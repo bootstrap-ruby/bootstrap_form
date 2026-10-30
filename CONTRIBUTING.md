@@ -10,6 +10,30 @@ There are a number of ways you can contribute to `bootstrap_form`:
 - Fix a bug or add a new feature.
 - Add to the documentation.
 - Review pull requests.
+- **New** [Help migrate to Bootstrap 6](#bootstrap-6).
+
+## Bootstrap 6
+
+Bootstrap 6 is coming, and that means extensive changes to `bootstrap_form`.
+We're also going to take advantage of the change in major version number
+to make the gem more flexible and easier to use and maintain.
+This will mean some breaking changes, if you're migrating from `bootstrap_form` version 5.
+
+For now, the main thing to keep in mind if you want to submit a PR for the migration to Bootstrap 6,
+is to branch your code from the `bootstrap-6` branch in this repository,
+and submit your PR to merge on the `bootstrap-6` branch, _not_ `main`.
+
+If your PR means that something works differently in `bootstrap_form` version 6 compared to version 5,
+describe the changes in `UPGRADE-6.0.md`.
+
+If you want to help test the `bootstrap-6` branch, that's a great way to contribute.
+Change your `Gemfile` to read:
+
+```
+gem "bootstrap_form", git: "https://bootstrap-ruby/bootstrap_form", branch: "bootstrap-6"
+```
+
+If you find bugs, missing features, or have suggestions, create an issue on GitHub.
 
 ## Testing
 
