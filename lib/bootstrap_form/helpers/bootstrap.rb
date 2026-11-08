@@ -75,9 +75,10 @@ module BootstrapForm
         input = capture(&) || ActiveSupport::SafeBuffer.new
 
         input = attach_input(options, :prepend) + input + attach_input(options, :append)
-        input << generate_error(name, id)
+        error = generate_error(name, id)
+        input << error
         options.present? &&
-          input = tag.div(input, class: ["input-group", options[:input_group_class]].compact)
+          input = tag.div(input, class: ["input-group", ("has-validation" if error), options[:input_group_class]].compact)
         input
       end
 
